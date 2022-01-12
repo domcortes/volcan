@@ -48,7 +48,7 @@ class TEMPORADA_ADO {
     public function listarTemporada(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `principal_temporada` limit 8;	");
+            $datos=$this->conexion->prepare("SELECT * FROM   principal_temporada   limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -68,7 +68,7 @@ class TEMPORADA_ADO {
     public function listarTemporadaCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `principal_temporada` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM   principal_temporada   WHERE   ESTADO_REGISTRO   = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -86,7 +86,7 @@ class TEMPORADA_ADO {
     public function listarTemporada2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `principal_temporada` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM   principal_temporada   WHERE   ESTADO_REGISTRO   = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -109,7 +109,7 @@ class TEMPORADA_ADO {
     public function verTemporada($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `principal_temporada` WHERE `ID_TEMPORADA`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM   principal_temporada   WHERE   ID_TEMPORADA  = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -132,7 +132,7 @@ class TEMPORADA_ADO {
     public function buscarNombreTemporada($NOMBRE){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `principal_temporada` WHERE `NOMBRE_TEMPORADA` LIKE '%".$NOMBRE."%';");
+            $datos=$this->conexion->prepare("SELECT * FROM   principal_temporada   WHERE   NOMBRE_TEMPORADA   LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -151,21 +151,23 @@ class TEMPORADA_ADO {
     //REGISTRO DE UNA NUEVA FILA    
     public function agregarTemporada(TEMPORADA $TEMPORADA){
         try{
-            if(empty($TEMPORADA->__GET('FECHA_TERMINO_TEMPORADA'))){
-                $TEMPORADA->__SET('FECHA_TERMINO_TEMPORADA',NULL);
-            }
 
+
+
+            if ($TEMPORADA->__GET('FECHA_TERMINO_TEMPORADA') == NULL) {
+                $TEMPORADA->__SET('FECHA_TERMINO_TEMPORADA', NULL);
+            }
             
             $query=
-            "INSERT INTO `principal_temporada` (
-                                                    `NOMBRE_TEMPORADA`,
-                                                    `FECHA_INICIO_TEMPORADA`,
-                                                    `FECHA_TERMINO_TEMPORADA`,
-                                                    `ID_USUARIOI`, 
-                                                    `ID_USUARIOM`, 
-                                                    `INGRESO`,
-                                                    `MODIFICACION`, 
-                                                    `ESTADO_REGISTRO` 
+            "INSERT INTO   principal_temporada   (
+                                                      NOMBRE_TEMPORADA  ,
+                                                      FECHA_INICIO_TEMPORADA  ,
+                                                      FECHA_TERMINO_TEMPORADA  ,
+                                                      ID_USUARIOI  , 
+                                                      ID_USUARIOM  , 
+                                                      INGRESO  ,
+                                                      MODIFICACION  , 
+                                                      ESTADO_REGISTRO   
                                                 ) VALUES
 	       	( ?, ?, ?, ?, ?, SYSDATE(), SYSDATE(),  1);";
             $this->conexion->prepare($query)
@@ -189,7 +191,7 @@ class TEMPORADA_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarTemporada($id){
-        try{$sql="DELETE FROM `principal_temporada` WHERE `ID_TEMPORADA`=".$id.";";
+        try{$sql="DELETE FROM   principal_temporada   WHERE   ID_TEMPORADA  =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -204,24 +206,20 @@ class TEMPORADA_ADO {
     //ACTUALIZAR INFORMACION DE LA FILA
     public function actualizarTemporada(TEMPORADA $TEMPORADA){
         try{
-            if(empty($TEMPORADA->__GET('FECHA_TERMINO_TEMPORADA'))){
-                $TEMPORADA->__SET('FECHA_TERMINO_TEMPORADA',NULL);
-            }
-
             $query = "
-		UPDATE `principal_temporada` SET
-            `MODIFICACION`= SYSDATE(),
-            `NOMBRE_TEMPORADA`= ?,
-            `FECHA_INICIO_TEMPORADA`= ?,
-            `FECHA_TERMINO_TEMPORADA`= ?   ,
-            `ID_USUARIOM`= ?           
-		WHERE `ID_TEMPORADA`= ?;";
+                UPDATE   principal_temporada   SET
+                    MODIFICACION  = SYSDATE(),
+                    FECHA_INICIO_TEMPORADA  = ?,
+                    FECHA_TERMINO_TEMPORADA  = ?   ,
+                    NOMBRE_TEMPORADA  = ?,
+                    ID_USUARIOM  = ?           
+                WHERE   ID_TEMPORADA  = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
-                    $TEMPORADA->__GET('NOMBRE_TEMPORADA'),
                     $TEMPORADA->__GET('FECHA_INICIO_TEMPORADA'),
                     $TEMPORADA->__GET('FECHA_TERMINO_TEMPORADA'),  
+                    $TEMPORADA->__GET('NOMBRE_TEMPORADA'),
                     $TEMPORADA->__GET('ID_USUARIOM'),                
                     $TEMPORADA->__GET('ID_TEMPORADA')
                     
@@ -244,10 +242,10 @@ class TEMPORADA_ADO {
 
         try{
             $query = "
-    UPDATE `principal_temporada` SET			
-            `MODIFICACION`= SYSDATE(),		
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_TEMPORADA`= ?;";
+    UPDATE   principal_temporada   SET			
+              MODIFICACION  = SYSDATE(),		
+              ESTADO_REGISTRO   = 0
+    WHERE   ID_TEMPORADA  = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -265,10 +263,10 @@ class TEMPORADA_ADO {
     public function habilitar(TEMPORADA $TEMPORADA){
         try{
             $query = "
-    UPDATE `principal_temporada` SET				
-            `MODIFICACION`= SYSDATE(),	
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_TEMPORADA`= ?;";
+    UPDATE   principal_temporada   SET				
+              MODIFICACION  = SYSDATE(),	
+              ESTADO_REGISTRO   = 1
+    WHERE   ID_TEMPORADA  = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 

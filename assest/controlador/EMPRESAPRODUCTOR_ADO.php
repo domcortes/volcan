@@ -227,7 +227,7 @@ class EMPRESAPRODUCTOR_ADO
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $EMPRESAPRODUCTOR->__GET('ID_EmpresaProductor')
+                        $EMPRESAPRODUCTOR->__GET('ID_EMPRESAPRODUCTOR')
                     )
 
                 );
@@ -291,7 +291,28 @@ class EMPRESAPRODUCTOR_ADO
             $datos=null;
 
             //	print_r($resultado);
-            	VAR_DUMP($resultado);
+           // 	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    
+    public function buscarEmpresaProductorPorUsuarioCBX( $IDUSUARIO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * FROM    usuario_empresaproductor   
+                                               WHERE  ESTADO_REGISTRO = 1 
+                                               AND ID_USUARIO = '".$IDUSUARIO."' ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
 
 
             return $resultado;

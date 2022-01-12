@@ -1,17 +1,17 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioExpo.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/TPRODUCTOR_ADO.php';
-include_once '../controlador/CIUDAD_ADO.php';
-include_once '../controlador/COMUNA_ADO.php';
-include_once '../controlador/PROVINCIA_ADO.php';
-include_once '../controlador/REGION_ADO.php';
+include_once '../../assest/controlador/TPRODUCTOR_ADO.php';
+include_once '../../assest/controlador/CIUDAD_ADO.php';
+include_once '../../assest/controlador/COMUNA_ADO.php';
+include_once '../../assest/controlador/PROVINCIA_ADO.php';
+include_once '../../assest/controlador/REGION_ADO.php';
 
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../modelo/PRODUCTOR.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/modelo/PRODUCTOR.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -78,78 +78,16 @@ $ARRAYREGION = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYPRODUCTOR = $PRODUCTOR_ADO->listarProductorPorEmpresaCBX($EMPRESAS);
 $ARRAYTPRODUCTOR = $TPRODUCTOR_ADO->listarTproductorPorEmpresaCBX($EMPRESAS);
-$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudadCBX();
+$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
 $ARRAYCOMUNA = $COMUNA_ADO->listarComunaCBX();
 $ARRAYPROVINCIA  = $PROVINCIA_ADO->listarProvinciaCBX();
 $ARRAYREGION = $REGION_ADO->listarRegionCBX();
 
 
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrl.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrl.php";
 
 
-
-//OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-
-if (isset($_REQUEST['GUARDAR'])) {
-
-    $ARRAYNUMERO = $PRODUCTOR_ADO->obtenerNumero($_REQUEST['EMPRESA']);
-    $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
-
-
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-    $PRODUCTOR->__SET('NUMERO_PRODUCTOR', $NUMERO);
-    $PRODUCTOR->__SET('RUT_PRODUCTOR', $_REQUEST['RUTPRODUCTOR']);
-    $PRODUCTOR->__SET('DV_PRODUCTOR', $_REQUEST['DVPRODUCTOR']);
-    $PRODUCTOR->__SET('NOMBRE_PRODUCTOR', $_REQUEST['NOMBREPRODUCTOR']);
-    $PRODUCTOR->__SET('DIRECCION_PRODUCTOR', $_REQUEST['DIRECCIONPRODUCTOR']);
-    $PRODUCTOR->__SET('TELEFONO_PRODUCTOR', $_REQUEST['TELEFONOPRODUCTOR']);
-    $PRODUCTOR->__SET('EMAIL_PRODUCTOR', $_REQUEST['EMAILPRODUCTOR']);
-    $PRODUCTOR->__SET('GIRO_PRODUCTOR', $_REQUEST['GIROPRODUCTOR']);
-    $PRODUCTOR->__SET('CSG_PRODUCTOR', $_REQUEST['CSGPRODUCTOR']);
-    $PRODUCTOR->__SET('SDP_PRODUCTOR', $_REQUEST['SDPPRODUCTOR']);
-    $PRODUCTOR->__SET('PRB_PRODUCTOR', $_REQUEST['PRBPRODUCTOR']);
-    $PRODUCTOR->__SET('CODIGO_ASOCIADO_PRODUCTOR', $_REQUEST['CODIGOASOCIADOPRODUCTOR']);
-    $PRODUCTOR->__SET('NOMBRE_ASOCIADO_PRODUCTOR', $_REQUEST['NOMBREASOCIADOPRODUCTOR']);
-    $PRODUCTOR->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);    
-    $PRODUCTOR->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $PRODUCTOR->__SET('ID_TPRODUCTOR', $_REQUEST['TPRODUCTOR']);
-    $PRODUCTOR->__SET('ID_USUARIOI', $IDUSUARIOS);
-    $PRODUCTOR->__SET('ID_USUARIOM', $IDUSUARIOS);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $PRODUCTOR_ADO->agregarProductor($PRODUCTOR);
-    //REDIRECCIONAR A PAGINA registroProductor.php
-    echo "<script type='text/javascript'> location.href ='registroProductor.php';</script>";
-}
-//OPERACION EDICION DE FILA
-if (isset($_REQUEST['EDITAR'])) {
-
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO  
-    $PRODUCTOR->__SET('RUT_PRODUCTOR', $_REQUEST['RUTPRODUCTOR']);
-    $PRODUCTOR->__SET('DV_PRODUCTOR', $_REQUEST['DVPRODUCTOR']);
-    $PRODUCTOR->__SET('NOMBRE_PRODUCTOR', $_REQUEST['NOMBREPRODUCTOR']);
-    $PRODUCTOR->__SET('DIRECCION_PRODUCTOR', $_REQUEST['DIRECCIONPRODUCTOR']);
-    $PRODUCTOR->__SET('TELEFONO_PRODUCTOR', $_REQUEST['TELEFONOPRODUCTOR']);
-    $PRODUCTOR->__SET('EMAIL_PRODUCTOR', $_REQUEST['EMAILPRODUCTOR']);
-    $PRODUCTOR->__SET('GIRO_PRODUCTOR', $_REQUEST['GIROPRODUCTOR']);
-    $PRODUCTOR->__SET('CSG_PRODUCTOR', $_REQUEST['CSGPRODUCTOR']);
-    $PRODUCTOR->__SET('SDP_PRODUCTOR', $_REQUEST['SDPPRODUCTOR']);
-    $PRODUCTOR->__SET('PRB_PRODUCTOR', $_REQUEST['PRBPRODUCTOR']);
-    $PRODUCTOR->__SET('CODIGO_ASOCIADO_PRODUCTOR', $_REQUEST['CODIGOASOCIADOPRODUCTOR']);
-    $PRODUCTOR->__SET('NOMBRE_ASOCIADO_PRODUCTOR', $_REQUEST['NOMBREASOCIADOPRODUCTOR']);
-    $PRODUCTOR->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
-    $PRODUCTOR->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $PRODUCTOR->__SET('ID_TPRODUCTOR', $_REQUEST['TPRODUCTOR']);
-    $PRODUCTOR->__SET('ID_USUARIOM', $IDUSUARIOS);
-    $PRODUCTOR->__SET('ID_PRODUCTOR', $_REQUEST['ID']);
-    //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
-    $PRODUCTOR_ADO->actualizarProductor($PRODUCTOR);
-    //REDIRECCIONAR A PAGINA registroProductor.php
-    echo "<script type='text/javascript'> location.href ='registroProductor.php';</script>";
-}
 
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION Y VISUALIZACION
@@ -256,7 +194,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //VALIDACION DE FORMULARIO
@@ -462,69 +400,28 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     win.focus();
                 }
 
-                //FUNCION PARA OBTENER HORA Y FECHA
-                function mueveReloj() {
-
-
-                    momentoActual = new Date();
-
-                    dia = momentoActual.getDate();
-                    mes = momentoActual.getMonth() + 1;
-                    ano = momentoActual.getFullYear();
-
-                    hora = momentoActual.getHours();
-                    minuto = momentoActual.getMinutes();
-                    segundo = momentoActual.getSeconds();
-
-                    if (dia < 10) {
-                        dia = "0" + dia;
-                    }
-
-                    if (mes < 10) {
-                        mes = "0" + mes;
-                    }
-                    if (hora < 10) {
-                        hora = "0" + hora;
-                    }
-                    if (minuto < 10) {
-                        minuto = "0" + minuto;
-                    }
-                    if (segundo < 10) {
-                        segundo = "0" + segundo;
-                    }
-
-                    horaImprimible = hora + " : " + minuto;
-                    fechaImprimible = dia + "-" + mes + "-" + ano;
-
-
-                    //     document.form_reg_dato.HORARECEPCION.value = horaImprimible;
-                    document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
-                    setTimeout("mueveReloj()", 1000);
-                }
             </script>
 
 </head>
 
-<body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
+<body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php"; ?>
+            <?php include_once "../../assest/config/menuExpo.php"; ?>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <div class="container-full">
-
                     <!-- Content Header (Page header) -->
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Productor</h3>
+                                <h3 class="page-title">Fruta</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Mantenedores</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroProductor.php"> Operaciones Productor</a>
-                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Productor</a> </li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -550,22 +447,17 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                             </div>
                         </div>
                     </div>
-
                     <!-- Main content -->
                     <section class="content">
                         <div class="row">
-                            <div class="col-lg-6 col-12">
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
-                                    <div class="box-header with-border">
-                                        <!--  
-                                    <h4 class="box-title">Sample form 1</h4>
-                                -->
+                                    <div class="box-header with-border bg-primary">                                        
+                                        <h4 class="box-title">Registro Productor</h4>                                    
                                     </div>
                                     <!-- /.box-header -->
                                      <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                                         <div class="box-body">
-                                            <h4 class="box-title text-info"><i class="ti-user mr-15"></i> Registro
-                                            </h4>
                                             <hr class="my-15">
                                             <div class="row">
                                                  <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
@@ -661,10 +553,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                             <option></option>
                                                             <?php foreach ($ARRAYCIUDAD as $r) : ?>
                                                                 <?php if ($ARRAYCIUDAD) {    ?>
-                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>" <?php if ($CIUDAD == $r['ID_CIUDAD']) {
-                                                                                                                        echo "selected";
-                                                                                                                    } ?>>
-                                                                        <?php echo $r['NOMBRE_CIUDAD'] ?>
+                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>" 
+                                                                    <?php if ($CIUDAD == $r['ID_CIUDAD']) { echo "selected"; } ?>>
+                                                                        <?php echo $r['CIUDAD'] ?>, <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
                                                                     <option>No Hay Datos Registrados </option>
@@ -683,7 +574,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         </button>
                                                     </div>
                                                 </div>
-
                                                 <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-9 col-9 col-xs-9">
                                                     <div class="form-group">
                                                         <label>Tipo Productor</label>
@@ -691,9 +581,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                             <option></option>
                                                             <?php foreach ($ARRAYTPRODUCTOR as $r) : ?>
                                                                 <?php if ($ARRAYTPRODUCTOR) {    ?>
-                                                                    <option value="<?php echo $r['ID_TPRODUCTOR']; ?>" <?php if ($TPRODUCTOR == $r['ID_TPRODUCTOR']) {
-                                                                                                                            echo "selected";
-                                                                                                                        } ?>>
+                                                                    <option value="<?php echo $r['ID_TPRODUCTOR']; ?>" 
+                                                                    <?php if ($TPRODUCTOR == $r['ID_TPRODUCTOR']) { echo "selected";} ?>>
                                                                         <?php echo $r['NOMBRE_TPRODUCTOR'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
@@ -718,10 +607,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             </div>
                                         </div>
                                         <!-- /.box-body -->
-
                                         <div class="box-footer">
                                             <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
-                                                <button type=" button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroProductor.php');">
+                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroProductor.php');">
                                                 <i class="ti-trash"></i>Cancelar
                                                 </button>
                                                 <?php if ($OP != "editar") { ?>
@@ -739,14 +627,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                 </div>
                                 <!-- /.box -->
                             </div>
-                            <div class="col-lg-6 col-12">
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
-                                    <div class="box-header with-border">
-                                        <h4 class="box-title">Registros</h4>
+                                    <div class="box-header with-border bg-info">
+                                        <h4 class="box-title">Agrupado Productor</h4>
                                     </div>
                                     <div class="box-body">
                                         <div class="table-responsive">
-                                            <table id="listar" class="table table-hover " style="width: 100%;">
+                                            <table id="listar" class="table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Número </th>
@@ -824,11 +712,98 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
+        <?php 
+            
+            //OPERACIONES
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['GUARDAR'])) {
+
+                $ARRAYNUMERO = $PRODUCTOR_ADO->obtenerNumero($_REQUEST['EMPRESA']);
+                $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+
+
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+                $PRODUCTOR->__SET('NUMERO_PRODUCTOR', $NUMERO);
+                $PRODUCTOR->__SET('RUT_PRODUCTOR', $_REQUEST['RUTPRODUCTOR']);
+                $PRODUCTOR->__SET('DV_PRODUCTOR', $_REQUEST['DVPRODUCTOR']);
+                $PRODUCTOR->__SET('NOMBRE_PRODUCTOR', $_REQUEST['NOMBREPRODUCTOR']);
+                $PRODUCTOR->__SET('DIRECCION_PRODUCTOR', $_REQUEST['DIRECCIONPRODUCTOR']);
+                $PRODUCTOR->__SET('TELEFONO_PRODUCTOR', $_REQUEST['TELEFONOPRODUCTOR']);
+                $PRODUCTOR->__SET('EMAIL_PRODUCTOR', $_REQUEST['EMAILPRODUCTOR']);
+                $PRODUCTOR->__SET('GIRO_PRODUCTOR', $_REQUEST['GIROPRODUCTOR']);
+                $PRODUCTOR->__SET('CSG_PRODUCTOR', $_REQUEST['CSGPRODUCTOR']);
+                $PRODUCTOR->__SET('SDP_PRODUCTOR', $_REQUEST['SDPPRODUCTOR']);
+                $PRODUCTOR->__SET('PRB_PRODUCTOR', $_REQUEST['PRBPRODUCTOR']);
+                $PRODUCTOR->__SET('CODIGO_ASOCIADO_PRODUCTOR', $_REQUEST['CODIGOASOCIADOPRODUCTOR']);
+                $PRODUCTOR->__SET('NOMBRE_ASOCIADO_PRODUCTOR', $_REQUEST['NOMBREASOCIADOPRODUCTOR']);
+                $PRODUCTOR->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);    
+                $PRODUCTOR->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $PRODUCTOR->__SET('ID_TPRODUCTOR', $_REQUEST['TPRODUCTOR']);
+                $PRODUCTOR->__SET('ID_USUARIOI', $IDUSUARIOS);
+                $PRODUCTOR->__SET('ID_USUARIOM', $IDUSUARIOS);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $PRODUCTOR_ADO->agregarProductor($PRODUCTOR);
+                //REDIRECCIONAR A PAGINA registroProductor.php
+                    echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Creado",
+                        text:"El registro del mantenedor se ha creado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroProductor.php";                            
+                    })
+                </script>';
+            }
+            //OPERACION EDICION DE FILA
+            if (isset($_REQUEST['EDITAR'])) {
+
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO  
+                $PRODUCTOR->__SET('RUT_PRODUCTOR', $_REQUEST['RUTPRODUCTOR']);
+                $PRODUCTOR->__SET('DV_PRODUCTOR', $_REQUEST['DVPRODUCTOR']);
+                $PRODUCTOR->__SET('NOMBRE_PRODUCTOR', $_REQUEST['NOMBREPRODUCTOR']);
+                $PRODUCTOR->__SET('DIRECCION_PRODUCTOR', $_REQUEST['DIRECCIONPRODUCTOR']);
+                $PRODUCTOR->__SET('TELEFONO_PRODUCTOR', $_REQUEST['TELEFONOPRODUCTOR']);
+                $PRODUCTOR->__SET('EMAIL_PRODUCTOR', $_REQUEST['EMAILPRODUCTOR']);
+                $PRODUCTOR->__SET('GIRO_PRODUCTOR', $_REQUEST['GIROPRODUCTOR']);
+                $PRODUCTOR->__SET('CSG_PRODUCTOR', $_REQUEST['CSGPRODUCTOR']);
+                $PRODUCTOR->__SET('SDP_PRODUCTOR', $_REQUEST['SDPPRODUCTOR']);
+                $PRODUCTOR->__SET('PRB_PRODUCTOR', $_REQUEST['PRBPRODUCTOR']);
+                $PRODUCTOR->__SET('CODIGO_ASOCIADO_PRODUCTOR', $_REQUEST['CODIGOASOCIADOPRODUCTOR']);
+                $PRODUCTOR->__SET('NOMBRE_ASOCIADO_PRODUCTOR', $_REQUEST['NOMBREASOCIADOPRODUCTOR']);
+                $PRODUCTOR->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+                $PRODUCTOR->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $PRODUCTOR->__SET('ID_TPRODUCTOR', $_REQUEST['TPRODUCTOR']);
+                $PRODUCTOR->__SET('ID_USUARIOM', $IDUSUARIOS);
+                $PRODUCTOR->__SET('ID_PRODUCTOR', $_REQUEST['ID']);
+                //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
+                $PRODUCTOR_ADO->actualizarProductor($PRODUCTOR);
+                //REDIRECCIONAR A PAGINA registroProductor.php
+                    echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Modificado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroProductor.php";                            
+                    })
+                </script>';
+            }
+
+        
+        ?>
 </body>
 
 </html>

@@ -11,6 +11,7 @@ include_once '../../assest/controlador/CONDUCTOR_ADO.php';
 include_once '../../assest/controlador/PRODUCTOR_ADO.php';
 include_once '../../assest/controlador/TRANSPORTE_ADO.php';
 include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/EMPRESAPRODUCTOR_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR¿
@@ -22,6 +23,7 @@ $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
+$EMPRESAPRODUCTOR_ADO =  new EMPRESAPRODUCTOR_ADO();
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
@@ -54,14 +56,9 @@ $ARRAYPRODUCTOR = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
 
-if ( $TEMPORADAS) {
+$ARRAYEMPRESAPRODUCTOR=$EMPRESAPRODUCTOR_ADO->buscarEmpresaProductorPorUsuarioCBX($IDUSUARIOS);
 
-    $ARRAYRECEPCION = $RECEPCIONMP_ADO->listarRecepcionTemporadaCBX( $TEMPORADAS);
-    $ARRAYRECEPCIONTOTALES = $RECEPCIONMP_ADO->obtenerTotalesRecepcionTemporada2CBX( $TEMPORADAS);
-    $TOTALBRUTO = $ARRAYRECEPCIONTOTALES[0]['BRUTO'];
-    $TOTALNETO = $ARRAYRECEPCIONTOTALES[0]['NETO'];
-    $TOTALENVASE = $ARRAYRECEPCIONTOTALES[0]['ENVASE'];
-}
+
 
 //include_once "../../assest/config/validarDatosUrl.php";
 //include_once "../../assest/config/datosUrLP.php";
@@ -96,49 +93,9 @@ if ( $TEMPORADAS) {
                     location.href = "" + url;
                 }
 
-                //FUNCION PARA OBTENER HORA Y FECHA
-                function mueveReloj() {
-
-
-                    momentoActual = new Date();
-
-                    dia = momentoActual.getDate();
-                    mes = momentoActual.getMonth() + 1;
-                    ano = momentoActual.getFullYear();
-
-                    hora = momentoActual.getHours();
-                    minuto = momentoActual.getMinutes();
-                    segundo = momentoActual.getSeconds();
-
-                    if (dia < 10) {
-                        dia = "0" + dia;
-                    }
-
-                    if (mes < 10) {
-                        mes = "0" + mes;
-                    }
-                    if (hora < 10) {
-                        hora = "0" + hora;
-                    }
-                    if (minuto < 10) {
-                        minuto = "0" + minuto;
-                    }
-                    if (segundo < 10) {
-                        segundo = "0" + segundo;
-                    }
-
-                    horaImprimible = hora + " : " + minuto;
-                    fechaImprimible = dia + "-" + mes + "-" + ano;
-
-
-                    //     document.form_reg_dato.HORARECEPCION.value = horaImprimible;
-                    document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
-                    setTimeout("mueveReloj()", 1000);
-                }
-                /*
                 function refrescar() {
                     document.getElementById("form_reg_dato").submit();
-                }*/
+                }
 
                 //FUNCION PARA ABRIR VENTANA QUE SE ENCUENTRA LA OPERACIONES DE DETALLE DE RECEPCION
                 function abrirVentana(url) {
@@ -155,7 +112,7 @@ if ( $TEMPORADAS) {
             </script>
 </head>
 
-<body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
+<body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <?php include_once "../../assest/config/menuOpera.php"; 
         ?>
@@ -239,6 +196,13 @@ if ( $TEMPORADAS) {
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                
+                                            <?php foreach ($ARRAYEMPRESAPRODUCTOR as $a) : ?>
+                                                <?php 
+                                                    if ( $TEMPORADAS) {
+                                                        $ARRAYRECEPCION = $RECEPCIONMP_ADO->listarRecepcionEmpresaProductorTemporadaCBX($a["ID_EMPRESA"], $a["ID_PRODUCTOR"], $TEMPORADAS);
+                                                    }    
+                                                ?>
                                                 <?php foreach ($ARRAYRECEPCION as $r) : ?>                                                    
                                                     <?php   
                                                             if ($r['TRECEPCION'] == "1") {
@@ -324,32 +288,12 @@ if ( $TEMPORADAS) {
                                                                 <button type="button" class="btn btn-block btn-success">Abierto</button>
                                                             <?php  }  ?>
                                                         </td>
-                                                        <td class="text-center">
-                                                            <form method="post" id="form1">
-                                                                <div class="list-icons d-inline-flex">
-                                                                    <div class="list-icons-item dropdown">
-                                                                        <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                            <i class="glyphicon glyphicon-cog"></i>
-                                                                        </button>
-                                                                        <div class="dropdown-menu dropdown-menu-right">
-                                                                            <button class="dropdown-menu" aria-labelledby="dropdownMenuButton"></button>
-                                                                            <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_RECEPCION']; ?>" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroRecepcionmp" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarRecepcionmp" />                                                                        
-                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../../assest/documento/informeRecepcionmp.php?parametro=<?php echo $r['ID_RECEPCION']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                    <i class="fa fa-file-pdf-o"></i> Informe
-                                                                                </button>
-                                                                            </span>
-                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Tarjas">
-                                                                                <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Tarjas" Onclick="abrirPestana('../../assest/documento/informeTarjasRecepcionmp.php?parametro=<?php echo $r['ID_RECEPCION']; ?>'); ">
-                                                                                    <i class="fa fa-file-pdf-o"></i> Tarjas
-                                                                                </button>
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </form>
+                                                        <td class="text-center">                                                                        
+                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
+                                                                <button type="button" class="btn  btn-danger  btn-block btn-sm" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../../assest/documento/informeRecepcionmp.php?parametro=<?php echo $r['ID_RECEPCION']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                    <i class="fa fa-file-pdf-o"></i><br> Informe
+                                                                </button>
+                                                            </span>
                                                         </td>
                                                         <td><?php echo $r['FECHA']; ?></td>
                                                         <td><?php echo $r['HORA_RECEPCION']; ?></td>
@@ -373,6 +317,7 @@ if ( $TEMPORADAS) {
                                                         <td><?php echo $NOMBRETEMPORADA; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
+                                            <?php endforeach; ?>
                                             </tbody>
                                         </table>
                                     </div>

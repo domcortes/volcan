@@ -204,7 +204,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                         <h4 class="box-title">Registro Tipo Usuario</h4>                                
                                     </div>
                                     <!-- /.box-header -->
-                                    <form class="form" role="form" method="post" name="form_reg_dato" >
+                                    <form class="form" role="form" method="post" name="form_reg_dato"  id="form_reg_dato">
                                         <div class="box-body">                                            
                                             <hr class="my-15">
                                             <div class="row">

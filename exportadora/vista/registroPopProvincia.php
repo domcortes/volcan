@@ -1,13 +1,13 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioExpo.php";
 
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/PROVINCIA_ADO.php';
-include_once '../controlador/REGION_ADO.php';
-include_once '../modelo/PROVINCIA.php';
+include_once '../../assest/controlador/PROVINCIA_ADO.php';
+include_once '../../assest/controlador/REGION_ADO.php';
+include_once '../../assest/modelo/PROVINCIA.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -46,10 +46,9 @@ $ARRAYREGION = "";
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-$ARRAYPROVINCIA = $PROVINCIA_ADO->listarProvinciaCBX();
-$ARRAYREGION = $REGION_ADO->listarRegionCBX();
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrl.php";
+$ARRAYREGION = $REGION_ADO->listarRegion3CBX();
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrl.php";
 
 
 //OPERACIONES
@@ -69,65 +68,6 @@ if (isset($_REQUEST['GUARDAR'])) {
 }
 
 
-//OBTENCION DE DATOS ENVIADOR A LA URL
-//PARA OPERACIONES DE EDICION Y VISUALIZACION
-if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
-    //ALMACENAR DATOS DE VARIABLES DE LA URL
-    $IDOP = $_SESSION['parametro'];
-    $OP = $_SESSION['parametro1'];
-
-
-    //IDENTIFICACIONES DE OPERACIONES
-    //OPERACION DE CAMBIO DE ESTADO
-    //0 = DESACTIVAR
-    if ($OP == "0") {
-
-        $PROVINCIA->__SET('ID_PROVINCIA', $IDOP);
-        $PROVINCIA_ADO->deshabilitar($PROVINCIA);
-
-        echo "<script type='text/javascript'> location.href ='registroProvincia.php';</script>";
-    }
-    //1 = ACTIVAR
-    if ($OP == "1") {
-
-        $BODEGA->__SET('ID_PROVINCIA', $IDOP);
-        $PROVINCIA_ADO->habilitar($PROVINCIA);
-        echo "<script type='text/javascript'> location.href ='registroProvincia.php';</script>";
-    }
-    //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
-    if ($OP == "editar") {
-        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
-        //ALMACENAR INFORMACION EN ARREGLO
-        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
-        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
-        $ARRAYPROVINCIAID = $PROVINCIA_ADO->verProvincia($IDOP);
-        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
-        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
-        foreach ($ARRAYPROVINCIAID as $r) :
-            $NOMBREPROVINCIA = "" . $r['NOMBRE_PROVINCIA'];
-            $REGION = "" . $r['ID_REGION'];
-        endforeach;
-    }
-
-    //ver =  OBTENCION DE DATOS PARA LA VISUALIZAAR INFORMAICON DE REGISTRO
-    if ($OP == "ver") {
-        //DESABILITAR INPUT DEL FORMULARIO
-        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
-        $DISABLED = "disabled";
-        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
-        //ALMACENAR INFORMACION EN ARREGLO
-        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
-        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
-        $ARRAYPROVINCIAID = $PROVINCIA_ADO->verProvincia($IDOP);
-        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
-        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
-
-        foreach ($ARRAYPROVINCIAID as $r) :
-            $NOMBREPROVINCIA = "" . $r['NOMBRE_PROVINCIA'];
-            $REGION = "" . $r['ID_REGION'];
-        endforeach;
-    }
-}
 
 
 
@@ -145,7 +85,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //VALIDACION DE FORMULARIO
@@ -195,32 +135,28 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php //include_once "../config/menu.php"; ?>
+            <?php //include_once "../../assest/config/menu.php"; ?>
 
                     <!-- Main content -->
                     <section class="content">
                         <div class="row">
                                 <div class="box">
-                                    <div class="box-header with-border">
-                                        <!--  
-                                    <h4 class="box-title">Sample form 1</h4>
-                                -->
+                                    <div class="box-header with-border bg-primary">                                        
+                                        <h4 class="box-title">Reigstro Provincia</h4>                                
                                     </div>
                                     <!-- /.box-header -->
-                                    <form class="form" role="form" method="post" name="form_reg_dato" onsubmit="return validacion()">
+                                    <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                                         <div class="box-body">
-                                            <h4 class="box-title text-info"><i class="ti-user mr-15"></i> Registro Provincia
-                                            </h4>
-
-                                            <hr class="my-15">
-                                            <div class="form-group">
-                                                <label>Nombre </label>
-                                                <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
-                                                <input type="text" class="form-control" placeholder="Nombre Provincia" id="NOMBREPROVINCIA" name="NOMBREPROVINCIA" value="<?php echo $NOMBREPROVINCIA; ?>" <?php echo $DISABLED; ?> />
-                                                <label id="val_nombre" class="validacion"> </label>
-                                            </div>
-                                            
+                                            <hr class="my-15">                             
                                             <div class="row">
+                                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
+                                                    <div class="form-group">
+                                                        <label>Nombre </label>
+                                                        <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
+                                                        <input type="text" class="form-control" placeholder="Nombre Provincia" id="NOMBREPROVINCIA" name="NOMBREPROVINCIA" value="<?php echo $NOMBREPROVINCIA; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_nombre" class="validacion"> </label>
+                                                    </div>         
+                                                </div>     
                                                 <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-9 col-9 col-xs-9">
                                                     <div class="form-group">
                                                         <label> Region</label>
@@ -229,10 +165,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                             <option></option>
                                                             <?php foreach ($ARRAYREGION as $r) : ?>
                                                                 <?php if ($ARRAYREGION) {    ?>
-                                                                    <option value="<?php echo $r['ID_REGION']; ?>" <?php if ($REGION == $r['ID_REGION']) {
-                                                                                                                        echo "selected";
-                                                                                                                    } ?>>
-                                                                        <?php echo $r['NOMBRE_REGION'] ?>
+                                                                    <option value="<?php echo $r['ID_REGION']; ?>" 
+                                                                        <?php if ($REGION == $r['ID_REGION']) { echo "selected";  } ?>>
+                                                                        <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
                                                                     <option>No Hay Datos Registrados </option>
@@ -245,49 +180,46 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                     </div>
                                                 </div>                     
                                                 <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
-                                                        <div class="form-group">  
+                                                    <div class="form-group">  
                                                         <label>Agregar</label>                  
-                                                            <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" <?php echo $DISABLED; ?>  title="Agregar Ciudad" id="defecto" name="pop" 
+                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" <?php echo $DISABLED; ?>  title="Agregar Ciudad" id="defecto" name="pop" 
                                                             Onclick="irPagina('registroPopRegion.php' ); ">
                                                             <i class="icon-copy fa fa-plus" aria-hidden="true"></i>
-                                                            </button>
-                                                        </div>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div> 
-
                                         </div>
-                                        <!-- /.box-body -->
+                                        <!-- /.box-body -->                                                                                                    
                                         <div class="box-footer">
-                                            <button type="button" class="btn btn-rounded btn-success btn-outline" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroPopComuna.php'); ">
-                                                <i class="ti-back-left "></i> Volver
-                                            </button>
-                                            <?php if ($OP != "editar") { ?>
-                                                <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?>>
-                                                    <i class="ti-save-alt"></i> Crear
+                                            <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
+                                                <button type="button" class="btn  btn-success " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroPopComuna.php'); ">
+                                                    <i class="ti-back-left "></i> Volver
                                                 </button>
-                                            <?php } else { ?>
-                                                <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="EDITAR" value="EDITAR">
-                                                    <i class="ti-save-alt"></i> Guardar
-                                                </button>
-                                            <?php } ?>
+                                                <?php if ($OP != "editar") { ?>
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                                <?php } else { ?>
+                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                                <?php } ?>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
-                                <!-- /.box -->
-                       
+                                <!-- /.box -->                       
                         </div>
                         <!--.row -->
                     </section>
                     <!-- /.content -->
-
-
-
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php //include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php //include_once "../../assest/config/footer.php"; ?>
+                <?php //include_once "../../assest/config/menuExtra.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
 
 </html>

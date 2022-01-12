@@ -2,106 +2,116 @@
 
 include_once "../../assest/config/validarUsuarioExpo.php";
 
+
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
 include_once '../../assest/controlador/ESPECIES_ADO.php';
-include_once '../../assest/controlador/PRODUCTO_ADO.php';
-
-
-include_once '../../assest/controlador/ERECEPCION_ADO.php';
-include_once '../../assest/modelo/ERECEPCION.php';
-
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/CUARTEL_ADO.php';
+include_once '../../assest/modelo/CUARTEL.php';
 
 //INCIALIZAR LAS VARIBLES
-//INICIALIZAR CONTROLADOR
 
+$CUARTEL_ADO =  new CUARTEL_ADO();
 $ESPECIES_ADO =  new ESPECIES_ADO();
-$PRODUCTO_ADO =  new PRODUCTO_ADO();
-
-$ERECEPCION_ADO =  new ERECEPCION_ADO();
+$VESPECIES_ADO =  new VESPECIES_ADO();
 //INIICIALIZAR MODELO
-$ERECEPCION =  new ERECEPCION();
+$CUARTEL =  new CUARTEL();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
-
-$NOMBREESTANDAR = "";
-$CODIGOESTANDAR = "";
-$ENVASEESTANDAR = "";
-$PESOENVASEESTANDAR = "";
-$PESOPALLETESTANDAR = "";
-$ESPECIES = "";
-$ESTADO = "";
-$PRODUCTO="";
-$TRATAMIENTO1="";
-$TRATAMIENTO2="";
 $IDOP = "";
 $OP = "";
 $DISABLED = "";
 
+
+$NOMBRECUARTEL = "";
+$TIEMPOPRODUCCIONANOCUARTEL = "";
+$ANOPLANTACIONCUARTEL = "";
+$HECTAREASCUARTEL = "";
+$PLANTASENHECATAREAS = "";
+$DISTANCIAPLANTACUARTEL = "";
+$ESPECIES = "";
+$VESPECIES = "";
+
+$NUMERO = "";
+
+
+
+$NOMBRE = "";
+$MENSAJE = "";
+$FOCUS = "";
+$MENSAJE2 = "";
+$FOCUS2 = "";
+$BORDER = "";
+
 //INICIALIZAR ARREGLOS
-$ARRAYESTANDAR = "";
-$ARRAYESTANDARID = "";
-$ARRAYPRODUCTO="";
+$ARRAYCUARTEL = "";
+$ARRAYCUARTELID = "";
+$ARRAYVESPECIES = "";
+
 $ARRAYESPECIES = "";
+$ARRAYVERVESPECIESID = "";
+$ARRAYNUMERO = "";
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-$ARRAYESTANDAR = $ERECEPCION_ADO->listarEstandarPorEmpresaCBX($EMPRESAS);
-$ARRAYPRODUCTO= $PRODUCTO_ADO->listarProductoPorEmpresaCBX($EMPRESAS);
+$ARRAYCUARTEL = $CUARTEL_ADO->listarCuartelPorEmpresaCBX($EMPRESAS);
+$ARRAYVESPECIES = $VESPECIES_ADO->listarVespeciesPorEmpresaCBX($EMPRESAS);
 $ARRAYESPECIES = $ESPECIES_ADO->listarEspeciesCBX();
 include_once "../../assest/config/validarDatosUrl.php";
 include_once "../../assest/config/datosUrl.php";
 
 
 
+
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION Y VISUALIZACION
-//PREGUNTA SI LA URL VIENE  CON DATOS "parametro" y "parametro1"
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     //ALMACENAR DATOS DE VARIABLES DE LA URL
     $IDOP = $_SESSION['parametro'];
     $OP = $_SESSION['parametro1'];
 
 
-    //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
-    //ALMACENAR INFORMACION EN ARREGLO
-    //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
-    //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
-    $ARRAYESTANDARID = $ERECEPCION_ADO->verEstandar($IDOP);
-
-
-    //IDENTIFICACIONES DE OPERACIONES    //OPERACION DE CAMBIO DE ESTADO
+    //IDENTIFICACIONES DE OPERACIONES
+    //OPERACION DE CAMBIO DE ESTADO
     //0 = DESACTIVAR
     if ($OP == "0") {
 
-        $ERECEPCION->__SET('ID_ESTANDAR', $IDOP);
-        $ERECEPCION_ADO->deshabilitar($ERECEPCION);
+        $CUARTEL->__SET('ID_CUARTEL', $IDOP);
+        $CUARTEL_ADO->deshabilitar($CUARTEL);
 
-        echo "<script type='text/javascript'> location.href ='registroErecepcion.php';</script>";
+        echo "<script type='text/javascript'> location.href ='registroCuartel.php';</script>";
     }
     //1 = ACTIVAR
     if ($OP == "1") {
 
-        $ERECEPCION->__SET('ID_ESTANDAR', $IDOP);
-        $ERECEPCION_ADO->habilitar($ERECEPCION);
-        echo "<script type='text/javascript'> location.href ='registroErecepcion.php';</script>";
+        $CUARTEL->__SET('ID_CUARTEL', $IDOP);
+        $CUARTEL_ADO->habilitar($CUARTEL);
+        echo "<script type='text/javascript'> location.href ='registroCuartel.php';</script>";
     }
     //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
     if ($OP == "editar") {
+
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+
+        $ARRAYCUARTELID = $CUARTEL_ADO->verCuartel($IDOP);
         //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
         //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
 
+        foreach ($ARRAYCUARTELID as $r) :
+            $NOMBRECUARTEL = "" . $r['NOMBRE_CUARTEL'];
+            $TIEMPOPRODUCCIONANOCUARTEL = "" . $r['TIEMPO_PRODUCCION_ANO_CUARTEL'];
+            $ANOPLANTACIONCUARTEL = "" . $r['ANO_PLANTACION_CUARTEL'];
+            $HECTAREASCUARTEL = "" . $r['HECTAREAS_CUARTEL'];
+            $PLANTASENHECATAREAS = "" . $r['PLANTAS_EN_HECTAREAS'];
+            $DISTANCIAPLANTACUARTEL = "" . $r['DISTANCIA_PLANTA_CUARTEL'];
+            $VESPECIES = "" . $r['ID_VESPECIES'];
+            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+            $ESPECIES = $ARRAYVERVESPECIESID[0]['ID_ESPECIES'];
 
-        foreach ($ARRAYESTANDARID as $r) :
-            $CODIGOESTANDAR = "" . $r['CODIGO_ESTANDAR'];
-            $NOMBREESTANDAR = "" . $r['NOMBRE_ESTANDAR'];
-            $ENVASEESTANDAR = "" . $r['CANTIDAD_ENVASE_ESTANDAR'];
-            $PESOENVASEESTANDAR = "" . $r['PESO_ENVASE_ESTANDAR'];
-            $PESOPALLETESTANDAR = "" . $r['PESO_PALLET_ESTANDAR'];
-            $TRATAMIENTO1 = "" . $r['TRATAMIENTO1'];
-            $TRATAMIENTO2 = "" . $r['TRATAMIENTO2'];
-            $ESPECIES = "" . $r['ID_ESPECIES'];
-            $PRODUCTO = "" . $r['ID_PRODUCTO'];
         endforeach;
     }
 
@@ -110,26 +120,55 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         //DESABILITAR INPUT DEL FORMULARIO
         //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
         $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYCUARTELID = $CUARTEL_ADO->verCuartel($IDOP);
         //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
         //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
-        foreach ($ARRAYESTANDARID as $r) :
 
-            $CODIGOESTANDAR = "" . $r['CODIGO_ESTANDAR'];
-            $NOMBREESTANDAR = "" . $r['NOMBRE_ESTANDAR'];
-            $ENVASEESTANDAR = "" . $r['CANTIDAD_ENVASE_ESTANDAR'];
-            $PESOENVASEESTANDAR = "" . $r['PESO_ENVASE_ESTANDAR'];
-            $PESOPALLETESTANDAR = "" . $r['PESO_PALLET_ESTANDAR'];
-            $TRATAMIENTO1 = "" . $r['TRATAMIENTO1'];
-            $TRATAMIENTO2 = "" . $r['TRATAMIENTO2'];
-            $ESPECIES = "" . $r['ID_ESPECIES'];
-            $PRODUCTO = "" . $r['ID_PRODUCTO'];
+        foreach ($ARRAYCUARTELID as $r) :
+            $NOMBRECUARTEL = "" . $r['NOMBRE_CUARTEL'];
+            $TIEMPOPRODUCCIONANOCUARTEL = "" . $r['TIEMPO_PRODUCCION_ANO_CUARTEL'];
+            $ANOPLANTACIONCUARTEL = "" . $r['ANO_PLANTACION_CUARTEL'];
+            $HECTAREASCUARTEL = "" . $r['HECTAREAS_CUARTEL'];
+            $PLANTASENHECATAREAS = "" . $r['PLANTAS_EN_HECTAREAS'];
+            $DISTANCIAPLANTACUARTEL = "" . $r['DISTANCIA_PLANTA_CUARTEL'];
+            $VESPECIES = "" . $r['ID_VESPECIES'];
+            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+            $ESPECIES = $ARRAYVERVESPECIESID[0]['ID_ESPECIES'];
 
         endforeach;
     }
 }
 
+if ($_POST) {
+    $ESPECIES = "" . $_REQUEST['ESPECIES'];
+    $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspecies($_REQUEST['ESPECIES']);
+    $VESPECIES = "" . $_REQUEST['VESPECIES'];
 
+    if ($_REQUEST['NOMBRECUARTEL']) {
+        $NOMBRECUARTEL = $_REQUEST['NOMBRECUARTEL'];
+    }
+    if ($_REQUEST['TIEMPOPRODUCCIONANOCUARTEL']) {
+        $TIEMPOPRODUCCIONANOCUARTEL = $_REQUEST['TIEMPOPRODUCCIONANOCUARTEL'];
+    }
+    if ($_REQUEST['ANOPLANTACIONCUARTEL']) {
+        $ANOPLANTACIONCUARTEL = $_REQUEST['ANOPLANTACIONCUARTEL'];
+    }
+    if ($_REQUEST['HECTAREASCUARTEL']) {
+        $HECTAREASCUARTEL = $_REQUEST['HECTAREASCUARTEL'];
+    }
 
+    if ($_REQUEST['PLANTASENHECATAREAS']) {
+        $PLANTASENHECATAREAS = $_REQUEST['PLANTASENHECATAREAS'];
+    }
+
+    if ($_REQUEST['DISTANCIAPLANTACUARTEL']) {
+        $DISTANCIAPLANTACUARTEL = $_REQUEST['DISTANCIAPLANTACUARTEL'];
+    }
+}
 
 ?>
 
@@ -138,7 +177,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 <html lang="es">
 
 <head>
-    <title>Registro Estandar Recepcion</title>
+    <title>Registro Cuartel</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -150,116 +189,115 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 //VALIDACION DE FORMULARIO
                 function validacion() {
 
-                    CODIGOESTANDAR = document.getElementById("CODIGOESTANDAR").value;
-                    NOMBREESTANDAR = document.getElementById("NOMBREESTANDAR").value;
-                    ENVASEESTANDAR = document.getElementById("ENVASEESTANDAR").value;
-                    PESOPALLETESTANDAR = document.getElementById("PESOPALLETESTANDAR").value;
-                    PESOENVASEESTANDAR = document.getElementById("PESOENVASEESTANDAR").value;
-                    TRATAMIENTO1 = document.getElementById("TRATAMIENTO1").selectedIndex;
-                    TRATAMIENTO2 = document.getElementById("TRATAMIENTO2").selectedIndex;
+
+
+
+                    NOMBRECUARTEL = document.getElementById("NOMBRECUARTEL").value;
+                    TIEMPOPRODUCCIONANOCUARTEL = document.getElementById("TIEMPOPRODUCCIONANOCUARTEL").value;
+                    ANOPLANTACIONCUARTEL = document.getElementById("ANOPLANTACIONCUARTEL").value;
+
+                    HECTAREASCUARTEL = document.getElementById("HECTAREASCUARTEL").value;
+                    PLANTASENHECATAREAS = document.getElementById("PLANTASENHECATAREAS").value;
+                    DISTANCIAPLANTACUARTEL = document.getElementById("DISTANCIAPLANTACUARTEL").value;
+
                     ESPECIES = document.getElementById("ESPECIES").selectedIndex;
-                    PRODUCTO = document.getElementById("PRODUCTO").selectedIndex;
+                    VESPECIES = document.getElementById("VESPECIES").selectedIndex;
 
-
-                    document.getElementById('val_codigo').innerHTML = "";
                     document.getElementById('val_nombre').innerHTML = "";
-                    document.getElementById('val_cajapee').innerHTML = "";
-                    document.getElementById('val_envase').innerHTML = "";
-                    document.getElementById('val_pallet').innerHTML = "";
-                    document.getElementById('val_tratamiento1').innerHTML = "";
-                    document.getElementById('val_tratamiento2').innerHTML = "";
-                    document.getElementById('val_especies').innerHTML = "";
-                    document.getElementById('val_producto').innerHTML = "";
+                    document.getElementById('val_tiempopa').innerHTML = "";
+                    document.getElementById('val_anoplanta').innerHTML = "";
+                    document.getElementById('val_hecta').innerHTML = "";
+                    document.getElementById('val_plantahecta').innerHTML = "";
+                    document.getElementById('val_distanciaplanta').innerHTML = "";
 
-                    if (CODIGOESTANDAR == null || CODIGOESTANDAR == 0) {
-                        document.form_reg_dato.CODIGOESTANDAR.focus();
-                        document.form_reg_dato.CODIGOESTANDAR.style.borderColor = "#FF0000";
-                        document.getElementById('val_codigo').innerHTML = "NO A INGRESADO DATO";
-                        return false;
-                    }
-                    document.form_reg_dato.CODIGOESTANDAR.style.borderColor = "#4AF575";
+                    document.getElementById('val_vespecies').innerHTML = "";
 
-                    if (NOMBREESTANDAR == null || NOMBREESTANDAR == 0) {
-                        document.form_reg_dato.NOMBREESTANDAR.focus();
-                        document.form_reg_dato.NOMBREESTANDAR.style.borderColor = "#FF0000";
+
+
+
+                    if (NOMBRECUARTEL == null || NOMBRECUARTEL.length == 0 || /^\s+$/.test(NOMBRECUARTEL)) {
+                        document.form_reg_dato.NOMBRECUARTEL.focus();
+                        document.form_reg_dato.NOMBRECUARTEL.style.borderColor = "#FF0000";
                         document.getElementById('val_nombre').innerHTML = "NO A INGRESADO DATO";
                         return false;
                     }
-                    document.form_reg_dato.NOMBREESTANDAR.style.borderColor = "#4AF575";
+                    document.form_reg_dato.NOMBRECUARTEL.style.borderColor = "#4AF575";
 
-                    if (ENVASEESTANDAR == null || ENVASEESTANDAR == "") {
-                        document.form_reg_dato.ENVASEESTANDAR.focus();
-                        document.form_reg_dato.ENVASEESTANDAR.style.borderColor = "#FF0000";
-                        document.getElementById('val_cajapee').innerHTML = "NO A INGRESADO DATO";
+                    // /^[0-9]+$/
+
+                    if (TIEMPOPRODUCCIONANOCUARTEL == null || TIEMPOPRODUCCIONANOCUARTEL == "") {
+                        document.form_reg_dato.TIEMPOPRODUCCIONANOCUARTEL.focus();
+                        document.form_reg_dato.TIEMPOPRODUCCIONANOCUARTEL.style.borderColor = "#FF0000";
+                        document.getElementById('val_tiempopa').innerHTML = "NO A INGRESADO DATO";
                         return false;
                     }
-                    document.form_reg_dato.ENVASEESTANDAR.style.borderColor = "#4AF575";
+                    document.form_reg_dato.TIEMPOPRODUCCIONANOCUARTEL.style.borderColor = "#4AF575";
 
-
-                    if (PESOENVASEESTANDAR == null || PESOENVASEESTANDAR == "" || PESOENVASEESTANDAR < 0) {
-                        document.form_reg_dato.PESOENVASEESTANDAR.focus();
-                        document.form_reg_dato.PESOENVASEESTANDAR.style.borderColor = "#FF0000";
-                        document.getElementById('val_envase').innerHTML = "NO A INGRESADO DATO";
+                    if (ANOPLANTACIONCUARTEL == null || ANOPLANTACIONCUARTEL == "") {
+                        document.form_reg_dato.ANOPLANTACIONCUARTEL.focus();
+                        document.form_reg_dato.ANOPLANTACIONCUARTEL.style.borderColor = "#FF0000";
+                        document.getElementById('val_anoplanta').innerHTML = "NO A INGRESADO DATO";
                         return false;
                     }
-                    document.form_reg_dato.PESOENVASEESTANDAR.style.borderColor = "#4AF575";
+                    document.form_reg_dato.ANOPLANTACIONCUARTEL.style.borderColor = "#4AF575";
 
 
-                    if (PESOPALLETESTANDAR == null || PESOPALLETESTANDAR == "" || PESOPALLETESTANDAR < 0) {
-                        document.form_reg_dato.PESOPALLETESTANDAR.focus();
-                        document.form_reg_dato.PESOPALLETESTANDAR.style.borderColor = "#FF0000";
-                        document.getElementById('val_pallet').innerHTML = "NO A INGRESADO DATO";
+                    if (HECTAREASCUARTEL == null || HECTAREASCUARTEL == "") {
+                        document.form_reg_dato.HECTAREASCUARTEL.focus();
+                        document.form_reg_dato.HECTAREASCUARTEL.style.borderColor = "#FF0000";
+                        document.getElementById('val_hecta').innerHTML = "NO A INGRESADO DATO";
                         return false;
                     }
-                    document.form_reg_dato.PESOPALLETESTANDAR.style.borderColor = "#4AF575";
+                    document.form_reg_dato.HECTAREASCUARTEL.style.borderColor = "#4AF575";
 
-
-
-                    if (TRATAMIENTO1 == null || TRATAMIENTO1 == 0) {
-                        document.form_reg_dato.TRATAMIENTO1.focus();
-                        document.form_reg_dato.TRATAMIENTO1.style.borderColor = "#FF0000";
-                        document.getElementById('val_tratamiento1').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                    if (PLANTASENHECATAREAS == null || PLANTASENHECATAREAS == "") {
+                        document.form_reg_dato.PLANTASENHECATAREAS.focus();
+                        document.form_reg_dato.PLANTASENHECATAREAS.style.borderColor = "#FF0000";
+                        document.getElementById('val_plantahecta').innerHTML = "NO A INGRESADO DATO";
                         return false;
                     }
-                    document.form_reg_dato.TRATAMIENTO1.style.borderColor = "#4AF575";
+                    document.form_reg_dato.PLANTASENHECATAREAS.style.borderColor = "#4AF575";
 
-                    if (TRATAMIENTO2 == null || TRATAMIENTO2 == 0) {
-                        document.form_reg_dato.TRATAMIENTO2.focus();
-                        document.form_reg_dato.TRATAMIENTO2.style.borderColor = "#FF0000";
-                        document.getElementById('val_tratamiento2').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                    if (DISTANCIAPLANTACUARTEL == null || DISTANCIAPLANTACUARTEL == "") {
+                        document.form_reg_dato.DISTANCIAPLANTACUARTEL.focus();
+                        document.form_reg_dato.DISTANCIAPLANTACUARTEL.style.borderColor = "#FF0000";
+                        document.getElementById('val_distanciaplanta').innerHTML = "NO A INGRESADO DATO";
                         return false;
                     }
-                    document.form_reg_dato.TRATAMIENTO2.style.borderColor = "#4AF575";                      
-  
+                    document.form_reg_dato.DISTANCIAPLANTACUARTEL.style.borderColor = "#4AF575";
+
                     if (ESPECIES == null || ESPECIES == 0) {
                         document.form_reg_dato.ESPECIES.focus();
                         document.form_reg_dato.ESPECIES.style.borderColor = "#FF0000";
                         document.getElementById('val_especies').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
                         return false;
                     }
-                    document.form_reg_dato.ESPECIES.style.borderColor = "#4AF575";
-                    
-                    if (PRODUCTO == null || PRODUCTO == 0) {
-                        document.form_reg_dato.PRODUCTO.focus();
-                        document.form_reg_dato.PRODUCTO.style.borderColor = "#FF0000";
-                        document.getElementById('val_producto').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                    document.form_reg_dato.VESPECIES.style.borderColor = "#4AF575";
+
+
+                    if (VESPECIES == null || VESPECIES == 0) {
+                        document.form_reg_dato.VESPECIES.focus();
+                        document.form_reg_dato.VESPECIES.style.borderColor = "#FF0000";
+                        document.getElementById('val_vespecies').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
                         return false;
                     }
-                    document.form_reg_dato.PRODUCTO.style.borderColor = "#4AF575";
+                    document.form_reg_dato.VESPECIES.style.borderColor = "#4AF575";
+
+
 
 
                 }
+
+
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
                 function irPagina(url) {
                     location.href = "" + url;
                 }
-
-                
             </script>
 
 </head>
 
-<body class="hold-transition light-skin  sidebar-mini theme-primary" >
+<body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
             <?php include_once "../../assest/config/menuExpo.php"; ?>
@@ -271,14 +309,15 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Estandar </h3>
+                                <h3 class="page-title">Fruta</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
-                                            <li class="breadcrumb-item" aria-current="page">Mantenedores </li>
-                                            <li class="breadcrumb-item" aria-current="page">Estandar </li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroErecepcion.php"> Registro Estandar Recepcion </a> </li>
+                                            <li class="breadcrumb-item" aria-current="page">Mantenedores</li>
+                                            <li class="breadcrumb-item" aria-current="page">Fruta</li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Cuartel </a>
+                                            </li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -304,121 +343,107 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                             </div>
                         </div>
                     </div>
-
                     <!-- Main content -->
                     <section class="content">
                         <div class="row">
                             <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
-                                    <div class="box-header with-border bg-primary">                                          
-                                        <h4 class="box-title">Registro Estandar Recepción</h4>                                          
+                                    <div class="box-header with-border bg-primary">                                        
+                                        <h4 class="box-title">Registro Cuartel</h4>                                        
                                     </div>
                                     <!-- /.box-header -->
-                                    <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato" >
+                                    <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                                         <div class="box-body">
                                             <hr class="my-15">
                                             <div class="row">
-                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                                    <div class="form-group">
-                                                        <label>Codigo </label>
-                                                        <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
-                                                        <input type="hidden" class="form-control" placeholder="EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
-                                                        <input type="text" class="form-control" placeholder="Codigo Estandar" id="CODIGOESTANDAR" name="CODIGOESTANDAR" value="<?php echo $CODIGOESTANDAR; ?>" <?php echo $DISABLED; ?> />
-                                                        <label id="val_codigo" class="validacion"> </label>
-                                                    </div>
-                                                </div>
-                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
                                                         <label>Nombre </label>
-                                                        <input type="text" class="form-control" placeholder="Nombre Estandar" id="NOMBREESTANDAR" name="NOMBREESTANDAR" value="<?php echo $NOMBREESTANDAR; ?>" <?php echo $DISABLED; ?> />
+                                                        <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
+                                                        <input type="hidden" class="form-control" placeholder="EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
+                                                        <input type="text" class="form-control" placeholder="Nombre Cuartel" id="NOMBRECUARTEL" name="NOMBRECUARTEL" value="<?php echo $NOMBRECUARTEL; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_nombre" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                                  <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
-                                                        <label>Cantidad Envase</label>
-                                                        <input type="number" class="form-control" placeholder="Cantidad Envase Estandar" id="ENVASEESTANDAR" name="ENVASEESTANDAR" value="<?php echo $ENVASEESTANDAR ?>" <?php echo $DISABLED; ?> />
-                                                        <label id="val_cajapee" class="validacion"> </label>
+                                                        <label>Tiempo Produccion año</label>
+                                                        <input type="number" class="form-control" placeholder="Tiempo Produccion Año " id="TIEMPOPRODUCCIONANOCUARTEL" name="TIEMPOPRODUCCIONANOCUARTEL" value="<?php echo $TIEMPOPRODUCCIONANOCUARTEL; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_tiempopa" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                                  <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
-                                                        <label>Peso Envase</label>
-                                                        <input type="number"  step="0.00001" class="form-control" placeholder="Peso Envase Estandar" id="PESOENVASEESTANDAR" name="PESOENVASEESTANDAR" value="<?php echo $PESOENVASEESTANDAR ?>" <?php echo $DISABLED; ?> />
-                                                        <label id="val_envase" class="validacion"> </label>
+                                                        <label>Año Plantacion </label>
+                                                        <input type="number" class="form-control" placeholder="Año Plantacion Cuartel" id="ANOPLANTACIONCUARTEL" name="ANOPLANTACIONCUARTEL" value="<?php echo $ANOPLANTACIONCUARTEL; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_anoplanta" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Hectareas </label>
+                                                        <input type="number" class="form-control" placeholder="Hectareas Cuartel" id="HECTAREASCUARTEL" name="HECTAREASCUARTEL" value="<?php echo $HECTAREASCUARTEL; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_hecta" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                                  <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
-                                                        <label>Peso Pallet</label>
-                                                        <input type="number" class="form-control" step="0.01" placeholder="Peso Envase Estandar" id="PESOPALLETESTANDAR" name="PESOPALLETESTANDAR" value="<?php echo $PESOPALLETESTANDAR ?>" <?php echo $DISABLED; ?> />
-                                                        <label id="val_pallet" class="validacion"> </label>
+                                                        <label>Plantas en Hectareas</label>
+                                                        <input type="number" class="form-control" placeholder="Plantas en Hectareas Cuartel" id="PLANTASENHECATAREAS" name="PLANTASENHECATAREAS" value="<?php echo $PLANTASENHECATAREAS; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_plantahecta" class="validacion"> </label>
                                                     </div>
-                                                </div>                      
+                                                </div>
                                                  <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                    <div class="form-group">
+                                                        <label>Distancia Planta </label>
+                                                        <input type="number" class="form-control" placeholder="Distancia Planta Cuartel" id="DISTANCIAPLANTACUARTEL" name="DISTANCIAPLANTACUARTEL" value="<?php echo $DISTANCIAPLANTACUARTEL; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_distanciaplanta" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
                                                         <label> Especies</label>
-                                                        <select class="form-control select2" id="ESPECIES" name="ESPECIES" style="width: 100%;" value="<?php echo $ESPECIES; ?>" <?php echo $DISABLED; ?>>
+                                                        <select class="form-control select2" id="ESPECIES" name="ESPECIES" style="width: 100%;" onchange="this.form.submit()" value="<?php echo $ESPECIES; ?>" <?php echo $DISABLED; ?>>
                                                             <option></option>
                                                             <?php foreach ($ARRAYESPECIES as $r) : ?>
                                                                 <?php if ($ARRAYESPECIES) {    ?>
-                                                                    <option value="<?php echo $r['ID_ESPECIES']; ?>" <?php if ($ESPECIES == $r['ID_ESPECIES']) { echo "selected"; } ?>>
+                                                                    <option value="<?php echo $r['ID_ESPECIES']; ?>" 
+                                                                        <?php if ($ESPECIES == $r['ID_ESPECIES']) { echo "selected";   } ?>>
                                                                         <?php echo $r['NOMBRE_ESPECIES'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
-                                                                    <option>No hay Datos Registrados</option>
+                                                                    <option>No Hay Datos Registrados </option>
                                                                 <?php } ?>
                                                             <?php endforeach; ?>
                                                         </select>
                                                         <label id="val_especies" class="validacion"> </label>
                                                     </div>
-                                                </div> 
-                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                </div>
+                                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
-                                                        <label>Tratamiento 1</label>
-                                                        <select class="form-control select2" id="TRATAMIENTO1" name="TRATAMIENTO1" style="width: 100%;" <?php echo $DISABLED; ?>>
+                                                        <label> Variedad Especies </label>
+                                                        <select class="form-control select2" id="VESPECIES" name="VESPECIES" style="width: 100%;" value="<?php echo $VESPECIES; ?>" <?php echo $DISABLED; ?>>
                                                             <option></option>
-                                                            <option value="0" <?php if ($TRATAMIENTO1 == "0") { echo "selected";  } ?>>No</option>
-                                                            <option value="1" <?php if ($TRATAMIENTO1 == "1") { echo "selected"; } ?>> Si </option>
-                                                        </select>
-                                                        <label id="val_tratamiento1" class="validacion"> </label>
-                                                    </div>
-                                                </div>                         
-                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                                    <div class="form-group">
-                                                        <label>Tratamineto 2</label>
-                                                        <select class="form-control select2" id="TRATAMIENTO2" name="TRATAMIENTO2" style="width: 100%;" <?php echo $DISABLED; ?>>
-                                                            <option></option>
-                                                            <option value="0" <?php if ($TRATAMIENTO2 == "0") { echo "selected";  } ?>>No</option>
-                                                            <option value="1" <?php if ($TRATAMIENTO2 == "1") { echo "selected"; } ?>> Si </option>
-                                                        </select>
-                                                        <label id="val_tratamiento2" class="validacion"> </label>
-                                                    </div>
-                                                </div>                          
-                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                                    <div class="form-group">
-                                                        <label> Producto</label>
-                                                        <select class="form-control select2" id="PRODUCTO" name="PRODUCTO" style="width: 100%;" value="<?php echo $PRODUCTO; ?>" <?php echo $DISABLED; ?>>
-                                                            <option></option>
-                                                            <?php foreach ($ARRAYPRODUCTO as $r) : ?>
-                                                                <?php if ($ARRAYPRODUCTO) {    ?>
-                                                                    <option value="<?php echo $r['ID_PRODUCTO']; ?>" <?php if ($PRODUCTO == $r['ID_PRODUCTO']) { echo "selected"; } ?>>
-                                                                        <?php echo $r['NOMBRE_PRODUCTO'] ?>
+                                                            <?php foreach ($ARRAYVESPECIES as $r) : ?>
+                                                                <?php if ($ARRAYVESPECIES) {    ?>
+                                                                    <option value="<?php echo $r['ID_VESPECIES']; ?>" 
+                                                                        <?php if ($VESPECIES == $r['ID_VESPECIES']) { echo "selected"; } ?>>
+                                                                        <?php echo $r['NOMBRE_VESPECIES'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
-                                                                    <option>No hay Datos Registrados</option>
+                                                                    <option>No Hay Datos Registrados </option>
                                                                 <?php } ?>
                                                             <?php endforeach; ?>
                                                         </select>
-                                                        <label id="val_producto" class="validacion"> </label>
+                                                        <label id="val_vespecies" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- /.box-body -->
+                                        <!-- /.box-body -->                                                                                                       
                                         <div class="box-footer">
                                             <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
-                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroErecepcion.php');">
+                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroCuartel.php');">
                                                 <i class="ti-trash"></i>Cancelar
                                                 </button>
                                                 <?php if ($OP != "editar") { ?>
@@ -438,28 +463,28 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                             </div>
                             <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
-                                    <div class="box-header with-borde bg-infor">
-                                        <h4 class="box-title"> Agrupado Estandar Recepcion</h4>
+                                    <div class="box-header with-border bg-info">
+                                        <h4 class="box-title"> Agrupado Curtel</h4>
                                     </div>
                                     <div class="box-body">
                                         <div class="table-responsive">
                                             <table id="listar" class="table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="center">
-                                                        <th>Codigo </th>
+                                                        <th>Numero </th>
                                                         <th>Nombre </th>
                                                         <th>Operaciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php foreach ($ARRAYESTANDAR as $r) : ?>
+                                                    <?php foreach ($ARRAYCUARTEL as $r) : ?>
                                                         <tr class="center">
                                                             <td>
                                                                 <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['CODIGO_ESTANDAR']; ?>
+                                                                    <?php echo $r['NUMERO_CUARTEL']; ?>
                                                                 </a>
                                                             </td>
-                                                            <td><?php echo $r['NOMBRE_ESTANDAR']; ?></td>                                                                                                  
+                                                            <td><?php echo $r['NOMBRE_CUARTEL']; ?></td>                                                                                                                                                                                                                                                                       
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -468,8 +493,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                                 <span class="icon-copy ti-settings"></span>
                                                                             </button>
                                                                             <div class="dropdown-menu dropdown-menu-right">
-                                                                                <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_ESTANDAR']; ?>" />
-                                                                                <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroErecepcion" />
+                                                                                <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_CUARTEL']; ?>" />
+                                                                                <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroCuartel" />
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
                                                                                     <button type="submit" class="btn btn-info btn-block  btn-sm" id="VERURL" name="VERURL">
                                                                                         <i class="ti-eye"></i> Ver
@@ -512,6 +537,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         <!--.row -->
                     </section>
                     <!-- /.content -->
+
                 </div>
             </div>
             <!-- /.content-wrapper -->
@@ -523,30 +549,33 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../../assest/config/urlBase.php"; ?>
         <?php 
-                        
             //OPERACIONES
             //OPERACION DE REGISTRO DE FILA
+
             if (isset($_REQUEST['GUARDAR'])) {
 
-                //UTILIZACION METODOS SET DEL MODELO
-                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO     
 
-                $ERECEPCION->__SET('CODIGO_ESTANDAR', $_REQUEST['CODIGOESTANDAR']);
-                $ERECEPCION->__SET('NOMBRE_ESTANDAR', $_REQUEST['NOMBREESTANDAR']);
-                $ERECEPCION->__SET('CANTIDAD_ENVASE_ESTANDAR', $_REQUEST['ENVASEESTANDAR']);
-                $ERECEPCION->__SET('PESO_ENVASE_ESTANDAR', $_REQUEST['PESOENVASEESTANDAR']);
-                $ERECEPCION->__SET('PESO_PALLET_ESTANDAR', $_REQUEST['PESOPALLETESTANDAR']);
-                $ERECEPCION->__SET('TRATAMIENTO1',$_REQUEST['TRATAMIENTO1']);
-                $ERECEPCION->__SET('TRATAMIENTO2',$_REQUEST['TRATAMIENTO2']);
-                $ERECEPCION->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);
-                $ERECEPCION->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-                $ERECEPCION->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
-                $ERECEPCION->__SET('ID_USUARIOI', $IDUSUARIOS);
-                $ERECEPCION->__SET('ID_USUARIOM', $IDUSUARIOS);
+
+                $ARRAYNUMERO = $CUARTEL_ADO->obtenerNumero($_REQUEST['EMPRESA']);
+                $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO 
+                $CUARTEL->__SET('NUMERO_CUARTEL', $NUMERO);
+                $CUARTEL->__SET('NOMBRE_CUARTEL', $_REQUEST['NOMBRECUARTEL']);
+                $CUARTEL->__SET('TIEMPO_PRODUCCION_ANO_CUARTEL', $_REQUEST['TIEMPOPRODUCCIONANOCUARTEL']);
+                $CUARTEL->__SET('ANO_PLANTACION_CUARTEL', $_REQUEST['ANOPLANTACIONCUARTEL']);
+                $CUARTEL->__SET('HECTAREAS_CUARTEL', $_REQUEST['HECTAREASCUARTEL']);
+                $CUARTEL->__SET('PLANTAS_EN_HECTAREAS', $_REQUEST['PLANTASENHECATAREAS']);
+                $CUARTEL->__SET('DISTANCIA_PLANTA_CUARTEL', $_REQUEST['DISTANCIAPLANTACUARTEL']);
+                $CUARTEL->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
+                $CUARTEL->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $CUARTEL->__SET('ID_USUARIOI', $IDUSUARIOS);
+                $CUARTEL->__SET('ID_USUARIOM', $IDUSUARIOS);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                $ERECEPCION_ADO->agregarEstandar($ERECEPCION);
-                //REDIRECCIONAR A PAGINA registroErecepcion.php
-                echo '<script>
+                $CUARTEL_ADO->agregarCuartel($CUARTEL);
+                //REDIRECCIONAR A PAGINA registroCuartel.php
+                    echo '<script>
                     Swal.fire({
                         icon:"success",
                         title:"Registro Creado",
@@ -555,32 +584,28 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         confirmButtonText:"Cerrar",
                         closeOnConfirm:false
                     }).then((result)=>{
-                        location.href = "registroErecepcion.php";                            
+                        location.href = "registroCuartel.php";                            
                     })
                 </script>';
             }
-
-            //OPERACION DE EDICION DE FILA
+            //OPERACION EDICION DE FILA
             if (isset($_REQUEST['EDITAR'])) {
 
                 //UTILIZACION METODOS SET DEL MODELO
-                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-
-                $ERECEPCION->__SET('CODIGO_ESTANDAR', $_REQUEST['CODIGOESTANDAR']);
-                $ERECEPCION->__SET('NOMBRE_ESTANDAR', $_REQUEST['NOMBREESTANDAR']);
-                $ERECEPCION->__SET('CANTIDAD_ENVASE_ESTANDAR', $_REQUEST['ENVASEESTANDAR']);
-                $ERECEPCION->__SET('PESO_ENVASE_ESTANDAR', $_REQUEST['PESOENVASEESTANDAR']);
-                $ERECEPCION->__SET('PESO_PALLET_ESTANDAR', $_REQUEST['PESOPALLETESTANDAR']);
-                $ERECEPCION->__SET('TRATAMIENTO1',$_REQUEST['TRATAMIENTO1']);
-                $ERECEPCION->__SET('TRATAMIENTO2',$_REQUEST['TRATAMIENTO2']);
-                $ERECEPCION->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);
-                $ERECEPCION->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
-                $ERECEPCION->__SET('ID_USUARIOM', $IDUSUARIOS);
-                $ERECEPCION->__SET('ID_ESTANDAR', $_REQUEST['ID']);
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO  
+                $CUARTEL->__SET('NOMBRE_CUARTEL', $_REQUEST['NOMBRECUARTEL']);
+                $CUARTEL->__SET('TIEMPO_PRODUCCION_ANO_CUARTEL', $_REQUEST['TIEMPOPRODUCCIONANOCUARTEL']);
+                $CUARTEL->__SET('ANO_PLANTACION_CUARTEL', $_REQUEST['ANOPLANTACIONCUARTEL']);
+                $CUARTEL->__SET('HECTAREAS_CUARTEL', $_REQUEST['HECTAREASCUARTEL']);
+                $CUARTEL->__SET('PLANTAS_EN_HECTAREAS', $_REQUEST['PLANTASENHECATAREAS']);
+                $CUARTEL->__SET('DISTANCIA_PLANTA_CUARTEL', $_REQUEST['DISTANCIAPLANTACUARTEL']);
+                $CUARTEL->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
+                $CUARTEL->__SET('ID_USUARIOM', $IDUSUARIOS);
+                $CUARTEL->__SET('ID_CUARTEL', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
-                $ERECEPCION_ADO->actualizarEstandar($ERECEPCION);
-                //REDIRECCIONAR A PAGINA registroErecepcion.php
-                echo '<script>
+                $CUARTEL_ADO->actualizarCuartel($CUARTEL);
+                //REDIRECCIONAR A PAGINA registroCuartel.php
+                    echo '<script>
                     Swal.fire({
                         icon:"success",
                         title:"Registro Modificado",
@@ -589,11 +614,10 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         confirmButtonText:"Cerrar",
                         closeOnConfirm:false
                     }).then((result)=>{
-                        location.href = "registroErecepcion.php";                            
+                        location.href = "registroCuartel.php";                            
                     })
                 </script>';
             }
-
         ?>
 </body>
 

@@ -100,6 +100,30 @@ class REGION_ADO {
         
     }
     
+    public function listarRegion3CBX(){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT 
+                                                    region.ID_REGION,
+                                                    region.NOMBRE_REGION  AS 'REGION',
+                                                    pais.NOMBRE_PAIS  AS 'PAIS'
+                                                FROM    ubicacion_region region, ubicacion_pais pais
+                                                WHERE  region.ID_PAIS = pais.ID_PAIS;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+    
     
     //VER LA INFORMACION RELACIONADA EN BASE AL ID INGRESADO A LA FUNCION
     public function verRegion($ID){
