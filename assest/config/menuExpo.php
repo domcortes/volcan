@@ -507,7 +507,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
             </a>
             <ul class="treeview-menu">
               <li><a href="registroProductor.php"></i>Productor</a></li>
-              <li><a href="registroVespecies.php"></i>Variedad Especies</a></li>
+              <li><a href="registroVespecies.php"></i>Variedad </a></li>
               <li><a href="registroEspecies.php"></i>Especies</a></li>
               <li><a href="registroCuartel.php"></i> Cuartel</a></li>
               <li><a href="registroTetiqueta.php"></i>Etiqueta</a></li>
@@ -540,32 +540,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="registroProvincia.php"></i>Provincia</a></li>
               <li><a href="registroRegion.php"></i>Region</a></li>
               <li><a href="registroPais.php"></i>Pais</a></li>
-              <li class="treeview">
-                <a href="#">Destino
-                  <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="registroLdestino.php"></i>Lugar Destino</a></li>
-                  <li><a href="registroPdestino.php"></i>Puerto Destino </a></li>
-                  <li><a href="registroAdestino.php"></i>Aeropuerto Destino </a></li>
-                </ul>
-              </li>
-              <li class="treeview">
-                <a href="#">Carga
-                  <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="registroLcarga.php"></i>Lugar Carga</a></li>
-                  <li><a href="registroPcarga.php"></i>Puerto Carga </a></li>
-                  <li><a href="registroAcarga.php"></i>Aeropuerto Carga </a></li>
-                </ul>
-              </li>
             </ul>
-
           </li>
           <li class="treeview">
             <a href="#">Transporte
@@ -614,7 +589,31 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                 <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
-            <ul class="treeview-menu">
+            <ul class="treeview-menu">              
+              <li class="treeview">
+                <a href="#">Destino
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="registroLdestino.php"></i>Lugar Destino</a></li>
+                  <li><a href="registroPdestino.php"></i>Puerto Destino </a></li>
+                  <li><a href="registroAdestino.php"></i>Aeropuerto Destino </a></li>
+                </ul>
+              </li>
+              <li class="treeview">
+                <a href="#">Carga
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="registroLcarga.php"></i>Lugar Carga</a></li>
+                  <li><a href="registroPcarga.php"></i>Puerto Carga </a></li>
+                  <li><a href="registroAcarga.php"></i>Aeropuerto Carga </a></li>
+                </ul>
+              </li>
               <li class="treeview">
                 <a href="#">Pago
                   <span class="pull-left-container">

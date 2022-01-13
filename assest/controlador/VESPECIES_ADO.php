@@ -48,7 +48,7 @@ class VESPECIES_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_vespecies` limit 8;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_vespecies  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -67,7 +67,7 @@ class VESPECIES_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_vespecies` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_vespecies  WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -86,7 +86,7 @@ class VESPECIES_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_vespecies` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_vespecies  WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -107,7 +107,7 @@ class VESPECIES_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_vespecies` WHERE `ID_VESPECIES`= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_vespecies  WHERE  ID_VESPECIES = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -128,7 +128,7 @@ class VESPECIES_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_vespecies` WHERE `NOMBRE_VESPECIES` LIKE '%" . $NOMBRE . "%';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_vespecies  WHERE  NOMBRE_VESPECIES  LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -151,16 +151,18 @@ class VESPECIES_ADO
 
             
             $query =
-                "INSERT INTO `fruta_vespecies` (
-                                                    `NUMERO_VESPECIES`,
-                                                    `NOMBRE_VESPECIES`,
-                                                    `CODIGO_SAG_VESPECIES`, 
-                                                    `ID_ESPECIES`,
-                                                    `ID_EMPRESA`, 
-                                                    `ID_USUARIOI`,  
-                                                    `ID_USUARIOM`,  
-                                                    `ESTADO_REGISTRO`) VALUES
-	       	( ?, ?, ?, ?, ?, ?, ?,  1);";
+                "INSERT INTO  fruta_vespecies  (
+                                                     NUMERO_VESPECIES ,
+                                                     NOMBRE_VESPECIES ,
+                                                     CODIGO_SAG_VESPECIES , 
+                                                     ID_ESPECIES ,
+                                                     ID_EMPRESA , 
+                                                     ID_USUARIOI ,  
+                                                     ID_USUARIOM , 
+                                                     INGRESO ,
+                                                     MODIFICACION , 
+                                                     ESTADO_REGISTRO ) VALUES
+	       	( ?, ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -183,7 +185,7 @@ class VESPECIES_ADO
     public function eliminarVespecies($id)
     {
         try {
-            $sql = "DELETE FROM `fruta_vespecies` WHERE `ID_VESPECIES`=" . $id . ";";
+            $sql = "DELETE FROM  fruta_vespecies  WHERE  ID_VESPECIES =" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -199,12 +201,13 @@ class VESPECIES_ADO
     {
         try {
             $query = "
-		UPDATE `fruta_vespecies` SET
-            `NOMBRE_VESPECIES`= ?  ,
-            `CODIGO_SAG_VESPECIES`= ?  ,
-            `ID_USUARIOM`= ?     , 
-            `ID_ESPECIES`= ?      
-		WHERE `ID_VESPECIES`= ?;";
+		UPDATE  fruta_vespecies  SET
+             MODIFICACION = SYSDATE(),
+             NOMBRE_VESPECIES = ?  ,
+             CODIGO_SAG_VESPECIES = ?  ,
+             ID_USUARIOM = ?     , 
+             ID_ESPECIES = ?      
+		WHERE  ID_VESPECIES = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -230,9 +233,9 @@ class VESPECIES_ADO
 
         try {
             $query = "
-		UPDATE `fruta_vespecies` SET			
-            `ESTADO_REGISTRO` = 0
-		WHERE `ID_VESPECIES`= ?;";
+		UPDATE  fruta_vespecies  SET			
+             ESTADO_REGISTRO  = 0
+		WHERE  ID_VESPECIES = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -249,9 +252,9 @@ class VESPECIES_ADO
     {
         try {
             $query = "
-		UPDATE `fruta_vespecies` SET			
-            `ESTADO_REGISTRO` = 1
-		WHERE `ID_VESPECIES`= ?;";
+		UPDATE  fruta_vespecies  SET			
+             ESTADO_REGISTRO  = 1
+		WHERE  ID_VESPECIES = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -268,7 +271,7 @@ class VESPECIES_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_vespecies` WHERE `ID_ESPECIES`= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_vespecies  WHERE  ID_ESPECIES = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -287,7 +290,7 @@ class VESPECIES_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_vespecies` WHERE `ID_ESPECIES`= '" . $ID . "'  AND `ESTADO_REGISTRO` = 1;");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_vespecies  WHERE  ID_ESPECIES = '" . $ID . "'  AND  ESTADO_REGISTRO  = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -306,10 +309,10 @@ class VESPECIES_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_vespecies` 
-                                                WHERE `ID_ESPECIES`= '" . $ID . "'  
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_vespecies  
+                                                WHERE  ID_ESPECIES = '" . $ID . "'  
                                                 AND ID_EMPRESA = '".$IDEMPRESA."'
-                                                AND `ESTADO_REGISTRO` = 1;");
+                                                AND  ESTADO_REGISTRO  = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -329,7 +332,7 @@ class VESPECIES_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_vespecies` WHERE `ID_ESPECIES`= '" . $ID . "'  AND `ESTADO_REGISTRO` = 0;");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_vespecies  WHERE  ID_ESPECIES = '" . $ID . "'  AND  ESTADO_REGISTRO  = 0;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -347,7 +350,7 @@ class VESPECIES_ADO
     public function listarVespeciesPorEmpresaCBX($IDEMPRESA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_vespecies`  WHERE `ESTADO_REGISTRO` = 1 AND ID_EMPRESA = '".$IDEMPRESA."' ;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_vespecies   WHERE  ESTADO_REGISTRO  = 1 AND ID_EMPRESA = '".$IDEMPRESA."' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -368,7 +371,7 @@ class VESPECIES_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                 IFNULL(COUNT(NUMERO_VESPECIES),0) AS 'NUMERO'
-                                            FROM `fruta_vespecies`
+                                            FROM  fruta_vespecies 
                                             WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

@@ -39,7 +39,7 @@ class TRANSPORTE_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `transporte_transporte` limit 8;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  transporte_transporte  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -57,7 +57,7 @@ class TRANSPORTE_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `transporte_transporte` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  transporte_transporte  WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -76,7 +76,7 @@ class TRANSPORTE_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `transporte_transporte` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  transporte_transporte  WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -98,7 +98,7 @@ class TRANSPORTE_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `transporte_transporte` WHERE `ID_TRANSPORTE`= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM  transporte_transporte  WHERE  ID_TRANSPORTE = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -119,7 +119,7 @@ class TRANSPORTE_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `transporte_transporte` WHERE `NOMBRE_TRANSPORTE` LIKE '%" . $NOMBRE . "%';");
+            $datos = $this->conexion->prepare("SELECT * FROM  transporte_transporte  WHERE  NOMBRE_TRANSPORTE  LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -142,24 +142,24 @@ class TRANSPORTE_ADO
 
 
             $query =
-                "INSERT INTO `transporte_transporte` (  `RUT_TRANSPORTE`,
-                                                        `DV_TRANSPORTE`,
-                                                        `NUMERO_TRANSPORTE`,
-                                                        `NOMBRE_TRANSPORTE`,
-                                                        `GIRO_TRANSPORTE`,
-                                                        `RAZON_SOCIAL_TRANSPORTE`,
-                                                        `DIRECCION_TRANSPORTE`,
-                                                        `CONTACTO_TRANSPORTE`,
-                                                        `TELEFONO_TRANSPORTE`,
-                                                        `EMAIL_TRANSPORTE`,
-                                                        `NOTA_TRANSPORTE`, 
-                                                        `ID_CIUDAD`, 
-                                                        `ID_EMPRESA`,
-                                                        `ID_USUARIOI`,
-                                                        `ID_USUARIOM`,
-                                                        `INGRESO`,
-                                                        `MODIFICACION`, 
-                                                        `ESTADO_REGISTRO`
+                "INSERT INTO  transporte_transporte  (   RUT_TRANSPORTE ,
+                                                         DV_TRANSPORTE ,
+                                                         NUMERO_TRANSPORTE ,
+                                                         NOMBRE_TRANSPORTE ,
+                                                         GIRO_TRANSPORTE ,
+                                                         RAZON_SOCIAL_TRANSPORTE ,
+                                                         DIRECCION_TRANSPORTE ,
+                                                         CONTACTO_TRANSPORTE ,
+                                                         TELEFONO_TRANSPORTE ,
+                                                         EMAIL_TRANSPORTE ,
+                                                         NOTA_TRANSPORTE , 
+                                                         ID_CIUDAD , 
+                                                         ID_EMPRESA ,
+                                                         ID_USUARIOI ,
+                                                         ID_USUARIOM ,
+                                                         INGRESO ,
+                                                         MODIFICACION , 
+                                                         ESTADO_REGISTRO 
                                                 ) VALUES
 	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
@@ -191,7 +191,7 @@ class TRANSPORTE_ADO
     public function eliminarTransporte($id)
     {
         try {
-            $sql = "DELETE FROM `transporte_transporte` WHERE `ID_TRANSPORTE`=" . $id . ";";
+            $sql = "DELETE FROM  transporte_transporte  WHERE  ID_TRANSPORTE =" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -208,22 +208,22 @@ class TRANSPORTE_ADO
                 $TRANSPORTE->__SET('ID_CIUDAD', NULL);
             }
             $query = "
-                UPDATE `transporte_transporte` SET
-                    `MODIFICACION`= SYSDATE(),
-                    `RUT_TRANSPORTE`= ?,
-                    `DV_TRANSPORTE`= ?,
-                    `NOMBRE_TRANSPORTE`= ?,
-                    `GIRO_TRANSPORTE`= ?,
-                    `RAZON_SOCIAL_TRANSPORTE`= ?,
-                    `DIRECCION_TRANSPORTE`= ?,
-                    `CONTACTO_TRANSPORTE`= ?,
-                    `TELEFONO_TRANSPORTE`= ?,
-                    `EMAIL_TRANSPORTE`= ?,
-                    `NOTA_TRANSPORTE`= ?,
-                    `ID_CIUDAD`= ?,
-                    `ID_EMPRESA`= ?  ,
-                    `ID_USUARIOM`= ?          
-                WHERE `ID_TRANSPORTE`= ?;";
+                UPDATE  transporte_transporte  SET
+                     MODIFICACION = SYSDATE(),
+                     RUT_TRANSPORTE = ?,
+                     DV_TRANSPORTE = ?,
+                     NOMBRE_TRANSPORTE = ?,
+                     GIRO_TRANSPORTE = ?,
+                     RAZON_SOCIAL_TRANSPORTE = ?,
+                     DIRECCION_TRANSPORTE = ?,
+                     CONTACTO_TRANSPORTE = ?,
+                     TELEFONO_TRANSPORTE = ?,
+                     EMAIL_TRANSPORTE = ?,
+                     NOTA_TRANSPORTE = ?,
+                     ID_CIUDAD = ?,
+                     ID_EMPRESA = ?  ,
+                     ID_USUARIOM = ?          
+                WHERE  ID_TRANSPORTE = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -256,10 +256,10 @@ class TRANSPORTE_ADO
 
         try {
             $query = "
-    UPDATE `transporte_transporte` SET				
-            `MODIFICACION`= SYSDATE(),	
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_TRANSPORTE`= ?;";
+    UPDATE  transporte_transporte  SET				
+             MODIFICACION = SYSDATE(),	
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_TRANSPORTE = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -276,10 +276,10 @@ class TRANSPORTE_ADO
     {
         try {
             $query = "
-    UPDATE `transporte_transporte` SET				
-            `MODIFICACION`= SYSDATE(),	
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_TRANSPORTE`= ?;";
+    UPDATE  transporte_transporte  SET				
+             MODIFICACION = SYSDATE(),	
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_TRANSPORTE = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -296,7 +296,7 @@ class TRANSPORTE_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `transporte_transporte` WHERE `ESTADO_REGISTRO` = 1 AND ID_EMPRESA = '" . $IDEMPRESA . "';	");
+            $datos = $this->conexion->prepare("SELECT * FROM  transporte_transporte  WHERE  ESTADO_REGISTRO  = 1 AND ID_EMPRESA = '" . $IDEMPRESA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -316,7 +316,7 @@ class TRANSPORTE_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                     IFNULL(COUNT(NUMERO_TRANSPORTE),0) AS 'NUMERO'
-                                                FROM `transporte_transporte`  
+                                                FROM  transporte_transporte   
                                                 WHERE ID_EMPRESA = '" . $IDEMPRESA . "'; ");
             $datos->execute();
             $resultado = $datos->fetchAll();

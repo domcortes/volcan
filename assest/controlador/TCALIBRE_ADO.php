@@ -45,7 +45,7 @@ class TCALIBRE_ADO {
     public function listarCalibre(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tcalibre` limit 8;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_tcalibre  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -64,7 +64,7 @@ class TCALIBRE_ADO {
     public function listarCalibreCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tcalibre` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_tcalibre  WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -83,7 +83,7 @@ class TCALIBRE_ADO {
     public function listarCalibre2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tcalibre` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_tcalibre  WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -105,7 +105,7 @@ class TCALIBRE_ADO {
     public function verCalibre($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tcalibre` WHERE `ID_TCALIBRE`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_tcalibre  WHERE  ID_TCALIBRE = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -127,7 +127,7 @@ class TCALIBRE_ADO {
     public function buscarNombreCalibre($NOMBRE){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tcalibre` WHERE `NOMBRE_TCALIBRE` LIKE '%".$NOMBRE."%';");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_tcalibre  WHERE  NOMBRE_TCALIBRE  LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -149,15 +149,17 @@ class TCALIBRE_ADO {
             
             
             $query=
-            "INSERT INTO `fruta_tcalibre` (
-                                            `NUMERO_TCALIBRE`, 
-                                            `NOMBRE_TCALIBRE`, 
-                                            `ID_EMPRESA`, 
-                                            `ID_USUARIOI`, 
-                                            `ID_USUARIOM`,
-                                            `ESTADO_REGISTRO`
+            "INSERT INTO  fruta_tcalibre  (
+                                             NUMERO_TCALIBRE , 
+                                             NOMBRE_TCALIBRE , 
+                                             ID_EMPRESA , 
+                                             ID_USUARIOI , 
+                                             ID_USUARIOM ,
+                                             INGRESO ,
+                                             MODIFICACION , 
+                                             ESTADO_REGISTRO 
                                          ) VALUES
-	       	( ?, ?, ?, ?, ?, 1);";
+	       	( ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -179,7 +181,7 @@ class TCALIBRE_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarCalibre($id){
-        try{$sql="DELETE FROM `fruta_tcalibre` WHERE `ID_TCALIBRE`=".$id.";";
+        try{$sql="DELETE FROM  fruta_tcalibre  WHERE  ID_TCALIBRE =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -193,10 +195,11 @@ class TCALIBRE_ADO {
     public function actualizarCalibre(TCALIBRE $TCALIBRE){
         try{
             $query = "
-		UPDATE `fruta_tcalibre` SET
-            `NOMBRE_TCALIBRE`= ?,
-            `ID_USUARIOM`= ?            
-		WHERE `ID_TCALIBRE`= ?;";
+                UPDATE  fruta_tcalibre  SET
+                    MODIFICACION = SYSDATE(),
+                    NOMBRE_TCALIBRE = ?,
+                    ID_USUARIOM = ?            
+                WHERE  ID_TCALIBRE = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -221,9 +224,9 @@ class TCALIBRE_ADO {
 
         try{
             $query = "
-    UPDATE `fruta_tcalibre` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_TCALIBRE`= ?;";
+    UPDATE  fruta_tcalibre  SET			
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_TCALIBRE = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -241,9 +244,9 @@ class TCALIBRE_ADO {
     public function habilitar(TCALIBRE $TCALIBRE){
         try{
             $query = "
-    UPDATE `fruta_tcalibre` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_TCALIBRE`= ?;";
+    UPDATE  fruta_tcalibre  SET			
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_TCALIBRE = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -261,8 +264,8 @@ class TCALIBRE_ADO {
     public function listarCalibrePorEmpresaCBX($IDEMPRESA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tcalibre` 
-                                            WHERE `ESTADO_REGISTRO` = 1
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_tcalibre  
+                                            WHERE  ESTADO_REGISTRO  = 1
                                             AND ID_EMPRESA = '".$IDEMPRESA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -283,7 +286,7 @@ class TCALIBRE_ADO {
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                 IFNULL(COUNT(NUMERO_TCALIBRE),0) AS 'NUMERO'
-                                            FROM `fruta_tcalibre`
+                                            FROM  fruta_tcalibre 
                                             WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

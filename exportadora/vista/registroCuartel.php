@@ -421,7 +421,7 @@ if ($_POST) {
                                                 </div>
                                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
-                                                        <label> Variedad Especies </label>
+                                                        <label> Variedad  </label>
                                                         <select class="form-control select2" id="VESPECIES" name="VESPECIES" style="width: 100%;" value="<?php echo $VESPECIES; ?>" <?php echo $DISABLED; ?>>
                                                             <option></option>
                                                             <?php foreach ($ARRAYVESPECIES as $r) : ?>

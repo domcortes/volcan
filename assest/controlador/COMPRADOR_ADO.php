@@ -45,7 +45,7 @@ class COMPRADOR_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_comprador` LIMIT 6;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_comprador  LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -64,7 +64,7 @@ class COMPRADOR_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_comprador`  WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_comprador   WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -83,7 +83,7 @@ class COMPRADOR_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_comprador`  WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_comprador   WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -102,7 +102,7 @@ class COMPRADOR_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_comprador` WHERE `ID_COMPRADOR`= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_comprador  WHERE  ID_COMPRADOR = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -124,7 +124,7 @@ class COMPRADOR_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_comprador` WHERE `NOMBRE_COMPRADOR` LIKE '%" . $NOMBRE . "%';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_comprador  WHERE  NOMBRE_COMPRADOR  LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -149,23 +149,25 @@ class COMPRADOR_ADO
             }
 
             $query =
-                "INSERT INTO `fruta_comprador` 
+                "INSERT INTO  fruta_comprador  
                                                 (
-                                                    `RUT_COMPRADOR`, 
-                                                    `DV_COMPRADOR`, 
-                                                    `NUMERO_COMPRADOR`, 
-                                                    `NOMBRE_COMPRADOR`, 
-                                                    `DIRECCION_COMPRADOR`, 
-                                                    `TELEFONO_COMPRADOR`, 
-                                                    `EMAIL_COMPRADOR`,  
-                                                    `ID_CIUDAD`,
-                                                    `ID_EMPRESA`, 
-                                                    `ID_USUARIOI`, 
-                                                    `ID_USUARIOM`,  
-                                                    `ESTADO_REGISTRO`
+                                                     RUT_COMPRADOR , 
+                                                     DV_COMPRADOR , 
+                                                     NUMERO_COMPRADOR , 
+                                                     NOMBRE_COMPRADOR , 
+                                                     DIRECCION_COMPRADOR , 
+                                                     TELEFONO_COMPRADOR , 
+                                                     EMAIL_COMPRADOR ,  
+                                                     ID_CIUDAD ,
+                                                     ID_EMPRESA , 
+                                                     ID_USUARIOI , 
+                                                     ID_USUARIOM ,  
+                                                     INGRESO ,
+                                                     MODIFICACION , 
+                                                     ESTADO_REGISTRO 
                                                 ) 
             VALUES
-	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,   1);";
+	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  SYSDATE() , SYSDATE(),  1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -195,7 +197,7 @@ class COMPRADOR_ADO
     public function eliminarComprador($id)
     {
         try {
-            $sql = "DELETE FROM `fruta_comprador` WHERE `ID_COMPRADOR`=" . $id . ";";
+            $sql = "DELETE FROM  fruta_comprador  WHERE  ID_COMPRADOR =" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -214,16 +216,17 @@ class COMPRADOR_ADO
             }
 
             $query = "
-		UPDATE `fruta_comprador` SET
-			`RUT_COMPRADOR` = ?,
-			`DV_COMPRADOR` = ?,
-			`NOMBRE_COMPRADOR` = ?,
-			`DIRECCION_COMPRADOR` = ?,
-			`TELEFONO_COMPRADOR` = ?,
-			`EMAIL_COMPRADOR` = ?,
-            `ID_CIUDAD`= ?,
-            `ID_USUARIOM`= ?
-		WHERE `ID_COMPRADOR` = ?  ;";
+                UPDATE  fruta_comprador  SET
+                    MODIFICACION = SYSDATE(),
+                    RUT_COMPRADOR  = ?,
+                    DV_COMPRADOR  = ?,
+                    NOMBRE_COMPRADOR  = ?,
+                    DIRECCION_COMPRADOR  = ?,
+                    TELEFONO_COMPRADOR  = ?,
+                    EMAIL_COMPRADOR  = ?,
+                    ID_CIUDAD = ?,
+                    ID_USUARIOM = ?
+                WHERE  ID_COMPRADOR  = ?  ;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -253,9 +256,9 @@ class COMPRADOR_ADO
 
         try {
             $query = "
-		UPDATE `fruta_comprador` SET			
-            `ESTADO_REGISTRO` = 0
-		WHERE `ID_COMPRADOR`= ?;";
+		UPDATE  fruta_comprador  SET			
+             ESTADO_REGISTRO  = 0
+		WHERE  ID_COMPRADOR = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -273,9 +276,9 @@ class COMPRADOR_ADO
 
         try {
             $query = "
-		UPDATE `fruta_comprador` SET			
-            `ESTADO_REGISTRO` = 1
-		WHERE `ID_COMPRADOR`= ?;";
+		UPDATE  fruta_comprador  SET			
+             ESTADO_REGISTRO  = 1
+		WHERE  ID_COMPRADOR = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -293,8 +296,8 @@ class COMPRADOR_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_comprador`  
-                                            WHERE `ESTADO_REGISTRO` = 1
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_comprador   
+                                            WHERE  ESTADO_REGISTRO  = 1
                                                AND ID_EMPRESA = '" . $IDEMPRESA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -315,7 +318,7 @@ class COMPRADOR_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                     IFNULL(COUNT(NUMERO_COMPRADOR),0) AS 'NUMERO'
-                                                FROM `fruta_comprador`
+                                                FROM  fruta_comprador 
                                                 WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

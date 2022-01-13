@@ -45,7 +45,7 @@ class INPECTOR_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_inpector` LIMIT 6;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_inpector  LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -64,7 +64,7 @@ class INPECTOR_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_inpector`  WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_inpector   WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -83,7 +83,7 @@ class INPECTOR_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_inpector`  WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_inpector   WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -102,7 +102,7 @@ class INPECTOR_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_inpector` WHERE `ID_INPECTOR`= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_inpector  WHERE  ID_INPECTOR = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -130,21 +130,23 @@ class INPECTOR_ADO
                 $INPECTOR->__SET('ID_CIUDAD', NULL);
             }
             $query =
-                "INSERT INTO `fruta_inpector` 
+                "INSERT INTO  fruta_inpector  
                                         ( 
-                                            `NUMERO_INPECTOR`, 
-                                            `NOMBRE_INPECTOR`, 
-                                            `DIRECCION_INPECTOR`, 
-                                            `TELEFONO_INPECTOR`, 
-                                            `EMAIL_INPECTOR`, 
-                                            `ID_CIUDAD` , 
-                                            `ID_EMPRESA`, 
-                                            `ID_USUARIOI`, 
-                                            `ID_USUARIOM`,  
-                                            `ESTADO_REGISTRO`
+                                             NUMERO_INPECTOR , 
+                                             NOMBRE_INPECTOR , 
+                                             DIRECCION_INPECTOR , 
+                                             TELEFONO_INPECTOR , 
+                                             EMAIL_INPECTOR , 
+                                             ID_CIUDAD  , 
+                                             ID_EMPRESA , 
+                                             ID_USUARIOI , 
+                                             ID_USUARIOM ,  
+                                             INGRESO ,
+                                             MODIFICACION , 
+                                             ESTADO_REGISTRO 
                                         ) 
             VALUES
-	       	(?, ?, ?, ?, ?, ?, ?, ?, ?,  1);";
+	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(),  1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -172,7 +174,7 @@ class INPECTOR_ADO
     public function eliminarInpector($id)
     {
         try {
-            $sql = "DELETE FROM `fruta_inpector` WHERE `ID_INPECTOR`=" . $id . ";";
+            $sql = "DELETE FROM  fruta_inpector  WHERE  ID_INPECTOR =" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -190,14 +192,15 @@ class INPECTOR_ADO
                 $INPECTOR->__SET('ID_CIUDAD', NULL);
             }
             $query = "
-		UPDATE `fruta_inpector` SET
-			`NOMBRE_INPECTOR` = ?,
-			`DIRECCION_INPECTOR` = ?,
-			`TELEFONO_INPECTOR` = ?,
-			`EMAIL_INPECTOR` = ?,
-            `ID_CIUDAD`= ?,
-            `ID_USUARIOM`= ?
-		WHERE `ID_INPECTOR` = ?  ;";
+                UPDATE  fruta_inpector  SET
+                    MODIFICACION = SYSDATE(),
+                    NOMBRE_INPECTOR  = ?,
+                    DIRECCION_INPECTOR  = ?,
+                    TELEFONO_INPECTOR  = ?,
+                    EMAIL_INPECTOR  = ?,
+                    ID_CIUDAD = ?,
+                    ID_USUARIOM = ?
+                WHERE  ID_INPECTOR  = ?  ;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -225,9 +228,9 @@ class INPECTOR_ADO
 
         try {
             $query = "
-		UPDATE `fruta_inpector` SET			
-            `ESTADO_REGISTRO` = 0
-		WHERE `ID_INPECTOR`= ?;";
+		UPDATE  fruta_inpector  SET			
+             ESTADO_REGISTRO  = 0
+		WHERE  ID_INPECTOR = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -245,9 +248,9 @@ class INPECTOR_ADO
 
         try {
             $query = "
-		UPDATE `fruta_inpector` SET			
-            `ESTADO_REGISTRO` = 1
-		WHERE `ID_INPECTOR`= ?;";
+		UPDATE  fruta_inpector  SET			
+             ESTADO_REGISTRO  = 1
+		WHERE  ID_INPECTOR = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -264,8 +267,8 @@ class INPECTOR_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_inpector`  
-                                            WHERE `ESTADO_REGISTRO` = 1
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_inpector   
+                                            WHERE  ESTADO_REGISTRO  = 1
                                                AND ID_EMPRESA = '" . $IDEMPRESA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -287,7 +290,7 @@ class INPECTOR_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                     IFNULL(COUNT(NUMERO_INPECTOR),0) AS 'NUMERO'
-                                                FROM `fruta_inpector`
+                                                FROM  fruta_inpector 
                                                 WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

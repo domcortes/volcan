@@ -173,9 +173,11 @@ class EEXPORTACION_ADO
                                                          ID_USUARIOI , 
                                                          ID_USUARIOM , 
 
+                                                         INGRESO ,
+                                                         MODIFICACION ,
                                                          TFRUTA_ESTANDAR , 
                                                          ESTADO_REGISTRO ) VALUES
-	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,  ?, ?,  ?, ?, ?, ?, ?,   ?, ?,   2, 1);";
+	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,  ?, ?,  ?, ?, ?, ?, ?,   ?, ?, SYSDATE(), SYSDATE(),   2, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -227,25 +229,26 @@ class EEXPORTACION_ADO
     {
         try {
             $query = "
-		UPDATE  estandar_eexportacion  SET
-             CODIGO_ESTANDAR = ?, 
-             NOMBRE_ESTANDAR = ?,   
-             CANTIDAD_ENVASE_ESTANDAR = ?,  
-             PESO_NETO_ESTANDAR = ?,  
-             PESO_BRUTO_ESTANDAR = ?,  
-             PESO_PALLET_ESTANDAR = ?,  
-             PESO_ENVASE_ESTANDAR = ?,  
-             PDESHIDRATACION_ESTANDAR = ?,  
-             EMBOLSADO = ?,  
-             STOCK = ?,  
-             TCATEGORIA = ?,  
-             TCOLOR = ?,  
-             ID_ESPECIES = ?,  
-             ID_TETIQUETA = ?,   
-             ID_TEMBALAJE = ?,  
-             ID_ECOMERCIAL = ?  ,  
-             ID_USUARIOM = ?         
-		WHERE  ID_ESTANDAR = ?;";
+                UPDATE  estandar_eexportacion  SET
+                    MODIFICACION = SYSDATE(),
+                    CODIGO_ESTANDAR = ?, 
+                    NOMBRE_ESTANDAR = ?,   
+                    CANTIDAD_ENVASE_ESTANDAR = ?,  
+                    PESO_NETO_ESTANDAR = ?,  
+                    PESO_BRUTO_ESTANDAR = ?,  
+                    PESO_PALLET_ESTANDAR = ?,  
+                    PESO_ENVASE_ESTANDAR = ?,  
+                    PDESHIDRATACION_ESTANDAR = ?,  
+                    EMBOLSADO = ?,  
+                    STOCK = ?,  
+                    TCATEGORIA = ?,  
+                    TCOLOR = ?,  
+                    ID_ESPECIES = ?,  
+                    ID_TETIQUETA = ?,   
+                    ID_TEMBALAJE = ?,  
+                    ID_ECOMERCIAL = ?  ,  
+                    ID_USUARIOM = ?         
+                WHERE  ID_ESTANDAR = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(

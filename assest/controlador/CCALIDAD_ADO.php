@@ -45,7 +45,7 @@ class CCALIDAD_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_ccalidad` LIMIT 6;	");
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_ccalidad LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -65,7 +65,7 @@ class CCALIDAD_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_ccalidad` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_ccalidad WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -84,7 +84,7 @@ class CCALIDAD_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_ccalidad` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_ccalidad WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -104,7 +104,7 @@ class CCALIDAD_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_ccalidad` WHERE `ID_CCALIDAD`= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_ccalidad WHERE ID_CCALIDAD= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -127,7 +127,7 @@ class CCALIDAD_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_ccalidad` WHERE `NOMBRE_CCALIDAD` LIKE '%" . $NOMBRE . "%';");
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_ccalidad WHERE NOMBRE_CCALIDAD LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -150,17 +150,19 @@ class CCALIDAD_ADO
 
 
             $query =
-                "INSERT INTO `fruta_ccalidad` 
+                "INSERT INTO fruta_ccalidad 
                                             ( 
-                                                `NUMERO_CCALIDAD`, 
-                                                `NOMBRE_CCALIDAD`, 
-                                                `RGB_CCALIDAD`, 
-                                                `ID_EMPRESA`, 
-                                                `ID_USUARIOI`, 
-                                                `ID_USUARIOM`, 
-                                                `ESTADO_REGISTRO`
+                                                NUMERO_CCALIDAD, 
+                                                NOMBRE_CCALIDAD, 
+                                                RGB_CCALIDAD, 
+                                                ID_EMPRESA, 
+                                                ID_USUARIOI, 
+                                                ID_USUARIOM, 
+                                                INGRESO ,
+                                                MODIFICACION , 
+                                                ESTADO_REGISTRO
                                             ) VALUES
-	       	(?, ?, ?, ?, ?, ?,1);";
+	       	(?, ?, ?, ?, ?, ?,  SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -188,11 +190,12 @@ class CCALIDAD_ADO
 
         try {
             $query = "
-		UPDATE `fruta_ccalidad` SET
-			`NOMBRE_CCALIDAD` = ?,
-            `RGB_CCALIDAD`= ?,
-            `ID_USUARIOM`= ?
-		WHERE `ID_CCALIDAD`= ?;";
+                UPDATE fruta_ccalidad SET
+                    MODIFICACION = SYSDATE(),
+                    NOMBRE_CCALIDAD = ?,
+                    RGB_CCALIDAD= ?,
+                    ID_USUARIOM= ?
+                WHERE ID_CCALIDAD= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -214,7 +217,7 @@ class CCALIDAD_ADO
     public function eliminarCcalidad($id)
     {
         try {
-            $sql = "DELETE FROM `fruta_ccalidad` WHERE `ID_CCALIDAD`=" . $id . ";";
+            $sql = "DELETE FROM fruta_ccalidad WHERE ID_CCALIDAD=" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -230,9 +233,9 @@ class CCALIDAD_ADO
 
         try {
             $query = "
-    UPDATE `fruta_ccalidad` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_CCALIDAD`= ?;";
+    UPDATE fruta_ccalidad SET			
+            ESTADO_REGISTRO = 0
+    WHERE ID_CCALIDAD= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -249,9 +252,9 @@ class CCALIDAD_ADO
     {
         try {
             $query = "
-    UPDATE `fruta_ccalidad` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_CCALIDAD`= ?;";
+    UPDATE fruta_ccalidad SET			
+            ESTADO_REGISTRO = 1
+    WHERE ID_CCALIDAD= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -270,8 +273,8 @@ class CCALIDAD_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_ccalidad` 
-                                            WHERE `ESTADO_REGISTRO` = 1
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_ccalidad 
+                                            WHERE ESTADO_REGISTRO = 1
                                             AND ID_EMPRESA = '" . $IDEMPRESA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -294,7 +297,7 @@ class CCALIDAD_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                     IFNULL(COUNT(NUMERO_CCALIDAD),0) AS 'NUMERO'
-                                                FROM `fruta_ccalidad`
+                                                FROM fruta_ccalidad
                                                 WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

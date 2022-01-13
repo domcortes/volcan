@@ -49,7 +49,7 @@ class CONDUCTOR_ADO {
     public function listarConductor(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `transporte_conductor` LIMIT 6;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  transporte_conductor  LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -68,7 +68,7 @@ class CONDUCTOR_ADO {
     public function listarConductorCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `transporte_conductor` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  transporte_conductor  WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -86,7 +86,7 @@ class CONDUCTOR_ADO {
     public function listarConductor2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `transporte_conductor` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  transporte_conductor  WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -104,7 +104,7 @@ class CONDUCTOR_ADO {
     public function verConductor($IDCONDUCTOR){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `transporte_conductor` WHERE `ID_CONDUCTOR` LIKE '".$IDCONDUCTOR."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  transporte_conductor  WHERE  ID_CONDUCTOR  LIKE '".$IDCONDUCTOR."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -130,19 +130,19 @@ class CONDUCTOR_ADO {
   
             
             $query=
-            "INSERT INTO `transporte_conductor` ( 
-                                                    `RUT_CONDUCTOR`,
-                                                    `DV_CONDUCTOR`, 
-                                                    `NUMERO_CONDUCTOR`, 
-                                                    `NOMBRE_CONDUCTOR`, 
-                                                    `NOTA_CONDUCTOR`, 
-                                                    `TELEFONO_CONDUCTOR`, 
-                                                    `ID_EMPRESA`,
-                                                    `ID_USUARIOI`,
-                                                    `ID_USUARIOM`,
-                                                    `INGRESO`,
-                                                    `MODIFICACION`, 
-                                                    `ESTADO_REGISTRO`
+            "INSERT INTO  transporte_conductor  ( 
+                                                     RUT_CONDUCTOR ,
+                                                     DV_CONDUCTOR , 
+                                                     NUMERO_CONDUCTOR , 
+                                                     NOMBRE_CONDUCTOR , 
+                                                     NOTA_CONDUCTOR , 
+                                                     TELEFONO_CONDUCTOR , 
+                                                     ID_EMPRESA ,
+                                                     ID_USUARIOI ,
+                                                     ID_USUARIOM ,
+                                                     INGRESO ,
+                                                     MODIFICACION , 
+                                                     ESTADO_REGISTRO 
                                                 ) VALUES
 	       	(?, ?, ?, ?, ?, ?, ?, ?, ?,  SYSDATE() , SYSDATE(),  1);";
             $this->conexion->prepare($query)
@@ -175,16 +175,16 @@ class CONDUCTOR_ADO {
 
         try{
             $query = "
-		UPDATE `transporte_conductor` SET
-            `MODIFICACION` = SYSDATE() ,
-			`RUT_CONDUCTOR` = ?,
-			`DV_CONDUCTOR` = ?,
-			`NOMBRE_CONDUCTOR` = ?,
-            `NOTA_CONDUCTOR`= ?,
-            `TELEFONO_CONDUCTOR`= ?,
-            `ID_EMPRESA`= ?,
-            `ID_USUARIOM`= ?
-		WHERE `ID_CONDUCTOR`= ?;";
+		UPDATE  transporte_conductor  SET
+             MODIFICACION  = SYSDATE() ,
+			 RUT_CONDUCTOR  = ?,
+			 DV_CONDUCTOR  = ?,
+			 NOMBRE_CONDUCTOR  = ?,
+             NOTA_CONDUCTOR = ?,
+             TELEFONO_CONDUCTOR = ?,
+             ID_EMPRESA = ?,
+             ID_USUARIOM = ?
+		WHERE  ID_CONDUCTOR = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -210,7 +210,7 @@ class CONDUCTOR_ADO {
 
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarConductor($id){
-        try{$sql="DELETE FROM `transporte_conductor` WHERE `ID_CONDUCTOR`=".$id.";";
+        try{$sql="DELETE FROM  transporte_conductor  WHERE  ID_CONDUCTOR =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -227,10 +227,10 @@ class CONDUCTOR_ADO {
 
         try{
             $query = "
-    UPDATE `transporte_conductor` SET				
-    `MODIFICACION`= SYSDATE(),	
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_CONDUCTOR`= ?;";
+    UPDATE  transporte_conductor  SET				
+     MODIFICACION = SYSDATE(),	
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_CONDUCTOR = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -248,10 +248,10 @@ class CONDUCTOR_ADO {
     public function habilitar(CONDUCTOR $CONDUCTOR){
         try{
             $query = "
-    UPDATE `transporte_conductor` SET			
-    `MODIFICACION`= SYSDATE(),		
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_CONDUCTOR`= ?;";
+    UPDATE  transporte_conductor  SET			
+     MODIFICACION = SYSDATE(),		
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_CONDUCTOR = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -272,7 +272,7 @@ class CONDUCTOR_ADO {
   public function buscarNombreConductor($NOMBRE){
     try{
         
-        $datos=$this->conexion->prepare("SELECT * FROM `transporte_conductor` WHERE `NOMBRE_CONDUCTOR` LIKE '%".$NOMBRE."%';");
+        $datos=$this->conexion->prepare("SELECT * FROM  transporte_conductor  WHERE  NOMBRE_CONDUCTOR  LIKE '%".$NOMBRE."%';");
         $datos->execute();
         $resultado = $datos->fetchAll();
             $datos=null;
@@ -290,7 +290,7 @@ class CONDUCTOR_ADO {
 public function listarConductorPorEmpresaCBX($IDEMPRESA){
     try{
         
-        $datos=$this->conexion->prepare("SELECT * FROM `transporte_conductor` WHERE `ESTADO_REGISTRO` = 1 AND ID_EMPRESA = '".$IDEMPRESA."';	");
+        $datos=$this->conexion->prepare("SELECT * FROM  transporte_conductor  WHERE  ESTADO_REGISTRO  = 1 AND ID_EMPRESA = '".$IDEMPRESA."';	");
         $datos->execute();
         $resultado = $datos->fetchAll();
             $datos=null;
@@ -311,7 +311,7 @@ public function obtenerNumero($IDEMPRESA)
     try {
         $datos = $this->conexion->prepare(" SELECT  
                                                 IFNULL(COUNT(NUMERO_CONDUCTOR),0) AS 'NUMERO'
-                                            FROM `transporte_conductor` 
+                                            FROM  transporte_conductor  
                                             WHERE ID_EMPRESA = '".$IDEMPRESA."' ; ");
         $datos->execute();
         $resultado = $datos->fetchAll();

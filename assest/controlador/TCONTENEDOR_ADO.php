@@ -45,7 +45,7 @@ class TCONTENEDOR_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tcontenedor` limit 8;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tcontenedor  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -65,7 +65,7 @@ class TCONTENEDOR_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tcontenedor` WHERE  ESTADO_REGISTRO = 1 ;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tcontenedor  WHERE  ESTADO_REGISTRO = 1 ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -84,7 +84,7 @@ class TCONTENEDOR_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tcontenedor`  WHERE  ESTADO_REGISTRO = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tcontenedor   WHERE  ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -105,7 +105,7 @@ class TCONTENEDOR_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tcontenedor` WHERE `ID_TCONTENEDOR`= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tcontenedor  WHERE  ID_TCONTENEDOR = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -127,7 +127,7 @@ class TCONTENEDOR_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tcontenedor` WHERE `NOMBRE_TCONTENEDOR` LIKE '%" . $NOMBRE . "%';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tcontenedor  WHERE  NOMBRE_TCONTENEDOR  LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -149,15 +149,17 @@ class TCONTENEDOR_ADO
 
 
             $query =
-                "INSERT INTO `fruta_tcontenedor` (
-                                                `NUMERO_TCONTENEDOR`, 
-                                                `NOMBRE_TCONTENEDOR`, 
-                                                `ID_EMPRESA`, 
-                                                `ID_USUARIOI`, 
-                                                `ID_USUARIOM`,
-                                                `ESTADO_REGISTRO`
+                "INSERT INTO  fruta_tcontenedor  (
+                                                 NUMERO_TCONTENEDOR , 
+                                                 NOMBRE_TCONTENEDOR , 
+                                                 ID_EMPRESA , 
+                                                 ID_USUARIOI , 
+                                                 ID_USUARIOM ,
+                                                 INGRESO,
+                                                 MODIFICACION,
+                                                 ESTADO_REGISTRO 
                                             ) VALUES
-	       	( ?, ?, ?, ?, ?, 1);";
+	       	( ?, ?, ?, ?, ?,  SYSDATE() , SYSDATE(),  1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -180,7 +182,7 @@ class TCONTENEDOR_ADO
     public function eliminarTcontenedor($id)
     {
         try {
-            $sql = "DELETE FROM `fruta_tcontenedor` WHERE `ID_TCONTENEDOR`=" . $id . ";";
+            $sql = "DELETE FROM  fruta_tcontenedor  WHERE  ID_TCONTENEDOR =" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -196,10 +198,11 @@ class TCONTENEDOR_ADO
     {
         try {
             $query = "
-		UPDATE `fruta_tcontenedor` SET
-            `NOMBRE_TCONTENEDOR`= ?,
-            `ID_USUARIOM`= ?            
-		WHERE `ID_TCONTENEDOR`= ?;";
+		UPDATE  fruta_tcontenedor  SET
+             MODIFICACION= SYSDATE(),
+             NOMBRE_TCONTENEDOR = ?,
+             ID_USUARIOM = ?            
+		WHERE  ID_TCONTENEDOR = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -223,9 +226,9 @@ class TCONTENEDOR_ADO
 
         try {
             $query = "
-    UPDATE `fruta_tcontenedor` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_TCONTENEDOR`= ?;";
+    UPDATE  fruta_tcontenedor  SET			
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_TCONTENEDOR = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -242,9 +245,9 @@ class TCONTENEDOR_ADO
     {
         try {
             $query = "
-    UPDATE `fruta_tcontenedor` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_TCONTENEDOR`= ?;";
+    UPDATE  fruta_tcontenedor  SET			
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_TCONTENEDOR = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -261,7 +264,7 @@ class TCONTENEDOR_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tcontenedor` 
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tcontenedor  
                                              WHERE  ESTADO_REGISTRO = 1
                                             AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
             $datos->execute();
@@ -283,7 +286,7 @@ class TCONTENEDOR_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                 IFNULL(COUNT(NUMERO_TCONTENEDOR),0) AS 'NUMERO'
-                                            FROM `fruta_tcontenedor`
+                                            FROM  fruta_tcontenedor 
                                             WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

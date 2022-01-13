@@ -358,6 +358,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
                 $ESPECIES->__SET('NOMBRE_ESPECIES', $_REQUEST['NOMBREESPECIES']);
                 $ESPECIES->__SET('CODIGO_SAG_ESPECIES', $_REQUEST['CODIGOSAGESPECIES']);
+                $ESPECIES->__SET('ID_USUARIOI', $IDUSUARIOS);
+                $ESPECIES->__SET('ID_USUARIOM', $IDUSUARIOS);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $ESPECIES_ADO->agregarEspecies($ESPECIES);
                 //REDIRECCIONAR A PAGINA registroEspecies.php
@@ -382,6 +384,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
                 $ESPECIES->__SET('NOMBRE_ESPECIES', $_REQUEST['NOMBREESPECIES']);
                 $ESPECIES->__SET('CODIGO_SAG_ESPECIES', $_REQUEST['CODIGOSAGESPECIES']);
+                $ESPECIES->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $ESPECIES->__SET('ID_ESPECIES', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
                 $ESPECIES_ADO->actualizarEspecies($ESPECIES);

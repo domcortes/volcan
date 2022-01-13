@@ -46,7 +46,7 @@ class ECOMERCIAL_ADO {
     public function listarEcomercial(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `estandar_ecomercial` LIMIT 6;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  estandar_ecomercial  LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -66,7 +66,7 @@ class ECOMERCIAL_ADO {
     public function listarEcomercialCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `estandar_ecomercial` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  estandar_ecomercial  WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -84,7 +84,7 @@ class ECOMERCIAL_ADO {
     public function listarEcomercial2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `estandar_ecomercial` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  estandar_ecomercial  WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -105,7 +105,7 @@ class ECOMERCIAL_ADO {
     public function verEcomercial($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `estandar_ecomercial` WHERE `ID_ECOMERCIAL`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  estandar_ecomercial  WHERE  ID_ECOMERCIAL = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -127,7 +127,7 @@ class ECOMERCIAL_ADO {
     public function buscarNombreEcomercial($NOMBRE){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `estandar_ecomercial` WHERE `NOMBRE_ECOMERCIAL` LIKE '%".$NOMBRE."%';");
+            $datos=$this->conexion->prepare("SELECT * FROM  estandar_ecomercial  WHERE  NOMBRE_ECOMERCIAL  LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -149,18 +149,20 @@ class ECOMERCIAL_ADO {
   
             
             $query=
-            "INSERT INTO `estandar_ecomercial` (
-                                                    `CODIGO_ECOMERCIAL`, 
-                                                    `NOMBRE_ECOMERCIAL`, 
-                                                    `DESCRIPCION_ECOMERCIAL`, 
-                                                    `PESO_NETO_ECOMERCIAL`, 
-                                                    `PESO_BRUTO_ECOMERCIAL`, 
-                                                    `ID_EMPRESA`, 
-                                                    `ID_USUARIOI`, 
-                                                    `ID_USUARIOM`, 
-                                                    `ESTADO_REGISTRO`
+            "INSERT INTO  estandar_ecomercial  (
+                                                     CODIGO_ECOMERCIAL , 
+                                                     NOMBRE_ECOMERCIAL , 
+                                                     DESCRIPCION_ECOMERCIAL , 
+                                                     PESO_NETO_ECOMERCIAL , 
+                                                     PESO_BRUTO_ECOMERCIAL , 
+                                                     ID_EMPRESA , 
+                                                     ID_USUARIOI , 
+                                                     ID_USUARIOM , 
+                                                     INGRESO ,
+                                                     MODIFICACION ,
+                                                     ESTADO_REGISTRO 
                                                 ) VALUES
-	       	(?, ?, ?, ?, ?, ?, ?, ?, 1);";
+	       	(?, ?, ?, ?, ?, ?, ?, ?,  SYSDATE(), SYSDATE(),  1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -188,14 +190,15 @@ class ECOMERCIAL_ADO {
 
         try{
             $query = "
-		UPDATE `estandar_ecomercial` SET
-            `CODIGO_ECOMERCIAL` = ?,
-			`NOMBRE_ECOMERCIAL` = ?,
-			`DESCRIPCION_ECOMERCIAL` = ?,
-			`PESO_NETO_ECOMERCIAL` = ?,
-            `PESO_BRUTO_ECOMERCIAL`= ?,
-            `ID_USUARIOM`= ?
-		WHERE `ID_ECOMERCIAL`= ?;";
+                UPDATE  estandar_ecomercial  SET
+                    MODIFICACION = SYSDATE(),
+                    CODIGO_ECOMERCIAL  = ?,
+                    NOMBRE_ECOMERCIAL  = ?,
+                    DESCRIPCION_ECOMERCIAL  = ?,
+                    PESO_NETO_ECOMERCIAL  = ?,
+                    PESO_BRUTO_ECOMERCIAL = ?,
+                    ID_USUARIOM = ?
+                WHERE  ID_ECOMERCIAL = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -220,7 +223,7 @@ class ECOMERCIAL_ADO {
 
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarCcomercial($id){
-        try{$sql="DELETE FROM `estandar_ecomercial` WHERE `ID_ECOMERCIAL`=".$id.";";
+        try{$sql="DELETE FROM  estandar_ecomercial  WHERE  ID_ECOMERCIAL =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -238,9 +241,9 @@ class ECOMERCIAL_ADO {
 
         try{
             $query = "
-    UPDATE `estandar_ecomercial` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_ECOMERCIAL`= ?;";
+    UPDATE  estandar_ecomercial  SET			
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_ECOMERCIAL = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -258,9 +261,9 @@ class ECOMERCIAL_ADO {
     public function habilitar(ECOMERCIAL $ECOMERCIAL){
         try{
             $query = "
-    UPDATE `estandar_ecomercial` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_ECOMERCIAL`= ?;";
+    UPDATE  estandar_ecomercial  SET			
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_ECOMERCIAL = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -279,8 +282,8 @@ class ECOMERCIAL_ADO {
     public function listarEcomercialPorEmpresaCBX($IDEMPRESA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `estandar_ecomercial`
-                                             WHERE `ESTADO_REGISTRO` = 1 
+            $datos=$this->conexion->prepare("SELECT * FROM  estandar_ecomercial 
+                                             WHERE  ESTADO_REGISTRO  = 1 
                                               AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();

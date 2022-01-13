@@ -3,28 +3,20 @@
 include_once "../../assest/config/validarUsuarioExpo.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../../assest/controlador/TUSUARIO_ADO.php';
-include_once '../../assest/controlador/USUARIO_ADO.php';
-include_once '../../assest/controlador/EMPRESA_ADO.php';
-include_once '../../assest/controlador/PLANTA_ADO.php';
-include_once '../../assest/controlador/TEMPORADA_ADO.php';
 
-include_once '../../assest/controlador/LAEREA_ADO.php';
 include_once '../../assest/controlador/CIUDAD_ADO.php';
-include_once '../../assest/modelo/LAEREA.php';
+
+include_once '../../assest/controlador/COMPRADOR_ADO.php';
+include_once '../../assest/modelo/COMPRADOR.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
-$TUSUARIO_ADO = new TUSUARIO_ADO();
-$USUARIO_ADO = new USUARIO_ADO();
-$EMPRESA_ADO =  new EMPRESA_ADO();
-$PLANTA_ADO =  new PLANTA_ADO();
-$TEMPORADA_ADO =  new TEMPORADA_ADO();
 
-$LAEREA_ADO =  new LAEREA_ADO();
 $CIUDAD_ADO =  new CIUDAD_ADO();
+
+$COMPRADOR_ADO =  new COMPRADOR_ADO();
 //INIICIALIZAR MODELO
-$LAEREA =  new LAEREA();
+$COMPRADOR =  new COMPRADOR();
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
@@ -32,41 +24,48 @@ $IDOP = "";
 $OP = "";
 $DISABLED = "";
 
-$RUTLAEREA = "";
-$DVLAEREA = "";
-$NOMBRELAEREA = "";
-$GIROLAEREA = "";
-$RAZONSOCIALLAEREA = "";
-$DIRRECIONLAEREA = "";
-$NOTALAEREA = "";
-$CONTACTOLAEREA = "";
-$TELEFONOLAEREA = "";
-$EMAILLAEREA = "";
+$RUTCOMPRADOR = "";
+$DVCOMPRADOR = "";
+$NOMBRECOMPRADOR = "";
+$DIRECCIONCOMPRADOR = "";
+$TELEFONOCOMPRADOR = "";
+$EMAILCOMPRADOR = "";
 $CIUDAD = "";
-$NUMERO = "";
 
 
+$FNOMBRE = "";
+
+$SINO = "";
+
+$NOMBRE = "";
+$MENSAJE = "";
+$FOCUS = "";
+$MENSAJE2 = "";
+$FOCUS2 = "";
+$BORDER = "";
+$BORDER2 = "";
 
 //INICIALIZAR ARREGLOS
-$ARRAYLAEREA = "";
-$ARRAYLAEREAID = "";
+$ARRAYCOMPRADOR = "";
+$ARRAYCOMPRADORID = "";
 $ARRAYCIUDAD = "";
-$ARRAYNUMERO = "";
+
 
 
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-$ARRAYLAEREA = $LAEREA_ADO->listarLaereaPorEmpresaCBX($EMPRESAS);
+$ARRAYCOMPRADOR = $COMPRADOR_ADO->listarCompradorPorEmpresaCBX($EMPRESAS);
 $ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
 include_once "../../assest/config/validarDatosUrl.php";
 include_once "../../assest/config/datosUrl.php";
 
 
 
+
+
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION Y VISUALIZACION
-//PREGUNTA SI LA URL VIENE  CON DATOS "parametro" y "parametro1"
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     //ALMACENAR DATOS DE VARIABLES DE LA URL
     $IDOP = $_SESSION['parametro'];
@@ -78,40 +77,38 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     //0 = DESACTIVAR
     if ($OP == "0") {
 
-        $LAEREA->__SET('ID_LAEREA', $IDOP);
-        $LAEREA_ADO->deshabilitar($LAEREA);
+        $COMPRADOR->__SET('ID_COMPRADOR', $IDOP);
+        $COMPRADOR_ADO->deshabilitar($COMPRADOR);
 
-        echo "<script type='text/javascript'> location.href ='registroLaerea.php';</script>";
+        echo "<script type='text/javascript'> location.href ='registroComprador.php';</script>";
     }
     //1 = ACTIVAR
     if ($OP == "1") {
 
-        $LAEREA->__SET('ID_LAEREA', $IDOP);
-        $LAEREA_ADO->habilitar($LAEREA);
-        echo "<script type='text/javascript'> location.href ='registroLaerea.php';</script>";
+        $COMPRADOR->__SET('ID_COMPRADOR', $IDOP);
+        $COMPRADOR_ADO->habilitar($COMPRADOR);
+        echo "<script type='text/javascript'> location.href ='registroComprador.php';</script>";
     }
+
     //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
     if ($OP == "editar") {
+
         //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
         //ALMACENAR INFORMACION EN ARREGLO
         //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
         //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
-        $ARRAYLAEREAID = $LAEREA_ADO->verLaerea($IDOP);
+        $ARRAYCOMPRADORID = $COMPRADOR_ADO->verComprador($IDOP);
         //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
         //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
 
-        foreach ($ARRAYLAEREAID as $r) :
-            $RUTLAEREA = "" . $r['RUT_LAEREA'];
-            $DVLAEREA = "" . $r['DV_LAEREA'];
-            $NOMBRELAEREA = "" . $r['NOMBRE_LAEREA'];
-            $GIROLAEREA = "" . $r['GIRO_LAEREA'];
-            $RAZONSOCIALLAEREA = "" . $r['RAZON_SOCIAL_LAEREA'];
-            $DIRRECIONLAEREA = "" . $r['DIRECCION_LAEREA'];
+        foreach ($ARRAYCOMPRADORID as $r) :
+            $RUTCOMPRADOR = "" . $r['RUT_COMPRADOR'];
+            $DVCOMPRADOR = "" . $r['DV_COMPRADOR'];
+            $NOMBRECOMPRADOR = "" . $r['NOMBRE_COMPRADOR'];
+            $DIRECCIONCOMPRADOR = "" . $r['DIRECCION_COMPRADOR'];
+            $TELEFONOCOMPRADOR = "" . $r['TELEFONO_COMPRADOR'];
+            $EMAILCOMPRADOR = "" . $r['EMAIL_COMPRADOR'];
             $CIUDAD = "" . $r['ID_CIUDAD'];
-            $NOTALAEREA = "" . $r['NOTA_LAEREA'];
-            $CONTACTOLAEREA = "" . $r['CONTACTO_LAEREA'];
-            $TELEFONOLAEREA = "" . $r['TELEFONO_LAEREA'];
-            $EMAILLAEREA = "" . $r['EMAIL_LAEREA'];
         endforeach;
     }
 
@@ -124,24 +121,24 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         //ALMACENAR INFORMACION EN ARREGLO
         //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
         //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
-        $ARRAYLAEREAID = $LAEREA_ADO->verLaerea($IDOP);
+        $ARRAYCOMPRADORID = $COMPRADOR_ADO->verComprador($IDOP);
         //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
-        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA        
-        foreach ($ARRAYLAEREAID as $r) :
-            $RUTLAEREA = "" . $r['RUT_LAEREA'];
-            $DVLAEREA = "" . $r['DV_LAEREA'];
-            $NOMBRELAEREA = "" . $r['NOMBRE_LAEREA'];
-            $GIROLAEREA = "" . $r['GIRO_LAEREA'];
-            $RAZONSOCIALLAEREA = "" . $r['RAZON_SOCIAL_LAEREA'];
-            $DIRRECIONLAEREA = "" . $r['DIRECCION_LAEREA'];
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
+
+        foreach ($ARRAYCOMPRADORID as $r) :
+            $RUTCOMPRADOR = "" . $r['RUT_COMPRADOR'];
+            $DVCOMPRADOR = "" . $r['DV_COMPRADOR'];
+            $NOMBRECOMPRADOR = "" . $r['NOMBRE_COMPRADOR'];
+            $DIRECCIONCOMPRADOR = "" . $r['DIRECCION_COMPRADOR'];
+            $TELEFONOCOMPRADOR = "" . $r['TELEFONO_COMPRADOR'];
+            $EMAILCOMPRADOR = "" . $r['EMAIL_COMPRADOR'];
             $CIUDAD = "" . $r['ID_CIUDAD'];
-            $NOTALAEREA = "" . $r['NOTA_LAEREA'];
-            $CONTACTOLAEREA = "" . $r['CONTACTO_LAEREA'];
-            $TELEFONOLAEREA = "" . $r['TELEFONO_LAEREA'];
-            $EMAILLAEREA = "" . $r['EMAIL_LAEREA'];
         endforeach;
     }
 }
+
+
+
 
 
 ?>
@@ -151,7 +148,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 <html lang="es">
 
 <head>
-    <title>Registro Linea Aerea</title>
+    <title>Registro Comprador</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -161,80 +158,99 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //VALIDACION DE FORMULARIO
+
+
                 function validacion() {
 
-                    RUTLAEREA = document.getElementById("RUTLAEREA").value;
-                    DVLAEREA = document.getElementById("DVLAEREA").value;
-                    NOMBRELAEREA = document.getElementById("NOMBRELAEREA").value;
-                    GIROLAEREA = document.getElementById("GIROLAEREA").value;
-                    RAZONSOCIALLAEREA = document.getElementById("RAZONSOCIALLAEREA").value;
-                    DIRRECIONLAEREA = document.getElementById("DIRRECIONLAEREA").value;
+                    RUTCOMPRADOR = document.getElementById("RUTCOMPRADOR").value;
+                    DVCOMPRADOR = document.getElementById("DVCOMPRADOR").value;
+                    NOMBRECOMPRADOR = document.getElementById("NOMBRECOMPRADOR").value;
+                    DIRECCIONCOMPRADOR = document.getElementById("DIRECCIONCOMPRADOR").value;
+                    TELEFONOCOMPRADOR = document.getElementById("TELEFONOCOMPRADOR").value;
+                    EMAILCOMPRADOR = document.getElementById("EMAILCOMPRADOR").value;
                     CIUDAD = document.getElementById("CIUDAD").selectedIndex;
-                    CONTACTOLAEREA = document.getElementById("CONTACTOLAEREA").value;
-                    TELEFONOLAEREA = document.getElementById("TELEFONOLAEREA").value;
-                    EMAILLAEREA = document.getElementById("EMAILLAEREA").value;
 
-                    document.getElementById('val_rut').innerHTML = "";
-                    document.getElementById('val_dv').innerHTML = "";
+
+
+
                     document.getElementById('val_nombre').innerHTML = "";
-                    document.getElementById('val_giro').innerHTML = "";
-                    document.getElementById('val_rsocial').innerHTML = "";
-                    document.getElementById('val_dirrecion').innerHTML = "";
-                    document.getElementById('val_ciudad').innerHTML = "";
-                    document.getElementById('val_contacto').innerHTML = "";
+                    document.getElementById('val_dv').innerHTML = "";
+                    document.getElementById('val_rut').innerHTML = "";
+                    document.getElementById('val_direccion').innerHTML = "";
                     document.getElementById('val_telefono').innerHTML = "";
                     document.getElementById('val_email').innerHTML = "";
+                    document.getElementById('val_ciudad').innerHTML = "";
 
-                    if (RUTLAEREA == null || RUTLAEREA.length == 0 || /^\s+$/.test(RUTLAEREA)) {
-                        document.form_reg_dato.RUTLAEREA.focus();
-                        document.form_reg_dato.RUTLAEREA.style.borderColor = "#FF0000";
+
+                    if (RUTCOMPRADOR == null || RUTCOMPRADOR.length == 0 || /^\s+$/.test(RUTCOMPRADOR)) {
+                        document.form_reg_dato.RUTCOMPRADOR.focus();
+                        document.form_reg_dato.RUTCOMPRADOR.style.borderColor = "#FF0000";
                         document.getElementById('val_rut').innerHTML = "NO A INGRESADO DATO";
                         return false;
                     }
-                    document.form_reg_dato.RUTLAEREA.style.borderColor = "#4AF575";
+                    document.form_reg_dato.RUTCOMPRADOR.style.borderColor = "#4AF575";
 
-                    if (DVLAEREA == null || DVLAEREA.length == 0 || /^\s+$/.test(RUTLAEREA)) {
-                        document.form_reg_dato.DVLAEREA.focus();
-                        document.form_reg_dato.RUTLAEREA.style.borderColor = "#FF0000";
+                    if (DVCOMPRADOR == null || DVCOMPRADOR.length == 0 || /^\s+$/.test(DVCOMPRADOR)) {
+                        document.form_reg_dato.DVCOMPRADOR.focus();
+                        document.form_reg_dato.DVCOMPRADOR.style.borderColor = "#FF0000";
                         document.getElementById('val_dv').innerHTML = "NO A INGRESADO DATO";
                         return false;
                     }
-                    document.form_reg_dato.DVLAEREA.style.borderColor = "#4AF575";
+                    document.form_reg_dato.DVCOMPRADOR.style.borderColor = "#4AF575";
 
-
-                    if (NOMBRELAEREA == null || NOMBRELAEREA.length == 0 || /^\s+$/.test(NOMBRELAEREA)) {
-                        document.form_reg_dato.NOMBRELAEREA.focus();
-                        document.form_reg_dato.NOMBRELAEREA.style.borderColor = "#FF0000";
+                    if (NOMBRECOMPRADOR == null || NOMBRECOMPRADOR.length == 0 || /^\s+$/.test(NOMBRECOMPRADOR)) {
+                        document.form_reg_dato.NOMBRECOMPRADOR.focus();
+                        document.form_reg_dato.NOMBRECOMPRADOR.style.borderColor = "#FF0000";
                         document.getElementById('val_nombre').innerHTML = "NO A INGRESADO DATO";
                         return false;
                     }
-                    document.form_reg_dato.NOMBRELAEREA.style.borderColor = "#4AF575";
-                /*
-                    if (GIROLAEREA == null || GIROLAEREA.length == 0 || /^\s+$/.test(GIROLAEREA)) {
-                        document.form_reg_dato.GIROLAEREA.focus();
-                        document.form_reg_dato.GIROLAEREA.style.borderColor = "#FF0000";
-                        document.getElementById('val_giro').innerHTML = "NO A INGRESADO DATO";
-                        return false;
-                    }
-                    document.form_reg_dato.GIROLAEREA.style.borderColor = "#4AF575";
+                    document.form_reg_dato.NOMBRECOMPRADOR.style.borderColor = "#4AF575";
 
-                    if (RAZONSOCIALLAEREA == null || RAZONSOCIALLAEREA.length == 0 || /^\s+$/.test(RAZONSOCIALLAEREA)) {
-                        document.form_reg_dato.RAZONSOCIALLAEREA.focus();
-                        document.form_reg_dato.RAZONSOCIALLAEREA.style.borderColor = "#FF0000";
-                        document.getElementById('val_rsocial').innerHTML = "NO A INGRESADO DATO";
+                    if (NOMBRECOMPRADOR.length > 82) {
+                        document.form_reg_dato.NOMBRECOMPRADOR.focus();
+                        document.form_reg_dato.NOMBRECOMPRADOR.style.borderColor = "#FF0000";
+                        document.getElementById('val_nombre').innerHTML = "NO PUEDE SER MAYOR A 82 CARACTERES";
                         return false;
                     }
-                    document.form_reg_dato.RAZONSOCIALLAEREA.style.borderColor = "#4AF575";
-                    ¨*/
+                    document.form_reg_dato.NOMBRECOMPRADOR.style.borderColor = "#4AF575";
 
-                    if (DIRRECIONLAEREA == null || DIRRECIONLAEREA.length == 0 || /^\s+$/.test(DIRRECIONLAEREA)) {
-                        document.form_reg_dato.DIRRECIONLAEREA.focus();
-                        document.form_reg_dato.DIRRECIONLAEREA.style.borderColor = "#FF0000";
-                        document.getElementById('val_dirrecion').innerHTML = "NO A INGRESADO DATO";
-                        return false;
-                    }
-                    document.form_reg_dato.DIRRECIONLAEREA.style.borderColor = "#4AF575";
                     /*
+                                        if (EMAILCOMPRADOR == null || EMAILCOMPRADOR.length == 0 || /^\s+$/.test(EMAILCOMPRADOR)) {
+                                            document.form_reg_dato.EMAILCOMPRADOR.focus();
+                                            document.form_reg_dato.EMAILCOMPRADOR.style.borderColor = "#FF0000";
+                                            document.getElementById('val_email').innerHTML = "NO A INGRESADO DATO";
+                                            return false;
+                                        }
+                                        document.form_reg_dato.EMAILCOMPRADOR.style.borderColor = "#4AF575";
+
+                                        if (!(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+                                                .test(EMAILCOMPRADOR))) {
+                                            document.form_reg_dato.EMAILCOMPRADOR.focus();
+                                            document.form_reg_dato.EMAILCOMPRADOR.style.borderColor = "#ff0000";
+                                            document.getElementById('val_email').innerHTML = "FORMATO DE CORREO INCORRECTO";
+                                            return false;
+                                        }
+                                        document.form_reg_dato.EMAILCOMPRADOR.style.borderColor = "#4AF575";
+
+                                        if (TELEFONOCOMPRADOR == null || TELEFONOCOMPRADOR == 0) {
+                                            document.form_reg_dato.TELEFONOCOMPRADOR.focus();
+                                            document.form_reg_dato.TELEFONOCOMPRADOR.style.borderColor = "#FF0000";
+                                            document.getElementById('val_telefono').innerHTML = "NO A INGRESADO DATO";
+                                            return false;
+                                        }
+                                        document.form_reg_dato.TELEFONOCOMPRADOR.style.borderColor = "#4AF575";
+
+
+                                        if (DIRECCIONCOMPRADOR == null || DIRECCIONCOMPRADOR.length == 0 || /^\s+$/.test(DIRECCIONCOMPRADOR)) {
+                                            document.form_reg_dato.DIRECCIONCOMPRADOR.focus();
+                                            document.form_reg_dato.DIRECCIONCOMPRADOR.style.borderColor = "#FF0000";
+                                            document.getElementById('val_direccion').innerHTML = "NO A INGRESADO DATO";
+                                            return false;
+                                        }
+                                        document.form_reg_dato.DIRECCIONCOMPRADOR.style.borderColor = "#4AF575";
+
+
+
                                         if (CIUDAD == null || CIUDAD == 0) {
                                             document.form_reg_dato.CIUDAD.focus();
                                             document.form_reg_dato.CIUDAD.style.borderColor = "#FF0000";
@@ -243,45 +259,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                         }
                                         document.form_reg_dato.CIUDAD.style.borderColor = "#4AF575";
 
-
-                                        if (CONTACTOLAEREA == null || CONTACTOLAEREA.length == 0 || /^\s+$/.test(CONTACTOLAEREA)) {
-                                            document.form_reg_dato.CONTACTOLAEREA.focus();
-                                            document.form_reg_dato.CONTACTOLAEREA.style.borderColor = "#FF0000";
-                                            document.getElementById('val_contacto').innerHTML = "NO A INGRESADO DATO";
-                                            return false;
-                                        }
-                                        document.form_reg_dato.CONTACTOLAEREA.style.borderColor = "#4AF575";
-
-
-                                        if (TELEFONOLAEREA == null || TELEFONOLAEREA == 0) {
-                                            document.form_reg_dato.TELEFONOLAEREA.focus();
-                                            document.form_reg_dato.TELEFONOLAEREA.style.borderColor = "#FF0000";
-                                            document.getElementById('val_telefono').innerHTML = "NO A INGRESADO DATO";
-                                            return false;
-                                        }
-                                        document.form_reg_dato.TELEFONOLAEREA.style.borderColor = "#4AF575";
-
-                                        if (EMAILLAEREA == null || EMAILLAEREA.length == 0 || /^\s+$/.test(EMAILLAEREA)) {
-                                            document.form_reg_dato.EMAILLAEREA.focus();
-                                            document.form_reg_dato.EMAILLAEREA.style.borderColor = "#FF0000";
-                                            document.getElementById('val_email').innerHTML = "NO A INGRESADO DATO";
-                                            return false;
-                                        }
-                                        document.form_reg_dato.EMAILLAEREA.style.borderColor = "#4AF575";
-
-                                        if (!(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(EMAILLAEREA))) {
-                                            document.form_reg_dato.EMAILLAEREA.focus();
-                                            document.form_reg_dato.EMAILLAEREA.style.borderColor = "#ff0000";
-                                            document.getElementById('val_email').innerHTML = "FORMATO DE CORREO INCORRECTO";
-                                            return false;
-                                        }
-                                        document.form_reg_dato.EMAILLAEREA.style.borderColor = "#4AF575";
-
-
                     */
 
-                }
 
+
+                }
 
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
                 function irPagina(url) {
@@ -295,7 +277,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
             <?php include_once "../../assest/config/menuExpo.php"; ?>
-
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <div class="container-full">
@@ -304,16 +285,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Transporte</h3>
+                                <h3 class="page-title">Otros</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Mantenedores</li>
-                                            <li class="breadcrumb-item" aria-current="page">Transporte</li>
-                                            <li class="breadcrumb-item" aria-current="page">Aereo</li>
-                                            <li class="breadcrumb-item" aria-current="page">Linea Aerea</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Linea Aerea </a>   </li>
+                                            <li class="breadcrumb-item" aria-current="page">Otros</li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Comprador</a> </li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -339,13 +318,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                             </div>
                         </div>
                     </div>
+
                     <!-- Main content -->
                     <section class="content">
                         <div class="row">
                             <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
-                                    <div class="box-header with-border bg-primary">                                
-                                        <h4 class="box-title">Registro Linea Aerea</h4>                                
+                                    <div class="box-header with-border bg-primary">                                        
+                                        <h4 class="box-title">Registro Comprador</h4>                                
                                     </div>
                                     <!-- /.box-header -->
                                     <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
@@ -357,55 +337,55 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label>Rut </label>
                                                         <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
                                                         <input type="hidden" class="form-control" placeholder="EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
-                                                        <input type="text" class="form-control" placeholder="Rut Laerea" id="RUTLAEREA" name="RUTLAEREA" value="<?php echo $RUTLAEREA; ?>" <?php echo $DISABLED; ?> />
-                                                        <label id="val_rut" class="validacion"> </label>
+                                                        <input type="text" class="form-control" placeholder="Rut Comprador" id="RUTCOMPRADOR" name="RUTCOMPRADOR" value="<?php echo $RUTCOMPRADOR; ?>" <?php echo $FOCUS2; ?> <?php echo  $BORDER2; ?> <?php echo $DISABLED; ?> />
+                                                        <label id="val_rut" class="validacion"> <?php echo $MENSAJE; ?> </label>
                                                     </div>
                                                 </div>
                                                  <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                                     <div class="form-group">
                                                         <label>DV </label>
-                                                        <input type="text" class="form-control" placeholder="DV Laerea" id="DVLAEREA" name="DVLAEREA" value="<?php echo $DVLAEREA; ?>" <?php echo $DISABLED; ?> />
-                                                        <label id="val_dv" class="validacion"> </label>
+                                                        <input type="text" class="form-control" placeholder="DV Comprador" id="DVCOMPRADOR" name="DVCOMPRADOR" value="<?php echo $DVCOMPRADOR; ?>" <?php echo $FOCUS2; ?> <?php echo  $BORDER2; ?> <?php echo $DISABLED; ?> />
+                                                        <label id="val_dv" class="validacion"> <?php echo $MENSAJE; ?> </label>
                                                     </div>
                                                 </div>
                                                  <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Nombre </label>
-                                                        <input type="text" class="form-control" placeholder="Nombre Laerea" id="NOMBRELAEREA" name="NOMBRELAEREA" value="<?php echo $NOMBRELAEREA; ?>" <?php echo $DISABLED; ?> />
+                                                        <input type="text" class="form-control" placeholder="Nombre Comprador" id="NOMBRECOMPRADOR" name="NOMBRECOMPRADOR" value="<?php echo $NOMBRECOMPRADOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_nombre" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                                  <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
-                                                        <label>Giro </label>
-                                                        <input type="text" class="form-control" placeholder="Giro Laerea" id="GIROLAEREA" name="GIROLAEREA" value="<?php echo $GIROLAEREA; ?>" <?php echo $DISABLED; ?> />
-                                                        <label id="val_giro" class="validacion"> </label>
+                                                        <label>Email </label>
+                                                        <input type="text" class="form-control" placeholder="Telefono Comprador" id="EMAILCOMPRADOR" name="EMAILCOMPRADOR" value="<?php echo $EMAILCOMPRADOR; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_email" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Telefono </label>
+                                                        <input type="text" class="form-control" placeholder="Telefono Comprador" id="TELEFONOCOMPRADOR" name="TELEFONOCOMPRADOR" value="<?php echo $TELEFONOCOMPRADOR; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_telefono" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                                  <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
-                                                        <label>Razon Social </label>
-                                                        <input type="text" class="form-control" placeholder="Razon Social Laerea" id="RAZONSOCIALLAEREA" name="RAZONSOCIALLAEREA" value="<?php echo $RAZONSOCIALLAEREA; ?>" <?php echo $DISABLED; ?> />
-                                                        <label id="val_rsocial" class="validacion"> </label>
+                                                        <label>Dirreccion </label>
+                                                        <input type="text" class="form-control" placeholder="Dirreccion Comprador" id="DIRECCIONCOMPRADOR" name="DIRECCIONCOMPRADOR" value="<?php echo $DIRECCIONCOMPRADOR; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_direccion" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                                  <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
-                                                        <label>Dirrecion </label>
-                                                        <input type="text" class="form-control" placeholder="Dirrecion Laerea" id="DIRRECIONLAEREA" name="DIRRECIONLAEREA" value="<?php echo $DIRRECIONLAEREA; ?>" <?php echo $DISABLED; ?> />
-                                                        <label id="val_dirrecion" class="validacion"> </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                                    <div class="form-group">
-                                                        <label>Ciudad</label>
+                                                        <label>Ciudad </label>
                                                         <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
                                                             <option></option>
                                                             <?php foreach ($ARRAYCIUDAD as $r) : ?>
                                                                 <?php if ($ARRAYCIUDAD) {    ?>
                                                                     <option value="<?php echo $r['ID_CIUDAD']; ?>" 
-                                                                    <?php if ($CIUDAD == $r['ID_CIUDAD']) { echo "selected";   } ?>>
-                                                                    <?php echo $r['CIUDAD'] ?>, <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
+                                                                    <?php if ($CIUDAD == $r['ID_CIUDAD']) { echo "selected";     } ?>>
+                                                                        <?php echo $r['CIUDAD'] ?>, <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
                                                                     <option>No Hay Datos Registrados </option>
@@ -415,44 +395,12 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_ciudad" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
-                                                    <div class="form-group">
-                                                        <label>Nota </label>
-                                                        <textarea class="form-control" rows="1" placeholder="Nota Laerea " id="NOTALAEREA" name="NOTALAEREA" <?php echo $DISABLED; ?>><?php echo $NOTALAEREA; ?></textarea>
-                                                        <label id="val_nota" class="validacion"> </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <labe>Contacto</labe>
-                                            <hr class="my-15">
-                                            <div class="row">
-                                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
-                                                    <div class="form-group">
-                                                        <label>Nombre </label>
-                                                        <input type="text" class="form-control" placeholder="Nombre Contacto Laerea" id="CONTACTOLAEREA" name="CONTACTOLAEREA" value="<?php echo $CONTACTOLAEREA; ?>" <?php echo $DISABLED; ?> />
-                                                        <label id="val_contacto" class="validacion"> </label>
-                                                    </div>
-                                                </div>
-                                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
-                                                    <div class="form-group">
-                                                        <label>Telefono </label>
-                                                        <input type="number" class="form-control" placeholder="Telefono Contacto Laerea" id="TELEFONOLAEREA" name="TELEFONOLAEREA" value="<?php echo $TELEFONOLAEREA; ?>" <?php echo $DISABLED; ?> />
-                                                        <label id="val_telefono" class="validacion"> </label>
-                                                    </div>
-                                                </div>
-                                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
-                                                    <div class="form-group">
-                                                        <label>Email </label>
-                                                        <input type="text" class="form-control" placeholder="Email Contacto Laerea" id="EMAILLAEREA" name="EMAILLAEREA" value="<?php echo $EMAILLAEREA; ?>" <?php echo $DISABLED; ?> />
-                                                        <label id="val_email" class="validacion"> </label>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-                                        <!-- /.box-body -->                                        
+                                        <!-- /.box-body -->
                                         <div class="box-footer">
                                             <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
-                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroLaerea.php');">
+                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroComprador.php');">
                                                 <i class="ti-trash"></i>Cancelar
                                                 </button>
                                                 <?php if ($OP != "editar") { ?>
@@ -473,7 +421,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                             <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
                                     <div class="box-header with-border bg-info">
-                                        <h4 class="box-title">Agrupado Linea Aerea</h4>
+                                        <h4 class="box-title">Agrupado Comprador</h4>
                                     </div>
                                     <div class="box-body">
                                         <div class="table-responsive">
@@ -481,19 +429,19 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Numero </th>
-                                                        <th>Nombe </th>
+                                                        <th>Nombre </th>
                                                         <th>Operaciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php foreach ($ARRAYLAEREA as $r) : ?>
+                                                    <?php foreach ($ARRAYCOMPRADOR as $r) : ?>
                                                         <tr class="center">
                                                             <td>
                                                                 <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['NUMERO_LAEREA']; ?>
+                                                                    <?php echo $r['NUMERO_COMPRADOR']; ?>
                                                                 </a>
                                                             </td>
-                                                            <td><?php echo $r['NOMBRE_LAEREA']; ?></td>                                                                                                                                        
+                                                            <td><?php echo $r['NOMBRE_COMPRADOR']; ?></td>                                                                                                                                                                                                                                    
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -502,8 +450,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                                 <span class="icon-copy ti-settings"></span>
                                                                             </button>
                                                                             <div class="dropdown-menu dropdown-menu-right">
-                                                                                <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_LAEREA']; ?>" />
-                                                                                <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroLaerea" />
+                                                                                <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_COMPRADOR']; ?>" />
+                                                                                <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroComprador" />
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
                                                                                     <button type="submit" class="btn btn-info btn-block  btn-sm" id="VERURL" name="VERURL">
                                                                                         <i class="ti-eye"></i> Ver
@@ -532,7 +480,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                         </div>
                                                                     </div>
                                                                 </form>
-                                                            </td>
+                                                            </td>  
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>
@@ -549,43 +497,41 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 </div>
             </div>
             <!-- /.content-wrapper -->
+
+
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
                 <?php include_once "../../assest/config/footer.php"; ?>
                 <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../../assest/config/urlBase.php"; ?>
-        <?php             
+        <?php
+            
             //OPERACIONES
             //OPERACION DE REGISTRO DE FILA
             if (isset($_REQUEST['GUARDAR'])) {
 
-                $ARRAYNUMERO = $LAEREA_ADO->obtenerNumero($EMPRESAS);
+                $ARRAYNUMERO = $COMPRADOR_ADO->obtenerNumero($EMPRESAS);
                 $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
 
 
                 //UTILIZACION METODOS SET DEL MODELO
                 //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-
-                $LAEREA->__SET('NUMERO_LAEREA', $NUMERO);
-                $LAEREA->__SET('RUT_LAEREA', $_REQUEST['RUTLAEREA']);
-                $LAEREA->__SET('DV_LAEREA', $_REQUEST['DVLAEREA']);
-                $LAEREA->__SET('NOMBRE_LAEREA', $_REQUEST['NOMBRELAEREA']);
-                $LAEREA->__SET('GIRO_LAEREA', $_REQUEST['GIROLAEREA']);
-                $LAEREA->__SET('RAZON_SOCIAL_LAEREA', $_REQUEST['RAZONSOCIALLAEREA']);
-                $LAEREA->__SET('DIRECCION_LAEREA', $_REQUEST['DIRRECIONLAEREA']);
-                $LAEREA->__SET('CONTACTO_LAEREA', $_REQUEST['CONTACTOLAEREA']);
-                $LAEREA->__SET('TELEFONO_LAEREA', $_REQUEST['TELEFONOLAEREA']);
-                $LAEREA->__SET('EMAIL_LAEREA', $_REQUEST['EMAILLAEREA']);
-                $LAEREA->__SET('NOTA_LAEREA', $_REQUEST['NOTALAEREA']);
-                $LAEREA->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
-                $LAEREA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-                $LAEREA->__SET('ID_USUARIOI', $IDUSUARIOS);
-                $LAEREA->__SET('ID_USUARIOM', $IDUSUARIOS);
+                $COMPRADOR->__SET('NUMERO_COMPRADOR', $NUMERO);
+                $COMPRADOR->__SET('RUT_COMPRADOR', $_REQUEST['RUTCOMPRADOR']);
+                $COMPRADOR->__SET('DV_COMPRADOR', $_REQUEST['DVCOMPRADOR']);
+                $COMPRADOR->__SET('NOMBRE_COMPRADOR', $_REQUEST['NOMBRECOMPRADOR']);
+                $COMPRADOR->__SET('DIRECCION_COMPRADOR', $_REQUEST['DIRECCIONCOMPRADOR']);
+                $COMPRADOR->__SET('TELEFONO_COMPRADOR', $_REQUEST['TELEFONOCOMPRADOR']);
+                $COMPRADOR->__SET('EMAIL_COMPRADOR', $_REQUEST['EMAILCOMPRADOR']);
+                $COMPRADOR->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+                $COMPRADOR->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $COMPRADOR->__SET('ID_USUARIOI', $IDUSUARIOS);
+                $COMPRADOR->__SET('ID_USUARIOM', $IDUSUARIOS);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                $LAEREA_ADO->agregarLaerea($LAEREA);
-                //REDIRECCIONAR A PAGINA registroLaerea.php
-                echo '<script>
+                $COMPRADOR_ADO->agregarComprador($COMPRADOR);
+                //REDIRECCIONAR A PAGINA registroComprador.php
+                    echo '<script>
                     Swal.fire({
                         icon:"success",
                         title:"Registro Creado",
@@ -594,34 +540,28 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         confirmButtonText:"Cerrar",
                         closeOnConfirm:false
                     }).then((result)=>{
-                        location.href = "registroLaerea.php";                            
+                        location.href = "registroComprador.php";                            
                     })
                 </script>';
             }
-            //OPERACION DE EDICION DE FILA
+            //OPERACION EDICION DE FILA
             if (isset($_REQUEST['EDITAR'])) {
+
                 //UTILIZACION METODOS SET DEL MODELO
-                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-
-
-
-                $LAEREA->__SET('RUT_LAEREA', $_REQUEST['RUTLAEREA']);
-                $LAEREA->__SET('DV_LAEREA', $_REQUEST['DVLAEREA']);
-                $LAEREA->__SET('NOMBRE_LAEREA', $_REQUEST['NOMBRELAEREA']);
-                $LAEREA->__SET('GIRO_LAEREA', $_REQUEST['GIROLAEREA']);
-                $LAEREA->__SET('RAZON_SOCIAL_LAEREA', $_REQUEST['RAZONSOCIALLAEREA']);
-                $LAEREA->__SET('DIRECCION_LAEREA', $_REQUEST['DIRRECIONLAEREA']);
-                $LAEREA->__SET('CONTACTO_LAEREA', $_REQUEST['CONTACTOLAEREA']);
-                $LAEREA->__SET('TELEFONO_LAEREA', $_REQUEST['TELEFONOLAEREA']);
-                $LAEREA->__SET('EMAIL_LAEREA', $_REQUEST['EMAILLAEREA']);
-                $LAEREA->__SET('NOTA_LAEREA', $_REQUEST['NOTALAEREA']);
-                $LAEREA->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
-                $LAEREA->__SET('ID_USUARIOM', $IDUSUARIOS);
-                $LAEREA->__SET('ID_LAEREA', $_REQUEST['ID']);
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO  
+                $COMPRADOR->__SET('RUT_COMPRADOR', $_REQUEST['RUTCOMPRADOR']);
+                $COMPRADOR->__SET('DV_COMPRADOR', $_REQUEST['DVCOMPRADOR']);
+                $COMPRADOR->__SET('NOMBRE_COMPRADOR', $_REQUEST['NOMBRECOMPRADOR']);
+                $COMPRADOR->__SET('DIRECCION_COMPRADOR', $_REQUEST['DIRECCIONCOMPRADOR']);
+                $COMPRADOR->__SET('TELEFONO_COMPRADOR', $_REQUEST['TELEFONOCOMPRADOR']);
+                $COMPRADOR->__SET('EMAIL_COMPRADOR', $_REQUEST['EMAILCOMPRADOR']);
+                $COMPRADOR->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+                $COMPRADOR->__SET('ID_USUARIOM', $IDUSUARIOS);
+                $COMPRADOR->__SET('ID_COMPRADOR', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
-                $LAEREA_ADO->actualizarLaerea($LAEREA);
-                //REDIRECCIONAR A PAGINA registroLaerea.php
-                echo '<script>
+                $COMPRADOR_ADO->actualizarComprador($COMPRADOR);
+                //REDIRECCIONAR A PAGINA registroComprador.php
+                    echo '<script>
                     Swal.fire({
                         icon:"success",
                         title:"Registro Modificado",
@@ -630,11 +570,10 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         confirmButtonText:"Cerrar",
                         closeOnConfirm:false
                     }).then((result)=>{
-                        location.href = "registroLaerea.php";                            
+                        location.href = "registroComprador.php";                            
                     })
                 </script>';
             }
         ?>
 </body>
-
 </html>

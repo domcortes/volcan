@@ -47,7 +47,7 @@ class TMANEJO_ADO {
     public function listarTmanejo(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tmanejo` limit 8;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_tmanejo  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -66,7 +66,7 @@ class TMANEJO_ADO {
     public function listarTmanejoCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tmanejo` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_tmanejo  WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -86,7 +86,7 @@ class TMANEJO_ADO {
     public function listarTmanejo2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tmanejo` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_tmanejo  WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -107,7 +107,7 @@ class TMANEJO_ADO {
     public function verTmanejo($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tmanejo` WHERE `ID_TMANEJO`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_tmanejo  WHERE  ID_TMANEJO = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -129,7 +129,7 @@ class TMANEJO_ADO {
     public function buscarNombreTmanejo($NOMBRE){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tmanejo` WHERE `NOMBRE_TMANEJO` LIKE '%".$NOMBRE."%';");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_tmanejo  WHERE  NOMBRE_TMANEJO  LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -151,13 +151,15 @@ class TMANEJO_ADO {
             
             
             $query=
-            "INSERT INTO `fruta_tmanejo` (
-                                            `NOMBRE_TMANEJO`, 
-                                            `ID_USUARIOI`, 
-                                            `ID_USUARIOM`,
-                                            `ESTADO_REGISTRO`
+            "INSERT INTO  fruta_tmanejo  (
+                                             NOMBRE_TMANEJO , 
+                                             ID_USUARIOI , 
+                                             ID_USUARIOM ,
+                                             INGRESO,
+                                             MODIFICACION,
+                                             ESTADO_REGISTRO 
                                         ) VALUES
-	       	( ?, ?, ?, 1);";
+	       	( ?, ?, ?,   SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -177,7 +179,7 @@ class TMANEJO_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarTmanejo($id){
-        try{$sql="DELETE FROM `fruta_tmanejo` WHERE `ID_TMANEJO`=".$id.";";
+        try{$sql="DELETE FROM  fruta_tmanejo  WHERE  ID_TMANEJO =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -194,10 +196,11 @@ class TMANEJO_ADO {
     public function actualizarTmanejo(TMANEJO $TMANEJO){
         try{
             $query = "
-		UPDATE `fruta_tmanejo` SET
-            `NOMBRE_TMANEJO`= ?,
-            `ID_USUARIOM`= ?            
-		WHERE `ID_TMANEJO`= ?;";
+		UPDATE  fruta_tmanejo  SET
+             MODIFICACION= SYSDATE(),
+             NOMBRE_TMANEJO = ?,
+             ID_USUARIOM = ?            
+		WHERE  ID_TMANEJO = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -226,9 +229,9 @@ class TMANEJO_ADO {
 
         try{
             $query = "
-    UPDATE `fruta_tmanejo` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_TMANEJO`= ?;";
+    UPDATE  fruta_tmanejo  SET			
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_TMANEJO = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -246,9 +249,9 @@ class TMANEJO_ADO {
     public function habilitar(TMANEJO $TMANEJO){
         try{
             $query = "
-    UPDATE `fruta_tmanejo` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_TMANEJO`= ?;";
+    UPDATE  fruta_tmanejo  SET			
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_TMANEJO = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 

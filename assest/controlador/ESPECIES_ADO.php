@@ -47,7 +47,7 @@ class ESPECIES_ADO {
     public function listarEspecies(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_especies` limit 8;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_especies  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -66,7 +66,7 @@ class ESPECIES_ADO {
     public function listarEspeciesCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_especies` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_especies  WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -86,7 +86,7 @@ class ESPECIES_ADO {
     public function listarEspecies2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_especies` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_especies  WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -107,7 +107,7 @@ class ESPECIES_ADO {
     public function verEspecies($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_especies` WHERE `ID_ESPECIES`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_especies  WHERE  ID_ESPECIES = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -128,7 +128,7 @@ class ESPECIES_ADO {
     public function buscarNombreEspecies($NOMBRE){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_especies` WHERE `NOMBRE_ESPECIES` LIKE '%".$NOMBRE."%';");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_especies  WHERE  NOMBRE_ESPECIES  LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -150,13 +150,23 @@ class ESPECIES_ADO {
             
             
             $query=
-            "INSERT INTO `fruta_especies` (`NOMBRE_ESPECIES`,`CODIGO_SAG_ESPECIES`, `ESTADO_REGISTRO`)  VALUES
-	       	( ?, ?, 1 );";
+            "INSERT INTO  fruta_especies  ( 
+                                            NOMBRE_ESPECIES , 
+                                            CODIGO_SAG_ESPECIES ,  
+                                            ID_USUARIOI ,  
+                                            ID_USUARIOM ,  
+                                            INGRESO ,
+                                            MODIFICACION , 
+                                            ESTADO_REGISTRO 
+                                            )  VALUES
+	       	( ?, ?, ?, ?, SYSDATE() , SYSDATE(), 1 );";
             $this->conexion->prepare($query)
             ->execute(
                 array(                     
                     $ESPECIES->__GET('NOMBRE_ESPECIES')    ,
-                    $ESPECIES->__GET('CODIGO_SAG_ESPECIES')            
+                    $ESPECIES->__GET('CODIGO_SAG_ESPECIES')   ,
+                    $ESPECIES->__GET('ID_USUARIOI')   ,
+                    $ESPECIES->__GET('ID_USUARIOM')            
                 )
                 
                 );
@@ -168,7 +178,7 @@ class ESPECIES_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarEspecies($id){
-        try{$sql="DELETE FROM `fruta_especies` WHERE `ID_ESPECIES`=".$id.";";
+        try{$sql="DELETE FROM  fruta_especies  WHERE  ID_ESPECIES =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -183,15 +193,18 @@ class ESPECIES_ADO {
     public function actualizarEspecies(ESPECIES $ESPECIES){
         try{
             $query = "
-		UPDATE `fruta_especies` SET
-            `NOMBRE_ESPECIES`= ?   ,
-            `CODIGO_SAG_ESPECIES`= ?   
-		WHERE `ID_ESPECIES`= ?;";
+		UPDATE  fruta_especies  SET
+             MODIFICACION = SYSDATE(),
+             NOMBRE_ESPECIES = ?   ,
+             CODIGO_SAG_ESPECIES = ? ,
+             ID_USUARIOM = ?    
+		WHERE  ID_ESPECIES = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
                     $ESPECIES->__GET('NOMBRE_ESPECIES')     , 
-                    $ESPECIES->__GET('CODIGO_SAG_ESPECIES')   ,     
+                    $ESPECIES->__GET('CODIGO_SAG_ESPECIES')   ,   
+                    $ESPECIES->__GET('ID_USUARIOM')       ,  
                     $ESPECIES->__GET('ID_ESPECIES')
                     
                 )
@@ -211,9 +224,9 @@ class ESPECIES_ADO {
 
         try{
             $query = "
-    UPDATE `fruta_especies` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_ESPECIES`= ?;";
+    UPDATE  fruta_especies  SET			
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_ESPECIES = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -231,9 +244,9 @@ class ESPECIES_ADO {
     public function habilitar(ESPECIES $ESPECIES){
         try{
             $query = "
-    UPDATE `fruta_especies` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_ESPECIES`= ?;";
+    UPDATE  fruta_especies  SET			
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_ESPECIES = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 

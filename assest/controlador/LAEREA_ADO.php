@@ -41,7 +41,7 @@ class LAEREA_ADO {
     public function listarLaerea(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `transporte_laerea` limit 8;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  transporte_laerea  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -59,7 +59,7 @@ class LAEREA_ADO {
     public function listarLaereaCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `transporte_laerea` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  transporte_laerea  WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -78,7 +78,7 @@ class LAEREA_ADO {
     public function listarLaerea2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `transporte_laerea` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  transporte_laerea  WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -100,7 +100,7 @@ class LAEREA_ADO {
     public function verLaerea($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `transporte_laerea` WHERE `ID_LAEREA`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  transporte_laerea  WHERE  ID_LAEREA = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -121,7 +121,7 @@ class LAEREA_ADO {
     public function buscarNombreLaerea($NOMBRE){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `transporte_laerea` WHERE `NOMBRE_LAEREA` LIKE '%".$NOMBRE."%';");
+            $datos=$this->conexion->prepare("SELECT * FROM  transporte_laerea  WHERE  NOMBRE_LAEREA  LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -148,24 +148,27 @@ class LAEREA_ADO {
             }
             
             $query=
-            "INSERT INTO `transporte_laerea` (  `RUT_LAEREA`,
-                                                `DV_LAEREA`,
-                                                `NUMERO_LAEREA`,
-                                                `NOMBRE_LAEREA`,
-                                                `GIRO_LAEREA`,
-                                                `RAZON_SOCIAL_LAEREA`,
-                                                `DIRECCION_LAEREA`,
-                                                `CONTACTO_LAEREA`,
-                                                `TELEFONO_LAEREA`,
-                                                `EMAIL_LAEREA`,
-                                                `NOTA_LAEREA`, 
-                                                `ID_CIUDAD`, 
-                                                `ID_EMPRESA`, 
-                                                `ID_USUARIOI`, 
-                                                `ID_USUARIOM`, 
-                                                `ESTADO_REGISTRO`
+            "INSERT INTO  transporte_laerea  (   
+                                                 RUT_LAEREA ,
+                                                 DV_LAEREA ,
+                                                 NUMERO_LAEREA ,
+                                                 NOMBRE_LAEREA ,
+                                                 GIRO_LAEREA ,
+                                                 RAZON_SOCIAL_LAEREA ,
+                                                 DIRECCION_LAEREA ,
+                                                 CONTACTO_LAEREA ,
+                                                 TELEFONO_LAEREA ,
+                                                 EMAIL_LAEREA ,
+                                                 NOTA_LAEREA , 
+                                                 ID_CIUDAD , 
+                                                 ID_EMPRESA , 
+                                                 ID_USUARIOI , 
+                                                 ID_USUARIOM , 
+                                                 INGRESO ,
+                                                 MODIFICACION , 
+                                                 ESTADO_REGISTRO 
                                             ) VALUES
-	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1);";
+	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(                    
@@ -194,7 +197,7 @@ class LAEREA_ADO {
     }
     
     public function eliminarLaerea($id){
-        try{$sql="DELETE FROM `transporte_laerea` WHERE `ID_LAEREA`=".$id.";";
+        try{$sql="DELETE FROM  transporte_laerea  WHERE  ID_LAEREA =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -211,21 +214,22 @@ class LAEREA_ADO {
                 $LAEREA->__SET('ID_CIUDAD', NULL);
             }
             $query = "
-		UPDATE `transporte_laerea` SET
-            `RUT_LAEREA`= ?,
-            `DV_LAEREA`= ?,
-            `NOMBRE_LAEREA`= ?,
-            `GIRO_LAEREA`= ?,
-            `RAZON_SOCIAL_LAEREA`= ?,
-            `DIRECCION_LAEREA`= ?,
-            `CONTACTO_LAEREA`= ?,
-            `TELEFONO_LAEREA`= ?,
-            `EMAIL_LAEREA`= ?,
-            `NOTA_LAEREA`= ?,
-            `ID_CIUDAD`= ?,
-            `ID_USUARIOM`= ?
-            
-		WHERE `ID_LAEREA`= ?;";
+                UPDATE  transporte_laerea  SET
+                    MODIFICACION = SYSDATE(),
+                    RUT_LAEREA = ?,
+                    DV_LAEREA = ?,
+                    NOMBRE_LAEREA = ?,
+                    GIRO_LAEREA = ?,
+                    RAZON_SOCIAL_LAEREA = ?,
+                    DIRECCION_LAEREA = ?,
+                    CONTACTO_LAEREA = ?,
+                    TELEFONO_LAEREA = ?,
+                    EMAIL_LAEREA = ?,
+                    NOTA_LAEREA = ?,
+                    ID_CIUDAD = ?,
+                    ID_USUARIOM = ?
+                    
+                WHERE  ID_LAEREA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                     array(
@@ -258,9 +262,9 @@ class LAEREA_ADO {
 
         try{
             $query = "
-    UPDATE `transporte_laerea` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_LAEREA`= ?;";
+    UPDATE  transporte_laerea  SET			
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_LAEREA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -278,9 +282,9 @@ class LAEREA_ADO {
     public function habilitar(LAEREA $LAEREA){
         try{
             $query = "
-    UPDATE `transporte_laerea` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_LAEREA`= ?;";
+    UPDATE  transporte_laerea  SET			
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_LAEREA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -298,8 +302,8 @@ class LAEREA_ADO {
     public function listarLaereaPorEmpresaCBX($IDEMPRESA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `transporte_laerea` 
-                                            WHERE `ESTADO_REGISTRO` = 1
+            $datos=$this->conexion->prepare("SELECT * FROM  transporte_laerea  
+                                            WHERE  ESTADO_REGISTRO  = 1
                                             AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -321,7 +325,7 @@ class LAEREA_ADO {
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                 IFNULL(COUNT(NUMERO_LAEREA),0) AS 'NUMERO'
-                                            FROM `transporte_laerea`
+                                            FROM  transporte_laerea 
                                             WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

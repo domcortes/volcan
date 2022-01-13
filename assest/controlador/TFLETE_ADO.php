@@ -45,7 +45,7 @@ class TFLETE_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tflete` limit 8;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tflete  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -65,7 +65,7 @@ class TFLETE_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tflete` WHERE  ESTADO_REGISTRO = 1 ;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tflete  WHERE  ESTADO_REGISTRO = 1 ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -84,7 +84,7 @@ class TFLETE_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tflete` WHERE  ESTADO_REGISTRO = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tflete  WHERE  ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -106,13 +106,13 @@ class TFLETE_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tflete` WHERE `ID_TFLETE`= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tflete  WHERE  ID_TFLETE = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+        	VAR_DUMP($resultado);
 
 
             return $resultado;
@@ -128,7 +128,7 @@ class TFLETE_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tflete` WHERE `NOMBRE_TFLETE` LIKE '%" . $NOMBRE . "%';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tflete  WHERE  NOMBRE_TFLETE  LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -150,15 +150,17 @@ class TFLETE_ADO
 
 
             $query =
-                "INSERT INTO `fruta_tflete` (
-                                            `NUMERO_TFLETE`, 
-                                            `NOMBRE_TFLETE`, 
-                                            `ID_EMPRESA`, 
-                                            `ID_USUARIOI`, 
-                                            `ID_USUARIOM`,
-                                            `ESTADO_REGISTRO`
+                "INSERT INTO  fruta_tflete  (
+                                             NUMERO_TFLETE , 
+                                             NOMBRE_TFLETE , 
+                                             ID_EMPRESA , 
+                                             ID_USUARIOI , 
+                                             ID_USUARIOM ,
+                                             INGRESO,
+                                             MODIFICACION,
+                                             ESTADO_REGISTRO 
                                         ) VALUES
-	       	( ?, ?, ?, ?, ?,  1);";
+	       	( ?, ?, ?, ?, ?,  SYSDATE() , SYSDATE(),  1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -181,7 +183,7 @@ class TFLETE_ADO
     public function eliminarTflete($id)
     {
         try {
-            $sql = "DELETE FROM `fruta_tflete` WHERE `ID_TFLETE`=" . $id . ";";
+            $sql = "DELETE FROM  fruta_tflete  WHERE  ID_TFLETE =" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -197,10 +199,11 @@ class TFLETE_ADO
     {
         try {
             $query = "
-		UPDATE `fruta_tflete` SET
-            `NOMBRE_TFLETE`= ?,
-            `ID_USUARIOM`= ?            
-		WHERE `ID_TFLETE`= ?;";
+		UPDATE  fruta_tflete  SET
+             MODIFICACION= SYSDATE(),
+             NOMBRE_TFLETE = ?,
+             ID_USUARIOM = ?            
+		WHERE  ID_TFLETE = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -224,9 +227,9 @@ class TFLETE_ADO
 
         try {
             $query = "
-    UPDATE `fruta_tflete` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_TFLETE`= ?;";
+    UPDATE  fruta_tflete  SET			
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_TFLETE = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -243,9 +246,9 @@ class TFLETE_ADO
     {
         try {
             $query = "
-    UPDATE `fruta_tflete` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_TFLETE`= ?;";
+    UPDATE  fruta_tflete  SET			
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_TFLETE = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -263,7 +266,7 @@ class TFLETE_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tflete` 
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tflete  
                                              WHERE  ESTADO_REGISTRO = 1 
                                             AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
             $datos->execute();
@@ -284,7 +287,7 @@ class TFLETE_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                 IFNULL(COUNT(NUMERO_TFLETE),0) AS 'NUMERO'
-                                            FROM `fruta_tflete`
+                                            FROM  fruta_tflete 
                                             WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

@@ -45,7 +45,7 @@ class TPROCESO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tproceso` limit 8;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tproceso  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -64,7 +64,7 @@ class TPROCESO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tproceso` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tproceso  WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -84,7 +84,7 @@ class TPROCESO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tproceso` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tproceso  WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -105,7 +105,7 @@ class TPROCESO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tproceso` WHERE `ID_TPROCESO`= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tproceso  WHERE  ID_TPROCESO = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -127,7 +127,7 @@ class TPROCESO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tproceso` WHERE `NOMBRE_TPROCESO` LIKE '%" . $NOMBRE . "%';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tproceso  WHERE  NOMBRE_TPROCESO  LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -149,13 +149,15 @@ class TPROCESO_ADO
 
 
             $query =
-                "INSERT INTO `fruta_tproceso` (
-                                            `NOMBRE_TPROCESO`, 
-                                            `ID_USUARIOI`, 
-                                            `ID_USUARIOM`, 
-                                            `ESTADO_REGISTRO`
+                "INSERT INTO  fruta_tproceso  (
+                                             NOMBRE_TPROCESO , 
+                                             ID_USUARIOI , 
+                                             ID_USUARIOM , 
+                                             INGRESO,
+                                             MODIFICACION,
+                                             ESTADO_REGISTRO 
                                         ) VALUES
-	       	( ?, ?, ?, 1);";
+	       	( ?, ?, ?,  SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -176,7 +178,7 @@ class TPROCESO_ADO
     public function eliminarTproceso($id)
     {
         try {
-            $sql = "DELETE FROM `fruta_tproceso` WHERE `ID_TPROCESO`=" . $id . ";";
+            $sql = "DELETE FROM  fruta_tproceso  WHERE  ID_TPROCESO =" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -192,10 +194,11 @@ class TPROCESO_ADO
     {
         try {
             $query = "
-		UPDATE `fruta_tproceso` SET
-            `NOMBRE_TPROCESO`= ? ,   
-            `ID_USUARIOM`= ?         
-		WHERE `ID_TPROCESO`= ?;";
+                UPDATE  fruta_tproceso  SET        
+                    MODIFICACION= SYSDATE(),
+                    NOMBRE_TPROCESO = ? ,   
+                    ID_USUARIOM = ?         
+                WHERE  ID_TPROCESO = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -220,9 +223,9 @@ class TPROCESO_ADO
 
         try {
             $query = "
-    UPDATE `fruta_tproceso` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_TPROCESO`= ?;";
+    UPDATE  fruta_tproceso  SET			
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_TPROCESO = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -239,9 +242,9 @@ class TPROCESO_ADO
     {
         try {
             $query = "
-    UPDATE `fruta_tproceso` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_TPROCESO`= ?;";
+    UPDATE  fruta_tproceso  SET			
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_TPROCESO = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(

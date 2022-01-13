@@ -12,6 +12,8 @@
         private	  $NUMERO_VESPECIES; 
         private	  $NOMBRE_VESPECIES;
         private   $CODIGO_SAG_VESPECIES;
+        private   $INGRESO; 
+        private   $MODIFICACION; 
         private   $ESTADO_REGISTRO; 
         private   $ID_ESPECIES;
         private   $ID_EMPRESA;
