@@ -48,7 +48,7 @@ class RMERCADO_ADO {
     public function listarRmercado(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_rmercado` limit 8;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_rmercado  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -67,7 +67,7 @@ class RMERCADO_ADO {
     public function listarRmercadoCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_rmercado` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_rmercado  WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -86,7 +86,7 @@ class RMERCADO_ADO {
     public function listarRmercado2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_rmercado` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_rmercado  WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -107,7 +107,7 @@ class RMERCADO_ADO {
     public function verRmercado($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_rmercado` WHERE `ID_RMERCADO`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_rmercado  WHERE  ID_RMERCADO = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -128,7 +128,7 @@ class RMERCADO_ADO {
     public function buscarNombreRmercado($NOMBRE){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_rmercado` WHERE `NOMBRE_RMERCADO` LIKE '%".$NOMBRE."%';");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_rmercado  WHERE  NOMBRE_RMERCADO  LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -150,16 +150,18 @@ class RMERCADO_ADO {
             
             
             $query=
-            "INSERT INTO `fruta_rmercado` (
-                                                `NUMERO_RMERCADO`,
-                                                `ID_MERCADO`,
-                                                `ID_PRODUCTOR`, 
-                                                `ID_EMPRESA`, 
-                                                `ID_USUARIOI`, 
-                                                `ID_USUARIOM`, 
-                                                `ESTADO_REGISTRO`
+            "INSERT INTO  fruta_rmercado  (
+                                                 NUMERO_RMERCADO ,
+                                                 ID_MERCADO ,
+                                                 ID_PRODUCTOR , 
+                                                 ID_EMPRESA , 
+                                                 ID_USUARIOI , 
+                                                 ID_USUARIOM , 
+                                                 INGRESO ,
+                                                 MODIFICACION ,
+                                                 ESTADO_REGISTRO 
                                             ) VALUES
-	       	( ?, ?, ?, ?, ?, ?, 1);";
+	       	( ?, ?, ?, ?, ?, ?, SYSDATE(), SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(                    
@@ -181,7 +183,7 @@ class RMERCADO_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarRmercado($id){
-        try{$sql="DELETE FROM `fruta_rmercado` WHERE `ID_RMERCADO`=".$id.";";
+        try{$sql="DELETE FROM  fruta_rmercado  WHERE  ID_RMERCADO =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -198,11 +200,12 @@ class RMERCADO_ADO {
     public function actualizarRmercado(RMERCADO $RMERCADO){
         try{
             $query = "
-		UPDATE `fruta_rmercado` SET
-            `ID_MERCADO`= ?   ,
-            `ID_PRODUCTOR`= ? ,
-            `ID_USUARIOM`= ?      
-		WHERE `ID_RMERCADO`= ?;";
+		UPDATE  fruta_rmercado  SET
+             MODIFICACION = SYSDATE(),
+             ID_MERCADO = ?   ,
+             ID_PRODUCTOR = ? ,
+             ID_USUARIOM = ?      
+		WHERE  ID_RMERCADO = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -229,9 +232,9 @@ class RMERCADO_ADO {
 
         try{
             $query = "
-    UPDATE `fruta_rmercado` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_RMERCADO`= ?;";
+    UPDATE  fruta_rmercado  SET			
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_RMERCADO = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -249,9 +252,9 @@ class RMERCADO_ADO {
     public function habilitar(RMERCADO $RMERCADO){
         try{
             $query = "
-    UPDATE `fruta_rmercado` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_RMERCADO`= ?;";
+    UPDATE  fruta_rmercado  SET			
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_RMERCADO = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -269,7 +272,7 @@ class RMERCADO_ADO {
         public function buscarPorProductor($IDPRODUCTOR){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_rmercado` WHERE `ID_PRODUCTOR`= '".$IDPRODUCTOR."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_rmercado  WHERE  ID_PRODUCTOR = '".$IDPRODUCTOR."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -290,8 +293,8 @@ class RMERCADO_ADO {
     public function listarRmercadoPorEmpresaCBX($IDEMPRESA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_rmercado` 
-                                             WHERE `ESTADO_REGISTRO` = 1
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_rmercado  
+                                             WHERE  ESTADO_REGISTRO  = 1
                                               AND ID_EMPRESA = '" . $IDEMPRESA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -314,7 +317,7 @@ class RMERCADO_ADO {
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                     IFNULL(COUNT(NUMERO_RMERCADO),0) AS 'NUMERO'
-                                                FROM `fruta_rmercado`
+                                                FROM  fruta_rmercado 
                                                 WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

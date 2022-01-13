@@ -45,7 +45,7 @@ class FPAGO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_fpago` limit 8;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_fpago  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -65,7 +65,7 @@ class FPAGO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_fpago` WHERE ESTADO_REGISTRO = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_fpago  WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -84,7 +84,7 @@ class FPAGO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_fpago` WHERE ESTADO_REGISTRO = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_fpago  WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -106,7 +106,7 @@ class FPAGO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_fpago` WHERE `ID_FPAGO`= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_fpago  WHERE  ID_FPAGO = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -128,7 +128,7 @@ class FPAGO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_fpago` WHERE `NOMBRE_FPAGO` LIKE '%" . $NOMBRE . "%';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_fpago  WHERE  NOMBRE_FPAGO  LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -150,16 +150,18 @@ class FPAGO_ADO
 
 
             $query =
-                "INSERT INTO `fruta_fpago` (
-                                                `NUMERO_FPAGO`,
-                                                `NOMBRE_FPAGO`,
-                                                `FECHA_PAGO_FPAGO`, 
-                                                `ID_EMPRESA`, 
-                                                `ID_USUARIOI`, 
-                                                `ID_USUARIOM`, 
-                                                `ESTADO_REGISTRO`
+                "INSERT INTO  fruta_fpago  (
+                                                 NUMERO_FPAGO ,
+                                                 NOMBRE_FPAGO ,
+                                                 FECHA_PAGO_FPAGO , 
+                                                 ID_EMPRESA , 
+                                                 ID_USUARIOI , 
+                                                 ID_USUARIOM , 
+                                                 INGRESO ,
+                                                 MODIFICACION ,
+                                                 ESTADO_REGISTRO 
                                             ) VALUES
-	       	( ?, ?, ?, ?, ?, ?, 1);";
+	       	( ?, ?, ?, ?, ?, ?,  SYSDATE(), SYSDATE(), 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -183,7 +185,7 @@ class FPAGO_ADO
     public function eliminarFpago($id)
     {
         try {
-            $sql = "DELETE FROM `fruta_fpago` WHERE `ID_FPAGO`=" . $id . ";";
+            $sql = "DELETE FROM  fruta_fpago  WHERE  ID_FPAGO =" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -199,11 +201,12 @@ class FPAGO_ADO
     {
         try {
             $query = "
-		UPDATE `fruta_fpago` SET
-            `NOMBRE_FPAGO`= ?,
-            `FECHA_PAGO_FPAGO`= ?   ,
-            `ID_USUARIOM`= ?          
-		WHERE `ID_FPAGO`= ?;";
+		UPDATE  fruta_fpago  SET
+             MODIFICACION = SYSDATE(),
+             NOMBRE_FPAGO = ?,
+             FECHA_PAGO_FPAGO = ?   ,
+             ID_USUARIOM = ?          
+		WHERE  ID_FPAGO = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -228,9 +231,9 @@ class FPAGO_ADO
 
         try {
             $query = "
-    UPDATE `fruta_fpago` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_FPAGO`= ?;";
+    UPDATE  fruta_fpago  SET			
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_FPAGO = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -247,9 +250,9 @@ class FPAGO_ADO
     {
         try {
             $query = "
-    UPDATE `fruta_fpago` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_FPAGO`= ?;";
+    UPDATE  fruta_fpago  SET			
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_FPAGO = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -287,7 +290,7 @@ class FPAGO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_fpago` 
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_fpago  
                                             WHERE ESTADO_REGISTRO = 1
                                               AND ID_EMPRESA = '" . $IDEMPRESA . "';	");
             $datos->execute();
@@ -309,7 +312,7 @@ class FPAGO_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                     IFNULL(COUNT(NUMERO_FPAGO),0) AS 'NUMERO'
-                                                FROM `fruta_fpago`
+                                                FROM  fruta_fpago 
                                                 WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

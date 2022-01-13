@@ -47,7 +47,7 @@ class PCARGA_ADO {
     public function listarPcarga(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_pcarga` limit 8;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_pcarga  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -67,7 +67,7 @@ class PCARGA_ADO {
     public function listarPcargaCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_pcarga` WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_pcarga  WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -87,7 +87,7 @@ class PCARGA_ADO {
     public function listarPcargaCBX2(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_pcarga` WHERE ESTADO_REGISTRO = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_pcarga  WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -107,7 +107,7 @@ class PCARGA_ADO {
     public function verPcarga($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_pcarga` WHERE `ID_PCARGA`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_pcarga  WHERE  ID_PCARGA = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -129,7 +129,7 @@ class PCARGA_ADO {
     public function buscarNombrePcarga($NOMBRE){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_pcarga` WHERE `NOMBRE_PCARGA` LIKE '%".$NOMBRE."%';");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_pcarga  WHERE  NOMBRE_PCARGA  LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -151,15 +151,17 @@ class PCARGA_ADO {
             
             
             $query=
-            "INSERT INTO `fruta_pcarga` (
-                                            `NUMERO_PCARGA`, 
-                                            `NOMBRE_PCARGA`, 
-                                            `ID_EMPRESA`, 
-                                            `ID_USUARIOI`, 
-                                            `ID_USUARIOM`, 
-                                            `ESTADO_REGISTRO`
+            "INSERT INTO  fruta_pcarga  (
+                                             NUMERO_PCARGA , 
+                                             NOMBRE_PCARGA , 
+                                             ID_EMPRESA , 
+                                             ID_USUARIOI , 
+                                             ID_USUARIOM , 
+                                             INGRESO ,
+                                             MODIFICACION ,
+                                             ESTADO_REGISTRO 
                                         ) VALUES
-	       	( ?, ?, ?, ?, ?, 1);";
+	       	( ?, ?, ?, ?, ?,  SYSDATE(), SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -181,7 +183,7 @@ class PCARGA_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarPcarga($id){
-        try{$sql="DELETE FROM `fruta_pcarga` WHERE `ID_PCARGA`=".$id.";";
+        try{$sql="DELETE FROM  fruta_pcarga  WHERE  ID_PCARGA =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -198,10 +200,11 @@ class PCARGA_ADO {
     public function actualizarPcarga(PCARGA $PCARGA){
         try{
             $query = "
-		UPDATE `fruta_pcarga` SET
-            `NOMBRE_PCARGA`= ?,
-            `ID_USUARIOM`= ?            
-		WHERE `ID_PCARGA`= ?;";
+		UPDATE  fruta_pcarga  SET
+             MODIFICACION = SYSDATE(),
+             NOMBRE_PCARGA = ?,
+             ID_USUARIOM = ?            
+		WHERE  ID_PCARGA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -226,9 +229,9 @@ class PCARGA_ADO {
 
         try{
             $query = "
-    UPDATE `fruta_pcarga` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_PCARGA`= ?;";
+    UPDATE  fruta_pcarga  SET			
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_PCARGA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -246,9 +249,9 @@ class PCARGA_ADO {
     public function habilitar(PCARGA $PCARGA){
         try{
             $query = "
-    UPDATE `fruta_pcarga` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_PCARGA`= ?;";
+    UPDATE  fruta_pcarga  SET			
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_PCARGA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -267,7 +270,7 @@ class PCARGA_ADO {
     public function listarPcargaPorEmpresaCBX($IDEMPRESA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_pcarga` 
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_pcarga  
                                             WHERE ESTADO_REGISTRO = 1
                                             AND ID_EMPRESA = '".$IDEMPRESA."';	");
             $datos->execute();
@@ -290,7 +293,7 @@ class PCARGA_ADO {
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                 IFNULL(COUNT(NUMERO_PCARGA),0) AS 'NUMERO'
-                                            FROM `fruta_pcarga`
+                                            FROM  fruta_pcarga 
                                             WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();
