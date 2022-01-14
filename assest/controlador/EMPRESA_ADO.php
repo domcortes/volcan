@@ -45,7 +45,7 @@ class EMPRESA_ADO {
     public function listarEmpresa(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `principal_empresa` LIMIT 6;	");
+            $datos=$this->conexion->prepare("SELECT * FROM   principal_empresa   LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -64,7 +64,7 @@ class EMPRESA_ADO {
     public function listarEmpresaCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `principal_empresa` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM   principal_empresa   WHERE   ESTADO_REGISTRO   = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -82,7 +82,7 @@ class EMPRESA_ADO {
     public function listarEmpresa2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `principal_empresa` WHERE `ESTADO_REGISTRO` = 0 ;	");
+            $datos=$this->conexion->prepare("SELECT * FROM   principal_empresa   WHERE   ESTADO_REGISTRO   = 0 ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -101,7 +101,7 @@ class EMPRESA_ADO {
     public function verEmpresa($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `principal_empresa` WHERE `ID_EMPRESA`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM   principal_empresa   WHERE   ID_EMPRESA  = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -122,7 +122,7 @@ class EMPRESA_ADO {
     public function buscarNombreEmpresa($NOMBRE){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `principal_empresa` WHERE `NOMBRE_EMPRESA` LIKE '%".$NOMBRE."%';");
+            $datos=$this->conexion->prepare("SELECT * FROM   principal_empresa   WHERE   NOMBRE_EMPRESA   LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -144,22 +144,22 @@ class EMPRESA_ADO {
   
             
             $query=
-            "INSERT INTO `principal_empresa` ( 
-                                                `RUT_EMPRESA`, 
-                                                `DV_EMPRESA`, 
-                                                `NOMBRE_EMPRESA`, 
-                                                `RAZON_SOCIAL_EMPRESA`, 
-                                                `DIRECCION_EMPRESA`, 
-                                                `GIRO_EMPRESA`,  
-                                                `TELEFONO_EMPRESA`, 
-                                                `ENCARGADO_COMPRA_EMPRESA`, 
-                                                `LOGO_EMPRESA`, 
-                                                `ID_CIUDAD`,
-                                                `ID_USUARIOI`,
-                                                `ID_USUARIOM`,
-                                                `INGRESO`,
-                                                `MODIFICACION`, 
-                                                `ESTADO_REGISTRO`
+            "INSERT INTO   principal_empresa   ( 
+                                                  RUT_EMPRESA  , 
+                                                  DV_EMPRESA  , 
+                                                  NOMBRE_EMPRESA  , 
+                                                  RAZON_SOCIAL_EMPRESA  , 
+                                                  DIRECCION_EMPRESA  , 
+                                                  GIRO_EMPRESA  ,  
+                                                  TELEFONO_EMPRESA  , 
+                                                  ENCARGADO_COMPRA_EMPRESA  , 
+                                                  LOGO_EMPRESA  , 
+                                                  ID_CIUDAD  ,
+                                                  ID_USUARIOI  ,
+                                                  ID_USUARIOM  ,
+                                                  INGRESO  ,
+                                                  MODIFICACION  , 
+                                                  ESTADO_REGISTRO  
                                              ) VALUES
 	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE(), SYSDATE(), 1);";
             $this->conexion->prepare($query)
@@ -195,20 +195,20 @@ class EMPRESA_ADO {
 
         try{
             $query = "
-		UPDATE `principal_empresa` SET
-            `MODIFICACION` = SYSDATE(),
-			`RUT_EMPRESA` = ?,
-			`DV_EMPRESA` = ?,
-			`NOMBRE_EMPRESA` = ?,
-            `RAZON_SOCIAL_EMPRESA`= ?,
-            `DIRECCION_EMPRESA`= ?,
-            `GIRO_EMPRESA`= ?,
-            `TELEFONO_EMPRESA` = ?,
-            `ENCARGADO_COMPRA_EMPRESA` = ?,
-            `LOGO_EMPRESA` = ?,
-            `ID_CIUDAD`= ?,
-            `ID_USUARIOM`= ?
-		WHERE `ID_EMPRESA`= ?;";
+		UPDATE   principal_empresa   SET
+              MODIFICACION   = SYSDATE(),
+			  RUT_EMPRESA   = ?,
+			  DV_EMPRESA   = ?,
+			  NOMBRE_EMPRESA   = ?,
+              RAZON_SOCIAL_EMPRESA  = ?,
+              DIRECCION_EMPRESA  = ?,
+              GIRO_EMPRESA  = ?,
+              TELEFONO_EMPRESA   = ?,
+              ENCARGADO_COMPRA_EMPRESA   = ?,
+              LOGO_EMPRESA   = ?,
+              ID_CIUDAD  = ?,
+              ID_USUARIOM  = ?
+		WHERE   ID_EMPRESA  = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -236,7 +236,7 @@ class EMPRESA_ADO {
     }
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarempresa($id){
-        try{$sql="DELETE FROM `principal_empresa` WHERE `nombre_empresa`=".$id.";";
+        try{$sql="DELETE FROM   principal_empresa   WHERE   nombre_empresa  =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -253,10 +253,10 @@ class EMPRESA_ADO {
 
         try{
             $query = "
-		UPDATE `principal_empresa` SET			
-        `MODIFICACION`= SYSDATE(),		
-            `ESTADO_REGISTRO` = 0
-		WHERE `ID_EMPRESA`= ?;";
+		UPDATE   principal_empresa   SET			
+          MODIFICACION  = SYSDATE(),		
+              ESTADO_REGISTRO   = 0
+		WHERE   ID_EMPRESA  = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -274,10 +274,10 @@ class EMPRESA_ADO {
     public function habilitar(EMPRESA $EMPRESA){
         try{
             $query = "
-		UPDATE `principal_empresa` SET			
-        `MODIFICACION`= SYSDATE(),		
-            `ESTADO_REGISTRO` = 1
-		WHERE `ID_EMPRESA`= ?;";
+		UPDATE   principal_empresa   SET			
+          MODIFICACION  = SYSDATE(),		
+              ESTADO_REGISTRO   = 1
+		WHERE   ID_EMPRESA  = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 

@@ -12,6 +12,8 @@ class TUSUARIO {
     private   $ESTADO_REGISTRO; 
     private   $INGRESO;
     private   $MODIFICACION;
+    private   $ID_USUARIOI;
+    private   $ID_USUARIOM;
     
     //FUNCIONES GET Y SET
     public function __GET($k){ return $this->$k; }

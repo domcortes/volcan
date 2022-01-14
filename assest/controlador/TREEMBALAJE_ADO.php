@@ -47,7 +47,7 @@ class TREEMBALAJE_ADO {
     public function listarTreembalaje(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_treembalaje` limit 8;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_treembalaje  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -66,7 +66,7 @@ class TREEMBALAJE_ADO {
     public function listarTreembalajeCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_treembalaje` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_treembalaje  WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -86,7 +86,7 @@ class TREEMBALAJE_ADO {
     public function listarTreembalaje2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_treembalaje` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_treembalaje  WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -107,7 +107,7 @@ class TREEMBALAJE_ADO {
     public function verTreembalaje($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_treembalaje` WHERE `ID_TREEMBALAJE`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_treembalaje  WHERE  ID_TREEMBALAJE = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -129,7 +129,7 @@ class TREEMBALAJE_ADO {
     public function buscarNombreTreembalaje($NOMBRE){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_treembalaje` WHERE `NOMBRE_TREEMBALAJE` LIKE '%".$NOMBRE."%';");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_treembalaje  WHERE  NOMBRE_TREEMBALAJE  LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -151,13 +151,15 @@ class TREEMBALAJE_ADO {
             
             
             $query=
-            "INSERT INTO `fruta_treembalaje` (
-                                                `NOMBRE_TREEMBALAJE`, 
-                                                `ID_USUARIOI`, 
-                                                `ID_USUARIOM`,
-                                                `ESTADO_REGISTRO`
+            "INSERT INTO  fruta_treembalaje  (
+                                                 NOMBRE_TREEMBALAJE , 
+                                                 ID_USUARIOI , 
+                                                 ID_USUARIOM ,
+                                                 INGRESO,
+                                                 MODIFICACION,
+                                                 ESTADO_REGISTRO 
                                              ) VALUES
-	       	( ?, ?, ?,  1);";
+	       	( ?, ?, ?, SYSDATE() , SYSDATE(),  1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -177,7 +179,7 @@ class TREEMBALAJE_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarTreembalaje($id){
-        try{$sql="DELETE FROM `fruta_treembalaje` WHERE `ID_TREEMBALAJE`=".$id.";";
+        try{$sql="DELETE FROM  fruta_treembalaje  WHERE  ID_TREEMBALAJE =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -194,10 +196,11 @@ class TREEMBALAJE_ADO {
     public function actualizarTreembalaje(TREEMBALAJE $TREEMBALAJE){
         try{
             $query = "
-		UPDATE `fruta_treembalaje` SET
-            `NOMBRE_TREEMBALAJE`= ?,
-            `ID_USUARIOM`= ?            
-		WHERE `ID_TREEMBALAJE`= ?;";
+                UPDATE  fruta_treembalaje  SET
+                    MODIFICACION= SYSDATE(),
+                    NOMBRE_TREEMBALAJE = ?,
+                    ID_USUARIOM = ?            
+                WHERE  ID_TREEMBALAJE = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -223,9 +226,9 @@ class TREEMBALAJE_ADO {
 
         try{
             $query = "
-    UPDATE `fruta_treembalaje` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_TREEMBALAJE`= ?;";
+    UPDATE  fruta_treembalaje  SET			
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_TREEMBALAJE = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -243,9 +246,9 @@ class TREEMBALAJE_ADO {
     public function habilitar(TREEMBALAJE $TREEMBALAJE){
         try{
             $query = "
-    UPDATE `fruta_treembalaje` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_TREEMBALAJE`= ?;";
+    UPDATE  fruta_treembalaje  SET			
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_TREEMBALAJE = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -263,7 +266,7 @@ class TREEMBALAJE_ADO {
     public function validar2($NOMBRETREEMBALAJE , $NOMBRETREEMBALAJEV){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_treembalaje` WHERE `NOMBRE_TREEMBALAJE` LIKE '%".$NOMBRETREEMBALAJE."%' AND `NOMBRE_TREEMBALAJE` LIKE '%".$NOMBRETREEMBALAJEV."%' ;");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_treembalaje  WHERE  NOMBRE_TREEMBALAJE  LIKE '%".$NOMBRETREEMBALAJE."%' AND  NOMBRE_TREEMBALAJE  LIKE '%".$NOMBRETREEMBALAJEV."%' ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -281,7 +284,7 @@ class TREEMBALAJE_ADO {
     public function validar1($NOMBRETREEMBALAJE){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_treembalaje` WHERE `NOMBRE_TREEMBALAJE` LIKE '%".$NOMBRETREEMBALAJE."%';");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_treembalaje  WHERE  NOMBRE_TREEMBALAJE  LIKE '%".$NOMBRETREEMBALAJE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;

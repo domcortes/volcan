@@ -39,7 +39,7 @@
                 $ARRAYTEMPORADAS = $TEMPORADA_ADO->verTemporada($TEMPORADAS);
                 if ($ARRAYTEMPORADAS) {
                   echo $ARRAYTEMPORADAS[0]['NOMBRE_TEMPORADA'];
-                  $TEMPORADA = $ARRAYTEMPORADAS[0]['ID_TEMPORADA'];
+                  //$TEMPORADA = $ARRAYTEMPORADAS[0]['ID_TEMPORADA'];
                 } else {
                   echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
                 }
@@ -164,13 +164,11 @@
             </li>
             <!-- Menu Body -->
             <li class="user-body">
-              <a class="dropdown-item" href="verUsuario.php"><i class="ion ion-person"></i> Mi Perfil</a>
-              <?php if ($TUSUARIO != 0) { ?>
-                <a class="dropdown-item" href="editarUsuario.php"><i class="ion ion-email-unread"></i> Editar Perfil</a>
-                <a class="dropdown-item" href="editarUsuarioClave.php"><i class="ion ion-settings"></i> Cambiar Contrasena</a>
-              <?php } ?>
+              <a class="dropdown-item" href="verUsuario.php"><i class="ion ion-person"></i> Mi Perfil</a>              
+              <a class="dropdown-item" href="editarUsuario.php"><i class="ion ion-email-unread"></i> Editar Perfil</a>
+              <a class="dropdown-item" href="editarUsuarioClave.php"><i class="ion ion-settings"></i> Cambiar Contrasena</a>              
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="verUsuarioActividad.php"><i class="ion ion-bag"></i> Mi Actividad</a>
+                <a class="dropdown-item" href="verUsuarioActividad.php"><i class="ion ion-bag"></i> Mi Actividad</a>
               <!--actividadUsuario.php-->         
               <div class="dropdown-divider"></div>
               <div class="p-10">
@@ -211,51 +209,68 @@
   <section class="sidebar">
     <!-- sidebar menu-->
     <ul class="sidebar-menu" data-widget="tree">
-
       <li>
         <a href="index.php">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/dashboard.svg" class="svg-icon" alt="">
           <span>Inicio</span>
         </a>
       </li>
-      <li class="header">Modulo</li>      
-      <li class="treeview">
-        <a href="#">
-          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/layout.svg" class="svg-icon" alt="">
-          <span>Informe</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-right pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li><a href="listarRecepcionmpDetallado.php">Detallado Recepcion MP<i class="ti-more"></i></a></li>
-          <li><a href="listarProceso.php">Proceso<i class="ti-more"></i></a></li>
-        </ul>
-      </li>       
-      <li class="treeview">
-        <a href="#">
-          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/pages.svg" class="svg-icon" alt="">
-          <span>Existencia</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-right pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li class="treeview">
-            <a href="#">Disponible
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="listarEximateriaprima.php">Materia Prima<i class="ti-more"></i></a></li>
-              <li><a href="listarExiexportacion.php">Producto Terminado<i class="ti-more"></i></a></li>
-              <li><a href="listarExiindustrial.php">Producto Industrial<i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-        </ul>
-      </li>   
-      <li class="header">Configuraciones</li>  
+      <li class="header">Modulo</li>  
+      <?php if($PESTAPRODUCTOR=="1"){ ?>
+        <li class="treeview">
+          <a href="#">
+            <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/layout.svg" class="svg-icon" alt="">
+            <span>Informe</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="listarProductorRecepcionmp.php">Recepcion MP</i></a></li>
+            <li><a href="listarProductorProceso.php">Proceso</i></a></li>
+          </ul>
+        </li>   
+      <?php  } ?>
+      <?php if($PESTAINFORME=="1"){ ?>
+        <li class="treeview">
+          <a href="#">
+            <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/layout.svg" class="svg-icon" alt="">
+            <span>Informe</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="listarRecepcionmpDetallado.php">Detallado Recepcion MP</i></a></li>
+            <li><a href="listarProceso.php">Proceso</i></a></li>
+          </ul>
+        </li>    
+      <?php  } ?>
+      <?php if($PESTAEXISTENCIA=="1"){ ?>
+        <li class="treeview">
+          <a href="#">
+            <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/pages.svg" class="svg-icon" alt="">
+            <span>Existencia</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="treeview">
+              <a href="#">Disponible
+                <span class="pull-left-container">
+                  <i class=" fa fa-angle-right pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="listarEximateriaprima.php">Materia Prima</i></a></li>
+                <li><a href="listarExiexportacion.php">Producto Terminado</i></a></li>
+                <li><a href="listarExiindustrial.php">Producto Industrial</i></a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>   
+      <?php  } ?>
     </ul>
   </section>
 </aside>

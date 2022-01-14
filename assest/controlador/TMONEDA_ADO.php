@@ -45,7 +45,7 @@ class TMONEDA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tmoneda` limit 8;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tmoneda  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -65,7 +65,7 @@ class TMONEDA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tmoneda` WHERE  ESTADO_REGISTRO = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tmoneda  WHERE  ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -84,7 +84,7 @@ class TMONEDA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tmoneda` WHERE  ESTADO_REGISTRO = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tmoneda  WHERE  ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -105,7 +105,7 @@ class TMONEDA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tmoneda` WHERE `ID_TMONEDA`= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tmoneda  WHERE  ID_TMONEDA = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -127,7 +127,7 @@ class TMONEDA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tmoneda` WHERE `NOMBRE_TMONEDA` LIKE '%" . $NOMBRE . "%';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tmoneda  WHERE  NOMBRE_TMONEDA  LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -149,15 +149,17 @@ class TMONEDA_ADO
 
 
             $query =
-                "INSERT INTO `fruta_tmoneda` (
-                                                `NUMERO_TMONEDA`, 
-                                                `NOMBRE_TMONEDA`, 
-                                                `ID_EMPRESA`, 
-                                                `ID_USUARIOI`, 
-                                                `ID_USUARIOM`,
-                                                `ESTADO_REGISTRO`
+                "INSERT INTO  fruta_tmoneda  (
+                                                 NUMERO_TMONEDA , 
+                                                 NOMBRE_TMONEDA , 
+                                                 ID_EMPRESA , 
+                                                 ID_USUARIOI , 
+                                                 ID_USUARIOM ,
+                                                 INGRESO,
+                                                 MODIFICACION,
+                                                 ESTADO_REGISTRO 
                                             ) VALUES
-	       	( ?, ?, ?, ?, ?, 1);";
+	       	( ?, ?, ?, ?, ?,  SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -180,7 +182,7 @@ class TMONEDA_ADO
     public function eliminarTmoneda($id)
     {
         try {
-            $sql = "DELETE FROM `fruta_tmoneda` WHERE `ID_TMONEDA`=" . $id . ";";
+            $sql = "DELETE FROM  fruta_tmoneda  WHERE  ID_TMONEDA =" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -196,10 +198,11 @@ class TMONEDA_ADO
     {
         try {
             $query = "
-		UPDATE `fruta_tmoneda` SET
-            `NOMBRE_TMONEDA`= ?,
-            `ID_USUARIOM`= ?            
-		WHERE `ID_TMONEDA`= ?;";
+		UPDATE  fruta_tmoneda  SET
+             MODIFICACION= SYSDATE(),
+             NOMBRE_TMONEDA = ?,
+             ID_USUARIOM = ?            
+		WHERE  ID_TMONEDA = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -223,9 +226,9 @@ class TMONEDA_ADO
 
         try {
             $query = "
-    UPDATE `fruta_tmoneda` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_TMONEDA`= ?;";
+    UPDATE  fruta_tmoneda  SET			
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_TMONEDA = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -242,9 +245,9 @@ class TMONEDA_ADO
     {
         try {
             $query = "
-    UPDATE `fruta_tmoneda` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_TMONEDA`= ?;";
+    UPDATE  fruta_tmoneda  SET			
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_TMONEDA = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -261,7 +264,7 @@ class TMONEDA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tmoneda` 
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tmoneda  
                                              WHERE  ESTADO_REGISTRO = 1
                                             AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
             $datos->execute();
@@ -283,7 +286,7 @@ class TMONEDA_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                 IFNULL(COUNT(NUMERO_TMONEDA),0) AS 'NUMERO'
-                                            FROM `fruta_tmoneda`
+                                            FROM  fruta_tmoneda 
                                             WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

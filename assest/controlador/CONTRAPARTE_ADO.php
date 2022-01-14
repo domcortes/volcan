@@ -45,7 +45,7 @@ class CONTRAPARTE_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_contraparte` LIMIT 6;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_contraparte  LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -64,7 +64,7 @@ class CONTRAPARTE_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_contraparte`  WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_contraparte   WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -83,7 +83,7 @@ class CONTRAPARTE_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_contraparte`  WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_contraparte   WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -102,7 +102,7 @@ class CONTRAPARTE_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_contraparte` WHERE `ID_CONTRAPARTE`= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_contraparte  WHERE  ID_CONTRAPARTE = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -131,21 +131,23 @@ class CONTRAPARTE_ADO
                 $CONTRAPARTE->__SET('ID_CIUDAD', NULL);
             }
             $query =
-                "INSERT INTO `fruta_contraparte` 
+                "INSERT INTO  fruta_contraparte  
                                                 ( 
-                                                    `NUMERO_CONTRAPARTE`, 
-                                                    `NOMBRE_CONTRAPARTE`, 
-                                                    `DIRECCION_CONTRAPARTE`, 
-                                                    `TELEFONO_CONTRAPARTE`, 
-                                                    `EMAIL_CONTRAPARTE`, 
-                                                    `ID_CIUDAD` , 
-                                                    `ID_EMPRESA`, 
-                                                    `ID_USUARIOI`, 
-                                                    `ID_USUARIOM`, 
-                                                    `ESTADO_REGISTRO`
+                                                     NUMERO_CONTRAPARTE , 
+                                                     NOMBRE_CONTRAPARTE , 
+                                                     DIRECCION_CONTRAPARTE , 
+                                                     TELEFONO_CONTRAPARTE , 
+                                                     EMAIL_CONTRAPARTE , 
+                                                     ID_CIUDAD  , 
+                                                     ID_EMPRESA , 
+                                                     ID_USUARIOI , 
+                                                     ID_USUARIOM , 
+                                                     INGRESO ,
+                                                     MODIFICACION , 
+                                                     ESTADO_REGISTRO 
                                                 ) 
             VALUES
-	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, 1);";
+	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(),  1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -173,7 +175,7 @@ class CONTRAPARTE_ADO
     public function eliminarContraparte($id)
     {
         try {
-            $sql = "DELETE FROM `fruta_contraparte` WHERE `ID_CONTRAPARTE`=" . $id . ";";
+            $sql = "DELETE FROM  fruta_contraparte  WHERE  ID_CONTRAPARTE =" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -191,14 +193,15 @@ class CONTRAPARTE_ADO
                 $CONTRAPARTE->__SET('ID_CIUDAD', NULL);
             }
             $query = "
-		UPDATE `fruta_contraparte` SET
-			`NOMBRE_CONTRAPARTE` = ?,
-			`DIRECCION_CONTRAPARTE` = ?,
-			`TELEFONO_CONTRAPARTE` = ?,
-			`EMAIL_CONTRAPARTE` = ?,
-            `ID_CIUDAD`= ?,
-            `ID_USUARIOM`= ?
-		WHERE `ID_CONTRAPARTE` = ?  ;";
+                UPDATE  fruta_contraparte  SET
+                    MODIFICACION = SYSDATE(),
+                    NOMBRE_CONTRAPARTE  = ?,
+                    DIRECCION_CONTRAPARTE  = ?,
+                    TELEFONO_CONTRAPARTE  = ?,
+                    EMAIL_CONTRAPARTE  = ?,
+                    ID_CIUDAD = ?,
+                    ID_USUARIOM = ?
+                WHERE  ID_CONTRAPARTE  = ?  ;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -226,9 +229,9 @@ class CONTRAPARTE_ADO
 
         try {
             $query = "
-		UPDATE `fruta_contraparte` SET			
-            `ESTADO_REGISTRO` = 0
-		WHERE `ID_CONTRAPARTE`= ?;";
+		UPDATE  fruta_contraparte  SET			
+             ESTADO_REGISTRO  = 0
+		WHERE  ID_CONTRAPARTE = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -246,9 +249,9 @@ class CONTRAPARTE_ADO
 
         try {
             $query = "
-		UPDATE `fruta_contraparte` SET			
-            `ESTADO_REGISTRO` = 1
-		WHERE `ID_CONTRAPARTE`= ?;";
+		UPDATE  fruta_contraparte  SET			
+             ESTADO_REGISTRO  = 1
+		WHERE  ID_CONTRAPARTE = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -266,8 +269,8 @@ class CONTRAPARTE_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_contraparte`  
-                                            WHERE `ESTADO_REGISTRO` = 1
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_contraparte   
+                                            WHERE  ESTADO_REGISTRO  = 1
                                             AND ID_EMPRESA = '" . $IDEMPRESA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -290,7 +293,7 @@ class CONTRAPARTE_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                     IFNULL(COUNT(NUMERO_CONTRAPARTE),0) AS 'NUMERO'
-                                                FROM `fruta_contraparte`
+                                                FROM  fruta_contraparte 
                                                 WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

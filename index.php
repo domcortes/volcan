@@ -5,9 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
-    <link rel="stylesheet" type="text/css" HREF="css/reset.css" />
-    <link rel="icon" href="img/favicon.png">
+    <link rel="stylesheet" type="text/css" href="assest/css/style.css" />
+    <link rel="stylesheet" type="text/css" HREF="assest/css/reset.css" />
+    <link rel="icon" href="assest/img/favicon.png">
 
     <!-- Plantilla Estilo-->
     <!-- Vendors Style-->
@@ -74,12 +74,7 @@
                 </div>
             </div>
         </div>
-        <?php //include_once "../config/footer.php";     
-        ?>
-    </div>
-
-    <?php //include_once "../config/urlBaseLogin.php"; 
-    ?>
+        <?php //include_once "assest/config/footer.php"; ?>
+    </div>   
 </body>
-
 </html>

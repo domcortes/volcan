@@ -168,11 +168,13 @@ class ERECEPCION_ADO {
 
                                                     ID_USUARIOI, 
                                                     ID_USUARIOM, 
+                                                    INGRESO ,
+                                                    MODIFICACION , 
                                                     TFRUTA_ESTANDAR, 
                                                     ESTADO_REGISTRO 
                                             ) 
                                             VALUES
-	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,   ?, ?,  1,  1);";
+	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,   ?, ?,   SYSDATE(), SYSDATE(),  1,  1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(                    
@@ -213,18 +215,19 @@ class ERECEPCION_ADO {
     public function actualizarEstandar(ERECEPCION $ERECEPCION){
         try{
             $query = "
-		UPDATE estandar_erecepcion SET
-            CODIGO_ESTANDAR= ?,  
-            NOMBRE_ESTANDAR= ?,  
-            CANTIDAD_ENVASE_ESTANDAR= ?,  
-            PESO_ENVASE_ESTANDAR= ?,  
-            PESO_PALLET_ESTANDAR= ?,  
-            TRATAMIENTO1= ?,  
-            TRATAMIENTO2= ?,  
-            ID_ESPECIES= ?  ,  
-            ID_PRODUCTO= ?  ,  
-            ID_USUARIOM= ?  
-		WHERE ID_ESTANDAR= ?;";
+                UPDATE estandar_erecepcion SET
+                    MODIFICACION = SYSDATE(),
+                    CODIGO_ESTANDAR= ?,  
+                    NOMBRE_ESTANDAR= ?,  
+                    CANTIDAD_ENVASE_ESTANDAR= ?,  
+                    PESO_ENVASE_ESTANDAR= ?,  
+                    PESO_PALLET_ESTANDAR= ?,  
+                    TRATAMIENTO1= ?,  
+                    TRATAMIENTO2= ?,  
+                    ID_ESPECIES= ?  ,  
+                    ID_PRODUCTO= ?  ,  
+                    ID_USUARIOM= ?  
+                WHERE ID_ESTANDAR= ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(

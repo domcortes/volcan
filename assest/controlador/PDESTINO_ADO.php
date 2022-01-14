@@ -47,7 +47,7 @@ class PDESTINO_ADO {
     public function listarPdestino(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_pdestino` limit 8;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_pdestino  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -67,7 +67,7 @@ class PDESTINO_ADO {
     public function listarPdestinoCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_pdestino` WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_pdestino  WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -86,7 +86,7 @@ class PDESTINO_ADO {
     public function listarPdestinoCBX2(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_pdestino` WHERE ESTADO_REGISTRO = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_pdestino  WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -107,7 +107,7 @@ class PDESTINO_ADO {
     public function verPdestino($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_pdestino` WHERE `ID_PDESTINO`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_pdestino  WHERE  ID_PDESTINO = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -129,7 +129,7 @@ class PDESTINO_ADO {
     public function buscarNombrePdestino($NOMBRE){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_pdestino` WHERE `NOMBRE_PDESTINO` LIKE '%".$NOMBRE."%';");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_pdestino  WHERE  NOMBRE_PDESTINO  LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -151,15 +151,17 @@ class PDESTINO_ADO {
             
             
             $query=
-            "INSERT INTO `fruta_pdestino` (
-                                            `NUMERO_PDESTINO`, 
-                                            `NOMBRE_PDESTINO`, 
-                                            `ID_EMPRESA`, 
-                                            `ID_USUARIOI`, 
-                                            `ID_USUARIOM`, 
-                                            `ESTADO_REGISTRO`
+            "INSERT INTO  fruta_pdestino  (
+                                             NUMERO_PDESTINO , 
+                                             NOMBRE_PDESTINO , 
+                                             ID_EMPRESA , 
+                                             ID_USUARIOI , 
+                                             ID_USUARIOM , 
+                                             INGRESO ,
+                                             MODIFICACION ,
+                                             ESTADO_REGISTRO 
                                           ) VALUES
-	       	( ?, ?, ?, ?, ?, 1);";
+	       	( ?, ?, ?, ?, ?, SYSDATE(), SYSDATE(),  1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -181,7 +183,7 @@ class PDESTINO_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarPdestino($id){
-        try{$sql="DELETE FROM `fruta_pdestino` WHERE `ID_PDESTINO`=".$id.";";
+        try{$sql="DELETE FROM  fruta_pdestino  WHERE  ID_PDESTINO =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -198,10 +200,11 @@ class PDESTINO_ADO {
     public function actualizarPdestino(PDESTINO $PDESTINO){
         try{
             $query = "
-		UPDATE `fruta_pdestino` SET
-            `NOMBRE_PDESTINO`= ?,
-            `ID_USUARIOM`= ?            
-		WHERE `ID_PDESTINO`= ?;";
+		UPDATE  fruta_pdestino  SET
+             MODIFICACION = SYSDATE(),
+             NOMBRE_PDESTINO = ?,
+             ID_USUARIOM = ?            
+		WHERE  ID_PDESTINO = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -226,9 +229,9 @@ class PDESTINO_ADO {
 
         try{
             $query = "
-    UPDATE `fruta_pdestino` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_PDESTINO`= ?;";
+    UPDATE  fruta_pdestino  SET			
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_PDESTINO = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -246,9 +249,9 @@ class PDESTINO_ADO {
     public function habilitar(PDESTINO $PDESTINO){
         try{
             $query = "
-    UPDATE `fruta_pdestino` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_PDESTINO`= ?;";
+    UPDATE  fruta_pdestino  SET			
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_PDESTINO = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -265,7 +268,7 @@ class PDESTINO_ADO {
     public function listarPdestinoPorEmpresaCBX($IDEMPRESA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_pdestino` 
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_pdestino  
                                              WHERE ESTADO_REGISTRO = 1
                                              AND ID_EMPRESA = '".$IDEMPRESA."';	");
             $datos->execute();
@@ -288,7 +291,7 @@ class PDESTINO_ADO {
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                 IFNULL(COUNT(NUMERO_PDESTINO),0) AS 'NUMERO'
-                                            FROM `fruta_pdestino`
+                                            FROM  fruta_pdestino 
                                             WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

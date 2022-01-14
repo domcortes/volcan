@@ -499,6 +499,39 @@ class RECEPCIONMP_ADO
         }
     }
 
+    public function listarRecepcionEmpresaProductorTemporadaCBX( $EMPRESA,$PRODUCTOR, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *  ,
+                                                    FECHA_GUIA_RECEPCION AS 'FECHA_GUIA',
+                                                    FECHA_RECEPCION AS 'FECHA',
+                                                    DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION',
+                                                    IFNULL(CANTIDAD_ENVASE_RECEPCION,0)  AS 'ENVASE',
+                                                    IFNULL(KILOS_NETO_RECEPCION,0) AS 'NETO',
+                                                    IFNULL(KILOS_BRUTO_RECEPCION,0)  AS 'BRUTO',
+                                                    IFNULL(TOTAL_KILOS_GUIA_RECEPCION,0)  AS 'GUIA'
+                                            FROM fruta_recepcionmp 
+                                            WHERE  ESTADO_REGISTRO = 1 
+                                                AND  ID_EMPRESA = '" . $EMPRESA . "' 
+                                                AND ID_PRODUCTOR = '" . $PRODUCTOR . "'
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                            ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
     public function listarRecepcionTemporadaCBX( $TEMPORADA)
     {
         try {

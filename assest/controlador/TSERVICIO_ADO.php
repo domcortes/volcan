@@ -45,7 +45,7 @@ class TSERVICIO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tservicio` limit 8;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tservicio  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -64,7 +64,7 @@ class TSERVICIO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tservicio` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tservicio  WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -84,7 +84,7 @@ class TSERVICIO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tservicio` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tservicio  WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -105,7 +105,7 @@ class TSERVICIO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tservicio` WHERE `ID_TSERVICIO`= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tservicio  WHERE  ID_TSERVICIO = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -127,7 +127,7 @@ class TSERVICIO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tservicio` WHERE `NOMBRE_TSERVICIO` LIKE '%" . $NOMBRE . "%';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tservicio  WHERE  NOMBRE_TSERVICIO  LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -149,15 +149,17 @@ class TSERVICIO_ADO
 
 
             $query =
-                "INSERT INTO `fruta_tservicio` (
-                                                `NUMERO_TSERVICIO`, 
-                                                `NOMBRE_TSERVICIO`, 
-                                                `ID_EMPRESA`, 
-                                                `ID_USUARIOI`, 
-                                                `ID_USUARIOM`,
-                                                `ESTADO_REGISTRO`
+                "INSERT INTO  fruta_tservicio  (
+                                                 NUMERO_TSERVICIO , 
+                                                 NOMBRE_TSERVICIO , 
+                                                 ID_EMPRESA , 
+                                                 ID_USUARIOI , 
+                                                 ID_USUARIOM ,
+                                                 INGRESO,
+                                                 MODIFICACION,
+                                                 ESTADO_REGISTRO 
                                             ) VALUES
-	       	( ?, ?, ?, ?, ?, 1);";
+	       	( ?, ?, ?, ?, ?,  SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -180,7 +182,7 @@ class TSERVICIO_ADO
     public function eliminarTservicio($id)
     {
         try {
-            $sql = "DELETE FROM `fruta_tservicio` WHERE `ID_TSERVICIO`=" . $id . ";";
+            $sql = "DELETE FROM  fruta_tservicio  WHERE  ID_TSERVICIO =" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -196,10 +198,11 @@ class TSERVICIO_ADO
     {
         try {
             $query = "
-		UPDATE `fruta_tservicio` SET
-            `NOMBRE_TSERVICIO`= ?  ,  
-            `ID_USUARIOM`= ?        
-		WHERE `ID_TSERVICIO`= ?;";
+                UPDATE  fruta_tservicio  SET
+                    MODIFICACION= SYSDATE(),
+                    NOMBRE_TSERVICIO = ?  ,  
+                    ID_USUARIOM = ?        
+                WHERE  ID_TSERVICIO = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -224,9 +227,9 @@ class TSERVICIO_ADO
 
         try {
             $query = "
-    UPDATE `fruta_tservicio` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_TSERVICIO`= ?;";
+    UPDATE  fruta_tservicio  SET			
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_TSERVICIO = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -243,9 +246,9 @@ class TSERVICIO_ADO
     {
         try {
             $query = "
-    UPDATE `fruta_tservicio` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_TSERVICIO`= ?;";
+    UPDATE  fruta_tservicio  SET			
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_TSERVICIO = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -263,8 +266,8 @@ class TSERVICIO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_tservicio` 
-                                             WHERE `ESTADO_REGISTRO` = 1
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_tservicio  
+                                             WHERE  ESTADO_REGISTRO  = 1
                                               AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -285,7 +288,7 @@ class TSERVICIO_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                 IFNULL(COUNT(NUMERO_TSERVICIO),0) AS 'NUMERO'
-                                            FROM `fruta_tservicio`
+                                            FROM  fruta_tservicio 
                                             WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

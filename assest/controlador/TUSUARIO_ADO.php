@@ -48,7 +48,7 @@ class TUSUARIO_ADO {
     public function listarTusuario(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `usuario_tusuario` limit 8 WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  usuario_tusuario  limit 8 WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -67,7 +67,7 @@ class TUSUARIO_ADO {
     public function listarTusuarioCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `usuario_tusuario` WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  usuario_tusuario  WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -86,7 +86,7 @@ class TUSUARIO_ADO {
     public function listarTusuario2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `usuario_tusuario` WHERE ESTADO_REGISTRO = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  usuario_tusuario  WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -107,7 +107,7 @@ class TUSUARIO_ADO {
     public function verTusuario($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `usuario_tusuario` WHERE `ID_TUSUARIO`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  usuario_tusuario  WHERE  ID_TUSUARIO = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -125,6 +125,8 @@ class TUSUARIO_ADO {
 
   
     
+    private   $ID_USUARIOI;
+    private   $ID_USUARIOM;
     //REGISTRO DE UNA NUEVA FILA    
 
     public function agregarTusuario(TUSUARIO $TUSUARIO){
@@ -132,12 +134,21 @@ class TUSUARIO_ADO {
             
             
             $query=
-            "INSERT INTO `usuario_tusuario` (`NOMBRE_TUSUARIO`, `INGRESO`,`MODIFICACION`, `ESTADO_REGISTRO`) VALUES
-	       	( ?, SYSDATE() , SYSDATE(), 1);";
+            "INSERT INTO  usuario_tusuario  ( 
+                                             NOMBRE_TUSUARIO ,  
+                                             ID_USUARIOI , 
+                                             ID_USUARIOM , 
+                                             INGRESO , 
+                                             MODIFICACION ,  
+                                             ESTADO_REGISTRO 
+                                             ) VALUES
+	       	( ?, ?,?,  SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(                    
-                    $TUSUARIO->__GET('NOMBRE_TUSUARIO')               
+                    $TUSUARIO->__GET('NOMBRE_TUSUARIO')  ,
+                    $TUSUARIO->__GET('ID_USUARIOI')   ,
+                    $TUSUARIO->__GET('ID_USUARIOM')                
                 )
                 
                 );
@@ -150,7 +161,7 @@ class TUSUARIO_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarTusuario($id){
-        try{$sql="DELETE FROM `usuario_tusuario` WHERE `ID_TUSUARIO`=".$id.";";
+        try{$sql="DELETE FROM  usuario_tusuario  WHERE  ID_TUSUARIO =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -167,15 +178,18 @@ class TUSUARIO_ADO {
     public function actualizarTusuario(TUSUARIO $TUSUARIO){
         try{
             $query = "
-		UPDATE `usuario_tusuario` SET
-            `MODIFICACION`= SYSDATE(),
-            `NOMBRE_TUSUARIO`= ?
-            
-		WHERE `ID_TUSUARIO`= ?;";
+		UPDATE  usuario_tusuario  SET
+             MODIFICACION = SYSDATE(),
+             NOMBRE_TUSUARIO = ?,
+             ID_USUARIOI = ?,
+             ID_USUARIOM = ?            
+		WHERE  ID_TUSUARIO = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
-                    $TUSUARIO->__GET('NOMBRE_TUSUARIO'),                   
+                    $TUSUARIO->__GET('NOMBRE_TUSUARIO'),    
+                    $TUSUARIO->__GET('ID_USUARIOI')   ,
+                    $TUSUARIO->__GET('ID_USUARIOM')  ,                
                     $TUSUARIO->__GET('ID_TUSUARIO')
                     
                 )
@@ -196,10 +210,10 @@ class TUSUARIO_ADO {
 
         try{
             $query = "
-    UPDATE `usuario_tusuario` SET		
-            `MODIFICACION`= SYSDATE(),			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_TUSUARIO`= ?;";
+    UPDATE  usuario_tusuario  SET		
+             MODIFICACION = SYSDATE(),			
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_TUSUARIO = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -217,10 +231,10 @@ class TUSUARIO_ADO {
     public function habilitar(TUSUARIO $TUSUARIO){
         try{
             $query = "
-    UPDATE `usuario_tusuario` SET			
-            `MODIFICACION`= SYSDATE(),		
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_TUSUARIO`= ?;";
+    UPDATE  usuario_tusuario  SET			
+             MODIFICACION = SYSDATE(),		
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_TUSUARIO = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 

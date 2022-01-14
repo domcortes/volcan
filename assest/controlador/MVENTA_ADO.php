@@ -46,7 +46,7 @@ class MVENTA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_mventa` limit 8;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_mventa  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -65,7 +65,7 @@ class MVENTA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_mventa` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_mventa  WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -84,7 +84,7 @@ class MVENTA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_mventa` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_mventa  WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -106,7 +106,7 @@ class MVENTA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_mventa` WHERE `ID_MVENTA`= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_mventa  WHERE  ID_MVENTA = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -127,7 +127,7 @@ class MVENTA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_mventa` WHERE `NOMBRE_MVENTA` LIKE '%" . $NOMBRE . "%';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_mventa  WHERE  NOMBRE_MVENTA  LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -149,16 +149,18 @@ class MVENTA_ADO
 
 
             $query =
-                "INSERT INTO `fruta_mventa` (
-                                                `NUMERO_MVENTA`, 
-                                                `NOMBRE_MVENTA`, 
-                                                `NOTA_MVENTA`, 
-                                                `ID_EMPRESA`, 
-                                                `ID_USUARIOI`, 
-                                                `ID_USUARIOM`, 
-                                                `ESTADO_REGISTRO`
+                "INSERT INTO  fruta_mventa  (
+                                                 NUMERO_MVENTA , 
+                                                 NOMBRE_MVENTA , 
+                                                 NOTA_MVENTA , 
+                                                 ID_EMPRESA , 
+                                                 ID_USUARIOI , 
+                                                 ID_USUARIOM , 
+                                                 INGRESO ,
+                                                 MODIFICACION ,
+                                                 ESTADO_REGISTRO 
                                         ) VALUES
-	       	( ?, ?, ?, ?, ?, ?,1);";
+	       	( ?, ?, ?, ?, ?, ?, SYSDATE(), SYSDATE(), 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -180,7 +182,7 @@ class MVENTA_ADO
     public function eliminarMventa($id)
     {
         try {
-            $sql = "DELETE FROM `fruta_mventa` WHERE `ID_MVENTA`=" . $id . ";";
+            $sql = "DELETE FROM  fruta_mventa  WHERE  ID_MVENTA =" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -196,11 +198,12 @@ class MVENTA_ADO
     {
         try {
             $query = "
-		UPDATE `fruta_mventa` SET
-            `NOMBRE_MVENTA`= ?  ,
-            `NOTA_MVENTA`= ?    ,
-            `ID_USUARIOM`= ?      
-		WHERE `ID_MVENTA`= ?;";
+		UPDATE  fruta_mventa  SET
+             MODIFICACION = SYSDATE(),
+             NOMBRE_MVENTA = ?  ,
+             NOTA_MVENTA = ?    ,
+             ID_USUARIOM = ?      
+		WHERE  ID_MVENTA = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -225,9 +228,9 @@ class MVENTA_ADO
 
         try {
             $query = "
-    UPDATE `fruta_mventa` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_MVENTA`= ?;";
+    UPDATE  fruta_mventa  SET			
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_MVENTA = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -244,9 +247,9 @@ class MVENTA_ADO
     {
         try {
             $query = "
-    UPDATE `fruta_mventa` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_MVENTA`= ?;";
+    UPDATE  fruta_mventa  SET			
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_MVENTA = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -263,8 +266,8 @@ class MVENTA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_mventa` 
-                                            WHERE `ESTADO_REGISTRO` = 1
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_mventa  
+                                            WHERE  ESTADO_REGISTRO  = 1
                                             AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -286,7 +289,7 @@ class MVENTA_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                     IFNULL(COUNT(NUMERO_MVENTA),0) AS 'NUMERO'
-                                                FROM `fruta_mventa`
+                                                FROM  fruta_mventa 
                                                 WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

@@ -41,7 +41,7 @@ class NAVIERA_ADO {
     public function listarNaviera(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `transporte_naviera` limit 8;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  transporte_naviera  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -59,7 +59,7 @@ class NAVIERA_ADO {
     public function listarNavieraCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `transporte_naviera` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  transporte_naviera  WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -78,7 +78,7 @@ class NAVIERA_ADO {
     public function listarNaviera2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `transporte_naviera` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  transporte_naviera  WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -100,7 +100,7 @@ class NAVIERA_ADO {
     public function verNaviera($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `transporte_naviera` WHERE `ID_NAVIERA`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  transporte_naviera  WHERE  ID_NAVIERA = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -121,7 +121,7 @@ class NAVIERA_ADO {
     public function buscarNombreNaviera($NOMBRE){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `transporte_naviera` WHERE `NOMBRE_NAVIERA` LIKE '%".$NOMBRE."%';");
+            $datos=$this->conexion->prepare("SELECT * FROM  transporte_naviera  WHERE  NOMBRE_NAVIERA  LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -148,24 +148,27 @@ class NAVIERA_ADO {
                 $NAVIERA->__SET('ID_CIUDAD', NULL);
             }
             $query=
-            "INSERT INTO `transporte_naviera` ( `RUT_NAVIERA`,
-                                                `DV_NAVIERA`,
-                                                `NUMERO_NAVIERA`,
-                                                `NOMBRE_NAVIERA`,
-                                                `GIRO_NAVIERA`,
-                                                `RAZON_SOCIAL_NAVIERA`,
-                                                `DIRECCION_NAVIERA`,
-                                                `CONTACTO_NAVIERA`,
-                                                `TELEFONO_NAVIERA`,
-                                                `EMAIL_NAVIERA`,
-                                                `NOTA_NAVIERA`, 
-                                                `ID_CIUDAD`, 
-                                                `ID_EMPRESA`, 
-                                                `ID_USUARIOI`, 
-                                                `ID_USUARIOM`, 
-                                                `ESTADO_REGISTRO`
+            "INSERT INTO  transporte_naviera  (  
+                                                    RUT_NAVIERA ,
+                                                    DV_NAVIERA ,
+                                                    NUMERO_NAVIERA ,
+                                                    NOMBRE_NAVIERA ,
+                                                    GIRO_NAVIERA ,
+                                                    RAZON_SOCIAL_NAVIERA ,
+                                                    DIRECCION_NAVIERA ,
+                                                    CONTACTO_NAVIERA ,
+                                                    TELEFONO_NAVIERA ,
+                                                    EMAIL_NAVIERA ,
+                                                    NOTA_NAVIERA , 
+                                                    ID_CIUDAD , 
+                                                    ID_EMPRESA , 
+                                                    ID_USUARIOI , 
+                                                    ID_USUARIOM , 
+                                                    INGRESO ,
+                                                    MODIFICACION , 
+                                                    ESTADO_REGISTRO 
                                                 ) VALUES
-	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1);";
+	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(                    
@@ -194,7 +197,7 @@ class NAVIERA_ADO {
     }
     
     public function eliminarNaviera($id){
-        try{$sql="DELETE FROM `transporte_naviera` WHERE `ID_NAVIERA`=".$id.";";
+        try{$sql="DELETE FROM  transporte_naviera  WHERE  ID_NAVIERA =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -212,20 +215,21 @@ class NAVIERA_ADO {
                 $NAVIERA->__SET('ID_CIUDAD', NULL);
             }
             $query = "
-		UPDATE `transporte_naviera` SET
-            `RUT_NAVIERA`= ?,
-            `DV_NAVIERA`= ?,
-            `NOMBRE_NAVIERA`= ?,
-            `GIRO_NAVIERA`= ?,
-            `RAZON_SOCIAL_NAVIERA`= ?,
-            `DIRECCION_NAVIERA`= ?,
-            `CONTACTO_NAVIERA`= ?,
-            `TELEFONO_NAVIERA`= ?,
-            `EMAIL_NAVIERA`= ?,
-            `NOTA_NAVIERA`= ?,
-            `ID_CIUDAD`= ?,
-            `ID_USUARIOM`= ?            
-		WHERE `ID_NAVIERA`= ?;";
+		UPDATE  transporte_naviera  SET
+                    MODIFICACION = SYSDATE(),
+                    RUT_NAVIERA = ?,
+                    DV_NAVIERA = ?,
+                    NOMBRE_NAVIERA = ?,
+                    GIRO_NAVIERA = ?,
+                    RAZON_SOCIAL_NAVIERA = ?,
+                    DIRECCION_NAVIERA = ?,
+                    CONTACTO_NAVIERA = ?,
+                    TELEFONO_NAVIERA = ?,
+                    EMAIL_NAVIERA = ?,
+                    NOTA_NAVIERA = ?,
+                    ID_CIUDAD = ?,
+                    ID_USUARIOM = ?            
+		WHERE  ID_NAVIERA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                     array(
@@ -258,9 +262,9 @@ class NAVIERA_ADO {
 
         try{
             $query = "
-    UPDATE `transporte_naviera` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_NAVIERA`= ?;";
+    UPDATE  transporte_naviera  SET			
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_NAVIERA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -278,9 +282,9 @@ class NAVIERA_ADO {
     public function habilitar(NAVIERA $NAVIERA){
         try{
             $query = "
-    UPDATE `transporte_naviera` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_NAVIERA`= ?;";
+    UPDATE  transporte_naviera  SET			
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_NAVIERA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -299,8 +303,8 @@ class NAVIERA_ADO {
     public function listarNavierPorEmpresaCBX($IDEMPRESA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `transporte_naviera`
-                                             WHERE `ESTADO_REGISTRO` = 1
+            $datos=$this->conexion->prepare("SELECT * FROM  transporte_naviera 
+                                             WHERE  ESTADO_REGISTRO  = 1
                                              AND ID_EMPRESA= '".$IDEMPRESA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -323,7 +327,7 @@ class NAVIERA_ADO {
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                 IFNULL(COUNT(NUMERO_NAVIERA),0) AS 'NUMERO'
-                                            FROM `transporte_naviera`
+                                            FROM  transporte_naviera 
                                             WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

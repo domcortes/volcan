@@ -39,7 +39,7 @@ class TPRODUCTOR_ADO {
     public function listarTproductor(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tproductor` limit 8;	");
+            $datos=$this->conexion->prepare("SELECT * FROM fruta_tproductor limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -57,7 +57,7 @@ class TPRODUCTOR_ADO {
     public function listarTproductorCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tproductor` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM fruta_tproductor WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -76,7 +76,7 @@ class TPRODUCTOR_ADO {
     public function listarTproductor2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tproductor` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM fruta_tproductor WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -96,7 +96,7 @@ class TPRODUCTOR_ADO {
     public function verTproductor($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tproductor` WHERE `ID_TPRODUCTOR`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM fruta_tproductor WHERE ID_TPRODUCTOR= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -116,7 +116,7 @@ class TPRODUCTOR_ADO {
     public function buscarNombreTproductor($NOMBRE){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tproductor` WHERE `NOMBRE_TPRODUCTOR` LIKE '%".$NOMBRE."%';");
+            $datos=$this->conexion->prepare("SELECT * FROM fruta_tproductor WHERE NOMBRE_TPRODUCTOR LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -137,15 +137,15 @@ class TPRODUCTOR_ADO {
             
             
             $query=
-            "INSERT INTO `fruta_tproductor` (
-                                       `NUMERO_TPRODUCTOR`,
-                                       `NOMBRE_TPRODUCTOR`,
-                                       `ID_EMPRESA`,
-                                       `ID_USUARIOI`,
-                                       `ID_USUARIOM`,
-                                       `INGRESO`,
-                                       `MODIFICACION`,
-                                       `ESTADO_REGISTRO`) VALUES
+            "INSERT INTO fruta_tproductor (
+                                       NUMERO_TPRODUCTOR,
+                                       NOMBRE_TPRODUCTOR,
+                                       ID_EMPRESA,
+                                       ID_USUARIOI,
+                                       ID_USUARIOM,
+                                       INGRESO,
+                                       MODIFICACION,
+                                       ESTADO_REGISTRO) VALUES
 	       	( ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
@@ -165,7 +165,7 @@ class TPRODUCTOR_ADO {
     }
     
     public function eliminarTproductor($id){
-        try{$sql="DELETE FROM `fruta_tproductor` WHERE `ID_TPRODUCTOR`=".$id.";";
+        try{$sql="DELETE FROM fruta_tproductor WHERE ID_TPRODUCTOR=".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -181,12 +181,12 @@ class TPRODUCTOR_ADO {
     public function actualizarTproductor(TPRODUCTOR $TPRODUCTOR){
         try{
             $query = "
-		UPDATE `fruta_tproductor` SET            
-            `MODIFICACION`= SYSDATE(),
-            `NOMBRE_TPRODUCTOR`= ?    ,
-            `ID_EMPRESA`= ?      ,
-            `ID_USUARIOM`= ?     
-		WHERE `ID_TPRODUCTOR`= ?;";
+		UPDATE fruta_tproductor SET            
+            MODIFICACION= SYSDATE(),
+            NOMBRE_TPRODUCTOR= ?    ,
+            ID_EMPRESA= ?      ,
+            ID_USUARIOM= ?     
+		WHERE ID_TPRODUCTOR= ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -212,10 +212,10 @@ class TPRODUCTOR_ADO {
 
         try{
             $query = "
-    UPDATE `fruta_tproductor` SET		    
-            `MODIFICACION`= SYSDATE(),	
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_TPRODUCTOR`= ?;";
+    UPDATE fruta_tproductor SET		    
+            MODIFICACION= SYSDATE(),	
+            ESTADO_REGISTRO = 0
+    WHERE ID_TPRODUCTOR= ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -233,10 +233,10 @@ class TPRODUCTOR_ADO {
     public function habilitar(TPRODUCTOR $TPRODUCTOR){
         try{
             $query = "
-    UPDATE `fruta_tproductor` SET		    
-            `MODIFICACION`= SYSDATE(),	
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_TPRODUCTOR`= ?;";
+    UPDATE fruta_tproductor SET		    
+            MODIFICACION= SYSDATE(),	
+            ESTADO_REGISTRO = 1
+    WHERE ID_TPRODUCTOR= ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -253,7 +253,7 @@ class TPRODUCTOR_ADO {
     public function listarTproductorPorEmpresaCBX($IDEMPRESA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tproductor` WHERE `ESTADO_REGISTRO` = 1  AND ID_EMPRESA = '".$IDEMPRESA."';	");
+            $datos=$this->conexion->prepare("SELECT * FROM fruta_tproductor WHERE ESTADO_REGISTRO = 1  AND ID_EMPRESA = '".$IDEMPRESA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -273,7 +273,7 @@ class TPRODUCTOR_ADO {
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                     IFNULL(COUNT(NUMERO_TPRODUCTOR),0) AS 'NUMERO'
-                                                FROM `fruta_tproductor`
+                                                FROM fruta_tproductor
                                                 WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                     ; ");
             $datos->execute();

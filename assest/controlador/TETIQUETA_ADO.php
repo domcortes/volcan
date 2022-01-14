@@ -47,7 +47,7 @@ class TETIQUETA_ADO {
     public function listarEtiqueta(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tetiqueta` limit 8;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_tetiqueta  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -66,7 +66,7 @@ class TETIQUETA_ADO {
     public function listarEtiquetaCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tetiqueta` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_tetiqueta  WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -84,7 +84,7 @@ class TETIQUETA_ADO {
     public function listarEtiqueta2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tetiqueta` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_tetiqueta  WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -105,7 +105,7 @@ class TETIQUETA_ADO {
     public function verEtiqueta($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tetiqueta` WHERE `ID_TETIQUETA`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_tetiqueta  WHERE  ID_TETIQUETA = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -125,7 +125,7 @@ class TETIQUETA_ADO {
     public function buscarNombreEtiqueta($NOMBRE){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tetiqueta` WHERE `NOMBRE_TETIQUETA` LIKE '%".$NOMBRE."%';");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_tetiqueta  WHERE  NOMBRE_TETIQUETA  LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -147,15 +147,17 @@ class TETIQUETA_ADO {
             
             
             $query=
-            "INSERT INTO `fruta_tetiqueta` (
-                                                `NUMERO_TETIQUETA`, 
-                                                `NOMBRE_TETIQUETA`, 
-                                                `ID_EMPRESA`, 
-                                                `ID_USUARIOI`, 
-                                                `ID_USUARIOM`, 
-                                                `ESTADO_REGISTRO`
+            "INSERT INTO  fruta_tetiqueta  (
+                                                 NUMERO_TETIQUETA , 
+                                                 NOMBRE_TETIQUETA , 
+                                                 ID_EMPRESA , 
+                                                 ID_USUARIOI , 
+                                                 ID_USUARIOM , 
+                                                 INGRESO ,
+                                                 MODIFICACION , 
+                                                 ESTADO_REGISTRO 
                                             ) VALUES
-	       	( ?, ?, ?, ?, ?,  1);";
+	       	( ?, ?, ?, ?, ?,  SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(                    
@@ -175,7 +177,7 @@ class TETIQUETA_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarEtiqueta($id){
-        try{$sql="DELETE FROM `fruta_tetiqueta` WHERE `ID_TETIQUETA`=".$id.";";
+        try{$sql="DELETE FROM  fruta_tetiqueta  WHERE  ID_TETIQUETA =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -189,10 +191,11 @@ class TETIQUETA_ADO {
     public function actualizarEtiqueta(TETIQUETA $TETIQUETA){
         try{
             $query = "
-		UPDATE `fruta_tetiqueta` SET
-            `NOMBRE_TETIQUETA`= ?    ,
-            `ID_USUARIOM`= ?           
-		WHERE `ID_TETIQUETA`= ?;";
+                UPDATE  fruta_tetiqueta  SET
+                    MODIFICACION = SYSDATE(),
+                    NOMBRE_TETIQUETA = ?    ,
+                    ID_USUARIOM = ?           
+                WHERE  ID_TETIQUETA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -217,9 +220,9 @@ class TETIQUETA_ADO {
 
         try{
             $query = "
-                UPDATE `fruta_tetiqueta` SET			
-                        `ESTADO_REGISTRO` = 0
-                WHERE `ID_TETIQUETA`= ?;";
+                UPDATE  fruta_tetiqueta  SET			
+                         ESTADO_REGISTRO  = 0
+                WHERE  ID_TETIQUETA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -237,9 +240,9 @@ class TETIQUETA_ADO {
     public function habilitar(TETIQUETA $TETIQUETA){
         try{
             $query = "
-                UPDATE `fruta_tetiqueta` SET			
-                        `ESTADO_REGISTRO` = 1
-                WHERE `ID_TETIQUETA`= ?;";
+                UPDATE  fruta_tetiqueta  SET			
+                         ESTADO_REGISTRO  = 1
+                WHERE  ID_TETIQUETA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -256,8 +259,8 @@ class TETIQUETA_ADO {
     public function listarEtiquetaPorEmpresaCBX($IDEMPRESA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tetiqueta` 
-                                             WHERE `ESTADO_REGISTRO` = 1 
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_tetiqueta  
+                                             WHERE  ESTADO_REGISTRO  = 1 
                                              AND ID_EMPRESA = '".$IDEMPRESA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -278,7 +281,7 @@ class TETIQUETA_ADO {
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                 IFNULL(COUNT(NUMERO_TETIQUETA),0) AS 'NUMERO'
-                                            FROM `fruta_tetiqueta`
+                                            FROM  fruta_tetiqueta 
                                             WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

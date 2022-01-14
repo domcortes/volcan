@@ -1,15 +1,15 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioExpo.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/ESPECIES_ADO.php';
-include_once '../controlador/PRODUCTO_ADO.php';
+include_once '../../assest/controlador/ESPECIES_ADO.php';
+include_once '../../assest/controlador/PRODUCTO_ADO.php';
 
 
-include_once '../controlador/ERECEPCION_ADO.php';
-include_once '../modelo/ERECEPCION.php';
+include_once '../../assest/controlador/ERECEPCION_ADO.php';
+include_once '../../assest/modelo/ERECEPCION.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -49,58 +49,10 @@ $ARRAYESPECIES = "";
 $ARRAYESTANDAR = $ERECEPCION_ADO->listarEstandarPorEmpresaCBX($EMPRESAS);
 $ARRAYPRODUCTO= $PRODUCTO_ADO->listarProductoPorEmpresaCBX($EMPRESAS);
 $ARRAYESPECIES = $ESPECIES_ADO->listarEspeciesCBX();
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrl.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrl.php";
 
 
-
-//OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-if (isset($_REQUEST['GUARDAR'])) {
-
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO     
-
-    $ERECEPCION->__SET('CODIGO_ESTANDAR', $_REQUEST['CODIGOESTANDAR']);
-    $ERECEPCION->__SET('NOMBRE_ESTANDAR', $_REQUEST['NOMBREESTANDAR']);
-    $ERECEPCION->__SET('CANTIDAD_ENVASE_ESTANDAR', $_REQUEST['ENVASEESTANDAR']);
-    $ERECEPCION->__SET('PESO_ENVASE_ESTANDAR', $_REQUEST['PESOENVASEESTANDAR']);
-    $ERECEPCION->__SET('PESO_PALLET_ESTANDAR', $_REQUEST['PESOPALLETESTANDAR']);
-    $ERECEPCION->__SET('TRATAMIENTO1',$_REQUEST['TRATAMIENTO1']);
-    $ERECEPCION->__SET('TRATAMIENTO2',$_REQUEST['TRATAMIENTO2']);
-    $ERECEPCION->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);
-    $ERECEPCION->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $ERECEPCION->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
-    $ERECEPCION->__SET('ID_USUARIOI', $IDUSUARIOS);
-    $ERECEPCION->__SET('ID_USUARIOM', $IDUSUARIOS);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $ERECEPCION_ADO->agregarEstandar($ERECEPCION);
-    //REDIRECCIONAR A PAGINA registroErecepcion.php
-    echo "<script type='text/javascript'> location.href ='registroErecepcion.php';</script>";
-}
-
-//OPERACION DE EDICION DE FILA
-if (isset($_REQUEST['EDITAR'])) {
-
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-
-    $ERECEPCION->__SET('CODIGO_ESTANDAR', $_REQUEST['CODIGOESTANDAR']);
-    $ERECEPCION->__SET('NOMBRE_ESTANDAR', $_REQUEST['NOMBREESTANDAR']);
-    $ERECEPCION->__SET('CANTIDAD_ENVASE_ESTANDAR', $_REQUEST['ENVASEESTANDAR']);
-    $ERECEPCION->__SET('PESO_ENVASE_ESTANDAR', $_REQUEST['PESOENVASEESTANDAR']);
-    $ERECEPCION->__SET('PESO_PALLET_ESTANDAR', $_REQUEST['PESOPALLETESTANDAR']);
-    $ERECEPCION->__SET('TRATAMIENTO1',$_REQUEST['TRATAMIENTO1']);
-    $ERECEPCION->__SET('TRATAMIENTO2',$_REQUEST['TRATAMIENTO2']);
-    $ERECEPCION->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);
-    $ERECEPCION->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
-    $ERECEPCION->__SET('ID_USUARIOM', $IDUSUARIOS);
-    $ERECEPCION->__SET('ID_ESTANDAR', $_REQUEST['ID']);
-    //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
-    $ERECEPCION_ADO->actualizarEstandar($ERECEPCION);
-    //REDIRECCIONAR A PAGINA registroErecepcion.php
-    echo "<script type='text/javascript'> location.href ='registroErecepcion.php';</script>";
-}
 
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION Y VISUALIZACION
@@ -192,7 +144,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //VALIDACION DE FORMULARIO
@@ -302,71 +254,31 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     location.href = "" + url;
                 }
 
-                //FUNCION PARA OBTENER HORA Y FECHA
-                function mueveReloj() {
-
-
-                    momentoActual = new Date();
-
-                    dia = momentoActual.getDate();
-                    mes = momentoActual.getMonth() + 1;
-                    ano = momentoActual.getFullYear();
-
-                    hora = momentoActual.getHours();
-                    minuto = momentoActual.getMinutes();
-                    segundo = momentoActual.getSeconds();
-
-                    if (dia < 10) {
-                        dia = "0" + dia;
-                    }
-
-                    if (mes < 10) {
-                        mes = "0" + mes;
-                    }
-                    if (hora < 10) {
-                        hora = "0" + hora;
-                    }
-                    if (minuto < 10) {
-                        minuto = "0" + minuto;
-                    }
-                    if (segundo < 10) {
-                        segundo = "0" + segundo;
-                    }
-
-                    horaImprimible = hora + " : " + minuto;
-                    fechaImprimible = dia + "-" + mes + "-" + ano;
-
-
-                    //     document.form_reg_dato.HORARECEPCION.value = horaImprimible;
-                    document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
-                    setTimeout("mueveReloj()", 1000);
-                }
+                
             </script>
 
 </head>
 
-<body class="hold-transition light-skin  sidebar-mini theme-primary" onload="mueveReloj()">
+<body class="hold-transition light-skin  sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php"; ?>
+            <?php include_once "../../assest/config/menuExpo.php"; ?>
 
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <div class="container-full">
-
                     <!-- Content Header (Page header) -->
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Estandar Recepcion</h3>
+                                <h3 class="page-title">Estandar </h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Mantenedores </li>
                                             <li class="breadcrumb-item" aria-current="page">Estandar </li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroErecepcion.php"> Operaciones Estandar Recepcion </a>
-                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroErecepcion.php"> Registro Estandar Recepcion </a> </li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -396,22 +308,17 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     <!-- Main content -->
                     <section class="content">
                         <div class="row">
-                            <div class="col-lg-6 col-12">
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
-                                    <div class="box-header with-border">
-                                        <!--  
-                                                <h4 class="box-title">Sample form 1</h4>
-                                                -->
+                                    <div class="box-header with-border bg-primary">                                          
+                                        <h4 class="box-title">Registro Estandar Recepción</h4>                                          
                                     </div>
-
                                     <!-- /.box-header -->
-                                    <form class="form" role="form" method="post" name="form_reg_dato" onsubmit="return validacion()">
+                                    <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato" >
                                         <div class="box-body">
-                                            <h4 class="box-title text-info"><i class="ti-user mr-15"></i> Registro
-                                            </h4>
                                             <hr class="my-15">
                                             <div class="row">
-                                                <div class="col-md-4">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Codigo </label>
                                                         <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
@@ -420,39 +327,35 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_codigo" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-8">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Nombre </label>
                                                         <input type="text" class="form-control" placeholder="Nombre Estandar" id="NOMBREESTANDAR" name="NOMBREESTANDAR" value="<?php echo $NOMBREESTANDAR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_nombre" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Cantidad Envase</label>
                                                         <input type="number" class="form-control" placeholder="Cantidad Envase Estandar" id="ENVASEESTANDAR" name="ENVASEESTANDAR" value="<?php echo $ENVASEESTANDAR ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_cajapee" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Peso Envase</label>
                                                         <input type="number"  step="0.00001" class="form-control" placeholder="Peso Envase Estandar" id="PESOENVASEESTANDAR" name="PESOENVASEESTANDAR" value="<?php echo $PESOENVASEESTANDAR ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_envase" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Peso Pallet</label>
                                                         <input type="number" class="form-control" step="0.01" placeholder="Peso Envase Estandar" id="PESOPALLETESTANDAR" name="PESOPALLETESTANDAR" value="<?php echo $PESOPALLETESTANDAR ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_pallet" class="validacion"> </label>
                                                     </div>
                                                 </div>                      
-                                                <div class="col-md-6 col-12">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label> Especies</label>
                                                         <select class="form-control select2" id="ESPECIES" name="ESPECIES" style="width: 100%;" value="<?php echo $ESPECIES; ?>" <?php echo $DISABLED; ?>>
@@ -470,7 +373,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_especies" class="validacion"> </label>
                                                     </div>
                                                 </div> 
-                                                <div class="col-md-6 col-12">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Tratamiento 1</label>
                                                         <select class="form-control select2" id="TRATAMIENTO1" name="TRATAMIENTO1" style="width: 100%;" <?php echo $DISABLED; ?>>
@@ -480,8 +383,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         </select>
                                                         <label id="val_tratamiento1" class="validacion"> </label>
                                                     </div>
-                                                </div>                                                                      
-                                                <div class="col-md-6 col-12">
+                                                </div>                         
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Tratamineto 2</label>
                                                         <select class="form-control select2" id="TRATAMIENTO2" name="TRATAMIENTO2" style="width: 100%;" <?php echo $DISABLED; ?>>
@@ -491,8 +394,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         </select>
                                                         <label id="val_tratamiento2" class="validacion"> </label>
                                                     </div>
-                                                </div>                                               
-                                                <div class="col-md-6 col-12">
+                                                </div>                          
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label> Producto</label>
                                                         <select class="form-control select2" id="PRODUCTO" name="PRODUCTO" style="width: 100%;" value="<?php echo $PRODUCTO; ?>" <?php echo $DISABLED; ?>>
@@ -510,40 +413,37 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_producto" class="validacion"> </label>
                                                     </div>
                                                 </div>
-
-
                                             </div>
                                         </div>
                                         <!-- /.box-body -->
                                         <div class="box-footer">
-                                            <button type="button" class="btn btn-rounded btn-warning btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroErecepcion.php'); ">
-                                                <i class="ti-trash"></i> Cancelar
-                                            </button>
-                                            <?php if ($OP != "editar") { ?>
-                                                <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?>>
-                                                    <i class="ti-save-alt"></i> Crear
+                                            <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
+                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroErecepcion.php');">
+                                                <i class="ti-trash"></i>Cancelar
                                                 </button>
-                                            <?php } else { ?>
-                                                <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="EDITAR" value="EDITAR">
-                                                    <i class="ti-save-alt"></i> Guardar
-                                                </button>
-                                            <?php } ?>
+                                                <?php if ($OP != "editar") { ?>
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                                <?php } else { ?>
+                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                                <?php } ?>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
-
                                 <!-- /.box -->
                             </div>
-                            <div class="col-lg-6 col-12">
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
-                                    <div class="box-header with-border">
-                                        <h4 class="box-title"> Registros</h4>
+                                    <div class="box-header with-borde bg-infor">
+                                        <h4 class="box-title"> Agrupado Estandar Recepcion</h4>
                                     </div>
                                     <div class="box-body">
-
-
                                         <div class="table-responsive">
-                                            <table id="listar" class="table table-hover " style="width: 100%;">
+                                            <table id="listar" class="table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Codigo </th>
@@ -559,37 +459,41 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     <?php echo $r['CODIGO_ESTANDAR']; ?>
                                                                 </a>
                                                             </td>
-                                                            <td><?php echo $r['NOMBRE_ESTANDAR']; ?></td>
+                                                            <td><?php echo $r['NOMBRE_ESTANDAR']; ?></td>                                                                                                  
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
                                                                         <div class="list-icons-item dropdown">
-                                                                            <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown">
-                                                                                <i class="glyphicon glyphicon-cog"></i>
-                                                                            </a>
+                                                                            <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                <span class="icon-copy ti-settings"></span>
+                                                                            </button>
                                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                                 <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_ESTANDAR']; ?>" />
                                                                                 <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroErecepcion" />
-                                                                                <button type="submit" class="btn btn-rounded btn-outline-info btn-sm " id="VERURL" name="VERURL">
-                                                                                    <i class="ti-eye"></i>
-                                                                                </button>Ver
-                                                                                <br>
-                                                                                <button type="submit" class="btn btn-rounded btn-outline-warning btn-sm" id="EDITARURL" name="EDITARURL">
-                                                                                    <i class="ti-pencil-alt"></i>
-                                                                                </button>Editar
-                                                                                <br>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
+                                                                                    <button type="submit" class="btn btn-info btn-block  btn-sm" id="VERURL" name="VERURL">
+                                                                                        <i class="ti-eye"></i> Ver
+                                                                                    </button>
+                                                                                </span> 
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
+                                                                                    <button type="submit" class="btn  btn-warning btn-block   btn-sm" id="EDITARURL" name="EDITARURL">
+                                                                                        <i class="ti-pencil-alt"></i> Editar
+                                                                                    </button>
+                                                                                </span>
                                                                                 <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
-                                                                                    <button type="submit" class="btn btn-rounded btn-outline-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
-                                                                                        <i class="ti-na "></i>
-                                                                                    </button>Desahabilitar
-                                                                                    <br>
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Desahabilitar">
+                                                                                        <button type="submit" class="btn btn-block btn-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
+                                                                                            <i class="ti-na "></i> Desahabilitar
+                                                                                        </button>
+                                                                                    </span>
                                                                                 <?php } ?>
                                                                                 <?php if ($r['ESTADO_REGISTRO'] == 0) { ?>
-                                                                                    <button type="submit" class="btn btn-rounded btn-outline-success btn-sm" id="HABILITARURL" name="HABILITARURL">
-                                                                                        <i class="ti-check "></i>
-                                                                                    </button>Habilitar
-                                                                                    <br>
-                                                                                <?php } ?>
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Habilitar">
+                                                                                        <button type="submit" class="btn btn-block btn-success btn-sm" id="HABILITARURL" name="HABILITARURL">
+                                                                                            <i class="ti-check "></i> Habilitar
+                                                                                        </button>
+                                                                                    </span>
+                                                                                <?php } ?>                                                               
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -612,14 +516,85 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             </div>
             <!-- /.content-wrapper -->
 
-
-
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
+        <?php 
+                        
+            //OPERACIONES
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['GUARDAR'])) {
+
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO     
+
+                $ERECEPCION->__SET('CODIGO_ESTANDAR', $_REQUEST['CODIGOESTANDAR']);
+                $ERECEPCION->__SET('NOMBRE_ESTANDAR', $_REQUEST['NOMBREESTANDAR']);
+                $ERECEPCION->__SET('CANTIDAD_ENVASE_ESTANDAR', $_REQUEST['ENVASEESTANDAR']);
+                $ERECEPCION->__SET('PESO_ENVASE_ESTANDAR', $_REQUEST['PESOENVASEESTANDAR']);
+                $ERECEPCION->__SET('PESO_PALLET_ESTANDAR', $_REQUEST['PESOPALLETESTANDAR']);
+                $ERECEPCION->__SET('TRATAMIENTO1',$_REQUEST['TRATAMIENTO1']);
+                $ERECEPCION->__SET('TRATAMIENTO2',$_REQUEST['TRATAMIENTO2']);
+                $ERECEPCION->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);
+                $ERECEPCION->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $ERECEPCION->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
+                $ERECEPCION->__SET('ID_USUARIOI', $IDUSUARIOS);
+                $ERECEPCION->__SET('ID_USUARIOM', $IDUSUARIOS);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $ERECEPCION_ADO->agregarEstandar($ERECEPCION);
+                //REDIRECCIONAR A PAGINA registroErecepcion.php
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Creado",
+                        text:"El registro del mantenedor se ha creado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroErecepcion.php";                            
+                    })
+                </script>';
+            }
+
+            //OPERACION DE EDICION DE FILA
+            if (isset($_REQUEST['EDITAR'])) {
+
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+
+                $ERECEPCION->__SET('CODIGO_ESTANDAR', $_REQUEST['CODIGOESTANDAR']);
+                $ERECEPCION->__SET('NOMBRE_ESTANDAR', $_REQUEST['NOMBREESTANDAR']);
+                $ERECEPCION->__SET('CANTIDAD_ENVASE_ESTANDAR', $_REQUEST['ENVASEESTANDAR']);
+                $ERECEPCION->__SET('PESO_ENVASE_ESTANDAR', $_REQUEST['PESOENVASEESTANDAR']);
+                $ERECEPCION->__SET('PESO_PALLET_ESTANDAR', $_REQUEST['PESOPALLETESTANDAR']);
+                $ERECEPCION->__SET('TRATAMIENTO1',$_REQUEST['TRATAMIENTO1']);
+                $ERECEPCION->__SET('TRATAMIENTO2',$_REQUEST['TRATAMIENTO2']);
+                $ERECEPCION->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);
+                $ERECEPCION->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
+                $ERECEPCION->__SET('ID_USUARIOM', $IDUSUARIOS);
+                $ERECEPCION->__SET('ID_ESTANDAR', $_REQUEST['ID']);
+                //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
+                $ERECEPCION_ADO->actualizarEstandar($ERECEPCION);
+                //REDIRECCIONAR A PAGINA registroErecepcion.php
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Modificado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroErecepcion.php";                            
+                    })
+                </script>';
+            }
+
+        ?>
 </body>
 
 </html>

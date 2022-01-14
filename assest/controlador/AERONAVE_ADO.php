@@ -48,7 +48,7 @@ class AERONAVE_ADO {
     public function listarAeronave(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `transporte_aeronave` limit 8;	");
+            $datos=$this->conexion->prepare("SELECT * FROM   transporte_aeronave   limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -67,7 +67,7 @@ class AERONAVE_ADO {
     public function listarAeronaveCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `transporte_aeronave` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM   transporte_aeronave   WHERE   ESTADO_REGISTRO   = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -86,7 +86,7 @@ class AERONAVE_ADO {
     public function listarAeronave2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `transporte_aeronave` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM   transporte_aeronave   WHERE   ESTADO_REGISTRO   = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -109,7 +109,7 @@ class AERONAVE_ADO {
     public function verAeronave($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `transporte_aeronave` WHERE `ID_AERONAVE`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM   transporte_aeronave   WHERE   ID_AERONAVE  = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -134,16 +134,18 @@ class AERONAVE_ADO {
        
             
             $query=
-            "INSERT INTO `transporte_aeronave` (
-                                                    `NUMERO_AERONAVE`,  
-                                                    `NOMBRE_AERONAVE`,  
-                                                    `ID_LAEREA`, 
-                                                    `ID_EMPRESA`, 
-                                                    `ID_USUARIOI`, 
-                                                    `ID_USUARIOM`, 
-                                                    `ESTADO_REGISTRO` 
+            "INSERT INTO   transporte_aeronave   (
+                                                      NUMERO_AERONAVE  ,  
+                                                      NOMBRE_AERONAVE  ,  
+                                                      ID_LAEREA  , 
+                                                      ID_EMPRESA  , 
+                                                      ID_USUARIOI  , 
+                                                      ID_USUARIOM  , 
+                                                      INGRESO ,
+                                                      MODIFICACION , 
+                                                      ESTADO_REGISTRO   
                                                 ) VALUES
-	       	(?, ?, ?, ?, ?, ?,1);";
+	       	(?, ?, ?, ?, ?, ?,   SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(                    
@@ -164,7 +166,7 @@ class AERONAVE_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarAeronave($id){
-        try{$sql="DELETE FROM `transporte_aeronave` WHERE `ID_AERONAVE`=".$id.";";
+        try{$sql="DELETE FROM   transporte_aeronave   WHERE   ID_AERONAVE  =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -181,11 +183,12 @@ class AERONAVE_ADO {
     public function actualizarAeronave(AERONAVE $AERONAVE){
         try{
             $query = "
-                UPDATE `transporte_aeronave` SET
-                    `NOMBRE_AERONAVE`= ?,    
-                    `ID_LAEREA`= ?      ,
-                    `ID_USUARIOM`= ?     
-                WHERE `ID_AERONAVE`= ?;";
+                UPDATE   transporte_aeronave   SET
+                      MODIFICACION = SYSDATE(),
+                      NOMBRE_AERONAVE  = ?,    
+                      ID_LAEREA  = ?      ,
+                      ID_USUARIOM  = ?     
+                WHERE   ID_AERONAVE  = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(   
@@ -214,9 +217,9 @@ class AERONAVE_ADO {
 
         try{
             $query = "
-		UPDATE `transporte_aeronave` SET			
-            `ESTADO_REGISTRO` = 0
-		WHERE `ID_AERONAVE`= ?;";
+		UPDATE   transporte_aeronave   SET			
+              ESTADO_REGISTRO   = 0
+		WHERE   ID_AERONAVE  = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -234,9 +237,9 @@ class AERONAVE_ADO {
     public function habilitar(AERONAVE $AERONAVE){
         try{
             $query = "
-		UPDATE `transporte_aeronave` SET			
-            `ESTADO_REGISTRO` = 1
-		WHERE `ID_AERONAVE`= ?;";
+		UPDATE   transporte_aeronave   SET			
+              ESTADO_REGISTRO   = 1
+		WHERE   ID_AERONAVE  = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -253,7 +256,7 @@ class AERONAVE_ADO {
     public function buscarAeronavePorLarea($IDLAEREA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `transporte_aeronave` WHERE `ID_LAEREA`= '".$IDLAEREA."';");
+            $datos=$this->conexion->prepare("SELECT * FROM   transporte_aeronave   WHERE   ID_LAEREA  = '".$IDLAEREA."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -272,8 +275,8 @@ class AERONAVE_ADO {
     public function listarAeronavePorEmpresaCBX($IDEMPRESA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `transporte_aeronave` 
-                                            WHERE `ESTADO_REGISTRO` = 1
+            $datos=$this->conexion->prepare("SELECT * FROM   transporte_aeronave   
+                                            WHERE   ESTADO_REGISTRO   = 1
                                             AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -295,7 +298,7 @@ class AERONAVE_ADO {
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                 IFNULL(COUNT(NUMERO_AERONAVE),0) AS 'NUMERO'
-                                            FROM `transporte_aeronave`
+                                            FROM   transporte_aeronave  
                                             WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

@@ -220,21 +220,22 @@ class EINDUSTRIAL_ADO
 
         try {
             $query = "
-		UPDATE estandar_eindustrial SET
-            CODIGO_ESTANDAR= ?, 
-            NOMBRE_ESTANDAR= ?,  
-            CANTIDAD_ENVASE_ESTANDAR= ?,   
-            PESO_ENVASE_ESTANDAR= ?,   
-            PESO_PALLET_ESTANDAR= ?,   
+                UPDATE estandar_eindustrial SET
+                    MODIFICACION = SYSDATE(),
+                    CODIGO_ESTANDAR= ?, 
+                    NOMBRE_ESTANDAR= ?,  
+                    CANTIDAD_ENVASE_ESTANDAR= ?,   
+                    PESO_ENVASE_ESTANDAR= ?,   
+                    PESO_PALLET_ESTANDAR= ?,   
 
-            TESTANDAR= ?,   
-            COBRO= ?,   
-            
-            ID_ESPECIES= ?  ,   
-            ID_EMPRESA= ?  ,   
-            ID_PRODUCTO= ?  ,  
-            ID_USUARIOM= ?     
-		WHERE ID_ESTANDAR= ?;";
+                    TESTANDAR= ?,   
+                    COBRO= ?,   
+                    
+                    ID_ESPECIES= ?  ,   
+                    ID_EMPRESA= ?  ,   
+                    ID_PRODUCTO= ?  ,  
+                    ID_USUARIOM= ?     
+                WHERE ID_ESTANDAR= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(

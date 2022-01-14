@@ -451,13 +451,13 @@ if ($_POST) {
                             </div>
                             <!-- /.box -->
                         </div>
-                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                             <div class="box">
                                 <div class="box-header with-border bg-info">
                                     <h4 class="box-title">Agrupado Usuario</h4>
                                 </div>
                                 <div class="box-body">
-                                    <table id="listar" class="table table-hover " style="width: 100%;">
+                                    <table id="listar" class="table-hover " style="width: 100%;">
                                         <thead>
                                             <tr>
                                                 <th>Nombre Usuario</th>

@@ -46,7 +46,7 @@ class TEMBALAJE_ADO {
     public function listarEmbalaje(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tembalaje` LIMIT 6;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_tembalaje  LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -66,7 +66,7 @@ class TEMBALAJE_ADO {
     public function listarEmbalajeCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tembalaje` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_tembalaje  WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -84,7 +84,7 @@ class TEMBALAJE_ADO {
     public function listarEmbalaje2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tembalaje` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_tembalaje  WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -103,7 +103,7 @@ class TEMBALAJE_ADO {
     public function verEmbalaje($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tembalaje` WHERE `ID_TEMBALAJE`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_tembalaje  WHERE  ID_TEMBALAJE = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -123,7 +123,7 @@ class TEMBALAJE_ADO {
     public function buscarNombreEmbalaje($NOMBRE){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tembalaje` WHERE `NOMBRE_TEMBALAJE` LIKE '%".$NOMBRE."%';");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_tembalaje  WHERE  NOMBRE_TEMBALAJE  LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -145,16 +145,18 @@ class TEMBALAJE_ADO {
   
             
             $query=
-            "INSERT INTO `fruta_tembalaje` (
-                                                `NUMERO_TEMBALAJE`, 
-                                                `NOMBRE_TEMBALAJE`, 
-                                                `PESO_TEMBALAJE`,  
-                                                `ID_EMPRESA`, 
-                                                `ID_USUARIOI`, 
-                                                `ID_USUARIOM`, 
-                                                `ESTADO_REGISTRO`
+            "INSERT INTO  fruta_tembalaje  (
+                                                 NUMERO_TEMBALAJE , 
+                                                 NOMBRE_TEMBALAJE , 
+                                                 PESO_TEMBALAJE ,  
+                                                 ID_EMPRESA , 
+                                                 ID_USUARIOI , 
+                                                 ID_USUARIOM , 
+                                                 INGRESO ,
+                                                 MODIFICACION , 
+                                                 ESTADO_REGISTRO 
                                             ) VALUES
-	       	(?, ?, ?, ?, ?, ?, 1);";
+	       	(?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -180,11 +182,12 @@ class TEMBALAJE_ADO {
 
         try{
             $query = "
-		UPDATE `fruta_tembalaje` SET
-			`NOMBRE_TEMBALAJE` = ?,
-            `PESO_TEMBALAJE`= ?,
-            `ID_USUARIOM`= ?
-		WHERE `ID_TEMBALAJE`= ?;";
+            UPDATE  fruta_tembalaje  SET
+                MODIFICACION = SYSDATE(),
+                NOMBRE_TEMBALAJE  = ?,
+                PESO_TEMBALAJE = ?,
+                ID_USUARIOM = ?
+            WHERE  ID_TEMBALAJE = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -206,7 +209,7 @@ class TEMBALAJE_ADO {
 
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarEmbalaje($id){
-        try{$sql="DELETE FROM `fruta_tembalaje` WHERE `NOMBRE_TEMBALAJE`=".$id.";";
+        try{$sql="DELETE FROM  fruta_tembalaje  WHERE  NOMBRE_TEMBALAJE =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -223,9 +226,9 @@ class TEMBALAJE_ADO {
 
         try{
             $query = "
-    UPDATE `fruta_tembalaje` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_TEMBALAJE`= ?;";
+    UPDATE  fruta_tembalaje  SET			
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_TEMBALAJE = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -243,9 +246,9 @@ class TEMBALAJE_ADO {
     public function habilitar(TEMBALAJE $TEMBALAJE){
         try{
             $query = "
-    UPDATE `fruta_tembalaje` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_TEMBALAJE`= ?;";
+    UPDATE  fruta_tembalaje  SET			
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_TEMBALAJE = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -263,8 +266,8 @@ class TEMBALAJE_ADO {
     public function listarEmbalajePorEmpresaCBX($IDEMPRESA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_tembalaje` 
-                                             WHERE `ESTADO_REGISTRO` = 1
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_tembalaje  
+                                             WHERE  ESTADO_REGISTRO  = 1
                                              AND ID_EMPRESA = '".$IDEMPRESA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -286,7 +289,7 @@ class TEMBALAJE_ADO {
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                 IFNULL(COUNT(NUMERO_TEMBALAJE),0) AS 'NUMERO'
-                                            FROM `fruta_tembalaje`
+                                            FROM  fruta_tembalaje 
                                             WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

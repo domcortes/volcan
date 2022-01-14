@@ -48,7 +48,7 @@ class CUARTEL_ADO {
     public function listarCuartel(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_cuartel` LIMIT 6;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_cuartel  LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -68,7 +68,7 @@ class CUARTEL_ADO {
     public function listarCuartelCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_cuartel` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_cuartel  WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -87,7 +87,7 @@ class CUARTEL_ADO {
     public function listarCuartel2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_cuartel` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_cuartel  WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -106,7 +106,7 @@ class CUARTEL_ADO {
     public function verCuartel($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_cuartel` WHERE `ID_CUARTEL`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_cuartel  WHERE  ID_CUARTEL = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -127,7 +127,7 @@ class CUARTEL_ADO {
     public function buscarNombreCuartel($NOMBRE){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_cuartel` WHERE `NOMBRE_CUARTEL` LIKE '%".$NOMBRE."%';");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_cuartel  WHERE  NOMBRE_CUARTEL  LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -150,21 +150,23 @@ class CUARTEL_ADO {
         try{
   
             $query=
-            "INSERT INTO `fruta_cuartel` ( 
-                                            `NUMERO_CUARTEL`,  
-                                            `NOMBRE_CUARTEL`,  
-                                            `TIEMPO_PRODUCCION_ANO_CUARTEL`, 
-                                            `ANO_PLANTACION_CUARTEL`, 
-                                            `HECTAREAS_CUARTEL`, 
-                                            `PLANTAS_EN_HECTAREAS`, 
-                                            `DISTANCIA_PLANTA_CUARTEL`,  
-                                            `ID_VESPECIES`,   
-                                            `ID_EMPRESA`,   
-                                            `ID_USUARIOI`, 
-                                            `ID_USUARIOM`, 
-                                            `ESTADO_REGISTRO`
+            "INSERT INTO  fruta_cuartel  ( 
+                                             NUMERO_CUARTEL ,  
+                                             NOMBRE_CUARTEL ,  
+                                             TIEMPO_PRODUCCION_ANO_CUARTEL , 
+                                             ANO_PLANTACION_CUARTEL , 
+                                             HECTAREAS_CUARTEL , 
+                                             PLANTAS_EN_HECTAREAS , 
+                                             DISTANCIA_PLANTA_CUARTEL ,  
+                                             ID_VESPECIES ,   
+                                             ID_EMPRESA ,   
+                                             ID_USUARIOI , 
+                                             ID_USUARIOM , 
+                                             INGRESO ,
+                                             MODIFICACION , 
+                                             ESTADO_REGISTRO 
                                         ) VALUES
-	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,   1);";
+	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(),  1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -194,16 +196,17 @@ class CUARTEL_ADO {
     public function actualizarCuartel(CUARTEL $CUARTEL){
         try{
             $query = "
-		UPDATE `fruta_cuartel` SET
-			`NOMBRE_CUARTEL` = ?,
-			`TIEMPO_PRODUCCION_ANO_CUARTEL` = ?,
-			`ANO_PLANTACION_CUARTEL` = ?,
-			`HECTAREAS_CUARTEL` = ?,
-			`PLANTAS_EN_HECTAREAS` = ?,
-			`DISTANCIA_PLANTA_CUARTEL` = ?,
-            `ID_VESPECIES`= ?,
-            `ID_USUARIOM`= ?
-		WHERE `ID_CUARTEL`= ?;";
+                    UPDATE  fruta_cuartel  SET
+                        MODIFICACION = SYSDATE(),
+                        NOMBRE_CUARTEL  = ?,
+                        TIEMPO_PRODUCCION_ANO_CUARTEL  = ?,
+                        ANO_PLANTACION_CUARTEL  = ?,
+                        HECTAREAS_CUARTEL  = ?,
+                        PLANTAS_EN_HECTAREAS  = ?,
+                        DISTANCIA_PLANTA_CUARTEL  = ?,
+                        ID_VESPECIES = ?,
+                        ID_USUARIOM = ?
+                    WHERE  ID_CUARTEL = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -230,7 +233,7 @@ class CUARTEL_ADO {
 
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarCuartel($id){
-        try{$sql="DELETE FROM `fruta_cuartel` WHERE `ID_CUARTEL`=".$id.";";
+        try{$sql="DELETE FROM  fruta_cuartel  WHERE  ID_CUARTEL =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -247,9 +250,9 @@ class CUARTEL_ADO {
 
         try{
             $query = "
-    UPDATE `fruta_cuartel` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_CUARTEL`= ?;";
+    UPDATE  fruta_cuartel  SET			
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_CUARTEL = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -267,9 +270,9 @@ class CUARTEL_ADO {
     public function habilitar(CUARTEL $CUARTEL){
         try{
             $query = "
-    UPDATE `fruta_cuartel` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_CUARTEL`= ?;";
+    UPDATE  fruta_cuartel  SET			
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_CUARTEL = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -287,8 +290,8 @@ class CUARTEL_ADO {
     public function listarCuartelPorEmpresaCBX($IDEMPRESA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_cuartel` 
-                                             WHERE `ESTADO_REGISTRO` = 1
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_cuartel  
+                                             WHERE  ESTADO_REGISTRO  = 1
                                              AND ID_EMPRESA = '".$IDEMPRESA."' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -311,7 +314,7 @@ class CUARTEL_ADO {
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                 IFNULL(COUNT(NUMERO_CUARTEL),0) AS 'NUMERO'
-                                            FROM `fruta_cuartel`
+                                            FROM  fruta_cuartel 
                                             WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();
