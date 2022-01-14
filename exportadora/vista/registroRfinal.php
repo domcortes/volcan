@@ -1,13 +1,13 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioExpo.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/CIUDAD_ADO.php';
-include_once '../controlador/RFINAL_ADO.php';
+include_once '../../assest/controlador/CIUDAD_ADO.php';
+include_once '../../assest/controlador/RFINAL_ADO.php';
 
-include_once '../modelo/RFINAL.php';
+include_once '../../assest/modelo/RFINAL.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -50,67 +50,11 @@ $ARRAYCIUDAD = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYRFINAL = $RFINAL_ADO->listarRfinalPorEmpresaCBX($EMPRESAS);
-$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudadCBX();
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrl.php";
+$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrl.php";
 
 
-
-//OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-
-if (isset($_REQUEST['GUARDAR'])) {
-
-    $ARRAYNUMERO = $RFINAL_ADO->obtenerNumero($EMPRESAS);
-    $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
-
-
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-    $RFINAL->__SET('NUMERO_RFINAL', $NUMERO);
-    $RFINAL->__SET('NOMBRE_RFINAL', $_REQUEST['NOMBRERFINAL']);
-    $RFINAL->__SET('DIRECCION_RFINAL', $_REQUEST['DIRECCIONRFINAL']);
-    $RFINAL->__SET('CONTACTO1_RFINAL', $_REQUEST['CONTACTORFINAL1']);
-    $RFINAL->__SET('CARGO1_RFINAL', $_REQUEST['CARGORFINAL1']);
-    $RFINAL->__SET('EMAIL1_RFINAL', $_REQUEST['EMAILRFINAL1']);
-    $RFINAL->__SET('CONTACTO2_RFINAL', $_REQUEST['CONTACTORFINAL2']);
-    $RFINAL->__SET('CARGO2_RFINAL', $_REQUEST['CARGORFINAL2']);
-    $RFINAL->__SET('EMAIL2_RFINAL', $_REQUEST['EMAILRFINAL2']);
-    $RFINAL->__SET('CONTACTO3_RFINAL', $_REQUEST['CONTACTORFINAL3']);
-    $RFINAL->__SET('CARGO3_RFINAL', $_REQUEST['CARGORFINAL3']);
-    $RFINAL->__SET('EMAIL3_RFINAL', $_REQUEST['EMAILRFINAL3']);
-    $RFINAL->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
-    $RFINAL->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $RFINAL->__SET('ID_USUARIOI', $IDUSUARIOS);
-    $RFINAL->__SET('ID_USUARIOM', $IDUSUARIOS);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $RFINAL_ADO->agregarRfinal($RFINAL);
-    //REDIRECCIONAR A PAGINA registroRfinal.php
-    echo "<script type='text/javascript'> location.href ='registroRfinal.php';</script>";
-}
-//OPERACION EDICION DE FILA
-if (isset($_REQUEST['EDITAR'])) {
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO  
-    $RFINAL->__SET('NOMBRE_RFINAL', $_REQUEST['NOMBRERFINAL']);
-    $RFINAL->__SET('DIRECCION_RFINAL', $_REQUEST['DIRECCIONRFINAL']);
-    $RFINAL->__SET('CONTACTO1_RFINAL', $_REQUEST['CONTACTORFINAL1']);
-    $RFINAL->__SET('CARGO1_RFINAL', $_REQUEST['CARGORFINAL1']);
-    $RFINAL->__SET('EMAIL1_RFINAL', $_REQUEST['EMAILRFINAL1']);
-    $RFINAL->__SET('CONTACTO2_RFINAL', $_REQUEST['CONTACTORFINAL2']);
-    $RFINAL->__SET('CARGO2_RFINAL', $_REQUEST['CARGORFINAL2']);
-    $RFINAL->__SET('EMAIL2_RFINAL', $_REQUEST['EMAILRFINAL2']);
-    $RFINAL->__SET('CONTACTO3_RFINAL', $_REQUEST['CONTACTORFINAL3']);
-    $RFINAL->__SET('CARGO3_RFINAL', $_REQUEST['CARGORFINAL3']);
-    $RFINAL->__SET('EMAIL3_RFINAL', $_REQUEST['EMAILRFINAL3']);
-    $RFINAL->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
-    $RFINAL->__SET('ID_USUARIOM', $IDUSUARIOS);
-    $RFINAL->__SET('ID_RFINAL', $_REQUEST['ID']);
-    //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
-    $RFINAL_ADO->actualizarRfinal($RFINAL);
-    //REDIRECCIONAR A PAGINA registroRfinal.php
-    echo "<script type='text/javascript'> location.href ='registroRfinal.php';</script>";
-}
 
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION Y VISUALIZACION
@@ -212,7 +156,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //VALIDACION DE FORMULARIO
@@ -400,53 +344,15 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 function irPagina(url) {
                     location.href = "" + url;
                 }
-                //FUNCION PARA OBTENER HORA Y FECHA
-                function mueveReloj() {
-
-
-                    momentoActual = new Date();
-
-                    dia = momentoActual.getDate();
-                    mes = momentoActual.getMonth() + 1;
-                    ano = momentoActual.getFullYear();
-
-                    hora = momentoActual.getHours();
-                    minuto = momentoActual.getMinutes();
-                    segundo = momentoActual.getSeconds();
-
-                    if (dia < 10) {
-                        dia = "0" + dia;
-                    }
-
-                    if (mes < 10) {
-                        mes = "0" + mes;
-                    }
-                    if (hora < 10) {
-                        hora = "0" + hora;
-                    }
-                    if (minuto < 10) {
-                        minuto = "0" + minuto;
-                    }
-                    if (segundo < 10) {
-                        segundo = "0" + segundo;
-                    }
-
-                    horaImprimible = hora + " : " + minuto;
-                    fechaImprimible = dia + "-" + mes + "-" + ano;
-
-
-                    //     document.form_reg_dato.HORARECEPCION.value = horaImprimible;
-                    document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
-                    setTimeout("mueveReloj()", 1000);
-                }
+            
             </script>
 
 </head>
 
-<body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
+<body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php"; ?>
+            <?php include_once "../../assest/config/menuExpo.php"; ?>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <div class="container-full">
@@ -455,15 +361,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Recibidor final</h3>
+                                <h3 class="page-title">Instructivo</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Mantenedores</li>
                                             <li class="breadcrumb-item" aria-current="page">Instructivo</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroRfinal.php"> Operaciones Recibidorfin al</a>
-                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Recibidor Final</a> </li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -493,21 +398,17 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     <!-- Main content -->
                     <section class="content">
                         <div class="row">
-                            <div class="col-lg-6 col-12">
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
-                                    <div class="box-header with-border">
-                                        <!--  
-                                    <h4 class="box-title">Sample form 1</h4>
-                                -->
+                                    <div class="box-header with-border bg-primary">                                
+                                        <h4 class="box-title">Registro Recibidor Final</h4>                                
                                     </div>
                                     <!-- /.box-header -->
-                                    <form class="form" role="form" method="post" name="form_reg_dato" onsubmit="return validacion()">
+                                    <form class="form" role="form" method="post" name="form_reg_dato" name="form_reg_dato" enctype="multipart/form-data">
                                         <div class="box-body">
-                                            <h4 class="box-title text-info"><i class="ti-user mr-15"></i> Registro
-                                            </h4>
                                             <hr class="my-15">
                                             <div class="row">
-                                                <div class="col-md-12">
+                                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
                                                         <label>Nombre </label>
                                                         <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
@@ -516,26 +417,23 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_nombre" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Direccion </label>
                                                         <input type="text" class="form-control" placeholder="Direccion Rfinal" id="DIRECCIONRFINAL" name="DIRECCIONRFINAL" value="<?php echo $DIRECCIONRFINAL; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_direccion" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 col-12">
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Ciudad </label>
                                                         <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
                                                             <option></option>
                                                             <?php foreach ($ARRAYCIUDAD as $r) : ?>
                                                                 <?php if ($ARRAYCIUDAD) {    ?>
-                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>" <?php if ($CIUDAD == $r['ID_CIUDAD']) {
-                                                                                                                        echo "selected";
-                                                                                                                    } ?>>
-                                                                        <?php echo $r['NOMBRE_CIUDAD'] ?>
+                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>" 
+                                                                    <?php if ($CIUDAD == $r['ID_CIUDAD']) {  echo "selected";    } ?>>
+                                                                        <?php echo $r['CIUDAD'] ?>, <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
                                                                     <option>No Hay Datos Registrados </option>
@@ -549,71 +447,63 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             <label>Contacto </label>
                                             <hr class="my-15">
                                             <div class="row">
-                                                <div class="col-md-4">
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Contacto 1</label>
                                                         <input type="text" class="form-control" placeholder="Nombre Contacto 1 Rfinal" id="CONTACTORFINAL1" name="CONTACTORFINAL1" value="<?php echo $CONTACTORFINAL1; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_contacto1" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Cargo 1</label>
                                                         <input type="text" class="form-control" placeholder="Cargo Contacto 1 Rfinal" id="CARGORFINAL1" name="CARGORFINAL1" value="<?php echo $CARGORFINAL1; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_cargo1" class="validacion"> </label>
                                                     </div>
                                                 </div>
-
-                                                <div class="col-md-4">
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Email 1</label>
                                                         <input type="text" class="form-control" placeholder="Email Contacto 1 Rfinal" id="EMAILRFINAL1" name="EMAILRFINAL1" value="<?php echo $EMAILRFINAL1; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_email1" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-md-4">
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Contacto 2</label>
                                                         <input type="text" class="form-control" placeholder="Nombre Contacto 2 Rfinal" id="CONTACTORFINAL2" name="CONTACTORFINAL2" value="<?php echo $CONTACTORFINAL2; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_contacto2" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Cargo 2</label>
                                                         <input type="text" class="form-control" placeholder="Cargo Contacto 2 Rfinal" id="CARGORFINAL2" name="CARGORFINAL2" value="<?php echo $CARGORFINAL2; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_cargo2" class="validacion"> </label>
                                                     </div>
                                                 </div>
-
-                                                <div class="col-md-4">
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Email 2</label>
                                                         <input type="text" class="form-control" placeholder="Email Contacto 2 Rfinal" id="EMAILRFINAL2" name="EMAILRFINAL2" value="<?php echo $EMAILRFINAL2; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_email2" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-4">
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Contacto 3</label>
                                                         <input type="text" class="form-control" placeholder="Nombre Contacto 3 Rfinal" id="CONTACTORFINAL3" name="CONTACTORFINAL3" value="<?php echo $CONTACTORFINAL3; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_contacto3" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Cargo 3</label>
                                                         <input type="text" class="form-control" placeholder="Cargo Contacto 3 Rfinal" id="CARGORFINAL3" name="CARGORFINAL3" value="<?php echo $CARGORFINAL3; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_cargo3" class="validacion"> </label>
                                                     </div>
                                                 </div>
-
-                                                <div class="col-md-4">
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Email 3</label>
                                                         <input type="text" class="form-control" placeholder="Email Contacto 3 Rfinal" id="EMAILRFINAL3" name="EMAILRFINAL3" value="<?php echo $EMAILRFINAL3; ?>" <?php echo $DISABLED; ?> />
@@ -621,36 +511,36 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                     </div>
                                                 </div>
                                             </div>
-
-
                                         </div>
                                         <!-- /.box-body -->
                                         <div class="box-footer">
-                                            <button type="button" class="btn btn-rounded btn-warning btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroRfinal.php'); ">
-                                                <i class="ti-trash"></i> Cancelar
-                                            </button>
-                                            <?php if ($OP != "editar") { ?>
-                                                <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?>>
-                                                    <i class="ti-save-alt"></i> Crear
+                                            <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
+                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroRfinal.php');">
+                                                <i class="ti-trash"></i>Cancelar
                                                 </button>
-                                            <?php } else { ?>
-                                                <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="EDITAR" value="EDITAR">
-                                                    <i class="ti-save-alt"></i> Guardar
-                                                </button>
-                                            <?php } ?>
+                                                <?php if ($OP != "editar") { ?>
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                                <?php } else { ?>
+                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                                <?php } ?>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
                                 <!-- /.box -->
                             </div>
-                            <div class="col-lg-6 col-12">
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
-                                    <div class="box-header with-border">
-                                        <h4 class="box-title">Registros</h4>
+                                    <div class="box-header with-border bg-info">
+                                        <h4 class="box-title"> Agrupado Recibidor Final</h4>
                                     </div>
                                     <div class="box-body">
                                         <div class="table-responsive">
-                                            <table id="listar" class="table table-hover " style="width: 100%;">
+                                            <table id="listar" class="table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Numero </th>
@@ -666,37 +556,41 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     <?php echo $r['NUMERO_RFINAL']; ?>
                                                                 </a>
                                                             </td>
-                                                            <td><?php echo $r['NOMBRE_RFINAL']; ?></td>
+                                                            <td><?php echo $r['NOMBRE_RFINAL']; ?></td>                                                                        
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
                                                                         <div class="list-icons-item dropdown">
-                                                                            <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown">
-                                                                                <i class="glyphicon glyphicon-cog"></i>
-                                                                            </a>
+                                                                            <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                <span class="icon-copy ti-settings"></span>
+                                                                            </button>
                                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                                 <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_RFINAL']; ?>" />
                                                                                 <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroRfinal" />
-                                                                                <button type="submit" class="btn btn-rounded btn-outline-info btn-sm " id="VERURL" name="VERURL">
-                                                                                    <i class="ti-eye"></i>
-                                                                                </button>Ver
-                                                                                <br>
-                                                                                <button type="submit" class="btn btn-rounded btn-outline-warning btn-sm" id="EDITARURL" name="EDITARURL">
-                                                                                    <i class="ti-pencil-alt"></i>
-                                                                                </button>Editar
-                                                                                <br>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
+                                                                                    <button type="submit" class="btn btn-info btn-block  btn-sm" id="VERURL" name="VERURL">
+                                                                                        <i class="ti-eye"></i> Ver
+                                                                                    </button>
+                                                                                </span> 
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
+                                                                                    <button type="submit" class="btn  btn-warning btn-block   btn-sm" id="EDITARURL" name="EDITARURL">
+                                                                                        <i class="ti-pencil-alt"></i> Editar
+                                                                                    </button>
+                                                                                </span>
                                                                                 <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
-                                                                                    <button type="submit" class="btn btn-rounded btn-outline-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
-                                                                                        <i class="ti-na "></i>
-                                                                                    </button>Desahabilitar
-                                                                                    <br>
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Desahabilitar">
+                                                                                        <button type="submit" class="btn btn-block btn-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
+                                                                                            <i class="ti-na "></i> Desahabilitar
+                                                                                        </button>
+                                                                                    </span>
                                                                                 <?php } ?>
                                                                                 <?php if ($r['ESTADO_REGISTRO'] == 0) { ?>
-                                                                                    <button type="submit" class="btn btn-rounded btn-outline-success btn-sm" id="HABILITARURL" name="HABILITARURL">
-                                                                                        <i class="ti-check "></i>
-                                                                                    </button>Habilitar
-                                                                                    <br>
-                                                                                <?php } ?>
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Habilitar">
+                                                                                        <button type="submit" class="btn btn-block btn-success btn-sm" id="HABILITARURL" name="HABILITARURL">
+                                                                                            <i class="ti-check "></i> Habilitar
+                                                                                        </button>
+                                                                                    </span>
+                                                                                <?php } ?>                                                               
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -721,11 +615,93 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
+        <?php
+        
+                                                                                    
+            //OPERACIONES
+            //OPERACION DE REGISTRO DE FILA
+
+            if (isset($_REQUEST['GUARDAR'])) {
+
+                $ARRAYNUMERO = $RFINAL_ADO->obtenerNumero($EMPRESAS);
+                $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+
+
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+                $RFINAL->__SET('NUMERO_RFINAL', $NUMERO);
+                $RFINAL->__SET('NOMBRE_RFINAL', $_REQUEST['NOMBRERFINAL']);
+                $RFINAL->__SET('DIRECCION_RFINAL', $_REQUEST['DIRECCIONRFINAL']);
+                $RFINAL->__SET('CONTACTO1_RFINAL', $_REQUEST['CONTACTORFINAL1']);
+                $RFINAL->__SET('CARGO1_RFINAL', $_REQUEST['CARGORFINAL1']);
+                $RFINAL->__SET('EMAIL1_RFINAL', $_REQUEST['EMAILRFINAL1']);
+                $RFINAL->__SET('CONTACTO2_RFINAL', $_REQUEST['CONTACTORFINAL2']);
+                $RFINAL->__SET('CARGO2_RFINAL', $_REQUEST['CARGORFINAL2']);
+                $RFINAL->__SET('EMAIL2_RFINAL', $_REQUEST['EMAILRFINAL2']);
+                $RFINAL->__SET('CONTACTO3_RFINAL', $_REQUEST['CONTACTORFINAL3']);
+                $RFINAL->__SET('CARGO3_RFINAL', $_REQUEST['CARGORFINAL3']);
+                $RFINAL->__SET('EMAIL3_RFINAL', $_REQUEST['EMAILRFINAL3']);
+                $RFINAL->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+                $RFINAL->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $RFINAL->__SET('ID_USUARIOI', $IDUSUARIOS);
+                $RFINAL->__SET('ID_USUARIOM', $IDUSUARIOS);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $RFINAL_ADO->agregarRfinal($RFINAL);
+                //REDIRECCIONAR A PAGINA registroRfinal.php
+                        echo '<script>
+                            Swal.fire({
+                                icon:"success",
+                                title:"Registro Creado",
+                                text:"El registro del mantenedor se ha creado correctamente",
+                                showConfirmButton: true,
+                                confirmButtonText:"Cerrar",
+                                closeOnConfirm:false
+                            }).then((result)=>{
+                                location.href = "registroRfinal.php";                            
+                            })
+                        </script>';
+            }
+            //OPERACION EDICION DE FILA
+            if (isset($_REQUEST['EDITAR'])) {
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO  
+                $RFINAL->__SET('NOMBRE_RFINAL', $_REQUEST['NOMBRERFINAL']);
+                $RFINAL->__SET('DIRECCION_RFINAL', $_REQUEST['DIRECCIONRFINAL']);
+                $RFINAL->__SET('CONTACTO1_RFINAL', $_REQUEST['CONTACTORFINAL1']);
+                $RFINAL->__SET('CARGO1_RFINAL', $_REQUEST['CARGORFINAL1']);
+                $RFINAL->__SET('EMAIL1_RFINAL', $_REQUEST['EMAILRFINAL1']);
+                $RFINAL->__SET('CONTACTO2_RFINAL', $_REQUEST['CONTACTORFINAL2']);
+                $RFINAL->__SET('CARGO2_RFINAL', $_REQUEST['CARGORFINAL2']);
+                $RFINAL->__SET('EMAIL2_RFINAL', $_REQUEST['EMAILRFINAL2']);
+                $RFINAL->__SET('CONTACTO3_RFINAL', $_REQUEST['CONTACTORFINAL3']);
+                $RFINAL->__SET('CARGO3_RFINAL', $_REQUEST['CARGORFINAL3']);
+                $RFINAL->__SET('EMAIL3_RFINAL', $_REQUEST['EMAILRFINAL3']);
+                $RFINAL->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+                $RFINAL->__SET('ID_USUARIOM', $IDUSUARIOS);
+                $RFINAL->__SET('ID_RFINAL', $_REQUEST['ID']);
+                //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
+                $RFINAL_ADO->actualizarRfinal($RFINAL);
+                //REDIRECCIONAR A PAGINA registroRfinal.php
+                    echo '<script>
+                        Swal.fire({
+                            icon:"success",
+                            title:"Registro Modificado",
+                            text:"El registro del mantenedor se ha Modificado correctamente",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href = "registroRfinal.php";                            
+                        })
+                    </script>';
+            }
+
+        ?>
 </body>
 
 </html>

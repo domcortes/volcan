@@ -45,7 +45,7 @@ class NOTIFICADOR_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_notificador` LIMIT 6;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_notificador  LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -64,7 +64,7 @@ class NOTIFICADOR_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_notificador`  WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_notificador   WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -83,7 +83,7 @@ class NOTIFICADOR_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_notificador`  WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_notificador   WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -102,7 +102,7 @@ class NOTIFICADOR_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_notificador` WHERE `ID_NOTIFICADOR`= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_notificador  WHERE  ID_NOTIFICADOR = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -124,7 +124,7 @@ class NOTIFICADOR_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_notificador` WHERE `NOMBRE_NOTIFICADOR` LIKE '%" . $NOMBRE . "%';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_notificador  WHERE  NOMBRE_NOTIFICADOR  LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -150,24 +150,26 @@ class NOTIFICADOR_ADO
             }
 
             $query =
-                "INSERT INTO `fruta_notificador` 
+                "INSERT INTO  fruta_notificador  
                                              (
-                                                    `NUMERO_NOTIFICADOR`,
-                                                    `NOMBRE_NOTIFICADOR`,
-                                                    `EORI_NOTIFICADOR`,
-                                                    `DIRECCION_NOTIFICADOR`,
-                                                    `TELEFONO_NOTIFICADOR`,
-                                                    `CONTACTO1_NOTIFICADOR`, `CARGO1_NOTIFICADOR`, `EMAIL1_NOTIFICADOR`, 
-                                                    `CONTACTO2_NOTIFICADOR`, `CARGO2_NOTIFICADOR`, `EMAIL2_NOTIFICADOR`, 
-                                                    `CONTACTO3_NOTIFICADOR`, `CARGO3_NOTIFICADOR`, `EMAIL3_NOTIFICADOR`, 
-                                                    `ID_CIUDAD`, 
-                                                    `ID_EMPRESA`, 
-                                                    `ID_USUARIOI`, 
-                                                    `ID_USUARIOM`, 
-                                                    `ESTADO_REGISTRO`
+                                                     NUMERO_NOTIFICADOR ,
+                                                     NOMBRE_NOTIFICADOR ,
+                                                     EORI_NOTIFICADOR ,
+                                                     DIRECCION_NOTIFICADOR ,
+                                                     TELEFONO_NOTIFICADOR ,
+                                                     CONTACTO1_NOTIFICADOR ,  CARGO1_NOTIFICADOR ,  EMAIL1_NOTIFICADOR , 
+                                                     CONTACTO2_NOTIFICADOR ,  CARGO2_NOTIFICADOR ,  EMAIL2_NOTIFICADOR , 
+                                                     CONTACTO3_NOTIFICADOR ,  CARGO3_NOTIFICADOR ,  EMAIL3_NOTIFICADOR , 
+                                                     ID_CIUDAD , 
+                                                     ID_EMPRESA , 
+                                                     ID_USUARIOI , 
+                                                     ID_USUARIOM , 
+                                                     INGRESO ,
+                                                     MODIFICACION , 
+                                                     ESTADO_REGISTRO 
                                             ) 
             VALUES
-	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1);";
+	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -201,7 +203,7 @@ class NOTIFICADOR_ADO
     public function eliminarNotificador($id)
     {
         try {
-            $sql = "DELETE FROM `fruta_notificador` WHERE `ID_NOTIFICADOR`=" . $id . ";";
+            $sql = "DELETE FROM  fruta_notificador  WHERE  ID_NOTIFICADOR =" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -220,23 +222,24 @@ class NOTIFICADOR_ADO
             }
 
             $query = "
-		UPDATE `fruta_notificador` SET
-			`NOMBRE_NOTIFICADOR` = ?,
-			`EORI_NOTIFICADOR` = ?,
-			`DIRECCION_NOTIFICADOR` = ?,
-			`TELEFONO_NOTIFICADOR` = ?,
-			`CONTACTO1_NOTIFICADOR` = ?,
-			`CARGO1_NOTIFICADOR` = ?,
-			`EMAIL1_NOTIFICADOR` = ?,
-			`CONTACTO2_NOTIFICADOR` = ?,
-			`CARGO2_NOTIFICADOR` = ?,
-			`EMAIL2_NOTIFICADOR` = ?,
-			`CONTACTO3_NOTIFICADOR` = ?,
-			`CARGO3_NOTIFICADOR` = ?,
-			`EMAIL3_NOTIFICADOR` = ?,
-            `ID_CIUDAD`= ?,
-            `ID_USUARIOM`= ?
-		WHERE `ID_NOTIFICADOR` = ?  ;";
+                UPDATE  fruta_notificador  SET
+                    MODIFICACION  = SYSDATE() , 
+                    NOMBRE_NOTIFICADOR  = ?,
+                    EORI_NOTIFICADOR  = ?,
+                    DIRECCION_NOTIFICADOR  = ?,
+                    TELEFONO_NOTIFICADOR  = ?,
+                    CONTACTO1_NOTIFICADOR  = ?,
+                    CARGO1_NOTIFICADOR  = ?,
+                    EMAIL1_NOTIFICADOR  = ?,
+                    CONTACTO2_NOTIFICADOR  = ?,
+                    CARGO2_NOTIFICADOR  = ?,
+                    EMAIL2_NOTIFICADOR  = ?,
+                    CONTACTO3_NOTIFICADOR  = ?,
+                    CARGO3_NOTIFICADOR  = ?,
+                    EMAIL3_NOTIFICADOR  = ?,
+                    ID_CIUDAD = ?,
+                    ID_USUARIOM = ?
+                WHERE  ID_NOTIFICADOR  = ?  ;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -273,9 +276,9 @@ class NOTIFICADOR_ADO
 
         try {
             $query = "
-		UPDATE `fruta_notificador` SET			
-            `ESTADO_REGISTRO` = 0
-		WHERE `ID_NOTIFICADOR`= ?;";
+		UPDATE  fruta_notificador  SET			
+             ESTADO_REGISTRO  = 0
+		WHERE  ID_NOTIFICADOR = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -293,9 +296,9 @@ class NOTIFICADOR_ADO
 
         try {
             $query = "
-		UPDATE `fruta_notificador` SET			
-            `ESTADO_REGISTRO` = 1
-		WHERE `ID_NOTIFICADOR`= ?;";
+		UPDATE  fruta_notificador  SET			
+             ESTADO_REGISTRO  = 1
+		WHERE  ID_NOTIFICADOR = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -312,8 +315,8 @@ class NOTIFICADOR_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_notificador`  
-                                               WHERE `ESTADO_REGISTRO` = 1
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_notificador   
+                                               WHERE  ESTADO_REGISTRO  = 1
                                                AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -334,7 +337,7 @@ class NOTIFICADOR_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                     IFNULL(COUNT(NUMERO_NOTIFICADOR),0) AS 'NUMERO'
-                                                FROM `fruta_notificador`
+                                                FROM  fruta_notificador 
                                                 WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

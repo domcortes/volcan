@@ -1,16 +1,16 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioExpo.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/COMUNA_ADO.php';
-include_once '../controlador/CIUDAD_ADO.php';
-include_once '../controlador/EXPORTADORA_ADO.php';
+include_once '../../assest/controlador/COMUNA_ADO.php';
+include_once '../../assest/controlador/CIUDAD_ADO.php';
+include_once '../../assest/controlador/EXPORTADORA_ADO.php';
 
-include_once '../modelo/EXPORTADORA.php';
+include_once '../../assest/modelo/EXPORTADORA.php';
 
-include_once '../config/SUBIR.php';
+include_once '../../assest/config/SUBIR.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -32,7 +32,7 @@ $OP = "";
 $DISABLED = "";
 $ID = "";
 
-$DIRECTORIODESTINO = "img/exportadora/";
+$DIRECTORIODESTINO = "../../assest/img/exportadora/";
 
 $RUTEXPORTADORA = "";
 $NOMBREXPORTADORA = "";
@@ -69,98 +69,13 @@ $ARRAYCIUDAD = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYEXPORTADORA = $EXPORTADORA_ADO->listarExportadoraCBX();
-$ARRAYCOMUNA = $COMUNA_ADO->listarComunaCBX();
-$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudadCBX();
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrl.php";
+$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrl.php";
 
 
 
 
-//OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-
-if (isset($_REQUEST['GUARDAR'])) {
-
-
-    //OPERACION DE SUBIR IMAGEN AL SERVIDOR
-    if ($_FILES['LOGOEXPORTADORA']) {
-        $SUBIRIMG = $SUBIR->subirImg($_FILES['LOGOEXPORTADORA'], $_REQUEST['RUTEXPORTADORA'], $DIRECTORIODESTINO);
-        $URL_IMG = $SUBIRIMG['UBICACION'] . $SUBIRIMG['NOMBREARCHIVO'] . $SUBIRIMG['FORMATO'];
-        $MENSAJE2 = $SUBIRIMG['MENSAJE'];
-    }
-    if ($URL_IMG == "") {
-        $URL_IMG = "";
-    }
-
-    $ARRAYNUMERO = $EXPORTADORA_ADO->obtenerNumero($EMPRESAS);
-    $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
-
-
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-    $EXPORTADORA->__SET('NUMERO_EXPORTADORA', $NUMERO);
-    $EXPORTADORA->__SET('RUT_EXPORTADORA', $_REQUEST['RUTEXPORTADORA']);
-    $EXPORTADORA->__SET('DV_EXPORTADORA', $_REQUEST['DVEXPORTADORA']);
-    $EXPORTADORA->__SET('NOMBRE_EXPORTADORA', $_REQUEST['NOMBREXPORTADORA']);
-    $EXPORTADORA->__SET('RAZON_SOCIAL_EXPORTADORA', $_REQUEST['RAZONSOCIALEXPORTADORA']);
-    $EXPORTADORA->__SET('GIRO_EXPORTADORA', $_REQUEST['GIROEXPORTADORA']);
-    $EXPORTADORA->__SET('DIRECCION_EXPORTADORA', $_REQUEST['DIRECCIONEXPORTADORA']);
-    $EXPORTADORA->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
-    $EXPORTADORA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $EXPORTADORA->__SET('CONTACTO1_EXPORTADORA', $_REQUEST['CONTACTOEXPORTADORA1']);
-    $EXPORTADORA->__SET('TELEFONO1_EXPORTADORA', $_REQUEST['TELEFONOEXPORTADORA1']);
-    $EXPORTADORA->__SET('EMAIL1_EXPORTADORA', $_REQUEST['EMAILEXPORTADORA1']);
-    $EXPORTADORA->__SET('CONTACTO2_EXPORTADORA', $_REQUEST['CONTACTOEXPORTADORA2']);
-    $EXPORTADORA->__SET('TELEFONO2_EXPORTADORA', $_REQUEST['TELEFONOEXPORTADORA2']);
-    $EXPORTADORA->__SET('EMAIL2_EXPORTADORA', $_REQUEST['EMAILEXPORTADORA2']);
-    $EXPORTADORA->__SET('LOGO_EXPORTADORA', $URL_IMG);
-    $EXPORTADORA->__SET('ID_USUARIOI', $IDUSUARIOS);
-    $EXPORTADORA->__SET('ID_USUARIOM', $IDUSUARIOS);
-    //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
-    $EXPORTADORA_ADO->agregarExportadora($EXPORTADORA);
-    //REDIRECCIONAR A PAGINA registroExportadora.php
-    echo "<script type='text/javascript'> location.href ='registroExportadora.php';</script>";
-}
-//OPERACION DE EDICION DE FILA
-if (isset($_REQUEST['EDITAR'])) {
-
-    //OPERACION DE SUBIR IMAGEN AL SERVIDOR
-    if ($_FILES['LOGOEXPORTADORA']) {
-        $SUBIRIMG = $SUBIR->subirImg($_FILES['LOGOEXPORTADORA'], $_REQUEST['RUTEXPORTADORA'], $DIRECTORIODESTINO);
-        $URL_IMG = $SUBIRIMG['UBICACION'] . $SUBIRIMG['NOMBREARCHIVO'] . $SUBIRIMG['FORMATO'];
-        $MENSAJE2 = $SUBIRIMG['MENSAJE'];
-    }
-
-    if ($URL_IMG == "") {
-
-        $URL_IMG = $_REQUEST['URL'];
-    }
-
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO  
-    $EXPORTADORA->__SET('RUT_EXPORTADORA', $_REQUEST['RUTEXPORTADORA']);
-    $EXPORTADORA->__SET('DV_EXPORTADORA', $_REQUEST['DVEXPORTADORA']);
-    $EXPORTADORA->__SET('NOMBRE_EXPORTADORA', $_REQUEST['NOMBREXPORTADORA']);
-    $EXPORTADORA->__SET('RAZON_SOCIAL_EXPORTADORA', $_REQUEST['RAZONSOCIALEXPORTADORA']);
-    $EXPORTADORA->__SET('GIRO_EXPORTADORA', $_REQUEST['GIROEXPORTADORA']);
-    $EXPORTADORA->__SET('DIRECCION_EXPORTADORA', $_REQUEST['DIRECCIONEXPORTADORA']);
-    $EXPORTADORA->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
-    $EXPORTADORA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $EXPORTADORA->__SET('CONTACTO1_EXPORTADORA', $_REQUEST['CONTACTOEXPORTADORA1']);
-    $EXPORTADORA->__SET('TELEFONO1_EXPORTADORA', $_REQUEST['TELEFONOEXPORTADORA1']);
-    $EXPORTADORA->__SET('EMAIL1_EXPORTADORA', $_REQUEST['EMAILEXPORTADORA1']);
-    $EXPORTADORA->__SET('CONTACTO2_EXPORTADORA', $_REQUEST['CONTACTOEXPORTADORA2']);
-    $EXPORTADORA->__SET('TELEFONO2_EXPORTADORA', $_REQUEST['TELEFONOEXPORTADORA2']);
-    $EXPORTADORA->__SET('EMAIL2_EXPORTADORA', $_REQUEST['EMAILEXPORTADORA2']);
-    $EXPORTADORA->__SET('LOGO_EXPORTADORA', $URL_IMG);
-    $EXPORTADORA->__SET('ID_USUARIOM', $IDUSUARIOS);
-    $EXPORTADORA->__SET('ID_EXPORTADORA', $_REQUEST['ID']);
-    //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
-    $EXPORTADORA_ADO->actualizarExportadora($EXPORTADORA);
-    //REDIRECCIONAR A PAGINA registroExportadora.php
-    echo "<script type='text/javascript'> location.href ='registroExportadora.php';</script>";
-}
 
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION Y VISUALIZACION
@@ -282,7 +197,7 @@ if ($_POST) {
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
 
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <script type="text/javascript">
             //VALIDACION DE FORMULARIO
             function validacion() {
@@ -343,6 +258,7 @@ if ($_POST) {
                 }
                 document.form_reg_dato.NOMBREXPORTADORA.style.borderColor = "#4AF575";
 
+                /*
                 if (GIROEXPORTADORA == null || GIROEXPORTADORA.length == 0 || /^\s+$/.test(GIROEXPORTADORA)) {
                     document.form_reg_dato.GIROEXPORTADORA.focus();
                     document.form_reg_dato.GIROEXPORTADORA.style.borderColor = "#FF0000";
@@ -359,7 +275,7 @@ if ($_POST) {
                     return false;
                 }
                 document.form_reg_dato.RAZONSOCIALEXPORTADORA.style.borderColor = "#4AF575";
-
+                */
 
                 if (DIRECCIONEXPORTADORA == null || DIRECCIONEXPORTADORA.length == 0 || /^\s+$/.test(DIRECCIONEXPORTADORA)) {
                     document.form_reg_dato.DIRECCIONEXPORTADORA.focus();
@@ -391,7 +307,7 @@ if ($_POST) {
 
 
                                              if (TELEFONOEXPORTADORA1 == null || TELEFONOEXPORTADORA1 == 0) {
-                                                 document.form_reg_dato.TELEFONOEXPORTADORA1.focus();
+                                                 document.form_reg_dato.TELEFInstructivoONOEXPORTADORA1.focus();
                                                  document.form_reg_dato.TELEFONOEXPORTADORA1.style.borderColor = "#FF0000";
                                                  document.getElementById('val_telefono1').innerHTML = "NO A INGRESADO DATO";
                                                  return false;
@@ -465,69 +381,28 @@ if ($_POST) {
                 location.href = "" + url;
             }
 
-            //FUNCION PARA OBTENER HORA Y FECHA
-            function mueveReloj() {
-
-
-                momentoActual = new Date();
-
-                dia = momentoActual.getDate();
-                mes = momentoActual.getMonth() + 1;
-                ano = momentoActual.getFullYear();
-
-                hora = momentoActual.getHours();
-                minuto = momentoActual.getMinutes();
-                segundo = momentoActual.getSeconds();
-
-                if (dia < 10) {
-                    dia = "0" + dia;
-                }
-
-                if (mes < 10) {
-                    mes = "0" + mes;
-                }
-                if (hora < 10) {
-                    hora = "0" + hora;
-                }
-                if (minuto < 10) {
-                    minuto = "0" + minuto;
-                }
-                if (segundo < 10) {
-                    segundo = "0" + segundo;
-                }
-
-                horaImprimible = hora + " : " + minuto;
-                fechaImprimible = dia + "-" + mes + "-" + ano;
-
-
-                //     document.form_reg_dato.HORARECEPCION.value = horaImprimible;
-                document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
-                setTimeout("mueveReloj()", 1000);
-            }
         </script>
 </head>
 
-<body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
+<body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php"; ?>
-
+            <?php include_once "../../assest/config/menuExpo.php"; ?>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <div class="container-full">
-
                     <!-- Content Header (Page header) -->
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Exportadora</h3>
+                                <h3 class="page-title">Instructivo</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Mantenedores</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroExportadora.php"> Operaciones Exportadora </a>
-                                            </li>
+                                            <li class="breadcrumb-item" aria-current="page">Instructivo</li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Exportadora </a> </li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -553,26 +428,20 @@ if ($_POST) {
                             </div>
                         </div>
                     </div>
-
                     <!-- Main content -->
                     <section class="content">
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
-                                    <div class="box-header with-border">
-                                        <!--  
-                                    <h4 class="box-title">Sample form 1</h4>
-                                -->
+                                    <div class="box-header with-border bg-primary">                                
+                                        <h4 class="box-title">Registro Exportadora</h4>                                
                                     </div>
                                     <!-- /.box-header -->
-                                    <form class="form" role="form" method="post" name="form_reg_dato" onsubmit="return validacion()" enctype="multipart/form-data">
+                                    <form class="form" role="form" method="post" name="form_reg_dato" name="form_reg_dato" enctype="multipart/form-data">
                                         <div class="box-body">
-                                            <h4 class="box-title text-info"><i class="ti-user mr-15"></i> Registro
-                                            </h4>
                                             <hr class="my-15">
                                             <div class="row">
-
-                                                <div class="col-md-4">
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Rut </label>
                                                         <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
@@ -581,58 +450,51 @@ if ($_POST) {
                                                         <label id="val_rut" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-2">
+                                                 <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                                     <div class="form-group">
                                                         <label>DV </label>
                                                         <input type="text" class="form-control" placeholder="DV Exportadora" id="DVEXPORTADORA" name="DVEXPORTADORA" value="<?php echo $DVEXPORTADORA; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_dv" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label> Nombre </label>
                                                         <input type="text" class="form-control" placeholder="Nombre Exportadora " id="NOMBREXPORTADORA" name="NOMBREXPORTADORA" value="<?php echo $NOMBREXPORTADORA; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_nombre" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-
-                                                <div class="col-md-6">
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Giro</label>
                                                         <input type="text" class="form-control" placeholder="Giro Exportadora" id="GIROEXPORTADORA" name="GIROEXPORTADORA" value="<?php echo $GIROEXPORTADORA; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_giro" class="validacion"> </label>
                                                     </div>
                                                 </div>
-
-                                                <div class="col-md-6">
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Razon Social</label>
                                                         <input type="text" class="form-control" placeholder="Razon Social Exportadora" id="RAZONSOCIALEXPORTADORA" name="RAZONSOCIALEXPORTADORA" value="<?php echo $RAZONSOCIALEXPORTADORA; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_rsocial" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Dirreccion</label>
                                                         <input type="text" class="form-control" placeholder="Dirreccion  Exportadora" id="DIRECCIONEXPORTADORA" name="DIRECCIONEXPORTADORA" value="<?php echo $DIRECCIONEXPORTADORA; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_dirrecion" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 col-12">
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Ciudad</label>
                                                         <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
                                                             <option></option>
                                                             <?php foreach ($ARRAYCIUDAD as $r) : ?>
                                                                 <?php if ($ARRAYCIUDAD) {    ?>
-                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>" <?php if ($CIUDAD == $r['ID_CIUDAD']) {
-                                                                                                                        echo "selected";
-                                                                                                                    } ?>>
-                                                                        <?php echo $r['NOMBRE_CIUDAD'] ?>
+                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>"
+                                                                     <?php if ($CIUDAD == $r['ID_CIUDAD']) {    echo "selected";  } ?>>
+                                                                     <?php echo $r['CIUDAD'] ?>, <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
                                                                     <option>No Hay Datos Registrados </option>
@@ -646,93 +508,94 @@ if ($_POST) {
                                             <label>Contacto</label>
                                             <hr class="my-15">
                                             <div class="row">
-                                                <div class="col-md-4">
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Nombre 1</label>
                                                         <input type="text" class="form-control" placeholder="Nombre Contacto 1 Exportadora" id="CONTACTOEXPORTADORA1" name="CONTACTOEXPORTADORA1" value="<?php echo $CONTACTOEXPORTADORA1; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_contacto1" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Telefono 1</label>
                                                         <input type="number" class="form-control" placeholder="Telefono Contacto  1 Exportadora" id="TELEFONOEXPORTADORA1" name="TELEFONOEXPORTADORA1" value="<?php echo $TELEFONOEXPORTADORA1 ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_telefono1" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Email 1</label>
                                                         <input type="text" class="form-control" placeholder="Email Contacto  1Exportadora" id="EMAILEXPORTADORA1" name="EMAILEXPORTADORA1" value="<?php echo $EMAILEXPORTADORA1; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_email1" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-4">
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Nombre 2</label>
                                                         <input type="text" class="form-control" placeholder="Nombre Contacto 2 Exportadora" id="CONTACTOEXPORTADORA2" name="CONTACTOEXPORTADORA2" value="<?php echo $CONTACTOEXPORTADORA2; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_contacto2" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Telefono 2</label>
                                                         <input type="number" class="form-control" placeholder="Telefono Contacto 2 Exportadora" id="TELEFONOEXPORTADORA2" name="TELEFONOEXPORTADORA2" value="<?php echo $TELEFONOEXPORTADORA2 ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_telefono2" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Email 2</label>
                                                         <input type="text" class="form-control" placeholder="Email Contacto 2 Exportadora" id="EMAILEXPORTADORA2" name="EMAILEXPORTADORA2" value="<?php echo $EMAILEXPORTADORA2; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_email2" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <hr>
-                                            <div class="form-group">
-                                                <label>Seleccion Imagen</label>
-                                                <label class="file">
-                                                    <input type="file" placeholder="IMG" id="LOGOEXPORTADORA" name="LOGOEXPORTADORA" values="<?php echo $LOGOEXPORTADORA; ?>" <?php echo $FOCUS2; ?> />
-                                                </label>
-                                                <label id="val_img_empresa" class="validacion"><?php echo $MENSAJE2; ?> </label>
-                                                <?php if ($URL_IMG) { ?>
-                                                    <img src="<?php echo  $URL_IMG; ?>" alt="Logo Exportadora" class="rounded mx-auto d-block" style="max-width:100px; max-height:100px;width: auto;height: auto;">
-                                                <?php } else { ?>
-                                                    <img src="img/empresa/no_disponible.png" alt="Logo Exportadora" class="rounded mx-auto d-block" style="max-width:100px; max-height:100px;width: auto;height: auto;">
-                                                <?php } ?>
-                                                <input type="hidden" id="URL" name="URL" value="<?php echo $URL_IMG; ?>" />
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">     
+                                                    <div class="form-group">
+                                                        <label>Seleccion Imagen</label>
+                                                        <label class="file">
+                                                            <input type="file" placeholder="IMG" id="LOGOEXPORTADORA" name="LOGOEXPORTADORA" values="<?php echo $LOGOEXPORTADORA; ?>" <?php echo $FOCUS2; ?> />
+                                                        </label>
+                                                        <label id="val_img_empresa" class="validacion"><?php echo $MENSAJE2; ?> </label>
+                                                        <?php if ($URL_IMG) { ?>
+                                                            <img src="<?php echo  $URL_IMG; ?>" alt="Logo Exportadora" class="rounded mx-auto d-block" style="max-width:100px; max-height:100px;width: auto;height: auto;">
+                                                        <?php } else { ?>
+                                                            <img src="../../assest/img/empresa/no_disponible.png" alt="Logo Exportadora" class="rounded mx-auto d-block" style="max-width:100px; max-height:100px;width: auto;height: auto;">
+                                                        <?php } ?>
+                                                        <input type="hidden" id="URL" name="URL" value="<?php echo $URL_IMG; ?>" />
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <!-- /.box-body -->
+                                        <!-- /.box-body -->                            
                                         <div class="box-footer">
-                                            <button type="button" class="btn btn-rounded btn-warning btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroExportadora.php'); ">
-                                                <i class="ti-trash"></i> Cancelar
-                                            </button>
-                                            <?php if ($OP != "editar") { ?>
-                                                <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?>>
-                                                    <i class="ti-save-alt"></i> Crear
+                                            <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
+                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroExportadora.php');">
+                                                <i class="ti-trash"></i>Cancelar
                                                 </button>
-                                            <?php } else { ?>
-                                                <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="EDITAR" value="EDITAR">
-                                                    <i class="ti-save-alt"></i> Guardar
-                                                </button>
-                                            <?php } ?>
+                                                <?php if ($OP != "editar") { ?>
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                                <?php } else { ?>
+                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                                <?php } ?>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
                                 <!-- /.box -->
                             </div>
-                            <div class="col-lg-6 col-12">
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
-                                    <div class="box-header with-border">
-                                        <h4 class="box-title"> Registros</h4>
+                                    <div class="box-header with-border bg-info">
+                                        <h4 class="box-title"> Agrupado Exportadora</h4>
                                     </div>
                                     <div class="box-body">
                                         <div class="table-responsive">
-                                            <table id="listar" class="table table-hover " style="width: 100%;">
+                                            <table id="listar" class="table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr>
                                                         <th>Número </th>
@@ -748,37 +611,41 @@ if ($_POST) {
                                                                     <?php echo $r['NUMERO_EXPORTADORA']; ?>
                                                                 </a>
                                                             </td>
-                                                            <td><?php echo $r['NOMBRE_EXPORTADORA']; ?></td>
+                                                            <td><?php echo $r['NOMBRE_EXPORTADORA']; ?></td>                                                                                     
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
                                                                         <div class="list-icons-item dropdown">
-                                                                            <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown">
-                                                                                <i class="glyphicon glyphicon-cog"></i>
-                                                                            </a>
+                                                                            <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                <span class="icon-copy ti-settings"></span>
+                                                                            </button>
                                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                                 <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_EXPORTADORA']; ?>" />
                                                                                 <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroExportadora" />
-                                                                                <button type="submit" class="btn btn-rounded btn-outline-info btn-sm " id="VERURL" name="VERURL">
-                                                                                    <i class="ti-eye"></i>
-                                                                                </button>Ver
-                                                                                <br>
-                                                                                <button type="submit" class="btn btn-rounded btn-outline-warning btn-sm" id="EDITARURL" name="EDITARURL">
-                                                                                    <i class="ti-pencil-alt"></i>
-                                                                                </button>Editar
-                                                                                <br>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
+                                                                                    <button type="submit" class="btn btn-info btn-block  btn-sm" id="VERURL" name="VERURL">
+                                                                                        <i class="ti-eye"></i> Ver
+                                                                                    </button>
+                                                                                </span> 
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
+                                                                                    <button type="submit" class="btn  btn-warning btn-block   btn-sm" id="EDITARURL" name="EDITARURL">
+                                                                                        <i class="ti-pencil-alt"></i> Editar
+                                                                                    </button>
+                                                                                </span>
                                                                                 <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
-                                                                                    <button type="submit" class="btn btn-rounded btn-outline-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
-                                                                                        <i class="ti-na "></i>
-                                                                                    </button>Desahabilitar
-                                                                                    <br>
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Desahabilitar">
+                                                                                        <button type="submit" class="btn btn-block btn-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
+                                                                                            <i class="ti-na "></i> Desahabilitar
+                                                                                        </button>
+                                                                                    </span>
                                                                                 <?php } ?>
                                                                                 <?php if ($r['ESTADO_REGISTRO'] == 0) { ?>
-                                                                                    <button type="submit" class="btn btn-rounded btn-outline-success btn-sm" id="HABILITARURL" name="HABILITARURL">
-                                                                                        <i class="ti-check "></i>
-                                                                                    </button>Habilitar
-                                                                                    <br>
-                                                                                <?php } ?>
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Habilitar">
+                                                                                        <button type="submit" class="btn btn-block btn-success btn-sm" id="HABILITARURL" name="HABILITARURL">
+                                                                                            <i class="ti-check "></i> Habilitar
+                                                                                        </button>
+                                                                                    </span>
+                                                                                <?php } ?>                                                               
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -803,11 +670,120 @@ if ($_POST) {
 
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
-</body>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
+        <?php 
+            //OPERACIONES
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['GUARDAR'])) {
 
+
+                //OPERACION DE SUBIR IMAGEN AL SERVIDOR
+                if ($_FILES['LOGOEXPORTADORA']) {
+                    $SUBIRIMG = $SUBIR->subirImg($_FILES['LOGOEXPORTADORA'], $_REQUEST['RUTEXPORTADORA'], $DIRECTORIODESTINO);
+                    $URL_IMG = $SUBIRIMG['UBICACION'] . $SUBIRIMG['NOMBREARCHIVO'] . $SUBIRIMG['FORMATO'];
+                    $MENSAJE2 = $SUBIRIMG['MENSAJE'];
+                }
+                if ($URL_IMG == "") {
+                    $URL_IMG = "";
+                }
+
+                $ARRAYNUMERO = $EXPORTADORA_ADO->obtenerNumero($EMPRESAS);
+                $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+
+
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+                $EXPORTADORA->__SET('NUMERO_EXPORTADORA', $NUMERO);
+                $EXPORTADORA->__SET('RUT_EXPORTADORA', $_REQUEST['RUTEXPORTADORA']);
+                $EXPORTADORA->__SET('DV_EXPORTADORA', $_REQUEST['DVEXPORTADORA']);
+                $EXPORTADORA->__SET('NOMBRE_EXPORTADORA', $_REQUEST['NOMBREXPORTADORA']);
+                $EXPORTADORA->__SET('RAZON_SOCIAL_EXPORTADORA', $_REQUEST['RAZONSOCIALEXPORTADORA']);
+                $EXPORTADORA->__SET('GIRO_EXPORTADORA', $_REQUEST['GIROEXPORTADORA']);
+                $EXPORTADORA->__SET('DIRECCION_EXPORTADORA', $_REQUEST['DIRECCIONEXPORTADORA']);
+                $EXPORTADORA->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+                $EXPORTADORA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $EXPORTADORA->__SET('CONTACTO1_EXPORTADORA', $_REQUEST['CONTACTOEXPORTADORA1']);
+                $EXPORTADORA->__SET('TELEFONO1_EXPORTADORA', $_REQUEST['TELEFONOEXPORTADORA1']);
+                $EXPORTADORA->__SET('EMAIL1_EXPORTADORA', $_REQUEST['EMAILEXPORTADORA1']);
+                $EXPORTADORA->__SET('CONTACTO2_EXPORTADORA', $_REQUEST['CONTACTOEXPORTADORA2']);
+                $EXPORTADORA->__SET('TELEFONO2_EXPORTADORA', $_REQUEST['TELEFONOEXPORTADORA2']);
+                $EXPORTADORA->__SET('EMAIL2_EXPORTADORA', $_REQUEST['EMAILEXPORTADORA2']);
+                $EXPORTADORA->__SET('LOGO_EXPORTADORA', $URL_IMG);
+                $EXPORTADORA->__SET('ID_USUARIOI', $IDUSUARIOS);
+                $EXPORTADORA->__SET('ID_USUARIOM', $IDUSUARIOS);
+                //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
+                $EXPORTADORA_ADO->agregarExportadora($EXPORTADORA);
+                //REDIRECCIONAR A PAGINA registroExportadora.php
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Creado",
+                        text:"El registro del mantenedor se ha creado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroExportadora.php";                            
+                    })
+                </script>';
+        
+            }
+            //OPERACION DE EDICION DE FILA
+            if (isset($_REQUEST['EDITAR'])) {
+
+                //OPERACION DE SUBIR IMAGEN AL SERVIDOR
+                if ($_FILES['LOGOEXPORTADORA']) {
+                    $SUBIRIMG = $SUBIR->subirImg($_FILES['LOGOEXPORTADORA'], $_REQUEST['RUTEXPORTADORA'], $DIRECTORIODESTINO);
+                    $URL_IMG = $SUBIRIMG['UBICACION'] . $SUBIRIMG['NOMBREARCHIVO'] . $SUBIRIMG['FORMATO'];
+                    $MENSAJE2 = $SUBIRIMG['MENSAJE'];
+                }
+
+                if ($URL_IMG == "") {
+
+                    $URL_IMG = $_REQUEST['URL'];
+                }
+
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO  
+                $EXPORTADORA->__SET('RUT_EXPORTADORA', $_REQUEST['RUTEXPORTADORA']);
+                $EXPORTADORA->__SET('DV_EXPORTADORA', $_REQUEST['DVEXPORTADORA']);
+                $EXPORTADORA->__SET('NOMBRE_EXPORTADORA', $_REQUEST['NOMBREXPORTADORA']);
+                $EXPORTADORA->__SET('RAZON_SOCIAL_EXPORTADORA', $_REQUEST['RAZONSOCIALEXPORTADORA']);
+                $EXPORTADORA->__SET('GIRO_EXPORTADORA', $_REQUEST['GIROEXPORTADORA']);
+                $EXPORTADORA->__SET('DIRECCION_EXPORTADORA', $_REQUEST['DIRECCIONEXPORTADORA']);
+                $EXPORTADORA->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+                $EXPORTADORA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $EXPORTADORA->__SET('CONTACTO1_EXPORTADORA', $_REQUEST['CONTACTOEXPORTADORA1']);
+                $EXPORTADORA->__SET('TELEFONO1_EXPORTADORA', $_REQUEST['TELEFONOEXPORTADORA1']);
+                $EXPORTADORA->__SET('EMAIL1_EXPORTADORA', $_REQUEST['EMAILEXPORTADORA1']);
+                $EXPORTADORA->__SET('CONTACTO2_EXPORTADORA', $_REQUEST['CONTACTOEXPORTADORA2']);
+                $EXPORTADORA->__SET('TELEFONO2_EXPORTADORA', $_REQUEST['TELEFONOEXPORTADORA2']);
+                $EXPORTADORA->__SET('EMAIL2_EXPORTADORA', $_REQUEST['EMAILEXPORTADORA2']);
+                $EXPORTADORA->__SET('LOGO_EXPORTADORA', $URL_IMG);
+                $EXPORTADORA->__SET('ID_USUARIOM', $IDUSUARIOS);
+                $EXPORTADORA->__SET('ID_EXPORTADORA', $_REQUEST['ID']);
+                //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
+                $EXPORTADORA_ADO->actualizarExportadora($EXPORTADORA);
+                //REDIRECCIONAR A PAGINA registroExportadora.php
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Modificado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroExportadora.php";                            
+                    })
+                </script>';
+            }
+
+        ?>
+
+</body>
 </html>

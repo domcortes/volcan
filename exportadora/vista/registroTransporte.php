@@ -226,14 +226,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         return false;
                     }
                     document.form_reg_dato.DIRRECIONTRANSPORTE.style.borderColor = "#4AF575";
-
+                    /*
                     if (CIUDAD == null || CIUDAD == 0) {
                         document.form_reg_dato.CIUDAD.focus();
                         document.form_reg_dato.CIUDAD.style.borderColor = "#FF0000";
                         document.getElementById('val_ciudad').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
                         return false;
                     }
-                    document.form_reg_dato.CIUDAD.style.borderColor = "#4AF575";
+                    document.form_reg_dato.CIUDAD.style.borderColor = "#4AF575";*/
                     /*
 
                     if (CONTACTOTRANSPORTE == null || CONTACTOTRANSPORTE.length == 0 || /^\s+$/.test(CONTACTOTRANSPORTE)) {

@@ -45,7 +45,7 @@ class AGCARGA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_agcarga` LIMIT 6;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_agcarga  LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -64,7 +64,7 @@ class AGCARGA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_agcarga`  WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_agcarga   WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -83,7 +83,7 @@ class AGCARGA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_agcarga`  WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_agcarga   WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -102,7 +102,7 @@ class AGCARGA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_agcarga` WHERE `ID_AGCARGA`= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_agcarga  WHERE  ID_AGCARGA = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -124,7 +124,7 @@ class AGCARGA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_agcarga` WHERE `NOMBRE_AGCARGA` LIKE '%" . $NOMBRE . "%';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_agcarga  WHERE  NOMBRE_AGCARGA  LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -150,27 +150,29 @@ class AGCARGA_ADO
             }
 
             $query =
-                "INSERT INTO `fruta_agcarga` 
+                "INSERT INTO  fruta_agcarga  
                                         (
-                                            `RUT_AGCARGA`,
-                                            `DV_AGCARGA`,
-                                            `NUMERO_AGCARGA`,
-                                            `NOMBRE_AGCARGA`,
-                                            `RAZON_SOCIAL_AGCARGA`,
-                                            `GIRO_AGCARGA`,
-                                            `CODIGO_SAG_AGCARGA`,
-                                            `DIRECCION_AGCARGA`, 
-                                            `CONTACTO_AGCARGA`, 
-                                            `TELEFONO_AGCARGA`, 
-                                            `EMAIL_AGCARGA`, 
-                                            `ID_CIUDAD`, 
-                                            `ID_EMPRESA`, 
-                                            `ID_USUARIOI`, 
-                                            `ID_USUARIOM`,
-                                            `ESTADO_REGISTRO`
+                                             RUT_AGCARGA ,
+                                             DV_AGCARGA ,
+                                             NUMERO_AGCARGA ,
+                                             NOMBRE_AGCARGA ,
+                                             RAZON_SOCIAL_AGCARGA ,
+                                             GIRO_AGCARGA ,
+                                             CODIGO_SAG_AGCARGA ,
+                                             DIRECCION_AGCARGA , 
+                                             CONTACTO_AGCARGA , 
+                                             TELEFONO_AGCARGA , 
+                                             EMAIL_AGCARGA , 
+                                             ID_CIUDAD , 
+                                             ID_EMPRESA , 
+                                             ID_USUARIOI , 
+                                             ID_USUARIOM ,
+                                             INGRESO ,
+                                             MODIFICACION ,
+                                             ESTADO_REGISTRO 
                                         ) 
             VALUES
-	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1);";
+	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE(), SYSDATE(), 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -202,7 +204,7 @@ class AGCARGA_ADO
     public function eliminarAgcarga($id)
     {
         try {
-            $sql = "DELETE FROM `fruta_agcarga` WHERE `ID_AGCARGA`=" . $id . ";";
+            $sql = "DELETE FROM  fruta_agcarga  WHERE  ID_AGCARGA =" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -221,20 +223,21 @@ class AGCARGA_ADO
             }
 
             $query = "
-		UPDATE `fruta_agcarga` SET
-			`RUT_AGCARGA` = ?,
-			`DV_AGCARGA` = ?,
-			`NOMBRE_AGCARGA` = ?,
-			`RAZON_SOCIAL_AGCARGA` = ?,
-			`GIRO_AGCARGA` = ?,
-			`CODIGO_SAG_AGCARGA` = ?,
-			`DIRECCION_AGCARGA` = ?,
-			`CONTACTO_AGCARGA` = ?,
-			`TELEFONO_AGCARGA` = ?,
-			`EMAIL_AGCARGA` = ?,
-            `ID_CIUDAD`= ?,
-            `ID_USUARIOM`= ?
-		WHERE `ID_AGCARGA` = ?  ;";
+                UPDATE  fruta_agcarga  SET
+                    MODIFICACION = SYSDATE(),
+                    RUT_AGCARGA  = ?,
+                    DV_AGCARGA  = ?,
+                    NOMBRE_AGCARGA  = ?,
+                    RAZON_SOCIAL_AGCARGA  = ?,
+                    GIRO_AGCARGA  = ?,
+                    CODIGO_SAG_AGCARGA  = ?,
+                    DIRECCION_AGCARGA  = ?,
+                    CONTACTO_AGCARGA  = ?,
+                    TELEFONO_AGCARGA  = ?,
+                    EMAIL_AGCARGA  = ?,
+                    ID_CIUDAD = ?,
+                    ID_USUARIOM = ?
+                WHERE  ID_AGCARGA  = ?  ;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -268,9 +271,9 @@ class AGCARGA_ADO
 
         try {
             $query = "
-		UPDATE `fruta_agcarga` SET			
-            `ESTADO_REGISTRO` = 0
-		WHERE `ID_AGCARGA`= ?;";
+		UPDATE  fruta_agcarga  SET			
+             ESTADO_REGISTRO  = 0
+		WHERE  ID_AGCARGA = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -288,9 +291,9 @@ class AGCARGA_ADO
 
         try {
             $query = "
-		UPDATE `fruta_agcarga` SET			
-            `ESTADO_REGISTRO` = 1
-		WHERE `ID_AGCARGA`= ?;";
+		UPDATE  fruta_agcarga  SET			
+             ESTADO_REGISTRO  = 1
+		WHERE  ID_AGCARGA = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -308,8 +311,8 @@ class AGCARGA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_agcarga`  
-                                             WHERE `ESTADO_REGISTRO` = 1
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_agcarga   
+                                             WHERE  ESTADO_REGISTRO  = 1
                                                AND ID_EMPRESA = '" . $IDEMPRESA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -330,7 +333,7 @@ class AGCARGA_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                     IFNULL(COUNT(NUMERO_AGCARGA),0) AS 'NUMERO'
-                                                FROM `fruta_agcarga`
+                                                FROM  fruta_agcarga 
                                                 WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

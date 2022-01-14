@@ -45,7 +45,7 @@ class DFINAL_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_dfinal` limit 8;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_dfinal  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -64,7 +64,7 @@ class DFINAL_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_dfinal` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_dfinal  WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -84,7 +84,7 @@ class DFINAL_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_dfinal` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_dfinal  WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -105,7 +105,7 @@ class DFINAL_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_dfinal` WHERE `ID_DFINAL`= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_dfinal  WHERE  ID_DFINAL = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -127,7 +127,7 @@ class DFINAL_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_dfinal` WHERE `NOMBRE_DFINAL` LIKE '%" . $NOMBRE . "%';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_dfinal  WHERE  NOMBRE_DFINAL  LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -149,16 +149,18 @@ class DFINAL_ADO
 
 
             $query =
-                "INSERT INTO `fruta_dfinal` 
+                "INSERT INTO  fruta_dfinal  
                                         (
-                                                `NUMERO_DFINAL`, 
-                                                `NOMBRE_DFINAL`, 
-                                                `ID_EMPRESA`, 
-                                                `ID_USUARIOI`, 
-                                                `ID_USUARIOM`,
-                                                `ESTADO_REGISTRO`
+                                                 NUMERO_DFINAL , 
+                                                 NOMBRE_DFINAL , 
+                                                 ID_EMPRESA , 
+                                                 ID_USUARIOI , 
+                                                 ID_USUARIOM ,
+                                                 INGRESO ,
+                                                 MODIFICACION ,
+                                                 ESTADO_REGISTRO 
                                         ) VALUES
-	       	( ?, ?, ?, ?, ?, 1);";
+	       	( ?, ?, ?, ?, ?, SYSDATE(), SYSDATE(), 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -181,7 +183,7 @@ class DFINAL_ADO
     public function eliminarDfinal($id)
     {
         try {
-            $sql = "DELETE FROM `fruta_dfinal` WHERE `ID_DFINAL`=" . $id . ";";
+            $sql = "DELETE FROM  fruta_dfinal  WHERE  ID_DFINAL =" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -197,10 +199,11 @@ class DFINAL_ADO
     {
         try {
             $query = "
-		UPDATE `fruta_dfinal` SET
-            `NOMBRE_DFINAL`= ?  ,
-            `ID_USUARIOM`= ?         
-		WHERE `ID_DFINAL`= ?;";
+		UPDATE  fruta_dfinal  SET
+             MODIFICACION = SYSDATE(),
+             NOMBRE_DFINAL = ?  ,
+             ID_USUARIOM = ?         
+		WHERE  ID_DFINAL = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -225,9 +228,9 @@ class DFINAL_ADO
 
         try {
             $query = "
-    UPDATE `fruta_dfinal` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_DFINAL`= ?;";
+    UPDATE  fruta_dfinal  SET			
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_DFINAL = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -244,9 +247,9 @@ class DFINAL_ADO
     {
         try {
             $query = "
-    UPDATE `fruta_dfinal` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_DFINAL`= ?;";
+    UPDATE  fruta_dfinal  SET			
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_DFINAL = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -263,7 +266,7 @@ class DFINAL_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_dfinal` WHERE `NOMBRE_DFINAL` LIKE '%" . $NOMBREDFINAL . "%' AND `NOMBRE_DFINAL` LIKE '%" . $NOMBREDFINALV . "%' ;");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_dfinal  WHERE  NOMBRE_DFINAL  LIKE '%" . $NOMBREDFINAL . "%' AND  NOMBRE_DFINAL  LIKE '%" . $NOMBREDFINALV . "%' ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -281,7 +284,7 @@ class DFINAL_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_dfinal` WHERE `NOMBRE_DFINAL` LIKE '%" . $NOMBREDFINAL . "%';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_dfinal  WHERE  NOMBRE_DFINAL  LIKE '%" . $NOMBREDFINAL . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -300,8 +303,8 @@ class DFINAL_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_dfinal` 
-                                            WHERE `ESTADO_REGISTRO` = 1
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_dfinal  
+                                            WHERE  ESTADO_REGISTRO  = 1
                                             AND ID_EMPRESA = '" . $IDEMPRESA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -321,7 +324,7 @@ class DFINAL_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                     IFNULL(COUNT(NUMERO_DFINAL),0) AS 'NUMERO'
-                                                FROM `fruta_dfinal`
+                                                FROM  fruta_dfinal 
                                                 WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

@@ -209,7 +209,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         return false;
                     }
                     document.form_reg_dato.NOMBRELAEREA.style.borderColor = "#4AF575";
-                /*
+                 /*
                     if (GIROLAEREA == null || GIROLAEREA.length == 0 || /^\s+$/.test(GIROLAEREA)) {
                         document.form_reg_dato.GIROLAEREA.focus();
                         document.form_reg_dato.GIROLAEREA.style.borderColor = "#FF0000";

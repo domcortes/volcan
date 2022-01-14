@@ -845,10 +845,7 @@ if (isset($_POST)) {
     }
     if (isset($_REQUEST['REBATEINSTRUCTIVO'])) {
         $REBATEINSTRUCTIVO = $_REQUEST['REBATEINSTRUCTIVO'];
-    }
-    if (isset($_REQUEST['NETOINSTRUCTIVO']) && isset($_REQUEST['REBATEINSTRUCTIVO'])) {
-        $PUBLICAINSTRUCTIVO = $_REQUEST['NETOINSTRUCTIVO'] + $_REQUEST['REBATEINSTRUCTIVO'];
-    }
+    }  
     if (isset($_REQUEST['SEGURO'])) {
         $SEGURO = $_REQUEST['SEGURO'];
     }
@@ -1982,6 +1979,48 @@ if (isset($_POST)) {
 
 
 
+            function publica(){
+                    var repuesta;                    
+                    var totalpublica;
+
+                    NETOINSTRUCTIVO = document.getElementById("NETOINSTRUCTIVO").value;
+                    REBATEINSTRUCTIVO = document.getElementById("REBATEINSTRUCTIVO").value;
+
+                    document.getElementById('val_neto').innerHTML = "";
+                    document.getElementById('val_rebate').innerHTML = "";
+
+
+
+                    if (NETOINSTRUCTIVO == null || NETOINSTRUCTIVO.length == 0 || /^\s+$/.test(NETOINSTRUCTIVO)) {
+                        document.form_reg_dato.NETOINSTRUCTIVO.focus();
+                        document.form_reg_dato.NETOINSTRUCTIVO.style.borderColor = "#FF0000";
+                        document.getElementById('val_neto').innerHTML = "NO A INGRESADO DATO";
+                        repuesta = 1;
+                    }else{
+                        repuesta = 0;
+                        document.form_reg_dato.NETOINSTRUCTIVO.style.borderColor = "#4AF575";
+                    }
+
+                    if (REBATEINSTRUCTIVO == null || REBATEINSTRUCTIVO.length == 0 || /^\s+$/.test(REBATEINSTRUCTIVO)) {
+                        document.form_reg_dato.REBATEINSTRUCTIVO.focus();
+                        document.form_reg_dato.REBATEINSTRUCTIVO.style.borderColor = "#FF0000";
+                        document.getElementById('val_rebate').innerHTML = "NO A INGRESADO DATO";
+                        repuesta = 1;
+                    }else{
+                        repuesta = 0;
+                        document.form_reg_dato.REBATEINSTRUCTIVO.style.borderColor = "#4AF575";
+                    }
+
+                    
+                    if (repuesta == 0) {                        
+                        NETOINSTRUCTIVO =parseInt( document.getElementById("NETOINSTRUCTIVO").value);
+                        REBATEINSTRUCTIVO = parseFloat( document.getElementById("REBATEINSTRUCTIVO").value);
+
+                        totalpublica=NETOINSTRUCTIVO+REBATEINSTRUCTIVO;
+                        totalpublica = totalpublica.toFixed(0);
+                    }
+                    document.getElementById('PUBLICAINSTRUCTIVOE').value = totalpublica;
+                }
 
             //REDIRECCIONAR A LA PAGINA SELECIONADA
             function irPagina(url) {
@@ -2187,6 +2226,8 @@ if (isset($_POST)) {
                                                     </select>
                                                     <label id="val_exportadora" class="validacion"> </label>
                                                 </div>
+                                            </div>
+                                            <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                             </div>
                                             <div class="col-xxl-3 col-xl-5 col-lg-9 col-md-9 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
@@ -2988,7 +3029,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Tarifa Flete(Neto) </label>
                                                     <input type="hidden" class="form-control" placeholder="NETOINSTRUCTIVOE" id="NETOINSTRUCTIVOE" name="NETOINSTRUCTIVOE" value="<?php echo $NETOINSTRUCTIVO; ?>" />
-                                                    <input type="number" class="form-control" placeholder="Tarifa Flete(Neto) Instructivo" id="NETOINSTRUCTIVO" name="NETOINSTRUCTIVO" onchange="this.form.submit()" value="<?php echo $NETOINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
+                                                    <input type="number" step="0.1" class="form-control" placeholder="Tarifa Flete(Neto) Instructivo" id="NETOINSTRUCTIVO" name="NETOINSTRUCTIVO" onchange="publica()" value="<?php echo $NETOINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_neto" class="validacion"> </label>
                                                 </div>
                                             </div>
@@ -2996,7 +3037,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Rebate </label>
                                                     <input type="hidden" class="form-control" placeholder="REBATEINSTRUCTIVOE" id="REBATEINSTRUCTIVOE" name="REBATEINSTRUCTIVOE" value="<?php echo $REBATEINSTRUCTIVO; ?>" />
-                                                    <input type="number" class="form-control" placeholder="Rebate Instructivo " id="REBATEINSTRUCTIVO" name="REBATEINSTRUCTIVO" onchange="this.form.submit()" value="<?php echo $REBATEINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
+                                                    <input type="number" step="0.1" class="form-control" placeholder="Rebate Instructivo " id="REBATEINSTRUCTIVO" name="REBATEINSTRUCTIVO" onchange="publica()" value="<?php echo $REBATEINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_rebate" class="validacion"> </label>
                                                 </div>
                                             </div>
@@ -3004,7 +3045,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Publica </label>
                                                     <input type="hidden" class="form-control" placeholder="PUBLICAINSTRUCTIVO" id="PUBLICAINSTRUCTIVO" name="PUBLICAINSTRUCTIVO" value="<?php echo $PUBLICAINSTRUCTIVO; ?>" />
-                                                    <input type="number" class="form-control" placeholder="$USD Flete Instructivo" id="PUBLICAINSTRUCTIVOE" name="PUBLICAINSTRUCTIVOE" value="<?php echo $PUBLICAINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> disabled />
+                                                    <input type="number" step="0.1"  class="form-control" placeholder="$USD Flete Instructivo" id="PUBLICAINSTRUCTIVOE" name="PUBLICAINSTRUCTIVOE" value="<?php echo $PUBLICAINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> disabled />
                                                     <label id="val_publica" class="validacion"> </label>
                                                 </div>
                                             </div>
@@ -3417,6 +3458,8 @@ if (isset($_POST)) {
 
                 $ARRAYNUMERO = $ICARGA_ADO->obtenerNumero($_REQUEST['EMPRESA'],  $_REQUEST['TEMPORADA']);
                 $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+
+                $PUBLICAINSTRUCTIVO = $_REQUEST['NETOINSTRUCTIVO'] + $_REQUEST['REBATEINSTRUCTIVO'];
                 $ICARGA->__SET('NUMERO_ICARGA', $NUMERO);
                 $ICARGA->__SET('FECHA_ICARGA', $_REQUEST['FECHAINSTRUCTIVO']);
                 $ICARGA->__SET('FECHA_CDOCUMENTAL_ICARGA', $_REQUEST['FECHACDOCUMENTALICARGA']);
@@ -3436,7 +3479,7 @@ if (isset($_POST)) {
                 $ICARGA->__SET('BOLAWBCRT_ICARGA', $_REQUEST['BOLAWBCRTINSTRUCTIVO']);
                 $ICARGA->__SET('NETO_ICARGA', $_REQUEST['NETOINSTRUCTIVO']);
                 $ICARGA->__SET('REBATE_ICARGA', $_REQUEST['REBATEINSTRUCTIVO']);
-                $ICARGA->__SET('PUBLICA_ICARGA', $_REQUEST['PUBLICAINSTRUCTIVO']);
+                $ICARGA->__SET('PUBLICA_ICARGA', $PUBLICAINSTRUCTIVO);
                 $ICARGA->__SET('ID_SEGURO', $_REQUEST['SEGURO']);
                 $ICARGA->__SET('OBSERVACION_ICARGA', $_REQUEST['OBSERVACIONINSTRUCTIVO']);
                 $ICARGA->__SET('OBSERVACIONI_ICARGA', $_REQUEST['OBSERVACIONIINSTRUCTIVO']);                
@@ -3516,6 +3559,7 @@ if (isset($_POST)) {
             }        
             //OPERACION EDICION DE FILA    
             if (isset($_REQUEST['GUARDAR'])) {
+                $PUBLICAINSTRUCTIVO = $_REQUEST['NETOINSTRUCTIVO'] + $_REQUEST['REBATEINSTRUCTIVO'];
                 $ICARGA->__SET('FECHA_ICARGA', $_REQUEST['FECHAINSTRUCTIVO']);
                 $ICARGA->__SET('FECHA_CDOCUMENTAL_ICARGA', $_REQUEST['FECHACDOCUMENTALICARGA']);
                 $ICARGA->__SET('BOOKING_ICARGA', $_REQUEST['BOOKINGINSTRUCTIVO']);
@@ -3534,7 +3578,7 @@ if (isset($_POST)) {
                 $ICARGA->__SET('BOLAWBCRT_ICARGA', $_REQUEST['BOLAWBCRTINSTRUCTIVO']);
                 $ICARGA->__SET('NETO_ICARGA', $_REQUEST['NETOINSTRUCTIVO']);
                 $ICARGA->__SET('REBATE_ICARGA', $_REQUEST['REBATEINSTRUCTIVO']);
-                $ICARGA->__SET('PUBLICA_ICARGA', $_REQUEST['PUBLICAINSTRUCTIVO']);
+                $ICARGA->__SET('PUBLICA_ICARGA', $PUBLICAINSTRUCTIVO);
                 $ICARGA->__SET('OBSERVACION_ICARGA', $_REQUEST['OBSERVACIONINSTRUCTIVO']);
                 $ICARGA->__SET('OBSERVACIONI_ICARGA', $_REQUEST['OBSERVACIONIINSTRUCTIVO']);
                 $ICARGA->__SET('TOTAL_ENVASE_ICAGRA', $_REQUEST['TOTALENVASE']);
@@ -3645,6 +3689,7 @@ if (isset($_POST)) {
                         </script>';
                 }
                 if ($SINO == "0") {
+                    $PUBLICAINSTRUCTIVO = $_REQUEST['NETOINSTRUCTIVO'] + $_REQUEST['REBATEINSTRUCTIVO'];
                     $ICARGA->__SET('FECHA_ICARGA', $_REQUEST['FECHAINSTRUCTIVO']);
                     $ICARGA->__SET('FECHA_CDOCUMENTAL_ICARGA', $_REQUEST['FECHACDOCUMENTALICARGA']);
                     $ICARGA->__SET('BOOKING_ICARGA', $_REQUEST['BOOKINGINSTRUCTIVO']);
@@ -3663,7 +3708,7 @@ if (isset($_POST)) {
                     $ICARGA->__SET('BOLAWBCRT_ICARGA', $_REQUEST['BOLAWBCRTINSTRUCTIVO']);
                     $ICARGA->__SET('NETO_ICARGA', $_REQUEST['NETOINSTRUCTIVO']);
                     $ICARGA->__SET('REBATE_ICARGA', $_REQUEST['REBATEINSTRUCTIVO']);
-                    $ICARGA->__SET('PUBLICA_ICARGA', $_REQUEST['PUBLICAINSTRUCTIVO']);
+                    $ICARGA->__SET('PUBLICA_ICARGA', $PUBLICAINSTRUCTIVO);
                     $ICARGA->__SET('OBSERVACION_ICARGA', $_REQUEST['OBSERVACIONINSTRUCTIVO']);
                     $ICARGA->__SET('OBSERVACIONI_ICARGA', $_REQUEST['OBSERVACIONIINSTRUCTIVO']);
                     $ICARGA->__SET('TOTAL_ENVASE_ICAGRA', $_REQUEST['TOTALENVASE']);

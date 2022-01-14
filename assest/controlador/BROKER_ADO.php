@@ -45,7 +45,7 @@ class BROKER_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_broker` LIMIT 6;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_broker  LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -64,7 +64,7 @@ class BROKER_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_broker`  WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_broker   WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -83,7 +83,7 @@ class BROKER_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_broker`  WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_broker   WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -102,7 +102,7 @@ class BROKER_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_broker` WHERE `ID_BROKER`= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_broker  WHERE  ID_BROKER = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -124,7 +124,7 @@ class BROKER_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_broker` WHERE `NOMBRE_BROKER` LIKE '%" . $NOMBRE . "%';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_broker  WHERE  NOMBRE_BROKER  LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -149,23 +149,25 @@ class BROKER_ADO
             }
 
             $query =
-                "INSERT INTO `fruta_broker` 
+                "INSERT INTO  fruta_broker  
                                         (
-                                            `NUMERO_BROKER`,
-                                            `NOMBRE_BROKER`,
-                                            `EORI_BROKER`,
-                                            `DIRECCION_BROKER`,
-                                            `CONTACTO1_BROKER`, `CARGO1_BROKER`, `EMAIL1_BROKER`, 
-                                            `CONTACTO2_BROKER`, `CARGO2_BROKER`, `EMAIL2_BROKER`, 
-                                            `CONTACTO3_BROKER`, `CARGO3_BROKER`, `EMAIL3_BROKER`, 
-                                            `ID_CIUDAD`,
-                                            `ID_EMPRESA`, 
-                                            `ID_USUARIOI`, 
-                                            `ID_USUARIOM`,  
-                                            `ESTADO_REGISTRO`
+                                             NUMERO_BROKER ,
+                                             NOMBRE_BROKER ,
+                                             EORI_BROKER ,
+                                             DIRECCION_BROKER ,
+                                             CONTACTO1_BROKER ,  CARGO1_BROKER ,  EMAIL1_BROKER , 
+                                             CONTACTO2_BROKER ,  CARGO2_BROKER ,  EMAIL2_BROKER , 
+                                             CONTACTO3_BROKER ,  CARGO3_BROKER ,  EMAIL3_BROKER , 
+                                             ID_CIUDAD ,
+                                             ID_EMPRESA , 
+                                             ID_USUARIOI , 
+                                             ID_USUARIOM ,  
+                                             INGRESO ,
+                                             MODIFICACION , 
+                                             ESTADO_REGISTRO 
                                         ) 
             VALUES
-	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1);";
+	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,   SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -198,7 +200,7 @@ class BROKER_ADO
     public function eliminarBroker($id)
     {
         try {
-            $sql = "DELETE FROM `fruta_broker` WHERE `ID_BROKER`=" . $id . ";";
+            $sql = "DELETE FROM  fruta_broker  WHERE  ID_BROKER =" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -216,22 +218,23 @@ class BROKER_ADO
                 $BROKER->__SET('ID_CIUDAD', NULL);
             }
             $query = "
-		UPDATE `fruta_broker` SET
-			`NOMBRE_BROKER` = ?,
-			`EORI_BROKER` = ?,
-			`DIRECCION_BROKER` = ?,
-			`CONTACTO1_BROKER` = ?,
-			`CARGO1_BROKER` = ?,
-			`EMAIL1_BROKER` = ?,
-			`CONTACTO2_BROKER` = ?,
-			`CARGO2_BROKER` = ?,
-			`EMAIL2_BROKER` = ?,
-			`CONTACTO3_BROKER` = ?,
-			`CARGO3_BROKER` = ?,
-			`EMAIL3_BROKER` = ?,
-            `ID_CIUDAD`= ?,
-            `ID_USUARIOM`= ?
-		WHERE `ID_BROKER` = ?  ;";
+                    UPDATE  fruta_broker  SET
+                        MODIFICACION  = SYSDATE() , 
+                        NOMBRE_BROKER  = ?,
+                        EORI_BROKER  = ?,
+                        DIRECCION_BROKER  = ?,
+                        CONTACTO1_BROKER  = ?,
+                        CARGO1_BROKER  = ?,
+                        EMAIL1_BROKER  = ?,
+                        CONTACTO2_BROKER  = ?,
+                        CARGO2_BROKER  = ?,
+                        EMAIL2_BROKER  = ?,
+                        CONTACTO3_BROKER  = ?,
+                        CARGO3_BROKER  = ?,
+                        EMAIL3_BROKER  = ?,
+                        ID_CIUDAD = ?,
+                        ID_USUARIOM = ?
+                    WHERE  ID_BROKER  = ?  ;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -267,9 +270,9 @@ class BROKER_ADO
 
         try {
             $query = "
-		UPDATE `fruta_broker` SET			
-            `ESTADO_REGISTRO` = 0
-		WHERE `ID_BROKER`= ?;";
+		UPDATE  fruta_broker  SET			
+             ESTADO_REGISTRO  = 0
+		WHERE  ID_BROKER = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -287,9 +290,9 @@ class BROKER_ADO
 
         try {
             $query = "
-		UPDATE `fruta_broker` SET			
-            `ESTADO_REGISTRO` = 1
-		WHERE `ID_BROKER`= ?;";
+		UPDATE  fruta_broker  SET			
+             ESTADO_REGISTRO  = 1
+		WHERE  ID_BROKER = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -306,8 +309,8 @@ class BROKER_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_broker` 
-                                             WHERE `ESTADO_REGISTRO` = 1
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_broker  
+                                             WHERE  ESTADO_REGISTRO  = 1
                                                AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -328,7 +331,7 @@ class BROKER_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                     IFNULL(COUNT(NUMERO_BROKER),0) AS 'NUMERO'
-                                                FROM `fruta_broker`
+                                                FROM  fruta_broker 
                                                 WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

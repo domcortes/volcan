@@ -45,7 +45,7 @@ class RFINAL_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_rfinal` LIMIT 6;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_rfinal  LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -64,7 +64,7 @@ class RFINAL_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_rfinal`  WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_rfinal   WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -83,7 +83,7 @@ class RFINAL_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_rfinal`  WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_rfinal   WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -102,7 +102,7 @@ class RFINAL_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_rfinal` WHERE `ID_RFINAL`= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_rfinal  WHERE  ID_RFINAL = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -124,7 +124,7 @@ class RFINAL_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_rfinal` WHERE `NOMBRE_RFINAL` LIKE '%" . $NOMBRE . "%';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_rfinal  WHERE  NOMBRE_RFINAL  LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -149,22 +149,24 @@ class RFINAL_ADO
             }
 
             $query =
-                "INSERT INTO `fruta_rfinal` 
+                "INSERT INTO  fruta_rfinal  
                                         (
-                                                    `NUMERO_RFINAL`,
-                                                    `NOMBRE_RFINAL`,
-                                                    `DIRECCION_RFINAL`,
-                                                    `CONTACTO1_RFINAL`, `CARGO1_RFINAL`, `EMAIL1_RFINAL`, 
-                                                    `CONTACTO2_RFINAL`, `CARGO2_RFINAL`, `EMAIL2_RFINAL`, 
-                                                    `CONTACTO3_RFINAL`, `CARGO3_RFINAL`, `EMAIL3_RFINAL`, 
-                                                    `ID_CIUDAD`, 
-                                                    `ID_EMPRESA`, 
-                                                    `ID_USUARIOI`, 
-                                                    `ID_USUARIOM`,  
-                                                    `ESTADO_REGISTRO`
+                                                     NUMERO_RFINAL ,
+                                                     NOMBRE_RFINAL ,
+                                                     DIRECCION_RFINAL ,
+                                                     CONTACTO1_RFINAL ,  CARGO1_RFINAL ,  EMAIL1_RFINAL , 
+                                                     CONTACTO2_RFINAL ,  CARGO2_RFINAL ,  EMAIL2_RFINAL , 
+                                                     CONTACTO3_RFINAL ,  CARGO3_RFINAL ,  EMAIL3_RFINAL , 
+                                                     ID_CIUDAD , 
+                                                     ID_EMPRESA , 
+                                                     ID_USUARIOI , 
+                                                     ID_USUARIOM ,  
+                                                     INGRESO ,
+                                                     MODIFICACION , 
+                                                     ESTADO_REGISTRO 
                                         ) 
             VALUES
-	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1);";
+	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -197,7 +199,7 @@ class RFINAL_ADO
     public function eliminarRfinal($id)
     {
         try {
-            $sql = "DELETE FROM `fruta_rfinal` WHERE `ID_RFINAL`=" . $id . ";";
+            $sql = "DELETE FROM  fruta_rfinal  WHERE  ID_RFINAL =" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -215,21 +217,22 @@ class RFINAL_ADO
                 $RFINAL->__SET('ID_CIUDAD', NULL);
             }
             $query = "
-		UPDATE `fruta_rfinal` SET
-			`NOMBRE_RFINAL` = ?,
-			`DIRECCION_RFINAL` = ?,
-			`CONTACTO1_RFINAL` = ?,
-			`CARGO1_RFINAL` = ?,
-			`EMAIL1_RFINAL` = ?,
-			`CONTACTO2_RFINAL` = ?,
-			`CARGO2_RFINAL` = ?,
-			`EMAIL2_RFINAL` = ?,
-			`CONTACTO3_RFINAL` = ?,
-			`CARGO3_RFINAL` = ?,
-			`EMAIL3_RFINAL` = ?,
-            `ID_CIUDAD`= ?,
-            `ID_USUARIOM`= ?
-		WHERE `ID_RFINAL` = ?  ;";
+                    UPDATE  fruta_rfinal  SET
+                        MODIFICACION  = SYSDATE() , 
+                        NOMBRE_RFINAL  = ?,
+                        DIRECCION_RFINAL  = ?,
+                        CONTACTO1_RFINAL  = ?,
+                        CARGO1_RFINAL  = ?,
+                        EMAIL1_RFINAL  = ?,
+                        CONTACTO2_RFINAL  = ?,
+                        CARGO2_RFINAL  = ?,
+                        EMAIL2_RFINAL  = ?,
+                        CONTACTO3_RFINAL  = ?,
+                        CARGO3_RFINAL  = ?,
+                        EMAIL3_RFINAL  = ?,
+                        ID_CIUDAD = ?,
+                        ID_USUARIOM = ?
+                    WHERE  ID_RFINAL  = ?  ;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -264,9 +267,9 @@ class RFINAL_ADO
 
         try {
             $query = "
-		UPDATE `fruta_rfinal` SET			
-            `ESTADO_REGISTRO` = 0
-		WHERE `ID_RFINAL`= ?;";
+		UPDATE  fruta_rfinal  SET			
+             ESTADO_REGISTRO  = 0
+		WHERE  ID_RFINAL = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -284,9 +287,9 @@ class RFINAL_ADO
 
         try {
             $query = "
-		UPDATE `fruta_rfinal` SET			
-            `ESTADO_REGISTRO` = 1
-		WHERE `ID_RFINAL`= ?;";
+		UPDATE  fruta_rfinal  SET			
+             ESTADO_REGISTRO  = 1
+		WHERE  ID_RFINAL = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -304,8 +307,8 @@ class RFINAL_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_rfinal` 
-                                             WHERE `ESTADO_REGISTRO` = 1
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_rfinal  
+                                             WHERE  ESTADO_REGISTRO  = 1
                                              AND ID_EMPRESA = '" . $IDEMPRESA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -327,7 +330,7 @@ class RFINAL_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                     IFNULL(COUNT(NUMERO_RFINAL),0) AS 'NUMERO'
-                                                FROM `fruta_rfinal`
+                                                FROM  fruta_rfinal 
                                                 WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();
