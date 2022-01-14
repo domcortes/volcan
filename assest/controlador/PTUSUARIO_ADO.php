@@ -67,7 +67,7 @@ class PTUSUARIO_ADO {
     public function listarPtusuarioCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM  usuario_ptusuario  ;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  usuario_ptusuario WHERE  ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -83,6 +83,25 @@ class PTUSUARIO_ADO {
         
     }
 
+
+    public function listarPtusuario2CBX(){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT * FROM  usuario_ptusuario WHERE ESTADO_REGISTRO = 0;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
 
 
     //VER LA INFORMACION RELACIONADA EN BASE AL ID INGRESADO A LA FUNCION
@@ -494,13 +513,13 @@ class PTUSUARIO_ADO {
         
     }
     //BUSCADE DE LA EMPRESAS ASOACIADAS A USUARIOS
-
     public function listarPtusuarioPorTusuarioCBX($IDTUSUARIO){
         try{
             
             $datos=$this->conexion->prepare("SELECT * 
                                             FROM  usuario_ptusuario  
-                                            WHERE ID_TUSUARIO = '".$IDTUSUARIO."';	");
+                                            WHERE ID_TUSUARIO = '".$IDTUSUARIO."'
+                                            AND ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;

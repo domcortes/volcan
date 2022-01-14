@@ -22,6 +22,20 @@ $ARRAYPLANTACAMBIAR = "";
 $DISABLEDMENU = "";
 
 
+
+$PEXPORTADORA="";
+$PEMATERIALES="";
+$PEEXPORTACION="";
+$PEINFORMES="";
+$PMANTENEDORES="";
+$PMREGISTRO="";
+$PMEDITAR="";
+$PMVER="";
+$PMAGRUPADO="";
+$PADMINISTRADOR="";
+$PADUSUARIO="";
+
+
 include_once '../../assest/controlador/USUARIO_ADO.php';
 include_once '../../assest/controlador/TUSUARIO_ADO.php';
 include_once '../../assest/controlador/PTUSUARIO_ADO.php';
@@ -51,8 +65,38 @@ if (isset($_SESSION["NOMBRE_USUARIO"])) {
     $TUSUARIOS = $_SESSION["TIPO_USUARIO"];
     
     $ARRAYVERPTUSUARIO  =$PTUSUARIO_ADO->listarPtusuarioPorTusuarioCBX($TUSUARIOS);
-    if($ARRAYVERPTUSUARIO){
-    }else{        
+    if($ARRAYVERPTUSUARIO){        
+        $PEXPORTADORA = $ARRAYVERPTUSUARIO[0]['EXPORTADORA'];
+        if($PEXPORTADORA!="1"){
+            echo "<script type='text/javascript'> location.href ='../../';</script>";
+        }    
+        $PEMATERIALES = $ARRAYVERPTUSUARIO[0]['EMATERIALES'];
+        $PEEXPORTACION = $ARRAYVERPTUSUARIO[0]['EEXPORTACION'];
+        $PEINFORMES = $ARRAYVERPTUSUARIO[0]['EINFORMES'];
+
+        $PMANTENEDORES = $ARRAYVERPTUSUARIO[0]['MANTENEDORES'];
+        $PMREGISTRO = $ARRAYVERPTUSUARIO[0]['MREGISTRO'];
+        $PMEDITAR = $ARRAYVERPTUSUARIO[0]['MEDITAR'];
+        $PMVER = $ARRAYVERPTUSUARIO[0]['MVER'];
+        $PMAGRUPADO = $ARRAYVERPTUSUARIO[0]['MAGRUPADO'];
+
+        $PADMINISTRADOR = $ARRAYVERPTUSUARIO[0]['ADMINISTRADOR'];
+        $PADUSUARIO = $ARRAYVERPTUSUARIO[0]['ADUSUARIO'];
+
+        
+    
+    }else{       
+        $PEXPORTADORA="";
+        $PEMATERIALES="";
+        $PEEXPORTACION="";
+        $PEINFORMES=""; 
+        $PMANTENEDORES="";
+        $PMREGISTRO="";
+        $PMEDITAR="";
+        $PMVER="";
+        $PMAGRUPADO="";
+        $PADMINISTRADOR="";
+        $PADUSUARIO="";
     }
  
     if (isset($_SESSION["ID_EMPRESA"])) {

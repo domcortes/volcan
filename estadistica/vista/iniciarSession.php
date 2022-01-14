@@ -11,6 +11,7 @@ if (isset($_SESSION["NOMBRE_USUARIO"])) {
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 include_once '../../assest/controlador/USUARIO_ADO.php';
 include_once '../../assest/controlador/TEMPORADA_ADO.php';
+include_once '../../assest/controlador/PTUSUARIO_ADO.php';
 //include_once '../controlador/EMPRESA_ADO.php';
 //include_once '../controlador/PLANTA_ADO.php';
 //include_once '../controlador/TEMPORADA_ADO.php';
@@ -19,6 +20,8 @@ include_once '../../assest/controlador/TEMPORADA_ADO.php';
 //INICIALIZAR CONTROLADOR
 $USUARIO_ADO = new USUARIO_ADO();
 $TEMPORADA_ADO = new TEMPORADA_ADO();
+$PTUSUARIO_ADO = new PTUSUARIO_ADO();
+
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
@@ -32,6 +35,7 @@ $TEMPORADA = "";
 $CONTRASENA = "";
 $MENSAJE = "";
 $MENSAJE2 = "";
+$PESTADISTICA="";
 
 
 
@@ -42,7 +46,7 @@ $ARRAYINICIOSESSION = "";
 $ARRAYEMPRESA = "";
 $ARRAYPLANTA = "";
 $ARRAYTEMPORADA = "";
-
+$ARRAYVERPTUSUARIO="";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
 $ARRAYTEMPORADA = $TEMPORADA_ADO->listarTemporadaCBX();
@@ -193,34 +197,68 @@ if (isset($_SESSION["ID_TEMPORADA"])) {
                     // $MENSAJE2 = "NOMBRE USUARIO O CONTRASE&Ntilde;A INVALIDO";
                     // $MENSAJE = "";
                 } else {
-                    $_SESSION["ID_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_USUARIO'];
-                    $_SESSION["NOMBRE_USUARIO"] = $ARRAYINICIOSESSION[0]['NOMBRE_USUARIO'];
-                    $_SESSION["TIPO_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_TUSUARIO'];
-                    $_SESSION["ID_TEMPORADA"] = $_REQUEST['TEMPORADA'];
-                    //$MENSAJE = "DATOS CORRECTOS ";
-                    //$MENSAJE2 = "";
-                    
-                    echo
-                    '<script>
-                        const Toast = Swal.mixin({
-                            position: "top-end",
-                            showConfirmButton: false,
-                            timer: 2000,
-                            timerProgressBar: true,
-                            didOpen: (toast) => {
-                                toast.addEventListener("mouseenter", Swal.stopTimer);
-                                toast.addEventListener("mouseleave", Swal.resumeTimer);
-                            }
-                        });
 
-                        Toast.fire({
-                            icon: "success",
-                            title: "Credenciales correctas",
-                            text:"cargando modulo selector"
-                        }).then((result)=>{
-                                location.href = "index.php";
-                        })
-                    </script>';
+                    
+                    $ARRAYVERPTUSUARIO  =$PTUSUARIO_ADO->listarPtusuarioPorTusuarioCBX($ARRAYINICIOSESSION[0]['ID_TUSUARIO']);
+                    if($ARRAYVERPTUSUARIO){
+                        $PESTADISTICA  =$ARRAYVERPTUSUARIO[0]['ESTADISTICA'];      
+                        if($PESTADISTICA=="1"){
+                            $_SESSION["ID_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_USUARIO'];
+                            $_SESSION["NOMBRE_USUARIO"] = $ARRAYINICIOSESSION[0]['NOMBRE_USUARIO'];
+                            $_SESSION["TIPO_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_TUSUARIO'];
+                            $_SESSION["ID_TEMPORADA"] = $_REQUEST['TEMPORADA'];   
+                            echo
+                            '<script>
+                                const Toast = Swal.mixin({
+                                    position: "top-end",
+                                    showConfirmButton: false,
+                                    timer: 2000,
+                                    timerProgressBar: true,
+                                    didOpen: (toast) => {
+                                        toast.addEventListener("mouseenter", Swal.stopTimer);
+                                        toast.addEventListener("mouseleave", Swal.resumeTimer);
+                                    }
+                                });
+        
+                                Toast.fire({
+                                    icon: "success",
+                                    title: "Credenciales correctas",
+                                    text:"cargando modulo selector"
+                                }).then((result)=>{
+                                        location.href = "index.php";
+                                })
+                            </script>';
+                        } else{
+                            
+                            echo '<script>
+                                Swal.fire({
+                                    icon:"warning",
+                                    title:"Error de acceso",
+                                    text:"El Usuario no cuenta con los privilegios para acceder al modulo.",
+                                    showConfirmButton: true,
+                                    confirmButtonText:"Cerrar",
+                                    closeOnConfirm:false
+                                }).then((result)=>{
+                                    location.href = "../../";                                    
+                                })
+                            </script>';
+                        }
+
+                    }else{      
+                        echo '<script>
+                            Swal.fire({
+                                icon:"warning",
+                                title:"Error de acceso",
+                                text:"El Usuario no cuenta con los privilegios asociados.",
+                                showConfirmButton: true,
+                                confirmButtonText:"Cerrar",
+                                closeOnConfirm:false
+                            }).then((result)=>{
+                                location.href = "../../";                                    
+                            })
+                        </script>';
+                    }
+
                 }
             }
         }

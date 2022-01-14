@@ -61,7 +61,7 @@
         if($ARRAYVERPTUSUARIO){            
             $PESTADISTICA  =$ARRAYVERPTUSUARIO[0]['ESTADISTICA'];      
             if($PESTADISTICA!="1"){
-                echo "<script type='text/javascript'> location.href ='../../';</script>";
+                 echo "<script type='text/javascript'> location.href ='../../';</script>";
             }    
             $PESTARVSP = $ARRAYVERPTUSUARIO[0]['ESTARVSP'];
             $PESTASTOPMP = $ARRAYVERPTUSUARIO[0]['ESTASTOPMP'];
