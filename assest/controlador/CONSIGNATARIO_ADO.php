@@ -45,7 +45,7 @@ class CONSIGNATARIO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_consignatario` LIMIT 6;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_consignatario  LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -64,7 +64,7 @@ class CONSIGNATARIO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_consignatario`  WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_consignatario   WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -83,7 +83,7 @@ class CONSIGNATARIO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_consignatario`  WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_consignatario   WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -102,7 +102,7 @@ class CONSIGNATARIO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_consignatario` WHERE `ID_CONSIGNATARIO`= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_consignatario  WHERE  ID_CONSIGNATARIO = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -124,7 +124,7 @@ class CONSIGNATARIO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_consignatario` WHERE `NOMBRE_CONSIGNATARIO` LIKE '%" . $NOMBRE . "%';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_consignatario  WHERE  NOMBRE_CONSIGNATARIO  LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -149,24 +149,26 @@ class CONSIGNATARIO_ADO
             }
 
             $query =
-                "INSERT INTO `fruta_consignatario` 
+                "INSERT INTO  fruta_consignatario  
                                                 (   
-                                                    `NUMERO_CONSIGNATARIO`,
-                                                    `NOMBRE_CONSIGNATARIO`,
-                                                    `DIRECCION_CONSIGNATARIO`,
-                                                    `EORI_CONSIGNATARIO`,
-                                                    `TELEFONO_CONSIGNATARIO`,
-                                                    `CONTACTO1_CONSIGNATARIO`, `CARGO1_CONSIGNATARIO`, `EMAIL1_CONSIGNATARIO`, 
-                                                    `CONTACTO2_CONSIGNATARIO`, `CARGO2_CONSIGNATARIO`, `EMAIL2_CONSIGNATARIO`, 
-                                                    `CONTACTO3_CONSIGNATARIO`, `CARGO3_CONSIGNATARIO`, `EMAIL3_CONSIGNATARIO`, 
-                                                    `ID_CIUDAD`, 
-                                                    `ID_EMPRESA`, 
-                                                    `ID_USUARIOI`, 
-                                                    `ID_USUARIOM`, 
-                                                    `ESTADO_REGISTRO`
+                                                     NUMERO_CONSIGNATARIO ,
+                                                     NOMBRE_CONSIGNATARIO ,
+                                                     DIRECCION_CONSIGNATARIO ,
+                                                     EORI_CONSIGNATARIO ,
+                                                     TELEFONO_CONSIGNATARIO ,
+                                                     CONTACTO1_CONSIGNATARIO ,  CARGO1_CONSIGNATARIO ,  EMAIL1_CONSIGNATARIO , 
+                                                     CONTACTO2_CONSIGNATARIO ,  CARGO2_CONSIGNATARIO ,  EMAIL2_CONSIGNATARIO , 
+                                                     CONTACTO3_CONSIGNATARIO ,  CARGO3_CONSIGNATARIO ,  EMAIL3_CONSIGNATARIO , 
+                                                     ID_CIUDAD , 
+                                                     ID_EMPRESA , 
+                                                     ID_USUARIOI , 
+                                                     ID_USUARIOM , 
+                                                     INGRESO ,
+                                                     MODIFICACION , 
+                                                     ESTADO_REGISTRO 
                                                 ) 
             VALUES
-	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1);";
+	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(),  1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -201,7 +203,7 @@ class CONSIGNATARIO_ADO
     public function eliminarConsignatorio($id)
     {
         try {
-            $sql = "DELETE FROM `fruta_consignatario` WHERE `ID_CONSIGNATARIO`=" . $id . ";";
+            $sql = "DELETE FROM  fruta_consignatario  WHERE  ID_CONSIGNATARIO =" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -219,23 +221,24 @@ class CONSIGNATARIO_ADO
                 $CONSIGNATARIO->__SET('ID_CIUDAD', NULL);
             }
             $query = "
-		UPDATE `fruta_consignatario` SET
-			`NOMBRE_CONSIGNATARIO` = ?,
-			`DIRECCION_CONSIGNATARIO` = ?,
-			`EORI_CONSIGNATARIO` = ?,
-			`TELEFONO_CONSIGNATARIO` = ?,
-			`CONTACTO1_CONSIGNATARIO` = ?,
-			`CARGO1_CONSIGNATARIO` = ?,
-			`EMAIL1_CONSIGNATARIO` = ?,
-			`CONTACTO2_CONSIGNATARIO` = ?,
-			`CARGO2_CONSIGNATARIO` = ?,
-			`EMAIL2_CONSIGNATARIO` = ?,
-			`CONTACTO3_CONSIGNATARIO` = ?,
-			`CARGO3_CONSIGNATARIO` = ?,
-			`EMAIL3_CONSIGNATARIO` = ?,
-            `ID_CIUDAD`= ?,
-            `ID_USUARIOM`= ?
-		WHERE `ID_CONSIGNATARIO` = ?  ;";
+                UPDATE  fruta_consignatario  SET
+                    MODIFICACION  = SYSDATE() ,
+                    NOMBRE_CONSIGNATARIO  = ?,
+                    DIRECCION_CONSIGNATARIO  = ?,
+                    EORI_CONSIGNATARIO  = ?,
+                    TELEFONO_CONSIGNATARIO  = ?,
+                    CONTACTO1_CONSIGNATARIO  = ?,
+                    CARGO1_CONSIGNATARIO  = ?,
+                    EMAIL1_CONSIGNATARIO  = ?,
+                    CONTACTO2_CONSIGNATARIO  = ?,
+                    CARGO2_CONSIGNATARIO  = ?,
+                    EMAIL2_CONSIGNATARIO  = ?,
+                    CONTACTO3_CONSIGNATARIO  = ?,
+                    CARGO3_CONSIGNATARIO  = ?,
+                    EMAIL3_CONSIGNATARIO  = ?,
+                    ID_CIUDAD = ?,
+                    ID_USUARIOM = ?
+                WHERE  ID_CONSIGNATARIO  = ?  ;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -272,9 +275,9 @@ class CONSIGNATARIO_ADO
 
         try {
             $query = "
-		UPDATE `fruta_consignatario` SET			
-            `ESTADO_REGISTRO` = 0
-		WHERE `ID_CONSIGNATARIO`= ?;";
+		UPDATE  fruta_consignatario  SET			
+             ESTADO_REGISTRO  = 0
+		WHERE  ID_CONSIGNATARIO = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -292,9 +295,9 @@ class CONSIGNATARIO_ADO
 
         try {
             $query = "
-		UPDATE `fruta_consignatario` SET			
-            `ESTADO_REGISTRO` = 1
-		WHERE `ID_CONSIGNATARIO`= ?;";
+		UPDATE  fruta_consignatario  SET			
+             ESTADO_REGISTRO  = 1
+		WHERE  ID_CONSIGNATARIO = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -312,8 +315,8 @@ class CONSIGNATARIO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare(" SELECT * FROM `fruta_consignatario`  
-                                                WHERE `ESTADO_REGISTRO` = 1
+            $datos = $this->conexion->prepare(" SELECT * FROM  fruta_consignatario   
+                                                WHERE  ESTADO_REGISTRO  = 1
                                                 AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -334,7 +337,7 @@ class CONSIGNATARIO_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                     IFNULL(COUNT(NUMERO_CONSIGNATARIO),0) AS 'NUMERO'
-                                                FROM `fruta_consignatario`
+                                                FROM  fruta_consignatario 
                                                 WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

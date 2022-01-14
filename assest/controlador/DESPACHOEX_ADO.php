@@ -860,7 +860,7 @@ class DESPACHOEX_ADO
                                                     FROM fruta_despachoex
                                                 WHERE 
                                                     ID_ICARGA = '" . $IDICARGA . "'   
-                                                GROUP BY id_planta       
+                                                GROUP BY ID_PLANTA       
                                                     ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();

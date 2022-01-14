@@ -45,7 +45,7 @@ class AADUANA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_aaduana` LIMIT 6;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_aaduana  LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -64,7 +64,7 @@ class AADUANA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_aaduana`  WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_aaduana   WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -83,7 +83,7 @@ class AADUANA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_aaduana`  WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_aaduana   WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -102,7 +102,7 @@ class AADUANA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_aaduana` WHERE `ID_AADUANA`= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_aaduana  WHERE  ID_AADUANA = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -124,7 +124,7 @@ class AADUANA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_aaduana` WHERE `NOMBRE_AADUANA` LIKE '%" . $NOMBRE . "%';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_aaduana  WHERE  NOMBRE_AADUANA  LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -149,26 +149,28 @@ class AADUANA_ADO
             }
 
             $query =
-                "INSERT INTO `fruta_aaduana` 
+                "INSERT INTO  fruta_aaduana  
                                         (
-                                                `RUT_AADUANA`,
-                                                `DV_AADUANA`,
-                                                `NUMERO_AADUANA`,
-                                                `NOMBRE_AADUANA`,
-                                                `RAZON_SOCIAL_AADUANA`,
-                                                `GIRO_AADUANA`,
-                                                `DIRECCION_AADUANA`, 
-                                                `CONTACTO_AADUANA`, 
-                                                `TELEFONO_AADUANA`, 
-                                                `EMAIL_AADUANA`, 
-                                                `ID_CIUDAD`, 
-                                                `ID_EMPRESA`, 
-                                                `ID_USUARIOI`, 
-                                                `ID_USUARIOM`,
-                                                `ESTADO_REGISTRO`
+                                                 RUT_AADUANA ,
+                                                 DV_AADUANA ,
+                                                 NUMERO_AADUANA ,
+                                                 NOMBRE_AADUANA ,
+                                                 RAZON_SOCIAL_AADUANA ,
+                                                 GIRO_AADUANA ,
+                                                 DIRECCION_AADUANA , 
+                                                 CONTACTO_AADUANA , 
+                                                 TELEFONO_AADUANA , 
+                                                 EMAIL_AADUANA , 
+                                                 ID_CIUDAD , 
+                                                 ID_EMPRESA , 
+                                                 ID_USUARIOI , 
+                                                 ID_USUARIOM ,
+                                                 INGRESO ,
+                                                 MODIFICACION ,
+                                                 ESTADO_REGISTRO 
                                         ) 
             VALUES
-	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  1);";
+	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE(), SYSDATE(),  1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -199,7 +201,7 @@ class AADUANA_ADO
     public function eliminarAaduana($id)
     {
         try {
-            $sql = "DELETE FROM `fruta_aaduana` WHERE `ID_AADUANA`=" . $id . ";";
+            $sql = "DELETE FROM  fruta_aaduana  WHERE  ID_AADUANA =" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -217,19 +219,20 @@ class AADUANA_ADO
                 $AADUANA->__SET('ID_CIUDAD', NULL);
             }
             $query = "
-		UPDATE `fruta_aaduana` SET
-			`RUT_AADUANA` = ?,
-			`DV_AADUANA` = ?,
-			`NOMBRE_AADUANA` = ?,
-			`RAZON_SOCIAL_AADUANA` = ?,
-			`GIRO_AADUANA` = ?,
-			`DIRECCION_AADUANA` = ?,
-			`CONTACTO_AADUANA` = ?,
-			`TELEFONO_AADUANA` = ?,
-			`EMAIL_AADUANA` = ?,
-            `ID_CIUDAD`= ?,
-            `ID_USUARIOM`= ?
-		WHERE `ID_AADUANA` = ?  ;";
+                UPDATE  fruta_aaduana  SET
+                    MODIFICACION = SYSDATE(),
+                    RUT_AADUANA  = ?,
+                    DV_AADUANA  = ?,
+                    NOMBRE_AADUANA  = ?,
+                    RAZON_SOCIAL_AADUANA  = ?,
+                    GIRO_AADUANA  = ?,
+                    DIRECCION_AADUANA  = ?,
+                    CONTACTO_AADUANA  = ?,
+                    TELEFONO_AADUANA  = ?,
+                    EMAIL_AADUANA  = ?,
+                    ID_CIUDAD = ?,
+                    ID_USUARIOM = ?
+                WHERE  ID_AADUANA  = ?  ;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -262,9 +265,9 @@ class AADUANA_ADO
 
         try {
             $query = "
-		UPDATE `fruta_aaduana` SET			
-            `ESTADO_REGISTRO` = 0
-		WHERE `ID_AADUANA`= ?;";
+		UPDATE  fruta_aaduana  SET			
+             ESTADO_REGISTRO  = 0
+		WHERE  ID_AADUANA = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -282,9 +285,9 @@ class AADUANA_ADO
 
         try {
             $query = "
-		UPDATE `fruta_aaduana` SET			
-            `ESTADO_REGISTRO` = 1
-		WHERE `ID_AADUANA`= ?;";
+		UPDATE  fruta_aaduana  SET			
+             ESTADO_REGISTRO  = 1
+		WHERE  ID_AADUANA = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -301,8 +304,8 @@ class AADUANA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_aaduana`  
-                                               WHERE `ESTADO_REGISTRO` = 1
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_aaduana   
+                                               WHERE  ESTADO_REGISTRO  = 1
                                                AND ID_EMPRESA = '" . $IDEMPRESA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -323,7 +326,7 @@ class AADUANA_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                     IFNULL(COUNT(NUMERO_AADUANA),0) AS 'NUMERO'
-                                                FROM `fruta_aaduana`
+                                                FROM  fruta_aaduana 
                                                 WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

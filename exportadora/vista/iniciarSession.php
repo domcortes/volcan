@@ -9,6 +9,7 @@ if (isset($_SESSION["NOMBRE_USUARIO"])) {
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 include_once '../../assest/controlador/USUARIO_ADO.php';
+include_once '../../assest/controlador/PTUSUARIO_ADO.php';
 //include_once '../controlador/EMPRESA_ADO.php';
 //include_once '../controlador/PLANTA_ADO.php';
 //include_once '../controlador/TEMPORADA_ADO.php';
@@ -16,6 +17,7 @@ include_once '../../assest/controlador/USUARIO_ADO.php';
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 $USUARIO_ADO = new USUARIO_ADO();
+$PTUSUARIO_ADO = new PTUSUARIO_ADO();
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
@@ -30,6 +32,8 @@ $CONTRASENA = "";
 $MENSAJE = "";
 $MENSAJE2 = "";
 
+$PEXPORTADORA="";
+
 
 
 //INICIALIZAR ARREGLOS
@@ -39,6 +43,7 @@ $ARRAYINICIOSESSION = "";
 $ARRAYEMPRESA = "";
 $ARRAYPLANTA = "";
 $ARRAYTEMPORADA = "";
+$ARRAYVERPTUSUARIO="";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
@@ -146,32 +151,64 @@ $ARRAYTEMPORADA = "";
                     // $MENSAJE2 = "NOMBRE USUARIO O CONTRASE&Ntilde;A INVALIDO";
                     // $MENSAJE = "";
                 } else {
-                    $_SESSION["ID_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_USUARIO'];
-                    $_SESSION["NOMBRE_USUARIO"] = $ARRAYINICIOSESSION[0]['NOMBRE_USUARIO'];
-                    $_SESSION["TIPO_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_TUSUARIO'];
-                    //$MENSAJE = "DATOS CORRECTOS ";
-                    //$MENSAJE2 = "";
-                    echo
-                    '<script>
-                        const Toast = Swal.mixin({
-                            position: "top-end",
-                            showConfirmButton: false,
-                            timer: 2000,
-                            timerProgressBar: true,
-                            didOpen: (toast) => {
-                                toast.addEventListener("mouseenter", Swal.stopTimer);
-                                toast.addEventListener("mouseleave", Swal.resumeTimer);
-                            }
-                        });
+                    $ARRAYVERPTUSUARIO  =$PTUSUARIO_ADO->listarPtusuarioPorTusuarioCBX($ARRAYINICIOSESSION[0]['ID_TUSUARIO']);
+                    if($ARRAYVERPTUSUARIO){        
+                        $PEXPORTADORA = $ARRAYVERPTUSUARIO[0]['EXPORTADORA'];
+                        if($PEXPORTADORA=="1"){                            
+                            $_SESSION["ID_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_USUARIO'];
+                            $_SESSION["NOMBRE_USUARIO"] = $ARRAYINICIOSESSION[0]['NOMBRE_USUARIO'];
+                            $_SESSION["TIPO_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_TUSUARIO'];
+                            echo
+                            '<script>
+                                const Toast = Swal.mixin({
+                                    position: "top-end",
+                                    showConfirmButton: false,
+                                    timer: 2000,
+                                    timerProgressBar: true,
+                                    didOpen: (toast) => {
+                                        toast.addEventListener("mouseenter", Swal.stopTimer);
+                                        toast.addEventListener("mouseleave", Swal.resumeTimer);
+                                    }
+                                });
+                                Toast.fire({
+                                    icon: "success",
+                                    title: "Credenciales correctas",
+                                    text:"cargando modulo seleccion"
+                                }).then((result)=>{
+                                        location.href = "iniciarSessionSeleccion.php";
+                                })
+                            </script>';
 
-                        Toast.fire({
-                            icon: "success",
-                            title: "Credenciales correctas",
-                            text:"cargando modulo selector"
-                        }).then((result)=>{
-                                location.href = "iniciarSessionSeleccion.php";
-                        })
-                    </script>';
+                            //echo "<script type='text/javascript'> location.href ='../../';</script>";
+                        }else{                            
+                            echo '<script>
+                                Swal.fire({
+                                    icon:"warning",
+                                    title:"Error de acceso",
+                                    text:"El Usuario no cuenta con los privilegios para acceder al modulo.",
+                                    showConfirmButton: true,
+                                    confirmButtonText:"Cerrar",
+                                    closeOnConfirm:false
+                                }).then((result)=>{
+                                    location.href = "../../";                                    
+                                })
+                            </script>';
+                        }  
+                    }else{      
+                        echo '<script>
+                            Swal.fire({
+                                icon:"warning",
+                                title:"Error de acceso",
+                                text:"El Usuario no cuenta con los privilegios asociados.",
+                                showConfirmButton: true,
+                                confirmButtonText:"Cerrar",
+                                closeOnConfirm:false
+                            }).then((result)=>{
+                                location.href = "../../";                                    
+                            })
+                        </script>';
+                    }
+
                 }
             }
         }

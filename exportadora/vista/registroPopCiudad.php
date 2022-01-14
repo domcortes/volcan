@@ -189,7 +189,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                                         <!-- /.box-body -->                                        
                                         <div class="box-footer">
                                             <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
-                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="cerrar();">
+                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cerrar" name="CANCELAR" value="CANCELAR" Onclick="cerrar();">
                                                     <i class="ti-close"></i> Cerrar
                                                 </button>
                                                 <?php if ($OP != "editar") { ?>

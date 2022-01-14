@@ -45,7 +45,7 @@ class ATMOSFERA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_atmosfera` limit 8;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_atmosfera  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -65,7 +65,7 @@ class ATMOSFERA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_atmosfera` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_atmosfera  WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -86,7 +86,7 @@ class ATMOSFERA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_atmosfera` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_atmosfera  WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -106,7 +106,7 @@ class ATMOSFERA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_atmosfera` WHERE `ID_ATMOSFERA`= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_atmosfera  WHERE  ID_ATMOSFERA = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -128,7 +128,7 @@ class ATMOSFERA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_atmosfera` WHERE `NOMBRE_ATMOSFERA` LIKE '%" . $NOMBRE . "%';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_atmosfera  WHERE  NOMBRE_ATMOSFERA  LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -150,16 +150,18 @@ class ATMOSFERA_ADO
 
 
             $query =
-                "INSERT INTO `fruta_atmosfera` 
+                "INSERT INTO  fruta_atmosfera  
                                             (
-                                                `NUMERO_ATMOSFERA`, 
-                                                `NOMBRE_ATMOSFERA`, 
-                                                `ID_EMPRESA`, 
-                                                `ID_USUARIOI`, 
-                                                `ID_USUARIOM`, 
-                                                `ESTADO_REGISTRO`
+                                                 NUMERO_ATMOSFERA , 
+                                                 NOMBRE_ATMOSFERA , 
+                                                 ID_EMPRESA , 
+                                                 ID_USUARIOI , 
+                                                 ID_USUARIOM , 
+                                                 INGRESO ,
+                                                 MODIFICACION ,
+                                                 ESTADO_REGISTRO 
                                             ) VALUES
-	       	( ?, ?, ?, ?,  ?,  1);";
+	       	( ?, ?, ?, ?,  ?,  SYSDATE(), SYSDATE(),  1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -182,7 +184,7 @@ class ATMOSFERA_ADO
     public function eliminarAtmosfera($id)
     {
         try {
-            $sql = "DELETE FROM `fruta_atmosfera` WHERE `ID_ATMOSFERA`=" . $id . ";";
+            $sql = "DELETE FROM  fruta_atmosfera  WHERE  ID_ATMOSFERA =" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -198,10 +200,11 @@ class ATMOSFERA_ADO
     {
         try {
             $query = "
-		UPDATE `fruta_atmosfera` SET
-            `NOMBRE_ATMOSFERA`= ?,
-            `ID_USUARIOM`= ?            
-		WHERE `ID_ATMOSFERA`= ?;";
+                UPDATE  fruta_atmosfera  SET
+                    MODIFICACION = SYSDATE(),
+                    NOMBRE_ATMOSFERA = ?,
+                    ID_USUARIOM = ?            
+                WHERE  ID_ATMOSFERA = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -225,9 +228,9 @@ class ATMOSFERA_ADO
 
         try {
             $query = "
-    UPDATE `fruta_atmosfera` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_ATMOSFERA`= ?;";
+            UPDATE  fruta_atmosfera  SET			
+                    ESTADO_REGISTRO  = 0
+            WHERE  ID_ATMOSFERA = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -244,9 +247,9 @@ class ATMOSFERA_ADO
     {
         try {
             $query = "
-    UPDATE `fruta_atmosfera` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_ATMOSFERA`= ?;";
+            UPDATE  fruta_atmosfera  SET			
+                    ESTADO_REGISTRO  = 1
+            WHERE  ID_ATMOSFERA = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -263,8 +266,8 @@ class ATMOSFERA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_atmosfera` 
-                                             WHERE `ESTADO_REGISTRO` = 1
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_atmosfera  
+                                             WHERE  ESTADO_REGISTRO  = 1
                                             AND ID_EMPRESA = '" . $IDEMPRESA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -285,7 +288,7 @@ class ATMOSFERA_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                     IFNULL(COUNT(NUMERO_ATMOSFERA),0) AS 'NUMERO'
-                                                FROM `fruta_atmosfera`
+                                                FROM  fruta_atmosfera 
                                                 WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

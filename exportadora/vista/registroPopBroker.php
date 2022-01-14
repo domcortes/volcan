@@ -1,14 +1,14 @@
 <?php
 
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioExpo.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/CIUDAD_ADO.php';
+include_once '../../assest/controlador/CIUDAD_ADO.php';
 
-include_once '../controlador/BROKER_ADO.php';
-include_once '../modelo/BROKER.php';
+include_once '../../assest/controlador/BROKER_ADO.php';
+include_once '../../assest/modelo/BROKER.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -50,8 +50,7 @@ $ARRAYBROKERID = "";
 $ARRAYCIUDAD = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-$ARRAYBROKER = $BROKER_ADO->listarBrokerCBX();
-$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudadCBX();
+$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
 
 
 
@@ -109,7 +108,7 @@ if (isset($_REQUEST['GUARDAR'])) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //VALIDACION DE FORMULARIO
@@ -309,6 +308,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                 }
 
 
+
                 //FUNCION PARA CERRAR VENTANA Y ACTUALIZAR PRINCIPAL
                 function cerrar() {
                     window.opener.refrescar()
@@ -323,168 +323,154 @@ if (isset($_REQUEST['GUARDAR'])) {
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
 
             <!-- Main content -->
-            <section class="content">
-                <div class="box">
-                    <div class="box-header with-border">
-                        <!--  
-                                    <h4 class="box-title">Sample form 1</h4>
-                                -->
-                    </div>
-                    <!-- /.box-header -->
-                    <form class="form" role="form" method="post" name="form_reg_dato" onsubmit="return validacion()">
-                        <div class="box-body">
-                            <h4 class="box-title text-info"><i class="ti-user mr-15"></i> Registro
-                            </h4>
-                            <hr class="my-15">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Nombre </label>
-                                        <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
-                                        <input type="hidden" class="form-control" placeholder="EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
-                                        <input type="text" class="form-control" placeholder="Nombre Broker" id="NOMBREBROKER" name="NOMBREBROKER" value="<?php echo $NOMBREBROKER; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_nombre" class="validacion"> </label>
+                    <section class="content">
+                        <div class="row">
+                                <div class="box">
+                                    <div class="box-header with-border bg-primary">                                
+                                        <h4 class="box-title">Registro Broker</h4>                                
                                     </div>
+                                    <!-- /.box-header -->
+                                    <form class="form" role="form" method="post" name="form_reg_dato" name="form_reg_dato" enctype="multipart/form-data">
+                                        <div class="box-body">
+                                            <hr class="my-15">
+                                            <div class="row">
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                    <div class="form-group">
+                                                        <label>Nombre </label>
+                                                        <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
+                                                        <input type="hidden" class="form-control" placeholder="EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
+                                                        <input type="text" class="form-control" placeholder="Nombre Broker" id="NOMBREBROKER" name="NOMBREBROKER" value="<?php echo $NOMBREBROKER; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_nombre" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                    <div class="form-group">
+                                                        <label>EORI </label>
+                                                        <input type="text" class="form-control" placeholder="EORI Broker" id="EORIBROKER" name="EORIBROKER" value="<?php echo $EORIBROKER; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_eori" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                    <div class="form-group">
+                                                        <label>Direccion </label>
+                                                        <input type="text" class="form-control" placeholder="Direccion Broker" id="DIRECCIONBROKER" name="DIRECCIONBROKER" value="<?php echo $DIRECCIONBROKER; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_direccion" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                    <div class="form-group">
+                                                        <label>Ciudad </label>
+                                                        <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
+                                                            <option></option>
+                                                            <?php foreach ($ARRAYCIUDAD as $r) : ?>
+                                                                <?php if ($ARRAYCIUDAD) {    ?>
+                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>"
+                                                                     <?php if ($CIUDAD == $r['ID_CIUDAD']) { echo "selected"; } ?>>
+                                                                     <?php echo $r['CIUDAD'] ?>, <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
+                                                                    </option>
+                                                                <?php } else { ?>
+                                                                    <option>No Hay Datos Registrados </option>
+                                                                <?php } ?>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                        <label id="val_ciudad" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <label>Contacto </label>
+                                            <hr class="my-15">
+                                            <div class="row">
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
+                                                    <div class="form-group">
+                                                        <label>Contacto 1</label>
+                                                        <input type="text" class="form-control" placeholder="Nombre Contacto 1 Broker" id="CONTACTOBROKER1" name="CONTACTOBROKER1" value="<?php echo $CONTACTOBROKER1; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_contacto1" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
+                                                    <div class="form-group">
+                                                        <label>Cargo 1</label>
+                                                        <input type="text" class="form-control" placeholder="Cargo Contacto 1 Broker" id="CARGOBROKER1" name="CARGOBROKER1" value="<?php echo $CARGOBROKER1; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_cargo1" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
+                                                    <div class="form-group">
+                                                        <label>Email 1</label>
+                                                        <input type="text" class="form-control" placeholder="Email Contacto 1 Broker" id="EMAILBROKER1" name="EMAILBROKER1" value="<?php echo $EMAILBROKER1; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_email1" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
+                                                    <div class="form-group">
+                                                        <label>Contacto 2</label>
+                                                        <input type="text" class="form-control" placeholder="Nombre Contacto 2 Broker" id="CONTACTOBROKER2" name="CONTACTOBROKER2" value="<?php echo $CONTACTOBROKER2; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_contacto2" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
+                                                    <div class="form-group">
+                                                        <label>Cargo 2</label>
+                                                        <input type="text" class="form-control" placeholder="Cargo Contacto 2 Broker" id="CARGOBROKER2" name="CARGOBROKER2" value="<?php echo $CARGOBROKER2; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_cargo2" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
+                                                    <div class="form-group">
+                                                        <label>Email 2</label>
+                                                        <input type="text" class="form-control" placeholder="Email Contacto 2 Broker" id="EMAILBROKER2" name="EMAILBROKER2" value="<?php echo $EMAILBROKER2; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_email2" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
+                                                    <div class="form-group">
+                                                        <label>Contacto 3</label>
+                                                        <input type="text" class="form-control" placeholder="Nombre Contacto 3 Broker" id="CONTACTOBROKER3" name="CONTACTOBROKER3" value="<?php echo $CONTACTOBROKER3; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_contacto3" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
+                                                    <div class="form-group">
+                                                        <label>Cargo 3</label>
+                                                        <input type="text" class="form-control" placeholder="Cargo Contacto 3 Broker" id="CARGOBROKER3" name="CARGOBROKER3" value="<?php echo $CARGOBROKER3; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_cargo3" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
+                                                    <div class="form-group">
+                                                        <label>Email 3</label>
+                                                        <input type="text" class="form-control" placeholder="Email Contacto 3 Broker" id="EMAILBROKER3" name="EMAILBROKER3" value="<?php echo $EMAILBROKER3; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_email3" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.box-body -->    
+                                        <div class="box-footer">
+                                            <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
+                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cerrar" name="CANCELAR" value="CANCELAR" Onclick="cerrar;">
+                                                    <i class="ti-close"></i> Cerrar
+                                                </button>
+                                                <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Guardar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>EORI </label>
-                                        <input type="text" class="form-control" placeholder="EORI Broker" id="EORIBROKER" name="EORIBROKER" value="<?php echo $EORIBROKER; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_eori" class="validacion"> </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Direccion </label>
-                                        <input type="text" class="form-control" placeholder="Direccion Broker" id="DIRECCIONBROKER" name="DIRECCIONBROKER" value="<?php echo $DIRECCIONBROKER; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_direccion" class="validacion"> </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <div class="form-group">
-                                        <label>Ciudad </label>
-                                        <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
-                                            <option></option>
-                                            <?php foreach ($ARRAYCIUDAD as $r) : ?>
-                                                <?php if ($ARRAYCIUDAD) {    ?>
-                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>" <?php if ($CIUDAD == $r['ID_CIUDAD']) {
-                                                                                                        echo "selected";
-                                                                                                    } ?>>
-                                                        <?php echo $r['NOMBRE_CIUDAD'] ?>
-                                                    </option>
-                                                <?php } else { ?>
-                                                    <option>No Hay Datos Registrados </option>
-                                                <?php } ?>
-                                            <?php endforeach; ?>
-                                        </select>
-                                        <label id="val_ciudad" class="validacion"> </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <label>Contacto </label>
-                            <hr class="my-15">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Contacto 1</label>
-                                        <input type="text" class="form-control" placeholder="Nombre Contacto 1 Broker" id="CONTACTOBROKER1" name="CONTACTOBROKER1" value="<?php echo $CONTACTOBROKER1; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_contacto1" class="validacion"> </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Cargo 1</label>
-                                        <input type="text" class="form-control" placeholder="Cargo Contacto 1 Broker" id="CARGOBROKER1" name="CARGOBROKER1" value="<?php echo $CARGOBROKER1; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_cargo1" class="validacion"> </label>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Email 1</label>
-                                        <input type="text" class="form-control" placeholder="Email Contacto 1 Broker" id="EMAILBROKER1" name="EMAILBROKER1" value="<?php echo $EMAILBROKER1; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_email1" class="validacion"> </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Contacto 2</label>
-                                        <input type="text" class="form-control" placeholder="Nombre Contacto 2 Broker" id="CONTACTOBROKER2" name="CONTACTOBROKER2" value="<?php echo $CONTACTOBROKER2; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_contacto2" class="validacion"> </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Cargo 2</label>
-                                        <input type="text" class="form-control" placeholder="Cargo Contacto 2 Broker" id="CARGOBROKER2" name="CARGOBROKER2" value="<?php echo $CARGOBROKER2; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_cargo2" class="validacion"> </label>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Email 2</label>
-                                        <input type="text" class="form-control" placeholder="Email Contacto 2 Broker" id="EMAILBROKER2" name="EMAILBROKER2" value="<?php echo $EMAILBROKER2; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_email2" class="validacion"> </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Contacto 3</label>
-                                        <input type="text" class="form-control" placeholder="Nombre Contacto 3 Broker" id="CONTACTOBROKER3" name="CONTACTOBROKER3" value="<?php echo $CONTACTOBROKER3; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_contacto3" class="validacion"> </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Cargo 3</label>
-                                        <input type="text" class="form-control" placeholder="Cargo Contacto 3 Broker" id="CARGOBROKER3" name="CARGOBROKER3" value="<?php echo $CARGOBROKER3; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_cargo3" class="validacion"> </label>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Email 3</label>
-                                        <input type="text" class="form-control" placeholder="Email Contacto 3 Broker" id="EMAILBROKER3" name="EMAILBROKER3" value="<?php echo $EMAILBROKER3; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_email3" class="validacion"> </label>
-                                    </div>
-                                </div>
-                            </div>
-
-
+                                <!-- /.box -->
                         </div>
-                        <!-- /.box-body -->
-                        <div class="box-footer">
-                            <button type="button" class="btn btn-rounded btn-warning btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="cerrar();">
-                                <i class="ti-trash"></i> Cancelar
-                            </button>
-                            <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?>  onclick="return validacion()">
-                                <i class="ti-save-alt"></i> Crear
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                <!-- /.box -->
-            </section>
+                        <!--.row -->
+                    </section>
             <!-- /.content -->
-    </div>
-    </div>
+    
     <!-- /.content-wrapper -->
 
 
     <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>¿
-        <?php include_once "../config/menuExtra.php"; ?>
-        </div>
-        <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-            <?php include_once "../config/urlBase.php"; ?>
+        <?php //include_once "../../assest/config/menuExtra.php"; ?>
+    </div>
+    <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
+    <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
-
 </html>

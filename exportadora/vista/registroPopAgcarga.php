@@ -1,17 +1,16 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioExpo.php";
 
 
-include_once "../config/validarUsuario.php";
 
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/CIUDAD_ADO.php';
+include_once '../../assest/controlador/CIUDAD_ADO.php';
 
-include_once '../controlador/AGCARGA_ADO.php';
-include_once '../modelo/AGCARGA.php';
+include_once '../../assest/controlador/AGCARGA_ADO.php';
+include_once '../../assest/modelo/AGCARGA.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -50,8 +49,7 @@ $ARRAYAGCARGAID = "";
 $ARRAYCIUDAD = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-$ARRAYAGCARGA = $AGCARGA_ADO->listarAgcargaCBX();
-$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudadCBX();
+$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
 
 
 
@@ -108,12 +106,13 @@ if (isset($_REQUEST['GUARDAR'])) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //VALIDACION DE FORMULARIO
 
                 function validacion() {
+
                     RUTAGCARGA = document.getElementById("RUTAGCARGA").value;
                     DVAGCARGA = document.getElementById("DVAGCARGA").value;
                     NOMBREAGCARGA = document.getElementById("NOMBREAGCARGA").value;
@@ -164,7 +163,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                     }
                     document.form_reg_dato.NOMBREAGCARGA.style.borderColor = "#4AF575";
 
-
+                    /*
                     if (RAZONSOCIALAGCARGA == null || RAZONSOCIALAGCARGA.length == 0 || /^\s+$/.test(RAZONSOCIALAGCARGA)) {
                         document.form_reg_dato.RAZONSOCIALAGCARGA.focus();
                         document.form_reg_dato.RAZONSOCIALAGCARGA.style.borderColor = "#FF0000";
@@ -181,7 +180,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                         return false;
                     }
                     document.form_reg_dato.GIROAGCARGA.style.borderColor = "#4AF575";
-
+                    */
 
 
                     if (SAGAGCARGA == null || SAGAGCARGA == 0) {
@@ -268,145 +267,139 @@ if (isset($_REQUEST['GUARDAR'])) {
 
 
             <!-- Main content -->
-            <section class="content">
-                <div class="box">
-                    <div class="box-header with-border">
-                        <!--  
-                                    <h4 class="box-title">Sample form 1</h4>
-                                -->
-                    </div>
-                    <!-- /.box-header -->
-                    <form class="form" role="form" method="post" name="form_reg_dato" onsubmit="return validacion()">
-                        <div class="box-body">
-                            <h4 class="box-title text-info"><i class="ti-user mr-15"></i> Registro
-                            </h4>
-                            <hr class="my-15">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Rut </label>
-                                        <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
-                                        <input type="hidden" class="form-control" placeholder="EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
-                                        <input type="text" class="form-control" placeholder="Rut Agente Carga" id="RUTAGCARGA" name="RUTAGCARGA" value="<?php echo $RUTAGCARGA; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_rut" class="validacion"> </label>
+                    <section class="content">
+                        <div class="row">
+                                <div class="box">
+                                    <div class="box-header with-border bg-primary">                                
+                                        <h4 class="box-title">Registro Agente Carga</h4>                                
                                     </div>
+                                    <!-- /.box-header -->
+                                    <form class="form" role="form" method="post" name="form_reg_dato" name="form_reg_dato" enctype="multipart/form-data">
+                                        <div class="box-body">
+                                            <hr class="my-15">
+                                            <div class="row">
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
+                                                    <div class="form-group">
+                                                        <label>Rut </label>
+                                                        <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
+                                                        <input type="hidden" class="form-control" placeholder="EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
+                                                        <input type="text" class="form-control" placeholder="Rut Agente Carga" id="RUTAGCARGA" name="RUTAGCARGA" value="<?php echo $RUTAGCARGA; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_rut" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
+                                                    <div class="form-group">
+                                                        <label>DV </label>
+                                                        <input type="text" class="form-control" placeholder="DV Agente Carga" id="DVAGCARGA" name="DVAGCARGA" value="<?php echo $DVAGCARGA; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_dv" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                    <div class="form-group">
+                                                        <label>Nombre </label>
+                                                        <input type="text" class="form-control" placeholder="Nombre Agente Carga" id="NOMBREAGCARGA" name="NOMBREAGCARGA" value="<?php echo $NOMBREAGCARGA; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_nombre" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                    <div class="form-group">
+                                                        <label>Razon social </label>
+                                                        <input type="text" class="form-control" placeholder="Razon social Agente Carga" id="RAZONSOCIALAGCARGA" name="RAZONSOCIALAGCARGA" value="<?php echo $RAZONSOCIALAGCARGA; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_rsocial" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Giro </label>
+                                                        <input type="text" class="form-control" placeholder="Giro Agente Carga" id="GIROAGCARGA" name="GIROAGCARGA" value="<?php echo $GIROAGCARGA; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_giro" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                    <div class="form-group">
+                                                        <label>Codigo Sag </label>
+                                                        <input type="number" class="form-control" placeholder="Codigo Sag Agente Carga" id="SAGAGCARGA" name="SAGAGCARGA" value="<?php echo $SAGAGCARGA; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_sag" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                    <div class="form-group">
+                                                        <label>Direccion </label>
+                                                        <input type="text" class="form-control" placeholder="Direccion Agente Carga" id="DIRECCIONAGCARGA" name="DIRECCIONAGCARGA" value="<?php echo $DIRECCIONAGCARGA; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_direccion" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                    <div class="form-group">
+                                                        <label>Ciudad </label>
+                                                        <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
+                                                            <option></option>
+                                                            <?php foreach ($ARRAYCIUDAD as $r) : ?>
+                                                                <?php if ($ARRAYCIUDAD) {    ?>
+                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>"
+                                                                     <?php if ($CIUDAD == $r['ID_CIUDAD']) { echo "selected"; } ?>>
+                                                                        <?php echo $r['CIUDAD'] ?>, <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
+                                                                    </option>
+                                                                <?php } else { ?>
+                                                                    <option>No Hay Datos Registrados </option>
+                                                                <?php } ?>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                        <label id="val_ciudad" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <label>Contacto </label>
+                                            <hr class="my-15">
+                                            <div class="row">
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
+                                                    <div class="form-group">
+                                                        <label>Contacto </label>
+                                                        <input type="text" class="form-control" placeholder="Nombre Contacto Agente Carga" id="CONTACTOAGCARGA" name="CONTACTOAGCARGA" value="<?php echo $CONTACTOAGCARGA; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_contacto" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
+                                                    <div class="form-group">
+                                                        <label>Telefono </label>
+                                                        <input type="number" class="form-control" placeholder="Telefono Contacto Agente Carga" id="TELEFONOAGCARGA" name="TELEFONOAGCARGA" value="<?php echo $TELEFONOAGCARGA; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_telefono" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
+                                                    <div class="form-group">
+                                                        <label>Email </label>
+                                                        <input type="text" class="form-control" placeholder="Email Contacto Agente Carga" id="EMAILAGCARGA" name="EMAILAGCARGA" value="<?php echo $EMAILAGCARGA; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_email" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.box-body -->
+                                        <div class="box-footer">
+                                            <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
+                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cerrar" name="CANCELAR" value="CANCELAR" Onclick="cerrar();">
+                                                <i class="ti-close"></i> Cerrar
+                                                </button>
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label>DV </label>
-                                        <input type="text" class="form-control" placeholder="DV Agente Carga" id="DVAGCARGA" name="DVAGCARGA" value="<?php echo $DVAGCARGA; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_dv" class="validacion"> </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Nombre </label>
-                                        <input type="text" class="form-control" placeholder="Nombre Agente Carga" id="NOMBREAGCARGA" name="NOMBREAGCARGA" value="<?php echo $NOMBREAGCARGA; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_nombre" class="validacion"> </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Razon social </label>
-                                        <input type="text" class="form-control" placeholder="Razon social Agente Carga" id="RAZONSOCIALAGCARGA" name="RAZONSOCIALAGCARGA" value="<?php echo $RAZONSOCIALAGCARGA; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_rsocial" class="validacion"> </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Giro </label>
-                                        <input type="text" class="form-control" placeholder="Giro Agente Carga" id="GIROAGCARGA" name="GIROAGCARGA" value="<?php echo $GIROAGCARGA; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_giro" class="validacion"> </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Codigo Sag </label>
-                                        <input type="number" class="form-control" placeholder="Codigo Sag Agente Carga" id="SAGAGCARGA" name="SAGAGCARGA" value="<?php echo $SAGAGCARGA; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_sag" class="validacion"> </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Direccion </label>
-                                        <input type="text" class="form-control" placeholder="Direccion Agente Carga" id="DIRECCIONAGCARGA" name="DIRECCIONAGCARGA" value="<?php echo $DIRECCIONAGCARGA; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_direccion" class="validacion"> </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <div class="form-group">
-                                        <label>Ciudad </label>
-                                        <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
-                                            <option></option>
-                                            <?php foreach ($ARRAYCIUDAD as $r) : ?>
-                                                <?php if ($ARRAYCIUDAD) {    ?>
-                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>" <?php if ($CIUDAD == $r['ID_CIUDAD']) {
-                                                                                                        echo "selected";
-                                                                                                    } ?>>
-                                                        <?php echo $r['NOMBRE_CIUDAD'] ?>
-                                                    </option>
-                                                <?php } else { ?>
-                                                    <option>No Hay Datos Registrados </option>
-                                                <?php } ?>
-                                            <?php endforeach; ?>
-                                        </select>
-                                        <label id="val_ciudad" class="validacion"> </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <label>Contacto </label>
-                            <hr class="my-15">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Contacto </label>
-                                        <input type="text" class="form-control" placeholder="Nombre Contacto Agente Carga" id="CONTACTOAGCARGA" name="CONTACTOAGCARGA" value="<?php echo $CONTACTOAGCARGA; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_contacto" class="validacion"> </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Telefono </label>
-                                        <input type="number" class="form-control" placeholder="Telefono Contacto Agente Carga" id="TELEFONOAGCARGA" name="TELEFONOAGCARGA" value="<?php echo $TELEFONOAGCARGA; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_telefono" class="validacion"> </label>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Email </label>
-                                        <input type="text" class="form-control" placeholder="Email Contacto Agente Carga" id="EMAILAGCARGA" name="EMAILAGCARGA" value="<?php echo $EMAILAGCARGA; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_email" class="validacion"> </label>
-                                    </div>
-                                </div>
-
-                            </div>
+                                <!-- /.box -->
                         </div>
-                        <!-- /.box-body -->
-                        <div class="box-footer">
-                            <button type="button" class="btn btn-rounded btn-warning btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="cerrar();">
-                                <i class="ti-trash"></i> Cancelar
-                            </button>
-                            <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                <i class="ti-save-alt"></i> Crear
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                <!-- /.box -->
-            </section>
+                        <!--.row -->
+                    </section>
             <!-- /.content -->
 
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php //include_once "../../assest/config/menuExtra.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
 
 </html>

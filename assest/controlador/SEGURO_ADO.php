@@ -39,7 +39,7 @@ class SEGURO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_seguro` limit 8;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_seguro  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -57,7 +57,7 @@ class SEGURO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_seguro` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_seguro  WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -76,7 +76,7 @@ class SEGURO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_seguro` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_seguro  WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -98,7 +98,7 @@ class SEGURO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_seguro` WHERE `ID_SEGURO`= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_seguro  WHERE  ID_SEGURO = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -119,7 +119,7 @@ class SEGURO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_seguro` WHERE `NOMBRE_SEGURO` LIKE '%" . $NOMBRE . "%';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_seguro  WHERE  NOMBRE_SEGURO  LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -142,18 +142,20 @@ class SEGURO_ADO
 
 
             $query =
-                "INSERT INTO `fruta_seguro` (
-                                            `NUMERO_SEGURO`,       
-                                            `NOMBRE_SEGURO`,                                               
-                                            `ESTIMADO_SEGURO`,
-                                            `REAL_SEGURO`,
-                                            `SUMA_SEGURO`,     
-                                            `ID_EMPRESA`, 
-                                            `ID_USUARIOI`, 
-                                            `ID_USUARIOM`,                               
-                                            `ESTADO_REGISTRO`
+                "INSERT INTO  fruta_seguro  (
+                                             NUMERO_SEGURO ,       
+                                             NOMBRE_SEGURO ,                                               
+                                             ESTIMADO_SEGURO ,
+                                             REAL_SEGURO ,
+                                             SUMA_SEGURO ,     
+                                             ID_EMPRESA , 
+                                             ID_USUARIOI , 
+                                             ID_USUARIOM ,    
+                                             INGRESO ,
+                                             MODIFICACION ,                           
+                                             ESTADO_REGISTRO 
                                       ) VALUES
-	       	( ?, ?, ?, ?, ?, ?, ?, ?, 1);";
+	       	( ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE(), SYSDATE(),  1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -176,7 +178,7 @@ class SEGURO_ADO
     public function eliminarSeguro($id)
     {
         try {
-            $sql = "DELETE FROM `fruta_seguro` WHERE `ID_SEGURO`=" . $id . ";";
+            $sql = "DELETE FROM  fruta_seguro  WHERE  ID_SEGURO =" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -189,13 +191,14 @@ class SEGURO_ADO
     {
         try {
             $query = "
-		UPDATE `fruta_seguro` SET
-            `NOMBRE_SEGURO`= ?,
-            `ESTIMADO_SEGURO`= ?,
-            `REAL_SEGURO`= ?,
-            `SUMA_SEGURO`= ? ,
-            `ID_USUARIOM`= ?            
-		WHERE `ID_SEGURO`= ?;";
+                UPDATE  fruta_seguro  SET
+                    MODIFICACION = SYSDATE(),
+                    NOMBRE_SEGURO = ?,
+                    ESTIMADO_SEGURO = ?,
+                    REAL_SEGURO = ?,
+                    SUMA_SEGURO = ? ,
+                    ID_USUARIOM = ?            
+                WHERE  ID_SEGURO = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -220,9 +223,9 @@ class SEGURO_ADO
 
         try {
             $query = "
-    UPDATE `fruta_seguro` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_SEGURO`= ?;";
+    UPDATE  fruta_seguro  SET			
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_SEGURO = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -239,9 +242,9 @@ class SEGURO_ADO
     {
         try {
             $query = "
-    UPDATE `fruta_seguro` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_SEGURO`= ?;";
+    UPDATE  fruta_seguro  SET			
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_SEGURO = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -258,8 +261,8 @@ class SEGURO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_seguro` 
-                                            WHERE `ESTADO_REGISTRO` = 1
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_seguro  
+                                            WHERE  ESTADO_REGISTRO  = 1
                                             AND ID_EMPRESA = '" . $IDEMPRESA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -281,7 +284,7 @@ class SEGURO_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                     IFNULL(COUNT(NUMERO_SEGURO),0) AS 'NUMERO'
-                                                FROM `fruta_seguro`
+                                                FROM  fruta_seguro 
                                                 WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

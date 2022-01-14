@@ -43,7 +43,7 @@ class EXPORTADORA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_exportadora` LIMIT 6;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_exportadora  LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -62,7 +62,7 @@ class EXPORTADORA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_exportadora` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_exportadora  WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -80,7 +80,7 @@ class EXPORTADORA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_exportadora` WHERE `ESTADO_REGISTRO` = 0 ;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_exportadora  WHERE  ESTADO_REGISTRO  = 0 ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -99,7 +99,7 @@ class EXPORTADORA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_exportadora` WHERE `ID_EXPORTADORA`= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_exportadora  WHERE  ID_EXPORTADORA = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -120,7 +120,7 @@ class EXPORTADORA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_exportadora` WHERE `NOMBRE_EXPORTADORA` LIKE '%" . $NOMBRE . "%';");
+            $datos = $this->conexion->prepare("SELECT * FROM  fruta_exportadora  WHERE  NOMBRE_EXPORTADORA  LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -146,24 +146,26 @@ class EXPORTADORA_ADO
             }
 
             $query =
-                "INSERT INTO `fruta_exportadora` ( 
-                                                `NUMERO_EXPORTADORA`, 
-                                                `RUT_EXPORTADORA`, 
-                                                `DV_EXPORTADORA`, 
-                                                `NOMBRE_EXPORTADORA`,
-                                                `RAZON_SOCIAL_EXPORTADORA`,  
-                                                `GIRO_EXPORTADORA`,  
-                                                `DIRECCION_EXPORTADORA`, 
-                                                `ID_CIUDAD`,    
-                                                `ID_EMPRESA`, 
-                                                `ID_USUARIOI`, 
-                                                `ID_USUARIOM`, 
-                                                `CONTACTO1_EXPORTADORA`,  `EMAIL1_EXPORTADORA`, `TELEFONO1_EXPORTADORA`, 
-                                                `CONTACTO2_EXPORTADORA`,  `EMAIL2_EXPORTADORA`, `TELEFONO2_EXPORTADORA`, 
-                                                `LOGO_EXPORTADORA`,
-                                                `ESTADO_REGISTRO`
+                "INSERT INTO  fruta_exportadora  ( 
+                                                 NUMERO_EXPORTADORA , 
+                                                 RUT_EXPORTADORA , 
+                                                 DV_EXPORTADORA , 
+                                                 NOMBRE_EXPORTADORA ,
+                                                 RAZON_SOCIAL_EXPORTADORA ,  
+                                                 GIRO_EXPORTADORA ,  
+                                                 DIRECCION_EXPORTADORA , 
+                                                 ID_CIUDAD ,    
+                                                 ID_EMPRESA , 
+                                                 ID_USUARIOI , 
+                                                 ID_USUARIOM , 
+                                                 CONTACTO1_EXPORTADORA ,   EMAIL1_EXPORTADORA ,  TELEFONO1_EXPORTADORA , 
+                                                 CONTACTO2_EXPORTADORA ,   EMAIL2_EXPORTADORA ,  TELEFONO2_EXPORTADORA , 
+                                                 LOGO_EXPORTADORA ,
+                                                 INGRESO ,
+                                                 MODIFICACION ,
+                                                 ESTADO_REGISTRO 
                                             ) VALUES
-	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1);";
+	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE(), SYSDATE(),  1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -203,24 +205,25 @@ class EXPORTADORA_ADO
             }
 
             $query = "
-                    UPDATE `fruta_exportadora` SET
-                        `RUT_EXPORTADORA` = ?,
-                        `DV_EXPORTADORA` = ?,
-                        `NOMBRE_EXPORTADORA` = ?,
-                        `RAZON_SOCIAL_EXPORTADORA`= ?,
-                        `GIRO_EXPORTADORA`= ?,
-                        `DIRECCION_EXPORTADORA`= ?,
-                        `ID_CIUDAD`= ?,
-                        `ID_EMPRESA`= ?,
-                        `ID_USUARIOM`= ?,
-                        `CONTACTO1_EXPORTADORA` = ?,
-                        `EMAIL1_EXPORTADORA` = ?,
-                        `TELEFONO1_EXPORTADORA` = ?,
-                        `CONTACTO2_EXPORTADORA` = ?,
-                        `EMAIL2_EXPORTADORA` = ?,
-                        `TELEFONO2_EXPORTADORA` = ?,
-                        `LOGO_EXPORTADORA` = ?
-                    WHERE `ID_EXPORTADORA`= ?;";
+                    UPDATE  fruta_exportadora  SET
+                         MODIFICACION = SYSDATE(),
+                         RUT_EXPORTADORA  = ?,
+                         DV_EXPORTADORA  = ?,
+                         NOMBRE_EXPORTADORA  = ?,
+                         RAZON_SOCIAL_EXPORTADORA = ?,
+                         GIRO_EXPORTADORA = ?,
+                         DIRECCION_EXPORTADORA = ?,
+                         ID_CIUDAD = ?,
+                         ID_EMPRESA = ?,
+                         ID_USUARIOM = ?,
+                         CONTACTO1_EXPORTADORA  = ?,
+                         EMAIL1_EXPORTADORA  = ?,
+                         TELEFONO1_EXPORTADORA  = ?,
+                         CONTACTO2_EXPORTADORA  = ?,
+                         EMAIL2_EXPORTADORA  = ?,
+                         TELEFONO2_EXPORTADORA  = ?,
+                         LOGO_EXPORTADORA  = ?
+                    WHERE  ID_EXPORTADORA = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -251,7 +254,7 @@ class EXPORTADORA_ADO
     public function eliminarexportadora($id)
     {
         try {
-            $sql = "DELETE FROM `fruta_exportadora` WHERE `nombre_exportadora`=" . $id . ";";
+            $sql = "DELETE FROM  fruta_exportadora  WHERE  nombre_exportadora =" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -267,9 +270,9 @@ class EXPORTADORA_ADO
 
         try {
             $query = "
-		UPDATE `fruta_exportadora` SET			
-            `ESTADO_REGISTRO` = 0
-		WHERE `ID_EXPORTADORA`= ?;";
+		UPDATE  fruta_exportadora  SET			
+             ESTADO_REGISTRO  = 0
+		WHERE  ID_EXPORTADORA = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -285,9 +288,9 @@ class EXPORTADORA_ADO
     {
         try {
             $query = "
-		UPDATE `fruta_exportadora` SET			
-            `ESTADO_REGISTRO` = 1
-		WHERE `ID_EXPORTADORA`= ?;";
+		UPDATE  fruta_exportadora  SET			
+             ESTADO_REGISTRO  = 1
+		WHERE  ID_EXPORTADORA = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -306,8 +309,8 @@ class EXPORTADORA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT * 
-                                               FROM `fruta_exportadora` 
-                                               WHERE `ESTADO_REGISTRO` = 1
+                                               FROM  fruta_exportadora  
+                                               WHERE  ESTADO_REGISTRO  = 1
                                                AND ID_EMPRESA  '".$EMPRESA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -330,7 +333,7 @@ class EXPORTADORA_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                     IFNULL(COUNT(NUMERO_EXPORTADORA),0) AS 'NUMERO'
-                                                FROM `fruta_exportadora`
+                                                FROM  fruta_exportadora 
                                                 WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

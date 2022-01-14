@@ -1,11 +1,11 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioExpo.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/LAEREA_ADO.php';
-include_once '../controlador/CIUDAD_ADO.php';
-include_once '../modelo/LAEREA.php';
+include_once '../../assest/controlador/LAEREA_ADO.php';
+include_once '../../assest/controlador/CIUDAD_ADO.php';
+include_once '../../assest/modelo/LAEREA.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -44,8 +44,7 @@ $ARRAYCIUDAD = "";
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-$ARRAYLAEREA = $LAEREA_ADO->listarLaereaCBX();
-$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudadCBX();
+$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
 
 //OPERACIONES
 //OPERACION DE REGISTRO DE FILA
@@ -99,10 +98,9 @@ if (isset($_REQUEST['GUARDAR'])) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
-                //VALIDACION DE FORMULARIO
                 //VALIDACION DE FORMULARIO
                 function validacion() {
 
@@ -152,7 +150,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                         return false;
                     }
                     document.form_reg_dato.NOMBRELAEREA.style.borderColor = "#4AF575";
-
+                 /*
                     if (GIROLAEREA == null || GIROLAEREA.length == 0 || /^\s+$/.test(GIROLAEREA)) {
                         document.form_reg_dato.GIROLAEREA.focus();
                         document.form_reg_dato.GIROLAEREA.style.borderColor = "#FF0000";
@@ -168,7 +166,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                         return false;
                     }
                     document.form_reg_dato.RAZONSOCIALLAEREA.style.borderColor = "#4AF575";
-
+                    ¨*/
 
                     if (DIRRECIONLAEREA == null || DIRRECIONLAEREA.length == 0 || /^\s+$/.test(DIRRECIONLAEREA)) {
                         document.form_reg_dato.DIRRECIONLAEREA.focus();
@@ -224,6 +222,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                     */
 
                 }
+
                 //FUNCION PARA CERRAR VENTANA Y ACTUALIZAR PRINCIPAL
                 function cerrar() {
                     window.opener.refrescar()
@@ -238,157 +237,140 @@ if (isset($_REQUEST['GUARDAR'])) {
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
 
             <!-- Main content -->
-            <section class="content">
-                <div class="box">
-                    <div class="box-header with-border">
-                        <!--  
-                                    <h4 class="box-title">Sample form 1</h4>
-                                -->
-                    </div>
-                    <!-- /.box-header -->
-                    <form class="form" role="form" method="post" name="form_reg_dato" onsubmit="return validacion()">
-                        <div class="box-body">
-                            <h4 class="box-title text-info"><i class="ti-user mr-15"></i> Registro
-                            </h4>
-                            <hr class="my-15">
-
-
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Rut </label>
-                                        <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
-                                        <input type="hidden" class="form-control" placeholder="EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
-                                        <input type="text" class="form-control" placeholder="Rut Laerea" id="RUTLAEREA" name="RUTLAEREA" value="<?php echo $RUTLAEREA; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_rut" class="validacion"> </label>
+                    <section class="content">
+                        <div class="row">
+                                <div class="box">
+                                    <div class="box-header with-border bg-primary">                                
+                                        <h4 class="box-title">Registro Linea Aerea</h4>                                
                                     </div>
+                                    <!-- /.box-header -->
+                                    <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
+                                        <div class="box-body">
+                                            <hr class="my-15">
+                                            <div class="row">
+                                                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
+                                                    <div class="form-group">
+                                                        <label>Rut </label>
+                                                        <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
+                                                        <input type="hidden" class="form-control" placeholder="EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
+                                                        <input type="text" class="form-control" placeholder="Rut Laerea" id="RUTLAEREA" name="RUTLAEREA" value="<?php echo $RUTLAEREA; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_rut" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                 <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
+                                                    <div class="form-group">
+                                                        <label>DV </label>
+                                                        <input type="text" class="form-control" placeholder="DV Laerea" id="DVLAEREA" name="DVLAEREA" value="<?php echo $DVLAEREA; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_dv" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                    <div class="form-group">
+                                                        <label>Nombre </label>
+                                                        <input type="text" class="form-control" placeholder="Nombre Laerea" id="NOMBRELAEREA" name="NOMBRELAEREA" value="<?php echo $NOMBRELAEREA; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_nombre" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                    <div class="form-group">
+                                                        <label>Giro </label>
+                                                        <input type="text" class="form-control" placeholder="Giro Laerea" id="GIROLAEREA" name="GIROLAEREA" value="<?php echo $GIROLAEREA; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_giro" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                    <div class="form-group">
+                                                        <label>Razon Social </label>
+                                                        <input type="text" class="form-control" placeholder="Razon Social Laerea" id="RAZONSOCIALLAEREA" name="RAZONSOCIALLAEREA" value="<?php echo $RAZONSOCIALLAEREA; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_rsocial" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                    <div class="form-group">
+                                                        <label>Dirrecion </label>
+                                                        <input type="text" class="form-control" placeholder="Dirrecion Laerea" id="DIRRECIONLAEREA" name="DIRRECIONLAEREA" value="<?php echo $DIRRECIONLAEREA; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_dirrecion" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                    <div class="form-group">
+                                                        <label>Ciudad</label>
+                                                        <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
+                                                            <option></option>
+                                                            <?php foreach ($ARRAYCIUDAD as $r) : ?>
+                                                                <?php if ($ARRAYCIUDAD) {    ?>
+                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>" 
+                                                                    <?php if ($CIUDAD == $r['ID_CIUDAD']) { echo "selected";   } ?>>
+                                                                    <?php echo $r['CIUDAD'] ?>, <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
+                                                                    </option>
+                                                                <?php } else { ?>
+                                                                    <option>No Hay Datos Registrados </option>
+                                                                <?php } ?>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                        <label id="val_ciudad" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
+                                                    <div class="form-group">
+                                                        <label>Nota </label>
+                                                        <textarea class="form-control" rows="1" placeholder="Nota Laerea " id="NOTALAEREA" name="NOTALAEREA" <?php echo $DISABLED; ?>><?php echo $NOTALAEREA; ?></textarea>
+                                                        <label id="val_nota" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <labe>Contacto</labe>
+                                            <hr class="my-15">
+                                            <div class="row">
+                                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
+                                                    <div class="form-group">
+                                                        <label>Nombre </label>
+                                                        <input type="text" class="form-control" placeholder="Nombre Contacto Laerea" id="CONTACTOLAEREA" name="CONTACTOLAEREA" value="<?php echo $CONTACTOLAEREA; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_contacto" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
+                                                    <div class="form-group">
+                                                        <label>Telefono </label>
+                                                        <input type="number" class="form-control" placeholder="Telefono Contacto Laerea" id="TELEFONOLAEREA" name="TELEFONOLAEREA" value="<?php echo $TELEFONOLAEREA; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_telefono" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
+                                                    <div class="form-group">
+                                                        <label>Email </label>
+                                                        <input type="text" class="form-control" placeholder="Email Contacto Laerea" id="EMAILLAEREA" name="EMAILLAEREA" value="<?php echo $EMAILLAEREA; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_email" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.box-body -->                                        
+                                        <div class="box-footer">
+                                            <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
+                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cerrar" name="CANCELAR" value="CANCELAR" Onclick="cerrar();">
+                                                <i class="ti-close"></i> Cerrar
+                                                </button>
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label>DV </label>
-                                        <input type="text" class="form-control" placeholder="DV Laerea" id="DVLAEREA" name="DVLAEREA" value="<?php echo $DVLAEREA; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_dv" class="validacion"> </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Nombre </label>
-                                        <input type="text" class="form-control" placeholder="Nombre Laerea" id="NOMBRELAEREA" name="NOMBRELAEREA" value="<?php echo $NOMBRELAEREA; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_nombre" class="validacion"> </label>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Giro </label>
-                                        <input type="text" class="form-control" placeholder="Giro Laerea" id="GIROLAEREA" name="GIROLAEREA" value="<?php echo $GIROLAEREA; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_giro" class="validacion"> </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Razon Social </label>
-                                        <input type="text" class="form-control" placeholder="Razon Social Laerea" id="RAZONSOCIALLAEREA" name="RAZONSOCIALLAEREA" value="<?php echo $RAZONSOCIALLAEREA; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_rsocial" class="validacion"> </label>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Dirrecion </label>
-                                        <input type="text" class="form-control" placeholder="Dirrecion Laerea" id="DIRRECIONLAEREA" name="DIRRECIONLAEREA" value="<?php echo $DIRRECIONLAEREA; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_dirrecion" class="validacion"> </label>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Ciudad</label>
-                                        <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
-                                            <option></option>
-                                            <?php foreach ($ARRAYCIUDAD as $r) : ?>
-                                                <?php if ($ARRAYCIUDAD) {    ?>
-                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>" <?php if ($CIUDAD == $r['ID_CIUDAD']) {
-                                                                                                        echo "selected";
-                                                                                                    } ?>>
-                                                        <?php echo $r['NOMBRE_CIUDAD'] ?>
-                                                    </option>
-                                                <?php } else { ?>
-                                                    <option>No Hay Datos Registrados </option>
-                                                <?php } ?>
-                                            <?php endforeach; ?>
-                                        </select>
-                                        <label id="val_ciudad" class="validacion"> </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Nota </label>
-                                        <textarea class="form-control" rows="1" placeholder="Nota Laerea " id="NOTALAEREA" name="NOTALAEREA" <?php echo $DISABLED; ?>><?php echo $NOTALAEREA; ?></textarea>
-                                        <label id="val_nota" class="validacion"> </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <labe>Contacto</labe>
-                            <hr class="my-15">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Nombre </label>
-                                        <input type="text" class="form-control" placeholder="Nombre Contacto Laerea" id="CONTACTOLAEREA" name="CONTACTOLAEREA" value="<?php echo $CONTACTOLAEREA; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_contacto" class="validacion"> </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Telefono </label>
-                                        <input type="number" class="form-control" placeholder="Telefono Contacto Laerea" id="TELEFONOLAEREA" name="TELEFONOLAEREA" value="<?php echo $TELEFONOLAEREA; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_telefono" class="validacion"> </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Email </label>
-                                        <input type="text" class="form-control" placeholder="Email Contacto Laerea" id="EMAILLAEREA" name="EMAILLAEREA" value="<?php echo $EMAILLAEREA; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_email" class="validacion"> </label>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
+                                <!-- /.box -->
                         </div>
-
-                        <!-- /.box-body -->
-                        <div class="box-footer">
-                            <button type="button" class="btn btn-rounded btn-warning btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="cerrar();">
-                                <i class="ti-trash"></i> Cancelar
-                            </button>
-                            <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                <i class="ti-save-alt"></i> Crear
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                <!-- /.box -->
-            </section>
+                        <!--.row -->
+                    </section>
             <!-- /.content -->
 
 
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php //include_once "../../assest/config/menuExtra.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
 
 </html>
