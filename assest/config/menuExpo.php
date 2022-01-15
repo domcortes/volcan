@@ -249,7 +249,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <option></option>
               <?php foreach ($ARRAYEMPRESACAMBIAR as $r) : ?>
                 <?php if ($ARRAYEMPRESACAMBIAR) {    ?>
-                  <option value="<?php echo $r['ID_EMPRESA']; ?>" <?php if ($EMPRESA == $r['ID_EMPRESA']) {
+                  <option value="<?php echo $r['ID_EMPRESA']; ?>" <?php if ($EMPRESAS == $r['ID_EMPRESA']) {
                                                                     echo "selected";
                                                                   } ?>> <?php echo $r['NOMBRE_EMPRESA'] ?> </option>
                 <?php } else { ?>
