@@ -388,6 +388,91 @@ class DICARGA_ADO
         }
     }
 
+    public function buscarInvoiceIntPorIcargaPorCalibre($IDICARGA){
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 	
+                                                        estandar.ID_ESTANDAR,
+                                                        (select PESO_NETO_ESTANDAR
+                                                        FROM estandar_eexportacion
+                                                        WHERE ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                        ) AS 'PESONETOE',
+                                                        (select PESO_BRUTO_ESTANDAR
+                                                        FROM estandar_eexportacion
+                                                        WHERE ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                        ) AS 'PESOBRUTOE',
+                                                        estandar.ID_ECOMERCIAL,
+                                                        (select CODIGO_ECOMERCIAL
+                                                        FROM estandar_ecomercial
+                                                        WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                        ) AS 'CODIGO',
+                                                        (select NOMBRE_ECOMERCIAL
+                                                        FROM estandar_ecomercial
+                                                        WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                        ) AS 'NOMBRE',                                                    
+                                                        (select PESO_NETO_ECOMERCIAL
+                                                        FROM estandar_ecomercial
+                                                        WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                        ) AS 'PESONETOC',
+                                                        (select PESO_BRUTO_ECOMERCIAL
+                                                        FROM estandar_ecomercial
+                                                        WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                        ) AS 'PESOBRUTOC',                      
+                                                        IFNULL(SUM(detalle.CANTIDAD_ENVASE_DICARGA),0)  AS 'ENVASESF',                              
+                                                        (select IFNULL(SUM(detalle.CANTIDAD_ENVASE_DICARGA),0) *PESO_NETO_ECOMERCIAL
+                                                        FROM estandar_ecomercial
+                                                        WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                        ) AS 'NETOSF',                                                    
+                                                        (select IFNULL(SUM(detalle.CANTIDAD_ENVASE_DICARGA),0) *PESO_BRUTO_ECOMERCIAL
+                                                        FROM estandar_ecomercial
+                                                        WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                        ) AS 'BRUTOSF',  
+                                                        IFNULL(detalle.PRECIO_US_DICARGA,0) AS 'US',
+                                                        IFNULL(SUM(detalle.CANTIDAD_ENVASE_DICARGA),0) * IFNULL(detalle.PRECIO_US_DICARGA,0) AS 'TOTALUSSF',                   
+                                                        FORMAT(IFNULL(SUM(detalle.CANTIDAD_ENVASE_DICARGA),0),2,'de_DE')  AS 'ENVASE',                                
+                                                        (select FORMAT(IFNULL(SUM(detalle.CANTIDAD_ENVASE_DICARGA),0) *PESO_NETO_ECOMERCIAL,2,'de_DE')
+                                                        FROM estandar_ecomercial
+                                                        WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                        ) AS 'NETO',                                                    
+                                                        (select FORMAT(IFNULL(SUM(detalle.CANTIDAD_ENVASE_DICARGA),0) *PESO_BRUTO_ECOMERCIAL,2,'de_DE')
+                                                        FROM estandar_ecomercial
+                                                        WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                        ) AS 'BRUTO',  
+                                                        (SELECT NOMBRE_TMONEDA
+                                                        FROM fruta_tmoneda
+                                                        WHERE ID_TMONEDA=detalle.ID_TMONEDA     
+                                                        LIMIT 1
+                                                        ) AS 'TMONEDA',                                                    
+                                                        (
+                                                        SELECT calibre2.NOMBRE_TCALIBRE
+                                                        FROM fruta_tcalibre calibre2
+                                                        WHERE  calibre2.ID_TCALIBRE = calibre.ID_TCALIBRE
+                                                        ) AS 'TCALIBRE',
+                                                        FORMAT(IFNULL(detalle.PRECIO_US_DICARGA,0),2,'de_DE') AS 'US',
+                                                        FORMAT(IFNULL(SUM(detalle.CANTIDAD_ENVASE_DICARGA),0) * IFNULL(detalle.PRECIO_US_DICARGA,0),2,'de_DE') AS 'TOTALUS'                                 
+                                                FROM fruta_dicarga detalle, fruta_tcalibre calibre, estandar_eexportacion estandar, estandar_ecomercial comercial
+                                                WHERE detalle.ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                    AND estandar.ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                    AND detalle.ID_TCALIBRE = calibre.ID_TCALIBRE
+                                                    AND detalle.ESTADO_REGISTRO = 1
+                                                    AND detalle.ID_ICARGA = '".$IDICARGA."'
+                                                GROUP BY comercial.ID_ECOMERCIAL, calibre.ID_TCALIBRE;
+                                                                                                
+                                               ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
     
     public function buscarInvoicePorIcarga($IDICARGA)
     {
@@ -515,6 +600,138 @@ class DICARGA_ADO
         }
     }
     
+    public function buscarInvoicePorIcargaPorCalibre($IDICARGA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 	
+                                                    estandar.ID_ESTANDAR, 
+                                                    (select PESO_NETO_ESTANDAR
+                                                    FROM estandar_eexportacion
+                                                    WHERE ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                    ) AS 'PESONETOE',
+                                                    (select PESO_BRUTO_ESTANDAR
+                                                    FROM estandar_eexportacion
+                                                    WHERE ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                    ) AS 'PESOBRUTOE',
+                                                    estandar.ID_ECOMERCIAL,
+                                                    (select CODIGO_ECOMERCIAL
+                                                    FROM estandar_ecomercial
+                                                    WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                    ) AS 'CODIGO',
+                                                    (select NOMBRE_ECOMERCIAL
+                                                    FROM estandar_ecomercial
+                                                    WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                    ) AS 'NOMBRE',                                                    
+                                                    (select PESO_NETO_ECOMERCIAL
+                                                    FROM estandar_ecomercial
+                                                    WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                    ) AS 'PESONETOC',
+                                                    (select PESO_BRUTO_ECOMERCIAL
+                                                    FROM estandar_ecomercial
+                                                    WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                    ) AS 'PESOBRUTOC',      
+                                                    IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0) AS 'ENVASESF',
+                                                    (select IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0) *PESO_NETO_ECOMERCIAL
+                                                    FROM estandar_ecomercial
+                                                    WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                    ) AS 'NETOSF',                                                 
+                                                    (select IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0) *PESO_BRUTO_ECOMERCIAL
+                                                    FROM estandar_ecomercial
+                                                    WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                    ) AS 'BRUTOSF',                                                           
+                                                    (  SELECT
+                                                            IFNULL(detalle.PRECIO_US_DICARGA,0)
+                                                            FROM fruta_dicarga detalle, estandar_eexportacion estandar2, estandar_ecomercial comercial2
+                                                            WHERE   detalle.ID_ESTANDAR=estandar2.ID_ESTANDAR
+                                                            AND estandar2.ID_ECOMERCIAL = comercial2.ID_ECOMERCIAL
+                                                            AND detalle.ID_ICARGA = icarga.ID_ICARGA  
+                                                            AND comercial2.ID_ECOMERCIAL =comercial.ID_ECOMERCIAL
+                                                            AND detalle.ESTADO_REGISTRO = 1
+                                                            LIMIT 1
+                                                        ) AS 'USSF',  
+                                                    (  SELECT
+                                                        IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0) * IFNULL(detalle.PRECIO_US_DICARGA,0)
+                                                            FROM fruta_dicarga detalle, estandar_eexportacion estandar2, estandar_ecomercial comercial2
+                                                            WHERE   detalle.ID_ESTANDAR=estandar2.ID_ESTANDAR
+                                                            AND estandar2.ID_ECOMERCIAL = comercial2.ID_ECOMERCIAL
+                                                            AND detalle.ID_ICARGA = icarga.ID_ICARGA  
+                                                            AND comercial2.ID_ECOMERCIAL =comercial.ID_ECOMERCIAL
+                                                            AND detalle.ESTADO_REGISTRO = 1
+                                                            LIMIT 1
+                                                        ) AS 'TOTALUSSF',                                                                                                                                                 
+                                                    (select FORMAT(IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0) *PESO_NETO_ECOMERCIAL,2,'de_DE')
+                                                    FROM estandar_ecomercial
+                                                    WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                    ) AS 'NETO',                                                    
+                                                    (select FORMAT(IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0) *PESO_BRUTO_ECOMERCIAL,2,'de_DE')
+                                                    FROM estandar_ecomercial
+                                                    WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                    ) AS 'BRUTO',   
+                                                    (  SELECT               
+                                                                (	SELECT NOMBRE_TMONEDA
+                                                                    FROM fruta_tmoneda
+                                                                    WHERE ID_TMONEDA=detalle.ID_TMONEDA   
+                                                                )
+                                                            FROM fruta_dicarga detalle, estandar_eexportacion estandar2, estandar_ecomercial comercial2
+                                                            WHERE   detalle.ID_ESTANDAR=estandar2.ID_ESTANDAR
+                                                            AND estandar2.ID_ECOMERCIAL = comercial2.ID_ECOMERCIAL
+                                                            AND detalle.ID_ICARGA = icarga.ID_ICARGA  
+                                                            AND comercial2.ID_ECOMERCIAL =comercial.ID_ECOMERCIAL
+                                                            AND detalle.ESTADO_REGISTRO = 1
+                                                            LIMIT 1
+                                                        ) AS 'TMONEDA',
+                                                        (
+                                                        SELECT calibre2.NOMBRE_TCALIBRE
+                                                        FROM fruta_tcalibre calibre2
+                                                        WHERE  calibre2.ID_TCALIBRE = calibre.ID_TCALIBRE
+                                                        ) AS 'TCALIBRE',
+                                                    FORMAT(IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE',
+                                                    FORMAT(IFNULL(SUM(existencia.KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'NETOF',
+                                                    FORMAT(IFNULL(SUM(existencia.KILOS_BRUTO_EXIEXPORTACION),0),2,'de_DE') AS 'BRUTOF',
+                                                    (  SELECT
+                                                            FORMAT(IFNULL(detalle.PRECIO_US_DICARGA,0),2,'de_DE')
+                                                            FROM fruta_dicarga detalle, estandar_eexportacion estandar2, estandar_ecomercial comercial2
+                                                            WHERE   detalle.ID_ESTANDAR=estandar2.ID_ESTANDAR
+                                                            AND estandar2.ID_ECOMERCIAL = comercial2.ID_ECOMERCIAL
+                                                            AND detalle.ID_ICARGA = icarga.ID_ICARGA  
+                                                            AND comercial2.ID_ECOMERCIAL =comercial.ID_ECOMERCIAL
+                                                            AND detalle.ESTADO_REGISTRO = 1
+                                                            LIMIT 1
+                                                        ) AS 'US',            
+                                                    (  SELECT
+                                                        FORMAT(IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0) * IFNULL(detalle.PRECIO_US_DICARGA,0),2,'de_DE')
+                                                            FROM fruta_dicarga detalle, estandar_eexportacion estandar2, estandar_ecomercial comercial2
+                                                            WHERE   detalle.ID_ESTANDAR=estandar2.ID_ESTANDAR
+                                                            AND estandar2.ID_ECOMERCIAL = comercial2.ID_ECOMERCIAL
+                                                            AND detalle.ID_ICARGA = icarga.ID_ICARGA  
+                                                            AND comercial2.ID_ECOMERCIAL =comercial.ID_ECOMERCIAL
+                                                            AND detalle.ESTADO_REGISTRO = 1
+                                                            LIMIT 1
+                                                        ) AS 'TOTALUS'
+                                            FROM  fruta_icarga icarga,   fruta_despachoex despacho, fruta_exiexportacion existencia, 
+                                                  fruta_tcalibre calibre,  estandar_eexportacion estandar, estandar_ecomercial comercial
+                                            WHERE icarga.ID_ICARGA = despacho.ID_ICARGA 
+                                                AND despacho.ID_DESPACHOEX = existencia.ID_DESPACHOEX
+                                                AND existencia.ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                AND existencia.ID_TCALIBRE = calibre.ID_TCALIBRE
+                                                AND estandar.ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                                                        AND icarga.ID_ICARGA = '".$IDICARGA."'
+                                            GROUP by comercial.ID_ECOMERCIAL, calibre.ID_TCALIBRE;
+                                                ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function totalesPorIcarga($IDICARGA)
     {
         try {
