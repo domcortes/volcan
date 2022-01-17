@@ -362,7 +362,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                             </div>
                             <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
-                                    <div class="box-header with-border">
+                                    <div class="box-header with-border bg-info">
                                         <h4 class="box-title">Agrupado Bodega</h4>
                                     </div>
                                     <div class="box-body">

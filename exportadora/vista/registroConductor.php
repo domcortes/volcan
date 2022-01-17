@@ -465,7 +465,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             //OPERACION DE REGISTRO DE FILA
             if (isset($_REQUEST['GUARDAR'])) {
 
-                $ARRAYNUMERO = $CONDUCTOR_ADO->obtenerNumero();
+                $ARRAYNUMERO = $CONDUCTOR_ADO->obtenerNumero($EMPRESAS);
                 $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
                 //UTILIZACION METODOS SET DEL MODELO
                 //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO  

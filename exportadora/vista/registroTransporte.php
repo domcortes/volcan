@@ -550,7 +550,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             //OPERACIONES
             //OPERACION DE REGISTRO DE FILA
             if (isset($_REQUEST['GUARDAR'])) {
-                $ARRAYNUMERO = $TRANSPORTE_ADO->obtenerNumero();
+                $ARRAYNUMERO = $TRANSPORTE_ADO->obtenerNumero($_REQUEST['EMPRESA']);
                 $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
 
 
