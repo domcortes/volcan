@@ -148,7 +148,7 @@ font-face {
 	white-space: nowrap;        
 	font-weight: bold;
 	font-size: 10px;
-	text-transform: capitalize;
+	text-transform: uppercase;
   }
   
   table td {
@@ -166,7 +166,6 @@ font-face {
   table .color {
 	color: #FFFFFF;
 	background: #b8b7b7;
-	text-transform: uppercase;
   }
   table .color2 {
 	color: #000000;
