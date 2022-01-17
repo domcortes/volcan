@@ -1,14 +1,11 @@
 <?php
 
-include_once "../../assest/config/validarUsuarioOpe.php";
+include_once "../../assest/config/validarUsuarioOpera.php";
 
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../../assest/controlador/AUSUARIO_ADO.php';
 
 //INICIALIZAR CONTROLADOR
-
-$AUSUARIO_ADO =  new AUSUARIO_ADO();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
@@ -38,18 +35,14 @@ $ARRAYYVERAUSUARIOIDMAX5 = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
 if (isset($NOMBREUSUARIOS)) {
-
     $ARRAYYVERUSUARIOID = $USUARIO_ADO->verUsuario($IDUSUARIOS);
     foreach ($ARRAYYVERUSUARIOID as $r) :
-        $RUTUSUARIO = "" . $r['RUT_USUARIO'];
         $IDUSUARIO = "" . $r['ID_USUARIO'];
         $NOMBREUSUARIO = "" . $r['NOMBRE_USUARIO'];
-
         $PNOMBREUSUARIO = "" . $r['PNOMBRE_USUARIO'];
         $SNOMBREUSUARIO = "" . $r['SNOMBRE_USUARIO'];
         $PAPELLIDOUSUARIO = "" . $r['PAPELLIDO_USUARIO'];
         $SAPELLIDOUSUARIO = "" . $r['SAPELLIDO_USUARIO'];
-
         $CORREO = "" . $r['EMAIL_USUARIO'];
         $TELEFONO = "" . $r['TELEFONO_USUARIO'];
     endforeach;
@@ -179,24 +172,18 @@ if (isset($NOMBREUSUARIOS)) {
                     document.form_reg_dato.CORREO.style.borderColor = "#4AF575";
 
                 }
-
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
                 function irPagina(url) {
                     location.href = "" + url;
                 }
-                //FUNCION PARA OBTENER HORA Y FECHA
-           
             </script>
-
 </head>
-
-<body class="hold-transition light-skin fixed sidebar-mini theme-primary">
+<body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
             <?php include_once "../../assest/config/menuOpera.php"; ?>
             <div class="content-wrapper">
                 <div class="container-full">
-
                     <!-- Content Header (Page header) -->
                     <div class="content-header">
                         <div class="d-flex align-items-center">
@@ -207,40 +194,19 @@ if (isset($NOMBREUSUARIOS)) {
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Pefil</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="verUsuario.php"> Ver Perfil </a>
-                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Ver Perfil </a> </li>
                                         </ol>
                                     </nav>
                                 </div>
                             </div>
-                            <div class="right-title">
-                                <div class="d-flex mt-10 justify-content-end">
-                                    <div class="d-lg-flex mr-20 ml-10 d-none">
-                                        <div class="chart-text mr-10">
-                                            <!--
-                                        <h6 class="mb-0"><small>THIS MONTH</small></h6>
-                                        <h4 class="mt-0 text-primary">$12,125</h4>-->
-                                        </div>
-                                    </div>
-                                    <div class="d-lg-flex mr-20 ml-10 d-none">
-                                        <div class="chart-text mr-10">
-                                            <!--
-                                        <h6 class="mb-0"><small>LAST YEAR</small></h6>
-                                        <h4 class="mt-0 text-danger">$22,754</h4>-->
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
+                            <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                         </div>
                     </div>
 
                     <!-- Main content -->
                     <section class="content">
-
                         <div class="row">
-                            <div class="col-xl-4 col-lg-5">
-
+                            <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <!-- Profile Image -->
                                 <div class="box">
                                     <div class="box-body box-profile">
@@ -252,21 +218,18 @@ if (isset($NOMBREUSUARIOS)) {
                                             <i class="fa fa-envelope-o mr-10"></i>
                                             <?php
                                             $ARRAYTUSUARIO = $TUSUARIO_ADO->verTusuario($_SESSION["TIPO_USUARIO"]);
-
                                             if ($ARRAYTUSUARIO) {
                                                 echo $ARRAYTUSUARIO[0]['NOMBRE_TUSUARIO'];
                                             }
-
                                             ?>
                                         </h4>
-
                                         <div class="row">
-                                            <div class="col-12">
+                                            <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="media-list media-list-hover media-list-divided w-p100 mt-30">
-                                                    <h4 class="media media-single p-15">
+                                                    <h4 class="media media-single p-15 bg-info">
                                                         <i class="fa fa-arrow-circle-o-right mr-10"></i>
-                                                        <span class="title">
-                                                            <a href="verUsuario.php">
+                                                        <span class="title ">
+                                                            <a href="#">
                                                                 Mi Perfil
                                                             </a>
                                                         </span>
@@ -297,24 +260,9 @@ if (isset($NOMBREUSUARIOS)) {
                                                     </h4>
                                                 </div>
                                             </div>
-
                                             <h3 class="title w-p100 mt-10 mb-0 p-20">Ultimas 5 Operaciones</h3>
-                                            <div class="col-12">
-                                                <div class="media-list media-list-hover w-p100 mt-0">
-                                                        <h5 class="media media-single py-10 px-0 w-p100 justify-content-between">
-                                                            <p>
-                                                                <i class="fa fa-circle text-success pr-10 font-size-12"></i>
-                                                                    <span class="text-success">
-                                                                    </span>
-                                                                </span>
-                                                            </p>
-                                                            <p class="text-right pull-right">
-
-                                                                <br>
-                                                            </p>
-                                                        </h5>
-
-
+                                            <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12"">
+                                                <div class="media-list media-list-hover w-p100 mt-0">   
                                                 </div>
                                             </div>
                                         </div>
@@ -324,17 +272,15 @@ if (isset($NOMBREUSUARIOS)) {
                                 <!-- /.box -->
                             </div>
                             <!-- /.col -->
-                            <div class="col-xl-8 col-lg-7">
+                            <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
-                                    <div class="box-header with-border">
+                                    <div class="box-header with-border bg-primary ">
                                         <h3 class="box-title">Mi Perfil </h3>
                                     </div>
-                                    <!-- /.box-header -->
-
-                                    <form class="form" role="form" method="post" name="form_reg_dato" onsubmit="return validacion()">
+                                    <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato" >
                                         <div class="box-body">
                                             <div class="row">
-                                                <div class="col-12">
+                                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12"">
                                                     <div class="form-group row">
                                                         <label class="col-sm-2 col-form-label">Nombre Usuario</label>
                                                         <div class="col-sm-10">
@@ -342,13 +288,6 @@ if (isset($NOMBREUSUARIOS)) {
                                                             <input type="text" class="form-control" placeholder="Nombre Usuario" id="NOMBREUSUARIO" name="NOMBREUSUARIO" value="<?php echo $NOMBREUSUARIO; ?>" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> disabled />
                                                         </div>
                                                         <label id="val_nombre" class="validacion"> </label>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-2 col-form-label">Rut</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" class="form-control" placeholder="Rut " id="RUTUSUARIO" name="RUTUSUARIO" value="<?php echo $RUTUSUARIO; ?>" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?> />
-                                                        </div>
-                                                        <label id="val_rutusuario" class="validacion"> </label>
                                                     </div>
                                                     <div class="form-group row">
                                                         <label class="col-sm-2 col-form-label">Primer Nombre</label>
@@ -364,7 +303,6 @@ if (isset($NOMBREUSUARIOS)) {
                                                         </div>
                                                         <label id="val_snombre" class="validacion"> </label>
                                                     </div>
-
                                                     <div class="form-group row">
                                                         <label class="col-sm-2 col-form-label">Primer Apellido</label>
                                                         <div class="col-sm-10">
@@ -379,8 +317,6 @@ if (isset($NOMBREUSUARIOS)) {
                                                         </div>
                                                         <label id="val_sapellido" class="validacion"> </label>
                                                     </div>
-
-
                                                     <div class="form-group row">
                                                         <label class="col-sm-2 col-form-label">Telefono </label>
                                                         <div class="col-sm-10">
@@ -388,7 +324,6 @@ if (isset($NOMBREUSUARIOS)) {
                                                         </div>
                                                         <label id="val_telefono" class="validacion"> </label>
                                                     </div>
-
                                                     <div class="form-group row">
                                                         <label class="col-sm-2 col-form-label">Correo </label>
                                                         <div class="col-sm-10">
@@ -400,12 +335,13 @@ if (isset($NOMBREUSUARIOS)) {
                                                 <!-- /.col -->
                                             </div>
                                             <!-- /.row -->
-                                        </div>
-
+                                        </div>                                        
                                         <div class="box-footer">
-                                            <button type="button" class="btn btn-rounded  btn-success btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="irPagina('index.php'); ">
-                                                <i class="ti-back-left "></i> Volver
-                                            </button>
+                                            <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
+                                                <button type="button" class="btn  btn-success " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('index.php');">
+                                                    <i class="ti-back-left "></i> Volver
+                                                </button>                                               
+                                            </div>
                                         </div>
                                     </form>
                                     <!-- /.box-body -->
@@ -414,25 +350,15 @@ if (isset($NOMBREUSUARIOS)) {
                             </div>
                             <!-- /.col -->
                         </div>
-
-
                     </section>
                     <!-- /.content -->
-
                 </div>
             </div>
-
-
-
-
-
-
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-            <?php include_once "../../assest/config/footer.php"; ?>
-            <?php include_once "../../assest/config/menuExtraOpera.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraOpera.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
-
 </html>
