@@ -167,11 +167,11 @@ include_once "../../assest/config/datosUrLP.php";
                                                     <th class="text-center">Operaciónes</th>
                                                     <th>Estado Despacho</th>
                                                     <th>Fecha Despacho </th>
+                                                    <th>Número Documento </th>
                                                     <th>Tipo Despacho</th>
                                                     <th>CSG/CSP Despacho</th>
                                                     <th>Destino Despacho</th>
                                                     <th>Tipo Documento </th>
-                                                    <th>Número Documento </th>
                                                     <th>Cantidad </th>
                                                     <th>Transporte </th>
                                                     <th>Nombre Conductor </th>
@@ -387,11 +387,11 @@ include_once "../../assest/config/datosUrLP.php";
                                                         </td>
                                                         <td><?php echo $ESTADODESPACHO; ?></td>
                                                         <td><?php echo $r['FECHA']; ?></td>
+                                                        <td><?php echo $r['NUMERO_DOCUMENTO']; ?></td>
                                                         <td><?php echo $TDESPACHO; ?></td>
                                                         <td><?php echo $CSGCSPDESTINO; ?></td>
                                                         <td><?php echo $NOMBRDESTINO; ?></td>
                                                         <td><?php echo $TDOCUMENTO; ?></td>
-                                                        <td><?php echo $r['NUMERO_DOCUMENTO']; ?></td>
                                                         <td><?php echo $r['CANTIDAD']; ?></td>
                                                         <td><?php echo $NOMBRETRANSPORTE; ?></td>
                                                         <td><?php echo $NOMBRECONDUCTOR; ?></td>
