@@ -48,7 +48,7 @@ class TCONTENEDORM_ADO {
     public function listarTcontenedor(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_tcontenedor` limit 8 WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_tcontenedor  limit 8 WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -67,7 +67,7 @@ class TCONTENEDORM_ADO {
     public function listarTcontenedorCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_tcontenedor` WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_tcontenedor  WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -86,7 +86,7 @@ class TCONTENEDORM_ADO {
     public function listarTcontenedor2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_tcontenedor` WHERE ESTADO_REGISTRO = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_tcontenedor  WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -107,7 +107,7 @@ class TCONTENEDORM_ADO {
     public function verTcontenedor($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_tcontenedor` WHERE `ID_TCONTENEDOR`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_tcontenedor  WHERE  ID_TCONTENEDOR = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -132,15 +132,15 @@ class TCONTENEDORM_ADO {
             
             
             $query=
-            "INSERT INTO `material_tcontenedor` (
-                                                    `NUMERO_TCONTENEDOR`, 
-                                                    `NOMBRE_TCONTENEDOR`, 
-                                                    `ID_EMPRESA`,
-                                                    `ID_USUARIOI`,
-                                                    `ID_USUARIOM`,
-                                                    `INGRESO`,
-                                                    `MODIFICACION`, 
-                                                    `ESTADO_REGISTRO`
+            "INSERT INTO  material_tcontenedor  (
+                                                     NUMERO_TCONTENEDOR , 
+                                                     NOMBRE_TCONTENEDOR , 
+                                                     ID_EMPRESA ,
+                                                     ID_USUARIOI ,
+                                                     ID_USUARIOM ,
+                                                     INGRESO ,
+                                                     MODIFICACION , 
+                                                     ESTADO_REGISTRO 
                                                 ) VALUES
 	       	( ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
@@ -163,7 +163,7 @@ class TCONTENEDORM_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarTcontenedor($id){
-        try{$sql="DELETE FROM `material_tcontenedor` WHERE `ID_TCONTENEDOR`=".$id.";";
+        try{$sql="DELETE FROM  material_tcontenedor  WHERE  ID_TCONTENEDOR =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -180,12 +180,12 @@ class TCONTENEDORM_ADO {
     public function actualizarTcontenedor(TCONTENEDOR $TCONTENEDOR){
         try{
             $query = "
-		UPDATE `material_tcontenedor` SET
-            `MODIFICACION`= SYSDATE(),
-            `NOMBRE_TCONTENEDOR`= ?,
-            `ID_EMPRESA`= ?,
-            `ID_USUARIOM`= ?            
-		WHERE `ID_TCONTENEDOR`= ?;";
+		UPDATE  material_tcontenedor  SET
+             MODIFICACION = SYSDATE(),
+             NOMBRE_TCONTENEDOR = ?,
+             ID_EMPRESA = ?,
+             ID_USUARIOM = ?            
+		WHERE  ID_TCONTENEDOR = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(   
@@ -212,10 +212,10 @@ class TCONTENEDORM_ADO {
 
         try{
             $query = "
-    UPDATE `material_tcontenedor` SET			
-    `MODIFICACION`= SYSDATE(),		
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_TCONTENEDOR`= ?;";
+    UPDATE  material_tcontenedor  SET			
+     MODIFICACION = SYSDATE(),		
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_TCONTENEDOR = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -233,10 +233,10 @@ class TCONTENEDORM_ADO {
     public function habilitar(TCONTENEDOR $TCONTENEDOR){
         try{
             $query = "
-    UPDATE `material_tcontenedor` SET			
-    `MODIFICACION`= SYSDATE(),		
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_TCONTENEDOR`= ?;";
+    UPDATE  material_tcontenedor  SET			
+     MODIFICACION = SYSDATE(),		
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_TCONTENEDOR = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -254,7 +254,7 @@ class TCONTENEDORM_ADO {
     public function listarTcontenedorPorEmpresaCBX($IDEMPRESA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_tcontenedor` WHERE ESTADO_REGISTRO = 1 AND ID_EMPRESA = '".$IDEMPRESA."';	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_tcontenedor  WHERE ESTADO_REGISTRO = 1 AND ID_EMPRESA = '".$IDEMPRESA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -275,7 +275,7 @@ public function obtenerNumero()
     try {
         $datos = $this->conexion->prepare(" SELECT  
                                                 IFNULL(COUNT(NUMERO_TCONTENEDOR),0) AS 'NUMERO'
-                                            FROM `material_tcontenedor`  ; ");
+                                            FROM  material_tcontenedor   ; ");
         $datos->execute();
         $resultado = $datos->fetchAll();
             $datos=null;

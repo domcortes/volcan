@@ -48,7 +48,7 @@ class CLIENTE_ADO {
     public function listarCliente(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_cliente` limit 8 WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_cliente  limit 8 WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -67,7 +67,7 @@ class CLIENTE_ADO {
     public function listarClienteCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_cliente` WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_cliente  WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -86,7 +86,7 @@ class CLIENTE_ADO {
     public function listarCliente2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_cliente` WHERE ESTADO_REGISTRO = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_cliente  WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -107,7 +107,7 @@ class CLIENTE_ADO {
     public function verCliente($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_cliente` WHERE `ID_CLIENTE`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_cliente  WHERE  ID_CLIENTE = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -131,24 +131,27 @@ class CLIENTE_ADO {
         try{
             
             
+            if($CLIENTE->__GET('ID_CIUDAD')==NULL){
+                $CLIENTE->__SET('ID_CIUDAD', NULL);
+            }
             $query=
-            "INSERT INTO `material_cliente` ( 
-                                              `RUT_CLIENTE`,
-                                              `DV_CLIENTE`,
-                                              `RAZON_CLIENTE`,
-                                              `NUMERO_CLIENTE`,
-                                              `NOMBRE_CLIENTE`,
-                                              `GIRO_CLIENTE`,
-                                              `DIRECCION_CLIENTE`,
-                                              `TELEFONO_CLIENTE`,
-                                              `EMAIL_CLIENTE`,
-                                              `ID_EMPRESA`,
-                                              `ID_CIUDAD`,
-                                              `ID_USUARIOI`,
-                                              `ID_USUARIOM`,
-                                              `INGRESO`,
-                                              `MODIFICACION`, 
-                                              `ESTADO_REGISTRO`) VALUES
+            "INSERT INTO  material_cliente  ( 
+                                               RUT_CLIENTE ,
+                                               DV_CLIENTE ,
+                                               RAZON_CLIENTE ,
+                                               NUMERO_CLIENTE ,
+                                               NOMBRE_CLIENTE ,
+                                               GIRO_CLIENTE ,
+                                               DIRECCION_CLIENTE ,
+                                               TELEFONO_CLIENTE ,
+                                               EMAIL_CLIENTE ,
+                                               ID_EMPRESA ,
+                                               ID_CIUDAD ,
+                                               ID_USUARIOI ,
+                                               ID_USUARIOM ,
+                                               INGRESO ,
+                                               MODIFICACION , 
+                                               ESTADO_REGISTRO ) VALUES
 	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
@@ -178,7 +181,7 @@ class CLIENTE_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarCliente($id){
-        try{$sql="DELETE FROM `material_cliente` WHERE `ID_CLIENTE`=".$id.";";
+        try{$sql="DELETE FROM  material_cliente  WHERE  ID_CLIENTE =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -194,21 +197,24 @@ class CLIENTE_ADO {
     //ACTUALIZAR INFORMACION DE LA FILA
     public function actualizarCliente(CLIENTE $CLIENTE){
         try{
+            if($CLIENTE->__GET('ID_CIUDAD')==NULL){
+                $CLIENTE->__SET('ID_CIUDAD', NULL);
+            }
             $query = "
-		UPDATE `material_cliente` SET
-            `MODIFICACION`= SYSDATE(),
-            `RUT_CLIENTE`= ?,
-            `DV_CLIENTE`= ?,
-            `RAZON_CLIENTE`= ?,
-            `NOMBRE_CLIENTE`= ?,
-            `GIRO_CLIENTE`= ?,
-            `DIRECCION_CLIENTE`= ?,
-            `TELEFONO_CLIENTE`= ?,
-            `EMAIL_CLIENTE`= ?,
-            `ID_EMPRESA`= ?  ,
-            `ID_CIUDAD`= ?  ,
-            `ID_USUARIOM`= ?            
-		WHERE `ID_CLIENTE`= ?;";
+		UPDATE  material_cliente  SET
+             MODIFICACION = SYSDATE(),
+             RUT_CLIENTE = ?,
+             DV_CLIENTE = ?,
+             RAZON_CLIENTE = ?,
+             NOMBRE_CLIENTE = ?,
+             GIRO_CLIENTE = ?,
+             DIRECCION_CLIENTE = ?,
+             TELEFONO_CLIENTE = ?,
+             EMAIL_CLIENTE = ?,
+             ID_EMPRESA = ?  ,
+             ID_CIUDAD = ?  ,
+             ID_USUARIOM = ?            
+		WHERE  ID_CLIENTE = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(   
@@ -243,10 +249,10 @@ class CLIENTE_ADO {
 
         try{
             $query = "
-    UPDATE `material_cliente` SET				
-    `MODIFICACION`= SYSDATE(),	
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_CLIENTE`= ?;";
+    UPDATE  material_cliente  SET				
+     MODIFICACION = SYSDATE(),	
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_CLIENTE = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -264,10 +270,10 @@ class CLIENTE_ADO {
     public function habilitar(CLIENTE $CLIENTE){
         try{
             $query = "
-    UPDATE `material_cliente` SET			
-    `MODIFICACION`= SYSDATE(),		
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_CLIENTE`= ?;";
+    UPDATE  material_cliente  SET			
+     MODIFICACION = SYSDATE(),		
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_CLIENTE = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -284,7 +290,7 @@ class CLIENTE_ADO {
     public function listarClientePorEmpresaCBX($IDEMPRESA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_cliente` WHERE ESTADO_REGISTRO = 1  AND ID_EMPRESA = '".$IDEMPRESA."';	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_cliente  WHERE ESTADO_REGISTRO = 1  AND ID_EMPRESA = '".$IDEMPRESA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -304,7 +310,7 @@ class CLIENTE_ADO {
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                     IFNULL(COUNT(NUMERO_CLIENTE),0) AS 'NUMERO'
-                                                FROM `material_cliente`  ; ");
+                                                FROM  material_cliente   ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;

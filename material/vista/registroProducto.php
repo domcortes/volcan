@@ -1,18 +1,18 @@
 <?php
 
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioMaterial.php";
 
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/PRODUCTO_ADO.php';
-include_once '../controlador/FAMILIA_ADO.php';
-include_once '../controlador/SUBFAMILIA_ADO.php';
-include_once '../controlador/TUMEDIDA_ADO.php';
-include_once '../controlador/ESPECIES_ADO.php';
+include_once '../../assest/controlador/PRODUCTO_ADO.php';
+include_once '../../assest/controlador/FAMILIA_ADO.php';
+include_once '../../assest/controlador/SUBFAMILIA_ADO.php';
+include_once '../../assest/controlador/TUMEDIDA_ADO.php';
+include_once '../../assest/controlador/ESPECIES_ADO.php';
 
 
-include_once '../modelo/PRODUCTO.php';
+include_once '../../assest/modelo/PRODUCTO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -71,71 +71,11 @@ $ARRAYTUMEDIDA = $TUMEDIDA_ADO->listarTumedidaPorEmpresaCBX($EMPRESAS);
 $ARRAYEMPRESA = $EMPRESA_ADO->listarEmpresaCBX();
 $ARRAYTEMPORADA = $TEMPORADA_ADO->listarTemporadaCBX();
 $ARRAYESPECIES = $ESPECIES_ADO->listarEspeciesCBX();
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrl.php";
-include_once "../config/reporteUrl.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrl.php";
+include_once "../../assest/config/reporteUrl.php";
 
 
-//OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-if (isset($_REQUEST['GUARDAR'])) {
-    $ARRAYNUMERO = $PRODUCTO_ADO->obtenerNumero();
-    $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
-
-    $AUXILIARCODIGOPRODUCTO1 = "F" . $_REQUEST['FAMILIA'] . "S" . $_REQUEST['SUBFAMILIA'] . "C";
-    $AUXILIARCODIGOPRODUCTO12 = (1000) + $NUMERO;
-    $CODIGOPRODUCTO = $AUXILIARCODIGOPRODUCTO1 . $AUXILIARCODIGOPRODUCTO12;
-
-
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-    $PRODUCTOS->__SET('CODIGO_PRODUCTO', $CODIGOPRODUCTO);
-    $PRODUCTOS->__SET('NUMERO_PRODUCTO', $NUMERO);
-    $PRODUCTOS->__SET('NOMBRE_PRODUCTO', $_REQUEST['NOMBREPRODUCTO']);
-    $PRODUCTOS->__SET('OPTIMO', $_REQUEST['OPTIMO']);
-    $PRODUCTOS->__SET('BAJO', $_REQUEST['BAJO']);
-    $PRODUCTOS->__SET('CRITICO', $_REQUEST['CRITICO']);
-    $PRODUCTOS->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $PRODUCTOS->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-    $PRODUCTOS->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
-    $PRODUCTOS->__SET('ID_FAMILIA', $_REQUEST['FAMILIA']);
-    $PRODUCTOS->__SET('ID_SUBFAMILIA', $_REQUEST['SUBFAMILIA']);
-    $PRODUCTOS->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);
-    $PRODUCTOS->__SET('ID_USUARIOI', $IDUSUARIOS);
-    $PRODUCTOS->__SET('ID_USUARIOM', $IDUSUARIOS);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $PRODUCTO_ADO->agregarProducto($PRODUCTOS);
-    //REDIRECCIONAR A PAGINA registroEcomercial.php
-    echo "<script type='text/javascript'> location.href ='registroProducto.php';</script>";
-}
-//OPERACION DE EDICION DE FILA
-if (isset($_REQUEST['EDITAR'])) {
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO 
-
-    $AUXILIARCODIGOPRODUCTO1 = "F" . $_REQUEST['FAMILIA'] . "S" . $_REQUEST['SUBFAMILIA'] . "C";
-    $AUXILIARCODIGOPRODUCTO12 = (1000) + $_REQUEST['NUMERO'];
-    $CODIGOPRODUCTO = $AUXILIARCODIGOPRODUCTO1 . $AUXILIARCODIGOPRODUCTO12;
-
-
-    $PRODUCTOS->__SET('CODIGO_PRODUCTO', $CODIGOPRODUCTO);
-    $PRODUCTOS->__SET('NOMBRE_PRODUCTO', $_REQUEST['NOMBREPRODUCTO']);
-    $PRODUCTOS->__SET('OPTIMO', $_REQUEST['OPTIMO']);
-    $PRODUCTOS->__SET('BAJO', $_REQUEST['BAJO']);
-    $PRODUCTOS->__SET('CRITICO', $_REQUEST['CRITICO']);
-    $PRODUCTOS->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $PRODUCTOS->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-    $PRODUCTOS->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
-    $PRODUCTOS->__SET('ID_FAMILIA', $_REQUEST['FAMILIA']);
-    $PRODUCTOS->__SET('ID_SUBFAMILIA', $_REQUEST['SUBFAMILIA']);
-    $PRODUCTOS->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);
-    $PRODUCTOS->__SET('ID_USUARIOM', $IDUSUARIOS);
-    $PRODUCTOS->__SET('ID_PRODUCTO', $_REQUEST['ID']);
-    //LLAMADA AL METODO DE EDICION DEL CONTROLADOR   
-    $PRODUCTO_ADO->actualizarProducto($PRODUCTOS);
-    //REDIRECCIONAR A PAGINA registroEcomercial.php
-    echo "<script type='text/javascript'> location.href ='registroProducto.php';</script>";
-}
 
 
 //OBTENCION DE DATOS ENVIADOR A LA URL
@@ -267,7 +207,7 @@ if (isset($_POST)) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //VALIDACION DE FORMULARIO
@@ -366,115 +306,50 @@ if (isset($_POST)) {
                 function irPagina(url) {
                     location.href = "" + url;
                 }
-                //FUNCION PARA OBTENER HORA Y FECHA
-                function mueveReloj() {
-
-
-                    momentoActual = new Date();
-
-                    dia = momentoActual.getDate();
-                    mes = momentoActual.getMonth() + 1;
-                    ano = momentoActual.getFullYear();
-
-                    hora = momentoActual.getHours();
-                    minuto = momentoActual.getMinutes();
-                    segundo = momentoActual.getSeconds();
-
-                    if (dia < 10) {
-                        dia = "0" + dia;
-                    }
-
-                    if (mes < 10) {
-                        mes = "0" + mes;
-                    }
-                    if (hora < 10) {
-                        hora = "0" + hora;
-                    }
-                    if (minuto < 10) {
-                        minuto = "0" + minuto;
-                    }
-                    if (segundo < 10) {
-                        segundo = "0" + segundo;
-                    }
-
-                    horaImprimible = hora + " : " + minuto;
-                    fechaImprimible = dia + "-" + mes + "-" + ano;
-
-
-                    //     document.form_reg_dato.HORARECEPCION.value = horaImprimible;
-                    document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
-                    setTimeout("mueveReloj()", 1000);
-                }
             </script>
 
 </head>
 
-<body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
+<body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
-            ?>
-
+            <?php include_once "../../assest/config/menuMaterial.php";   ?>
             <div class="content-wrapper">
                 <div class="container-full">
-
                     <!-- Content Header (Page header) -->
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Tipo Producto</h3>
+                                <h3 class="page-title">Producto</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Mantenedores</li>
                                             <li class="breadcrumb-item" aria-current="page">Producto </li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroProducto.php"> Operaciónes Tipo Producto </a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Producto </a>
                                             </li>
                                         </ol>
                                     </nav>
                                 </div>
                             </div>
-                            <div class="right-title">
-                                <div class="d-flex mt-10 justify-content-end">
-                                    <div class="d-lg-flex mr-20 ml-10 d-none">
-                                        <div class="chart-text mr-10">
-                                            <!--
-								<h6 class="mb-0"><small>THIS MONTH</small></h6>
-                                <h4 class="mt-0 text-primary">$12,125</h4>-->
-                                        </div>
-                                    </div>
-                                    <div class="d-lg-flex mr-20 ml-10 d-none">
-                                        <div class="chart-text mr-10">
-                                            <!--
-								<h6 class="mb-0"><small>LAST YEAR</small></h6>
-                                <h4 class="mt-0 text-danger">$22,754</h4>-->
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
+                            <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                         </div>
                     </div>
-
                     <!-- Main content -->
                     <section class="content">
                         <div class="row">
-                            <div class="col-lg-6 col-12">
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
-                                    <div class="box-header with-border">
-                                        <!--  
-                                    <h4 class="box-title">Sample form 1</h4>
-                                -->
+                                    <div class="box-header with-border bg-primary">                                
+                                        <h4 class="box-title">Registro Producto</h4>                                
                                     </div>
                                     <!-- /.box-header -->
-                                    <form class="form" role="form" method="post" name="form_reg_dato" onsubmit="return validacion()">
+                                    <form class="form" role="form" method="post" id="form_reg_dato" name="form_reg_dato" >
                                         <div class="box-body">
-                                            <h4 class="box-title text-info"><i class="ti-user mr-15"></i> Registro
-                                            </h4>
                                             <hr class="my-15">
                                             <div class="row">
-                                                <div class="col-md-6 col-12">
+                                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
                                                         <label>Codigo </label>
                                                         <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
@@ -485,25 +360,22 @@ if (isset($_POST)) {
                                                         <label id="val_codigo" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 col-12">
+                                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
                                                         <label>Nombre </label>
                                                         <input type="text" class="form-control" placeholder=" Nombre  Producto" id="NOMBREPRODUCTO" name="NOMBREPRODUCTO" value="<?php echo $NOMBREPRODUCTO; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_nombre" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6 col-12">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
                                                         <label>Especies</label>
                                                         <select class="form-control select2" id="ESPECIES" name="ESPECIES" style="width: 100%;" value="<?php echo $ESPECIES; ?>" <?php echo $DISABLED; ?>>
                                                             <option></option>
                                                             <?php foreach ($ARRAYESPECIES  as $r) : ?>
                                                                 <?php if ($ARRAYESPECIES) {    ?>
-                                                                    <option value="<?php echo $r['ID_ESPECIES']; ?>" <?php if ($ESPECIES == $r['ID_ESPECIES']) {
-                                                                                                                            echo "selected";
-                                                                                                                        } ?>>
+                                                                    <option value="<?php echo $r['ID_ESPECIES']; ?>" 
+                                                                    <?php if ($ESPECIES == $r['ID_ESPECIES']) {  echo "selected";  } ?>>
                                                                         <?php echo $r['NOMBRE_ESPECIES'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
@@ -514,16 +386,15 @@ if (isset($_POST)) {
                                                         <label id="val_especies" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 col-12">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
                                                         <label> Unidad Medida</label>
                                                         <select class="form-control select2" id="TUMEDIDA" name="TUMEDIDA" style="width: 100%;" value="<?php echo $TUMEDIDA; ?>" <?php echo $DISABLED; ?>>
                                                             <option></option>
                                                             <?php foreach ($ARRAYTUMEDIDA as $r) : ?>
                                                                 <?php if ($ARRAYTUMEDIDA) {    ?>
-                                                                    <option value="<?php echo $r['ID_TUMEDIDA']; ?>" <?php if ($TUMEDIDA == $r['ID_TUMEDIDA']) {
-                                                                                                                            echo "selected";
-                                                                                                                        } ?>>
+                                                                    <option value="<?php echo $r['ID_TUMEDIDA']; ?>"
+                                                                     <?php if ($TUMEDIDA == $r['ID_TUMEDIDA']) { echo "selected";  } ?>>
                                                                         <?php echo $r['NOMBRE_TUMEDIDA'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
@@ -534,18 +405,15 @@ if (isset($_POST)) {
                                                         <label id="val_tumedida" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6 col-12">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
                                                         <label>Familia</label>
                                                         <select class="form-control select2" id="FAMILIA" name="FAMILIA" style="width: 100%;" onchange="this.form.submit()" value="<?php echo $FAMILIA; ?>" <?php echo $DISABLED; ?>>
                                                             <option></option>
                                                             <?php foreach ($ARRAYFAMILIA as $r) : ?>
                                                                 <?php if ($ARRAYFAMILIA) {    ?>
-                                                                    <option value="<?php echo $r['ID_FAMILIA']; ?>" <?php if ($FAMILIA == $r['ID_FAMILIA']) {
-                                                                                                                        echo "selected";
-                                                                                                                    } ?>>
+                                                                    <option value="<?php echo $r['ID_FAMILIA']; ?>" 
+                                                                    <?php if ($FAMILIA == $r['ID_FAMILIA']) { echo "selected"; } ?>>
                                                                         <?php echo $r['NOMBRE_FAMILIA'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
@@ -556,16 +424,15 @@ if (isset($_POST)) {
                                                         <label id="val_familia" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 col-12">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
                                                         <label>Sub Familia</label>
                                                         <select class="form-control select2" id="SUBFAMILIA" name="SUBFAMILIA" style="width: 100%;" value="<?php echo $SUBFAMILIA; ?>" <?php echo $DISABLED; ?>>
                                                             <option></option>
                                                             <?php foreach ($ARRAYSUBFAMILIA  as $r) : ?>
                                                                 <?php if ($ARRAYSUBFAMILIA) {    ?>
-                                                                    <option value="<?php echo $r['ID_SUBFAMILIA']; ?>" <?php if ($SUBFAMILIA == $r['ID_SUBFAMILIA']) {
-                                                                                                                            echo "selected";
-                                                                                                                        } ?>>
+                                                                    <option value="<?php echo $r['ID_SUBFAMILIA']; ?>" 
+                                                                    <?php if ($SUBFAMILIA == $r['ID_SUBFAMILIA']) { echo "selected"; } ?>>
                                                                         <?php echo $r['NOMBRE_SUBFAMILIA'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
@@ -578,21 +445,21 @@ if (isset($_POST)) {
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-4 col-12">
+                                                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Optimo </label>
                                                         <input type="number" class="form-control" placeholder=" Optimo  Producto" id="OPTIMO" name="OPTIMO" value="<?php echo $OPTIMO; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_optimo" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4 col-12">
+                                                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Bajo </label>
                                                         <input type="number" class="form-control" placeholder=" Bajo  Producto" id="BAJO" name="BAJO" value="<?php echo $BAJO; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_bajo" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4 col-12">
+                                                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Crítico </label>
                                                         <input type="number" class="form-control" placeholder=" Crítico  Producto" id="CRITICO" name="CRITICO" value="<?php echo $CRITICO; ?>" <?php echo $DISABLED; ?> />
@@ -603,115 +470,136 @@ if (isset($_POST)) {
                                         </div>
                                         <!-- /.box-body -->
                                         <div class="box-footer">
-                                            <button type="button" class="btn btn-rounded btn-warning btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroProducto.php'); ">
-                                                <i class="ti-trash"></i> Cancelar
-                                            </button>
-                                            <?php if ($OP != "editar") { ?>
-                                                <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?>>
-                                                    <i class="ti-save-alt"></i> Crear
+                                            <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
+                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroProducto.php');">
+                                                <i class="ti-trash"></i>Cancelar
                                                 </button>
-                                            <?php } else { ?>
-                                                <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="EDITAR" value="EDITAR">
-                                                    <i class="ti-save-alt"></i> Guardar
-                                                </button>
-                                            <?php } ?>
+                                                <?php if ($OP != "editar") { ?>
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                                <?php } else { ?>
+                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                                <?php } ?>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
                                 <!-- /.box -->
                             </div>
-                            <div class="col-lg-6 col-12">
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
-                                    <div class="box-header with-border">
-                                        <h4 class="box-title">Registros</h4>
+                                    <div class="box-header with-border bg-info">                                               
+                                        <h4 class="box-title"> Agrupado Producto </h4>                                   
                                     </div>
                                     <div class="box-body">
-                                        <div class="row">
-                                            <div class="col-md-10 col-10">
-                                            </div>
-                                            <div class="col-md-2 col-2">
-                                                <form method="post" id="form2">
-                                                    <div class="row">
-                                                        <div class="col-md-1 col-1">
-                                                            <div class="form-group">
-                                                                <label>Exportar</label>
-                                                                <br>
-                                                                <input type="hidden" class="form-control" placeholder="URLEXCEL" id="URLEXCEL" name="URLEXCEL" value="reporteProducto" />
-                                                                <button type="submit" class="btn btn-rounded btn-success btn-outline" id="EXPORTAR" name="EXPORTAR" title="Exportar Excel">
-                                                                    <i class="fa fa-file-excel-o"></i>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-11 col-11">
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12 col-12">
-                                                <div class="table-responsive">
-                                                    <table id="listar" class="table table-hover " style="width: 100%;">
+                                        <div class="table-responsive">
+                                                    <table id="listar" class="table-hover " style="width: 100%;">
                                                         <thead>
                                                             <tr class="center">
                                                                 <th>Número</th>
-                                                                <th>Código</th>
-                                                                <th>Nombre</th>
                                                                 <th class="text-center">Operaciónes</th>
+                                                                <th>Código Producto</th>
+                                                                <th>Nombre Producto</th>
+                                                                <th>Unidad Medida</th>
+                                                                <th>Familia</th>
+                                                                <th>SubFamilia</th>
+                                                                <th>Especies</th>
+                                                                <th>Optimo</th>
+                                                                <th>Bajo</th>
+                                                                <th>Crítico</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <?php foreach ($ARRAYPRODUCTO as $r) : ?>
+                                                                <?php 
+                                                                    $ARRAYVERESPECIES=$ESPECIES_ADO->verEspecies($r["ID_ESPECIES"]);
+                                                                    if($ARRAYVERESPECIES){
+                                                                       $NOMBREESPECIES= $ARRAYVERESPECIES[0]["NOMBRE_ESPECIES"];
+                                                                    }else{
+                                                                        $NOMBREESPECIES="Sin Datos";
+                                                                    }
+                                                                    $ARRAYVERTUMEDIDA=$TUMEDIDA_ADO->verTumedida($r["ID_TUMEDIDA"]);
+                                                                    if($ARRAYVERTUMEDIDA){
+                                                                        $NOMBRETUMEDIDA= $ARRAYVERTUMEDIDA[0]["NOMBRE_TUMEDIDA"];
+                                                                    }else{
+                                                                        $NOMBRETUMEDIDA="Sin Datos";
+                                                                    }
+                                                                    $ARRAYVERFAMILIA=$FAMILIA_ADO->verFamilia($r["ID_FAMILIA"]);
+                                                                    if($ARRAYVERFAMILIA){
+                                                                        $NOMBREFAMILIA= $ARRAYVERFAMILIA[0]["NOMBRE_FAMILIA"];
+                                                                    }else{
+                                                                        $NOMBREFAMILIA="Sin Datos";
+                                                                    }
+                                                                    $ARRAYVERSUBFAMILIA=$SUBFAMILIA_ADO->verSubfamilia($r["ID_SUBFAMILIA"]);
+                                                                    if($ARRAYVERSUBFAMILIA){
+                                                                        $NOMBRESUBFAMILIA= $ARRAYVERSUBFAMILIA[0]["NOMBRE_SUBFAMILIA"];
+                                                                    }else{                                                                        
+                                                                        $NOMBRESUBFAMILIA="Sin Datos";
+                                                                    }
+
+                                                                ?>
                                                                 <tr class="center">
                                                                     <td>
                                                                         <a href="#" class="text-warning hover-warning">
                                                                             <?php echo $r['NUMERO_PRODUCTO']; ?>
                                                                         </a>
-                                                                    </td>
-                                                                    <td> <?php echo $r['CODIGO_PRODUCTO']; ?></td>
-                                                                    <td> <?php echo $r['NOMBRE_PRODUCTO']; ?></td>
+                                                                    </td>                                                                                                                            
                                                                     <td class="text-center">
                                                                         <form method="post" id="form1">
                                                                             <div class="list-icons d-inline-flex">
                                                                                 <div class="list-icons-item dropdown">
-                                                                                    <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown">
-                                                                                        <i class="glyphicon glyphicon-cog"></i>
-                                                                                    </a>
+                                                                                    <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                        <span class="icon-copy ti-settings"></span>
+                                                                                    </button>
                                                                                     <div class="dropdown-menu dropdown-menu-right">
                                                                                         <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_PRODUCTO']; ?>" />
                                                                                         <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroProducto" />
-                                                                                        <button type="submit" class="btn btn-rounded btn-outline-info btn-sm " id="VERURL" name="VERURL">
-                                                                                            <i class="ti-eye"></i>
-                                                                                        </button>Ver
-                                                                                        <br>
-                                                                                        <button type="submit" class="btn btn-rounded btn-outline-warning btn-sm" id="EDITARURL" name="EDITARURL">
-                                                                                            <i class="ti-pencil-alt"></i>
-                                                                                        </button>Editar
-                                                                                        <br>
+                                                                                        <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
+                                                                                            <button type="submit" class="btn btn-info btn-block  btn-sm" id="VERURL" name="VERURL">
+                                                                                                <i class="ti-eye"></i> Ver
+                                                                                            </button>
+                                                                                        </span> 
+                                                                                        <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
+                                                                                            <button type="submit" class="btn  btn-warning btn-block   btn-sm" id="EDITARURL" name="EDITARURL">
+                                                                                                <i class="ti-pencil-alt"></i> Editar
+                                                                                            </button>
+                                                                                        </span>
                                                                                         <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
-                                                                                            <button type="submit" class="btn btn-rounded btn-outline-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
-                                                                                                <i class="ti-na "></i>
-                                                                                            </button>Desahabilitar
-                                                                                            <br>
+                                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Desahabilitar">
+                                                                                                <button type="submit" class="btn btn-block btn-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
+                                                                                                    <i class="ti-na "></i> Desahabilitar
+                                                                                                </button>
+                                                                                            </span>
                                                                                         <?php } ?>
                                                                                         <?php if ($r['ESTADO_REGISTRO'] == 0) { ?>
-                                                                                            <button type="submit" class="btn btn-rounded btn-outline-success btn-sm" id="HABILITARURL" name="HABILITARURL">
-                                                                                                <i class="ti-check "></i>
-                                                                                            </button>Habilitar
-                                                                                            <br>
-                                                                                        <?php } ?>
+                                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Habilitar">
+                                                                                                <button type="submit" class="btn btn-block btn-success btn-sm" id="HABILITARURL" name="HABILITARURL">
+                                                                                                    <i class="ti-check "></i> Habilitar
+                                                                                                </button>
+                                                                                            </span>
+                                                                                        <?php } ?>                                                               
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                         </form>
                                                                     </td>
+                                                                    <td> <?php echo $r['CODIGO_PRODUCTO']; ?></td>
+                                                                    <td> <?php echo $r['NOMBRE_PRODUCTO']; ?></td>    
+                                                                    <td> <?php echo $NOMBREESPECIES; ?></td>   
+                                                                    <td> <?php echo $NOMBRETUMEDIDA; ?></td>   
+                                                                    <td> <?php echo $NOMBREFAMILIA; ?></td>   
+                                                                    <td> <?php echo $NOMBRESUBFAMILIA; ?></td>    
+                                                                    <td> <?php echo $r['OPTIMO']; ?></td>    
+                                                                    <td> <?php echo $r['BAJO']; ?></td>    
+                                                                    <td> <?php echo $r['CRITICO']; ?></td>    
                                                                 </tr>
                                                             <?php endforeach; ?>
                                                         </tbody>
                                                     </table>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </div>                                            
                                     </div>
                                 </div>
                                 <!-- /.box -->
@@ -723,13 +611,96 @@ if (isset($_POST)) {
                 </div>
             </div>
 
-
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraMaterial.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
-</body>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
+        <?php         
+            //OPERACIONES
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['GUARDAR'])) {
+                $ARRAYNUMERO = $PRODUCTO_ADO->obtenerNumero();
+                $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
 
+                $AUXILIARCODIGOPRODUCTO1 = "F" . $_REQUEST['FAMILIA'] . "S" . $_REQUEST['SUBFAMILIA'] . "C";
+                $AUXILIARCODIGOPRODUCTO12 = (1000) + $NUMERO;
+                $CODIGOPRODUCTO = $AUXILIARCODIGOPRODUCTO1 . $AUXILIARCODIGOPRODUCTO12;
+
+
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+                $PRODUCTOS->__SET('CODIGO_PRODUCTO', $CODIGOPRODUCTO);
+                $PRODUCTOS->__SET('NUMERO_PRODUCTO', $NUMERO);
+                $PRODUCTOS->__SET('NOMBRE_PRODUCTO', $_REQUEST['NOMBREPRODUCTO']);
+                $PRODUCTOS->__SET('OPTIMO', $_REQUEST['OPTIMO']);
+                $PRODUCTOS->__SET('BAJO', $_REQUEST['BAJO']);
+                $PRODUCTOS->__SET('CRITICO', $_REQUEST['CRITICO']);
+                $PRODUCTOS->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $PRODUCTOS->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                $PRODUCTOS->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
+                $PRODUCTOS->__SET('ID_FAMILIA', $_REQUEST['FAMILIA']);
+                $PRODUCTOS->__SET('ID_SUBFAMILIA', $_REQUEST['SUBFAMILIA']);
+                $PRODUCTOS->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);
+                $PRODUCTOS->__SET('ID_USUARIOI', $IDUSUARIOS);
+                $PRODUCTOS->__SET('ID_USUARIOM', $IDUSUARIOS);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $PRODUCTO_ADO->agregarProducto($PRODUCTOS);
+                //REDIRECCIONAR A PAGINA registroEcomercial.php
+                    echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Creado",
+                        text:"El registro del mantenedor se ha creado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroProducto.php";                            
+                    })
+                </script>';
+            }
+            //OPERACION DE EDICION DE FILA
+            if (isset($_REQUEST['EDITAR'])) {
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO 
+
+                $AUXILIARCODIGOPRODUCTO1 = "F" . $_REQUEST['FAMILIA'] . "S" . $_REQUEST['SUBFAMILIA'] . "C";
+                $AUXILIARCODIGOPRODUCTO12 = (1000) + $_REQUEST['NUMERO'];
+                $CODIGOPRODUCTO = $AUXILIARCODIGOPRODUCTO1 . $AUXILIARCODIGOPRODUCTO12;
+
+
+                $PRODUCTOS->__SET('CODIGO_PRODUCTO', $CODIGOPRODUCTO);
+                $PRODUCTOS->__SET('NOMBRE_PRODUCTO', $_REQUEST['NOMBREPRODUCTO']);
+                $PRODUCTOS->__SET('OPTIMO', $_REQUEST['OPTIMO']);
+                $PRODUCTOS->__SET('BAJO', $_REQUEST['BAJO']);
+                $PRODUCTOS->__SET('CRITICO', $_REQUEST['CRITICO']);
+                $PRODUCTOS->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $PRODUCTOS->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                $PRODUCTOS->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
+                $PRODUCTOS->__SET('ID_FAMILIA', $_REQUEST['FAMILIA']);
+                $PRODUCTOS->__SET('ID_SUBFAMILIA', $_REQUEST['SUBFAMILIA']);
+                $PRODUCTOS->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);
+                $PRODUCTOS->__SET('ID_USUARIOM', $IDUSUARIOS);
+                $PRODUCTOS->__SET('ID_PRODUCTO', $_REQUEST['ID']);
+                //LLAMADA AL METODO DE EDICION DEL CONTROLADOR   
+                $PRODUCTO_ADO->actualizarProducto($PRODUCTOS);
+                //REDIRECCIONAR A PAGINA registroEcomercial.php
+                    echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Modificado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroProducto.php";                            
+                    })
+                </script>';
+            }
+
+        ?>
+</body>
 </html>

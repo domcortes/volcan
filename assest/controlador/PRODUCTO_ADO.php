@@ -48,7 +48,7 @@ class PRODUCTO_ADO {
     public function listarProducto(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_producto` limit 8 WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_producto  limit 8 WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -67,7 +67,7 @@ class PRODUCTO_ADO {
     public function listarProductoCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_producto` WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_producto  WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -86,7 +86,7 @@ class PRODUCTO_ADO {
     public function listarProducto2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_producto` WHERE ESTADO_REGISTRO = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_producto  WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -107,7 +107,7 @@ class PRODUCTO_ADO {
     public function verProducto($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_producto` WHERE `ID_PRODUCTO`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_producto  WHERE  ID_PRODUCTO = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -132,24 +132,24 @@ class PRODUCTO_ADO {
             
 
             $query=
-            "INSERT INTO `material_producto` (
-                                              `CODIGO_PRODUCTO`,
-                                              `NUMERO_PRODUCTO`,
-                                              `NOMBRE_PRODUCTO`,
-                                              `OPTIMO`,
-                                              `CRITICO`,
-                                              `BAJO`,
-                                              `ID_EMPRESA`,
-                                              `ID_TEMPORADA`,
-                                              `ID_TUMEDIDA`,
-                                              `ID_FAMILIA`,
-                                              `ID_SUBFAMILIA`,
-                                              `ID_ESPECIES`,
-                                              `ID_USUARIOI`,
-                                              `ID_USUARIOM`,
-                                              `INGRESO`,
-                                              `MODIFICACION`, 
-                                              `ESTADO_REGISTRO`) VALUES
+            "INSERT INTO  material_producto  (
+                                               CODIGO_PRODUCTO ,
+                                               NUMERO_PRODUCTO ,
+                                               NOMBRE_PRODUCTO ,
+                                               OPTIMO ,
+                                               CRITICO ,
+                                               BAJO ,
+                                               ID_EMPRESA ,
+                                               ID_TEMPORADA ,
+                                               ID_TUMEDIDA ,
+                                               ID_FAMILIA ,
+                                               ID_SUBFAMILIA ,
+                                               ID_ESPECIES ,
+                                               ID_USUARIOI ,
+                                               ID_USUARIOM ,
+                                               INGRESO ,
+                                               MODIFICACION , 
+                                               ESTADO_REGISTRO ) VALUES
 	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,   SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
@@ -180,7 +180,7 @@ class PRODUCTO_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarProducto($id){
-        try{$sql="DELETE FROM `material_producto` WHERE `ID_PRODUCTO`=".$id.";";
+        try{$sql="DELETE FROM  material_producto  WHERE  ID_PRODUCTO =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -197,21 +197,21 @@ class PRODUCTO_ADO {
     public function actualizarProducto(PRODUCTO $PRODUCTO){
         try{
             $query = "
-		UPDATE `material_producto` SET
-            `MODIFICACION`= SYSDATE(),
-            `CODIGO_PRODUCTO`= ?,
-            `NOMBRE_PRODUCTO`= ?,
-            `OPTIMO`= ?,
-            `CRITICO`= ?,
-            `BAJO`= ?,
-            `ID_EMPRESA`= ?,
-            `ID_TEMPORADA`= ?,
-            `ID_TUMEDIDA`= ?  ,
-            `ID_FAMILIA`= ?     ,      
-            `ID_SUBFAMILIA`= ? ,      
-            `ID_ESPECIES`= ? ,      
-            `ID_USUARIOM`= ? 
-		WHERE `ID_PRODUCTO`= ?;";
+		UPDATE  material_producto  SET
+             MODIFICACION = SYSDATE(),
+             CODIGO_PRODUCTO = ?,
+             NOMBRE_PRODUCTO = ?,
+             OPTIMO = ?,
+             CRITICO = ?,
+             BAJO = ?,
+             ID_EMPRESA = ?,
+             ID_TEMPORADA = ?,
+             ID_TUMEDIDA = ?  ,
+             ID_FAMILIA = ?     ,      
+             ID_SUBFAMILIA = ? ,      
+             ID_ESPECIES = ? ,      
+             ID_USUARIOM = ? 
+		WHERE  ID_PRODUCTO = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(   
@@ -247,10 +247,10 @@ class PRODUCTO_ADO {
 
         try{
             $query = "
-    UPDATE `material_producto` SET			
-    `MODIFICACION`= SYSDATE(),		
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_PRODUCTO`= ?;";
+    UPDATE  material_producto  SET			
+     MODIFICACION = SYSDATE(),		
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_PRODUCTO = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -268,10 +268,10 @@ class PRODUCTO_ADO {
     public function habilitar(PRODUCTO $PRODUCTO){
         try{
             $query = "
-    UPDATE `material_producto` SET		
-    `MODIFICACION`= SYSDATE(),			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_PRODUCTO`= ?;";
+    UPDATE  material_producto  SET		
+     MODIFICACION = SYSDATE(),			
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_PRODUCTO = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -292,7 +292,7 @@ class PRODUCTO_ADO {
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                     IFNULL(COUNT(NUMERO_PRODUCTO),0) AS 'NUMERO'
-                                                FROM `material_producto`  ; ");
+                                                FROM  material_producto   ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -312,7 +312,7 @@ class PRODUCTO_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT * 
-                                                FROM `material_producto` WHERE ESTADO_REGISTRO = 1  AND ID_EMPRESA = '".$IDEMPRESA."';	");
+                                                FROM  material_producto  WHERE ESTADO_REGISTRO = 1  AND ID_EMPRESA = '".$IDEMPRESA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -333,7 +333,7 @@ class PRODUCTO_ADO {
             
             $datos=$this->conexion->prepare("SELECT 
                                                 * 
-                                            FROM `material_producto` 
+                                            FROM  material_producto  
                                                 WHERE ESTADO_REGISTRO = 1  
                                                 AND ID_EMPRESA = '".$IDEMPRESA."'
                                                 AND ID_TEMPORADA = '".$IDTEMPORADA."';	");

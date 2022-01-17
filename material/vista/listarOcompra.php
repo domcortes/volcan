@@ -83,49 +83,10 @@ include_once "../../assest/config/datosUrLP.php";
                     location.href = "" + url;
                 }
 
-                //FUNCION PARA OBTENER HORA Y FECHA
-                function mueveReloj() {
-
-
-                    momentoActual = new Date();
-
-                    dia = momentoActual.getDate();
-                    mes = momentoActual.getMonth() + 1;
-                    ano = momentoActual.getFullYear();
-
-                    hora = momentoActual.getHours();
-                    minuto = momentoActual.getMinutes();
-                    segundo = momentoActual.getSeconds();
-
-                    if (dia < 10) {
-                        dia = "0" + dia;
-                    }
-
-                    if (mes < 10) {
-                        mes = "0" + mes;
-                    }
-                    if (hora < 10) {
-                        hora = "0" + hora;
-                    }
-                    if (minuto < 10) {
-                        minuto = "0" + minuto;
-                    }
-                    if (segundo < 10) {
-                        segundo = "0" + segundo;
-                    }
-
-                    horaImprimible = hora + " : " + minuto;
-                    fechaImprimible = dia + "-" + mes + "-" + ano;
-
-
-                    //     document.form_reg_dato.HORAOCOMPRA.value = horaImprimible;
-                    document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
-                    setTimeout("mueveReloj()", 1000);
-                }
-                /*
+           
                 function refrescar() {
                     document.getElementById("form_reg_dato").submit();
-                }*/
+                }
                 function abrirPestana(url) {
                     var win = window.open(url, '_blank');
                     win.focus();
@@ -139,7 +100,7 @@ include_once "../../assest/config/datosUrLP.php";
             </script>
 </head>
 
-<body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
+<body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <?php include_once "../../assest/config/menuMaterial.php"; ?>
         <!-- Content Wrapper. Contains page content -->
@@ -150,7 +111,7 @@ include_once "../../assest/config/datosUrLP.php";
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                            <h3 class="page-title">Orden Compra</h3>
+                            <h3 class="page-title">Administración </h3>
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
@@ -158,33 +119,12 @@ include_once "../../assest/config/datosUrLP.php";
                                         <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                         <li class="breadcrumb-item" aria-current="page">Administración</li>
                                         <li class="breadcrumb-item" aria-current="page">Orden Compra</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Orden </a>
-                                        </li>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Orden </a>  </li>
                                     </ol>
                                 </nav>
                             </div>
                         </div>
-                        <div class="right-title">
-                            <div class="d-flex mt-10 justify-content-end">
-                                <div class="d-lg-flex mr-20 ml-10 d-none">
-                                    <div class="chart-text mr-10">
-                                        <h6 class="mb-0"><small></small></h6>
-                                        <h4 class="mt-0 text-primary">
-                                            <div id="DolarO"></div>
-                                        </h4>
-                                    </div>
-                                </div>
-                                <div class="d-lg-flex mr-20 ml-10 d-none">
-                                    <div class="chart-text mr-10">
-                                        <h6 class="mb-0"><small></small></h6>
-                                        <h4 class="mt-0 text-danger">
-                                            <div id="Euro"></div>
-                                        </h4>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
+                        <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                     </div>
                 </div>
                 <!-- Main content -->
@@ -300,7 +240,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                                             <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_OCOMPRA']; ?>" />
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroOcompra" />
                                                                             <input type="hidden" class="form-control" placeholder="URLO" id="URLO" name="URLO" value="listarOcompra" />
-                                                                            <input type="hidden" class="form-control" placeholder="URLMV" id="URLMV" name="URLMV" value="listarMocompra" />
+                                                                            <input type="hidden" class="form-control" placeholder="URLMV" id="URLMR" name="URLMR" value="listarMocompra" />
                                                                             <?php if ($r['ESTADO'] == "0") { ?>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
                                                                                     <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
@@ -316,8 +256,9 @@ include_once "../../assest/config/datosUrLP.php";
                                                                                 </span>
                                                                             <?php } ?>
                                                                             <?php if ($ARRAYMOCOMPRA) { ?>
+                                                                                <hr>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver Motivos">
-                                                                                    <button type="submit" class="btn btn-info btn-block"  id="VERMOTIVOSRURL" name="VERMOTIVOSRURL" title="Ver Motivos">
+                                                                                    <button type="submit" class="btn btn-primary btn-block"  id="VERMOTIVOSRURL" name="VERMOTIVOSRURL" title="Ver Motivos">
                                                                                         <i class="ti-eye"></i> Ver Motivos
                                                                                     </button>
                                                                                 </span>

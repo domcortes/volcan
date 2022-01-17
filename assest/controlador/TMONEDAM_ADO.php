@@ -48,7 +48,7 @@ class TMONEDAM_ADO {
     public function listarTmoneda(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_tmoneda` limit 8 WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_tmoneda  limit 8 WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -67,7 +67,7 @@ class TMONEDAM_ADO {
     public function listarTmonedaCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_tmoneda` WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_tmoneda  WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -86,7 +86,7 @@ class TMONEDAM_ADO {
     public function listarTmoneda2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_tmoneda` WHERE ESTADO_REGISTRO = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_tmoneda  WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -107,7 +107,7 @@ class TMONEDAM_ADO {
     public function verTmoneda($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_tmoneda` WHERE `ID_TMONEDA`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_tmoneda  WHERE  ID_TMONEDA = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -132,15 +132,15 @@ class TMONEDAM_ADO {
             
             
             $query=
-            "INSERT INTO `material_tmoneda` (
-                                                `NUMERO_TMONEDA`, 
-                                                `NOMBRE_TMONEDA`, 
-                                                `ID_EMPRESA`,
-                                                `ID_USUARIOI`,
-                                                `ID_USUARIOM`,
-                                                `INGRESO`,
-                                                `MODIFICACION`, 
-                                                `ESTADO_REGISTRO`
+            "INSERT INTO  material_tmoneda  (
+                                                 NUMERO_TMONEDA , 
+                                                 NOMBRE_TMONEDA , 
+                                                 ID_EMPRESA ,
+                                                 ID_USUARIOI ,
+                                                 ID_USUARIOM ,
+                                                 INGRESO ,
+                                                 MODIFICACION , 
+                                                 ESTADO_REGISTRO 
                                             ) VALUES
 	       	( ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
@@ -163,7 +163,7 @@ class TMONEDAM_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarTmoneda($id){
-        try{$sql="DELETE FROM `material_tmoneda` WHERE `ID_TMONEDA`=".$id.";";
+        try{$sql="DELETE FROM  material_tmoneda  WHERE  ID_TMONEDA =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -180,12 +180,12 @@ class TMONEDAM_ADO {
     public function actualizarTmoneda(TMONEDAM $TMONEDAM){
         try{
             $query = "
-		UPDATE `material_tmoneda` SET
-            `MODIFICACION`= SYSDATE(),
-            `NOMBRE_TMONEDA`= ?,
-            `ID_EMPRESA`= ?,
-            `ID_USUARIOM`= ?            
-		WHERE `ID_TMONEDA`= ?;";
+		UPDATE  material_tmoneda  SET
+             MODIFICACION = SYSDATE(),
+             NOMBRE_TMONEDA = ?,
+             ID_EMPRESA = ?,
+             ID_USUARIOM = ?            
+		WHERE  ID_TMONEDA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(   
@@ -212,10 +212,10 @@ class TMONEDAM_ADO {
 
         try{
             $query = "
-    UPDATE `material_tmoneda` SET			
-            `MODIFICACION`= SYSDATE(),		
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_TMONEDA`= ?;";
+    UPDATE  material_tmoneda  SET			
+             MODIFICACION = SYSDATE(),		
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_TMONEDA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -233,10 +233,10 @@ class TMONEDAM_ADO {
     public function habilitar(TMONEDAM $TMONEDAM){
         try{
             $query = "
-    UPDATE `material_tmoneda` SET			
-            `MODIFICACION`= SYSDATE(),		
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_TMONEDA`= ?;";
+    UPDATE  material_tmoneda  SET			
+             MODIFICACION = SYSDATE(),		
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_TMONEDA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -253,7 +253,7 @@ class TMONEDAM_ADO {
     public function listarTmonedaPorEmpresaCBX($IDEMPRESA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_tmoneda` WHERE ESTADO_REGISTRO = 1 AND ID_EMPRESA = '".$IDEMPRESA."' ;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_tmoneda  WHERE ESTADO_REGISTRO = 1 AND ID_EMPRESA = '".$IDEMPRESA."' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -274,7 +274,7 @@ class TMONEDAM_ADO {
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                     IFNULL(COUNT(NUMERO_TMONEDA),0) AS 'NUMERO'
-                                                FROM `material_tmoneda`  ; ");
+                                                FROM  material_tmoneda   ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;

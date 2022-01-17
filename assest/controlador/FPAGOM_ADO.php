@@ -48,7 +48,7 @@ class FPAGOM_ADO {
     public function listarFpago(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_fpago` limit 8 WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_fpago  limit 8 WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -67,7 +67,7 @@ class FPAGOM_ADO {
     public function listarFpagoCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_fpago` WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_fpago  WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -86,7 +86,7 @@ class FPAGOM_ADO {
     public function listarFpago2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_fpago` WHERE ESTADO_REGISTRO = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_fpago  WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -107,7 +107,7 @@ class FPAGOM_ADO {
     public function verFpago($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_fpago` WHERE `ID_FPAGO`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_fpago  WHERE  ID_FPAGO = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -132,16 +132,16 @@ class FPAGOM_ADO {
             
             
             $query=
-            "INSERT INTO `material_fpago` (
-                                            `NUMERO_FPAGO`,
-                                            `NOMBRE_FPAGO`,
-                                            `FECHA_FPAGO`,  
-                                            `ID_EMPRESA`,
-                                            `ID_USUARIOI`,
-                                            `ID_USUARIOM`,
-                                            `INGRESO`,
-                                            `MODIFICACION`, 
-                                            `ESTADO_REGISTRO`) VALUES
+            "INSERT INTO  material_fpago  (
+                                             NUMERO_FPAGO ,
+                                             NOMBRE_FPAGO ,
+                                             FECHA_FPAGO ,  
+                                             ID_EMPRESA ,
+                                             ID_USUARIOI ,
+                                             ID_USUARIOM ,
+                                             INGRESO ,
+                                             MODIFICACION , 
+                                             ESTADO_REGISTRO ) VALUES
 	       	( ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
@@ -164,7 +164,7 @@ class FPAGOM_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarFpago($id){
-        try{$sql="DELETE FROM `material_fpago` WHERE `ID_FPAGO`=".$id.";";
+        try{$sql="DELETE FROM  material_fpago  WHERE  ID_FPAGO =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -181,13 +181,13 @@ class FPAGOM_ADO {
     public function actualizarFpago(FPAGO $FPAGO){
         try{
             $query = "
-		UPDATE `material_fpago` SET
-            `MODIFICACION`= SYSDATE(),
-            `NOMBRE_FPAGO`= ?,
-            `FECHA_FPAGO`= ?,
-            `ID_EMPRESA`= ? ,
-            `ID_USUARIOM`= ?            
-		WHERE `ID_FPAGO`= ?;";
+		UPDATE  material_fpago  SET
+             MODIFICACION = SYSDATE(),
+             NOMBRE_FPAGO = ?,
+             FECHA_FPAGO = ?,
+             ID_EMPRESA = ? ,
+             ID_USUARIOM = ?            
+		WHERE  ID_FPAGO = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(   
@@ -215,10 +215,10 @@ class FPAGOM_ADO {
 
         try{
             $query = "
-    UPDATE `material_fpago` SET				
-    `MODIFICACION`= SYSDATE(),	
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_FPAGO`= ?;";
+    UPDATE  material_fpago  SET				
+     MODIFICACION = SYSDATE(),	
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_FPAGO = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -236,10 +236,10 @@ class FPAGOM_ADO {
     public function habilitar(FPAGO $FPAGO){
         try{
             $query = "
-    UPDATE `material_fpago` SET				
-    `MODIFICACION`= SYSDATE(),	
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_FPAGO`= ?;";
+    UPDATE  material_fpago  SET				
+     MODIFICACION = SYSDATE(),	
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_FPAGO = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -256,7 +256,7 @@ class FPAGOM_ADO {
     public function listarFpagoPorEmpresaCBX($IDEMPRESA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_fpago` WHERE ESTADO_REGISTRO = 1 AND ID_EMPRESA='".$IDEMPRESA."';	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_fpago  WHERE ESTADO_REGISTRO = 1 AND ID_EMPRESA='".$IDEMPRESA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -276,7 +276,7 @@ class FPAGOM_ADO {
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                     IFNULL(COUNT(NUMERO_FPAGO),0) AS 'NUMERO'
-                                                FROM `material_fpago`  ; ");
+                                                FROM  material_fpago   ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;

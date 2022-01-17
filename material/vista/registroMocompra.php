@@ -118,7 +118,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Registro Motivo Rechazo</h3>
+                                <h3 class="page-title">Administración</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
@@ -126,8 +126,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Administración</li>
                                             <li class="breadcrumb-item" aria-current="page">Orden Compra</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Registro Motivo Rechazo </a>
-                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Registro Motivo Rechazo </a> </li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -138,17 +137,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                     <!-- Main content -->
                     <section class="content">
                         <div class="box">
-                            <div class="box-header with-border">
-                                <!--  
-                                    <h4 class="box-title">Sample form 1</h4>
-                                -->
-                            </div>
+                                <div class="box-header with-border bg-danger">                                    
+                                    <h4 class="box-title">Registro Motivo Rechazo</h4>                                
+                                </div>
                             <!-- /.box-header -->
                             <form class="form" role="form" method="post" name="form_reg_dato" >
                                 <div class="box-body">
-
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Número </label>
                                                 <input type="hidden" class="form-control" placeholder="ID " id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
@@ -163,7 +159,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                                 <label id="val_numerodespacho" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Número OC </label>
                                                 <input type="hidden" class="form-control" placeholder="Numero OC" id="NUMEROOC" name="NUMEROOC" value="<?php echo $NUMEROOC; ?>" />
@@ -171,7 +167,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                                 <label id="val_oc" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Número OC Interno </label>
                                                 <input type="hidden" class="form-control" placeholder="Numero OC Interno" id="NUMEROOCI" name="NUMEROOCI" value="<?php echo $NUMEROOCI; ?>" />
@@ -181,7 +177,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Motivo </label>
                                                 <input type="hidden" class="form-control" placeholder="Numero Despacho" id="MOTIVOE" name="MOTIVOE" value="<?php echo $MOTIVO; ?>" />

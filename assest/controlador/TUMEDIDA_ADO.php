@@ -48,7 +48,7 @@ class TUMEDIDA_ADO {
     public function listarTumedida(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_tumedida` limit 8 WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_tumedida  limit 8 WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -67,7 +67,7 @@ class TUMEDIDA_ADO {
     public function listarTumedidaCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_tumedida` WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_tumedida  WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -86,7 +86,7 @@ class TUMEDIDA_ADO {
     public function listarTumedida2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_tumedida` WHERE ESTADO_REGISTRO = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_tumedida  WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -107,7 +107,7 @@ class TUMEDIDA_ADO {
     public function verTumedida($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_tumedida` WHERE `ID_TUMEDIDA`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_tumedida  WHERE  ID_TUMEDIDA = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -132,15 +132,15 @@ class TUMEDIDA_ADO {
             
             
             $query=
-            "INSERT INTO `material_tumedida` (
-                                                `NUMERO_TUMEDIDA`, 
-                                                `NOMBRE_TUMEDIDA`, 
-                                                `ID_EMPRESA`,
-                                                `ID_USUARIOI`,
-                                                `ID_USUARIOM`,
-                                                `INGRESO`,
-                                                `MODIFICACION`, 
-                                                `ESTADO_REGISTRO`) VALUES
+            "INSERT INTO  material_tumedida  (
+                                                 NUMERO_TUMEDIDA , 
+                                                 NOMBRE_TUMEDIDA , 
+                                                 ID_EMPRESA ,
+                                                 ID_USUARIOI ,
+                                                 ID_USUARIOM ,
+                                                 INGRESO ,
+                                                 MODIFICACION , 
+                                                 ESTADO_REGISTRO ) VALUES
 	       	( ?, ?, ?, ?, ?,SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
@@ -162,7 +162,7 @@ class TUMEDIDA_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarTumedida($id){
-        try{$sql="DELETE FROM `material_tumedida` WHERE `ID_TUMEDIDA`=".$id.";";
+        try{$sql="DELETE FROM  material_tumedida  WHERE  ID_TUMEDIDA =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -179,12 +179,12 @@ class TUMEDIDA_ADO {
     public function actualizarTumedida(TUMEDIDA $TUMEDIDA){
         try{
             $query = "
-		UPDATE `material_tumedida` SET
-            `MODIFICACION`= SYSDATE(),
-            `NOMBRE_TUMEDIDA`= ?,
-            `ID_EMPRESA`= ?,
-            `ID_TUMEDIDA`= ?            
-		WHERE `ID_TUMEDIDA`= ?;";
+		UPDATE  material_tumedida  SET
+             MODIFICACION = SYSDATE(),
+             NOMBRE_TUMEDIDA = ?,
+             ID_EMPRESA = ?,
+             ID_TUMEDIDA = ?            
+		WHERE  ID_TUMEDIDA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(   
@@ -211,10 +211,10 @@ class TUMEDIDA_ADO {
 
         try{
             $query = "
-    UPDATE `material_tumedida` SET			
-            `MODIFICACION`= SYSDATE(),		
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_TUMEDIDA`= ?;";
+    UPDATE  material_tumedida  SET			
+             MODIFICACION = SYSDATE(),		
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_TUMEDIDA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -232,10 +232,10 @@ class TUMEDIDA_ADO {
     public function habilitar(TUMEDIDA $TUMEDIDA){
         try{
             $query = "
-    UPDATE `material_tumedida` SET			
-            `MODIFICACION`= SYSDATE(),		
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_TUMEDIDA`= ?;";
+    UPDATE  material_tumedida  SET			
+             MODIFICACION = SYSDATE(),		
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_TUMEDIDA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -253,7 +253,7 @@ class TUMEDIDA_ADO {
     public function listarTumedidaPorEmpresaCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_tumedida` WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_tumedida  WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -275,7 +275,7 @@ class TUMEDIDA_ADO {
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                     IFNULL(COUNT(NUMERO_TUMEDIDA),0) AS 'NUMERO'
-                                                FROM `material_tumedida`  ; ");
+                                                FROM  material_tumedida   ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;

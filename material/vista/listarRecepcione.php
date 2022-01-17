@@ -107,50 +107,10 @@ include_once "../../assest/config/datosUrLP.php";
                 function irPagina(url) {
                     location.href = "" + url;
                 }
-
-                //FUNCION PARA OBTENER HORA Y FECHA
-                function mueveReloj() {
-
-
-                    momentoActual = new Date();
-
-                    dia = momentoActual.getDate();
-                    mes = momentoActual.getMonth() + 1;
-                    ano = momentoActual.getFullYear();
-
-                    hora = momentoActual.getHours();
-                    minuto = momentoActual.getMinutes();
-                    segundo = momentoActual.getSeconds();
-
-                    if (dia < 10) {
-                        dia = "0" + dia;
-                    }
-
-                    if (mes < 10) {
-                        mes = "0" + mes;
-                    }
-                    if (hora < 10) {
-                        hora = "0" + hora;
-                    }
-                    if (minuto < 10) {
-                        minuto = "0" + minuto;
-                    }
-                    if (segundo < 10) {
-                        segundo = "0" + segundo;
-                    }
-
-                    horaImprimible = hora + " : " + minuto;
-                    fechaImprimible = dia + "-" + mes + "-" + ano;
-
-
-                    //     document.form_reg_dato.HORARECEPCION.value = horaImprimible;
-                    document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
-                    setTimeout("mueveReloj()", 1000);
-                }
-                /*
+              
                 function refrescar() {
                     document.getElementById("form_reg_dato").submit();
-                }*/
+                }
                 function abrirPestana(url) {             
                     var win = window.open(url, '_blank');
                     win.focus();
@@ -164,18 +124,17 @@ include_once "../../assest/config/datosUrLP.php";
             </script>
 </head>
 
-<body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
+<body class="hold-transition light-skin fixed sidebar-mini theme-primary">
     <div class="wrapper">
         <?php include_once "../../assest/config/menuMaterial.php"; ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="container-full">
-
                 <!-- Content Header (Page header) -->
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                            <h3 class="page-title">Recepción Envases </h3>
+                            <h3 class="page-title">Envases </h3>
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
@@ -183,8 +142,7 @@ include_once "../../assest/config/datosUrLP.php";
                                         <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                         <li class="breadcrumb-item" aria-current="page">Envases</li>
                                         <li class="breadcrumb-item" aria-current="page">Recepción</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Recepción </a>
-                                        </li>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Recepción </a> </li>
                                     </ol>
                                 </nav>
                             </div>
@@ -192,7 +150,6 @@ include_once "../../assest/config/datosUrLP.php";
                         <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                     </div>
                 </div>
-
                 <!-- Main content -->
                 <section class="content">
                     <div class="box">

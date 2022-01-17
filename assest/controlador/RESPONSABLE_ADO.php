@@ -48,7 +48,7 @@ class RESPONSABLE_ADO {
     public function listarResponsable(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_responsable` limit 8 WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_responsable  limit 8 WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -67,7 +67,7 @@ class RESPONSABLE_ADO {
     public function listarResponsableCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_responsable` WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_responsable  WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -86,7 +86,7 @@ class RESPONSABLE_ADO {
     public function listarResponsable2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_responsable` WHERE ESTADO_REGISTRO = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_responsable  WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -107,7 +107,7 @@ class RESPONSABLE_ADO {
     public function verResponsable($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_responsable` WHERE `ID_RESPONSABLE`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_responsable  WHERE  ID_RESPONSABLE = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -132,22 +132,25 @@ class RESPONSABLE_ADO {
             if($RESPONSABLE->__GET('ID_USUARIO')==NULL){
                 $RESPONSABLE->__SET('ID_USUARIO', NULL);
             }
+            if($RESPONSABLE->__GET('ID_CIUDAD')==NULL){
+                $RESPONSABLE->__SET('ID_CIUDAD', NULL);
+            }
             $query=
-            "INSERT INTO `material_responsable` (   `RUT_RESPONSABLE`,
-                                                    `DV_RESPONSABLE`,
-                                                    `NUMERO_RESPONSABLE`,
-                                                    `NOMBRE_RESPONSABLE`,
-                                                    `DIRECCION_RESPONSABLE`,
-                                                    `TELEFONO_RESPONSABLE`,
-                                                    `EMAIL_RESPONSABLE`,
-                                                    `ID_EMPRESA`,
-                                                    `ID_CIUDAD`,
-                                                    `ID_USUARIO`,
-                                                    `ID_USUARIOI`,
-                                                    `ID_USUARIOM`,
-                                                    `INGRESO`,
-                                                    `MODIFICACION`, 
-                                                    `ESTADO_REGISTRO`) VALUES
+            "INSERT INTO  material_responsable  (    RUT_RESPONSABLE ,
+                                                     DV_RESPONSABLE ,
+                                                     NUMERO_RESPONSABLE ,
+                                                     NOMBRE_RESPONSABLE ,
+                                                     DIRECCION_RESPONSABLE ,
+                                                     TELEFONO_RESPONSABLE ,
+                                                     EMAIL_RESPONSABLE ,
+                                                     ID_EMPRESA ,
+                                                     ID_CIUDAD ,
+                                                     ID_USUARIO ,
+                                                     ID_USUARIOI ,
+                                                     ID_USUARIOM ,
+                                                     INGRESO ,
+                                                     MODIFICACION , 
+                                                     ESTADO_REGISTRO ) VALUES
 	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
@@ -179,7 +182,7 @@ class RESPONSABLE_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarResponsable($id){
-        try{$sql="DELETE FROM `material_responsable` WHERE `ID_RESPONSABLE`=".$id.";";
+        try{$sql="DELETE FROM  material_responsable  WHERE  ID_RESPONSABLE =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -198,20 +201,23 @@ class RESPONSABLE_ADO {
             if($RESPONSABLE->__GET('ID_USUARIO')==NULL){
                 $RESPONSABLE->__SET('ID_USUARIO', NULL);
             }
+            if($RESPONSABLE->__GET('ID_CIUDAD')==NULL){
+                $RESPONSABLE->__SET('ID_CIUDAD', NULL);
+            }
             $query = "
-		UPDATE `material_responsable` SET
-            `MODIFICACION`= SYSDATE(),
-            `RUT_RESPONSABLE`= ?,
-            `DV_RESPONSABLE`= ?,
-            `NOMBRE_RESPONSABLE`= ?,
-            `DIRECCION_RESPONSABLE`= ?,
-            `TELEFONO_RESPONSABLE`= ?,
-            `EMAIL_RESPONSABLE`= ?,
-            `ID_EMPRESA`= ? ,
-            `ID_CIUDAD`= ? ,
-            `ID_USUARIO`= ?   ,
-            `ID_USUARIOM`= ?         
-		WHERE `ID_RESPONSABLE`= ?;";
+		UPDATE  material_responsable  SET
+             MODIFICACION = SYSDATE(),
+             RUT_RESPONSABLE = ?,
+             DV_RESPONSABLE = ?,
+             NOMBRE_RESPONSABLE = ?,
+             DIRECCION_RESPONSABLE = ?,
+             TELEFONO_RESPONSABLE = ?,
+             EMAIL_RESPONSABLE = ?,
+             ID_EMPRESA = ? ,
+             ID_CIUDAD = ? ,
+             ID_USUARIO = ?   ,
+             ID_USUARIOM = ?         
+		WHERE  ID_RESPONSABLE = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(   
@@ -245,10 +251,10 @@ class RESPONSABLE_ADO {
 
         try{
             $query = "
-    UPDATE `material_responsable` SET				
-            `MODIFICACION`= SYSDATE(),	
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_RESPONSABLE`= ?;";
+    UPDATE  material_responsable  SET				
+             MODIFICACION = SYSDATE(),	
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_RESPONSABLE = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -266,10 +272,10 @@ class RESPONSABLE_ADO {
     public function habilitar(RESPONSABLE $RESPONSABLE){
         try{
             $query = "
-    UPDATE `material_responsable` SET			
-            `MODIFICACION`= SYSDATE(),		
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_RESPONSABLE`= ?;";
+    UPDATE  material_responsable  SET			
+             MODIFICACION = SYSDATE(),		
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_RESPONSABLE = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -286,7 +292,7 @@ class RESPONSABLE_ADO {
     public function listarResponsablePorEmpresaCBX($IDEMPRESA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_responsable` WHERE ESTADO_REGISTRO = 1  AND ID_EMPRESA = '".$IDEMPRESA."';	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_responsable  WHERE ESTADO_REGISTRO = 1  AND ID_EMPRESA = '".$IDEMPRESA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -306,7 +312,7 @@ class RESPONSABLE_ADO {
             
             $datos=$this->conexion->prepare("SELECT 
                                                 * 
-                                            FROM `material_responsable` 
+                                            FROM  material_responsable  
                                                 WHERE ESTADO_REGISTRO = 1  
                                                 AND ID_EMPRESA = '".$IDEMPRESA."'
                                                 AND ID_USUARIO = '".$IDUSUARIO."'
@@ -332,7 +338,7 @@ class RESPONSABLE_ADO {
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                     IFNULL(COUNT(NUMERO_RESPONSABLE),0) AS 'NUMERO'
-                                                FROM `material_responsable`  ; ");
+                                                FROM  material_responsable   ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;

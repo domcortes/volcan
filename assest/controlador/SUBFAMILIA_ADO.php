@@ -48,7 +48,7 @@ class SUBFAMILIA_ADO {
     public function listarSubfamilia(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_subfamilia` limit 8 WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_subfamilia  limit 8 WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -67,7 +67,7 @@ class SUBFAMILIA_ADO {
     public function listarSubfamiliaCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_subfamilia` WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_subfamilia  WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -86,7 +86,7 @@ class SUBFAMILIA_ADO {
     public function listarSubfamilia2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_subfamilia` WHERE ESTADO_REGISTRO = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_subfamilia  WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -107,7 +107,7 @@ class SUBFAMILIA_ADO {
     public function verSubfamilia($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_subfamilia` WHERE `ID_SUBFAMILIA`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_subfamilia  WHERE  ID_SUBFAMILIA = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -132,16 +132,16 @@ class SUBFAMILIA_ADO {
             
             
             $query=
-            "INSERT INTO `material_subfamilia` (
-                                                    `NUMERO_SUBFAMILIA`, 
-                                                    `NOMBRE_SUBFAMILIA`, 
-                                                    `ID_EMPRESA`,
-                                                    `ID_FAMILIA`,
-                                                    `ID_USUARIOI`,
-                                                    `ID_USUARIOM`,
-                                                    `INGRESO`,
-                                                    `MODIFICACION`, 
-                                                    `ESTADO_REGISTRO`) VALUES
+            "INSERT INTO  material_subfamilia  (
+                                                     NUMERO_SUBFAMILIA , 
+                                                     NOMBRE_SUBFAMILIA , 
+                                                     ID_EMPRESA ,
+                                                     ID_FAMILIA ,
+                                                     ID_USUARIOI ,
+                                                     ID_USUARIOM ,
+                                                     INGRESO ,
+                                                     MODIFICACION , 
+                                                     ESTADO_REGISTRO ) VALUES
 	       	( ?, ?, ?, ?, ?, ?,  SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
@@ -164,7 +164,7 @@ class SUBFAMILIA_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarSubfamilia($id){
-        try{$sql="DELETE FROM `material_subfamilia` WHERE `ID_SUBFAMILIA`=".$id.";";
+        try{$sql="DELETE FROM  material_subfamilia  WHERE  ID_SUBFAMILIA =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -181,13 +181,13 @@ class SUBFAMILIA_ADO {
     public function actualizarSubfamilia(SUBFAMILIA $SUBFAMILIA){
         try{
             $query = "
-		UPDATE `material_subfamilia` SET
-            `MODIFICACION`= SYSDATE(),
-            `NOMBRE_SUBFAMILIA`= ?,
-            `ID_EMPRESA`= ?,
-            `ID_FAMILIA`= ?  ,
-            `ID_USUARIOM`= ?           
-		WHERE `ID_SUBFAMILIA`= ?;";
+		UPDATE  material_subfamilia  SET
+             MODIFICACION = SYSDATE(),
+             NOMBRE_SUBFAMILIA = ?,
+             ID_EMPRESA = ?,
+             ID_FAMILIA = ?  ,
+             ID_USUARIOM = ?           
+		WHERE  ID_SUBFAMILIA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(   
@@ -215,10 +215,10 @@ class SUBFAMILIA_ADO {
 
         try{
             $query = "
-    UPDATE `material_subfamilia` SET			
-    `MODIFICACION`= SYSDATE(),		
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_SUBFAMILIA`= ?;";
+    UPDATE  material_subfamilia  SET			
+     MODIFICACION = SYSDATE(),		
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_SUBFAMILIA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -236,10 +236,10 @@ class SUBFAMILIA_ADO {
     public function habilitar(SUBFAMILIA $SUBFAMILIA){
         try{
             $query = "
-    UPDATE `material_subfamilia` SET			
-    `MODIFICACION`= SYSDATE(),		
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_SUBFAMILIA`= ?;";
+    UPDATE  material_subfamilia  SET			
+     MODIFICACION = SYSDATE(),		
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_SUBFAMILIA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -256,7 +256,7 @@ class SUBFAMILIA_ADO {
     public function listarSubfamiliaPorEmpresaCBX($IDEMPRESA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_subfamilia` WHERE ESTADO_REGISTRO = 1  AND ID_EMPRESA = '".$IDEMPRESA."';	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_subfamilia  WHERE ESTADO_REGISTRO = 1  AND ID_EMPRESA = '".$IDEMPRESA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -274,7 +274,7 @@ class SUBFAMILIA_ADO {
     public function listarSubfamiliaPorEmpresaFamiliaCBX($IDEMPRESA, $IDFAMILIA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_subfamilia` WHERE ESTADO_REGISTRO = 1  AND ID_EMPRESA = '".$IDEMPRESA."' AND ID_FAMILIA = '".$IDFAMILIA."';	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_subfamilia  WHERE ESTADO_REGISTRO = 1  AND ID_EMPRESA = '".$IDEMPRESA."' AND ID_FAMILIA = '".$IDFAMILIA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -295,7 +295,7 @@ class SUBFAMILIA_ADO {
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                     IFNULL(COUNT(NUMERO_SUBFAMILIA),0) AS 'NUMERO'
-                                                FROM `material_subfamilia`
+                                                FROM  material_subfamilia 
                                                 WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                     ; ");
             $datos->execute();
