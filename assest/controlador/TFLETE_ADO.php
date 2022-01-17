@@ -112,7 +112,7 @@ class TFLETE_ADO
             $datos=null;
 
             //	print_r($resultado);
-        	VAR_DUMP($resultado);
+        	//VAR_DUMP($resultado);
 
 
             return $resultado;

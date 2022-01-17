@@ -60,19 +60,9 @@
               ?>
             </div>
           </div>
-        </li>
-        <li class="btn-group nav-item">
-          <div class="search-bx ml-10">
-            <div class="input-group" style="font-size: 12px;">
-            <?php echo $EURO; ?>
-            <br>
-            <?php echo $DOLAR; ?>
-            </div>
-          </div>
         </li>  
       </ul>
     </div>
-
     <div class="navbar-custom-menu r-side">
       <ul class="nav navbar-nav">
         <!-- Notifications -->   

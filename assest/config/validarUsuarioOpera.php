@@ -20,6 +20,10 @@
     $ARRAYPLANTACAMBIAR="";
     $DISABLEDMENU="";
 
+    $TMONEDA1="";
+    $TMONEDA2="";
+    $TTMONEDA1="";
+    $TTMONEDA2="";
 
     
     $PESTADISTICA="";
@@ -61,6 +65,7 @@
         if($ARRAYVERPTUSUARIO){            
             $PESTADISTICA  =$ARRAYVERPTUSUARIO[0]['ESTADISTICA'];      
             if($PESTADISTICA!="1"){
+                 session_destroy();
                  echo "<script type='text/javascript'> location.href ='../../';</script>";
             }    
             $PESTARVSP = $ARRAYVERPTUSUARIO[0]['ESTARVSP'];
