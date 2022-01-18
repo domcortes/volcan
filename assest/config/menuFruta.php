@@ -27,22 +27,6 @@
             <img src="../../api/cryptioadmin10/html/images/svg-icon/fullscreen.svg" class="img-fluid svg-icon" alt="">
           </a>
         </li>
-        <li class="btn-group d-md-inline-flex d-none">
-          <div class="search-bx ml-10">
-            <form id="fechahora" name="fechahora">
-              <div class="input-group">
-                <input type="search" class="form-control" name="fechahora" id="fechahora" placeholder="FECHA Y HORA" aria-describedby="button-addon2" disabled style="background-color: white;">
-                <div class="input-group-append">
-                  <div class="btn border-transparent" id="button-addon2" style="background-color: white;">
-                    <i class="glyphicon glyphicon-calendar"></i>
-                  </div>
-                </div>
-              </div>
-
-            </form>
-          </div>
-        </li>
-
         <li class="btn-group nav-item">
           <div class="search-bx ml-10">
             <div class="input-group" style="font-size: 12px;">
@@ -90,23 +74,8 @@
             </div>
           </div>
         </li>
-
-        <li class="btn-group nav-item">
-          <div class="search-bx ml-10">
-            <div class="input-group">
-            </div>
-          </div>
-        </li>
-
-        <li class="btn-group nav-item">
-          <div class="search-bx ml-10">
-            <div class="input-group">
-            </div>
-          </div>
-        </li>
       </ul>
     </div>
-
     <div class="navbar-custom-menu r-side">
       <ul class="nav navbar-nav">
         <!-- Notifications -->
@@ -248,11 +217,7 @@
             </li>
           </ul>
         </li>
-
-
-
-        <?php //include_once "../../config/menuExtra.php"; 
-        ?>
+        <?php //include_once "../../config/menuExtra.php"; ?>
         <!-- Control Sidebar Toggle Button -->
         <!--
         <li>
@@ -759,8 +724,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               </li> 
                 -->             
         </ul>
-      </li> 
-      
+      </li>       
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/pages.svg" class="svg-icon" alt="">
@@ -823,234 +787,9 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
         </ul>
       </li>
                 -->
-
-      <li class="header">Configuraciones</li>
-      <li class="treeview">
-        <a href="#">
-          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/miscellaneous.svg" class="svg-icon" alt="">
-          <span>Mantenedores</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-right pull-right"></i>
-          </span>
-        </a>
-    
-        <ul class="treeview-menu">
-          <li class="treeview">
-            <a href="#">Principal
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroEmpresa.php"><i class="ti-more"></i>Empresa</a></li>
-              <li><a href="registroPlanta.php"><i class="ti-more"></i>Planta</a></li>
-              <li><a href="registroTemporada.php"><i class="ti-more"></i>Temporada</a></li>
-              <li><a href="registroBodega.php"><i class="ti-more"></i>Bodega</a></li>
-              <li><a href="registroFolio.php"><i class="ti-more"></i>Folio</a></li>
-            </ul>
-          </li>
-          <li class="treeview">
-            <a href="#">Fruta
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroProductor.php"><i class="ti-more"></i>Productor</a></li>
-              <li><a href="registroVespecies.php"><i class="ti-more"></i>Variedad Especies</a></li>
-              <li><a href="registroEspecies.php"><i class="ti-more"></i>Especies</a></li>
-              <li><a href="registroCuartel.php"><i class="ti-more"></i> Cuartel</a></li>
-              <li><a href="registroTetiqueta.php"><i class="ti-more"></i>Etiqueta</a></li>
-              <li><a href="registroTembalaje.php"><i class="ti-more"></i>Embalaje</a></li>
-              <li><a href="registroTcalibre.php"><i class="ti-more"></i>Calibre</a></li>
-            </ul>
-          </li>
-          <!--
-          <li class="treeview">
-            <a href="#">Estandares
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroErecepcion.php"><i class="ti-more"></i>Granel</a></li>
-              <li><a href="registroEexportacion.php"><i class="ti-more"></i>Exportacion</a></li>
-              <li><a href="registroEcomercial.php"><i class="ti-more"></i> Expo. Comercial</a></li>
-              <li><a href="registroEindustrial.php"><i class="ti-more"></i>Industrial</a></li>
-            </ul>
-          </li>-->
-          <li class="treeview">
-            <a href="#">Ubicacion
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroCiudad.php"><i class="ti-more"></i>Ciudad</a></li>
-              <li><a href="registroComuna.php"><i class="ti-more"></i>Comuna</a></li>
-              <li><a href="registroProvincia.php"><i class="ti-more"></i>Provincia</a></li>
-              <li><a href="registroRegion.php"><i class="ti-more"></i>Region</a></li>
-              <li><a href="registroPais.php"><i class="ti-more"></i>Pais</a></li>
-              <li class="treeview">
-                <a href="#">Destino
-                  <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="registroLdestino.php"><i class="ti-more"></i>Lugar Destino</a></li>
-                  <li><a href="registroPdestino.php"><i class="ti-more"></i>Puerto Destino </a></li>
-                  <li><a href="registroAdestino.php"><i class="ti-more"></i>Aeropuerto Destino </a></li>
-                </ul>
-              </li>
-              <li class="treeview">
-                <a href="#">Carga
-                  <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="registroLcarga.php"><i class="ti-more"></i>Lugar Carga</a></li>
-                  <li><a href="registroPcarga.php"><i class="ti-more"></i>Puerto Carga </a></li>
-                  <li><a href="registroAcarga.php"><i class="ti-more"></i>Aeropuerto Carga </a></li>
-                </ul>
-              </li>
-            </ul>
-
-          </li>
-          <li class="treeview">
-            <a href="#">Transporte
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li class="treeview">
-                <a href="#">Aereo
-                  <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="registroLaerea.php"><i class="ti-more"></i>Linea Area</a></li>
-                  <li><a href="registroAeronave.php"><i class="ti-more"></i>Aeronave</a></li>
-                </ul>
-              </li>
-              <li class="treeview">
-                <a href="#">Maritimo
-                  <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="registroNaviera.php"><i class="ti-more"></i>Naviera</a></li>
-                </ul>
-              </li>
-              <li class="treeview">
-                <a href="#">Terrestre
-                  <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="registroTransporte.php"><i class="ti-more"></i>Transporte</a></li>
-                </ul>
-              </li>
-              <li><a href="registroConductor.php"><i class="ti-more"></i>Conductor</a></li>
-            </ul>
-          </li>
-          <li class="treeview">
-            <a href="#">Instructivo
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li class="treeview">
-                <a href="#">Pago
-                  <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="registroFpago.php"><i class="ti-more"></i>Formato Pago</a></li>
-                  <li><a href="registroCventa.php"><i class="ti-more"></i>Clausaula Venta </a></li>
-                  <li><a href="registroMventa.php"><i class="ti-more"></i>Modalidad Venta </a></li>
-                </ul>
-              </li>
-              <li class="treeview">
-                <a href="#">Mercado
-                  <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="registroMercado.php"><i class="ti-more"></i>Mercado</a></li>
-                  <li><a href="registroRmercado.php"><i class="ti-more"></i>Restrinccion Mercado</a></li>
-                </ul>
-              </li>
-              <li><a href="registroExportadora.php"><i class="ti-more"></i>Exportadora</a></li>
-              <li><a href="registroAtmosfera.php"><i class="ti-more"></i>Atmosfera</a></li>
-              <li><a href="registroConsignatorio.php"><i class="ti-more"></i>Consignatorio</a></li>
-              <li><a href="registroNotificador.php"><i class="ti-more"></i>Notificador </a></li>
-              <li><a href="registroBroker.php"><i class="ti-more"></i>Broker </a></li>
-              <li><a href="registroRfinal.php"><i class="ti-more"></i>Recibidor Final </a></li>
-              <li><a href="registroAaduana.php"><i class="ti-more"></i>Agente Aduana </a></li>
-              <li><a href="registroAgcarga.php"><i class="ti-more"></i>Agente Carga </a></li>
-              <li><a href="registroDfinal.php"><i class="ti-more"></i>Destino Final </a></li>
-              <li><a href="registroSeguro.php"><i class="ti-more"></i>Seguro </a></li>
-            </ul>
-          </li> 
-          <li class="treeview">
-            <a href="#">Tipo
-              <span class="pull-left-container">
-               <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroTproductor.php"><i class="ti-more"></i>Tipo Productor</a></li>
-              <li><a href="registroTproceso.php"><i class="ti-more"></i>Tipo Proceso</a></li>
-              <li><a href="registroTreembalaje.php"><i class="ti-more"></i>Tipo Reembalaje</a></li>
-              <li><a href="registroTcontenedor.php"><i class="ti-more"></i>Tipo Contenedor</a></li>
-              <li><a href="registroTflete.php"><i class="ti-more"></i>Tipo Flete</a></li>
-              <li><a href="registroTmoneda.php"><i class="ti-more"></i>Tipo Moneda</a></li>
-              <li><a href="registroTservicio.php"><i class="ti-more"></i>Tipo Servicio</a></li>
-              <li><a href="registroTmanejo.php"><i class="ti-more"></i>Tipo Manejo</a></li>
-              <li><a href="registroTinpsag.php"><i class="ti-more"></i>Tipo Inpeccion Sag</a></li>
-              <li><a href="registroTtratamiento1.php"><i class="ti-more"></i>Tipo Tratamiento 1</a></li>
-              <li><a href="registroTtratamiento2.php"><i class="ti-more"></i>Tipo Tratamiento 2</a></li>
-              <li><a href="registroTcategoria.php"><i class="ti-more"></i>Tipo Categoria</a></li>
-              <li><a href="registroTcolor.php"><i class="ti-more"></i>Tipo Color</a></li>    
-            </ul>
-          </li>         
-          <li class="treeview">
-            <a href="#">Otros
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroCcalidad.php"><i class="ti-more"></i>Color Calidad</a></li>
-              <li><a href="registroContraparte.php"><i class="ti-more"></i>Contraparte</a></li>
-              <li><a href="registroInpector.php"><i class="ti-more"></i>Inpector</a></li>
-              <li><a href="registroComprador.php"><i class="ti-more"></i>Comprador</a></li>
-            </ul>
-          </li>      
-        </ul>
-      </li>    
-      <!--  
-          <li class="treeview">
-            <a href="#">
-              <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/members.svg" class="svg-icon" alt="">
-              <span>Usuario</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroPtusuario.php">Privilegio Tipo Usuario<i class="ti-more"></i></a></li>
-            </ul>
-          </li>-->
+    <!--
+      <li class="header">Configuraciones</li>    
+    -->
     </ul>
   </section>
 </aside>

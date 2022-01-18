@@ -1,11 +1,11 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioFruta.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/ADESTINO_ADO.php';
-include_once '../modelo/ADESTINO.php';
+include_once '../../assest/controlador/ADESTINO_ADO.php';
+include_once '../../assest/modelo/ADESTINO.php';
 
 //INCIALIZAR LAS VARIBLES
 
@@ -77,7 +77,7 @@ if (isset($_REQUEST['GUARDAR'])) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //VALIDACION DE FORMULARIO
@@ -115,49 +115,53 @@ if (isset($_REQUEST['GUARDAR'])) {
 
 
             <!-- Main content -->
-            <section class="content">
-                <div class="box">
-                    <div class="box-header with-border">
-                        <!--  
-                                            <h4 class="box-title">Sample form 1</h4>
-                                        -->
-                    </div>
-                    <!-- /.box-header -->
-                    <form class="form" role="form" method="post" name="form_reg_dato">
-                        <div class="box-body">
-                            <h4 class="box-title text-info"><i class="ti-user mr-15"></i> Registro
-                            </h4>
-                            <hr class="my-15">
-                            <div class="form-group">
-                                <label>Nombre </label>
-                                <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
-                                <input type="hidden" class="form-control" placeholder="EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
-                                <input type="text" class="form-control" placeholder="Nombre Aeropuerto Destino" id="NOMBREADESTINO" name="NOMBREADESTINO" value="<?php echo $NOMBREADESTINO; ?>" <?php echo $DISABLED; ?> />
-                                <label id="val_nombre" class="validacion"> </label>
-                            </div>
+                    <section class="content">
+                        <div class="row">
+                                <div class="box">
+                                    <div class="box-header with-border bg-primary">                               
+                                        <h4 class="box-title">Registro Aeropuerto Destino </h4>                                     
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato" >
+                                        <div class="box-body">
+                                            <hr class="my-15">
+                                            <div class="row">
+                                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
+                                                    <div class="form-group">
+                                                        <label>Nombre </label>
+                                                        <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
+                                                        <input type="hidden" class="form-control" placeholder="EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
+                                                        <input type="text" class="form-control" placeholder="Nombre Aeropuerto Destino" id="NOMBREADESTINO" name="NOMBREADESTINO" value="<?php echo $NOMBREADESTINO; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_nombre" class="validacion"> </label>
+                                                    </div>
+                                                 </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.box-body -->
+                                        <div class="box-footer">
+                                            <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
+                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cerrar" name="CANCELAR" value="CANCELAR" Onclick="cerrar();">
+                                                <i class="ti-close"></i> Cerrar
+                                                </button>
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- /.box -->
                         </div>
-                        <!-- /.box-body -->
-                        <div class="box-footer">
-                            <button type="button" class="btn btn-rounded btn-warning btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="cerrar();">
-                                <i class="ti-trash"></i> Cancelar
-                            </button>
-                            <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?>  onclick="return validacion()">
-                                <i class="ti-save-alt"></i> Crear
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                <!-- /.box -->
-
-            </section>
+                        <!--.row -->
+                    </section>
             <!-- /.content -->
 
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php //include_once "../../assest/config/menuExtra.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
 
 </html>
