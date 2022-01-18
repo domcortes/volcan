@@ -101,7 +101,7 @@ include_once "../../assest/config/validarDatosUrlD.php";
 
 
                 }
-             
+            
                 //FUNCION PARA CERRAR VENTANA Y ACTUALIZAR PRINCIPAL
                 function cerrar() {
                     window.opener.refrescar()
@@ -135,7 +135,8 @@ include_once "../../assest/config/validarDatosUrlD.php";
                                             <li class="breadcrumb-item" aria-current="page">Envases</li>
                                             <li class="breadcrumb-item" aria-current="page">Guía Por Recibir</li>
                                             <li class="breadcrumb-item" aria-current="page">Envases</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Motivo Guía</a> </li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Motivo Guía</a>
+                                            </li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -146,10 +147,8 @@ include_once "../../assest/config/validarDatosUrlD.php";
                     <section class="content">
                         <form class="form" role="form" method="post" name="form_reg_dato">
                             <div class="box">
-                                <div class="box-header with-border">
-                                    <!--  
-                                    <h4 class="box-title">Sample form 1</h4>
-                                -->
+                                <div class="box-header with-border bg-danger">                                    
+                                    <h4 class="box-title">Registro Motivo Rechazo</h4>                                
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">

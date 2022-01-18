@@ -8,10 +8,14 @@ include_once "../../assest/config/validarUsuarioFruta.php";
 include_once '../../assest/controlador/TRANSPORTE_ADO.php';
 include_once '../../assest/controlador/PRODUCTOR_ADO.php';
 include_once '../../assest/controlador/CONDUCTOR_ADO.php';
-
+include_once '../../assest/controlador/BODEGA_ADO.php';
+include_once '../../assest/controlador/TDOCUMENTO_ADO.php';
+ 
 
 include_once '../../assest/controlador/INVENTARIOE_ADO.php';
 include_once '../../assest/controlador/DESPACHOE_ADO.php';
+include_once '../../assest/controlador/DESPACHOMP_ADO.php';
+include_once '../../assest/controlador/MGUIAE_ADO.php';
 
 
 include_once '../../assest/modelo/INVENTARIOE.php';
@@ -23,10 +27,15 @@ include_once '../../assest/modelo/DESPACHOE.php';
 $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
+$BODEGA_ADO = new BODEGA_ADO();
+$TDOCUMENTO_ADO = new TDOCUMENTO_ADO();
+
 
 
 $INVENTARIOE_ADO =  new INVENTARIOE_ADO();
 $DESPACHOE_ADO =  new DESPACHOE_ADO();
+$DESPACHOMP_ADO =  new DESPACHOMP_ADO();
+$MGUIAE_ADO =  new MGUIAE_ADO();
 
 $INVENTARIOE =  new INVENTARIOE();
 $DESPACHOE =  new DESPACHOE();
@@ -58,6 +67,7 @@ $ARRAYMGUIAMP = "";
 
 
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
+
     $ARRAYDESPACHOPT = $DESPACHOE_ADO->listarDespachoeEmpresaPlantaTemporadaGuiaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
 }
 
@@ -90,7 +100,7 @@ include_once "../../assest/config/datosUrLP.php";
                     location.href = "" + url;
                 }
 
-               
+              
                 function refrescar() {
                     document.getElementById("form_reg_dato").submit();
                 }
@@ -128,7 +138,8 @@ include_once "../../assest/config/datosUrLP.php";
                                         <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                         <li class="breadcrumb-item" aria-current="page">Envases</li>
                                         <li class="breadcrumb-item" aria-current="page">Guía Por Recibir</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Envases </a> </li>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Envases </a>
+                                        </li>
                                     </ol>
                                 </nav>
                             </div>
@@ -136,14 +147,16 @@ include_once "../../assest/config/datosUrLP.php";
                         <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                     </div>
                 </div>
+
                 <!-- Main content -->
                 <section class="content">
                     <div class="box">
+
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="despachome" class="table-hover " style="width: 100%;">
+                                        <table id="despachome" class="table table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr class="text-left">
                                                     <th>Número </th>
@@ -151,11 +164,11 @@ include_once "../../assest/config/datosUrLP.php";
                                                     <th class="text-center">Operaciónes</th>
                                                     <th>Estado Despacho</th>
                                                     <th>Fecha Despacho </th>
+                                                    <th>Número Documento </th>
                                                     <th>Tipo Despacho</th>
                                                     <th>CSG/CSP Despacho</th>
                                                     <th>Destino Despacho</th>
                                                     <th>Tipo Documento </th>
-                                                    <th>Número Documento </th>
                                                     <th>Cantidad </th>
                                                     <th>Transporte </th>
                                                     <th>Nombre Conductor </th>
@@ -169,10 +182,8 @@ include_once "../../assest/config/datosUrLP.php";
                                                     <th>Temporada</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-
-                                            
-                                            <?php foreach ($ARRAYDESPACHOPT as $r) : ?>
+                                            <tbody>                                                
+                                                <?php foreach ($ARRAYDESPACHOPT as $r) : ?>
                                                     <?php
                                                     if ($r['ESTADO_DESPACHO'] == "1") {
                                                         $ESTADODESPACHO = "Por Confirmar";
@@ -337,8 +348,14 @@ include_once "../../assest/config/datosUrLP.php";
                                                                             <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_DESPACHO']; ?>" />
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroDespachoe" />
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="registroGuiaPorRecibirE" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLM" name="URLM" value="registroGuiaPorRecibirME" />                                                                                
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLM" name="URLM" value="registroGuiaPorRecibirME" />
+                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
+                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../../assest/documento/informeDespachoE.php?parametro=<?php echo $r['ID_DESPACHO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                    <i class="fa fa-file-pdf-o"></i> Informe
+                                                                                </button>
+                                                                            </span>
                                                                             <?php if ($r['ESTADO_DESPACHO'] == "2") { ?>
+                                                                                <hr>
                                                                                 <span href="#" class="dropdown-item" title="Operaciones">
                                                                                     <button type="submit" class="btn btn-success " data-toggle="tooltip" id="APROBARURL" name="APROBARURL" title="Aprobar">
                                                                                         <i class="fa fa-check"></i> Aprobar
@@ -348,11 +365,6 @@ include_once "../../assest/config/datosUrLP.php";
                                                                                     </button>
                                                                                 </span>
                                                                             <?php } ?>
-                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../../assest/documento/informeDespachoE.php?parametro=<?php echo $r['ID_DESPACHO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                    <i class="fa fa-file-pdf-o"></i> Informe
-                                                                                </button>
-                                                                            </span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -360,11 +372,11 @@ include_once "../../assest/config/datosUrLP.php";
                                                         </td>
                                                         <td><?php echo $ESTADODESPACHO; ?></td>
                                                         <td><?php echo $r['FECHA']; ?></td>
+                                                        <td><?php echo $r['NUMERO_DOCUMENTO']; ?></td>
                                                         <td><?php echo $TDESPACHO; ?></td>
                                                         <td><?php echo $CSGCSPDESTINO; ?></td>
                                                         <td><?php echo $NOMBRDESTINO; ?></td>
                                                         <td><?php echo $TDOCUMENTO; ?></td>
-                                                        <td><?php echo $r['NUMERO_DOCUMENTO']; ?></td>
                                                         <td><?php echo $r['CANTIDAD']; ?></td>
                                                         <td><?php echo $NOMBRETRANSPORTE; ?></td>
                                                         <td><?php echo $NOMBRECONDUCTOR; ?></td>
@@ -382,7 +394,7 @@ include_once "../../assest/config/datosUrLP.php";
                                         </table>
                                     </div>
                                 </div>
-                            </div>         
+                            </div>                   
                             <div class="box-footer">
                                 <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
                                     <div class="form-row align-items-center" role="group" aria-label="Datos">
@@ -397,7 +409,7 @@ include_once "../../assest/config/datosUrLP.php";
                                         </div>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>  
                         </div>
                         <!-- /.box -->
                 </section>
