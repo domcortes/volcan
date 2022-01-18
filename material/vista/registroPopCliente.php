@@ -55,7 +55,39 @@ $ARRAYNUMERO = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
 
+     //OPERACIONES
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['GUARDAR'])) {
 
+                $ARRAYNUMERO = $CLIENTE_ADO->obtenerNumero();
+                $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+
+
+                //UTILIZACION METODOS SET DEL NOMBRE_CLIENTE
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+                $CLIENTE->__SET('NUMERO_CLIENTE', $NUMERO);
+                $CLIENTE->__SET('RUT_CLIENTE', $_REQUEST['RUTCLIENTE']);
+                $CLIENTE->__SET('DV_CLIENTE', $_REQUEST['DVCLIENTE']);
+                $CLIENTE->__SET('RAZON_CLIENTE', $_REQUEST['RAZONCLIENTE']);
+                $CLIENTE->__SET('NOMBRE_CLIENTE', $_REQUEST['NOMBRECLIENTE']);
+                $CLIENTE->__SET('GIRO_CLIENTE', $_REQUEST['GIROCLIENTE']);
+                $CLIENTE->__SET('DIRECCION_CLIENTE', $_REQUEST['DIRECCIONCLIENTE']);
+                $CLIENTE->__SET('TELEFONO_CLIENTE', $_REQUEST['TELEFONOCLIENTE']);
+                $CLIENTE->__SET('EMAIL_CLIENTE', $_REQUEST['EMAILCLIENTE']);
+                $CLIENTE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $CLIENTE->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+                $CLIENTE->__SET('ID_USUARIOI', $IDUSUARIOS);
+                $CLIENTE->__SET('ID_USUARIOM', $IDUSUARIOS);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $CLIENTE_ADO->agregarCliente($CLIENTE);
+                //REDIRECCIONAR A PAGINA registroEcomercial.php
+                echo "
+                <script type='text/javascript'>
+                    window.opener.refrescar()
+                    window.close();
+                    </script> 
+                ";
+            }
 
 
 
@@ -190,6 +222,11 @@ $ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
                 }
 
 
+                //FUNCION PARA CERRAR VENTANA Y ACTUALIZAR PRINCIPAL
+                function cerrar() {
+                    window.opener.refrescar()
+                    window.close();
+                }
 
 
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -296,18 +333,12 @@ $ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
                                         <!-- /.box-body -->                              
                                         <div class="box-footer">
                                             <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
-                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroCliente.php');">
-                                                <i class="ti-trash"></i>Cancelar
+                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cerrar" name="CANCELAR" value="CANCELAR" Onclick="cerrar();">
+                                                <i class="ti-close"></i> Cerrar
                                                 </button>
-                                                <?php if ($OP != "editar") { ?>
                                                     <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
-                                                <?php } else { ?>
-                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
-                                                        <i class="ti-save-alt"></i> Guardar
-                                                    </button>
-                                                <?php } ?>
                                             </div>
                                         </div>
                                     </form>
@@ -321,46 +352,6 @@ $ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../../assest/config/urlBase.php"; ?>
-        <?php 
-            //OPERACIONES
-            //OPERACION DE REGISTRO DE FILA
-            if (isset($_REQUEST['GUARDAR'])) {
-
-                $ARRAYNUMERO = $CLIENTE_ADO->obtenerNumero();
-                $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
-
-
-                //UTILIZACION METODOS SET DEL NOMBRE_CLIENTE
-                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-                $CLIENTE->__SET('NUMERO_CLIENTE', $NUMERO);
-                $CLIENTE->__SET('RUT_CLIENTE', $_REQUEST['RUTCLIENTE']);
-                $CLIENTE->__SET('DV_CLIENTE', $_REQUEST['DVCLIENTE']);
-                $CLIENTE->__SET('RAZON_CLIENTE', $_REQUEST['RAZONCLIENTE']);
-                $CLIENTE->__SET('NOMBRE_CLIENTE', $_REQUEST['NOMBRECLIENTE']);
-                $CLIENTE->__SET('GIRO_CLIENTE', $_REQUEST['GIROCLIENTE']);
-                $CLIENTE->__SET('DIRECCION_CLIENTE', $_REQUEST['DIRECCIONCLIENTE']);
-                $CLIENTE->__SET('TELEFONO_CLIENTE', $_REQUEST['TELEFONOCLIENTE']);
-                $CLIENTE->__SET('EMAIL_CLIENTE', $_REQUEST['EMAILCLIENTE']);
-                $CLIENTE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-                $CLIENTE->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
-                $CLIENTE->__SET('ID_USUARIOI', $IDUSUARIOS);
-                $CLIENTE->__SET('ID_USUARIOM', $IDUSUARIOS);
-                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                $CLIENTE_ADO->agregarCliente($CLIENTE);
-                //REDIRECCIONAR A PAGINA registroEcomercial.php
-                    echo '<script>
-                    Swal.fire({
-                        icon:"success",
-                        title:"Registro Creado",
-                        text:"El registro del mantenedor se ha creado correctamente",
-                        showConfirmButton: true,
-                        confirmButtonText:"Cerrar",
-                        closeOnConfirm:false
-                    }).then((result)=>{
-                        location.href = "registroCliente.php";                            
-                    })
-                </script>';
-            }
-        ?>
+    
 </body>
 </html>
