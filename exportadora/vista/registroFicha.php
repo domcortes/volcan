@@ -577,7 +577,7 @@ if (isset($_POST)) {
                                 <div class="box-footer">
                                     <div class="btn-group   col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">
                                         <?php if ($OP == "") { ?>
-                                            <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroFicha.php');">
+                                            <button type="button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroFicha.php');">
                                                 <i class="ti-trash"></i> Borrar
                                             </button>
                                             <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" onclick="return validacion()">
