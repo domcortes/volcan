@@ -64,7 +64,7 @@ class EXIINDUSTRIAL_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT *,  DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIINDUSTRIAL) AS 'DIAS',
+            $datos = $this->conexion->prepare("SELECT *,  DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIINDUSTRIAL) AS 'FECHA_EMBALADO_EXIINDUSTRIAL',
                                                         IFNULL(ID_PROCESO,'-') AS 'PROCESO',
                                                         IFNULL(ID_REEMBALAJE,'-') AS 'REEMBALAJE'
                                             FROM fruta_exiindustrial 
