@@ -56,8 +56,7 @@ include_once "../../assest/config/validarUsuarioExpo.php";
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
-                                        </li>
+                                        <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>                                      
                                     </ol>
                                 </nav>
                             </div>

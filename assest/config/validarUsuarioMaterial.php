@@ -14,6 +14,28 @@ $ARRAYTEMPORADAS = "";
 $ARRAYTUSUARIO = "";
 $ARRAYNOMBRESUSUARIOSLOGIN = "";
 
+
+$PMATERIALES="";
+$PMMATERIALES="";
+$PMMRECEPION="";
+$PMMDEAPCHO="";
+$PMMGUIA="";
+$PMENVASE="";
+$PMERECEPCION="";
+$PMEDESPACHO="";
+$PMEGUIA="";
+$PMADMINISTRACION="";
+$PMAOC="";
+$PMAOCAR="";
+$PMKARDEX="";
+$PMKMATERIAL="";
+$PMKENVASE="";
+$PMANTENEDORES="";
+$PMREGISTRO="";
+$PMEDITAR="";
+$PMVER="";
+$PMAGRUPADO="";
+
 $EMPRESACAMBIAR = "";
 $PLANTACAMBIAR = "";
 $ARRAYEMPRESACAMBIAR = "";
@@ -27,6 +49,8 @@ $TTMONEDA2="";
 
 include_once '../../assest/controlador/USUARIO_ADO.php';
 include_once '../../assest/controlador/TUSUARIO_ADO.php';
+include_once '../../assest/controlador/PTUSUARIO_ADO.php';
+
 include_once '../../assest/controlador/EMPRESA_ADO.php';
 include_once '../../assest/controlador/PLANTA_ADO.php';
 include_once '../../assest/controlador/TEMPORADA_ADO.php';
@@ -34,6 +58,8 @@ include_once '../../assest/controlador/TEMPORADA_ADO.php';
 
 $USUARIO_ADO = new USUARIO_ADO();
 $TUSUARIO_ADO = new TUSUARIO_ADO();
+$PTUSUARIO_ADO = new PTUSUARIO_ADO();
+
 $EMPRESA_ADO =  new EMPRESA_ADO();
 $PLANTA_ADO =  new PLANTA_ADO();
 $TEMPORADA_ADO =  new TEMPORADA_ADO();
@@ -47,7 +73,62 @@ if (isset($_REQUEST['CERRARS'])) {
 if (isset($_SESSION["NOMBRE_USUARIO"])) {
     $IDUSUARIOS = $_SESSION["ID_USUARIO"];
     $NOMBREUSUARIOS = $_SESSION["NOMBRE_USUARIO"];
-    $TUSUARIO = $_SESSION["TIPO_USUARIO"];
+    $TUSUARIOS = $_SESSION["TIPO_USUARIO"];
+    
+    $ARRAYVERPTUSUARIO  =$PTUSUARIO_ADO->listarPtusuarioPorTusuarioCBX($TUSUARIOS);
+    if($ARRAYVERPTUSUARIO){            
+        $PMATERIALES  =$ARRAYVERPTUSUARIO[0]['MATERIALES']; 
+        if($PMATERIALES!="1"){
+             session_destroy();
+             echo "<script type='text/javascript'> location.href ='../../';</script>";
+        }    
+        $PMMATERIALES= $ARRAYVERPTUSUARIO[0]['MMATERIALES'];
+        $PMMRECEPION= $ARRAYVERPTUSUARIO[0]['MMRECEPION'];
+        $PMMDEAPCHO= $ARRAYVERPTUSUARIO[0]['MMDEAPCHO'];
+        $PMMGUIA= $ARRAYVERPTUSUARIO[0]['MMGUIA'];
+
+        $PMENVASE= $ARRAYVERPTUSUARIO[0]['MENVASE'];
+        $PMERECEPCION= $ARRAYVERPTUSUARIO[0]['MERECEPCION'];
+        $PMEDESPACHO= $ARRAYVERPTUSUARIO[0]['MEDESPACHO'];
+        $PMEGUIA= $ARRAYVERPTUSUARIO[0]['MEGUIA'];
+
+        $PMADMINISTRACION= $ARRAYVERPTUSUARIO[0]['MADMINISTRACION'];
+        $PMAOC= $ARRAYVERPTUSUARIO[0]['MAOC'];
+        $PMAOCAR= $ARRAYVERPTUSUARIO[0]['MAOCAR'];
+
+        $PMKARDEX= $ARRAYVERPTUSUARIO[0]['MKARDEX'];
+        $PMKMATERIAL= $ARRAYVERPTUSUARIO[0]['MKMATERIAL'];
+        $PMKENVASE= $ARRAYVERPTUSUARIO[0]['MKENVASE'];
+        
+        $PMANTENEDORES= $ARRAYVERPTUSUARIO[0]['MANTENEDORES'];
+        $PMREGISTRO= $ARRAYVERPTUSUARIO[0]['MREGISTRO'];
+        $PMEDITAR= $ARRAYVERPTUSUARIO[0]['MEDITAR'];
+        $PMVER= $ARRAYVERPTUSUARIO[0]['MVER'];
+        $PMAGRUPADO= $ARRAYVERPTUSUARIO[0]['MAGRUPADO'];
+
+    }else{              
+        $PMATERIALES="";
+        $PMMATERIALES="";
+        $PMMRECEPION="";
+        $PMMDEAPCHO="";
+        $PMMGUIA="";
+        $PMENVASE="";
+        $PMERECEPCION="";
+        $PMEDESPACHO="";
+        $PMEGUIA="";
+        $PMADMINISTRACION="";
+        $PMAOC="";
+        $PMAOCAR="";
+        $PMKARDEX="";
+        $PMKMATERIAL="";
+        $PMKENVASE="";
+        $PMANTENEDORES="";
+        $PMREGISTRO="";
+        $PMEDITAR="";
+        $PMVER="";
+        $PMAGRUPADO="";
+    }
+
     
     if (isset($_SESSION["ID_EMPRESA"])) {
         $EMPRESAS = $_SESSION["ID_EMPRESA"];

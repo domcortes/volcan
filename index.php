@@ -22,9 +22,9 @@
 <body class="hold-transition theme-primary bg-gradient-primary">
     <div class="container h-p100">
         <div class="row align-items-center justify-content-md-center h-p100">
-            <div class="col-12">
+            <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                 <div class="row justify-content-center no-gutters">
-                    <div class="col-lg-4 col-md-5 col-12">
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-5 col-sm-12 col-12 col-xs-12">
                         <div class="bg-white-10 rounded5">
                             <div class="content-top-agile p-10 pb-0">
                                 <h2 class="text-white">SELECCION SISTEMAS</h2>
