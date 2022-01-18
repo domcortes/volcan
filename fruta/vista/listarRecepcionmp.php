@@ -153,11 +153,11 @@ include_once "../../assest/config/datosUrLP.php";
                                                     <th>Estado</th>
                                                     <th class="text-center">Operaciones</th>
                                                     <th>Fecha Recepcion </th>
+                                                    <th>Numero Guia </th>
                                                     <th>Hora Recepcion </th>
                                                     <th>Tipo Recepcion</th>
                                                     <th>CSG/CSP Recepción</th>
                                                     <th>Origen Recepcion</th>
-                                                    <th>Numero Guia </th>
                                                     <th>Fecha Guia </th>
                                                     <th>Total Kilos Guia</th>
                                                     <th>Cantidad Envase</th>
@@ -303,12 +303,12 @@ include_once "../../assest/config/datosUrLP.php";
                                                                 </div>
                                                             </form>
                                                         </td>
-                                                        <td><?php echo $r['FECHA']; ?></td>
+                                                        <td><?php echo $r['FECHA']; ?></td>                               
+                                                        <td><?php echo $r['NUMERO_GUIA_RECEPCION']; ?></td>
                                                         <td><?php echo $r['HORA_RECEPCION']; ?></td>
                                                         <td><?php echo $TRECEPCION; ?></td>
                                                         <td><?php echo $CSGCSPORIGEN; ?></td>        
-                                                        <td><?php echo $ORIGEN; ?></td>                                                       
-                                                        <td><?php echo $r['NUMERO_GUIA_RECEPCION']; ?></td>
+                                                        <td><?php echo $ORIGEN; ?></td>                        
                                                         <td><?php echo $r['FECHA_GUIA']; ?></td>
                                                         <td><?php echo $r['GUIA']; ?></td>
                                                         <td><?php echo $r['ENVASE']; ?></td>

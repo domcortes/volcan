@@ -187,11 +187,11 @@ include_once "../../assest/config/datosUrLP.php";
                                                     <th>Estado</th>
                                                     <th class="text-center">Operaciónes</th>
                                                     <th>Estado Despacho</th>
-                                                    <th>Tipo Despacho</th>
                                                     <th>Fecha Despacho </th>
+                                                    <th>Número Guía </th>
+                                                    <th>Tipo Despacho</th>
                                                     <th>CSG/CSP Despacho</th>
                                                     <th>Destino Despacho</th>
-                                                    <th>Número Guía </th>
                                                     <th>Kilos Neto</th>
                                                     <th>Transporte </th>
                                                     <th>Nombre Conductor </th>
@@ -365,11 +365,11 @@ include_once "../../assest/config/datosUrLP.php";
                                                             </form>
                                                         </td>
                                                         <td><?php echo $ESTADODESPACHO; ?></td>
-                                                        <td><?php echo $TDESPACHO; ?></td>
                                                         <td><?php echo $r['FECHA']; ?></td>
+                                                        <td><?php echo $NUMEROGUIADEPACHO; ?></td>
+                                                        <td><?php echo $TDESPACHO; ?></td>
                                                         <td><?php echo $CSGCSPDESTINO; ?></td>
                                                         <td><?php echo $DESTINO; ?></td>
-                                                        <td><?php echo $NUMEROGUIADEPACHO; ?></td>
                                                         <td><?php echo $r['NETO']; ?></td>
                                                         <td><?php echo $NOMBRETRANSPORTE; ?></td>
                                                         <td><?php echo $NOMBRECONDUCTOR; ?></td>
@@ -380,7 +380,6 @@ include_once "../../assest/config/datosUrLP.php";
                                                         <td><?php echo $NOMBREEMPRESA; ?></td>
                                                         <td><?php echo $NOMBREPLANTA; ?></td>
                                                         <td><?php echo $NOMBRETEMPORADA; ?></td>
-
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>

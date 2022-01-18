@@ -170,11 +170,11 @@ include_once "../../assest/config/datosUrLP.php";
                                                     <th>Estado</th>
                                                     <th class="text-center">Operaciónes</th>
                                                     <th>Estado Despacho</th>
+                                                    <th>Fecha Despacho </th>
+                                                    <th>Número Guía </th>
                                                     <th>Tipo Despacho</th>
                                                     <th>CSG/CSP Despacho</th>
                                                     <th>Destino Despacho</th>
-                                                    <th>Fecha Despacho </th>
-                                                    <th>Número Guía </th>
                                                     <th>Cantidad Envase</th>
                                                     <th>Kilos Neto</th>
                                                     <th>Kilos Bruto</th>
@@ -340,11 +340,11 @@ include_once "../../assest/config/datosUrLP.php";
                                                             </form>
                                                         </td>
                                                         <td><?php echo $ESTADODESPACHO; ?></td>
+                                                        <td><?php echo $r['FECHA']; ?></td>
+                                                        <td><?php echo $NUMEROGUIADEPACHO; ?></td>
                                                         <td><?php echo $TDESPACHO; ?></td>
                                                         <td><?php echo $CSGCSPDESTINO; ?></td>
                                                         <td><?php echo $DESTINO; ?></td>
-                                                        <td><?php echo $r['FECHA']; ?></td>
-                                                        <td><?php echo $NUMEROGUIADEPACHO; ?></td>
                                                         <td><?php echo $r['ENVASE']; ?></td>
                                                         <td><?php echo $r['NETO']; ?></td>
                                                         <td><?php echo $r['BRUTO']; ?></td>

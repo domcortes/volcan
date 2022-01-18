@@ -175,11 +175,11 @@ include_once "../../assest/config/datosUrLP.php";
                                                     <th>Estado</th>
                                                     <th class="text-center">Operaciónes</th>
                                                     <th>Estado Despacho</th>
+                                                    <th>Fecha Despacho </th>
+                                                    <th>Número Guía </th>
                                                     <th>Tipo Despacho</th>
                                                     <th>CSG/CSP Despacho</th>
                                                     <th>Destino Despacho</th>
-                                                    <th>Fecha Despacho </th>
-                                                    <th>Número Guía </th>
                                                     <th>Cantidad Envase</th>
                                                     <th>Kilos Neto</th>
                                                     <th>Kilos Bruto</th>

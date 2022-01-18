@@ -165,10 +165,10 @@ include_once "../../assest/config/datosUrLP.php";
                                                     <th>Estado</th>
                                                     <th>Operaciónes</th>
                                                     <th>Fecha Recepción </th>
+                                                    <th>Número Documento </th>
                                                     <th>Tipo Recepción</th>
                                                     <th>Origen Recepción</th>
                                                     <th>Tipo Documento </th>
-                                                    <th>Número Documento </th>
                                                     <th>Cantidad</th>
                                                     <th>Bodega</th>
                                                     <th>Transporte </th>
@@ -323,10 +323,10 @@ include_once "../../assest/config/datosUrLP.php";
                                                             </form>
                                                         </td>
                                                         <td><?php echo $r['FECHA']; ?></td>
+                                                        <td><?php echo $r['NUMERO_DOCUMENTO_RECEPCION']; ?></td>
                                                         <td><?php echo $TRECEPCION; ?></td>
                                                         <td><?php echo $NOMBREORIGEN; ?></td>
                                                         <td><?php echo $TDOCUMENTO; ?></td>
-                                                        <td><?php echo $r['NUMERO_DOCUMENTO_RECEPCION']; ?></td>
                                                         <td><?php echo $r['CANTIDAD']; ?></td>
                                                         <td><?php echo $NOMBREBODEGA; ?></td>
                                                         <td><?php echo $NOMBRETRANSPORTE; ?></td>
@@ -339,7 +339,6 @@ include_once "../../assest/config/datosUrLP.php";
                                                         <td><?php echo $NUMEROIOCOMPRA; ?></td>
                                                         <td><?php echo $r['INGRESO']; ?></td>
                                                         <td><?php echo $r['MODIFICACION']; ?></td>
-
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
