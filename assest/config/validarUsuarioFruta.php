@@ -15,6 +15,37 @@
     $ARRAYNOMBRESUSUARIOSLOGIN="";
     
 
+    $PFRUTA="";
+    $PFGRANEL="";
+    $PFGRECEPCION="";
+    $PFGDESPACHO="";
+    $PFGGUIA="";
+    $PFPACKING="";
+    $PFPPROCESO="";
+    $PFPREEMBALEJE="";
+    $PFSAG="";
+    $PFSAGINSPECCION="";
+    $PFFRIGORIFICO="";
+    $PFFRECEPCION="";
+    $PFFRDESPACHO="";
+    $PFFRGUIA="";
+    $PFFRREPALETIZAJE="";
+    $PFFRPC="";
+    $PFFRCFOLIO="";
+    $PFCFRUTA="";
+    $PFCFRECHAZO="";
+    $PFCFLEVANTAMIENTO="";
+    $PFEXISTENCIA="";
+    
+    $PMATERIALES="";
+    $PMENVASE="";
+    $PMENVASETODO="";
+    $PMERECEPCION="";
+    $PMEDESPACHO="";
+    $PMEGUIA="";
+    $PMKARDEX="";
+    $PMKENVASE="";
+
     $TMONEDA1="";
     $TMONEDA2="";
     $TTMONEDA1="";
