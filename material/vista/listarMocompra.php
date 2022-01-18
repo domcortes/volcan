@@ -48,45 +48,6 @@ include_once "../../assest/config/validarDatosUrl.php";
                 function irPagina(url) {
                     location.href = "" + url;
                 }
-                //FUNCION PARA OBTENER HORA Y FECHA
-                function mueveReloj() {
-
-
-                    momentoActual = new Date();
-
-                    dia = momentoActual.getDate();
-                    mes = momentoActual.getMonth() + 1;
-                    ano = momentoActual.getFullYear();
-
-                    hora = momentoActual.getHours();
-                    minuto = momentoActual.getMinutes();
-                    segundo = momentoActual.getSeconds();
-
-                    if (dia < 10) {
-                        dia = "0" + dia;
-                    }
-
-                    if (mes < 10) {
-                        mes = "0" + mes;
-                    }
-                    if (hora < 10) {
-                        hora = "0" + hora;
-                    }
-                    if (minuto < 10) {
-                        minuto = "0" + minuto;
-                    }
-                    if (segundo < 10) {
-                        segundo = "0" + segundo;
-                    }
-
-                    horaImprimible = hora + " : " + minuto;
-                    fechaImprimible = dia + "-" + mes + "-" + ano;
-
-
-                    //     document.form_reg_dato.HORARECEPCION.value = horaImprimible;
-                    document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
-                    setTimeout("mueveReloj()", 1000);
-                }
 
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
                 function irPagina(url) {
@@ -102,7 +63,7 @@ include_once "../../assest/config/validarDatosUrl.php";
 
 </head>
 
-<body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
+<body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
             <?php include_once "../../assest/config/menuMaterial.php"; ?>
@@ -114,7 +75,7 @@ include_once "../../assest/config/validarDatosUrl.php";
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Agrupado Motivo Rechazo</h3>
+                                <h3 class="page-title">Administración</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
@@ -122,8 +83,7 @@ include_once "../../assest/config/validarDatosUrl.php";
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Administración</li>
                                             <li class="breadcrumb-item" aria-current="page">Orden Compra</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Agrupado Motivo Rechazo </a>
-                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Agrupado Motivo Rechazo </a>  </li>
                                         </ol>
                                     </nav>
                                 </div>

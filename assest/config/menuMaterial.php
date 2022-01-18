@@ -30,21 +30,6 @@
             <img src="../../api/cryptioadmin10/html/images/svg-icon/fullscreen.svg" class="img-fluid svg-icon" alt="">
           </a>
         </li>
-        <li class="btn-group d-md-inline-flex d-none">
-          <div class="search-bx ml-10">
-            <form id="fechahora" name="fechahora">
-              <div class="input-group">
-                <input type="search" class="form-control" name="fechahora" id="fechahora" placeholder="FECHA Y HORA" aria-describedby="button-addon2" disabled style="background-color: white;">
-                <div class="input-group-append">
-                  <div class="btn border-transparent" id="button-addon2" style="background-color: white;">
-                    <i class="glyphicon glyphicon-calendar"></i>
-                  </div>
-                </div>
-              </div>
-
-            </form>
-          </div>
-        </li>
         <li class="btn-group nav-item">
           <div class="search-bx ml-10">
             <div class="input-group" style="font-size: 12px;">
@@ -53,7 +38,7 @@
                 $ARRAYEMPRESAS = $EMPRESA_ADO->verEmpresa($EMPRESAS);
                 if ($ARRAYEMPRESAS) {
                   echo $ARRAYEMPRESAS[0]['NOMBRE_EMPRESA'];
-                  $EMPRESA = $ARRAYEMPRESAS[0]['ID_EMPRESA'];
+                 // $EMPRESA = $ARRAYEMPRESAS[0]['ID_EMPRESA'];
                 } else {
                   echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
                 }
@@ -67,7 +52,7 @@
                 $ARRAYPLANTAS = $PLANTA_ADO->verPlanta($PLANTAS);
                 if ($ARRAYPLANTAS) {
                   echo $ARRAYPLANTAS[0]['NOMBRE_PLANTA'];
-                  $PLANTA = $ARRAYPLANTAS[0]['ID_PLANTA'];
+                  //$PLANTA = $ARRAYPLANTAS[0]['ID_PLANTA'];
                 } else {
                   echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
                 }
@@ -81,7 +66,7 @@
                 $ARRAYTEMPORADAS = $TEMPORADA_ADO->verTemporada($TEMPORADAS);
                 if ($ARRAYTEMPORADAS) {
                   echo $ARRAYTEMPORADAS[0]['NOMBRE_TEMPORADA'];
-                  $TEMPORADA = $ARRAYTEMPORADAS[0]['ID_TEMPORADA'];
+                  //$TEMPORADA = $ARRAYTEMPORADAS[0]['ID_TEMPORADA'];
                 } else {
                   echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
                 }
@@ -92,18 +77,8 @@
             </div>
           </div>
         </li>
-        <li class="btn-group nav-item">
-          <div class="search-bx ml-10">
-            <div class="input-group" style="font-size: 12px;">
-            <?php echo $EURO; ?>
-            <br>
-            <?php echo $DOLAR; ?>
-            </div>
-          </div>
-        </li>  
       </ul>
     </div>
-
     <div class="navbar-custom-menu r-side">
       <ul class="nav navbar-nav">       
         <!-- Notifications -->
@@ -282,7 +257,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <option></option>
               <?php foreach ($ARRAYEMPRESACAMBIAR as $r) : ?>
                 <?php if ($ARRAYEMPRESACAMBIAR) {    ?>
-                  <option value="<?php echo $r['ID_EMPRESA']; ?>" <?php if ($EMPRESA == $r['ID_EMPRESA']) {
+                  <option value="<?php echo $r['ID_EMPRESA']; ?>" <?php if ($EMPRESAS == $r['ID_EMPRESA']) {
                                                                     echo "selected";
                                                                   } ?>> <?php echo $r['NOMBRE_EMPRESA'] ?> </option>
                 <?php } else { ?>
@@ -321,7 +296,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <option></option>
               <?php foreach ($ARRAYPLANTACAMBIAR as $r) : ?>
                 <?php if ($ARRAYPLANTACAMBIAR) {    ?>
-                  <option value="<?php echo $r['ID_PLANTA']; ?>" <?php if ($PLANTA == $r['ID_PLANTA']) {
+                  <option value="<?php echo $r['ID_PLANTA']; ?>" <?php if ($PLANTAS == $r['ID_PLANTA']) {
                                                                     echo "selected";
                                                                   } ?>> <?php echo $r['NOMBRE_PLANTA'] ?> </option>
                 <?php } else { ?>
@@ -340,10 +315,8 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
         </div>
       </div>
     </div>
-
   </form>
 </div>
-
 <!-- Left side column. contains the logo and sidebar -->
 <aside class="main-sidebar">
   <!-- sidebar-->
@@ -532,7 +505,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
             </ul>
           </li>
           <li class="treeview">
-            <a href="#">Productor
+            <a href="#">Fruta
               <span class="pull-left-container">
                 <i class=" fa fa-angle-right pull-right"></i>
               </span>
@@ -578,16 +551,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="registroTumedida.php">Tipo Unid. Medida<i class="ti-more"></i></a></li>
               <li><a href="registroTcontenedor.php">Tipo Contenedor<i class="ti-more"></i></a></li>
               <li><a href="registroTproductor.php">Tipo Productor<i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-          <li class="treeview">
-            <a href="#">Control
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroEau.php">Empresa Usuario<i class="ti-more"></i></a></li>
             </ul>
           </li>
           <li class="treeview">

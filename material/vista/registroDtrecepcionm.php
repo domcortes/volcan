@@ -354,18 +354,17 @@ if (isset($_POST)) {
 
 </head>
 
-<body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
+<body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../../assest/config/menuMaterial.php";
-            ?>
+            <?php include_once "../../assest/config/menuMaterial.php";  ?>
             <div class="content-wrapper">
                 <div class="container-full">
                     <!-- Content Header (Page header) -->
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Registro Tarja </h3>
+                                <h3 class="page-title">Materiales </h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
@@ -386,7 +385,6 @@ if (isset($_POST)) {
                     </div>
                     <!-- Main content -->
                     <section class="content">
-
                         <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                             <div class="box">
                                 <div class="card-header bg-info">
@@ -426,9 +424,9 @@ if (isset($_POST)) {
                                                 <option></option>
                                                 <?php foreach ($ARRAYTCONTENEDOR as $r) : ?>
                                                     <?php if ($ARRAYTCONTENEDOR) {    ?>
-                                                        <option value="<?php echo $r['ID_TCONTENEDOR']; ?>" <?php if ($TCONTENEDOR == $r['ID_TCONTENEDOR']) {
-                                                                                                                echo "selected";
-                                                                                                            } ?>> <?php echo $r['NOMBRE_TCONTENEDOR'] ?> </option>
+                                                        <option value="<?php echo $r['ID_TCONTENEDOR']; ?>" 
+                                                        <?php if ($TCONTENEDOR == $r['ID_TCONTENEDOR']) {  echo "selected"; } ?>> 
+                                                        <?php echo $r['NOMBRE_TCONTENEDOR'] ?> </option>
                                                     <?php } else { ?>
                                                         <option>No Hay Datos Registrados </option>
                                                     <?php } ?>

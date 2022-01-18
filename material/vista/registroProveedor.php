@@ -59,57 +59,7 @@ include_once "../../assest/config/datosUrl.php";
 include_once "../../assest/config/reporteUrl.php";
 
 
-//OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-if (isset($_REQUEST['GUARDAR'])) {
 
-
-    $ARRAYNUMERO = $PROVEEDOR_ADO->obtenerNumero($_REQUEST['EMPRESA']);
-    $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
-
-    //UTILIZACION METODOS SET DEL NOMBRE_PROVEEDOR
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-    $PROVEEDOR->__SET('NUMERO_PROVEEDOR', $NUMERO);
-    $PROVEEDOR->__SET('RUT_PROVEEDOR', $_REQUEST['RUTPROVEEDOR']);
-    $PROVEEDOR->__SET('DV_PROVEEDOR', $_REQUEST['DVPROVEEDOR']);
-    $PROVEEDOR->__SET('RAZON_PROVEEDOR', $_REQUEST['RAZONPROVEEDOR']);
-    $PROVEEDOR->__SET('NOMBRE_PROVEEDOR', $_REQUEST['NOMBREPROVEEDOR']);
-    $PROVEEDOR->__SET('GIRO_PROVEEDOR', $_REQUEST['GIROPROVEEDOR']);
-    $PROVEEDOR->__SET('DIRECCION_PROVEEDOR', $_REQUEST['DIRECCIONPROVEEDOR']);
-    $PROVEEDOR->__SET('TELEFONO_PROVEEDOR', $_REQUEST['TELEFONOPROVEEDOR']);
-    $PROVEEDOR->__SET('EMAIL_PROVEEDOR', $_REQUEST['EMAILPROVEEDOR']);
-    $PROVEEDOR->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);    
-    $PROVEEDOR->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);    
-    $PROVEEDOR->__SET('ID_USUARIOI', $IDUSUARIOS);
-    $PROVEEDOR->__SET('ID_USUARIOM', $IDUSUARIOS);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $PROVEEDOR_ADO->agregarProveedor($PROVEEDOR);
-    //REDIRECCIONAR A PAGINA registroEcomercial.php
-    echo "<script type='text/javascript'> location.href ='registroProveedor.php';</script>";
-}
-//OPERACION DE EDICION DE FILA
-if (isset($_REQUEST['EDITAR'])) {
-    //UTILIZACION METODOS SET DEL NOMBRE_PROVEEDOR
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO 
-
-
-    $PROVEEDOR->__SET('RUT_PROVEEDOR', $_REQUEST['RUTPROVEEDOR']);
-    $PROVEEDOR->__SET('DV_PROVEEDOR', $_REQUEST['DVPROVEEDOR']);
-    $PROVEEDOR->__SET('RAZON_PROVEEDOR', $_REQUEST['RAZONPROVEEDOR']);
-    $PROVEEDOR->__SET('NOMBRE_PROVEEDOR', $_REQUEST['NOMBREPROVEEDOR']);
-    $PROVEEDOR->__SET('GIRO_PROVEEDOR', $_REQUEST['GIROPROVEEDOR']);
-    $PROVEEDOR->__SET('DIRECCION_PROVEEDOR', $_REQUEST['DIRECCIONPROVEEDOR']);
-    $PROVEEDOR->__SET('TELEFONO_PROVEEDOR', $_REQUEST['TELEFONOPROVEEDOR']);
-    $PROVEEDOR->__SET('EMAIL_PROVEEDOR', $_REQUEST['EMAILPROVEEDOR']);
-    $PROVEEDOR->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $PROVEEDOR->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);    
-    $PROVEEDOR->__SET('ID_USUARIOM', $IDUSUARIOS);
-    $PROVEEDOR->__SET('ID_PROVEEDOR', $_REQUEST['ID']);
-    //LLAMADA AL METODO DE EDICION DEL CONTROLADOR   
-    $PROVEEDOR_ADO->actualizarProveedor($PROVEEDOR);
-    //REDIRECCIONAR A PAGINA registroEcomercial.php
-    echo "<script type='text/javascript'> location.href ='registroProveedor.php';</script>";
-}
 
 
 //OBTENCION DE DATOS ENVIADOR A LA URL
@@ -246,7 +196,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         return false;
                     }
                     document.form_reg_dato.DVPROVEEDOR.style.borderColor = "#4AF575";
-
+                    /*
                     if (RAZONPROVEEDOR == null || RAZONPROVEEDOR.length == 0 || /^\s+$/.test(RAZONPROVEEDOR)) {
                         document.form_reg_dato.RAZONPROVEEDOR.focus();
                         document.form_reg_dato.RAZONPROVEEDOR.style.borderColor = "#FF0000";
@@ -254,7 +204,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         return false;
                     }
                     document.form_reg_dato.RAZONPROVEEDOR.style.borderColor = "#4AF575";
-
+                    */
                     if (NOMBREPROVEEDOR == null || NOMBREPROVEEDOR.length == 0 || /^\s+$/.test(NOMBREPROVEEDOR)) {
                         document.form_reg_dato.NOMBREPROVEEDOR.focus();
                         document.form_reg_dato.NOMBREPROVEEDOR.style.borderColor = "#FF0000";
@@ -262,7 +212,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         return false;
                     }
                     document.form_reg_dato.NOMBREPROVEEDOR.style.borderColor = "#4AF575";
-
+                    /*
                     if (GIROPROVEEDOR == null || GIROPROVEEDOR.length == 0 || /^\s+$/.test(GIROPROVEEDOR)) {
                         document.form_reg_dato.GIROPROVEEDOR.focus();
                         document.form_reg_dato.GIROPROVEEDOR.style.borderColor = "#FF0000";
@@ -270,7 +220,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         return false;
                     }
                     document.form_reg_dato.GIROPROVEEDOR.style.borderColor = "#4AF575";
-
+                    */
                     if (DIRECCIONPROVEEDOR == null || DIRECCIONPROVEEDOR.length == 0 || /^\s+$/.test(DIRECCIONPROVEEDOR)) {
                         document.form_reg_dato.DIRECCIONPROVEEDOR.focus();
                         document.form_reg_dato.DIRECCIONPROVEEDOR.style.borderColor = "#FF0000";
@@ -278,7 +228,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         return false;
                     }
                     document.form_reg_dato.DIRECCIONPROVEEDOR.style.borderColor = "#4AF575";
-
+                    /*
                     if (TELEFONOPROVEEDOR == null || TELEFONOPROVEEDOR.length == 0 || /^\s+$/.test(TELEFONOPROVEEDOR)) {
                         document.form_reg_dato.TELEFONOPROVEEDOR.focus();
                         document.form_reg_dato.TELEFONOPROVEEDOR.style.borderColor = "#FF0000";
@@ -312,7 +262,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         return false;
                     }
                     document.form_reg_dato.CIUDAD.style.borderColor = "#4AF575";
-
+                    */
 
 
 
@@ -336,112 +286,46 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     "'directories=no, location=no, menubar=no, scrollbars=yes, statusbar=no, tittlebar=no, width=1600, height=1000'";
                     window.open(url, 'window', opciones);
                 }
-                //FUNCION PARA OBTENER HORA Y FECHA
-                function mueveReloj() {
-
-
-                    momentoActual = new Date();
-
-                    dia = momentoActual.getDate();
-                    mes = momentoActual.getMonth() + 1;
-                    ano = momentoActual.getFullYear();
-
-                    hora = momentoActual.getHours();
-                    minuto = momentoActual.getMinutes();
-                    segundo = momentoActual.getSeconds();
-
-                    if (dia < 10) {
-                        dia = "0" + dia;
-                    }
-
-                    if (mes < 10) {
-                        mes = "0" + mes;
-                    }
-                    if (hora < 10) {
-                        hora = "0" + hora;
-                    }
-                    if (minuto < 10) {
-                        minuto = "0" + minuto;
-                    }
-                    if (segundo < 10) {
-                        segundo = "0" + segundo;
-                    }
-
-                    horaImprimible = hora + " : " + minuto;
-                    fechaImprimible = dia + "-" + mes + "-" + ano;
-
-
-                    //     document.form_reg_dato.HORARECEPCION.value = horaImprimible;
-                    document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
-                    setTimeout("mueveReloj()", 1000);
-                }
             </script>
 
 </head>
 
-<body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
+<body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../../assest/config/menuMaterial.php";
-            ?>
-
+            <?php include_once "../../assest/config/menuMaterial.php";            ?>
             <div class="content-wrapper">
                 <div class="container-full">
-
                     <!-- Content Header (Page header) -->
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title"> Proveedor</h3>
+                                <h3 class="page-title"> Producto</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Mantenedores</li>
-                                            <li class="breadcrumb-item" aria-current="page">Proveedor </li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroProveedor.php"> Operaciónes Proveedor </a>
-                                            </li>
+                                            <li class="breadcrumb-item" aria-current="page">Producto </li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Proveedor </a> </li>
                                         </ol>
                                     </nav>
                                 </div>
                             </div>
-                            <div class="right-title">
-                                <div class="d-flex mt-10 justify-content-end">
-                                    <div class="d-lg-flex mr-20 ml-10 d-none">
-                                        <div class="chart-text mr-10">
-                                            <!--
-								<h6 class="mb-0"><small>THIS MONTH</small></h6>
-                                <h4 class="mt-0 text-primary">$12,125</h4>-->
-                                        </div>
-                                    </div>
-                                    <div class="d-lg-flex mr-20 ml-10 d-none">
-                                        <div class="chart-text mr-10">
-                                            <!--
-								<h6 class="mb-0"><small>LAST YEAR</small></h6>
-                                <h4 class="mt-0 text-danger">$22,754</h4>-->
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
+                            <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                         </div>
                     </div>
-
                     <!-- Main content -->
                     <section class="content">
                         <div class="row">
-                            <div class="col-lg-6 col-12">
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
-                                    <div class="box-header with-border">
-                                        <!--  
-                                    <h4 class="box-title">Sample form 1</h4>
-                                -->
+                                    <div class="box-header with-border bg-primary">                                        
+                                        <h4 class="box-title">Registro Proveedor</h4>                                    
                                     </div>
                                     <!-- /.box-header -->
-                                      <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
+                                     <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                                         <div class="box-body">
-                                            <h4 class="box-title text-info"><i class="ti-user mr-15"></i> Registro
-                                            </h4>
                                             <hr class="my-15">
                                             <div class="row">
                                                  <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
@@ -509,10 +393,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                             <option></option>
                                                             <?php foreach ($ARRAYCIUDAD as $r) : ?>
                                                                 <?php if ($ARRAYCIUDAD) {    ?>
-                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>" <?php if ($CIUDAD == $r['ID_CIUDAD']) {
-                                                                                                                        echo "selected";
-                                                                                                                    } ?>>
-                                                                        <?php echo $r['CIUDAD'].', '.$r['COMUNA'].', '.$r['PROVINCIA'].', '.$r['REGION']; ?>
+                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>" 
+                                                                    <?php if ($CIUDAD == $r['ID_CIUDAD']) { echo "selected";  } ?>>
+                                                                        <?php echo $r['CIUDAD'] ?>, <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
                                                                     <option>No Hay Datos Registrados </option>
@@ -536,7 +419,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                         <!-- /.box-body -->
                                         <div class="box-footer">
                                             <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
-                                                <button type=" button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroProveedor.php');">
+                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroProveedor.php');">
                                                 <i class="ti-trash"></i>Cancelar
                                                 </button>
                                                 <?php if ($OP != "editar") { ?>
@@ -554,101 +437,95 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                 </div>
                                 <!-- /.box -->
                             </div>
-                            <div class="col-lg-6 col-12">
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
-                                    <div class="box-header with-border">
-                                        <h4 class="box-title">Registros</h4>
+                                    <div class="box-header with-border bg-info">
+                                        <h4 class="box-title">Agrupado Provededor</h4>
                                     </div>
-                                    <div class="box-body">
-                                        <div class="row">
-                                            <div class="col-md-10 col-10">
-                                            </div>
-                                            <div class="col-md-2 col-2">
-                                                <form method="post" id="form2">
-                                                    <div class="row">
-                                                        <div class="col-md-1 col-1">
-                                                            <div class="form-group">
-                                                                <label>Exportar</label>
-                                                                <br>
-                                                                <input type="hidden" class="form-control" placeholder="URLEXCEL" id="URLEXCEL" name="URLEXCEL" value="reporteProvedor" />
-                                                                <button type="submit" class="btn btn-rounded btn-success btn-outline" id="EXPORTAR" name="EXPORTAR" title="Exportar Excel">
-                                                                    <i class="fa fa-file-excel-o"></i>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-11 col-11">
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12 col-12">
-                                                <div class="table-responsive">
-                                                    <table id="listar" class="table table-hover " style="width: 100%;">
-                                                        <thead>
-                                                            <tr class="center">
-                                                                <th>Número</th>
-                                                                <th>Rut</th>
-                                                                <th>Nombre</th>
-                                                                <th class="text-center">Operaciónes</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php foreach ($ARRAYPROVEEDORS as $r) : ?>
-                                                                <tr class="center">
-                                                                    <td>
-                                                                        <a href="#" class="text-warning hover-warning">
-                                                                            <?php echo $r['NUMERO_PROVEEDOR']; ?>
-                                                                        </a>
-                                                                    </td>
-                                                                   </td>   <td> <?php echo $r['RUT_PROVEEDOR']; ?>-<?php echo $r['DV_PROVEEDOR']; ?> </td>      
-                                                                    <td> <?php echo $r['NOMBRE_PROVEEDOR']; ?></td>                                                                                                                                                                        
-                                                                    <td class="text-center">
-                                                                        <form method="post" id="form1">
-                                                                            <div class="list-icons d-inline-flex">
-                                                                                <div class="list-icons-item dropdown">
-                                                                                    <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                                        <span class="icon-copy ti-settings"></span>
+                                    <div class="box-body">                                    
+                                        <div class="table-responsive">
+                                            <table id="listar" class="table-hover " style="width: 100%;">
+                                                <thead>
+                                                    <tr class="center">
+                                                        <th>Número</th>
+                                                        <th class="text-center">Operaciónes</th>
+                                                        <th>Rut Provededor</th>
+                                                        <th>Nombre Provededor</th>
+                                                        <th>Razon Provededor</th>
+                                                        <th>Giro Provededor</th>
+                                                        <th>Direccion Provededor</th>
+                                                        <th>Ciudad Provededor</th>
+                                                        <th>Telefono Provededor</th>
+                                                        <th>Email Provededor</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php foreach ($ARRAYPROVEEDORS as $r) : ?>
+                                                        <?php 
+                                                            $ARRAYVERCIUDAD=$CIUDAD_ADO->verCiudad($r["ID_CIUDAD"]);
+                                                            if($ARRAYVERCIUDAD){
+                                                                $NOMBRECIUDAD =   $ARRAYVERCIUDAD[0]['NOMBRE_CIUDAD'];
+                                                            }else{
+                                                                $NOMBRECIUDAD="Sin Datos";
+                                                            }    
+                                                        ?>
+                                                        <tr class="center">
+                                                            <td>
+                                                                <a href="#" class="text-warning hover-warning">
+                                                                    <?php echo $r['NUMERO_PROVEEDOR']; ?>
+                                                                </a>
+                                                            </td>                                                                                    
+                                                            <td class="text-center">
+                                                                <form method="post" id="form1">
+                                                                    <div class="list-icons d-inline-flex">
+                                                                        <div class="list-icons-item dropdown">
+                                                                            <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                <span class="icon-copy ti-settings"></span>
+                                                                            </button>
+                                                                            <div class="dropdown-menu dropdown-menu-right">
+                                                                                <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_PROVEEDOR']; ?>" />
+                                                                                <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroProveedor" />
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
+                                                                                    <button type="submit" class="btn btn-info btn-block  btn-sm" id="VERURL" name="VERURL">
+                                                                                        <i class="ti-eye"></i> Ver
                                                                                     </button>
-                                                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                                                        <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_PROVEEDOR']; ?>" />
-                                                                                        <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroProveedor" />
-                                                                                        <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
-                                                                                            <button type="submit" class="btn btn-info btn-block  btn-sm" id="VERURL" name="VERURL">
-                                                                                                <i class="ti-eye"></i> Ver
-                                                                                            </button>
-                                                                                        </span> 
-                                                                                        <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
-                                                                                            <button type="submit" class="btn  btn-warning btn-block   btn-sm" id="EDITARURL" name="EDITARURL">
-                                                                                                <i class="ti-pencil-alt"></i> Editar
-                                                                                            </button>
-                                                                                        </span>
-                                                                                        <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
-                                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Desahabilitar">
-                                                                                                <button type="submit" class="btn btn-block btn-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
-                                                                                                    <i class="ti-na "></i> Desahabilitar
-                                                                                                </button>
-                                                                                            </span>
-                                                                                        <?php } ?>
-                                                                                        <?php if ($r['ESTADO_REGISTRO'] == 0) { ?>
-                                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Habilitar">
-                                                                                                <button type="submit" class="btn btn-block btn-success btn-sm" id="HABILITARURL" name="HABILITARURL">
-                                                                                                    <i class="ti-check "></i> Habilitar
-                                                                                                </button>
-                                                                                            </span>
-                                                                                        <?php } ?>                                                               
-                                                                                    </div>
-                                                                                </div>
+                                                                                </span> 
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
+                                                                                    <button type="submit" class="btn  btn-warning btn-block   btn-sm" id="EDITARURL" name="EDITARURL">
+                                                                                        <i class="ti-pencil-alt"></i> Editar
+                                                                                    </button>
+                                                                                </span>
+                                                                                <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Desahabilitar">
+                                                                                        <button type="submit" class="btn btn-block btn-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
+                                                                                            <i class="ti-na "></i> Desahabilitar
+                                                                                        </button>
+                                                                                    </span>
+                                                                                <?php } ?>
+                                                                                <?php if ($r['ESTADO_REGISTRO'] == 0) { ?>
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Habilitar">
+                                                                                        <button type="submit" class="btn btn-block btn-success btn-sm" id="HABILITARURL" name="HABILITARURL">
+                                                                                            <i class="ti-check "></i> Habilitar
+                                                                                        </button>
+                                                                                    </span>
+                                                                                <?php } ?>                                                               
                                                                             </div>
-                                                                        </form>
-                                                                    </td>
-                                                                </tr>
-                                                            <?php endforeach; ?>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </td>    
+                                                            <td><?php echo $r['RUT_PROVEEDOR']; ?>-<?php echo $r['DV_PROVEEDOR']; ?> </td>      
+                                                            <td><?php echo $r['NOMBRE_PROVEEDOR']; ?></td>            
+                                                            <td><?php echo $r['RAZON_PROVEEDOR']; ?></td>   
+                                                            <td><?php echo $r['GIRO_PROVEEDOR']; ?></td>  
+                                                            <td><?php echo $r['DIRECCION_PROVEEDOR']; ?></td>  
+                                                            <td><?php echo $NOMBRECIUDAD; ?></td>  
+                                                            <td><?php echo $r['TELEFONO_PROVEEDOR']; ?></td>      
+                                                            <td><?php echo $r['EMAIL_PROVEEDOR']; ?></td>           
+                                                        </tr>
+                                                    <?php endforeach; ?>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -668,6 +545,80 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../../assest/config/urlBase.php"; ?>
+        <?php        
+
+                //OPERACIONES
+                //OPERACION DE REGISTRO DE FILA
+                if (isset($_REQUEST['GUARDAR'])) {
+
+
+                    $ARRAYNUMERO = $PROVEEDOR_ADO->obtenerNumero($_REQUEST['EMPRESA']);
+                    $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+
+                    //UTILIZACION METODOS SET DEL NOMBRE_PROVEEDOR
+                    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+                    $PROVEEDOR->__SET('NUMERO_PROVEEDOR', $NUMERO);
+                    $PROVEEDOR->__SET('RUT_PROVEEDOR', $_REQUEST['RUTPROVEEDOR']);
+                    $PROVEEDOR->__SET('DV_PROVEEDOR', $_REQUEST['DVPROVEEDOR']);
+                    $PROVEEDOR->__SET('RAZON_PROVEEDOR', $_REQUEST['RAZONPROVEEDOR']);
+                    $PROVEEDOR->__SET('NOMBRE_PROVEEDOR', $_REQUEST['NOMBREPROVEEDOR']);
+                    $PROVEEDOR->__SET('GIRO_PROVEEDOR', $_REQUEST['GIROPROVEEDOR']);
+                    $PROVEEDOR->__SET('DIRECCION_PROVEEDOR', $_REQUEST['DIRECCIONPROVEEDOR']);
+                    $PROVEEDOR->__SET('TELEFONO_PROVEEDOR', $_REQUEST['TELEFONOPROVEEDOR']);
+                    $PROVEEDOR->__SET('EMAIL_PROVEEDOR', $_REQUEST['EMAILPROVEEDOR']);
+                    $PROVEEDOR->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);    
+                    $PROVEEDOR->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);    
+                    $PROVEEDOR->__SET('ID_USUARIOI', $IDUSUARIOS);
+                    $PROVEEDOR->__SET('ID_USUARIOM', $IDUSUARIOS);
+                    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                    $PROVEEDOR_ADO->agregarProveedor($PROVEEDOR);
+                    //REDIRECCIONAR A PAGINA registroEcomercial.php
+                        echo '<script>
+                        Swal.fire({
+                            icon:"success",
+                            title:"Registro Creado",
+                            text:"El registro del mantenedor se ha creado correctamente",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href = "registroProveedor.php";                            
+                        })
+                    </script>';
+                }
+                //OPERACION DE EDICION DE FILA
+                if (isset($_REQUEST['EDITAR'])) {
+                    //UTILIZACION METODOS SET DEL NOMBRE_PROVEEDOR
+                    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO 
+                    $PROVEEDOR->__SET('RUT_PROVEEDOR', $_REQUEST['RUTPROVEEDOR']);
+                    $PROVEEDOR->__SET('DV_PROVEEDOR', $_REQUEST['DVPROVEEDOR']);
+                    $PROVEEDOR->__SET('RAZON_PROVEEDOR', $_REQUEST['RAZONPROVEEDOR']);
+                    $PROVEEDOR->__SET('NOMBRE_PROVEEDOR', $_REQUEST['NOMBREPROVEEDOR']);
+                    $PROVEEDOR->__SET('GIRO_PROVEEDOR', $_REQUEST['GIROPROVEEDOR']);
+                    $PROVEEDOR->__SET('DIRECCION_PROVEEDOR', $_REQUEST['DIRECCIONPROVEEDOR']);
+                    $PROVEEDOR->__SET('TELEFONO_PROVEEDOR', $_REQUEST['TELEFONOPROVEEDOR']);
+                    $PROVEEDOR->__SET('EMAIL_PROVEEDOR', $_REQUEST['EMAILPROVEEDOR']);
+                    $PROVEEDOR->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                    $PROVEEDOR->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);    
+                    $PROVEEDOR->__SET('ID_USUARIOM', $IDUSUARIOS);
+                    $PROVEEDOR->__SET('ID_PROVEEDOR', $_REQUEST['ID']);
+                    //LLAMADA AL METODO DE EDICION DEL CONTROLADOR   
+                    $PROVEEDOR_ADO->actualizarProveedor($PROVEEDOR);
+                    //REDIRECCIONAR A PAGINA registroEcomercial.php
+                    echo '<script>
+                        Swal.fire({
+                            icon:"success",
+                            title:"Registro Modificado",
+                            text:"El registro del mantenedor se ha Modificado correctamente",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href = "registroProveedor.php";                            
+                        })
+                    </script>';
+                }
+        ?>
 </body>
 
 </html>

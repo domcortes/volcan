@@ -85,7 +85,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <title>Selección Detalle OC </title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -109,19 +108,17 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 
 </head>
 
-<body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
+<body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../../assest/config/menuMaterial.php";
-            ?>
-
+            <?php include_once "../../assest/config/menuMaterial.php";  ?>
             <div class="content-wrapper">
                 <div class="container-full">
                     <!-- Content Header (Page header) -->
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Selección Detalle OC</h3>
+                                <h3 class="page-title">Materiales</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
@@ -134,27 +131,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                     </nav>
                                 </div>
                             </div>
-                            <div class="right-title">
-                                <div class="d-flex mt-10 justify-content-end">
-                                    <div class="d-lg-flex mr-20 ml-10 d-none">
-                                        <div class="chart-text mr-10">
-                                            <!--
-								<h6 class="mb-0"><small>THIS MONTH</small></h6>
-                                <h4 class="mt-0 text-primary">$12,125</h4>-->
-                                        </div>
-                                    </div>
-                                    <div class="d-lg-flex mr-20 ml-10 d-none">
-                                        <div class="chart-text mr-10">
-                                            <!--
-								<h6 class="mb-0"><small>LAST YEAR</small></h6>
-                                <h4 class="mt-0 text-danger">$22,754</h4>-->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                         </div>
                     </div>
-
                     <section class="content">
                         <div class="box">
                             <div class="box-header with-border bg-success">                                   
@@ -194,6 +173,26 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                                             } else {
                                                                 $SINO = "0";
                                                             }
+                                                            
+                                                            $ARRAYPRODUCTO = $PRODUCTO_ADO->verProducto($r['ID_PRODUCTO']);
+                                                            if ($ARRAYPRODUCTO) {
+                                                                $CODIGOPRODUCTO= $ARRAYPRODUCTO[0]['CODIGO_PRODUCTO'];
+                                                            } else {
+                                                                $CODIGOPRODUCTO= "Sin Dato";
+                                                            }
+
+                                                            if ($ARRAYPRODUCTO) {
+                                                                $NOMBREPRODUCTO= $ARRAYPRODUCTO[0]['NOMBRE_PRODUCTO'];
+                                                            } else {
+                                                                $NOMBREPRODUCTO= "Sin Dato";
+                                                            } 
+                                                            
+                                                            $ARRAYTUMEDIDA = $TUMEDIDA_ADO->verTumedida($r['ID_TUMEDIDA']);
+                                                            if ($ARRAYTUMEDIDA) {
+                                                                $NOMBRETUMEDIDA= $ARRAYTUMEDIDA[0]['NOMBRE_TUMEDIDA'];
+                                                            } else {
+                                                                $NOMBRETUMEDIDA= "Sin Dato";
+                                                            }
                                                             ?>
                                                             <?php if ($SINO == "0") {  ?>
                                                                 <?php $CONTADOR += 1;  ?>
@@ -214,34 +213,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                                                     <td>Sin Ingreso</td>
                                                                     <td><?php echo $r['CANTIDAD_DOCOMPRA']; ?></td>
                                                                     <td><?php echo $r['VALOR_UNITARIO_DOCOMPRA']; ?></td>
-                                                                    <td>
-                                                                        <?php
-                                                                        $ARRAYPRODUCTO = $PRODUCTO_ADO->verProducto($r['ID_PRODUCTO']);
-                                                                        if ($ARRAYPRODUCTO) {
-                                                                            echo $ARRAYPRODUCTO[0]['CODIGO_PRODUCTO'];
-                                                                        } else {
-                                                                            echo "Sin Dato";
-                                                                        }
-                                                                        ?>
-                                                                    </td>
-                                                                    <td>
-                                                                        <?php
-                                                                        if ($ARRAYPRODUCTO) {
-                                                                            echo $ARRAYPRODUCTO[0]['NOMBRE_PRODUCTO'];
-                                                                        } else {
-                                                                            echo "Sin Dato";
-                                                                        } ?>
-                                                                    </td>
-                                                                    <td>
-                                                                        <?php
-                                                                        $ARRAYTUMEDIDA = $TUMEDIDA_ADO->verTumedida($r['ID_TUMEDIDA']);
-                                                                        if ($ARRAYTUMEDIDA) {
-                                                                            echo $ARRAYTUMEDIDA[0]['NOMBRE_TUMEDIDA'];
-                                                                        } else {
-                                                                            echo "Sin Dato";
-                                                                        }
-                                                                        ?>
-                                                                    </td>
+                                                                    <td><?php echo $CODIGOPRODUCTO;?> </td>
+                                                                    <td><?php echo $NOMBREPRODUCTO; ?> </td>
+                                                                    <td><?php echo $NOMBRETUMEDIDA;?> </td>
                                                                 </tr>
                                                             <?php } ?>
                                                         <?php endforeach; ?>
@@ -269,8 +243,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                     </section>
                 </div>
             </div>
-
-
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
                 <?php include_once "../../assest/config/footer.php"; ?>
                 <?php include_once "../../assest/config/menuExtraMaterial.php"; ?>

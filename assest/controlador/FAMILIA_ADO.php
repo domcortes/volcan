@@ -48,7 +48,7 @@ class FAMILIA_ADO {
     public function listarFamilia(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_familia` limit 8 WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_familia  limit 8 WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -67,7 +67,7 @@ class FAMILIA_ADO {
     public function listarFamiliaCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_familia` WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_familia  WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -86,7 +86,7 @@ class FAMILIA_ADO {
     public function listarFamilia2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_familia` WHERE ESTADO_REGISTRO = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_familia  WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -107,7 +107,7 @@ class FAMILIA_ADO {
     public function verFamilia($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_familia` WHERE `ID_FAMILIA`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_familia  WHERE  ID_FAMILIA = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -132,15 +132,15 @@ class FAMILIA_ADO {
             
             
             $query=
-            "INSERT INTO `material_familia` (
-                                                `NUMERO_FAMILIA`, 
-                                                `NOMBRE_FAMILIA`, 
-                                                `ID_EMPRESA`,
-                                                `ID_USUARIOI`,
-                                                `ID_USUARIOM`,
-                                                `INGRESO`,
-                                                `MODIFICACION`, 
-                                                `ESTADO_REGISTRO`
+            "INSERT INTO  material_familia  (
+                                                 NUMERO_FAMILIA , 
+                                                 NOMBRE_FAMILIA , 
+                                                 ID_EMPRESA ,
+                                                 ID_USUARIOI ,
+                                                 ID_USUARIOM ,
+                                                 INGRESO ,
+                                                 MODIFICACION , 
+                                                 ESTADO_REGISTRO 
                                             ) VALUES
 	       	( ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
@@ -163,7 +163,7 @@ class FAMILIA_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarFamilia($id){
-        try{$sql="DELETE FROM `material_familia` WHERE `ID_FAMILIA`=".$id.";";
+        try{$sql="DELETE FROM  material_familia  WHERE  ID_FAMILIA =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -180,12 +180,12 @@ class FAMILIA_ADO {
     public function actualizarFamilia(FAMILIA $FAMILIA){
         try{
             $query = "
-		UPDATE `material_familia` SET
-            `MODIFICACION`= SYSDATE(),
-            `NOMBRE_FAMILIA`= ?,
-            `ID_EMPRESA`= ?    ,
-            `ID_USUARIOM`= ?         
-		WHERE `ID_FAMILIA`= ?;";
+		UPDATE  material_familia  SET
+             MODIFICACION = SYSDATE(),
+             NOMBRE_FAMILIA = ?,
+             ID_EMPRESA = ?    ,
+             ID_USUARIOM = ?         
+		WHERE  ID_FAMILIA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(   
@@ -212,10 +212,10 @@ class FAMILIA_ADO {
 
         try{
             $query = "
-    UPDATE `material_familia` SET				
-    `MODIFICACION`= SYSDATE(),	
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_FAMILIA`= ?;";
+    UPDATE  material_familia  SET				
+     MODIFICACION = SYSDATE(),	
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_FAMILIA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -233,10 +233,10 @@ class FAMILIA_ADO {
     public function habilitar(FAMILIA $FAMILIA){
         try{
             $query = "
-    UPDATE `material_familia` SET			
-    `MODIFICACION`= SYSDATE(),		
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_FAMILIA`= ?;";
+    UPDATE  material_familia  SET			
+     MODIFICACION = SYSDATE(),		
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_FAMILIA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -255,7 +255,7 @@ class FAMILIA_ADO {
             
             $datos=$this->conexion->prepare("SELECT 
                                                 *
-                                             FROM `material_familia` 
+                                             FROM  material_familia  
                                              WHERE ESTADO_REGISTRO = 1 
                                              AND ID_EMPRESA = '".$IDEMPRESA."';	");
             $datos->execute();
@@ -278,7 +278,7 @@ class FAMILIA_ADO {
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                     IFNULL(COUNT(NUMERO_FAMILIA),0) AS 'NUMERO'
-                                                FROM `material_familia`
+                                                FROM  material_familia 
                                                 WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                     ; ");
             $datos->execute();

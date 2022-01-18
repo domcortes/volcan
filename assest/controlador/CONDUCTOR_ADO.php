@@ -136,7 +136,8 @@ class CONDUCTOR_ADO {
                                                      NUMERO_CONDUCTOR , 
                                                      NOMBRE_CONDUCTOR , 
                                                      NOTA_CONDUCTOR , 
-                                                     TELEFONO_CONDUCTOR , 
+                                                     TELEFONO_CONDUCTOR ,
+                                                     EMAIL_CONDUCTOR,
                                                      ID_EMPRESA ,
                                                      ID_USUARIOI ,
                                                      ID_USUARIOM ,
@@ -144,7 +145,7 @@ class CONDUCTOR_ADO {
                                                      MODIFICACION , 
                                                      ESTADO_REGISTRO 
                                                 ) VALUES
-	       	(?, ?, ?, ?, ?, ?, ?, ?, ?,  SYSDATE() , SYSDATE(),  1);";
+	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  SYSDATE() , SYSDATE(),  1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -155,6 +156,7 @@ class CONDUCTOR_ADO {
                     $CONDUCTOR->__GET('NOMBRE_CONDUCTOR'),
                     $CONDUCTOR->__GET('NOTA_CONDUCTOR'),
                     $CONDUCTOR->__GET('TELEFONO_CONDUCTOR'),
+                    $CONDUCTOR->__GET('EMAIL_CONDUCTOR'),
                     $CONDUCTOR->__GET('ID_EMPRESA'),
                     $CONDUCTOR->__GET('ID_USUARIOI'),
                     $CONDUCTOR->__GET('ID_USUARIOM')
@@ -182,6 +184,7 @@ class CONDUCTOR_ADO {
 			 NOMBRE_CONDUCTOR  = ?,
              NOTA_CONDUCTOR = ?,
              TELEFONO_CONDUCTOR = ?,
+             EMAIL_CONDUCTOR = ?,
              ID_EMPRESA = ?,
              ID_USUARIOM = ?
 		WHERE  ID_CONDUCTOR = ?;";
@@ -193,6 +196,7 @@ class CONDUCTOR_ADO {
                     $CONDUCTOR->__GET('NOMBRE_CONDUCTOR'),
                     $CONDUCTOR->__GET('NOTA_CONDUCTOR'),
                     $CONDUCTOR->__GET('TELEFONO_CONDUCTOR'),
+                    $CONDUCTOR->__GET('EMAIL_CONDUCTOR'),
                     $CONDUCTOR->__GET('ID_EMPRESA'),
                     $CONDUCTOR->__GET('ID_USUARIOM'),
                     $CONDUCTOR->__GET('ID_CONDUCTOR')

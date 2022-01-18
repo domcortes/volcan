@@ -1,13 +1,13 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioMaterial.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/COMUNA_ADO.php';
-include_once '../controlador/CIUDAD_ADO.php';
+include_once '../../assest/controlador/COMUNA_ADO.php';
+include_once '../../assest/controlador/CIUDAD_ADO.php';
 
-include_once '../modelo/EMPRESA.php';
-include_once '../config/SUBIR.php';
+include_once '../../assest/modelo/EMPRESA.php';
+include_once '../../assest/config/SUBIR.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -25,7 +25,7 @@ $OP = "";
 $DISABLED = "";
 $ID = "";
 
-$DIRECTORIODESTINO = "img/empresa/";
+$DIRECTORIODESTINO = "../../assest/img/empresa/";
 
 $NOMBREMPRESA = "";
 $RAZONSOCIAL = "";
@@ -60,85 +60,11 @@ $ARRAYCIUDAD = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYEMPRESA = $EMPRESA_ADO->listarEmpresaCBX();
-$ARRAYCOMUNA = $COMUNA_ADO->listarComunaCBX();
-$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudadCBX();
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrl.php";
+$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrl.php";
 
 
-
-//OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-
-if (isset($_REQUEST['GUARDAR'])) {
-
-
-    //OPERACION DE SUBIR IMAGEN AL SERVIDOR
-    if ($_FILES['LOGOEMPRESA']) {
-        $SUBIRIMG = $SUBIR->subirImg($_FILES['LOGOEMPRESA'], $_REQUEST['RUTEMPRESA'], $DIRECTORIODESTINO);
-        $URL_IMG = $SUBIRIMG['UBICACION'] . $SUBIRIMG['NOMBREARCHIVO'] . $SUBIRIMG['FORMATO'];
-        $MENSAJE2 = $SUBIRIMG['MENSAJE'];
-    }
-    if ($URL_IMG == "") {
-        $URL_IMG = "";
-    }
-
-
-
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-    $EMPRESA->__SET('RUT_EMPRESA', $_REQUEST['RUTEMPRESA']);
-    $EMPRESA->__SET('DV_EMPRESA', $_REQUEST['DVEMPRESA']);
-    $EMPRESA->__SET('NOMBRE_EMPRESA', $_REQUEST['NOMBREMPRESA']);
-    $EMPRESA->__SET('RAZON_SOCIAL_EMPRESA', $_REQUEST['RAZONSOCIAL']);
-    $EMPRESA->__SET('DIRECCION_EMPRESA', $_REQUEST['DIRECCION']);
-    $EMPRESA->__SET('GIRO_EMPRESA', $_REQUEST['GIRO']);
-    $EMPRESA->__SET('TELEFONO_EMPRESA', $_REQUEST['TELEFONO']);
-    $EMPRESA->__SET('ENCARGADO_COMPRA_EMPRESA', $_REQUEST['ENCARGADODECOMPRA']);
-    $EMPRESA->__SET('LOGO_EMPRESA', $URL_IMG);
-    $EMPRESA->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
-    $EMPRESA->__SET('ID_USUARIOI', $IDUSUARIOS);
-    $EMPRESA->__SET('ID_USUARIOM', $IDUSUARIOS);
-    //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
-    $EMPRESA_ADO->agregarEmpresa($EMPRESA);
-    //REDIRECCIONAR A PAGINA registroEmpresa.php
-    echo "<script type='text/javascript'> location.href ='registroEmpresa.php';</script>";
-}
-//OPERACION DE EDICION DE FILA
-if (isset($_REQUEST['EDITAR'])) {
-
-    //OPERACION DE SUBIR IMAGEN AL SERVIDOR
-    if ($_FILES['LOGOEMPRESA']) {
-        $SUBIRIMG = $SUBIR->subirImg($_FILES['LOGOEMPRESA'], $_REQUEST['RUTEMPRESA'], $DIRECTORIODESTINO);
-        $URL_IMG = $SUBIRIMG['UBICACION'] . $SUBIRIMG['NOMBREARCHIVO'] . $SUBIRIMG['FORMATO'];
-        $MENSAJE2 = $SUBIRIMG['MENSAJE'];
-    }
-
-    if ($URL_IMG == "") {
-
-        $URL_IMG = $_REQUEST['URLIMG'];
-    }
-
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO  
-
-    $EMPRESA->__SET('RUT_EMPRESA', $_REQUEST['RUTEMPRESA']);
-    $EMPRESA->__SET('DV_EMPRESA', $_REQUEST['DVEMPRESA']);
-    $EMPRESA->__SET('NOMBRE_EMPRESA', $_REQUEST['NOMBREMPRESA']);
-    $EMPRESA->__SET('RAZON_SOCIAL_EMPRESA', $_REQUEST['RAZONSOCIAL']);
-    $EMPRESA->__SET('DIRECCION_EMPRESA', $_REQUEST['DIRECCION']);
-    $EMPRESA->__SET('GIRO_EMPRESA', $_REQUEST['GIRO']);
-    $EMPRESA->__SET('TELEFONO_EMPRESA', $_REQUEST['TELEFONO']);
-    $EMPRESA->__SET('ENCARGADO_COMPRA_EMPRESA', $_REQUEST['ENCARGADODECOMPRA']);
-    $EMPRESA->__SET('LOGO_EMPRESA', $URL_IMG);
-    $EMPRESA->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
-    $EMPRESA->__SET('ID_USUARIOM', $IDUSUARIOS);
-    $EMPRESA->__SET('ID_EMPRESA', $_REQUEST['ID']);
-    //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
-    $EMPRESA_ADO->actualizarEmpresa($EMPRESA);
-    //REDIRECCIONAR A PAGINA registroEmpresa.php
-    echo "<script type='text/javascript'> location.href ='registroEmpresa.php';</script>";
-}
 
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION Y VISUALIZACION
@@ -235,7 +161,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
 
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <script type="text/javascript">
             //VALIDACION DE FORMULARIO
             function validacion() {
@@ -352,115 +278,51 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 location.href = "" + url;
             }
 
-            //FUNCION PARA OBTENER HORA Y FECHA
-            function mueveReloj() {
-
-
-                momentoActual = new Date();
-
-                dia = momentoActual.getDate();
-                mes = momentoActual.getMonth() + 1;
-                ano = momentoActual.getFullYear();
-
-                hora = momentoActual.getHours();
-                minuto = momentoActual.getMinutes();
-                segundo = momentoActual.getSeconds();
-
-                if (dia < 10) {
-                    dia = "0" + dia;
-                }
-
-                if (mes < 10) {
-                    mes = "0" + mes;
-                }
-                if (hora < 10) {
-                    hora = "0" + hora;
-                }
-                if (minuto < 10) {
-                    minuto = "0" + minuto;
-                }
-                if (segundo < 10) {
-                    segundo = "0" + segundo;
-                }
-
-                horaImprimible = hora + " : " + minuto;
-                fechaImprimible = dia + "-" + mes + "-" + ano;
-
-
-                //     document.form_reg_dato.HORARECEPCION.value = horaImprimible;
-                document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
-                setTimeout("mueveReloj()", 1000);
-            }
         </script>
 </head>
 
-<body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
+<body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php"; ?>
+            <?php include_once "../../assest/config/menuMaterial.php"; ?>
 
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <div class="container-full">
-
                     <!-- Content Header (Page header) -->
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Empresa</h3>
+                                <h3 class="page-title">Principal</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Mantenedores</li>
                                             <li class="breadcrumb-item" aria-current="page">Principal</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroEmpresa.php"> Operaciónes Empresa </a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Registro Empresa </a>
                                             </li>
                                         </ol>
                                     </nav>
                                 </div>
                             </div>
-                            <div class="right-title">
-                                <div class="d-flex mt-10 justify-content-end">
-                                    <div class="d-lg-flex mr-20 ml-10 d-none">
-                                        <div class="chart-text mr-10">
-                                            <!--
-								<h6 class="mb-0"><small>THIS MONTH</small></h6>
-                                <h4 class="mt-0 text-primary">$12,125</h4>-->
-                                        </div>
-                                    </div>
-                                    <div class="d-lg-flex mr-20 ml-10 d-none">
-                                        <div class="chart-text mr-10">
-                                            <!--
-								<h6 class="mb-0"><small>LAST YEAR</small></h6>
-                                <h4 class="mt-0 text-danger">$22,754</h4>-->
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
+                            <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                         </div>
                     </div>
-
                     <!-- Main content -->
                     <section class="content">
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
-                                    <div class="box-header with-border">
-                                        <!--  
-                                    <h4 class="box-title">Sample form 1</h4>
-                                -->
+                                    <div class="box-header with-border bg-primary">                                
+                                        <h4 class="box-title">Registro Empresa</h4>                                
                                     </div>
                                     <!-- /.box-header -->
-                                    <form class="form" role="form" method="post" name="form_reg_dato" onsubmit="return validacion()" enctype="multipart/form-data">
+                                    <form class="form" role="form" method="post" id="form_reg_dato" name="form_reg_dato" enctype="multipart/form-data">
                                         <div class="box-body">
-                                            <h4 class="box-title text-info"><i class="ti-user mr-15"></i> Registro
-                                            </h4>
                                             <hr class="my-15">
                                             <div class="row">
-
-                                                <div class="col-md-4">
+                                                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Rut </label>
                                                         <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
@@ -468,58 +330,51 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_rut_empresa" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-2">
+                                                 <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                                     <div class="form-group">
                                                         <label>DV </label>
                                                         <input type="text" class="form-control" placeholder="DV Empresa" id="DVEMPRESA" name="DVEMPRESA" value="<?php echo $DVEMPRESA; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_dv_empresa" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label> Nombre </label>
                                                         <input type="text" class="form-control" placeholder="Nombre Empresa a Mostrar " id="NOMBREMPRESA" name="NOMBREMPRESA" value="<?php echo $NOMBREMPRESA; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_nombree" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-
-                                                <div class="col-md-6">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Giro</label>
                                                         <input type="text" class="form-control" placeholder="Giro" id="GIRO" name="GIRO" value="<?php echo $GIRO; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_giro" class="validacion"> </label>
                                                     </div>
                                                 </div>
-
-                                                <div class="col-md-6">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Razon Social</label>
                                                         <input type="text" class="form-control" placeholder="Razon Social" id="RAZONSOCIAL" name="RAZONSOCIAL" value="<?php echo $RAZONSOCIAL; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_razonsocial" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Direccion</label>
                                                         <input type="text" class="form-control" placeholder="Direccion" id="DIRECCION" name="DIRECCION" value="<?php echo $DIRECCION; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_direccion" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 col-12">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Ciudad</label>
                                                         <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
                                                             <option></option>
                                                             <?php foreach ($ARRAYCIUDAD as $r) : ?>
                                                                 <?php if ($ARRAYCIUDAD) {    ?>
-                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>" <?php if ($CIUDAD == $r['ID_CIUDAD']) {
-                                                                                                                        echo "selected";
-                                                                                                                    } ?>>
-                                                                        <?php echo $r['NOMBRE_CIUDAD'] ?>
+                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>" 
+                                                                     <?php if ($CIUDAD == $r['ID_CIUDAD']) { echo "selected"; } ?>>
+                                                                     <?php echo $r['CIUDAD'] ?>, <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
                                                                     <option>No Hay Datos Registrados </option>
@@ -529,64 +384,70 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_ciudad" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <hr class="my-15">
-                                            <div class="form-group">
-                                                <label>Telefono</label>
-                                                <input type="number" class="form-control" placeholder="Telefono" id="TELEFONO" name="TELEFONO" value="<?php echo $TELEFONO; ?>" <?php echo $DISABLED; ?> />
-                                                <label id="val_telefono" class="validacion"> </label>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Encargado de Compra</label>
-                                                <input type="text" class="form-control" placeholder="Encargado de Compra" id="ENCARGADODECOMPRA" name="ENCARGADODECOMPRA" value="<?php echo $ENCARGADODECOMPRA; ?>" <?php echo $DISABLED; ?> />
-                                                <label id="val_encargado_compra" class="validacion"> </label>
-                                            </div>
-                                            <hr>
-                                            <div class="form-group">
-                                                <label>Seleccion Imagen</label>
-                                                <label class="file">
-                                                    <input type="file" placeholder="IMG" id="LOGOEMPRESA" name="LOGOEMPRESA" values="<?php echo $LOGOEMPRESA; ?>" <?php echo $FOCUS2; ?> />
-                                                </label>
-                                                <label id="val_img_empresa" class="validacion"><?php echo $MENSAJE2; ?> </label>
-                                                <?php if ($URL_IMG) { ?>
-                                                    <img src="<?php echo  $URL_IMG; ?>" alt="Logo Empresa" class="rounded mx-auto d-block" style="max-width:100px; max-height:100px;width: auto;height: auto;">
-                                                <?php } else { ?>
-                                                    <img src="img/empresa/no_disponible.png" alt="Logo Empresa" class="rounded mx-auto d-block" style="max-width:100px; max-height:100px;width: auto;height: auto;">
-                                                <?php } ?>
-                                                <input type="hidden" id="URLIMG" name="URLIMG" value="<?php echo $URL_IMG; ?>" />
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">                                            
+                                                    <div class="form-group">
+                                                        <label>Telefono</label>
+                                                        <input type="number" class="form-control" placeholder="Telefono" id="TELEFONO" name="TELEFONO" value="<?php echo $TELEFONO; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_telefono" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                    <div class="form-group">
+                                                        <label>Encargado de Compra</label>
+                                                        <input type="text" class="form-control" placeholder="Encargado de Compra" id="ENCARGADODECOMPRA" name="ENCARGADODECOMPRA" value="<?php echo $ENCARGADODECOMPRA; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_encargado_compra" class="validacion"> </label>
+                                                    </div>
+                                                </div>  
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">     
+                                                    <div class="form-group">
+                                                        <label>Seleccion Imagen</label>
+                                                        <label class="file">
+                                                            <input type="file" placeholder="IMG" id="LOGOEMPRESA" name="LOGOEMPRESA" values="<?php echo $LOGOEMPRESA; ?>"  />
+                                                        </label>
+                                                        <label id="val_img_empresa" class="validacion"><?php echo $MENSAJE2; ?> </label>
+                                                        <?php if ($URL_IMG) { ?>
+                                                            <img src="<?php echo  $URL_IMG; ?>" alt="Logo Empresa" class="rounded mx-auto d-block" style="max-width:100px; max-height:100px;width: auto;height: auto;">
+                                                        <?php } else { ?>
+                                                            <img src="../../assest/img/empresa/no_disponible.png" alt="Logo Empresa" class="rounded mx-auto d-block" style="max-width:100px; max-height:100px;width: auto;height: auto;">
+                                                        <?php } ?>
+                                                        <input type="hidden" id="URLIMG" name="URLIMG" value="<?php echo $URL_IMG; ?>" />
+                                                    </div>
+                                                </div>                                                                                      
                                             </div>
                                         </div>
-                                        <!-- /.box-body -->
+                                        <!-- /.box-body -->                                        
                                         <div class="box-footer">
-                                            <button type="button" class="btn btn-rounded btn-warning btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroEmpresa.php'); ">
-                                                <i class="ti-trash"></i> Cancelar
-                                            </button>
-                                            <?php if ($OP != "editar") { ?>
-                                                <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?>>
-                                                    <i class="ti-save-alt"></i> Crear
+                                            <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
+                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroEmpresa.php');">
+                                                <i class="ti-trash"></i>Cancelar
                                                 </button>
-                                            <?php } else { ?>
-                                                <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="EDITAR" value="EDITAR">
-                                                    <i class="ti-save-alt"></i> Guardar
-                                                </button>
-                                            <?php } ?>
+                                                <?php if ($OP != "editar") { ?>
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                                <?php } else { ?>
+                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                                <?php } ?>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
                                 <!-- /.box -->
                             </div>
-                            <div class="col-lg-6 col-12">
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
-                                    <div class="box-header with-border">
-                                        <h4 class="box-title"> Registros</h4>
+                                    <div class="box-header with-border bg-info">
+                                        <h4 class="box-title"> Agrupado Empresa</h4>
                                     </div>
                                     <div class="box-body">
                                         <div class="table-responsive">
-                                            <table id="listar" class="table table-hover " style="width: 100%;">
+                                            <table id="listar" class="table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr>
-                                                        <th>Id </th>
-                                                        <th>Nombre </th>
+                                                        <th>Rut Empresa</th>
+                                                        <th>Nombre Empresa</th>
                                                         <th class="text-center">Operaciónes</th>
                                                     </tr>
                                                 </thead>
@@ -595,40 +456,44 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <tr class="center">
                                                             <td>
                                                                 <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['ID_EMPRESA']; ?>
+                                                                    <?php echo $r['RUT_EMPRESA']; ?>-<?php echo $r['DV_EMPRESA']; ?>
                                                                 </a>
                                                             </td>
-                                                            <td><?php echo $r['NOMBRE_EMPRESA']; ?></td>
+                                                            <td><?php echo $r['NOMBRE_EMPRESA']; ?></td>                                                                                       
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
                                                                         <div class="list-icons-item dropdown">
-                                                                            <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown">
-                                                                                <i class="glyphicon glyphicon-cog"></i>
-                                                                            </a>
+                                                                            <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                <span class="icon-copy ti-settings"></span>
+                                                                            </button>
                                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                                 <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_EMPRESA']; ?>" />
                                                                                 <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroEmpresa" />
-                                                                                <button type="submit" class="btn btn-rounded btn-outline-info btn-sm " id="VERURL" name="VERURL">
-                                                                                    <i class="ti-eye"></i>
-                                                                                </button>Ver
-                                                                                <br>
-                                                                                <button type="submit" class="btn btn-rounded btn-outline-warning btn-sm" id="EDITARURL" name="EDITARURL">
-                                                                                    <i class="ti-pencil-alt"></i>
-                                                                                </button>Editar
-                                                                                <br>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
+                                                                                    <button type="submit" class="btn btn-info btn-block  btn-sm" id="VERURL" name="VERURL">
+                                                                                        <i class="ti-eye"></i> Ver
+                                                                                    </button>
+                                                                                </span> 
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
+                                                                                    <button type="submit" class="btn  btn-warning btn-block   btn-sm" id="EDITARURL" name="EDITARURL">
+                                                                                        <i class="ti-pencil-alt"></i> Editar
+                                                                                    </button>
+                                                                                </span>
                                                                                 <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
-                                                                                    <button type="submit" class="btn btn-rounded btn-outline-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
-                                                                                        <i class="ti-na "></i>
-                                                                                    </button>Desahabilitar
-                                                                                    <br>
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Desahabilitar">
+                                                                                        <button type="submit" class="btn btn-block btn-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
+                                                                                            <i class="ti-na "></i> Desahabilitar
+                                                                                        </button>
+                                                                                    </span>
                                                                                 <?php } ?>
                                                                                 <?php if ($r['ESTADO_REGISTRO'] == 0) { ?>
-                                                                                    <button type="submit" class="btn btn-rounded btn-outline-success btn-sm" id="HABILITARURL" name="HABILITARURL">
-                                                                                        <i class="ti-check "></i>
-                                                                                    </button>Habilitar
-                                                                                    <br>
-                                                                                <?php } ?>
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Habilitar">
+                                                                                        <button type="submit" class="btn btn-block btn-success btn-sm" id="HABILITARURL" name="HABILITARURL">
+                                                                                            <i class="ti-check "></i> Habilitar
+                                                                                        </button>
+                                                                                    </span>
+                                                                                <?php } ?>                                                               
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -651,13 +516,109 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             </div>
             <!-- /.content-wrapper -->
 
-
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraMaterial.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
-</body>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
+        <?php 
+            
+            //OPERACIONES
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['GUARDAR'])) {
 
+
+                //OPERACION DE SUBIR IMAGEN AL SERVIDOR
+                if ($_FILES['LOGOEMPRESA']) {
+                    $SUBIRIMG = $SUBIR->subirImg($_FILES['LOGOEMPRESA'], $_REQUEST['RUTEMPRESA'], $DIRECTORIODESTINO);
+                    $URL_IMG = $SUBIRIMG['UBICACION'] . $SUBIRIMG['NOMBREARCHIVO'] . $SUBIRIMG['FORMATO'];
+                    $MENSAJE2 = $SUBIRIMG['MENSAJE'];
+                }
+                if ($URL_IMG == "") {
+                    $URL_IMG = "";
+                }
+
+
+
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+                $EMPRESA->__SET('RUT_EMPRESA', $_REQUEST['RUTEMPRESA']);
+                $EMPRESA->__SET('DV_EMPRESA', $_REQUEST['DVEMPRESA']);
+                $EMPRESA->__SET('NOMBRE_EMPRESA', $_REQUEST['NOMBREMPRESA']);
+                $EMPRESA->__SET('RAZON_SOCIAL_EMPRESA', $_REQUEST['RAZONSOCIAL']);
+                $EMPRESA->__SET('DIRECCION_EMPRESA', $_REQUEST['DIRECCION']);
+                $EMPRESA->__SET('GIRO_EMPRESA', $_REQUEST['GIRO']);
+                $EMPRESA->__SET('TELEFONO_EMPRESA', $_REQUEST['TELEFONO']);
+                $EMPRESA->__SET('ENCARGADO_COMPRA_EMPRESA', $_REQUEST['ENCARGADODECOMPRA']);
+                $EMPRESA->__SET('LOGO_EMPRESA', $URL_IMG);
+                $EMPRESA->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+                $EMPRESA->__SET('ID_USUARIOI', $IDUSUARIOS);
+                $EMPRESA->__SET('ID_USUARIOM', $IDUSUARIOS);
+                //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
+                $EMPRESA_ADO->agregarEmpresa($EMPRESA);
+                //REDIRECCIONAR A PAGINA registroEmpresa.php
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Creado",
+                        text:"El registro del mantenedor se ha creado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                         location.href = "registroEmpresa.php";                            
+                    })
+                </script>';
+            }
+            //OPERACION DE EDICION DE FILA
+            if (isset($_REQUEST['EDITAR'])) {
+
+                //OPERACION DE SUBIR IMAGEN AL SERVIDOR
+                if ($_FILES['LOGOEMPRESA']) {
+                    $SUBIRIMG = $SUBIR->subirImg($_FILES['LOGOEMPRESA'], $_REQUEST['RUTEMPRESA'], $DIRECTORIODESTINO);
+                    $URL_IMG = $SUBIRIMG['UBICACION'] . $SUBIRIMG['NOMBREARCHIVO'] . $SUBIRIMG['FORMATO'];
+                    $MENSAJE2 = $SUBIRIMG['MENSAJE'];
+                }
+
+                if ($URL_IMG == "") {
+
+                    $URL_IMG = $_REQUEST['URLIMG'];
+                }
+
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO  
+
+                $EMPRESA->__SET('RUT_EMPRESA', $_REQUEST['RUTEMPRESA']);
+                $EMPRESA->__SET('DV_EMPRESA', $_REQUEST['DVEMPRESA']);
+                $EMPRESA->__SET('NOMBRE_EMPRESA', $_REQUEST['NOMBREMPRESA']);
+                $EMPRESA->__SET('RAZON_SOCIAL_EMPRESA', $_REQUEST['RAZONSOCIAL']);
+                $EMPRESA->__SET('DIRECCION_EMPRESA', $_REQUEST['DIRECCION']);
+                $EMPRESA->__SET('GIRO_EMPRESA', $_REQUEST['GIRO']);
+                $EMPRESA->__SET('TELEFONO_EMPRESA', $_REQUEST['TELEFONO']);
+                $EMPRESA->__SET('ENCARGADO_COMPRA_EMPRESA', $_REQUEST['ENCARGADODECOMPRA']);
+                $EMPRESA->__SET('LOGO_EMPRESA', $URL_IMG);
+                $EMPRESA->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+                $EMPRESA->__SET('ID_USUARIOM', $IDUSUARIOS);
+                $EMPRESA->__SET('ID_EMPRESA', $_REQUEST['ID']);
+                //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
+                $EMPRESA_ADO->actualizarEmpresa($EMPRESA);
+                //REDIRECCIONAR A PAGINA registroEmpresa.php
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Modificado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroEmpresa.php";                            
+                    })
+                </script>';
+            }
+
+        
+        ?>
+</body>
 </html>

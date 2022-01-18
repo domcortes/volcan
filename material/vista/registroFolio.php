@@ -1,15 +1,15 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioMaterial.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/FOLIO_ADO.php';
-include_once '../modelo/FOLIO.php';
+include_once '../../assest/controlador/FOLIOM_ADO.php';
+include_once '../../assest/modelo/FOLIOM.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
-$FOLIO_ADO =  new FOLIO_ADO();
+$FOLIO_ADO =  new FOLIOM_ADO();
 
 //INIICIALIZAR MODELO
 $FOLIO =  new FOLIO();
@@ -61,146 +61,10 @@ $ARRAYFOLIO = $FOLIO_ADO->listarFoliPorEmpresaCBX($EMPRESAS);
 $ARRAYEMPRESA = $EMPRESA_ADO->listarEmpresaCBX();
 $ARRAYPLANTA = $PLANTA_ADO->listarPlantaPropiaCBX();
 $ARRAYTEMPORADA = $TEMPORADA_ADO->listarTemporadaCBX();
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrl.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrl.php";
 
 
-//OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-
-if (isset($_REQUEST['GUARDAR'])) {
-
-    //VALIDAR QUE LOS DATOS SELCIOANDO NO SE REPITANW
-    $ARRAYVALIDARFOLIO = $FOLIO_ADO->validarFolio($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA'], $_REQUEST['TFOLIO']);
-    if ($ARRAYVALIDARFOLIO) {
-        $SINO = 1;
-        $MENSAJE = "EXISTE UN REGISTRO ASOCIADOS A LOS DATOS SELECIONADOS";
-        $EMPRESA = $_REQUEST['EMPRESA'];
-        $PLANTA = $_REQUEST['PLANTA'];
-        $TFOLIO = $_REQUEST['TFOLIO'];
-        $TEMPORADA = $_REQUEST['TEMPORADA'];
-    } else {
-        $SINO = 0;
-    }
-    if ($SINO == 0) {
-
-        //FUNCION PARA GENERAR EL FOLIO
-        $NUMEROFOLIO2 = (int)$_REQUEST['TFOLIO'] . $_REQUEST['EMPRESA'] . $_REQUEST['PLANTA'] .  $_REQUEST['TEMPORADA'];
-        $NUMEROFOLIO = $NUMEROFOLIO2 * 10000;
-
-        //OBTENCIONS ALIAS FOLIO
-        //OBTENER INFORMACION DE LAS TABLAS RELACIONADAS
-        $ARRAYVEREMPRESA2 = $EMPRESA_ADO->verEmpresa($_REQUEST['EMPRESA']);
-        $ARRAYVERPLANTA2 = $PLANTA_ADO->verPlanta($_REQUEST['PLANTA']);
-        $ARRAYVERTEMPORADA2 = $TEMPORADA_ADO->verTemporada($_REQUEST['TEMPORADA']);
-
-        //GENERACION DE ALIAS
-        $ALIASFOLIO = (int) $ARRAYVEREMPRESA2[0]['ID_EMPRESA'] . $ARRAYVERPLANTA2[0]['ID_PLANTA'] . $_REQUEST['TFOLIO'] . $ARRAYVERTEMPORADA2[0]['ID_TEMPORADA'];
-        $ALIASFOLIO = $ALIASFOLIO *  10000;
-
-        $ALIASFOLIO = $ALIASFOLIO . "_EMPRESA:" . $ARRAYVEREMPRESA2[0]['NOMBRE_EMPRESA'];
-        $ALIASFOLIO = $ALIASFOLIO . "_PLANTA:" . $ARRAYVERPLANTA2[0]['NOMBRE_PLANTA'];
-        if ($_REQUEST['TFOLIO'] == 1) {
-            $NOMBRETFOLIO = "MATERIALES";
-        }
-        if ($_REQUEST['TFOLIO'] == 2) {
-            $NOMBRETFOLIO = "ENVASES";
-        }
-
-        $ALIASFOLIO = $ALIASFOLIO . "_TIPO_FOLIO:" . $NOMBRETFOLIO;
-        $ALIASFOLIO = $ALIASFOLIO . "_TEMPORADA:" . $ARRAYVERTEMPORADA2[0]['NOMBRE_TEMPORADA'];
-        $ALIASFOLIO = $ALIASFOLIO . "_NUMEROFOLIO:";
-
-        //UTILIZACION METODOS SET DEL MODELO
-        //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-
-        $FOLIO->__SET('NUMERO_FOLIO', $NUMEROFOLIO);
-        $FOLIO->__SET('ALIAS_DINAMICO_FOLIO', $ALIASFOLIO);
-        $FOLIO->__SET('ALIAS_ESTATICO_FOLIO', $NUMEROFOLIO);
-        $FOLIO->__SET('TFOLIO', $_REQUEST['TFOLIO']);
-        $FOLIO->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-        $FOLIO->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-        $FOLIO->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-        $FOLIO->__SET('ID_USUARIOI', $IDUSUARIOS);
-        $FOLIO->__SET('ID_USUARIOM', $IDUSUARIOS);
-        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-        $FOLIO_ADO->agregarFolio($FOLIO);
-        //REDIRECCIONAR A PAGINA registroFolio.php
-        echo "<script type='text/javascript'> location.href ='registroFolio.php';</script>";
-    }
-}
-//OPERACION EDICION DE FILA
-if (isset($_REQUEST['EDITAR'])) {
-    //VALIDAR QUE LOS DATOS SELCIOANDO NO SE REPITANW
-    $ARRAYFOLIOID = $FOLIO_ADO->verFolio($_REQUEST['ID']);
-    $ARRAYVALIDARFOLIO2 = $FOLIO_ADO->validarFolio($ARRAYFOLIOID[0]['ID_EMPRESA'], $ARRAYFOLIOID[0]['ID_PLANTA'], $ARRAYFOLIOID[0]['ID_TEMPORADA'], $ARRAYFOLIOID[0]['TFOLIO']);
-    $ARRAYVALIDARFOLIO = $FOLIO_ADO->validarFolio($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA'], $_REQUEST['TFOLIO']);
-    if ($ARRAYVALIDARFOLIO2) {
-        if ($ARRAYVALIDARFOLIO) {
-            if (
-                $ARRAYFOLIOID[0]['ID_EMPRESA'] == $_REQUEST['EMPRESA'] && $ARRAYFOLIOID[0]['ID_PLANTA'] == $_REQUEST['PLANTA'] &&
-                $ARRAYFOLIOID[0]['ID_TEMPORADA'] == $_REQUEST['TEMPORADA'] && $ARRAYFOLIOID[0]['TFOLIO'] == $_REQUEST['TFOLIO']
-            ) {
-                $SINO = "0";
-                $MENSAJE = "";
-            } else {
-                $SINO = "1";
-                $MENSAJE = "EXISTE UN REGISTRO ASOCIADOS A LOS DATOS SELECIONADOS";
-                $EMPRESA = $_REQUEST['EMPRESA'];
-                $PLANTA = $_REQUEST['PLANTA'];
-                $TFOLIO = $_REQUEST['TFOLIO'];
-                $TEMPORADA = $_REQUEST['TEMPORADA'];
-            }
-        }
-    }
-
-    if ($SINO == "0") {
-        //FUNCION PARA GENERAR EL FOLIO
-        $NUMEROFOLIO2 = (int)$_REQUEST['TFOLIO'] . $_REQUEST['EMPRESA'] . $_REQUEST['PLANTA'] .  $_REQUEST['TEMPORADA'];
-        $NUMEROFOLIO = $NUMEROFOLIO2 * 10000;
-
-        //OBTENCIONS ALIAS FOLIO
-        $ARRAYVEREMPRESA2 = $EMPRESA_ADO->verEmpresa($_REQUEST['EMPRESA']);
-        $ARRAYVERPLANTA2 = $PLANTA_ADO->verPlanta($_REQUEST['PLANTA']);
-        $ARRAYVERTEMPORADA2 = $TEMPORADA_ADO->verTemporada($_REQUEST['TEMPORADA']);
-
-        $ALIASFOLIO = (int) $ARRAYVEREMPRESA2[0]['ID_EMPRESA'] . $ARRAYVERPLANTA2[0]['ID_PLANTA'] . $_REQUEST['TFOLIO'] . $ARRAYVERTEMPORADA2[0]['ID_TEMPORADA'];
-        $ALIASFOLIO = $ALIASFOLIO * 10000;
-
-        $ALIASFOLIO = $ALIASFOLIO . "_EMPRESA:" . $ARRAYVEREMPRESA2[0]['NOMBRE_EMPRESA'];
-        $ALIASFOLIO = $ALIASFOLIO . "_PLANTA:" . $ARRAYVERPLANTA2[0]['NOMBRE_PLANTA'];
-
-
-        if ($_REQUEST['TFOLIO'] == 1) {
-            $NOMBRETFOLIO = "MATERIALES";
-        }
-        if ($_REQUEST['TFOLIO'] == 2) {
-            $NOMBRETFOLIO = "ENVASES";
-        }
-
-
-        $ALIASFOLIO = $ALIASFOLIO . "_TIPO_FOLIO:" . $NOMBRETFOLIO;
-        $ALIASFOLIO = $ALIASFOLIO . "_TEMPORADA:" . $ARRAYVERTEMPORADA2[0]['NOMBRE_TEMPORADA'];
-        $ALIASFOLIO = $ALIASFOLIO . "_NUMEROFOLIO:";
-
-
-        //UTILIZACION METODOS SET DEL MODELO
-        //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-        $FOLIO->__SET('NUMERO_FOLIO', $NUMEROFOLIO);
-        $FOLIO->__SET('ALIAS_DINAMICO_FOLIO', $ALIASFOLIO);
-        $FOLIO->__SET('ALIAS_ESTATICO_FOLIO', $NUMEROFOLIO);
-        $FOLIO->__SET('TFOLIO', $_REQUEST['TFOLIO']);
-        $FOLIO->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-        $FOLIO->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-        $FOLIO->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-        $FOLIO->__SET('ID_USUARIOM', $IDUSUARIOS);
-        $FOLIO->__SET('ID_FOLIO', $_REQUEST['ID']);
-        //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
-        $FOLIO_ADO->actualizarFolio($FOLIO);
-        //REDIRECCIONAR A PAGINA registroFolio.php
-        //   echo "<script type='text/javascript'> location.href ='registroFolio.php';</script>";
-    }
-}
 
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION Y VISUALIZACION
@@ -289,7 +153,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //VALIDACION DE FORMULARIO
@@ -336,115 +200,48 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 function irPagina(url) {
                     location.href = "" + url;
                 }
-                //FUNCION PARA OBTENER HORA Y FECHA
-                function mueveReloj() {
-
-
-                    momentoActual = new Date();
-
-                    dia = momentoActual.getDate();
-                    mes = momentoActual.getMonth() + 1;
-                    ano = momentoActual.getFullYear();
-
-                    hora = momentoActual.getHours();
-                    minuto = momentoActual.getMinutes();
-                    segundo = momentoActual.getSeconds();
-
-                    if (dia < 10) {
-                        dia = "0" + dia;
-                    }
-
-                    if (mes < 10) {
-                        mes = "0" + mes;
-                    }
-                    if (hora < 10) {
-                        hora = "0" + hora;
-                    }
-                    if (minuto < 10) {
-                        minuto = "0" + minuto;
-                    }
-                    if (segundo < 10) {
-                        segundo = "0" + segundo;
-                    }
-
-                    horaImprimible = hora + " : " + minuto;
-                    fechaImprimible = dia + "-" + mes + "-" + ano;
-
-
-                    //     document.form_reg_dato.HORARECEPCION.value = horaImprimible;
-                    document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
-                    setTimeout("mueveReloj()", 1000);
-                }
             </script>
-
 </head>
-
-<body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
+<body class="hold-transition light-skin fixed sidebar-mini theme-primary">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php"; ?>
-
+            <?php include_once "../../assest/config/menuMaterial.php"; ?>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <div class="container-full">
-
                     <!-- Content Header (Page header) -->
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Folio</h3>
+                                <h3 class="page-title">Principal</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Mantenedores</li>
-                                            <li class="breadcrumb-item" aria-current="page">Folio</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroFolio.php"> Operaciones Folio </a>
-                                            </li>
+                                            <li class="breadcrumb-item" aria-current="page">Principal</li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Folio </a>  </li>
                                         </ol>
                                     </nav>
                                 </div>
                             </div>
-                            <div class="right-title">
-                                <div class="d-flex mt-10 justify-content-end">
-                                    <div class="d-lg-flex mr-20 ml-10 d-none">
-                                        <div class="chart-text mr-10">
-                                            <!--
-								<h6 class="mb-0"><small>THIS MONTH</small></h6>
-                                <h4 class="mt-0 text-primary">$12,125</h4>-->
-                                        </div>
-                                    </div>
-                                    <div class="d-lg-flex mr-20 ml-10 d-none">
-                                        <div class="chart-text mr-10">
-                                            <!--
-								<h6 class="mb-0"><small>LAST YEAR</small></h6>
-                                <h4 class="mt-0 text-danger">$22,754</h4>-->
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
+                            <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                         </div>
                     </div>
-
                     <!-- Main content -->
                     <section class="content">
                         <div class="row">
-                            <div class="col-lg-6 col-12">
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
-                                    <div class="box-header with-border">
-                                        <!--  
-                                    <h4 class="box-title">Sample form 1</h4>
-                                -->
+                                    <div class="box-header with-border bg-primary">                                        
+                                        <h4 class="box-title">Registro Folio</h4>                                
                                     </div>
                                     <!-- /.box-header -->
-                                    <form class="form" role="form" method="post" name="form_reg_dato" onsubmit="return validacion()">
+                                    <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato" >
                                         <div class="box-body">
-                                            <h4 class="box-title text-info"><i class="ti-user mr-15"></i> Registro
-                                            </h4>
                                             <hr class="my-15">
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
                                                         <label>Número </label>
                                                         <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
@@ -453,7 +250,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_numero" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 col-12">
+                                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
                                                         <label>Tipo Folio</label>
                                                         <select class="form-control select2" id="TFOLIO" name="TFOLIO" style="width: 100%;" value="<?php echo $TFOLIO; ?>" <?php echo $DISABLED; ?>>
@@ -467,9 +264,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_tfolio" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6 col-12">
+                                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
                                                         <label>Empresa</label>
                                                         <select class="form-control select2" id="EMPRESAV" name="EMPRESAV" style="width: 100%;" value="<?php echo $EMPRESAS; ?>" <?php echo $DISABLED; ?> disabled>
@@ -489,7 +284,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_empresa" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 col-12">
+                                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
                                                         <label>Planta</label>
                                                         <select class="form-control select2" id="PLANTA" name="PLANTA" style="width: 100%;" value="<?php echo $PLANTA; ?>" <?php echo $DISABLED; ?>>
@@ -509,9 +304,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_planta" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6 col-12">
+                                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
                                                         <label>Temporada</label>
                                                         <select class="form-control select2" id="TEMPORADA" name="TEMPORADA" style="width: 100%;" value="<?php echo $TEMPORADA; ?>" <?php echo $DISABLED; ?>>
@@ -534,33 +327,35 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             </div>
                                             <label id="mensaje" class="validacion"> <?php echo $MENSAJE; ?> </label>
                                         </div>
-                                        <!-- /.box-body -->
+                                        <!-- /.box-body -->                                                          
                                         <div class="box-footer">
-                                            <button type="button" class="btn btn-rounded btn-warning btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroFolio.php'); ">
-                                                <i class="ti-trash"></i> Cancelar
-                                            </button>
-                                            <?php if ($OP != "editar") { ?>
-                                                <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?>>
-                                                    <i class="ti-save-alt"></i> Crear
+                                            <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
+                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroFolio.php');">
+                                                <i class="ti-trash"></i>Cancelar
                                                 </button>
-                                            <?php } else { ?>
-                                                <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="EDITAR" value="EDITAR">
-                                                    <i class="ti-save-alt"></i> Guardar
-                                                </button>
-                                            <?php } ?>
+                                                <?php if ($OP != "editar") { ?>
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                                <?php } else { ?>
+                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                                <?php } ?>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
                                 <!-- /.box -->
                             </div>
-                            <div class="col-lg-6 col-12">
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
-                                    <div class="box-header with-border">
-                                        <h4 class="box-title"> Registros</h4>
+                                    <div class="box-header with-border bg-info">
+                                        <h4 class="box-title"> Agrupado Folio</h4>
                                     </div>
                                     <div class="box-body">
                                         <div class="table-responsive">
-                                            <table id="listar" class="table table-hover " style="width: 100%;">
+                                            <table id="listar" class="table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Numero </th>
@@ -573,70 +368,78 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYFOLIO as $r) : ?>
+                                                        <?php 
+                                                              if ($r['TFOLIO'] == 1) {
+                                                                $TFOLIO= "Materiales";
+                                                            }
+                                                            if ($r['TFOLIO'] == 2) {
+                                                                $TFOLIO=  "Envases";
+                                                            }
+
+                                                            
+                                                            $ARRAYVEREMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
+                                                            if($ARRAYVEREMPRESA){
+                                                                $NOMBRE_EMPRESA=  $ARRAYVEREMPRESA[0]['NOMBRE_EMPRESA'];
+                                                            }else{
+                                                                $NOMBRE_EMPRESA="Sin Datos";
+                                                            }                                                            
+                                                            $ARRAYVERPLANTA = $PLANTA_ADO->verPlanta($r['ID_PLANTA']);
+                                                            if($ARRAYVERPLANTA){
+                                                                $NOMBRE_PLANTA= $ARRAYVERPLANTA[0]['NOMBRE_PLANTA'];
+                                                            }else{
+                                                                $NOMBRE_PLANTA="Sin Datos";
+                                                            }                                                            
+                                                            $ARRAYVERTEMPORADA = $TEMPORADA_ADO->verTemporada($r['ID_TEMPORADA']);
+                                                            if($ARRAYVERTEMPORADA){
+                                                                $NOMBRE_TEMPORADA= $ARRAYVERTEMPORADA[0]['NOMBRE_TEMPORADA'];
+                                                            }else{
+                                                                $NOMBRE_TEMPORADA="Sin Datos";
+                                                            }
+                                                        ?>
                                                         <tr class="center">
                                                             <td>
                                                                 <a href="#" class="text-warning hover-warning">
                                                                     <?php echo $r['NUMERO_FOLIO']; ?>
                                                                 </a>
                                                             </td>
-                                                            <td>
-                                                                <?php
-                                                                if ($r['TFOLIO'] == 1) {
-                                                                    echo "Materiales";
-                                                                }
-                                                                if ($r['TFOLIO'] == 2) {
-                                                                    echo  "Envases";
-                                                                }
-                                                                ?>
-                                                            </td>
-                                                            <td>
-                                                                <?php
-                                                                $ARRAYVEREMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
-                                                                echo  $ARRAYVEREMPRESA[0]['NOMBRE_EMPRESA'];
-                                                                ?>
-                                                            </td>
-                                                            <td>
-                                                                <?php
-                                                                $ARRAYVERPLANTA = $PLANTA_ADO->verPlanta($r['ID_PLANTA']);
-                                                                echo $ARRAYVERPLANTA[0]['NOMBRE_PLANTA'];
-                                                                ?>
-                                                            </td>
-                                                            <td>
-                                                                <?php
-                                                                $ARRAYVERTEMPORADA = $TEMPORADA_ADO->verTemporada($r['ID_TEMPORADA']);
-                                                                echo $ARRAYVERTEMPORADA[0]['NOMBRE_TEMPORADA'];
-                                                                ?>
-                                                            </td>
+                                                            <td><?php echo $TFOLIO; ?></td>
+                                                            <td><?php echo $NOMBRE_EMPRESA; ?></td>
+                                                            <td><?php echo $NOMBRE_PLANTA  ?></td>
+                                                            <td><?php echo $NOMBRE_TEMPORADA  ?></td>                                                                                                                                  
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
                                                                         <div class="list-icons-item dropdown">
-                                                                            <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown">
-                                                                                <i class="glyphicon glyphicon-cog"></i>
-                                                                            </a>
+                                                                            <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                <span class="icon-copy ti-settings"></span>
+                                                                            </button>
                                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                                 <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_FOLIO']; ?>" />
                                                                                 <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroFolio" />
-                                                                                <button type="submit" class="btn btn-rounded btn-outline-info btn-sm " id="VERURL" name="VERURL">
-                                                                                    <i class="ti-eye"></i>
-                                                                                </button>Ver
-                                                                                <br>
-                                                                                <button type="submit" class="btn btn-rounded btn-outline-warning btn-sm" id="EDITARURL" name="EDITARURL">
-                                                                                    <i class="ti-pencil-alt"></i>
-                                                                                </button>Editar
-                                                                                <br>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
+                                                                                    <button type="submit" class="btn btn-info btn-block  btn-sm" id="VERURL" name="VERURL">
+                                                                                        <i class="ti-eye"></i> Ver
+                                                                                    </button>
+                                                                                </span> 
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
+                                                                                    <button type="submit" class="btn  btn-warning btn-block   btn-sm" id="EDITARURL" name="EDITARURL">
+                                                                                        <i class="ti-pencil-alt"></i> Editar
+                                                                                    </button>
+                                                                                </span>
                                                                                 <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
-                                                                                    <button type="submit" class="btn btn-rounded btn-outline-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
-                                                                                        <i class="ti-na "></i>
-                                                                                    </button>Desahabilitar
-                                                                                    <br>
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Desahabilitar">
+                                                                                        <button type="submit" class="btn btn-block btn-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
+                                                                                            <i class="ti-na "></i> Desahabilitar
+                                                                                        </button>
+                                                                                    </span>
                                                                                 <?php } ?>
                                                                                 <?php if ($r['ESTADO_REGISTRO'] == 0) { ?>
-                                                                                    <button type="submit" class="btn btn-rounded btn-outline-success btn-sm" id="HABILITARURL" name="HABILITARURL">
-                                                                                        <i class="ti-check "></i>
-                                                                                    </button>Habilitar
-                                                                                    <br>
-                                                                                <?php } ?>
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Habilitar">
+                                                                                        <button type="submit" class="btn btn-block btn-success btn-sm" id="HABILITARURL" name="HABILITARURL">
+                                                                                            <i class="ti-check "></i> Habilitar
+                                                                                        </button>
+                                                                                    </span>
+                                                                                <?php } ?>                                                               
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -659,14 +462,192 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             </div>
             <!-- /.content-wrapper -->
 
-
-
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraMaterial.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
+        <?php 
+        
+            //OPERACIONES
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['GUARDAR'])) {
+
+                //VALIDAR QUE LOS DATOS SELCIOANDO NO SE REPITANW
+                $ARRAYVALIDARFOLIO = $FOLIO_ADO->validarFolio($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA'], $_REQUEST['TFOLIO']);
+                if ($ARRAYVALIDARFOLIO) {
+                    $SINO = 1;
+                    echo '<script>
+                            Swal.fire({
+                                icon:"warning",
+                                title:"Accion restringida",
+                                text:"Existe un registro asociado al los datos selecionados",
+                                showConfirmButton: true,
+                                confirmButtonText:"Cerrar",
+                                closeOnConfirm:false
+                            })
+                        </script>';
+                    $EMPRESA = $_REQUEST['EMPRESA'];
+                    $PLANTA = $_REQUEST['PLANTA'];
+                    $TFOLIO = $_REQUEST['TFOLIO'];
+                    $TEMPORADA = $_REQUEST['TEMPORADA'];
+                } else {
+                    $SINO = 0;
+                }
+                if ($SINO == 0) {
+
+                    //FUNCION PARA GENERAR EL FOLIO
+                    $NUMEROFOLIO2 = (int)$_REQUEST['TFOLIO'] . $_REQUEST['EMPRESA'] . $_REQUEST['PLANTA'] .  $_REQUEST['TEMPORADA'];
+                    $NUMEROFOLIO = $NUMEROFOLIO2 * 10000;
+
+                    //OBTENCIONS ALIAS FOLIO
+                    //OBTENER INFORMACION DE LAS TABLAS RELACIONADAS
+                    $ARRAYVEREMPRESA2 = $EMPRESA_ADO->verEmpresa($_REQUEST['EMPRESA']);
+                    $ARRAYVERPLANTA2 = $PLANTA_ADO->verPlanta($_REQUEST['PLANTA']);
+                    $ARRAYVERTEMPORADA2 = $TEMPORADA_ADO->verTemporada($_REQUEST['TEMPORADA']);
+
+                    //GENERACION DE ALIAS
+                    $ALIASFOLIO = (int) $ARRAYVEREMPRESA2[0]['ID_EMPRESA'] . $ARRAYVERPLANTA2[0]['ID_PLANTA'] . $_REQUEST['TFOLIO'] . $ARRAYVERTEMPORADA2[0]['ID_TEMPORADA'];
+                    $ALIASFOLIO = $ALIASFOLIO *  10000;
+
+                    $ALIASFOLIO = $ALIASFOLIO . "_EMPRESA:" . $ARRAYVEREMPRESA2[0]['NOMBRE_EMPRESA'];
+                    $ALIASFOLIO = $ALIASFOLIO . "_PLANTA:" . $ARRAYVERPLANTA2[0]['NOMBRE_PLANTA'];
+                    if ($_REQUEST['TFOLIO'] == 1) {
+                        $NOMBRETFOLIO = "MATERIALES";
+                    }
+                    if ($_REQUEST['TFOLIO'] == 2) {
+                        $NOMBRETFOLIO = "ENVASES";
+                    }
+
+                    $ALIASFOLIO = $ALIASFOLIO . "_TIPO_FOLIO:" . $NOMBRETFOLIO;
+                    $ALIASFOLIO = $ALIASFOLIO . "_TEMPORADA:" . $ARRAYVERTEMPORADA2[0]['NOMBRE_TEMPORADA'];
+                    $ALIASFOLIO = $ALIASFOLIO . "_NUMEROFOLIO:";
+
+                    //UTILIZACION METODOS SET DEL MODELO
+                    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+
+                    $FOLIO->__SET('NUMERO_FOLIO', $NUMEROFOLIO);
+                    $FOLIO->__SET('ALIAS_DINAMICO_FOLIO', $ALIASFOLIO);
+                    $FOLIO->__SET('ALIAS_ESTATICO_FOLIO', $NUMEROFOLIO);
+                    $FOLIO->__SET('TFOLIO', $_REQUEST['TFOLIO']);
+                    $FOLIO->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                    $FOLIO->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                    $FOLIO->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                    $FOLIO->__SET('ID_USUARIOI', $IDUSUARIOS);
+                    $FOLIO->__SET('ID_USUARIOM', $IDUSUARIOS);
+                    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                    $FOLIO_ADO->agregarFolio($FOLIO);
+                    //REDIRECCIONAR A PAGINA registroFolio.php                        
+                    echo '<script>
+                        Swal.fire({
+                            icon:"success",
+                            title:"Registro Creado",
+                            text:"El registro del mantenedor se ha creado correctamente",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href = "registroFolio.php";                            
+                        })
+                    </script>';
+
+                }
+            }
+            //OPERACION EDICION DE FILA
+            if (isset($_REQUEST['EDITAR'])) {
+                //VALIDAR QUE LOS DATOS SELCIOANDO NO SE REPITANW
+                $ARRAYFOLIOID = $FOLIO_ADO->verFolio($_REQUEST['ID']);
+                $ARRAYVALIDARFOLIO2 = $FOLIO_ADO->validarFolio($ARRAYFOLIOID[0]['ID_EMPRESA'], $ARRAYFOLIOID[0]['ID_PLANTA'], $ARRAYFOLIOID[0]['ID_TEMPORADA'], $ARRAYFOLIOID[0]['TFOLIO']);
+                $ARRAYVALIDARFOLIO = $FOLIO_ADO->validarFolio($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA'], $_REQUEST['TFOLIO']);
+                if ($ARRAYVALIDARFOLIO2) {
+                    if ($ARRAYVALIDARFOLIO) {
+                        if (
+                            $ARRAYFOLIOID[0]['ID_EMPRESA'] == $_REQUEST['EMPRESA'] && $ARRAYFOLIOID[0]['ID_PLANTA'] == $_REQUEST['PLANTA'] &&
+                            $ARRAYFOLIOID[0]['ID_TEMPORADA'] == $_REQUEST['TEMPORADA'] && $ARRAYFOLIOID[0]['TFOLIO'] == $_REQUEST['TFOLIO']
+                        ) {
+                            $SINO = "0";
+                            $MENSAJE = "";
+                        } else {
+                            $SINO = "1";
+                            echo '<script>
+                                    Swal.fire({
+                                        icon:"warning",
+                                        title:"Accion restringida",
+                                        text:"Existe un registro asociado al los datos selecionados",
+                                        showConfirmButton: true,
+                                        confirmButtonText:"Cerrar",
+                                        closeOnConfirm:false
+                                    })
+                                </script>';
+                            $EMPRESA = $_REQUEST['EMPRESA'];
+                            $PLANTA = $_REQUEST['PLANTA'];
+                            $TFOLIO = $_REQUEST['TFOLIO'];
+                            $TEMPORADA = $_REQUEST['TEMPORADA'];
+                        }
+                    }
+                }
+
+                if ($SINO == "0") {
+                    //FUNCION PARA GENERAR EL FOLIO
+                    $NUMEROFOLIO2 = (int)$_REQUEST['TFOLIO'] . $_REQUEST['EMPRESA'] . $_REQUEST['PLANTA'] .  $_REQUEST['TEMPORADA'];
+                    $NUMEROFOLIO = $NUMEROFOLIO2 * 10000;
+
+                    //OBTENCIONS ALIAS FOLIO
+                    $ARRAYVEREMPRESA2 = $EMPRESA_ADO->verEmpresa($_REQUEST['EMPRESA']);
+                    $ARRAYVERPLANTA2 = $PLANTA_ADO->verPlanta($_REQUEST['PLANTA']);
+                    $ARRAYVERTEMPORADA2 = $TEMPORADA_ADO->verTemporada($_REQUEST['TEMPORADA']);
+
+                    $ALIASFOLIO = (int) $ARRAYVEREMPRESA2[0]['ID_EMPRESA'] . $ARRAYVERPLANTA2[0]['ID_PLANTA'] . $_REQUEST['TFOLIO'] . $ARRAYVERTEMPORADA2[0]['ID_TEMPORADA'];
+                    $ALIASFOLIO = $ALIASFOLIO * 10000;
+
+                    $ALIASFOLIO = $ALIASFOLIO . "_EMPRESA:" . $ARRAYVEREMPRESA2[0]['NOMBRE_EMPRESA'];
+                    $ALIASFOLIO = $ALIASFOLIO . "_PLANTA:" . $ARRAYVERPLANTA2[0]['NOMBRE_PLANTA'];
+
+
+                    if ($_REQUEST['TFOLIO'] == 1) {
+                        $NOMBRETFOLIO = "MATERIALES";
+                    }
+                    if ($_REQUEST['TFOLIO'] == 2) {
+                        $NOMBRETFOLIO = "ENVASES";
+                    }
+
+
+                    $ALIASFOLIO = $ALIASFOLIO . "_TIPO_FOLIO:" . $NOMBRETFOLIO;
+                    $ALIASFOLIO = $ALIASFOLIO . "_TEMPORADA:" . $ARRAYVERTEMPORADA2[0]['NOMBRE_TEMPORADA'];
+                    $ALIASFOLIO = $ALIASFOLIO . "_NUMEROFOLIO:";
+
+
+                    //UTILIZACION METODOS SET DEL MODELO
+                    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+                    $FOLIO->__SET('NUMERO_FOLIO', $NUMEROFOLIO);
+                    $FOLIO->__SET('ALIAS_DINAMICO_FOLIO', $ALIASFOLIO);
+                    $FOLIO->__SET('ALIAS_ESTATICO_FOLIO', $NUMEROFOLIO);
+                    $FOLIO->__SET('TFOLIO', $_REQUEST['TFOLIO']);
+                    $FOLIO->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                    $FOLIO->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                    $FOLIO->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                    $FOLIO->__SET('ID_USUARIOM', $IDUSUARIOS);
+                    $FOLIO->__SET('ID_FOLIO', $_REQUEST['ID']);
+                    //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
+                    $FOLIO_ADO->actualizarFolio($FOLIO);
+                    //REDIRECCIONAR A PAGINA registroFolio.php                    
+                    echo '<script>
+                        Swal.fire({
+                            icon:"success",
+                            title:"Registro Modificado",
+                            text:"El registro del mantenedor se ha Modificado correctamente",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href = "registroFolio.php";                            
+                        })
+                    </script>';
+                }
+            }
+
+        ?>
 </body>
 
 </html>

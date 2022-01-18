@@ -2,18 +2,15 @@
 
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioMaterial.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/AUSUARIO_ADO.php';
-include_once '../modelo/USUARIO.php';
 
 //INICIALIZAR CONTROLADOR
 
 
 //INIICIALIZAR MODELO
 $USUARIO =  new USUARIO();
-$AUSUARIO_ADO =  new AUSUARIO_ADO();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
@@ -44,29 +41,14 @@ $ARRAYYVERUSUARIOID = "";
 
 
 
-//OPERACION DE EDICION DE FILA
-if (isset($_REQUEST['EDITAR'])) {
-    $USUARIO->__SET('RUT_USUARIO', $_REQUEST['RUTUSUARIO']);
-    $USUARIO->__SET('PNOMBRE_USUARIO', $_REQUEST['PNOMBREUSUARIO']);
-    $USUARIO->__SET('SNOMBRE_USUARIO', $_REQUEST['SNOMBREUSUARIO']);
-    $USUARIO->__SET('PAPELLIDO_USUARIO', $_REQUEST['PAPELLIDOUSUARIO']);
-    $USUARIO->__SET('SAPELLIDO_USUARIO', $_REQUEST['SAPELLIDOUSUARIO']);
-    $USUARIO->__SET('EMAIL_USUARIO', $_REQUEST['CORREO']);
-    $USUARIO->__SET('TELEFONO_USUARIO', $_REQUEST['TELEFONO']);
-    $USUARIO->__SET('ID_USUARIO', $IDUSUARIOS);
-    $USUARIO_ADO->actualizarPerfil($USUARIO);
-    echo "<script type='text/javascript'> location.href ='editarUsuario.php';</script>";
-}
 
 
 
 if (isset($NOMBREUSUARIOS)) {
     //$DISABLED="disabled";
     $ARRAYYVERUSUARIOID = $USUARIO_ADO->verUsuario($IDUSUARIOS);
-    $ARRAYYVERAUSUARIOIDMAX5 = $AUSUARIO_ADO->buscarAusuarioPorNombreUsuarioUltimasCinco($IDUSUARIOS);
-
     foreach ($ARRAYYVERUSUARIOID as $r) :
-        $RUTUSUARIO = "" . $r['RUT_USUARIO'];
+
         $NOMBREUSUARIO = "" . $r['NOMBRE_USUARIO'];
 
         $PNOMBREUSUARIO = "" . $r['PNOMBRE_USUARIO'];
@@ -94,7 +76,7 @@ if (isset($NOMBREUSUARIOS)) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 function validacion() {
@@ -129,17 +111,7 @@ if (isset($NOMBREUSUARIOS)) {
                         return false;
                     }
                     document.form_reg_dato.NOMBREUSUARIO.style.borderColor = "#4AF575";
-
-
-
-                    if (RUTUSUARIO == null || RUTUSUARIO.length == 0 || /^\s+$/.test(RUTUSUARIO)) {
-                        document.form_reg_dato.RUTUSUARIO.focus();
-                        document.form_reg_dato.RUTUSUARIO.style.borderColor = "#FF0000";
-                        document.getElementById('val_rutusuario').innerHTML = "NO A INGRESADO DATO";
-                        return false;
-                    }
-                    document.form_reg_dato.RUTUSUARIO.style.borderColor = "#4AF575";
-
+                
 
                     if (PNOMBREUSUARIO == null || PNOMBREUSUARIO.length == 0 || /^\s+$/.test(PNOMBREUSUARIO)) {
                         document.form_reg_dato.PNOMBREUSUARIO.focus();
@@ -207,56 +179,16 @@ if (isset($NOMBREUSUARIOS)) {
                 function irPagina(url) {
                     location.href = "" + url;
                 }
-                //FUNCION PARA OBTENER HORA Y FECHA
-                function mueveReloj() {
-
-
-                    momentoActual = new Date();
-
-                    dia = momentoActual.getDate();
-                    mes = momentoActual.getMonth() + 1;
-                    ano = momentoActual.getFullYear();
-
-                    hora = momentoActual.getHours();
-                    minuto = momentoActual.getMinutes();
-                    segundo = momentoActual.getSeconds();
-
-                    if (dia < 10) {
-                        dia = "0" + dia;
-                    }
-
-                    if (mes < 10) {
-                        mes = "0" + mes;
-                    }
-                    if (hora < 10) {
-                        hora = "0" + hora;
-                    }
-                    if (minuto < 10) {
-                        minuto = "0" + minuto;
-                    }
-                    if (segundo < 10) {
-                        segundo = "0" + segundo;
-                    }
-
-                    horaImprimible = hora + " : " + minuto ;
-                    fechaImprimible = dia + "-" + mes + "-" + ano;
-
-
-                    //     document.form_reg_dato.HORARECEPCION.value = horaImprimible;
-                    document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
-                    setTimeout("mueveReloj()", 1000);
-                }
             </script>
 
 </head>
 
-<body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
+<body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php"; ?>
+            <?php include_once "../../assest/config/menuMaterial.php"; ?>
             <div class="content-wrapper">
                 <div class="container-full">
-
                     <!-- Content Header (Page header) -->
                     <div class="content-header">
                         <div class="d-flex align-items-center">
@@ -267,31 +199,12 @@ if (isset($NOMBREUSUARIOS)) {
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Perfil</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="editarUsuario.php"> Editar Perfil </a>
-                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="editarUsuario.php"> Editar Perfil </a> </li>
                                         </ol>
                                     </nav>
                                 </div>
                             </div>
-                            <div class="right-title">
-                                <div class="d-flex mt-10 justify-content-end">
-                                    <div class="d-lg-flex mr-20 ml-10 d-none">
-                                        <div class="chart-text mr-10">
-                                            <!--
-                                        <h6 class="mb-0"><small>THIS MONTH</small></h6>
-                                        <h4 class="mt-0 text-primary">$12,125</h4>-->
-                                        </div>
-                                    </div>
-                                    <div class="d-lg-flex mr-20 ml-10 d-none">
-                                        <div class="chart-text mr-10">
-                                            <!--
-                                        <h6 class="mb-0"><small>LAST YEAR</small></h6>
-                                        <h4 class="mt-0 text-danger">$22,754</h4>-->
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
+                            <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                         </div>
                     </div>
 
@@ -299,8 +212,7 @@ if (isset($NOMBREUSUARIOS)) {
                     <section class="content">
 
                         <div class="row">
-                            <div class="col-xl-4 col-lg-5">
-
+                            <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <!-- Profile Image -->
                                 <div class="box">
                                     <div class="box-body box-profile">
@@ -320,7 +232,7 @@ if (isset($NOMBREUSUARIOS)) {
                                             ?>
                                         </h4>
                                         <div class="row">
-                                            <div class="col-12">
+                                            <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="media-list media-list-hover media-list-divided w-p100 mt-30">
                                                     <h4 class="media media-single p-15">
                                                         <i class="fa fa-arrow-circle-o-right mr-10"></i>
@@ -330,10 +242,10 @@ if (isset($NOMBREUSUARIOS)) {
                                                             </a>
                                                         </span>
                                                     </h4>
-                                                    <h4 class="media media-single p-15">
+                                                    <h4 class="media media-single p-15 bg-info">
                                                         <i class="fa fa-arrow-circle-o-right mr-10"></i>
                                                         <span class="title">
-                                                            <a href="editarUsuario.php">
+                                                            <a href="#">
                                                                 Editar Perfil
                                                             </a>
                                                         </span>
@@ -346,7 +258,6 @@ if (isset($NOMBREUSUARIOS)) {
                                                             </a>
                                                         </span>
                                                     </h4>
-
                                                     <h4 class="media media-single p-15">
                                                         <i class="fa fa-arrow-circle-o-right mr-10"></i>
                                                         <span class="title">
@@ -357,52 +268,9 @@ if (isset($NOMBREUSUARIOS)) {
                                                     </h4>
                                                 </div>
                                             </div>
-
                                             <h3 class="title w-p100 mt-10 mb-0 p-20">ULTIMAS 5 OPERACIONES</h3>
-                                            <div class="col-12">
+                                            <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="media-list media-list-hover w-p100 mt-0">
-                                                    <?php foreach ($ARRAYYVERAUSUARIOIDMAX5 as $r) : ?>
-                                                        <h5 class="media media-single py-10 px-0 w-p100 justify-content-between">
-                                                            <p>
-                                                                <i class="fa fa-circle text-success pr-10 font-size-12"></i> <?php echo $r['TABLA_OBJETIVO_AUSUARIO']; ?>
-                                                                <span class="subtitle pl-20 mt-10"> ID
-                                                                    <span class="text-success">
-                                                                        <?php echo $r['ID_AUSUARIO']; ?>
-                                                                    </span>
-                                                                </span>
-                                                            </p>
-                                                            <p class="text-right pull-right">
-
-                                                                <?php if ($r['TIPO_OPERACION_AUSUARIO'] == "1") { ?>
-                                                                    <span class="badge badge-sm badge-success mb-10">
-                                                                        <?php echo "REGISTRO"; ?>
-                                                                    </span>
-                                                                <?php     } ?>
-
-                                                                <?php if ($r['TIPO_OPERACION_AUSUARIO'] == "2") { ?>
-                                                                    <span class="badge badge-sm badge-Warning  mb-10">
-                                                                        <?php echo "MODIFICACION"; ?>
-                                                                    </span>
-                                                                <?php     } ?>
-
-                                                                <?php if ($r['TIPO_OPERACION_AUSUARIO'] == "3") { ?>
-                                                                    <span class="badge badge-sm badge-Danger   mb-10">
-                                                                        <?php echo "DESACTIVAR"; ?>
-                                                                    </span>
-                                                                <?php     } ?>
-
-                                                                <?php if ($r['TIPO_OPERACION_AUSUARIO'] == "4") { ?>
-                                                                    <span class="badge badge-sm badge-primary    mb-10">
-                                                                        <?php echo "ACTIVAR"; ?>
-                                                                    </span>
-                                                                <?php     } ?>
-                                                                <br>
-                                                                <?php echo $r['FECHA_AUSUARIO||']; ?>
-                                                            </p>
-                                                        </h5>
-                                                    <?php endforeach; ?>
-
-
                                                 </div>
                                             </div>
                                         </div>
@@ -412,17 +280,16 @@ if (isset($NOMBREUSUARIOS)) {
                                 <!-- /.box -->
                             </div>
                             <!-- /.col -->
-                            <div class="col-xl-8 col-lg-7">
+                            <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
-                                    <div class="box-header with-border">
+                                    <div class="box-header with-border bg-info">
                                         <h3 class="box-title">Editar Perfil </h3>
                                     </div>
                                     <!-- /.box-header -->
-
-                                    <form class="form" role="form" method="post" name="form_reg_dato" onsubmit="return validacion()">
+                                    <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                                         <div class="box-body">
                                             <div class="row">
-                                                <div class="col-12">
+                                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group row">
                                                         <label class="col-sm-2 col-form-label">Nombre Usuario</label>
                                                         <div class="col-sm-10">
@@ -430,13 +297,6 @@ if (isset($NOMBREUSUARIOS)) {
                                                             <input type="text" class="form-control" placeholder="Nombre Usuario" id="NOMBREUSUARIO" name="NOMBREUSUARIO" value="<?php echo $NOMBREUSUARIO; ?>" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> disabled />
                                                         </div>
                                                         <label id="val_nombre" class="validacion"> </label>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-2 col-form-label">Rut</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" class="form-control" placeholder="Rut " id="RUTUSUARIO" name="RUTUSUARIO" value="<?php echo $RUTUSUARIO; ?>" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?> />
-                                                        </div>
-                                                        <label id="val_rutusuario" class="validacion"> </label>
                                                     </div>
                                                     <div class="form-group row">
                                                         <label class="col-sm-2 col-form-label">Primer Nombre</label>
@@ -452,7 +312,6 @@ if (isset($NOMBREUSUARIOS)) {
                                                         </div>
                                                         <label id="val_snombre" class="validacion"> </label>
                                                     </div>
-
                                                     <div class="form-group row">
                                                         <label class="col-sm-2 col-form-label">Primer Apellido</label>
                                                         <div class="col-sm-10">
@@ -467,8 +326,6 @@ if (isset($NOMBREUSUARIOS)) {
                                                         </div>
                                                         <label id="val_sapellido" class="validacion"> </label>
                                                     </div>
-
-
                                                     <div class="form-group row">
                                                         <label class="col-sm-2 col-form-label">Telefono </label>
                                                         <div class="col-sm-10">
@@ -476,7 +333,6 @@ if (isset($NOMBREUSUARIOS)) {
                                                         </div>
                                                         <label id="val_telefono" class="validacion"> </label>
                                                     </div>
-
                                                     <div class="form-group row">
                                                         <label class="col-sm-2 col-form-label">Correo </label>
                                                         <div class="col-sm-10">
@@ -488,15 +344,16 @@ if (isset($NOMBREUSUARIOS)) {
                                                 <!-- /.col -->
                                             </div>
                                             <!-- /.row -->
-                                        </div>
+                                        </div>                                        
                                         <div class="box-footer">
-                                            <button type="button" class="btn btn-rounded  btn-success btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="irPagina('index.php'); ">
-                                                <i class="ti-back-left "></i> Volver
-                                            </button>
-
-                                            <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="EDITAR" value="EDITAR">
-                                                <i class="ti-save-alt"></i> Guardar
-                                            </button>
+                                            <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
+                                                <button type="button" class="btn  btn-success " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('index.php');">
+                                                    <i class="ti-back-left "></i> Volver
+                                                </button>  
+                                                <button type="submit" class="btn  btn-primary"  data-toggle="tooltip" title="Guardar" name="EDITAR" value="EDITAR">
+                                                    <i class="ti-save-alt"></i> Guardar
+                                                </button>                                             
+                                            </div>
                                         </div>
                                     </form>
                                     <!-- /.box-body -->
@@ -505,26 +362,43 @@ if (isset($NOMBREUSUARIOS)) {
                             </div>
                             <!-- /.col -->
                         </div>
-
-
-
                     </section>
                     <!-- /.content -->
-
                 </div>
             </div>
 
-
-
-
-
-
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraMaterial.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
-</body>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
+        <?php 
+            //OPERACION DE EDICION DE FILA
+            if (isset($_REQUEST['EDITAR'])) {
+                $USUARIO->__SET('PNOMBRE_USUARIO', $_REQUEST['PNOMBREUSUARIO']);
+                $USUARIO->__SET('SNOMBRE_USUARIO', $_REQUEST['SNOMBREUSUARIO']);
+                $USUARIO->__SET('PAPELLIDO_USUARIO', $_REQUEST['PAPELLIDOUSUARIO']);
+                $USUARIO->__SET('SAPELLIDO_USUARIO', $_REQUEST['SAPELLIDOUSUARIO']);
+                $USUARIO->__SET('EMAIL_USUARIO', $_REQUEST['CORREO']);
+                $USUARIO->__SET('TELEFONO_USUARIO', $_REQUEST['TELEFONO']);
+                $USUARIO->__SET('ID_USUARIO', $IDUSUARIOS);
+                $USUARIO_ADO->actualizarPerfil($USUARIO);
+                echo '<script>
+                    Swal.fire({
+                        icon:"info",
+                        title:"Registro Modificado",
+                        text:"El pefil de Usuario se ha modificado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "editarUsuario.php";                            
+                    })
+                </script>';
+            }
 
+        
+        ?>
+</body>
 </html>

@@ -37,50 +37,11 @@ include_once "../../assest/config/ValidardatosUrl.php";
                 function irPagina(url) {
                     location.href = "" + url;
                 }
-                //FUNCION PARA OBTENER HORA Y FECHA
-                function mueveReloj() {
-
-
-                    momentoActual = new Date();
-
-                    dia = momentoActual.getDate();
-                    mes = momentoActual.getMonth() + 1;
-                    ano = momentoActual.getFullYear();
-
-                    hora = momentoActual.getHours();
-                    minuto = momentoActual.getMinutes();
-                    segundo = momentoActual.getSeconds();
-
-                    if (dia < 10) {
-                        dia = "0" + dia;
-                    }
-
-                    if (mes < 10) {
-                        mes = "0" + mes;
-                    }
-                    if (hora < 10) {
-                        hora = "0" + hora;
-                    }
-                    if (minuto < 10) {
-                        minuto = "0" + minuto;
-                    }
-                    if (segundo < 10) {
-                        segundo = "0" + segundo;
-                    }
-
-                    horaImprimible = hora + " : " + minuto;
-                    fechaImprimible = dia + "-" + mes + "-" + ano;
-
-
-                    //     document.form_reg_dato.HORARECEPCION.value = horaImprimible;
-                    document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
-                    setTimeout("mueveReloj()", 1000);
-                }
             </script>
 
 </head>
 
-<body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
+<body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <?php include_once "../../assest/config/menuMaterial.php";
         ?>
@@ -102,22 +63,7 @@ include_once "../../assest/config/ValidardatosUrl.php";
                                 </nav>
                             </div>
                         </div>
-                        <div class="right-title">
-                            <div class="d-flex mt-10 justify-content-end">
-                                <div class="d-lg-flex mr-20 ml-10 d-none">
-                                    <div class="chart-text mr-10">
-                                        <h6 class="mb-0"><small></small></h6>
-                                        <div id="Dolar" class="mt-0 text-primary" style="font-size:12px;"></div>
-                                    </div>
-                                </div>
-                                <div class="d-lg-flex mr-20 ml-10 d-none">
-                                    <div class="chart-text mr-10">
-                                        <h6 class="mb-0"><small></small></h6>
-                                        <div id="Euro" class="mt-0 text-danger" style="font-size:12px;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                     </div>
                 </div>
                 <section class="content">

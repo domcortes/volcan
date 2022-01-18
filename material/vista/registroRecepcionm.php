@@ -693,60 +693,19 @@ if (isset($_POST)) {
                     var win = window.open(url, '_blank');
                     win.focus();
                 }
-                //FUNCION PARA OBTENER HORA Y FECHA
-                function mueveReloj() {
-
-
-                    momentoActual = new Date();
-
-                    dia = momentoActual.getDate();
-                    mes = momentoActual.getMonth() + 1;
-                    ano = momentoActual.getFullYear();
-
-                    hora = momentoActual.getHours();
-                    minuto = momentoActual.getMinutes();
-                    segundo = momentoActual.getSeconds();
-
-                    if (dia < 10) {
-                        dia = "0" + dia;
-                    }
-
-                    if (mes < 10) {
-                        mes = "0" + mes;
-                    }
-                    if (hora < 10) {
-                        hora = "0" + hora;
-                    }
-                    if (minuto < 10) {
-                        minuto = "0" + minuto;
-                    }
-                    if (segundo < 10) {
-                        segundo = "0" + segundo;
-                    }
-
-                    horaImprimible = hora + " : " + minuto;
-                    fechaImprimible = dia + "-" + mes + "-" + ano;
-
-
-                    //     document.form_reg_dato.HORARECEPCION.value = horaImprimible;
-                    document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
-                    setTimeout("mueveReloj()", 1000);
-                }
             </script>
 </head>
-
-<body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
+<body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../../assest/config/menuMaterial.php";
-            ?>
+            <?php include_once "../../assest/config/menuMaterial.php";            ?>
             <div class="content-wrapper">
                 <div class="container-full">
                     <!-- Content Header (Page header) -->
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Registro Recepción</h3>
+                                <h3 class="page-title">Materiales</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
@@ -803,18 +762,10 @@ if (isset($_POST)) {
                                                 <input type="hidden" class="form-control" placeholder="Tipo Recepción" id="TRECEPCIONE" name="TRECEPCIONE" value="<?php echo $TRECEPCION; ?>" />
                                                 <select class="form-control select2" id="TRECEPCION" name="TRECEPCION" style="width: 100%;" onchange="this.form.submit()" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLEDFOLIO; ?>>
                                                     <option></option>
-                                                    <option value="1" <?php if ($TRECEPCION == "1") {
-                                                                            echo "selected";
-                                                                        } ?>> Desde Proveedor </option>
-                                                    <option value="2" <?php if ($TRECEPCION == "2") {
-                                                                            echo "selected";
-                                                                        } ?>> Desde Productor </option>
-                                                    <option value="3" <?php if ($TRECEPCION == "3") {
-                                                                            echo "selected";
-                                                                        } ?>> Planta Externa </option>
-                                                    <option value="4" <?php if ($TRECEPCION == "4") {
-                                                                            echo "selected";
-                                                                        } ?>> Inventario Inicial</option>
+                                                    <option value="1" <?php if ($TRECEPCION == "1") { echo "selected"; } ?>> Desde Proveedor </option>
+                                                    <option value="2" <?php if ($TRECEPCION == "2") { echo "selected"; } ?>> Desde Productor </option>
+                                                    <option value="3" <?php if ($TRECEPCION == "3") { echo "selected"; } ?>> Planta Externa </option>
+                                                    <option value="4" <?php if ($TRECEPCION == "4") { echo "selected"; } ?>> Inventario Inicial</option>
                                                 </select>
                                                 <label id="val_trecepcion" class="validacion"> </label>
                                             </div>
@@ -845,9 +796,8 @@ if (isset($_POST)) {
                                                         <option></option>
                                                         <?php foreach ($ARRAYOCOMPRA as $r) : ?>
                                                             <?php if ($ARRAYOCOMPRA) {    ?>
-                                                                <option value="<?php echo $r['ID_OCOMPRA']; ?>" <?php if ($OCOMPRA == $r['ID_OCOMPRA']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>>
+                                                                <option value="<?php echo $r['ID_OCOMPRA']; ?>" 
+                                                                <?php if ($OCOMPRA == $r['ID_OCOMPRA']) { echo "selected"; } ?>>
                                                                     <?php echo $r['NUMERO_OCOMPRA'] ?> - <?php echo $r['NUMEROI_OCOMPRA'] ?>
                                                                 </option>
                                                             <?php } else { ?>
@@ -896,9 +846,8 @@ if (isset($_POST)) {
                                                         <option></option>
                                                         <?php foreach ($ARRAYPROVEEDOR as $r) : ?>
                                                             <?php if ($ARRAYPROVEEDOR) {    ?>
-                                                                <option value="<?php echo $r['ID_PROVEEDOR']; ?>" <?php if ($PROVEEDOR == $r['ID_PROVEEDOR']) {
-                                                                                                                        echo "selected";
-                                                                                                                    } ?>>
+                                                                <option value="<?php echo $r['ID_PROVEEDOR']; ?>" 
+                                                                <?php if ($PROVEEDOR == $r['ID_PROVEEDOR']) { echo "selected"; } ?>>
                                                                     <?php echo $r['NOMBRE_PROVEEDOR'] ?>
                                                                 </option>
                                                             <?php } else { ?>
@@ -919,9 +868,8 @@ if (isset($_POST)) {
                                                         <option></option>
                                                         <?php foreach ($ARRAYPRODUCTOR as $r) : ?>
                                                             <?php if ($ARRAYPRODUCTOR) {    ?>
-                                                                <option value="<?php echo $r['ID_PRODUCTOR']; ?>" <?php if ($PRODUCTOR == $r['ID_PRODUCTOR']) {
-                                                                                                                        echo "selected";
-                                                                                                                    } ?>>
+                                                                <option value="<?php echo $r['ID_PRODUCTOR']; ?>" 
+                                                                    <?php if ($PRODUCTOR == $r['ID_PRODUCTOR']) { echo "selected"; } ?>>
                                                                     <?php echo $r['CSG_PRODUCTOR'] ?> : <?php echo $r['NOMBRE_PRODUCTOR'] ?>
                                                                 </option>
                                                             <?php } else { ?>
@@ -942,9 +890,8 @@ if (isset($_POST)) {
                                                         <option></option>
                                                         <?php foreach ($ARRAYPLANTA2 as $r) : ?>
                                                             <?php if ($ARRAYPLANTA2) {    ?>
-                                                                <option value="<?php echo $r['ID_PLANTA']; ?>" <?php if ($PLANTA2 == $r['ID_PLANTA']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>>
+                                                                <option value="<?php echo $r['ID_PLANTA']; ?>" 
+                                                                    <?php if ($PLANTA2 == $r['ID_PLANTA']) { echo "selected"; } ?>>
                                                                     <?php echo $r['NOMBRE_PLANTA'] ?>
                                                                 </option>
                                                             <?php } else { ?>
@@ -966,9 +913,9 @@ if (isset($_POST)) {
                                                     <option></option>
                                                     <?php foreach ($ARRAYBODEGA as $r) : ?>
                                                         <?php if ($ARRAYBODEGA) {    ?>
-                                                            <option value="<?php echo $r['ID_BODEGA']; ?>" <?php if ($BODEGA == $r['ID_BODEGA']) {
-                                                                                                                echo "selected";
-                                                                                                            } ?>> <?php echo $r['NOMBRE_BODEGA'] ?> </option>
+                                                            <option value="<?php echo $r['ID_BODEGA']; ?>" 
+                                                            <?php if ($BODEGA == $r['ID_BODEGA']) { echo "selected"; } ?>>
+                                                            <?php echo $r['NOMBRE_BODEGA'] ?> </option>
                                                         <?php } else { ?>
                                                             <option>No Hay Datos Registrados </option>
                                                         <?php } ?>
@@ -984,9 +931,9 @@ if (isset($_POST)) {
                                                 <option></option>
                                                 <?php foreach ($ARRAYTDOCUMENTO as $r) : ?>
                                                     <?php if ($ARRAYTDOCUMENTO) {    ?>
-                                                        <option value="<?php echo $r['ID_TDOCUMENTO']; ?>" <?php if ($TDOCUMENTO == $r['ID_TDOCUMENTO']) {
-                                                                                                                echo "selected";
-                                                                                                            } ?>> <?php echo $r['NOMBRE_TDOCUMENTO'] ?> </option>
+                                                        <option value="<?php echo $r['ID_TDOCUMENTO']; ?>" 
+                                                        <?php if ($TDOCUMENTO == $r['ID_TDOCUMENTO']) { echo "selected"; } ?>>
+                                                        <?php echo $r['NOMBRE_TDOCUMENTO'] ?> </option>
                                                     <?php } else { ?>
                                                         <option>No Hay Datos Registrados </option>
                                                     <?php } ?>
@@ -1010,9 +957,9 @@ if (isset($_POST)) {
                                                     <option></option>
                                                     <?php foreach ($ARRAYTRANSPORTE as $r) : ?>
                                                         <?php if ($ARRAYTRANSPORTE) {    ?>
-                                                            <option value="<?php echo $r['ID_TRANSPORTE']; ?>" <?php if ($TRANSPORTE == $r['ID_TRANSPORTE']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>> <?php echo $r['NOMBRE_TRANSPORTE'] ?> </option>
+                                                            <option value="<?php echo $r['ID_TRANSPORTE']; ?>" 
+                                                            <?php if ($TRANSPORTE == $r['ID_TRANSPORTE']) {  echo "selected";   } ?>> 
+                                                            <?php echo $r['NOMBRE_TRANSPORTE'] ?> </option>
                                                         <?php } else { ?>
                                                             <option>No Hay Datos Registrados </option>
                                                         <?php } ?>
@@ -1037,9 +984,8 @@ if (isset($_POST)) {
                                                     <option></option>
                                                     <?php foreach ($ARRAYCONDUCTOR as $r) : ?>
                                                         <?php if ($ARRAYCONDUCTOR) {    ?>
-                                                            <option value="<?php echo $r['ID_CONDUCTOR']; ?>" <?php if ($CONDUCTOR == $r['ID_CONDUCTOR']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>>
+                                                            <option value="<?php echo $r['ID_CONDUCTOR']; ?>" 
+                                                                <?php if ($CONDUCTOR == $r['ID_CONDUCTOR']) { echo "selected"; } ?>>
                                                                 <?php echo $r['NOMBRE_CONDUCTOR'] ?>
                                                             </option>
                                                         <?php } else { ?>

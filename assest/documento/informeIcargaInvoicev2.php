@@ -590,7 +590,7 @@ $html = '
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Invoice</title>
+    <title>Invoice v2</title>
   </head>
   <body>
     <header class="clearfix">
@@ -742,10 +742,10 @@ $html = $html . '
               <tr class="">
                     <td class="center">'.$s['ENVASE'].'</td>
                     <td class="center">'.$s['NOMBRE'].'</td>
-                    <td class="center">'.$s['TCALIBRE'].'</td>
+                    <td class="center" style="text-transform: uppercase;">'.$s['TCALIBRE'].'</td>
                     <td class="center">'.$s['NETO'].'</td>
                     <td class="center">'.$s['BRUTO'].'</td>
-                    <td class="center">'.$s['TMONEDA'].'</td>
+                    <td class="center" style="text-transform: uppercase;">'.$s['TMONEDA'].'</td>
                     <td class="center">'.$s['US'].'</td>
                     <td class="center">'.$s['TOTALUS'].'</td>
               </tr>
@@ -823,7 +823,7 @@ $html = $html . '
 
 
 //CREACION NOMBRE DEL ARCHIVO
-$NOMBREARCHIVO = "reportInvoice_";
+$NOMBREARCHIVO = "reportInvoicev2_";
 $FECHADOCUMENTO = $FECHANORMAL . "_" . $HORAFINAL;
 $TIPODOCUMENTO = "Report";
 $FORMATO = ".pdf";
@@ -837,7 +837,7 @@ $UNICODE = "true";
 $ENCODING = "UTF-8";
 
 //DETALLE DEL CREADOR DEL INFORME
-$TIPOINFORME = "Report Invoice";
+$TIPOINFORME = "Report Invoice v2";
 $CREADOR = "Usuario";
 $AUTOR = "Usuario";
 $ASUNTO = "Report";

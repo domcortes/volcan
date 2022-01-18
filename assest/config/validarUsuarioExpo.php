@@ -21,6 +21,11 @@ $ARRAYEMPRESACAMBIAR = "";
 $ARRAYPLANTACAMBIAR = "";
 $DISABLEDMENU = "";
 
+$TMONEDA1="";
+$TMONEDA2="";
+$TTMONEDA1="";
+$TTMONEDA2="";
+
 
 
 $PEXPORTADORA="";
@@ -68,6 +73,7 @@ if (isset($_SESSION["NOMBRE_USUARIO"])) {
     if($ARRAYVERPTUSUARIO){        
         $PEXPORTADORA = $ARRAYVERPTUSUARIO[0]['EXPORTADORA'];
         if($PEXPORTADORA!="1"){
+            session_destroy();
             echo "<script type='text/javascript'> location.href ='../../';</script>";
         }    
         $PEMATERIALES = $ARRAYVERPTUSUARIO[0]['EMATERIALES'];
@@ -111,13 +117,17 @@ if (isset($_SESSION["NOMBRE_USUARIO"])) {
     }
 
 
-    if (isset($_SESSION["DOLAR"]) && isset($_SESSION["EURO"])) {
-        $DOLAR = $_SESSION["DOLAR"];
-        $EURO = $_SESSION["EURO"];
+    if (isset($_SESSION["TMONEDA1"]) && isset($_SESSION["TMONEDA2"])) {
+        $TMONEDA1 = $_SESSION["TMONEDA1"];
+        $TMONEDA2 = $_SESSION["TMONEDA2"];      
+        $TTMONEDA1 = $_SESSION["TTMONEDA1"];
+        $TTMONEDA2 = $_SESSION["TTMONEDA2"];    
     } else {        
         include_once "../../assest/config/indicadorEconomico.php";
-        $DOLAR = $_SESSION["DOLAR"];
-        $EURO = $_SESSION["EURO"];
+        $TMONEDA1 = $_SESSION["TMONEDA1"];
+        $TMONEDA2 = $_SESSION["TMONEDA2"];   
+        $TTMONEDA1 = $_SESSION["TTMONEDA1"];
+        $TTMONEDA2 = $_SESSION["TTMONEDA2"];        
     }
     
 } else {

@@ -48,7 +48,7 @@ class TDOCUMENTO_ADO {
     public function listarTdocumento(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_tdocumento` limit 8 WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_tdocumento  limit 8 WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -67,7 +67,7 @@ class TDOCUMENTO_ADO {
     public function listarTdocumentoCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_tdocumento` WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_tdocumento  WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -86,7 +86,7 @@ class TDOCUMENTO_ADO {
     public function listarTdocumento2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_tdocumento` WHERE ESTADO_REGISTRO = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_tdocumento  WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -107,7 +107,7 @@ class TDOCUMENTO_ADO {
     public function verTdocumento($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_tdocumento` WHERE `ID_TDOCUMENTO`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_tdocumento  WHERE  ID_TDOCUMENTO = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -132,15 +132,15 @@ class TDOCUMENTO_ADO {
             
             
             $query=
-            "INSERT INTO `material_tdocumento` (
-                                                    `NUMERO_TDOCUMENTO`, 
-                                                    `NOMBRE_TDOCUMENTO`, 
-                                                    `ID_EMPRESA`,
-                                                    `ID_USUARIOI`,
-                                                    `ID_USUARIOM`,
-                                                    `INGRESO`,
-                                                    `MODIFICACION`, 
-                                                    `ESTADO_REGISTRO`
+            "INSERT INTO  material_tdocumento  (
+                                                     NUMERO_TDOCUMENTO , 
+                                                     NOMBRE_TDOCUMENTO , 
+                                                     ID_EMPRESA ,
+                                                     ID_USUARIOI ,
+                                                     ID_USUARIOM ,
+                                                     INGRESO ,
+                                                     MODIFICACION , 
+                                                     ESTADO_REGISTRO 
                                                 ) VALUES
 	       	( ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
@@ -163,7 +163,7 @@ class TDOCUMENTO_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarTdocumento($id){
-        try{$sql="DELETE FROM `material_tdocumento` WHERE `ID_TDOCUMENTO`=".$id.";";
+        try{$sql="DELETE FROM  material_tdocumento  WHERE  ID_TDOCUMENTO =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -180,12 +180,12 @@ class TDOCUMENTO_ADO {
     public function actualizarTdocumento(TDOCUMENTO $TDOCUMENTO){
         try{
             $query = "
-		UPDATE `material_tdocumento` SET
-            `MODIFICACION`= SYSDATE(),
-            `NOMBRE_TDOCUMENTO`= ?,
-            `ID_EMPRESA`= ?,
-            `ID_USUARIOM`= ?            
-		WHERE `ID_TDOCUMENTO`= ?;";
+		UPDATE  material_tdocumento  SET
+             MODIFICACION = SYSDATE(),
+             NOMBRE_TDOCUMENTO = ?,
+             ID_EMPRESA = ?,
+             ID_USUARIOM = ?            
+		WHERE  ID_TDOCUMENTO = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(   
@@ -212,10 +212,10 @@ class TDOCUMENTO_ADO {
 
         try{
             $query = "
-    UPDATE `material_tdocumento` SET			
-    `MODIFICACION`= SYSDATE(),		
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_TDOCUMENTO`= ?;";
+    UPDATE  material_tdocumento  SET			
+     MODIFICACION = SYSDATE(),		
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_TDOCUMENTO = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -233,10 +233,10 @@ class TDOCUMENTO_ADO {
     public function habilitar(TDOCUMENTO $TDOCUMENTO){
         try{
             $query = "
-    UPDATE `material_tdocumento` SET		
-    `MODIFICACION`= SYSDATE(),			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_TDOCUMENTO`= ?;";
+    UPDATE  material_tdocumento  SET		
+     MODIFICACION = SYSDATE(),			
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_TDOCUMENTO = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -253,7 +253,7 @@ class TDOCUMENTO_ADO {
     public function listarTdocumentoPorEmpresaCBX($IDEMPRESA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_tdocumento` WHERE ESTADO_REGISTRO = 1 AND ID_EMPRESA = '".$IDEMPRESA."';	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_tdocumento  WHERE ESTADO_REGISTRO = 1 AND ID_EMPRESA = '".$IDEMPRESA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -274,7 +274,7 @@ public function obtenerNumero()
     try {
         $datos = $this->conexion->prepare(" SELECT  
                                                 IFNULL(COUNT(NUMERO_TDOCUMENTO),0) AS 'NUMERO'
-                                            FROM `material_tdocumento`  ; ");
+                                            FROM  material_tdocumento   ; ");
         $datos->execute();
         $resultado = $datos->fetchAll();
             $datos=null;

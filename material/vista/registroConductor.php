@@ -1,11 +1,11 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioMaterial.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/CONDUCTOR_ADO.php';
-include_once '../modelo/CONDUCTOR.php';
+include_once '../../assest/controlador/CONDUCTOR_ADO.php';
+include_once '../../assest/modelo/CONDUCTOR.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -51,58 +51,11 @@ $ARRAYNUMERO = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYCONDUCTOR = $CONDUCTOR_ADO->listarConductorPorEmpresaCBX($EMPRESAS);
 $ARRAYEMPRESA = $EMPRESA_ADO->listarEmpresaCBX();
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrl.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrl.php";
 
 
 
-//OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-if (isset($_REQUEST['GUARDAR'])) {
-
-    $ARRAYNUMERO = $CONDUCTOR_ADO->obtenerNumero();
-    $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
-
-
-
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO  
-
-    $CONDUCTOR->__SET('NUMERO_CONDUCTOR', $NUMERO);
-    $CONDUCTOR->__SET('RUT_CONDUCTOR', $_REQUEST['RUTCONDUCTOR']);
-    $CONDUCTOR->__SET('DV_CONDUCTOR', $_REQUEST['DVCONDUCTOR']);
-    $CONDUCTOR->__SET('NOMBRE_CONDUCTOR', $_REQUEST['NOMBRECONDUCTOR']);
-    $CONDUCTOR->__SET('TELEFONO_CONDUCTOR', $_REQUEST['TELEFONOCONDUCTOR']);
-    $CONDUCTOR->__SET('EMAIL_CONDUCTOR', $_REQUEST['EMAILCONDUCTOR']);
-    $CONDUCTOR->__SET('NOTA_CONDUCTOR', $_REQUEST['NOTACONDUCTOR']);
-    $CONDUCTOR->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $CONDUCTOR->__SET('ID_USUARIOI', $IDUSUARIOS);
-    $CONDUCTOR->__SET('ID_USUARIOM', $IDUSUARIOS);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $CONDUCTOR_ADO->agregarConductor($CONDUCTOR);
-    //REDIRECCIONAR A PAGINA registroPlanta.php
-    echo "<script type='text/javascript'> location.href ='registroConductor.php';</script>";
-}
-//OPERACION DE EDICION DE FILA
-if (isset($_REQUEST['EDITAR'])) {
-
-
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-    $CONDUCTOR->__SET('RUT_CONDUCTOR', $_REQUEST['RUTCONDUCTOR']);
-    $CONDUCTOR->__SET('DV_CONDUCTOR', $_REQUEST['DVCONDUCTOR']);
-    $CONDUCTOR->__SET('NOMBRE_CONDUCTOR', $_REQUEST['NOMBRECONDUCTOR']);
-    $CONDUCTOR->__SET('TELEFONO_CONDUCTOR', $_REQUEST['TELEFONOCONDUCTOR']);
-    $CONDUCTOR->__SET('EMAIL_CONDUCTOR', $_REQUEST['EMAILCONDUCTOR']);
-    $CONDUCTOR->__SET('NOTA_CONDUCTOR', $_REQUEST['NOTACONDUCTOR']);
-    $CONDUCTOR->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $CONDUCTOR->__SET('ID_USUARIOM', $IDUSUARIOS);
-    $CONDUCTOR->__SET('ID_CONDUCTOR', $_REQUEST['ID']);
-    //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
-    $CONDUCTOR_ADO->actualizarConductor($CONDUCTOR);
-    //REDIRECCIONAR A PAGINA registroConductor.php
-    echo "<script type='text/javascript'> location.href ='registroConductor.php';</script>";
-}
 
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION Y VISUALIZACION
@@ -192,7 +145,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //VALIDACION DE FORMULARIO
@@ -243,35 +196,35 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     document.form_reg_dato.NOMBRECONDUCTOR.style.borderColor = "#4AF575";
 
 
+                    /*
+
+                                        if (TELEFONOCONDUCTOR == null || TELEFONOCONDUCTOR == "") {
+                                            document.form_reg_dato.TELEFONOCONDUCTOR.focus();
+                                            document.form_reg_dato.TELEFONOCONDUCTOR.style.borderColor = "#FF0000";
+                                            document.getElementById('val_telefono').innerHTML = "NO A INGRESADO DATO";
+                                            return false;
+                                        }
+                                        document.form_reg_dato.TELEFONOCONDUCTOR.style.borderColor = "#4AF575";
+
+                                        if (EMAILCONDUCTOR == null || EMAILCONDUCTOR.length == 0 || /^\s+$/.test(EMAILCONDUCTOR)) {
+                                            document.form_reg_dato.EMAILCONDUCTOR.focus();
+                                            document.form_reg_dato.EMAILCONDUCTOR.style.borderColor = "#FF0000";
+                                            document.getElementById('val_email').innerHTML = "NO A INGRESADO DATO";
+                                            return false;
+                                        }
+                                        document.form_reg_dato.EMAILCONDUCTOR.style.borderColor = "#4AF575";
 
 
-                    if (TELEFONOCONDUCTOR == null || TELEFONOCONDUCTOR == "") {
-                        document.form_reg_dato.TELEFONOCONDUCTOR.focus();
-                        document.form_reg_dato.TELEFONOCONDUCTOR.style.borderColor = "#FF0000";
-                        document.getElementById('val_telefono').innerHTML = "NO A INGRESADO DATO";
-                        return false;
-                    }
-                    document.form_reg_dato.TELEFONOCONDUCTOR.style.borderColor = "#4AF575";
 
-                    if (EMAILCONDUCTOR == null || EMAILCONDUCTOR.length == 0 || /^\s+$/.test(EMAILCONDUCTOR)) {
-                        document.form_reg_dato.EMAILCONDUCTOR.focus();
-                        document.form_reg_dato.EMAILCONDUCTOR.style.borderColor = "#FF0000";
-                        document.getElementById('val_email').innerHTML = "NO A INGRESADO DATO";
-                        return false;
-                    }
-                    document.form_reg_dato.EMAILCONDUCTOR.style.borderColor = "#4AF575";
-
-
-
-                    if (!(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
-                            .test(EMAILCONDUCTOR))) {
-                        document.form_reg_dato.EMAILCONDUCTOR.focus();
-                        document.form_reg_dato.EMAILCONDUCTOR.style.borderColor = "#ff0000";
-                        document.getElementById('val_email').innerHTML = "FORMATO DE CORREO INCORRECTO";
-                        return false;
-                    }
-                    document.form_reg_dato.EMAILCONDUCTOR.style.borderColor = "#4AF575";
-
+                                        if (!(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+                                                .test(EMAILCONDUCTOR))) {
+                                            document.form_reg_dato.EMAILCONDUCTOR.focus();
+                                            document.form_reg_dato.EMAILCONDUCTOR.style.borderColor = "#ff0000";
+                                            document.getElementById('val_email').innerHTML = "FORMATO DE CORREO INCORRECTO";
+                                            return false;
+                                        }
+                                        document.form_reg_dato.EMAILCONDUCTOR.style.borderColor = "#4AF575";
+                    */
 
                     /*
                         if (NOTACONDUCTOR == null || NOTACONDUCTOR.length == 0 || /^\s+$/.test(NOTACONDUCTOR)) {
@@ -292,115 +245,51 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     location.href = "" + url;
                 }
 
-                //FUNCION PARA OBTENER HORA Y FECHA
-                function mueveReloj() {
-
-
-                    momentoActual = new Date();
-
-                    dia = momentoActual.getDate();
-                    mes = momentoActual.getMonth() + 1;
-                    ano = momentoActual.getFullYear();
-
-                    hora = momentoActual.getHours();
-                    minuto = momentoActual.getMinutes();
-                    segundo = momentoActual.getSeconds();
-
-                    if (dia < 10) {
-                        dia = "0" + dia;
-                    }
-
-                    if (mes < 10) {
-                        mes = "0" + mes;
-                    }
-                    if (hora < 10) {
-                        hora = "0" + hora;
-                    }
-                    if (minuto < 10) {
-                        minuto = "0" + minuto;
-                    }
-                    if (segundo < 10) {
-                        segundo = "0" + segundo;
-                    }
-
-                    horaImprimible = hora + " : " + minuto;
-                    fechaImprimible = dia + "-" + mes + "-" + ano;
-
-
-                    //     document.form_reg_dato.HORARECEPCION.value = horaImprimible;
-                    document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
-                    setTimeout("mueveReloj()", 1000);
-                }
             </script>
 
 </head>
 
-<body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
+<body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php"; ?>
+            <?php include_once "../../assest/config/menuMaterial.php"; ?>
 
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <div class="container-full">
-
                     <!-- Content Header (Page header) -->
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Conductor</h3>
+                                <h3 class="page-title">Transporte</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Mantenedores</li>
                                             <li class="breadcrumb-item" aria-current="page">Transporte</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroConductor.php"> Operaciónes Conductor </a>
-                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Conductor </a> </li>
                                         </ol>
                                     </nav>
                                 </div>
                             </div>
-                            <div class="right-title">
-                                <div class="d-flex mt-10 justify-content-end">
-                                    <div class="d-lg-flex mr-20 ml-10 d-none">
-                                        <div class="chart-text mr-10">
-                                            <!--
-								<h6 class="mb-0"><small>THIS MONTH</small></h6>
-                                <h4 class="mt-0 text-primary">$12,125</h4>-->
-                                        </div>
-                                    </div>
-                                    <div class="d-lg-flex mr-20 ml-10 d-none">
-                                        <div class="chart-text mr-10">
-                                            <!--
-								<h6 class="mb-0"><small>LAST YEAR</small></h6>
-                                <h4 class="mt-0 text-danger">$22,754</h4>-->
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
+                            <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                         </div>
                     </div>
-
                     <!-- Main content -->
                     <section class="content">
                         <div class="row">
-                            <div class="col-lg-6 col-12">
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
-                                    <div class="box-header with-border">
-                                        <!--  
-                                    <h4 class="box-title">Sample form 1</h4>
-                                -->
+                                    <div class="box-header with-border bg-primary">
+                                        <h4 class="box-title">Registro Conductor</h4>                                
                                     </div>
                                     <!-- /.box-header -->
-                                    <form class="form" role="form" method="post" name="form_reg_dato" onsubmit="return validacion()">
+                                    <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                                         <div class="box-body">
-                                            <h4 class="box-title text-info"><i class="ti-user mr-15"></i> Registro
-                                            </h4>
                                             <hr class="my-15">
                                             <div class="row">
-                                                <div class="col-md-4">
+                                                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Rut </label>
                                                         <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
@@ -409,39 +298,35 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_rut" class="validacion"> <?php echo $MENSAJE; ?></label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-2">
+                                                 <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                                     <div class="form-group">
                                                         <label>DV </label>
                                                         <input type="text" class="form-control" placeholder="DV Conductor" id="DVCONDUCTOR" name="DVCONDUCTOR" value="<?php echo $DVCONDUCTOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_dv" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
-                                                        <label>NOMBRE </label>
-                                                        <input type="text" class="form-control" placeholder="NOMBRE Conductor" id="NOMBRECONDUCTOR" name="NOMBRECONDUCTOR" value="<?php echo $NOMBRECONDUCTOR; ?>" <?php echo $DISABLED; ?> />
+                                                        <label>Nombre </label>
+                                                        <input type="text" class="form-control" placeholder="Nombre Conductor" id="NOMBRECONDUCTOR" name="NOMBRECONDUCTOR" value="<?php echo $NOMBRECONDUCTOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_nombre" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Telefono </label>
                                                         <input type="number" class="form-control" placeholder="Telefono Conductor" id="TELEFONOCONDUCTOR" name="TELEFONOCONDUCTOR" value="<?php echo $TELEFONOCONDUCTOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_telefono" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Email </label>
                                                         <input type="text" class="form-control" placeholder="Email Conductor" id="EMAILCONDUCTOR" name="EMAILCONDUCTOR" value="<?php echo $EMAILCONDUCTOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_email" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-12">
+                                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
                                                         <label>Nota </label>
                                                         <textarea class="form-control" rows="1" placeholder="Nota Conductor" id="NOTACONDUCTOR" name="NOTACONDUCTOR" <?php echo $DISABLED; ?>><?php echo $NOTACONDUCTOR; ?></textarea>
@@ -450,38 +335,38 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- /.box-body -->
+                                        <!-- /.box-body -->                                                                         
                                         <div class="box-footer">
-                                            <button type="button" class="btn btn-rounded btn-warning btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroConductor.php'); ">
-                                                <i class="ti-trash"></i> Cancelar
-                                            </button>
-                                            <?php if ($OP != "editar") { ?>
-                                                <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?>>
-                                                    <i class="ti-save-alt"></i> Crear
+                                            <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
+                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroConductor.php');">
+                                                <i class="ti-trash"></i>Cancelar
                                                 </button>
-                                            <?php } else { ?>
-                                                <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="EDITAR" value="EDITAR">
-                                                    <i class="ti-save-alt"></i> Guardar
-                                                </button>
-                                            <?php } ?>
+                                                <?php if ($OP != "editar") { ?>
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                                <?php } else { ?>
+                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                                <?php } ?>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
                                 <!-- /.box -->
                             </div>
-                            <div class="col-lg-6 col-12">
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
-                                    <div class="box-header with-border">
-                                        <h4 class="box-title">Registros</h4>
+                                    <div class="box-header with-border bg-info">
+                                        <h4 class="box-title">Agrupado Conductor</h4>
                                     </div>
                                     <div class="box-body">
-
-
                                         <div class="table-responsive">
-                                            <table id="listar" class="table table-hover " style="width: 100%;">
+                                            <table id="listar" class="table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="center">
-                                                        <th>Id </th>
+                                                        <th>Numero </th>
                                                         <th>Nombre </th>
                                                         <th class="text-center">Operaciónes</th>
                                                     </tr>
@@ -491,45 +376,49 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <tr class="center">
                                                             <td>
                                                                 <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['ID_CONDUCTOR']; ?>
+                                                                    <?php echo $r['NUMERO_CONDUCTOR']; ?>
                                                                 </a>
                                                             </td>
-                                                            <td><?php echo $r['NOMBRE_CONDUCTOR']; ?></td>
+                                                            <td><?php echo $r['NOMBRE_CONDUCTOR']; ?></td>                                                                                                                                                                                                                                                                                              
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
                                                                         <div class="list-icons-item dropdown">
-                                                                            <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown">
-                                                                                <i class="glyphicon glyphicon-cog"></i>
-                                                                            </a>
+                                                                            <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                <span class="icon-copy ti-settings"></span>
+                                                                            </button>
                                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                                 <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_CONDUCTOR']; ?>" />
                                                                                 <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroConductor" />
-                                                                                <button type="submit" class="btn btn-rounded btn-outline-info btn-sm " id="VERURL" name="VERURL">
-                                                                                    <i class="ti-eye"></i>
-                                                                                </button>Ver
-                                                                                <br>
-                                                                                <button type="submit" class="btn btn-rounded btn-outline-warning btn-sm" id="EDITARURL" name="EDITARURL">
-                                                                                    <i class="ti-pencil-alt"></i>
-                                                                                </button>Editar
-                                                                                <br>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
+                                                                                    <button type="submit" class="btn btn-info btn-block  btn-sm" id="VERURL" name="VERURL">
+                                                                                        <i class="ti-eye"></i> Ver
+                                                                                    </button>
+                                                                                </span> 
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
+                                                                                    <button type="submit" class="btn  btn-warning btn-block   btn-sm" id="EDITARURL" name="EDITARURL">
+                                                                                        <i class="ti-pencil-alt"></i> Editar
+                                                                                    </button>
+                                                                                </span>
                                                                                 <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
-                                                                                    <button type="submit" class="btn btn-rounded btn-outline-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
-                                                                                        <i class="ti-na "></i>
-                                                                                    </button>Desahabilitar
-                                                                                    <br>
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Desahabilitar">
+                                                                                        <button type="submit" class="btn btn-block btn-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
+                                                                                            <i class="ti-na "></i> Desahabilitar
+                                                                                        </button>
+                                                                                    </span>
                                                                                 <?php } ?>
                                                                                 <?php if ($r['ESTADO_REGISTRO'] == 0) { ?>
-                                                                                    <button type="submit" class="btn btn-rounded btn-outline-success btn-sm" id="HABILITARURL" name="HABILITARURL">
-                                                                                        <i class="ti-check "></i>
-                                                                                    </button>Habilitar
-                                                                                    <br>
-                                                                                <?php } ?>
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Habilitar">
+                                                                                        <button type="submit" class="btn btn-block btn-success btn-sm" id="HABILITARURL" name="HABILITARURL">
+                                                                                            <i class="ti-check "></i> Habilitar
+                                                                                        </button>
+                                                                                    </span>
+                                                                                <?php } ?>                                                               
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </form>
-                                                            </td>
+                                                            </td>  
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>
@@ -546,16 +435,80 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 </div>
             </div>
             <!-- /.content-wrapper -->
-
-
-
-
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraMaterial.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
+        <?php 
+        
+            //OPERACIONES
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['GUARDAR'])) {
+
+                $ARRAYNUMERO = $CONDUCTOR_ADO->obtenerNumero($_REQUEST['EMPRESA']);
+                $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO  
+                $CONDUCTOR->__SET('NUMERO_CONDUCTOR', $NUMERO);
+                $CONDUCTOR->__SET('RUT_CONDUCTOR', $_REQUEST['RUTCONDUCTOR']);
+                $CONDUCTOR->__SET('DV_CONDUCTOR', $_REQUEST['DVCONDUCTOR']);
+                $CONDUCTOR->__SET('NOMBRE_CONDUCTOR', $_REQUEST['NOMBRECONDUCTOR']);
+                $CONDUCTOR->__SET('TELEFONO_CONDUCTOR', $_REQUEST['TELEFONOCONDUCTOR']);
+                $CONDUCTOR->__SET('EMAIL_CONDUCTOR', $_REQUEST['EMAILCONDUCTOR']);
+                $CONDUCTOR->__SET('NOTA_CONDUCTOR', $_REQUEST['NOTACONDUCTOR']);
+                $CONDUCTOR->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $CONDUCTOR->__SET('ID_USUARIOI', $IDUSUARIOS);
+                $CONDUCTOR->__SET('ID_USUARIOM', $IDUSUARIOS);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $CONDUCTOR_ADO->agregarConductor($CONDUCTOR);
+                //REDIRECCIONAR A PAGINA registroPlanta.php
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Creado",
+                        text:"El registro del mantenedor se ha creado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroConductor.php";                            
+                    })
+                </script>';
+            }
+            //OPERACION DE EDICION DE FILA
+            if (isset($_REQUEST['EDITAR'])) {
+
+
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+                $CONDUCTOR->__SET('RUT_CONDUCTOR', $_REQUEST['RUTCONDUCTOR']);
+                $CONDUCTOR->__SET('DV_CONDUCTOR', $_REQUEST['DVCONDUCTOR']);
+                $CONDUCTOR->__SET('NOMBRE_CONDUCTOR', $_REQUEST['NOMBRECONDUCTOR']);
+                $CONDUCTOR->__SET('TELEFONO_CONDUCTOR', $_REQUEST['TELEFONOCONDUCTOR']);
+                $CONDUCTOR->__SET('EMAIL_CONDUCTOR', $_REQUEST['EMAILCONDUCTOR']);
+                $CONDUCTOR->__SET('NOTA_CONDUCTOR', $_REQUEST['NOTACONDUCTOR']);
+                $CONDUCTOR->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $CONDUCTOR->__SET('ID_USUARIOM', $IDUSUARIOS);
+                $CONDUCTOR->__SET('ID_CONDUCTOR', $_REQUEST['ID']);
+                //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
+                $CONDUCTOR_ADO->actualizarConductor($CONDUCTOR);
+                //REDIRECCIONAR A PAGINA registroConductor.php
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Modificado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroConductor.php";                            
+                    })
+                </script>';
+            }
+        ?>
 </body>
 
 </html>
