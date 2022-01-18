@@ -263,7 +263,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                             <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
                                     <div class="box-header with-border bg-primary">                                        
-                                        <h4 class="box-title">Registro ¨Planta</h4>                                    
+                                        <h4 class="box-title">Registro Planta</h4>                                    
                                     </div>
                                     <!-- /.box-header -->
                                     <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
@@ -335,12 +335,12 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_ciudad" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">    
-                                                <div class="form-group">
-                                                    <label>FDA</label>
-                                                    <input type="number" class="form-control" placeholder="FDA" id="FDA" name="FDA" value="<?php echo $FDA; ?>" <?php echo $DISABLED; ?> />
-                                                    <label id="val_fda" class="validacion"> </label>
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">    
+                                                    <div class="form-group">
+                                                        <label>FDA</label>
+                                                        <input type="number" class="form-control" placeholder="FDA" id="FDA" name="FDA" value="<?php echo $FDA; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_fda" class="validacion"> </label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
