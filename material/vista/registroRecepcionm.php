@@ -838,7 +838,7 @@ if (isset($_POST)) {
                                         <?php if ($TRECEPCION == "") { ?>
                                         <?php } ?>
                                         <?php if ($TRECEPCION == "1") { ?>
-                                            <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
                                                     <label>Proveedor</label>
                                                     <input type="hidden" class="form-control" placeholder="PROVEEDORE" id="PROVEEDORE" name="PROVEEDORE" value="<?php echo $PROVEEDOR; ?>" />
@@ -860,7 +860,7 @@ if (isset($_POST)) {
                                             </div>
                                         <?php } ?>
                                         <?php if ($TRECEPCION == "2") { ?>
-                                            <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
                                                     <label>Productor</label>
                                                     <input type="hidden" class="form-control" placeholder="Productor" id="PRODUCTORE" name="PRODUCTORE" value="<?php echo $PRODUCTOR; ?>" />
@@ -882,7 +882,7 @@ if (isset($_POST)) {
                                             </div>
                                         <?php } ?>
                                         <?php if ($TRECEPCION == "3") { ?>
-                                            <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
                                                     <label>Planta Origen</label>
                                                     <input type="hidden" class="form-control" placeholder="PLANTA2E" id="PLANTA2E" name="PLANTA2E" value="<?php echo $PLANTA2; ?>" />
@@ -902,10 +902,18 @@ if (isset($_POST)) {
                                                     <label id="val_planta2" class="validacion"> </label>
                                                 </div>
                                             </div>
+                                            <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
+                                                <div class="form-group">
+                                                    <br>
+                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Planta Externa" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLEDFOLIO; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopPlanta2.php' ); ">
+                                                        <i class="glyphicon glyphicon-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
                                         <?php } ?>
                                         <?php if ($TRECEPCION == "4") { ?>
                                         <?php } ?>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Bodega Destino</label>
                                                 <input type="hidden" class="form-control" placeholder="BODEGAE" id="BODEGAE" name="BODEGAE" value="<?php echo $BODEGA; ?>" />
@@ -924,7 +932,7 @@ if (isset($_POST)) {
                                                 <label id="val_bodega" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <label>Tipo Documento</label>
                                             <input type="hidden" class="form-control" placeholder="TDOCUMENTOE" id="TDOCUMENTOE" name="TDOCUMENTOE" value="<?php echo $TDOCUMENTO; ?>" />
                                             <select class="form-control select2" id="TDOCUMENTO" name="TDOCUMENTO" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLEDFOLIO; ?>>
@@ -1039,7 +1047,7 @@ if (isset($_POST)) {
                                     <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar">
                                         <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
                                             <?php if ($OP == "") { ?>
-                                                <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroRecepcionm.php');">
+                                                <button type="button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroRecepcionm.php');">
                                                     <i class="ti-trash"></i> Borrar
                                                 </button>
                                                 <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Guardar" name="CREAR" value="CREAR" <?php echo $DISABLEDFOLIO; ?>    onclick="return validacion()">

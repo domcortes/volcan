@@ -668,50 +668,12 @@ if (isset($_POST)) {
                     var win = window.open(url, '_blank');
                     win.focus();
                 }
-                //FUNCION PARA OBTENER HORA Y FECHA
-                function mueveReloj() {
-
-
-                    momentoActual = new Date();
-
-                    dia = momentoActual.getDate();
-                    mes = momentoActual.getMonth() + 1;
-                    ano = momentoActual.getFullYear();
-
-                    hora = momentoActual.getHours();
-                    minuto = momentoActual.getMinutes();
-                    segundo = momentoActual.getSeconds();
-
-                    if (dia < 10) {
-                        dia = "0" + dia;
-                    }
-
-                    if (mes < 10) {
-                        mes = "0" + mes;
-                    }
-                    if (hora < 10) {
-                        hora = "0" + hora;
-                    }
-                    if (minuto < 10) {
-                        minuto = "0" + minuto;
-                    }
-                    if (segundo < 10) {
-                        segundo = "0" + segundo;
-                    }
-
-                    horaImprimible = hora + " : " + minuto;
-                    fechaImprimible = dia + "-" + mes + "-" + ano;
-
-
-                    //     document.form_reg_dato.HORARECEPCION.value = horaImprimible;
-                    document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
-                    setTimeout("mueveReloj()", 1000);
-                }
+               
             </script>
 
 </head>
 
-<body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
+<body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
             <?php include_once "../../assest/config/menuFruta.php";   ?>
@@ -721,7 +683,7 @@ if (isset($_POST)) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Recepción Envases</h3>
+                                <h3 class="page-title">Envases</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
@@ -965,7 +927,15 @@ if (isset($_POST)) {
                                                     </select>
                                                     <label id="val_planta2" class="validacion"> </label>
                                                 </div>
-                                            </div>                                            
+                                            </div>    
+                                            <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
+                                                <div class="form-group">
+                                                    <br>
+                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Planta Externa" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLEDFOLIO; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopPlanta2.php' ); ">
+                                                        <i class="glyphicon glyphicon-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>                                        
                                         <?php } ?>                                        
                                         <?php if ($TRECEPCION == "5") { ?>
                                             <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
@@ -1111,7 +1081,7 @@ if (isset($_POST)) {
                                     <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar">
                                         <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
                                             <?php if ($OP == "") { ?>
-                                                <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroRecepcione.php');">
+                                                <button type="button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroRecepcione.php');">
                                                     <i class="ti-trash"></i> Borrar
                                                 </button>
                                                 <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Guardar" name="CREAR" value="CREAR" <?php echo $DISABLEDFOLIO; ?>  <?php echo $DISABLEENVASE; ?>   onclick="return validacion()">

@@ -1,6 +1,6 @@
 <?php
 
-include_once "../../assest/config/validarUsuarioFruta.php";
+include_once "../../assest/config/validarUsuarioMaterial.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 

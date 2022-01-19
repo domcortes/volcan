@@ -468,13 +468,6 @@ if (isset($_POST)) {
                     }
                     document.form_reg_dato.TDESPACHO.style.borderColor = "#4AF575";
 
-                    if (NUMERODOCUMENTO == null || NUMERODOCUMENTO.length == 0 || /^\s+$/.test(NUMERODOCUMENTO)) {
-                        document.form_reg_dato.NUMERODOCUMENTO.focus();
-                        document.form_reg_dato.NUMERODOCUMENTO.style.borderColor = "#FF0000";
-                        document.getElementById('val_numerodocumento').innerHTML = "NO A INGRESADO DATO";
-                        return false
-                    }
-                    document.form_reg_dato.NUMERODOCUMENTO.style.borderColor = "#4AF575";
 
                     if (TDOCUMENTO == null || TDOCUMENTO == 0) {
                         document.form_reg_dato.TDOCUMENTO.focus();
@@ -483,6 +476,14 @@ if (isset($_POST)) {
                         return false
                     }
                     document.form_reg_dato.TDOCUMENTO.style.borderColor = "#4AF575";
+                    
+                    if (NUMERODOCUMENTO == null || NUMERODOCUMENTO.length == 0 || /^\s+$/.test(NUMERODOCUMENTO)) {
+                        document.form_reg_dato.NUMERODOCUMENTO.focus();
+                        document.form_reg_dato.NUMERODOCUMENTO.style.borderColor = "#FF0000";
+                        document.getElementById('val_numerodocumento').innerHTML = "NO A INGRESADO DATO";
+                        return false
+                    }
+                    document.form_reg_dato.NUMERODOCUMENTO.style.borderColor = "#4AF575";
 
                     if (TRANSPORTE == null || TRANSPORTE == 0) {
                         document.form_reg_dato.TRANSPORTE.focus();
@@ -757,15 +758,7 @@ if (isset($_POST)) {
                                                 <label id="val_fecha" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                            <div class="form-group">
-                                                <label>Número Documento </label>
-                                                <input type="hidden" class="form-control" placeholder="Numero Documento" id="NUMERODOCUMENTOE" name="NUMERODOCUMENTOE" value="<?php echo $NUMERODOCUMENTO; ?>" />
-                                                <input type="text" class="form-control" placeholder="Número Documento" id="NUMERODOCUMENTO" name="NUMERODOCUMENTO" value="<?php echo $NUMERODOCUMENTO; ?>" <?php echo $DISABLED2; ?>  />
-                                                <label id="val_numerodocumento" class="validacion"> </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-xxl-2 col-xl-3 col-lg-6 col-md-9 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                             <div class="form-group">
                                                 <label>Tipo Documento</label>
                                                 <input type="hidden" class="form-control" placeholder="Transportita" id="TDOCUMENTOE" name="TDOCUMENTOE" value="<?php echo $TDOCUMENTO; ?>" />
@@ -782,6 +775,14 @@ if (isset($_POST)) {
                                                     <?php endforeach; ?>
                                                 </select>
                                                 <label id="val_tdocumento" class="validacion"> </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="form-group">
+                                                <label>Número Documento </label>
+                                                <input type="hidden" class="form-control" placeholder="Numero Documento" id="NUMERODOCUMENTOE" name="NUMERODOCUMENTOE" value="<?php echo $NUMERODOCUMENTO; ?>" />
+                                                <input type="text" class="form-control" placeholder="Número Documento" id="NUMERODOCUMENTO" name="NUMERODOCUMENTO" value="<?php echo $NUMERODOCUMENTO; ?>" <?php echo $DISABLED2; ?>  />
+                                                <label id="val_numerodocumento" class="validacion"> </label>
                                             </div>
                                         </div>
                                         <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-9 col-sm-9 col-9 col-xs-9">
@@ -977,6 +978,14 @@ if (isset($_POST)) {
                                                     <label id="val_plantae" class="validacion"> </label>
                                                 </div>
                                             </div>
+                                            <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
+                                                <div class="form-group">
+                                                    <br>
+                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Planta Externa" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopPlanta2.php' ); ">
+                                                        <i class="glyphicon glyphicon-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
                                         <?php } ?>
                                         <?php if ($TDESPACHO == "6") { ?>
                                             <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
@@ -996,6 +1005,14 @@ if (isset($_POST)) {
                                                         <?php endforeach; ?>
                                                     </select>
                                                     <label id="val_cliente" class="validacion"> </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
+                                                <div class="form-group">
+                                                    <br>
+                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Cliente" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopCliente.php' ); ">
+                                                        <i class="glyphicon glyphicon-plus"></i>
+                                                    </button>
                                                 </div>
                                             </div>
                                         <?php } ?>
@@ -1027,7 +1044,7 @@ if (isset($_POST)) {
                                     <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="toolbar">
                                         <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
                                             <?php if ($OP == "") { ?>
-                                                <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroDespachom.php');">
+                                                <button type="button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroDespachom.php');">
                                                     <i class="ti-trash"></i> Cancelar
                                                 </button>
                                                 <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Guardar" name="CREAR" value="CREAR"   onclick="return validacion()">

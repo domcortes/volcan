@@ -298,45 +298,7 @@ if ($_POST) {
                 function irPagina(url) {
                     location.href = "" + url;
                 }
-                //FUNCION PARA OBTENER HORA Y FECHA
-                function mueveReloj() {
-
-
-                    momentoActual = new Date();
-
-                    dia = momentoActual.getDate();
-                    mes = momentoActual.getMonth() + 1;
-                    ano = momentoActual.getFullYear();
-
-                    hora = momentoActual.getHours();
-                    minuto = momentoActual.getMinutes();
-                    segundo = momentoActual.getSeconds();
-
-                    if (dia < 10) {
-                        dia = "0" + dia;
-                    }
-
-                    if (mes < 10) {
-                        mes = "0" + mes;
-                    }
-                    if (hora < 10) {
-                        hora = "0" + hora;
-                    }
-                    if (minuto < 10) {
-                        minuto = "0" + minuto;
-                    }
-                    if (segundo < 10) {
-                        segundo = "0" + segundo;
-                    }
-
-                    horaImprimible = hora + " : " + minuto;
-                    fechaImprimible = dia + "-" + mes + "-" + ano;
-
-
-                    //     document.form_reg_dato.HORARECEPCION.value = horaImprimible;
-                    document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
-                    setTimeout("mueveReloj()", 1000);
-                }
+            
 
                 //FUNCION PARA REALIZAR UNA ACTUALIZACION DEL FORMULARIO DE REGISTRO DE RECEPCION
                 function refrescar() {
@@ -358,18 +320,17 @@ if ($_POST) {
 
 </head>
 
-<body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
+<body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
             <?php include_once "../../assest/config/menuFruta.php";  ?>
             <div class="content-wrapper">
                 <div class="container-full">
-
                     <!-- Content Header (Page header) -->
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Planificador Carga</h3>
+                                <h3 class="page-title">Frigorifico</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
@@ -377,31 +338,12 @@ if ($_POST) {
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
                                             <li class="breadcrumb-item" aria-current="page">Planificador Carga</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Registro PC</a>
-                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Registro PC</a>  </li>
                                         </ol>
                                     </nav>
                                 </div>
                             </div>
-                            <div class="right-title">
-                                <div class="d-flex mt-10 justify-content-end">
-                                    <div class="d-lg-flex mr-20 ml-10 d-none">
-                                        <div class="chart-text mr-10">
-                                            <!--
-                                            <h6 class="mb-0"><small>THIS MONTH</small></h6>
-                                            <h4 class="mt-0 text-primary">$12,125</h4>-->
-                                        </div>
-                                    </div>
-                                    <div class="d-lg-flex mr-20 ml-10 d-none">
-                                        <div class="chart-text mr-10">
-                                            <!--
-                                            <h6 class="mb-0"><small>LAST YEAR</small></h6>
-                                            <h4 class="mt-0 text-danger">$22,754</h4>-->
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
+                            <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                         </div>
                     </div>
                     <!-- Main content -->
@@ -484,7 +426,7 @@ if ($_POST) {
                                     <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="toolbar">
                                         <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
                                             <?php if ($OP == "") { ?>
-                                                <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroPcdespacho.php');">
+                                                <button type="button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroPcdespacho.php');">
                                                     <i class="ti-trash"></i> Cancelar
                                                 </button>
                                                 <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Guardar" name="CREAR" value="CREAR"   onclick="return validacion()">

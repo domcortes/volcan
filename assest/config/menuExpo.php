@@ -10,8 +10,7 @@
         <span class="light-logo"><img src="../../assest/img/logo.png" alt="logo"></span>
         <span class="dark-logo"><img src="../../assest/img/logo.png" alt="logo"></span>
       </div>
-    </a>
-    
+    </a>    
   </div>
   <!-- Header Navbar -->
   <nav class="navbar navbar-static-top pl-10">
@@ -71,7 +70,6 @@
             <img src="../../api/cryptioadmin10/html/images/svg-icon/notifications.svg" class="img-fluid svg-icon" alt="">
           </a>
           <ul class="dropdown-menu animated bounceIn">
-
             <li class="header">
               <div class="p-20">
                 <div class="flexbox">
@@ -129,7 +127,6 @@
             </li>
           </ul>
         </li>
-
         <!-- User Account-->
         <li class="dropdown user user-menu">
           <a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown" title="User">
@@ -167,8 +164,6 @@
                     }
                     ?>
                   </small>
-
-
                 </h4>
               </div>
             </li>
@@ -178,8 +173,7 @@
               <a class="dropdown-item" href="editarUsuario.php"><i class="ion ion-email-unread"></i> Editar Perfil</a>
               <a class="dropdown-item" href="editarUsuarioClave.php"><i class="ion ion-settings"></i> Cambiar Contrasena</a>              
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="verUsuarioActividad.php"><i class="ion ion-bag"></i> Mi Actividad</a>
-              <!--actividadUsuario.php-->
+              <a class="dropdown-item" href="verUsuarioActividad.php"><i class="ion ion-bag"></i> Mi Actividad</a>              
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" data-toggle="modal" data-target="#modal-empresa" title="Cambiar">
                 <i class="ti-settings"></i>Cambiar Empresa
@@ -198,9 +192,6 @@
             </li>
           </ul>
         </li>
-
-
-
         <?php //include_once "../../config/menuExtra.php"; 
         ?>
         <!-- Control Sidebar Toggle Button -->
@@ -215,7 +206,6 @@
     </div>
   </nav>
 </header>
-
 <?php
 $ARRAYEMPRESACAMBIAR = $EMPRESA_ADO->listarEmpresaCBX();
 $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
@@ -260,7 +250,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
     </div>
   </form>
 </div>
-
 <!-- Left side column. contains the logo and sidebar -->
 <aside class="main-sidebar">
   <!-- sidebar-->

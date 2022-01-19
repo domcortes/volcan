@@ -1,6 +1,3 @@
-<?php
-//include_once "../../assest/config/indicadorEconomico.php";
-?>
 <header class="main-header">
   <div class="d-flex align-items-center logo-box pl-20">
     <a href="#" class="waves-effect waves-light nav-link rounded d-none d-md-inline-block push-btn" data-toggle="push-menu" role="button">
@@ -52,7 +49,6 @@
         </li>
       </ul>
     </div>
-
     <div class="navbar-custom-menu r-side">
       <ul class="nav navbar-nav">       
         <!-- Notifications -->
@@ -74,7 +70,6 @@
                 </div>
               </div>
             </li>
-
             <li>
               <!-- inner menu: contains the actual data -->
               <ul class="menu sm-scrol">
@@ -157,8 +152,6 @@
                     }
                     ?>
                   </small>
-
-
                 </h4>
               </div>
             </li>
@@ -168,8 +161,7 @@
               <a class="dropdown-item" href="editarUsuario.php"><i class="ion ion-email-unread"></i> Editar Perfil</a>
               <a class="dropdown-item" href="editarUsuarioClave.php"><i class="ion ion-settings"></i> Cambiar Contrasena</a>              
               <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="verUsuarioActividad.php"><i class="ion ion-bag"></i> Mi Actividad</a>
-              <!--actividadUsuario.php-->         
+              <a class="dropdown-item" href="verUsuarioActividad.php"><i class="ion ion-bag"></i> Mi Actividad</a>              
               <div class="dropdown-divider"></div>
               <div class="p-10">
                 <center>
@@ -192,17 +184,11 @@
           <a href="#" data-toggle="control-sidebar" title="Setting" class="waves-effect waves-light">
             <img src="../../api/cryptioadmin10/html/images/svg-icon/settings.svg" class="img-fluid svg-icon" alt="">
           </a>
-        </li>-->
-        
+        </li>-->        
       </ul>
     </div>
   </nav>
 </header>
-
-<?php
-?>
-<!-- modal Area -->
-
 <!-- Left side column. contains the logo and sidebar -->
 <aside class="main-sidebar">
   <!-- sidebar-->

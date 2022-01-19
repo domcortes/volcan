@@ -845,10 +845,7 @@ if (isset($_POST)) {
     }
     if (isset($_REQUEST['REBATEINSTRUCTIVO'])) {
         $REBATEINSTRUCTIVO = $_REQUEST['REBATEINSTRUCTIVO'];
-    }
-    if (isset($_REQUEST['NETOINSTRUCTIVO']) && isset($_REQUEST['REBATEINSTRUCTIVO'])) {
-        $PUBLICAINSTRUCTIVO = $_REQUEST['NETOINSTRUCTIVO'] + $_REQUEST['REBATEINSTRUCTIVO'];
-    }
+    }  
     if (isset($_REQUEST['SEGURO'])) {
         $SEGURO = $_REQUEST['SEGURO'];
     }
@@ -1982,50 +1979,54 @@ if (isset($_POST)) {
 
 
 
+            function publica(){
+                    var repuesta;                    
+                    var totalpublica;
+
+                    NETOINSTRUCTIVO = document.getElementById("NETOINSTRUCTIVO").value;
+                    REBATEINSTRUCTIVO = document.getElementById("REBATEINSTRUCTIVO").value;
+
+                    document.getElementById('val_neto').innerHTML = "";
+                    document.getElementById('val_rebate').innerHTML = "";
+
+
+
+                    if (NETOINSTRUCTIVO == null || NETOINSTRUCTIVO.length == 0 || /^\s+$/.test(NETOINSTRUCTIVO)) {
+                        document.form_reg_dato.NETOINSTRUCTIVO.focus();
+                        document.form_reg_dato.NETOINSTRUCTIVO.style.borderColor = "#FF0000";
+                        document.getElementById('val_neto').innerHTML = "NO A INGRESADO DATO";
+                        repuesta = 1;
+                    }else{
+                        repuesta = 0;
+                        document.form_reg_dato.NETOINSTRUCTIVO.style.borderColor = "#4AF575";
+                    }
+
+                    if (REBATEINSTRUCTIVO == null || REBATEINSTRUCTIVO.length == 0 || /^\s+$/.test(REBATEINSTRUCTIVO)) {
+                        document.form_reg_dato.REBATEINSTRUCTIVO.focus();
+                        document.form_reg_dato.REBATEINSTRUCTIVO.style.borderColor = "#FF0000";
+                        document.getElementById('val_rebate').innerHTML = "NO A INGRESADO DATO";
+                        repuesta = 1;
+                    }else{
+                        repuesta = 0;
+                        document.form_reg_dato.REBATEINSTRUCTIVO.style.borderColor = "#4AF575";
+                    }
+
+                    
+                    if (repuesta == 0) {                        
+                        NETOINSTRUCTIVO =parseInt( document.getElementById("NETOINSTRUCTIVO").value);
+                        REBATEINSTRUCTIVO = parseFloat( document.getElementById("REBATEINSTRUCTIVO").value);
+
+                        totalpublica=NETOINSTRUCTIVO+REBATEINSTRUCTIVO;
+                        totalpublica = totalpublica.toFixed(0);
+                    }
+                    document.getElementById('PUBLICAINSTRUCTIVOE').value = totalpublica;
+                }
 
             //REDIRECCIONAR A LA PAGINA SELECIONADA
             function irPagina(url) {
                 location.href = "" + url;
             }
-            //FUNCION PARA OBTENER HORA Y FECHA
-            function mueveReloj() {
-
-
-                momentoActual = new Date();
-
-                dia = momentoActual.getDate();
-                mes = momentoActual.getMonth() + 1;
-                ano = momentoActual.getFullYear();
-
-                hora = momentoActual.getHours();
-                minuto = momentoActual.getMinutes();
-                segundo = momentoActual.getSeconds();
-
-                if (dia < 10) {
-                    dia = "0" + dia;
-                }
-
-                if (mes < 10) {
-                    mes = "0" + mes;
-                }
-                if (hora < 10) {
-                    hora = "0" + hora;
-                }
-                if (minuto < 10) {
-                    minuto = "0" + minuto;
-                }
-                if (segundo < 10) {
-                    segundo = "0" + segundo;
-                }
-
-                horaImprimible = hora + " : " + minuto;
-                fechaImprimible = dia + "-" + mes + "-" + ano;
-
-
-                //     document.form_reg_dato.HORARECEPCION.value = horaImprimible;
-                document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
-                setTimeout("mueveReloj()", 1000);
-            }
+        
 
             //FUNCION PARA REALIZAR UNA ACTUALIZACION DEL FORMULARIO DE REGISTRO DE RECEPCION
             function refrescar() {
@@ -2047,7 +2048,7 @@ if (isset($_POST)) {
         <script src="../../assest/js/multisteps.js"></script>
 </head>
 
-<body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
+<body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
             <?php include_once "../../assest/config/menuFruta.php";
@@ -2058,13 +2059,13 @@ if (isset($_POST)) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Instructivo Carga</h3>
+                                <h3 class="page-title">Exportacion </h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"> <a href="index.php"> <i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
-                                            <li class="breadcrumb-item" aria-current="page">Exportación</li>
+                                            <li class="breadcrumb-item" aria-current="page">Exportacion</li>
                                             <li class="breadcrumb-item" aria-current="page">Instructivo Carga</li>
                                             <li class="breadcrumb-item active" aria-current="page"> <a href="#">Registro Instructivo Carga </a>
                                             </li>
@@ -2072,25 +2073,7 @@ if (isset($_POST)) {
                                     </nav>
                                 </div>
                             </div>
-                            <div class="right-title">
-                                <div class="d-flex mt-10 justify-content-end">
-                                    <div class="d-lg-flex mr-20 ml-10 d-none">
-                                        <div class="chart-text mr-10">
-                                            <!--
-                                            <h6 class="mb-0"><small>THIS MONTH</small></h6>
-                                            <h4 class="mt-0 text-primary">$12,125</h4>-->
-                                        </div>
-                                    </div>
-                                    <div class="d-lg-flex mr-20 ml-10 d-none">
-                                        <div class="chart-text mr-10">
-                                            <!--
-                                            <h6 class="mb-0"><small>LAST YEAR</small></h6>
-                                            <h4 class="mt-0 text-danger">$22,754</h4>-->
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
+                            <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                         </div>
                     </div>
                     <!-- Main content -->
@@ -2207,7 +2190,7 @@ if (isset($_POST)) {
                                                     <label id="val_nreferencia" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
+                                            <div class="col-xxl-3 col-xl-5 col-lg-9 col-md-9 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
                                                     <label>Exportadora</label>
                                                     <input type="hidden" class="form-control" placeholder="EXPORTADORAE" id="EXPORTADORAE" name="EXPORTADORAE" value="<?php echo $EXPORTADORA; ?>" />
@@ -2225,6 +2208,8 @@ if (isset($_POST)) {
                                                     </select>
                                                     <label id="val_exportadora" class="validacion"> </label>
                                                 </div>
+                                            </div>
+                                            <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                             </div>
                                             <div class="col-xxl-3 col-xl-5 col-lg-9 col-md-9 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
@@ -3026,7 +3011,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Tarifa Flete(Neto) </label>
                                                     <input type="hidden" class="form-control" placeholder="NETOINSTRUCTIVOE" id="NETOINSTRUCTIVOE" name="NETOINSTRUCTIVOE" value="<?php echo $NETOINSTRUCTIVO; ?>" />
-                                                    <input type="number" class="form-control" placeholder="Tarifa Flete(Neto) Instructivo" id="NETOINSTRUCTIVO" name="NETOINSTRUCTIVO" onchange="this.form.submit()" value="<?php echo $NETOINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
+                                                    <input type="number" step="0.1" class="form-control" placeholder="Tarifa Flete(Neto) Instructivo" id="NETOINSTRUCTIVO" name="NETOINSTRUCTIVO" onchange="publica()" value="<?php echo $NETOINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_neto" class="validacion"> </label>
                                                 </div>
                                             </div>
@@ -3034,7 +3019,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Rebate </label>
                                                     <input type="hidden" class="form-control" placeholder="REBATEINSTRUCTIVOE" id="REBATEINSTRUCTIVOE" name="REBATEINSTRUCTIVOE" value="<?php echo $REBATEINSTRUCTIVO; ?>" />
-                                                    <input type="number" class="form-control" placeholder="Rebate Instructivo " id="REBATEINSTRUCTIVO" name="REBATEINSTRUCTIVO" onchange="this.form.submit()" value="<?php echo $REBATEINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
+                                                    <input type="number" step="0.1" class="form-control" placeholder="Rebate Instructivo " id="REBATEINSTRUCTIVO" name="REBATEINSTRUCTIVO" onchange="publica()" value="<?php echo $REBATEINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_rebate" class="validacion"> </label>
                                                 </div>
                                             </div>
@@ -3042,7 +3027,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Publica </label>
                                                     <input type="hidden" class="form-control" placeholder="PUBLICAINSTRUCTIVO" id="PUBLICAINSTRUCTIVO" name="PUBLICAINSTRUCTIVO" value="<?php echo $PUBLICAINSTRUCTIVO; ?>" />
-                                                    <input type="number" class="form-control" placeholder="$USD Flete Instructivo" id="PUBLICAINSTRUCTIVOE" name="PUBLICAINSTRUCTIVOE" value="<?php echo $PUBLICAINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> disabled />
+                                                    <input type="number" step="0.1"  class="form-control" placeholder="$USD Flete Instructivo" id="PUBLICAINSTRUCTIVOE" name="PUBLICAINSTRUCTIVOE" value="<?php echo $PUBLICAINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> disabled />
                                                     <label id="val_publica" class="validacion"> </label>
                                                 </div>
                                             </div>
@@ -3094,47 +3079,54 @@ if (isset($_POST)) {
                                 </div>                                                     
                                 <div class="card-footer">
                                     <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="toolbar">
-                                        <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
+                                        <div class="btn-group  col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
                                             <?php if ($OP == "") { ?>
-                                                <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroICarga.php');">
+                                                <button type="button" class="btn btn-warning btn-md" data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroICarga.php');">
                                                     <i class="ti-trash"></i> Cancelar
                                                 </button>
-                                                <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Guardar" name="CREAR" value="CREAR"   onclick="return validacion()">
+                                                <button type="submit" class="btn btn-primary btn-md" data-toggle="tooltip" title="Guardar" name="CREAR" value="CREAR"   onclick="return validacion()">
                                                     <i class="ti-save-alt"></i> Guardar
                                                 </button>
                                             <?php } ?>
                                             <?php if ($OP != "") { ?>
-                                                <button type="button" class="btn  btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarICarga.php'); ">
+                                                <button type="button" class="btn  btn-success btn-md" data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarICarga.php'); ">
                                                     <i class="ti-back-left "></i> Volver
                                                 </button>
-                                                <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Guardar" name="GUARDAR" value="GUARDAR"  <?php echo $DISABLED2; ?> onclick="return validacion()">
+                                                <button type="submit" class="btn btn-warning btn-md" data-toggle="tooltip" title="Guardar" name="GUARDAR" value="GUARDAR"  <?php echo $DISABLED2; ?> onclick="return validacion()">
                                                     <i class="ti-pencil-alt"></i> Guardar
                                                 </button>
-                                                <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR"  <?php echo $DISABLED2; ?> onclick="return validacionCerrar()">
+                                                <button type="submit" class="btn btn-danger btn-md" data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR"  <?php echo $DISABLED2; ?> onclick="return validacionCerrar()">
                                                     <i class="ti-save-alt"></i> Cerrar
                                                 </button>
                                             <?php } ?>
                                         </div>
-                                        <div class="btn-group  col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12  float-right">
+                                        <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12 float-right" role="group" aria-label="Informes y Reportes">
                                             <?php if ($OP != ""): ?>
-                                                <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Instructivo Español" id="defecto" name="tarjas" Onclick="abrirPestana('../../assest/documento/informeIcargaEspanol.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
-                                                    <i class="fa fa-file-pdf-o"></i> Instructivo Español
-                                                </button>
-                                                <button type="button" class="btn btn-primary  " data-toggle="tooltip" title=" Instruction English" id="defecto" name="tarjas" Onclick="abrirPestana('../../assest/documento/informeIcargaEnglish.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
-                                                    <i class="fa fa-file-pdf-o"></i>  Instruction English
-                                                </button>
-                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Report Invoice" id="defecto" name="tarjas" Onclick="abrirPestana('../../assest/documento/informeIcargaInvoice.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
-                                                    <i class="fa fa-file-pdf-o"></i> Invoice
-                                                </button>
-                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Informe Carga Real" id="defecto" name="tarjas" Onclick="abrirPestana('../../assest/documento/informeICargaReal.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
-                                                    <i class="fa fa-file-pdf-o"></i> Carga Real
-                                                </button>
-                                                <button type="button" class="btn  btn-success" id="defecto" name="tarjas" title="Reporte Carga Real" Onclick="abrirPestana('../../assest/reporte/reporteCargaRealcarga.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                    <i class="fa fa-file-excel-o"></i> Carga Real
-                                                </button>
-                                                <button type="button" class="btn  btn-success" id="defecto" name="tarjas" title="Reporte Packing List" Onclick="abrirPestana('../../assest/reporte/reporteICargaPackingList.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                    <i class="fa fa-file-excel-o"></i> Packing  List
-                                                </button>
+                                                <div class="row">
+                                                    <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12 ">
+                                                        <button type="button" class="btn btn-primary  btn-sm" data-toggle="tooltip" title="Instructivo Español" id="defecto" name="tarjas" Onclick="abrirPestana('../../assest/documento/informeIcargaEspanol.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
+                                                            <i class="fa fa-file-pdf-o"></i><br> Instructivo Español
+                                                        </button>
+                                                        <button type="button" class="btn btn-primary  btn-sm" data-toggle="tooltip" title=" Instruction English" id="defecto" name="tarjas" Onclick="abrirPestana('../../assest/documento/informeIcargaEnglish.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
+                                                            <i class="fa fa-file-pdf-o"></i><br>  Instruction English
+                                                        </button>
+                                                        <button type="button" class="btn btn-info  btn-sm" data-toggle="tooltip" title="Report Invoice" id="defecto" name="tarjas" Onclick="abrirPestana('../../assest/documento/informeIcargaInvoice.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
+                                                            <i class="fa fa-file-pdf-o"></i><br> Invoice
+                                                        </button>
+                                                        <button type="button" class="btn btn-info  btn-sm" data-toggle="tooltip" title="Report Invoice v2" id="defecto" name="tarjas" Onclick="abrirPestana('../../assest/documento/informeIcargaInvoicev2.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
+                                                            <i class="fa fa-file-pdf-o"></i><br> Invoice 2
+                                                        </button>
+                                                        <button type="button" class="btn btn-info  btn-sm" data-toggle="tooltip" title="Informe Carga Real" id="defecto" name="tarjas" Onclick="abrirPestana('../../assest/documento/informeICargaReal.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
+                                                        <i class="fa fa-file-pdf-o"></i><br> Carga Real
+                                                        </button>
+                                                        <button type="button" class="btn  btn-success btn-sm" id="defecto" name="tarjas" title="Reporte Carga Real" Onclick="abrirPestana('../../assest/reporte/reporteCargaRealcarga.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                            <i class="fa fa-file-excel-o"></i><br> Carga Real
+                                                        </button>
+                                                        <button type="button" class="btn  btn-success btn-sm" id="defecto" name="tarjas" title="Reporte Packing List" Onclick="abrirPestana('../../assest/reporte/reporteICargaPackingList.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                            <i class="fa fa-file-excel-o"></i><br> Packing  List
+                                                        </button>
+                                                    </div>                                                    
+                                                </div>
                                             <?php endif ?>
                                         </div>
                                     </div>
@@ -3455,6 +3447,8 @@ if (isset($_POST)) {
 
                 $ARRAYNUMERO = $ICARGA_ADO->obtenerNumero($_REQUEST['EMPRESA'],  $_REQUEST['TEMPORADA']);
                 $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+
+                $PUBLICAINSTRUCTIVO = $_REQUEST['NETOINSTRUCTIVO'] + $_REQUEST['REBATEINSTRUCTIVO'];
                 $ICARGA->__SET('NUMERO_ICARGA', $NUMERO);
                 $ICARGA->__SET('FECHA_ICARGA', $_REQUEST['FECHAINSTRUCTIVO']);
                 $ICARGA->__SET('FECHA_CDOCUMENTAL_ICARGA', $_REQUEST['FECHACDOCUMENTALICARGA']);
@@ -3474,7 +3468,7 @@ if (isset($_POST)) {
                 $ICARGA->__SET('BOLAWBCRT_ICARGA', $_REQUEST['BOLAWBCRTINSTRUCTIVO']);
                 $ICARGA->__SET('NETO_ICARGA', $_REQUEST['NETOINSTRUCTIVO']);
                 $ICARGA->__SET('REBATE_ICARGA', $_REQUEST['REBATEINSTRUCTIVO']);
-                $ICARGA->__SET('PUBLICA_ICARGA', $_REQUEST['PUBLICAINSTRUCTIVO']);
+                $ICARGA->__SET('PUBLICA_ICARGA', $PUBLICAINSTRUCTIVO);
                 $ICARGA->__SET('ID_SEGURO', $_REQUEST['SEGURO']);
                 $ICARGA->__SET('OBSERVACION_ICARGA', $_REQUEST['OBSERVACIONINSTRUCTIVO']);
                 $ICARGA->__SET('OBSERVACIONI_ICARGA', $_REQUEST['OBSERVACIONIINSTRUCTIVO']);                
@@ -3554,6 +3548,7 @@ if (isset($_POST)) {
             }        
             //OPERACION EDICION DE FILA    
             if (isset($_REQUEST['GUARDAR'])) {
+                $PUBLICAINSTRUCTIVO = $_REQUEST['NETOINSTRUCTIVO'] + $_REQUEST['REBATEINSTRUCTIVO'];
                 $ICARGA->__SET('FECHA_ICARGA', $_REQUEST['FECHAINSTRUCTIVO']);
                 $ICARGA->__SET('FECHA_CDOCUMENTAL_ICARGA', $_REQUEST['FECHACDOCUMENTALICARGA']);
                 $ICARGA->__SET('BOOKING_ICARGA', $_REQUEST['BOOKINGINSTRUCTIVO']);
@@ -3572,7 +3567,7 @@ if (isset($_POST)) {
                 $ICARGA->__SET('BOLAWBCRT_ICARGA', $_REQUEST['BOLAWBCRTINSTRUCTIVO']);
                 $ICARGA->__SET('NETO_ICARGA', $_REQUEST['NETOINSTRUCTIVO']);
                 $ICARGA->__SET('REBATE_ICARGA', $_REQUEST['REBATEINSTRUCTIVO']);
-                $ICARGA->__SET('PUBLICA_ICARGA', $_REQUEST['PUBLICAINSTRUCTIVO']);
+                $ICARGA->__SET('PUBLICA_ICARGA', $PUBLICAINSTRUCTIVO);
                 $ICARGA->__SET('OBSERVACION_ICARGA', $_REQUEST['OBSERVACIONINSTRUCTIVO']);
                 $ICARGA->__SET('OBSERVACIONI_ICARGA', $_REQUEST['OBSERVACIONIINSTRUCTIVO']);
                 $ICARGA->__SET('TOTAL_ENVASE_ICAGRA', $_REQUEST['TOTALENVASE']);
@@ -3683,6 +3678,7 @@ if (isset($_POST)) {
                         </script>';
                 }
                 if ($SINO == "0") {
+                    $PUBLICAINSTRUCTIVO = $_REQUEST['NETOINSTRUCTIVO'] + $_REQUEST['REBATEINSTRUCTIVO'];
                     $ICARGA->__SET('FECHA_ICARGA', $_REQUEST['FECHAINSTRUCTIVO']);
                     $ICARGA->__SET('FECHA_CDOCUMENTAL_ICARGA', $_REQUEST['FECHACDOCUMENTALICARGA']);
                     $ICARGA->__SET('BOOKING_ICARGA', $_REQUEST['BOOKINGINSTRUCTIVO']);
@@ -3701,7 +3697,7 @@ if (isset($_POST)) {
                     $ICARGA->__SET('BOLAWBCRT_ICARGA', $_REQUEST['BOLAWBCRTINSTRUCTIVO']);
                     $ICARGA->__SET('NETO_ICARGA', $_REQUEST['NETOINSTRUCTIVO']);
                     $ICARGA->__SET('REBATE_ICARGA', $_REQUEST['REBATEINSTRUCTIVO']);
-                    $ICARGA->__SET('PUBLICA_ICARGA', $_REQUEST['PUBLICAINSTRUCTIVO']);
+                    $ICARGA->__SET('PUBLICA_ICARGA', $PUBLICAINSTRUCTIVO);
                     $ICARGA->__SET('OBSERVACION_ICARGA', $_REQUEST['OBSERVACIONINSTRUCTIVO']);
                     $ICARGA->__SET('OBSERVACIONI_ICARGA', $_REQUEST['OBSERVACIONIINSTRUCTIVO']);
                     $ICARGA->__SET('TOTAL_ENVASE_ICAGRA', $_REQUEST['TOTALENVASE']);

@@ -401,45 +401,7 @@ if (isset($_POST)) {
                 function irPagina(url) {
                     location.href = "" + url;
                 }
-                //FUNCION PARA OBTENER HORA Y FECHA
-                function mueveReloj() {
-
-
-                    momentoActual = new Date();
-
-                    dia = momentoActual.getDate();
-                    mes = momentoActual.getMonth() + 1;
-                    ano = momentoActual.getFullYear();
-
-                    hora = momentoActual.getHours();
-                    minuto = momentoActual.getMinutes();
-                    segundo = momentoActual.getSeconds();
-
-                    if (dia < 10) {
-                        dia = "0" + dia;
-                    }
-
-                    if (mes < 10) {
-                        mes = "0" + mes;
-                    }
-                    if (hora < 10) {
-                        hora = "0" + hora;
-                    }
-                    if (minuto < 10) {
-                        minuto = "0" + minuto;
-                    }
-                    if (segundo < 10) {
-                        segundo = "0" + segundo;
-                    }
-
-                    horaImprimible = hora + " : " + minuto;
-                    fechaImprimible = dia + "-" + mes + "-" + ano;
-
-
-                    //     document.form_reg_dato.HORARECEPCION.value = horaImprimible;
-                    document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
-                    setTimeout("mueveReloj()", 1000);
-                }
+             
 
                 //FUNCION PARA REALIZAR UNA ACTUALIZACION DEL FORMULARIO DE REGISTRO DE RECEPCION
                 function refrescar() {
@@ -460,19 +422,17 @@ if (isset($_POST)) {
 
 </head>
 
-<body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
+<body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
             <?php include_once "../../assest/config/menuFruta.php";  ?>
-
             <div class="content-wrapper">
                 <div class="container-full">
-
                     <!-- Content Header (Page header) -->
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Rechazo</h3>
+                                <h3 class="page-title">Calidad de fruta </h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
@@ -481,31 +441,12 @@ if (isset($_POST)) {
                                             <li class="breadcrumb-item" aria-current="page">Calidad de Fruta</li>
                                             <li class="breadcrumb-item" aria-current="page">Rechazo</li>
                                             <li class="breadcrumb-item" aria-current="page">Producto Terminado</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#p">Registro Rechazo </a>
-                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#p">Registro Rechazo </a>    </li>
                                         </ol>
                                     </nav>
                                 </div>
                             </div>
-                            <div class="right-title">
-                                <div class="d-flex mt-10 justify-content-end">
-                                    <div class="d-lg-flex mr-20 ml-10 d-none">
-                                        <div class="chart-text mr-10">
-                                            <!--
-                                            <h6 class="mb-0"><small>THIS MONTH</small></h6>
-                                            <h4 class="mt-0 text-primary">$12,125</h4>-->
-                                        </div>
-                                    </div>
-                                    <div class="d-lg-flex mr-20 ml-10 d-none">
-                                        <div class="chart-text mr-10">
-                                            <!--
-                                            <h6 class="mb-0"><small>LAST YEAR</small></h6>
-                                            <h4 class="mt-0 text-danger">$22,754</h4>-->
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
+                            <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                         </div>
                     </div>
                     <label id="val_mensaje" class="validacion"><?php echo $MENSAJEFOLIO; ?> </label>
@@ -644,7 +585,7 @@ if (isset($_POST)) {
                                     <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar">
                                         <div class="btn-group col-sm-4" role="group" aria-label="acciones">
                                             <?php if ($OP == "") { ?>
-                                                <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroRechazopt.php');">
+                                                <button type="button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroRechazopt.php');">
                                                     <i class="ti-trash"></i> Cancelar
                                                 </button>
                                                 <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">

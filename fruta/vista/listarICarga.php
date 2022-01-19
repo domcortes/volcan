@@ -86,45 +86,6 @@ include_once "../../assest/config/datosUrLP.php";
                 function irPagina(url) {
                     location.href = "" + url;
                 }
-                //FUNCION PARA OBTENER HORA Y FECHA
-                function mueveReloj() {
-
-
-                    momentoActual = new Date();
-
-                    dia = momentoActual.getDate();
-                    mes = momentoActual.getMonth() + 1;
-                    ano = momentoActual.getFullYear();
-
-                    hora = momentoActual.getHours();
-                    minuto = momentoActual.getMinutes();
-                    segundo = momentoActual.getSeconds();
-
-                    if (dia < 10) {
-                        dia = "0" + dia;
-                    }
-
-                    if (mes < 10) {
-                        mes = "0" + mes;
-                    }
-                    if (hora < 10) {
-                        hora = "0" + hora;
-                    }
-                    if (minuto < 10) {
-                        minuto = "0" + minuto;
-                    }
-                    if (segundo < 10) {
-                        segundo = "0" + segundo;
-                    }
-
-                    horaImprimible = hora + " : " + minuto;
-                    fechaImprimible = dia + "-" + mes + "-" + ano;
-
-
-                    //     document.form_reg_dato.HORARECEPCION.value = horaImprimible;
-                    document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
-                    setTimeout("mueveReloj()", 1000);
-                }
 
                 function abrirVentana(url) {
                     var opciones =
@@ -140,7 +101,7 @@ include_once "../../assest/config/datosUrLP.php";
 
 </head>
 
-<body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
+<body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
             <?php include_once "../../assest/config/menuFruta.php"; ?>
@@ -152,7 +113,7 @@ include_once "../../assest/config/datosUrLP.php";
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Instructivo Carga</h3>
+                                <h3 class="page-title">Exportación </h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
@@ -166,28 +127,9 @@ include_once "../../assest/config/datosUrLP.php";
                                     </nav>
                                 </div>
                             </div>
-                            <div class="right-title">
-                                <div class="d-flex mt-10 justify-content-end">
-                                    <div class="d-lg-flex mr-20 ml-10 d-none">
-                                        <div class="chart-text mr-10">
-                                            <!--
-								<h6 class="mb-0"><small>THIS MONTH</small></h6>
-                                <h4 class="mt-0 text-primary">$12,125</h4>-->
-                                        </div>
-                                    </div>
-                                    <div class="d-lg-flex mr-20 ml-10 d-none">
-                                        <div class="chart-text mr-10">
-                                            <!--
-								<h6 class="mb-0"><small>LAST YEAR</small></h6>
-                                <h4 class="mt-0 text-danger">$22,754</h4>-->
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
+                            <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                         </div>
                     </div>
-
                     <!-- Main content -->
                     <section class="content">
                         <div class="box">
@@ -327,31 +269,36 @@ include_once "../../assest/config/datosUrLP.php";
                                                                                 <hr>     
                                                                                 <span href="#" class="dropdown-item">                         
                                                                                     <div class="btn-group btn-block col-12" role="group" aria-label="Acciones generales"> 
-                                                                                        <button type="button" class="btn  btn-danger  " id="defecto" name="informe" data-toggle="tooltip"  title="Instructivo Español" Onclick="abrirPestana('../../assest/documento/informeIcargaEspanol.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                            <i class="fa fa-file-pdf-o"></i> Instructivo Español
+                                                                                        <button type="button" class="btn  btn-danger  btn-sm" id="defecto" name="informe" data-toggle="tooltip"  title="Instructivo Español" Onclick="abrirPestana('../../assest/documento/informeIcargaEspanol.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                            <i class="fa fa-file-pdf-o"></i><br> Instructivo Español
                                                                                         </button>    
-                                                                                        <button type="button" class="btn  btn-danger  " id="defecto" name="informe" data-toggle="tooltip"  title="Instruction English" Onclick="abrirPestana('../../assest/documento/informeIcargaEnglish.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                                <i class="fa fa-file-pdf-o"></i> Instruction English
+                                                                                        <button type="button" class="btn  btn-danger  btn-sm" id="defecto" name="informe" data-toggle="tooltip"  title="Instruction English" Onclick="abrirPestana('../../assest/documento/informeIcargaEnglish.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                                <i class="fa fa-file-pdf-o"></i><br> Instruction English
                                                                                         </button>                                                                                 
-                                                                                    </div>                                                                                   
-                                                                                </span>                                                                                   
+                                                                                    </div>    
+                                                                                    <hr>             
+                                                                                    <div class="btn-group btn-block col-12" role="group" aria-label="Acciones generales"> 
+                                                                                        <button type="button" class="btn  btn-danger  btn-sm" id="defecto" name="informe" data-toggle="tooltip"  title="Report Invoice" Onclick="abrirPestana('../../assest/documento/informeIcargaInvoice.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                            <i class="fa fa-file-pdf-o"></i><br> Invoice
+                                                                                        </button>    
+                                                                                        <button type="button" class="btn  btn-danger  btn-sm" id="defecto" name="informe" data-toggle="tooltip"  title="Report Invoice v2" Onclick="abrirPestana('../../assest/documento/informeIcargaInvoicev2.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                                <i class="fa fa-file-pdf-o"></i><br> Invoice v2
+                                                                                        </button>                                                                                 
+                                                                                    </div>     
+                                                                                    <hr>                         
+                                                                                    <div class="btn-group btn-block col-12" role="group" aria-label="Acciones generales">
+                                                                                        <button type="button" class="btn  btn-danger  btn-sm" id="defecto" name="informe" data-toggle="tooltip"  title="Informe Carga Real" Onclick="abrirPestana('../../assest/documento/informeICargaReal.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                                <i class="fa fa-file-pdf-o"></i><br>  Carga Real
+                                                                                        </button>                                                                                 
+                                                                                    </div>                                                           
+                                                                                </span>                                                                                     
                                                                                 <span href="#" class="dropdown-item">                         
                                                                                     <div class="btn-group btn-block col-12" role="group" aria-label="Acciones generales"> 
-                                                                                        <button type="button" class="btn  btn-danger  " id="defecto" name="informe" data-toggle="tooltip"  title="Report Invoice" Onclick="abrirPestana('../../assest/documento/informeIcargaInvoice.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                            <i class="fa fa-file-pdf-o"></i> Invoice
+                                                                                        <button type="button" class="btn  btn-success  btn-sm" id="defecto" name="informe" data-toggle="tooltip"  title="Reporte Carga Real" Onclick="abrirPestana('../../assest/reporte/reporteCargaRealcarga.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                            <i class="fa fa-file-excel-o"></i><br> Carga Real
                                                                                         </button>    
-                                                                                        <button type="button" class="btn  btn-danger  " id="defecto" name="informe" data-toggle="tooltip"  title="Informe Carga Real" Onclick="abrirPestana('../../assest/documento/informeICargaReal.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                                <i class="fa fa-file-pdf-o"></i>  Carga Real
-                                                                                        </button>                                                                                 
-                                                                                    </div>                                                                                   
-                                                                                </span>                                                                               
-                                                                                <span href="#" class="dropdown-item">                         
-                                                                                    <div class="btn-group btn-block col-12" role="group" aria-label="Acciones generales"> 
-                                                                                        <button type="button" class="btn  btn-success  " id="defecto" name="informe" data-toggle="tooltip"  title="Reporte Carga Real" Onclick="abrirPestana('../../assest/reporte/reporteCargaRealcarga.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                            <i class="fa fa-file-excel-o"></i> Carga Real
-                                                                                        </button>    
-                                                                                        <button type="button" class="btn  btn-success  " id="defecto" name="informe" data-toggle="tooltip"  title="Reporte Packing Lis" Onclick="abrirPestana('../../assest/reporte/reporteICargaPackingList.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                            <i class="fa fa-file-excel-o"></i>   Packing List
+                                                                                        <button type="button" class="btn  btn-success  btn-sm" id="defecto" name="informe" data-toggle="tooltip"  title="Reporte Packing Lis" Onclick="abrirPestana('../../assest/reporte/reporteICargaPackingList.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                            <i class="fa fa-file-excel-o"></i><br>   Packing List
                                                                                         </button>                                                                                 
                                                                                     </div>                                                                                   
                                                                                 </span>
@@ -382,7 +329,7 @@ include_once "../../assest/config/datosUrLP.php";
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>   
                             <div class="box-footer">
                                 <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
                                     <div class="form-row align-items-center" role="group" aria-label="Datos">

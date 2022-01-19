@@ -657,7 +657,7 @@ class EXIMATERIAPRIMA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',
+                                                    DATEDIFF(SYSDATE(), FECHA_COSECHA_EXIMATERIAPRIMA) AS 'DIAS',
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d')AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION',
                                                     FECHA_COSECHA_EXIMATERIAPRIMA AS 'COSECHA',
@@ -691,7 +691,7 @@ class EXIMATERIAPRIMA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',
+                                                    DATEDIFF(SYSDATE(), FECHA_COSECHA_EXIMATERIAPRIMA) AS 'DIAS',
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d')AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION',
                                                     FECHA_COSECHA_EXIMATERIAPRIMA AS 'COSECHA',
@@ -726,7 +726,7 @@ class EXIMATERIAPRIMA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',
+                                                    DATEDIFF(SYSDATE(), FECHA_COSECHA_EXIMATERIAPRIMA) AS 'DIAS',
                                                     IFNULL(DATE_FORMAT(INGRESO, '%d-%m-%Y'),'Sin Datos') AS 'INGRESO',
                                                     IFNULL(DATE_FORMAT(MODIFICACION, '%d-%m-%Y'),'Sin Datos') AS 'MODIFICACION',
                                                     IFNULL(DATE_FORMAT(FECHA_COSECHA_EXIMATERIAPRIMA, '%d-%m-%Y'),'Sin Datos') AS 'COSECHA',
@@ -766,7 +766,7 @@ class EXIMATERIAPRIMA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',
+                                                    DATEDIFF(SYSDATE(), FECHA_COSECHA_EXIMATERIAPRIMA) AS 'DIAS',
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION',
                                                     FECHA_COSECHA_EXIMATERIAPRIMA AS 'COSECHA',
@@ -802,7 +802,7 @@ class EXIMATERIAPRIMA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',
+                                                    DATEDIFF(SYSDATE(), FECHA_COSECHA_EXIMATERIAPRIMA) AS 'DIAS',
                                                     IFNULL(DATE_FORMAT(INGRESO, '%d-%m-%Y'),'Sin Datos') AS 'INGRESO',
                                                     IFNULL(DATE_FORMAT(MODIFICACION, '%d-%m-%Y'),'Sin Datos') AS 'MODIFICACION',
                                                     IFNULL(DATE_FORMAT(FECHA_COSECHA_EXIMATERIAPRIMA, '%d-%m-%Y'),'Sin Datos') AS 'COSECHA',
@@ -839,7 +839,7 @@ class EXIMATERIAPRIMA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',
+                                                    DATEDIFF(SYSDATE(), FECHA_COSECHA_EXIMATERIAPRIMA) AS 'DIAS',
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION',
                                                     FECHA_COSECHA_EXIMATERIAPRIMA AS 'COSECHA',
@@ -875,7 +875,7 @@ class EXIMATERIAPRIMA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',
+                                                    DATEDIFF(SYSDATE(), FECHA_COSECHA_EXIMATERIAPRIMA) AS 'DIAS',
                                                     IFNULL(DATE_FORMAT(INGRESO, '%d-%m-%Y'),'Sin Datos') AS 'INGRESO',
                                                     IFNULL(DATE_FORMAT(MODIFICACION, '%d-%m-%Y'),'Sin Datos') AS 'MODIFICACION',
                                                     IFNULL(DATE_FORMAT(FECHA_COSECHA_EXIMATERIAPRIMA, '%d-%m-%Y'),'Sin Datos') AS 'COSECHA',
@@ -912,7 +912,7 @@ class EXIMATERIAPRIMA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',
+                                                    DATEDIFF(SYSDATE(), FECHA_COSECHA_EXIMATERIAPRIMA) AS 'DIAS',
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION',
                                                     FECHA_COSECHA_EXIMATERIAPRIMA AS 'COSECHA',
@@ -949,7 +949,7 @@ class EXIMATERIAPRIMA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',
+                                                    DATEDIFF(SYSDATE(), FECHA_COSECHA_EXIMATERIAPRIMA) AS 'DIAS',
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION',
                                                     FECHA_COSECHA_EXIMATERIAPRIMA AS 'COSECHA',
@@ -984,7 +984,7 @@ class EXIMATERIAPRIMA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',
+                                                    DATEDIFF(SYSDATE(), FECHA_COSECHA_EXIMATERIAPRIMA) AS 'DIAS',
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION',
                                                     FECHA_COSECHA_EXIMATERIAPRIMA AS 'COSECHA',
@@ -1021,7 +1021,7 @@ class EXIMATERIAPRIMA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',
+                                                    DATEDIFF(SYSDATE(), FECHA_COSECHA_EXIMATERIAPRIMA) AS 'DIAS',
                                                     IFNULL(DATE_FORMAT(INGRESO, '%d-%m-%Y'),'Sin Datos') AS 'INGRESO',
                                                     IFNULL(DATE_FORMAT(MODIFICACION, '%d-%m-%Y'),'Sin Datos') AS 'MODIFICACION',
                                                     IFNULL(DATE_FORMAT(FECHA_COSECHA_EXIMATERIAPRIMA, '%d-%m-%Y'),'Sin Datos') AS 'COSECHA',
@@ -1338,7 +1338,7 @@ class EXIMATERIAPRIMA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT * ,  
-                                                DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',
+                                                DATEDIFF(SYSDATE(), FECHA_COSECHA_EXIMATERIAPRIMA) AS 'DIAS',
                                                 IFNULL(DATE_FORMAT(INGRESO, '%d-%m-%Y'),'Sin Datos') AS 'INGRESO',
                                                 IFNULL(DATE_FORMAT(MODIFICACION, '%d-%m-%Y'),'Sin Datos') AS 'MODIFICACION',
                                                 IFNULL(DATE_FORMAT(FECHA_COSECHA_EXIMATERIAPRIMA, '%d-%m-%Y'),'Sin Datos') AS 'COSECHA',
@@ -1374,7 +1374,7 @@ class EXIMATERIAPRIMA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT * ,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',
+                                                    DATEDIFF(SYSDATE(), FECHA_COSECHA_EXIMATERIAPRIMA) AS 'DIAS',
                                                     IFNULL(DATE_FORMAT(INGRESO, '%d-%m-%Y'),'Sin Datos') AS 'INGRESO',
                                                     IFNULL(DATE_FORMAT(MODIFICACION, '%d-%m-%Y'),'Sin Datos') AS 'MODIFICACION',
                                                     IFNULL(DATE_FORMAT(FECHA_COSECHA_EXIMATERIAPRIMA, '%d-%m-%Y'),'Sin Datos') AS 'COSECHA',
@@ -1413,7 +1413,7 @@ class EXIMATERIAPRIMA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT * ,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',
+                                                    DATEDIFF(SYSDATE(), FECHA_COSECHA_EXIMATERIAPRIMA) AS 'DIAS',
                                                     IFNULL(DATE_FORMAT(INGRESO, '%d-%m-%Y'),'Sin Datos') AS 'INGRESO',
                                                     IFNULL(DATE_FORMAT(MODIFICACION, '%d-%m-%Y'),'Sin Datos') AS 'MODIFICACION',
                                                     IFNULL(DATE_FORMAT(FECHA_COSECHA_EXIMATERIAPRIMA, '%d-%m-%Y'),'Sin Datos') AS 'COSECHA',

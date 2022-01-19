@@ -1075,7 +1075,7 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',             
+                                                    DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIEXPORTACION) AS 'DIAS',             
                                                     DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',
                                                     DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',                                                    
@@ -1117,7 +1117,7 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',             
+                                                    DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIEXPORTACION) AS 'DIAS',             
                                                     DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',
                                                     DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',                                                    
@@ -1159,7 +1159,7 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',             
+                                                    DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIEXPORTACION) AS 'DIAS',             
                                                     FECHA_EMBALADO_EXIEXPORTACION AS 'EMBALADO',
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d ') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d ') AS 'MODIFICACION',                                                    
@@ -1202,7 +1202,7 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',             
+                                                    DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIEXPORTACION) AS 'DIAS',             
                                                     DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',
                                                     DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',                                                    
@@ -1245,7 +1245,7 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',             
+                                                    DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIEXPORTACION) AS 'DIAS',             
                                                     DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',
                                                     DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',                                                    
@@ -1286,7 +1286,7 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',             
+                                                    DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIEXPORTACION) AS 'DIAS',             
                                                     DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',
                                                     DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',                                                    
@@ -1328,7 +1328,7 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',             
+                                                    DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIEXPORTACION) AS 'DIAS',             
                                                     DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',
                                                     DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',                                                    
@@ -1370,7 +1370,7 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',             
+                                                    DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIEXPORTACION) AS 'DIAS',             
                                                     DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',
                                                     DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',                                                    
@@ -1410,7 +1410,7 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',             
+                                                    DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIEXPORTACION) AS 'DIAS',             
                                                     DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',
                                                     DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',                                                    
@@ -1450,7 +1450,7 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',             
+                                                    DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIEXPORTACION) AS 'DIAS',             
                                                     DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',
                                                     DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',                                                    
@@ -1552,7 +1552,7 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',             
+                                                    DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIEXPORTACION) AS 'DIAS',             
                                                     FECHA_EMBALADO_EXIEXPORTACION AS 'EMBALADO',
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d ') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d ') AS 'MODIFICACION',                                                    
@@ -1592,7 +1592,7 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',             
+                                                    DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIEXPORTACION) AS 'DIAS',             
                                                     FECHA_EMBALADO_EXIEXPORTACION AS 'EMBALADO',
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION',                                                    
@@ -1729,7 +1729,7 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',             
+                                                    DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIEXPORTACION) AS 'DIAS',             
                                                     FECHA_EMBALADO_EXIEXPORTACION AS 'EMBALADO',
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d ') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d ') AS 'MODIFICACION',                                                    
@@ -1770,7 +1770,7 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',             
+                                                    DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIEXPORTACION) AS 'DIAS',             
                                                     FECHA_EMBALADO_EXIEXPORTACION AS 'EMBALADO',
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d ') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d ') AS 'MODIFICACION',                                                    
@@ -1812,7 +1812,7 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',             
+                                                    DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIEXPORTACION) AS 'DIAS',             
                                                     FECHA_EMBALADO_EXIEXPORTACION AS 'EMBALADO',
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d ') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d ') AS 'MODIFICACION',                                                    
@@ -1920,7 +1920,7 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',             
+                                                    DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIEXPORTACION) AS 'DIAS',             
                                                     FECHA_EMBALADO_EXIEXPORTACION AS 'EMBALADO',
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d ') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d ') AS 'MODIFICACION',                                                    
@@ -1963,7 +1963,7 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',             
+                                                    DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIEXPORTACION) AS 'DIAS',             
                                                     FECHA_EMBALADO_EXIEXPORTACION AS 'EMBALADO',
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d ') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d ') AS 'MODIFICACION',                                                    
@@ -3140,7 +3140,7 @@ class EXIEXPORTACION_ADO
     {
         try {
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',             
+                                                    DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIEXPORTACION) AS 'DIAS',             
                                                     DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',
                                                     DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',                                                    
@@ -3186,7 +3186,7 @@ class EXIEXPORTACION_ADO
     {
         try {
             $datos = $this->conexion->prepare("SELECT *,  
-                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',             
+                                                    DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIEXPORTACION) AS 'DIAS',             
                                                     DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',
                                                     DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',                                                    
@@ -3232,7 +3232,7 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare(" SELECT *,  
-                                                        DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',             
+                                                        DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIEXPORTACION) AS 'DIAS',             
                                                         DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',
                                                         DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
                                                         DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',                                                    
@@ -3273,7 +3273,7 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare(" SELECT *,  
-                                                        DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',             
+                                                        DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIEXPORTACION) AS 'DIAS',             
                                                         DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',
                                                         DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
                                                         DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',                                                    
@@ -3315,7 +3315,7 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare(" SELECT *,  
-                                                        DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',             
+                                                        DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIEXPORTACION) AS 'DIAS',             
                                                         DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',
                                                         DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
                                                         DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',                                                    
@@ -3358,7 +3358,7 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare(" SELECT *,  
-                                                        DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',             
+                                                        DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIEXPORTACION) AS 'DIAS',             
                                                         DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',
                                                         DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
                                                         DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',                                                    
@@ -3402,7 +3402,7 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare(" SELECT *,  
-                                                        DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',             
+                                                        DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIEXPORTACION) AS 'DIAS',             
                                                         DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',
                                                         DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
                                                         DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',                                                    

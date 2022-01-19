@@ -117,10 +117,7 @@ if ($_POST) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-
-
-            <?php include_once "../../assest/config/menuFruta.php";
-            ?>
+            <?php include_once "../../assest/config/menuFruta.php";  ?>
             <div class="content-wrapper">
                 <div class="container-full">
 
@@ -128,48 +125,27 @@ if ($_POST) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Cambiar Folio PT </h3>
+                                <h3 class="page-title">Frigorifico </h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroCambiarFolioPT.php"> Cambiar Folio PT </a>
-                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Cambiar Folio PT </a>  </li>
                                         </ol>
                                     </nav>
                                 </div>
                             </div>
-                            <div class="right-title">
-                                <div class="d-flex mt-10 justify-content-end">
-                                    <div class="d-lg-flex mr-20 ml-10 d-none">
-                                        <div class="chart-text mr-10">
-                                            <!--
-								<h6 class="mb-0"><small>THIS MONTH</small></h6>
-                                <h4 class="mt-0 text-primary">$12,125</h4>-->
-                                        </div>
-                                    </div>
-                                    <div class="d-lg-flex mr-20 ml-10 d-none">
-                                        <div class="chart-text mr-10">
-                                            <!--
-								<h6 class="mb-0"><small>LAST YEAR</small></h6>
-                                <h4 class="mt-0 text-danger">$22,754</h4>-->
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
+                            <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                         </div>
                     </div>
                     <section class="content">
                         <div class="box">
-                            <div class="box-header with-border">
-                                <!--
-                                                <h4 class="box-title">Different Width</h4>
-                                                -->
+                            <div class="box-header with-border bg-warning">                                
+                                <h4 class="box-title">Cambio de Folio</h4>
                             </div>
-                            <form class="form" role="form" method="post" name="form_reg_dato" onsubmit="return validacion()">
+                            <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                                 <div class="box-body form-element">
                                     <div class="row">
                                         <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12">
@@ -199,7 +175,7 @@ if ($_POST) {
                                             <button type="button" class="btn  btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
                                                 <i class="ti-back-left "></i> Volver
                                             </button>
-                                            <button type="submit" class="btn btn-warning   " data-toggle="tooltip" title="Cambiar" name="CAMBIAR" value="EDCAMBIARITAR" <?php echo $DISABLED; ?>>
+                                            <button type="submit" class="btn btn-warning   " data-toggle="tooltip" title="Cambiar" name="CAMBIAR" value="EDCAMBIARITAR" <?php echo $DISABLED; ?> onclick="return validacion()">
                                                 <i class="ti-save-alt"></i> Cambiar
                                             </button>
                                         </div>

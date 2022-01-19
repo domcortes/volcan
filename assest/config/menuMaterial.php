@@ -1,6 +1,3 @@
-<?php
-//include_once "../../config/indicadorEconomico.php";
-?>
 <header class="main-header">
   <div class="d-flex align-items-center logo-box pl-20">
     <a href="#" class="waves-effect waves-light nav-link rounded d-none d-md-inline-block push-btn" data-toggle="push-menu" role="button">
@@ -87,7 +84,6 @@
             <img src="../../api/cryptioadmin10/html/images/svg-icon/notifications.svg" class="img-fluid svg-icon" alt="">
           </a>
           <ul class="dropdown-menu animated bounceIn">
-
             <li class="header">
               <div class="p-20">
                 <div class="flexbox">
@@ -100,7 +96,6 @@
                 </div>
               </div>
             </li>
-
             <li>
               <!-- inner menu: contains the actual data -->
               <ul class="menu sm-scrol">
@@ -157,11 +152,8 @@
               <div class="flexbox align-self-center">
                 <img src="../../api/cryptioadmin10/html/images/avatar/7.jpg" class="float-left rounded-circle" alt="User Image">
                 <h4 class="user-name align-self-center">
-
                   <?php
-
                   if (isset($_SESSION["NOMBRE_USUARIO"])) {
-
 
                     $ARRAYNOMBRESUSUARIOSLOGIN = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOS);
                     $NOMBRESUSUARIOSLOGIN = $ARRAYNOMBRESUSUARIOSLOGIN[0]["NOMBRE_COMPLETO"];
@@ -173,7 +165,6 @@
                     <?php
                     if (isset($_SESSION["NOMBRE_USUARIO"])) {
                       $ARRAYTUSUARIO = $TUSUARIO_ADO->verTusuario($_SESSION["TIPO_USUARIO"]);
-
                       if ($ARRAYTUSUARIO) {
                         echo $ARRAYTUSUARIO[0]['NOMBRE_TUSUARIO'];
                       }
@@ -183,21 +174,16 @@
                     }
                     ?>
                   </small>
-
-
                 </h4>
               </div>
             </li>
             <!-- Menu Body -->
             <li class="user-body">
-              <a class="dropdown-item" href="verUsuario.php"><i class="ion ion-person"></i> Mi Perfil</a>
-              <?php if ($TUSUARIO != 0) { ?>
-                <a class="dropdown-item" href="editarUsuario.php"><i class="ion ion-email-unread"></i> Editar Perfil</a>
-                <a class="dropdown-item" href="editarUsuarioClave.php"><i class="ion ion-settings"></i> Cambiar Contrasena</a>
-              <?php } ?>
+              <a class="dropdown-item" href="verUsuario.php"><i class="ion ion-person"></i> Mi Perfil</a>              
+              <a class="dropdown-item" href="editarUsuario.php"><i class="ion ion-email-unread"></i> Editar Perfil</a>
+              <a class="dropdown-item" href="editarUsuarioClave.php"><i class="ion ion-settings"></i> Cambiar Contrasena</a>              
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="verUsuarioActividad.php"><i class="ion ion-bag"></i> Mi Actividad</a>
-              <!--actividadUsuario.php-->
+              <a class="dropdown-item" href="verUsuarioActividad.php"><i class="ion ion-bag"></i> Mi Actividad</a>              
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" data-toggle="modal" data-target="#modal-empresa" title="Cambiar">
                 <i class="ti-settings"></i>Cambiar Empresa
@@ -233,7 +219,6 @@
     </div>
   </nav>
 </header>
-
 <?php
 $ARRAYEMPRESACAMBIAR = $EMPRESA_ADO->listarEmpresaCBX();
 $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
@@ -323,250 +308,285 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
   <section class="sidebar">
     <!-- sidebar menu-->
     <ul class="sidebar-menu" data-widget="tree">
-
       <li>
         <a href="index.php">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/dashboard.svg" class="svg-icon" alt="">
           <span>Inicio</span>
         </a>
-      </li>
-      <li class="header">Modulo</li>
-      <li class="treeview">
-        <a href="#">
-          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/layout.svg" class="svg-icon" alt="">
-          <span>Materiales</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-right pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
+      </li>      
+      <?php if($PMATERIALES=="1"){ ?>
+        <li class="header">Modulo</li>        
+        <?php if($PMMATERIALES=="1"){ ?>
           <li class="treeview">
-            <a href="#">Recepcion
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
+            <a href="#">
+              <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/layout.svg" class="svg-icon" alt="">
+              <span>Materiales</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-right pull-right"></i>
               </span>
             </a>
-            <ul class="treeview-menu">
-              <li><a href="registroRecepcionm.php">Registro Recepción<i class="ti-more"></i></a></li>
-              <li><a href="listarRecepcionm.php"> Agrupado Recepción <i class="ti-more"></i></a></li>
-              <li><a href="listarRecepcionmDetallado.php"> Detallado Recepción <i class="ti-more"></i></a></li>
-              <li><a href="listarRecepcionmInterplanta.php"> Agrupado Interplanta <i class="ti-more"></i></a></li>
+            <ul class="treeview-menu"> 
+              <?php if($PMMRECEPION=="1"){ ?>
+                <li class="treeview">
+                  <a href="#">Recepcion
+                    <span class="pull-left-container">
+                      <i class=" fa fa-angle-right pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                    <li><a href="registroRecepcionm.php">Registro Recepción </a></li>
+                    <li><a href="listarRecepcionm.php"> Agrupado Recepción  </a></li>
+                    <li><a href="listarRecepcionmDetallado.php"> Detallado Recepción  </a></li>
+                    <li><a href="listarRecepcionmInterplanta.php"> Agrupado Interplanta  </a></li>
+                  </ul>
+                </li>      
+              <?php  } ?> 
+              <?php if($PMMDEAPCHO=="1"){ ?>
+                <li class="treeview">
+                  <a href="#">Despacho
+                    <span class="pull-left-container">
+                      <i class=" fa fa-angle-right pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                    <li><a href="registroDespachom.php">Registro Despacho </a></li>
+                    <li><a href="listarDespachom.php">Agrupado Despacho </a></li>
+                    <li><a href="listarDespachomDetallado.php">Detallado Despacho </a></li>
+                  </ul>
+                </li>
+              <?php  } ?> 
+              <?php if($PMMGUIA=="1"){ ?>
+                <li class="treeview">
+                  <a href="#">Guía Por Recibir
+                    <span class="pull-left-container">
+                      <i class=" fa fa-angle-right pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                    <li><a href="registroGuiaPorRecibirM.php">Materiales  </a></li>
+                  </ul>
+                </li>
+              <?php  } ?> 
+              <li><a href="listarInventariom.php">Existencia Materiales </a></li>
+              <li><a href="listarInventariomResumen.php">Resumen Materiales </a></li>
+              <li><a href="listarInventariomHistorial.php">Historial Materiales </a></li>
             </ul>
-          </li>          
+          </li> 
+        <?php  } ?>   
+        <?php if($PMENVASE=="1"){ ?>
           <li class="treeview">
-            <a href="#">Despacho
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
+            <a href="#">
+              <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/apps.svg" class="svg-icon" alt="">
+              <span>Envases</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="registroDespachom.php">Registro Despacho<i class="ti-more"></i></a></li>
-              <li><a href="listarDespachom.php">Agrupado Despacho<i class="ti-more"></i></a></li>
-              <li><a href="listarDespachomDetallado.php">Detallado Despacho<i class="ti-more"></i></a></li>
+              <?php if($PMERECEPCION=="1"){ ?>
+                <li class="treeview">
+                  <a href="#">Recepcion
+                    <span class="pull-left-container">
+                      <i class=" fa fa-angle-right pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                    <li><a href="registroRecepcione.php">Registro Recepción </a></li>
+                    <li><a href="listarRecepcione.php"> Agrupado Recepción </a></li>
+                    <li><a href="listarRecepcioneDetallado.php"> Detallado Recepción  </a></li>
+                    <li><a href="listarRecepcioneInterplanta.php"> Agrupado Interplanta  </a></li>
+                  </ul>
+                </li>     
+              <?php  } ?>        
+              <?php if($PMEDESPACHO=="1"){ ?>
+                <li class="treeview">
+                  <a href="#">Despacho
+                    <span class="pull-left-container">
+                      <i class=" fa fa-angle-right pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                    <li><a href="registroDespachoe.php">Registro Despacho </a></li>
+                    <li><a href="listarDespachoe.php">Agrupado Despacho </a></li>
+                    <li><a href="listarDespachoeDetallado.php">Detallado Despacho </a></li>
+                  </ul>
+                </li>
+              <?php  } ?>   
+              <?php if($PMEGUIA=="1"){ ?>
+                <li class="treeview">
+                  <a href="#">Guía Por Recibir
+                    <span class="pull-left-container">
+                      <i class=" fa fa-angle-right pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                    <li><a href="registroGuiaPorRecibirE.php">Envases </a></li>
+                  </ul>
+                </li>
+              <?php  } ?>  
+              <li><a href="listarInventarioe.php">Existencia Envases </a></li>
             </ul>
-          </li>
+          </li>   
+        <?php  } ?>  
+        <?php if($PMADMINISTRACION=="1"){ ?>            
           <li class="treeview">
-            <a href="#">Guía Por Recibir
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
+            <a href="#">
+              <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/invoice.svg" class="svg-icon" alt="">
+              <span>Administración</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="registroGuiaPorRecibirM.php">Materiales <i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-          <li><a href="listarInventariom.php">Existencia Materiales<i class="ti-more"></i></a></li>
-          <li><a href="listarInventariomResumen.php">Resumen Materiales<i class="ti-more"></i></a></li>
-          <li><a href="listarInventariomHistorial.php">Historial Materiales<i class="ti-more"></i></a></li>
-        </ul>
-      </li> 
-      <li class="treeview">
-        <a href="#">
-          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/apps.svg" class="svg-icon" alt="">
-          <span>Envases</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-right pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li class="treeview">
-            <a href="#">Recepcion
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroRecepcione.php">Registro Recepción<i class="ti-more"></i></a></li>
-              <li><a href="listarRecepcione.php"> Agrupado Recepción<i class="ti-more"></i></a></li>
-              <li><a href="listarRecepcioneDetallado.php"> Detallado Recepción <i class="ti-more"></i></a></li>
-              <li><a href="listarRecepcioneInterplanta.php"> Agrupado Interplanta <i class="ti-more"></i></a></li>
-            </ul>
-          </li>          
-          <li class="treeview">
-            <a href="#">Despacho
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroDespachoe.php">Registro Despacho<i class="ti-more"></i></a></li>
-              <li><a href="listarDespachoe.php">Agrupado Despacho<i class="ti-more"></i></a></li>
-              <li><a href="listarDespachoeDetallado.php">Detallado Despacho<i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-          <li class="treeview">
-            <a href="#">Guía Por Recibir
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroGuiaPorRecibirE.php">Envases<i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-          <li><a href="listarInventarioe.php">Existencia Envases<i class="ti-more"></i></a></li>
-        </ul>
-      </li>            
-      <li class="treeview">
-        <a href="#">
-          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/invoice.svg" class="svg-icon" alt="">
-          <span>Administración</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-right pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li class="treeview">
-            <a href="#">Orden Compra
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroOcompra.php">Registro Orden<i class="ti-more"></i></a></li>
-              <li><a href="listarOcompra.php"> Agrupado Orden<i class="ti-more"></i></a></li>
-              <li><a href="listarOcompraDetallado.php"> Detallado Orden<i class="ti-more"></i></a></li>
-              <li><a href="listarOcompraAR.php"> Aprobar/Rechazar<i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-          <li><a href="listarInventariomOcompra.php">Existencia Materiales<i class="ti-more"></i></a></li>
-          <li><a href="listarInventarioeOcompra.php">Existencia Envases<i class="ti-more"></i></a></li>
-        </ul>
-      </li>
-      <li class="treeview">
-        <a href="#">
-          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/pages.svg" class="svg-icon" alt="">
-          <span>Kardex</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-right pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li><a href="listarHInventariom.php">Kardex Materiales<i class="ti-more"></i></a></li>
-          <li><a href="listarHInventarioe.php">Kardex Envases<i class="ti-more"></i></a></li>
-        </ul>
-      </li>
-      <li class="header">Configuraciones</li>
-      <li class="treeview">
-        <a href="#">
-          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/forms2.svg" class="svg-icon" alt="">
-          <span>Mantenedores</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-right pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li class="treeview">
-            <a href="#">Principal
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroEmpresa.php">Empresa<i class="ti-more"></i></a></li>
-              <li><a href="registroPlanta.php">Planta<i class="ti-more"></i></a></li>
-              <li><a href="registroBodega.php">Bodega<i class="ti-more"></i></a></li>
-              <li><a href="registroTemporada.php">Temporada<i class="ti-more"></i></a></li>
-              <li><a href="registroFolio.php">Folio<i class="ti-more"></i></a></li>
+              <li class="treeview">
+                <a href="#">Orden Compra
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">                  
+                  <?php if($PMAOC=="1"){ ?>    
+                    <li><a href="registroOcompra.php">Registro Orden </a></li>
+                    <li><a href="listarOcompra.php"> Agrupado Orden </a></li>
+                    <li><a href="listarOcompraDetallado.php"> Detallado Orden </a></li>
+                  <?php  } ?>  
+                  <?php if($PMAOCAR=="1"){ ?>    
+                    <li><a href="listarOcompraAR.php"> Aprobar/Rechazar </a></li>
+                  <?php  } ?>  
+                </ul>
+              </li>             
+              <?php if($PMMATERIALES=="1"){ ?>    
+                <li><a href="listarInventariomOcompra.php">Existencia Materiales </a></li>
+              <?php  } ?>  
+              <?php if($PMENVASE=="1"){ ?>    
+                <li><a href="listarInventarioeOcompra.php">Existencia Envases </a></li>
+              <?php  } ?>  
             </ul>
           </li>
+        <?php  } ?> 
+        <?php if($PMKARDEX=="1"){ ?>     
           <li class="treeview">
-            <a href="#">Ubicacion
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
+            <a href="#">
+              <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/pages.svg" class="svg-icon" alt="">
+              <span>Kardex</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="registroCiudad.php">Ciudad<i class="ti-more"></i></a></li>
-              <li><a href="registroComuna.php">Comuna<i class="ti-more"></i></a></li>
-              <li><a href="registroProvincia.php">Provincia<i class="ti-more"></i></a></li>
-              <li><a href="registroRegion.php">Region<i class="ti-more"></i></a></li>
-              <li><a href="registroPais.php">Pais<i class="ti-more"></i></a></li>
+              <?php if($PMKMATERIAL=="1"){ ?>  
+                <li><a href="listarHInventariom.php">Kardex Materiales </a></li>
+              <?php  } ?>  
+              <?php if($PMKENVASE=="1"){ ?>  
+                <li><a href="listarHInventarioe.php">Kardex Envases </a></li>
+              <?php  } ?>  
             </ul>
           </li>
-          <li class="treeview">
-            <a href="#">Fruta
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroEspecies.php">Especies<i class="ti-more"></i></a></li>
-              <li><a href="registroProductor.php">Productor<i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-          <li class="treeview">
-            <a href="#">Producto
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroFamilia.php">Familia<i class="ti-more"></i></a></li>
-              <li><a href="registroSubfamilia.php">Sub Familia<i class="ti-more"></i></a></li>
-              <li><a href="registroProveedor.php">Proveedor<i class="ti-more"></i></a></li>
-              <li><a href="registroProducto.php">Producto<i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-          <li class="treeview">
-            <a href="#">Transporte
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroTransporte.php">Transporte<i class="ti-more"></i></a></li>
-              <li><a href="registroConductor.php">Conductor<i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-          <li class="treeview">
-            <a href="#">Tipo
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroTmoneda.php">Tipo Moneda<i class="ti-more"></i></a></li>
-              <li><a href="registroTdocumento.php">Tipo Documento<i class="ti-more"></i></a></li>
-              <li><a href="registroTumedida.php">Tipo Unid. Medida<i class="ti-more"></i></a></li>
-              <li><a href="registroTcontenedor.php">Tipo Contenedor<i class="ti-more"></i></a></li>
-              <li><a href="registroTproductor.php">Tipo Productor<i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-          <li class="treeview">
-            <a href="#">Otros
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroCliente.php">Cliente<i class="ti-more"></i></a></li>
-              <li><a href="registroFpago.php">Formato Pago<i class="ti-more"></i></a></li>
-              <li><a href="registroResponsable.php">Responsable<i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-        </ul>
-      </li>
+        <?php  } ?>  
+      <?php  } ?>      
+      <?php if($PMANTENEDORES=="1"){ ?>
+        <li class="header">Configuraciones</li>
+        <li class="treeview">
+          <a href="#">
+            <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/forms2.svg" class="svg-icon" alt="">
+            <span>Mantenedores</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="treeview">
+              <a href="#">Principal
+                <span class="pull-left-container">
+                  <i class=" fa fa-angle-right pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="registroEmpresa.php">Empresa </a></li>
+                <li><a href="registroPlanta.php">Planta </a></li>
+                <li><a href="registroBodega.php">Bodega </a></li>
+                <li><a href="registroTemporada.php">Temporada </a></li>
+                <li><a href="registroFolio.php">Folio </a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">Ubicacion
+                <span class="pull-left-container">
+                  <i class=" fa fa-angle-right pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="registroCiudad.php">Ciudad </a></li>
+                <li><a href="registroComuna.php">Comuna </a></li>
+                <li><a href="registroProvincia.php">Provincia </a></li>
+                <li><a href="registroRegion.php">Region </a></li>
+                <li><a href="registroPais.php">Pais </a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">Fruta
+                <span class="pull-left-container">
+                  <i class=" fa fa-angle-right pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="registroEspecies.php">Especies </a></li>
+                <li><a href="registroProductor.php">Productor </a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">Producto
+                <span class="pull-left-container">
+                  <i class=" fa fa-angle-right pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="registroFamilia.php">Familia </a></li>
+                <li><a href="registroSubfamilia.php">Sub Familia </a></li>
+                <li><a href="registroProveedor.php">Proveedor </a></li>
+                <li><a href="registroProducto.php">Producto </a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">Transporte
+                <span class="pull-left-container">
+                  <i class=" fa fa-angle-right pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="registroTransporte.php">Transporte </a></li>
+                <li><a href="registroConductor.php">Conductor </a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">Tipo
+                <span class="pull-left-container">
+                  <i class=" fa fa-angle-right pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="registroTmoneda.php">Tipo Moneda </a></li>
+                <li><a href="registroTdocumento.php">Tipo Documento </a></li>
+                <li><a href="registroTumedida.php">Tipo Unid. Medida </a></li>
+                <li><a href="registroTcontenedor.php">Tipo Contenedor </a></li>
+                <li><a href="registroTproductor.php">Tipo Productor </a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">Otros
+                <span class="pull-left-container">
+                  <i class=" fa fa-angle-right pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="registroCliente.php">Cliente </a></li>
+                <li><a href="registroFpago.php">Formato Pago </a></li>
+                <li><a href="registroResponsable.php">Responsable </a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      <?php  } ?>
     </ul>
   </section>
 </aside>

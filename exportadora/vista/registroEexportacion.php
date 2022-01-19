@@ -655,7 +655,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                         <!-- /.box-body -->
                                         <div class="box-footer">
                                             <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
-                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroProductor.php');">
+                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroEexportacion.php');">
                                                 <i class="ti-trash"></i>Cancelar
                                                 </button>
                                                 <?php if ($OP != "editar") { ?>

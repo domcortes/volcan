@@ -405,7 +405,7 @@ if ($_POST) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Nota D/C</h3>
+                                <h3 class="page-title">Exportación</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
@@ -414,31 +414,12 @@ if ($_POST) {
                                             <li class="breadcrumb-item" aria-current="page">Exportación</li>
                                             <li class="breadcrumb-item" aria-current="page">Nota D/C</li>
                                             <li class="breadcrumb-item" aria-current="page">Registro Nota D/C</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroICarga.php">Registro Detalle </a>
-                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Registro Detalle </a> </li>
                                         </ol>
                                     </nav>
                                 </div>
                             </div>
-                            <div class="right-title">
-                                <div class="d-flex mt-10 justify-content-end">
-                                    <div class="d-lg-flex mr-20 ml-10 d-none">
-                                        <div class="chart-text mr-10">
-                                            <!--
-								<h6 class="mb-0"><small>THIS MONTH</small></h6>
-                                <h4 class="mt-0 text-primary">$12,125</h4>-->
-                                        </div>
-                                    </div>
-                                    <div class="d-lg-flex mr-20 ml-10 d-none">
-                                        <div class="chart-text mr-10">
-                                            <!--
-								<h6 class="mb-0"><small>LAST YEAR</small></h6>
-                                <h4 class="mt-0 text-danger">$22,754</h4>-->
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
+                            <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                         </div>
                     </div>
                     <section class="content">
