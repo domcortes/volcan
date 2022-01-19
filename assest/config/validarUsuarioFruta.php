@@ -93,8 +93,8 @@
         if($ARRAYVERPTUSUARIO){        
             $PFRUTA = $ARRAYVERPTUSUARIO[0]['FRUTA'];
             if($PFRUTA!="1"){
-                //session_destroy();
-                //echo "<script type='text/javascript'> location.href ='../../';</script>";
+                session_destroy();
+                echo "<script type='text/javascript'> location.href ='../../';</script>";
             }    
             $PFGRANEL = $ARRAYVERPTUSUARIO[0]['FGRANEL'];
             $PFGRECEPCION = $ARRAYVERPTUSUARIO[0]['FGRECEPCION'];
