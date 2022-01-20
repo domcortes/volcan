@@ -4408,8 +4408,8 @@ class EXIEXPORTACION_ADO
             $query = "
                 UPDATE fruta_exiexportacion SET                 
                     MODIFICACION = SYSDATE(), 
-                    TESTADOSAG = 0 ,
-                    ID_INPSAG = null          
+                    TESTADOSAG = NULL ,
+                    ID_INPSAG = NULL          
                 WHERE ID_EXIEXPORTACION= ? ;";
             $this->conexion->prepare($query)
                 ->execute(
