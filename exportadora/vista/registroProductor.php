@@ -179,7 +179,62 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     }
 }
 
-
+if($_POST){
+    if (isset($_REQUEST['RUTPRODUCTOR'])) {
+        $RUTPRODUCTOR = $_REQUEST['RUTPRODUCTOR'];
+    }
+    if (isset($_REQUEST['DVPRODUCTOR'])) {
+        $DVPRODUCTOR = $_REQUEST['DVPRODUCTOR'];
+    }
+    if (isset($_REQUEST['RUTPRODUCTOR'])) {
+        $RUTPRODUCTOR = $_REQUEST['RUTPRODUCTOR'];
+    }
+    if (isset($_REQUEST['NOMBREPRODUCTOR'])) {
+        $NOMBREPRODUCTOR = $_REQUEST['NOMBREPRODUCTOR'];
+    }
+    if (isset($_REQUEST['DIRECCIONPRODUCTOR'])) {
+        $DIRECCIONPRODUCTOR = $_REQUEST['DIRECCIONPRODUCTOR'];
+    }
+    if (isset($_REQUEST['RUTPRODUCTOR'])) {
+        $RUTPRODUCTOR = $_REQUEST['RUTPRODUCTOR'];
+    }
+    if (isset($_REQUEST['TELEFONOPRODUCTOR'])) {
+        $TELEFONOPRODUCTOR = $_REQUEST['TELEFONOPRODUCTOR'];
+    }
+    if (isset($_REQUEST['EMAILPRODUCTOR'])) {
+        $EMAILPRODUCTOR = $_REQUEST['EMAILPRODUCTOR'];
+    }
+    if (isset($_REQUEST['GIROPRODUCTOR'])) {
+        $GIROPRODUCTOR = $_REQUEST['GIROPRODUCTOR'];
+    }
+    if (isset($_REQUEST['CSGPRODUCTOR'])) {
+        $CSGPRODUCTOR = $_REQUEST['CSGPRODUCTOR'];
+    }
+    if (isset($_REQUEST['SDPPRODUCTOR'])) {
+        $SDPPRODUCTOR = $_REQUEST['SDPPRODUCTOR'];
+    }
+    if (isset($_REQUEST['PRBPRODUCTOR'])) {
+        $PRBPRODUCTOR = $_REQUEST['PRBPRODUCTOR'];
+    }
+    if (isset($_REQUEST['GGNPRODUCTOR'])) {
+        $GGNPRODUCTOR = $_REQUEST['GGNPRODUCTOR'];
+    }
+    if (isset($_REQUEST['CODIGOASOCIADOPRODUCTOR'])) {
+        $CODIGOASOCIADOPRODUCTOR = $_REQUEST['CODIGOASOCIADOPRODUCTOR'];
+    }
+    if (isset($_REQUEST['NOMBREASOCIADOPRODUCTOR'])) {
+        $NOMBREASOCIADOPRODUCTOR = $_REQUEST['NOMBREASOCIADOPRODUCTOR'];
+    }
+    if (isset($_REQUEST['EMPRESA'])) {
+        $EMPRESA = $_REQUEST['EMPRESA'];
+    }
+    if (isset($_REQUEST['CIUDAD'])) {
+        $CIUDAD = $_REQUEST['CIUDAD'];
+    }
+    if (isset($_REQUEST['TPRODUCTOR'])) {
+        $TPRODUCTOR = $_REQUEST['CIUDAD'];
+    }
+}
 
 
 
