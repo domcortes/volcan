@@ -4,7 +4,9 @@ $detect = new Mobile_Detect;
 
 session_start();
 if (isset($_SESSION["ID_EMPRESA"])  && isset($_SESSION["ID_TEMPORADA"])  ) {
-    header('Location: index.php');
+    if($_SESSION["ID_EMPRESA"]!=""&& $_SESSION["ID_TEMPORADA"]!=""){
+        header('Location: index.php');
+    }
 }
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
@@ -77,32 +79,34 @@ if (isset($_SESSION["ID_TEMPORADA"])) {
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 function validacion() {
-
+                    var retorno = 1;
                     EMPRESA = document.getElementById("EMPRESA").selectedIndex;
                     TEMPORADA = document.getElementById("TEMPORADA").selectedIndex;
 
-
-
                     document.getElementById('val_select_empresa').innerHTML = "";
-                    document.getElementById('val_temporada').innerHTML = "";
-
-
+                    document.getElementById('val_select_temporada').innerHTML = "";                  
 
                     if (EMPRESA == null || EMPRESA == 0) {
                         document.form_reg_dato.EMPRESA.focus();
                         document.form_reg_dato.EMPRESA.style.borderColor = "#FF0000";
                         document.getElementById('val_select_empresa').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
-                        return false;
+                        retorno = 1;
+                    }else{
+                        retorno = 0;
+                        document.form_reg_dato.EMPRESA.style.borderColor = "#4AF575";
                     }
-                    document.form_reg_dato.EMPRESA.style.borderColor = "#4AF575";
-
                     if (TEMPORADA == null || TEMPORADA == 0) {
                         document.form_reg_dato.TEMPORADA.focus();
                         document.form_reg_dato.TEMPORADA.style.borderColor = "#FF0000";
-                        document.getElementById('val_temporada').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                        document.getElementById('val_select_temporada').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                        retorno = 1;
+                    }else{
+                        retorno = 0;
+                        document.form_reg_dato.TEMPORADA.style.borderColor = "#4AF575";
+                    }
+                    if(retorno==1){
                         return false;
                     }
-                    document.form_reg_dato.TEMPORADA.style.borderColor = "#4AF575";
 
                 }
             </script>
@@ -115,7 +119,7 @@ if (isset($_SESSION["ID_TEMPORADA"])) {
             <img src="../../assest/img/favicon.png" alt="" height="20px">Seleccion de parametros <strong id="title_section"></strong>
         </div>
         <div class="card-body login-card-body">
-            <form class="form" role="form" method="post" onsubmit="return validacion()" name="form_reg_dato">
+            <form class="form" role="form" method="post"  name="form_reg_dato" id="form_reg_dato">
                 <div class="input-group mb-3" id="input">
                     <label id="label" for="EMPRESA">Selecionar Empresa</label>
                     <select class="form-control" id="EMPRESA" name="EMPRESA" style="width: 100%;">
@@ -129,7 +133,7 @@ if (isset($_SESSION["ID_TEMPORADA"])) {
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <label id="val_select_planta" class="validacion"> <?php echo  $MENSAJE; ?></label>
+                <label id="val_select_empresa" class="validacion"> <?php echo  $MENSAJE; ?></label>
                 <div class="input-group mb-3" id="input">
                     <label id="label" for="TEMPORADA">Selecionar Temporada</label>
                     <select class="form-control" id="TEMPORADA" name="TEMPORADA" style="width: 100%;">
@@ -143,11 +147,11 @@ if (isset($_SESSION["ID_TEMPORADA"])) {
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <label id="val_temporada" class="validacion"> <?php echo  $MENSAJE; ?></label>
+                <label id="val_select_temporada" class="validacion"> <?php echo  $MENSAJE; ?></label>
                 <div class="row">
                     <div class="col-12">
                         <div class="btn-group-vertical col-12 d-flex">
-                            <button type="submit" class="btn btn-primary btn-lg btn-block" id="ENTRAR" name="ENTRAR" value="ENTRAR"> Ingresar </button>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block" id="ENTRAR" name="ENTRAR" value="ENTRAR" onclick="return validacion()"> Ingresar </button>
                         </div>
                     </div>
                 </div>
