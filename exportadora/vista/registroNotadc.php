@@ -1051,12 +1051,12 @@ if (isset($_POST)) {
                                                                 $ARRAYDNOTA=$DNOTADC_ADO->buscarPorNotaDicarga($IDOP,$s['ID_DICARGA']);
                                                                 if($ARRAYDNOTA){
                                                                     $CANTIDADDNOTA=$ARRAYDNOTA[0]["CANTIDAD"];
+                                                                    $TOTALNUEVO=$ARRAYDNOTA[0]['TOTAL'];
+                                                                    //$CANTIDADNOTA= ($ARRAYDNOTA[0]['TOTAL']/$s['CANTIDAD_ENVASE_DICARGA'])-$s['PRECIO_US_DICARGA'];
                                                                     if($ARRAYDNOTA[0]["TNOTA"] ==1){                                                                        
                                                                         $PRECIONUEVO=$s['PRECIO_US_DICARGA']+$CANTIDADDNOTA;
-                                                                        $TOTALNUEVO=$s['CANTIDAD_ENVASE_DICARGA']*$PRECIONUEVO;
                                                                     }else  if($ARRAYDNOTA[0]["TNOTA"] ==2){
                                                                         $PRECIONUEVO=$s['PRECIO_US_DICARGA']-$CANTIDADDNOTA;
-                                                                        $TOTALNUEVO=$s['CANTIDAD_ENVASE_DICARGA']*$PRECIONUEVO;
                                                                     }else{
                                                                         $PRECIONUEVO="Sin Datos";
                                                                         $TOTALNUEVO="Sin Datos";
