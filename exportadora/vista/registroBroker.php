@@ -4,7 +4,6 @@ include_once "../../assest/config/validarUsuarioExpo.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../../assest/controlador/CIUDAD_ADO.php';
 
 include_once '../../assest/controlador/BROKER_ADO.php';
 include_once '../../assest/modelo/BROKER.php';
@@ -12,7 +11,6 @@ include_once '../../assest/modelo/BROKER.php';
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 
-$CIUDAD_ADO =  new CIUDAD_ADO();
 
 $BROKER_ADO =  new BROKER_ADO();
 //INIICIALIZAR MODELO
@@ -36,7 +34,6 @@ $EMAILBROKER2 = "";
 $CONTACTOBROKER3 = "";
 $CARGOBROKER3 = "";
 $EMAILBROKER3 = "";
-$CIUDAD = "";
 $NUMERO = "";
 
 
@@ -47,12 +44,10 @@ $SINO = "";
 //INICIALIZAR ARREGLOS
 $ARRAYBROKER = "";
 $ARRAYBROKERID = "";
-$ARRAYCIUDAD = "";
 $ARRAYNUMERO = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYBROKER = $BROKER_ADO->listarBrokerPorEmpresaCBX($EMPRESAS);
-$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
 include_once "../../assest/config/validarDatosUrl.php";
 include_once "../../assest/config/datosUrl.php";
 
@@ -110,7 +105,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $CONTACTOBROKER3 = "" . $r['CONTACTO3_BROKER'];
             $CARGOBROKER3 = "" . $r['CARGO3_BROKER'];
             $EMAILBROKER3 = "" . $r['EMAIL3_BROKER'];
-            $CIUDAD = "" . $r['ID_CIUDAD'];
 
         endforeach;
     }
@@ -141,7 +135,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $CONTACTOBROKER3 = "" . $r['CONTACTO3_BROKER'];
             $CARGOBROKER3 = "" . $r['CARGO3_BROKER'];
             $EMAILBROKER3 = "" . $r['EMAIL3_BROKER'];
-            $CIUDAD = "" . $r['ID_CIUDAD'];
         endforeach;
     }
 }
@@ -181,7 +174,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     CONTACTOBROKER3 = document.getElementById("CONTACTOBROKER3").value;
                     CARGOBROKER3 = document.getElementById("CARGOBROKER3").value;
                     EMAILBROKER3 = document.getElementById("EMAILBROKER3").value;
-                    CIUDAD = document.getElementById("CIUDAD").selectedIndex;
 
 
                     document.getElementById('val_nombre').innerHTML = "";
@@ -196,7 +188,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     document.getElementById('val_contacto3').innerHTML = "";
                     document.getElementById('val_cargo3').innerHTML = "";
                     document.getElementById('val_email3').innerHTML = "";
-                    document.getElementById('val_ciudad').innerHTML = "";
 
 
 
@@ -227,15 +218,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     document.form_reg_dato.DIRECCIONBROKER.style.borderColor = "#4AF575";
 
                     /*
-                        if (CIUDAD == null || CIUDAD == 0) {
-                            document.form_reg_dato.CIUDAD.focus();
-                            document.form_reg_dato.CIUDAD.style.borderColor = "#FF0000";
-                            document.getElementById('val_ciudad').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
-                            return false;
-                        }
-                        document.form_reg_dato.CIUDAD.style.borderColor = "#4AF575";
-
-
+                       
 
 
 
@@ -425,30 +408,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_eori" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
                                                         <label>Direccion </label>
                                                         <input type="text" class="form-control" placeholder="Direccion Broker" id="DIRECCIONBROKER" name="DIRECCIONBROKER" value="<?php echo $DIRECCIONBROKER; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_direccion" class="validacion"> </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                                    <div class="form-group">
-                                                        <label>Ciudad </label>
-                                                        <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
-                                                            <option></option>
-                                                            <?php foreach ($ARRAYCIUDAD as $r) : ?>
-                                                                <?php if ($ARRAYCIUDAD) {    ?>
-                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>"
-                                                                     <?php if ($CIUDAD == $r['ID_CIUDAD']) { echo "selected"; } ?>>
-                                                                     <?php echo $r['CIUDAD'] ?>, <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
-                                                                    </option>
-                                                                <?php } else { ?>
-                                                                    <option>No Hay Datos Registrados </option>
-                                                                <?php } ?>
-                                                            <?php endforeach; ?>
-                                                        </select>
-                                                        <label id="val_ciudad" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                             </div>

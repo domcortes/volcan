@@ -3,7 +3,6 @@
 include_once "../../assest/config/validarUsuarioExpo.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONE
-include_once '../../assest/controlador/CIUDAD_ADO.php';
 
 include_once '../../assest/controlador/NOTIFICADOR_ADO.php';
 include_once '../../assest/modelo/NOTIFICADOR.php';
@@ -12,7 +11,6 @@ include_once '../../assest/modelo/NOTIFICADOR.php';
 //INICIALIZAR CONTROLADOR
 
 
-$CIUDAD_ADO =  new CIUDAD_ADO();
 
 $NOTIFICADOR_ADO =  new NOTIFICADOR_ADO();
 //INIICIALIZAR MODELO
@@ -37,7 +35,6 @@ $EMAILNOTIFICADOR2 = "";
 $CONTACTONOTIFICADOR3 = "";
 $CARGONOTIFICADOR3 = "";
 $EMAILNOTIFICADOR3 = "";
-$CIUDAD = "";
 
 
 
@@ -51,7 +48,6 @@ $ARRAYCIUDAD = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYNOTIFICADOR = $NOTIFICADOR_ADO->listarNotificadorPorEmpresaCBX($EMPRESAS);
-$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
 include_once "../../assest/config/validarDatosUrl.php";
 include_once "../../assest/config/datosUrl.php";
 
@@ -111,7 +107,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $CONTACTONOTIFICADOR3 = "" . $r['CONTACTO3_NOTIFICADOR'];
             $CARGONOTIFICADOR3 = "" . $r['CARGO3_NOTIFICADOR'];
             $EMAILNOTIFICADOR3 = "" . $r['EMAIL3_NOTIFICADOR'];
-            $CIUDAD = "" . $r['ID_CIUDAD'];
 
         endforeach;
     }
@@ -143,7 +138,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $CONTACTONOTIFICADOR3 = "" . $r['CONTACTO3_NOTIFICADOR'];
             $CARGONOTIFICADOR3 = "" . $r['CARGO3_NOTIFICADOR'];
             $EMAILNOTIFICADOR3 = "" . $r['EMAIL3_NOTIFICADOR'];
-            $CIUDAD = "" . $r['ID_CIUDAD'];
         endforeach;
     }
 }
@@ -183,7 +177,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     CONTACTONOTIFICADOR3 = document.getElementById("CONTACTONOTIFICADOR3").value;
                     CARGONOTIFICADOR3 = document.getElementById("CARGONOTIFICADOR3").value;
                     EMAILNOTIFICADOR3 = document.getElementById("EMAILNOTIFICADOR3").value;
-                    CIUDAD = document.getElementById("CIUDAD").selectedIndex;
 
 
                     document.getElementById('val_nombre').innerHTML = "";
@@ -198,7 +191,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     document.getElementById('val_contacto3').innerHTML = "";
                     document.getElementById('val_cargo3').innerHTML = "";
                     document.getElementById('val_email3').innerHTML = "";
-                    document.getElementById('val_ciudad').innerHTML = "";
 
 
 
@@ -229,15 +221,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     document.form_reg_dato.DIRECCIONNOTIFICADOR.style.borderColor = "#4AF575";
 
                     /*
-                                        if (CIUDAD == null || CIUDAD == 0) {
-                                            document.form_reg_dato.CIUDAD.focus();
-                                            document.form_reg_dato.CIUDAD.style.borderColor = "#FF0000";
-                                            document.getElementById('val_ciudad').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
-                                            return false;
-                                        }
-                                        document.form_reg_dato.CIUDAD.style.borderColor = "#4AF575";
-
-
+                                      
 
 
 
@@ -439,25 +423,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label>Telefono / Fax </label>
                                                         <input type="text" class="form-control" placeholder="Telefono / Fax Notificador" id="TELEFONONOTIFICADOR" name="TELEFONONOTIFICADOR" value="<?php echo $TELEFONONOTIFICADOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_telefono" class="validacion"> </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                                    <div class="form-group">
-                                                        <label>Ciudad </label>
-                                                        <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
-                                                            <option></option>
-                                                            <?php foreach ($ARRAYCIUDAD as $r) : ?>
-                                                                <?php if ($ARRAYCIUDAD) {    ?>
-                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>" 
-                                                                    <?php if ($CIUDAD == $r['ID_CIUDAD']) { echo "selected"; } ?>>
-                                                                    <?php echo $r['CIUDAD'] ?>, <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
-                                                                    </option>
-                                                                <?php } else { ?>
-                                                                    <option>No Hay Datos Registrados </option>
-                                                                <?php } ?>
-                                                            <?php endforeach; ?>
-                                                        </select>
-                                                        <label id="val_ciudad" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                             </div>

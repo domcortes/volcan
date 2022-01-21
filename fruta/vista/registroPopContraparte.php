@@ -4,14 +4,14 @@ include_once "../../assest/config/validarUsuarioFruta.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../../assest/controlador/CIUDAD_ADO.php';
+include_once '../../assest/controlador/COMUNA_ADO.php';
 
 include_once '../../assest/controlador/CONTRAPARTE_ADO.php';
 include_once '../../assest/modelo/CONTRAPARTE.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
-$CIUDAD_ADO =  new CIUDAD_ADO();
+$COMUNA_ADO =  new COMUNA_ADO();
 
 $CONTRAPARTE_ADO =  new CONTRAPARTE_ADO();
 //INIICIALIZAR MODELO
@@ -27,7 +27,7 @@ $NOMBRECONTRAPARTE = "";
 $DIRECCIONCONTRAPARTE = "";
 $TELEFONOCONTRAPARTE = "";
 $EMAILCONTRAPARTE = "";
-$CIUDAD = "";
+$COMUNA = "";
 
 
 $FNOMBRE = "";
@@ -45,13 +45,12 @@ $BORDER2 = "";
 //INICIALIZAR ARREGLOS
 $ARRAYCONTRAPARTE = "";
 $ARRAYCONTRAPARTEID = "";
-$ARRAYCIUDAD = "";
+$ARRAYCOMUNA = "";
 $ARRAYTCONTRAPARTE = "";
 $ARRAYVERCONTRAPARTE = "";
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
 
 
 

@@ -126,8 +126,8 @@ class INPECTOR_ADO
     {
         try {
 
-            if ($INPECTOR->__GET('ID_CIUDAD') == NULL) {
-                $INPECTOR->__SET('ID_CIUDAD', NULL);
+            if ($INPECTOR->__GET('ID_COMUNA') == NULL) {
+                $INPECTOR->__SET('ID_COMUNA', NULL);
             }
             $query =
                 "INSERT INTO  fruta_inpector  
@@ -137,7 +137,7 @@ class INPECTOR_ADO
                                              DIRECCION_INPECTOR , 
                                              TELEFONO_INPECTOR , 
                                              EMAIL_INPECTOR , 
-                                             ID_CIUDAD  , 
+                                             ID_COMUNA  , 
                                              ID_EMPRESA , 
                                              ID_USUARIOI , 
                                              ID_USUARIOM ,  
@@ -156,7 +156,7 @@ class INPECTOR_ADO
                         $INPECTOR->__GET('DIRECCION_INPECTOR'),
                         $INPECTOR->__GET('TELEFONO_INPECTOR'),
                         $INPECTOR->__GET('EMAIL_INPECTOR'),
-                        $INPECTOR->__GET('ID_CIUDAD'),
+                        $INPECTOR->__GET('ID_COMUNA'),
                         $INPECTOR->__GET('ID_EMPRESA'),
                         $INPECTOR->__GET('ID_USUARIOI'),
                         $INPECTOR->__GET('ID_USUARIOM')
@@ -188,8 +188,8 @@ class INPECTOR_ADO
     {
 
         try {
-            if ($INPECTOR->__GET('ID_CIUDAD') == NULL) {
-                $INPECTOR->__SET('ID_CIUDAD', NULL);
+            if ($INPECTOR->__GET('ID_COMUNA') == NULL) {
+                $INPECTOR->__SET('ID_COMUNA', NULL);
             }
             $query = "
                 UPDATE  fruta_inpector  SET
@@ -198,7 +198,7 @@ class INPECTOR_ADO
                     DIRECCION_INPECTOR  = ?,
                     TELEFONO_INPECTOR  = ?,
                     EMAIL_INPECTOR  = ?,
-                    ID_CIUDAD = ?,
+                    ID_COMUNA = ?,
                     ID_USUARIOM = ?
                 WHERE  ID_INPECTOR  = ?  ;";
             $this->conexion->prepare($query)
@@ -209,7 +209,7 @@ class INPECTOR_ADO
                         $INPECTOR->__GET('DIRECCION_INPECTOR'),
                         $INPECTOR->__GET('TELEFONO_INPECTOR'),
                         $INPECTOR->__GET('EMAIL_INPECTOR'),
-                        $INPECTOR->__GET('ID_CIUDAD'),
+                        $INPECTOR->__GET('ID_COMUNA'),
                         $INPECTOR->__GET('ID_USUARIOM'),
                         $INPECTOR->__GET('ID_INPECTOR')
 

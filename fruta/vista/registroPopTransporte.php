@@ -6,7 +6,6 @@ include_once "../../assest/config/validarUsuarioFruta.php";
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
 include_once '../../assest/controlador/TRANSPORTE_ADO.php';
-include_once '../../assest/controlador/CIUDAD_ADO.php';
 include_once '../../assest/modelo/TRANSPORTE.php';
 
 //INCIALIZAR LAS VARIBLES
@@ -14,7 +13,6 @@ include_once '../../assest/modelo/TRANSPORTE.php';
 
 
 $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
-$CIUDAD_ADO =  new CIUDAD_ADO();
 //INIICIALIZAR MODELO
 $TRANSPORTE =  new TRANSPORTE();
 
@@ -34,20 +32,17 @@ $NOTATRANSPORTE = "";
 $CONTACTOTRANSPORTE = "";
 $TELEFONOTRANSPORTE = "";
 $EMAILTRANSPORTE = "";
-$CIUDAD = "";
 
 
 
 //INICIALIZAR ARREGLOS
 $ARRAYTRANSPORTE = "";
 $ARRAYTRANSPORTEID = "";
-$ARRAYCIUDAD = "";
 
 
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
 
 //OPERACIONES
 //OPERACION DE REGISTRO DE FILA
@@ -71,7 +66,6 @@ if (isset($_REQUEST['GUARDAR'])) {
     $TRANSPORTE->__SET('TELEFONO_TRANSPORTE', $_REQUEST['TELEFONOTRANSPORTE']);
     $TRANSPORTE->__SET('EMAIL_TRANSPORTE', $_REQUEST['EMAILTRANSPORTE']);
     $TRANSPORTE->__SET('NOTA_TRANSPORTE', $_REQUEST['NOTATRANSPORTE']);
-    $TRANSPORTE->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
     $TRANSPORTE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
     $TRANSPORTE->__SET('ID_USUARIOI', $IDUSUARIOS);
     $TRANSPORTE->__SET('ID_USUARIOM', $IDUSUARIOS);
@@ -114,7 +108,6 @@ if (isset($_REQUEST['GUARDAR'])) {
                     GIROTRANSPORTE = document.getElementById("GIROTRANSPORTE").value;
                     RAZONSOCIALTRANSPORTE = document.getElementById("RAZONSOCIALTRANSPORTE").value;
                     DIRRECIONTRANSPORTE = document.getElementById("DIRRECIONTRANSPORTE").value;
-                    CIUDAD = document.getElementById("CIUDAD").selectedIndex;
                     CONTACTOTRANSPORTE = document.getElementById("CONTACTOTRANSPORTE").value;
                     TELEFONOTRANSPORTE = document.getElementById("TELEFONOTRANSPORTE").value;
                     EMAILTRANSPORTE = document.getElementById("EMAILTRANSPORTE").value;
@@ -125,7 +118,6 @@ if (isset($_REQUEST['GUARDAR'])) {
                     document.getElementById('val_giro').innerHTML = "";
                     document.getElementById('val_rsocial').innerHTML = "";
                     document.getElementById('val_dirrecion').innerHTML = "";
-                    document.getElementById('val_ciudad').innerHTML = "";
                     document.getElementById('val_contacto').innerHTML = "";
                     document.getElementById('val_telefono').innerHTML = "";
                     document.getElementById('val_email').innerHTML = "";
@@ -179,15 +171,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                         return false;
                     }
                     document.form_reg_dato.DIRRECIONTRANSPORTE.style.borderColor = "#4AF575";
-                    /*
-                    if (CIUDAD == null || CIUDAD == 0) {
-                        document.form_reg_dato.CIUDAD.focus();
-                        document.form_reg_dato.CIUDAD.style.borderColor = "#FF0000";
-                        document.getElementById('val_ciudad').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
-                        return false;
-                    }
-                    document.form_reg_dato.CIUDAD.style.borderColor = "#4AF575";
-                    */
+                
                     /*
 
                     if (CONTACTOTRANSPORTE == null || CONTACTOTRANSPORTE.length == 0 || /^\s+$/.test(CONTACTOTRANSPORTE)) {
@@ -298,32 +282,6 @@ if (isset($_REQUEST['GUARDAR'])) {
                                                         <label>Dirrecion </label>
                                                         <input type="text" class="form-control" placeholder="Dirrecion Transporte" id="DIRRECIONTRANSPORTE" name="DIRRECIONTRANSPORTE" value="<?php echo $DIRRECIONTRANSPORTE; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_dirrecion" class="validacion"> </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                                    <div class="form-group">
-                                                        <label>Ciudad</label>
-                                                        <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
-                                                            <option></option>
-                                                            <?php foreach ($ARRAYCIUDAD as $r) : ?>
-                                                                <?php if ($ARRAYCIUDAD) {    ?>
-                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>"
-                                                                     <?php if ($CIUDAD == $r['ID_CIUDAD']) {   echo "selected";  } ?>>
-                                                                     <?php echo $r['CIUDAD'] ?>, <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
-                                                                    </option>
-                                                                <?php } else { ?>
-                                                                    <option>No Hay Datos Registrados </option>
-                                                                <?php } ?>
-                                                            <?php endforeach; ?>
-                                                        </select>
-                                                        <label id="val_ciudad" class="validacion"> </label>
-                                                    </div>
-                                                </div>
-                                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
-                                                    <div class="form-group">
-                                                        <label>Nota </label>
-                                                        <textarea class="form-control" rows="1" placeholder="Nota Transporte " id="NOTATRANSPORTE" name="NOTATRANSPORTE" <?php echo $DISABLED; ?>><?php echo $NOTATRANSPORTE; ?></textarea>
-                                                        <label id="val_nota" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                             </div>

@@ -144,10 +144,6 @@ class CONSIGNATARIO_ADO
     {
         try {
 
-            if ($CONSIGNATARIO->__GET('ID_CIUDAD') == NULL) {
-                $CONSIGNATARIO->__SET('ID_CIUDAD', NULL);
-            }
-
             $query =
                 "INSERT INTO  fruta_consignatario  
                                                 (   
@@ -159,7 +155,6 @@ class CONSIGNATARIO_ADO
                                                      CONTACTO1_CONSIGNATARIO ,  CARGO1_CONSIGNATARIO ,  EMAIL1_CONSIGNATARIO , 
                                                      CONTACTO2_CONSIGNATARIO ,  CARGO2_CONSIGNATARIO ,  EMAIL2_CONSIGNATARIO , 
                                                      CONTACTO3_CONSIGNATARIO ,  CARGO3_CONSIGNATARIO ,  EMAIL3_CONSIGNATARIO , 
-                                                     ID_CIUDAD , 
                                                      ID_EMPRESA , 
                                                      ID_USUARIOI , 
                                                      ID_USUARIOM , 
@@ -168,7 +163,7 @@ class CONSIGNATARIO_ADO
                                                      ESTADO_REGISTRO 
                                                 ) 
             VALUES
-	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(),  1);";
+	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(),  1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -187,7 +182,6 @@ class CONSIGNATARIO_ADO
                         $CONSIGNATARIO->__GET('CONTACTO3_CONSIGNATARIO'),
                         $CONSIGNATARIO->__GET('CARGO3_CONSIGNATARIO'),
                         $CONSIGNATARIO->__GET('EMAIL3_CONSIGNATARIO'),
-                        $CONSIGNATARIO->__GET('ID_CIUDAD'),
                         $CONSIGNATARIO->__GET('ID_EMPRESA'),
                         $CONSIGNATARIO->__GET('ID_USUARIOI'),
                         $CONSIGNATARIO->__GET('ID_USUARIOM')
@@ -217,9 +211,6 @@ class CONSIGNATARIO_ADO
     {
 
         try {
-            if ($CONSIGNATARIO->__GET('ID_CIUDAD') == NULL) {
-                $CONSIGNATARIO->__SET('ID_CIUDAD', NULL);
-            }
             $query = "
                 UPDATE  fruta_consignatario  SET
                     MODIFICACION  = SYSDATE() ,
@@ -236,7 +227,6 @@ class CONSIGNATARIO_ADO
                     CONTACTO3_CONSIGNATARIO  = ?,
                     CARGO3_CONSIGNATARIO  = ?,
                     EMAIL3_CONSIGNATARIO  = ?,
-                    ID_CIUDAD = ?,
                     ID_USUARIOM = ?
                 WHERE  ID_CONSIGNATARIO  = ?  ;";
             $this->conexion->prepare($query)
@@ -256,7 +246,6 @@ class CONSIGNATARIO_ADO
                         $CONSIGNATARIO->__GET('CONTACTO3_CONSIGNATARIO'),
                         $CONSIGNATARIO->__GET('CARGO3_CONSIGNATARIO'),
                         $CONSIGNATARIO->__GET('EMAIL3_CONSIGNATARIO'),
-                        $CONSIGNATARIO->__GET('ID_CIUDAD'),
                         $CONSIGNATARIO->__GET('ID_USUARIOM'),
                         $CONSIGNATARIO->__GET('ID_CONSIGNATARIO')
 

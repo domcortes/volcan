@@ -4,14 +4,14 @@ include_once "../../assest/config/validarUsuarioExpo.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../../assest/controlador/CIUDAD_ADO.php';
+include_once '../../assest/controlador/COMUNA_ADO.php';
 
 include_once '../../assest/controlador/AADUANA_ADO.php';
 include_once '../../assest/modelo/AADUANA.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
-$CIUDAD_ADO =  new CIUDAD_ADO();
+$COMUNA_ADO =  new COMUNA_ADO();
 
 $AADUANA_ADO =  new AADUANA_ADO();
 //INIICIALIZAR MODELO
@@ -32,7 +32,7 @@ $GIROAADUANA = "";
 $CONTACTOAADUANA = "";
 $TELEFONOAADUANA = "";
 $EMAILAADUANA = "";
-$CIUDAD = "";
+$COMUNA = "";
 
 
 
@@ -42,11 +42,11 @@ $SINO = "";
 //INICIALIZAR ARREGLOS
 $ARRAYAADUANA = "";
 $ARRAYAADUANAID = "";
-$ARRAYCIUDAD = "";
+$ARRAYCOMUNA = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYAADUANA = $AADUANA_ADO->listarAaduanaPorEmpresaCBX($EMPRESAS);
-$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
+$ARRAYCOMUNA = $COMUNA_ADO->listarComuna3CBX();
 include_once "../../assest/config/validarDatosUrl.php";
 include_once "../../assest/config/datosUrl.php";
 
@@ -103,7 +103,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $CONTACTOAADUANA = "" . $r['CONTACTO_AADUANA'];
             $TELEFONOAADUANA = "" . $r['TELEFONO_AADUANA'];
             $EMAILAADUANA = "" . $r['EMAIL_AADUANA'];
-            $CIUDAD = "" . $r['ID_CIUDAD'];
+            $COMUNA = "" . $r['ID_COMUNA'];
 
         endforeach;
     }
@@ -131,7 +131,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $CONTACTOAADUANA = "" . $r['CONTACTO_AADUANA'];
             $TELEFONOAADUANA = "" . $r['TELEFONO_AADUANA'];
             $EMAILAADUANA = "" . $r['EMAIL_AADUANA'];
-            $CIUDAD = "" . $r['ID_CIUDAD'];
+            $COMUNA = "" . $r['ID_COMUNA'];
         endforeach;
     }
 }
@@ -171,7 +171,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     GIROAADUANA = document.getElementById("GIROAADUANA").value;
 
                     DIRECCIONAADUANA = document.getElementById("DIRECCIONAADUANA").value;
-                    CIUDAD = document.getElementById("CIUDAD").selectedIndex;
+                    COMUNA = document.getElementById("COMUNA").selectedIndex;
                     CONTACTOAADUANA = document.getElementById("CONTACTOAADUANA").value;
                     TELEFONOAADUANA = document.getElementById("TELEFONOAADUANA").value;
                     EMAILAADUANA = document.getElementById("EMAILAADUANA").value;
@@ -183,7 +183,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     document.getElementById('val_rsocial').innerHTML = "";
                     document.getElementById('val_giro').innerHTML = "";
                     document.getElementById('val_direccion').innerHTML = "";
-                    document.getElementById('val_ciudad').innerHTML = "";
+                    document.getElementById('val_comuna').innerHTML = "";
                     document.getElementById('val_contacto').innerHTML = "";
                     document.getElementById('val_telefono').innerHTML = "";
                     document.getElementById('val_email').innerHTML = "";
@@ -237,15 +237,15 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         return false;
                     }
                     document.form_reg_dato.DIRECCIONAADUANA.style.borderColor = "#4AF575";
-                    /*
-                        if (CIUDAD == null || CIUDAD == 0) {
-                            document.form_reg_dato.CIUDAD.focus();
-                            document.form_reg_dato.CIUDAD.style.borderColor = "#FF0000";
-                            document.getElementById('val_ciudad').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                
+                        if (COMUNA == null || COMUNA == 0) {
+                            document.form_reg_dato.COMUNA.focus();
+                            document.form_reg_dato.COMUNA.style.borderColor = "#FF0000";
+                            document.getElementById('val_comuna').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
                             return false;
                         }
-                        document.form_reg_dato.CIUDAD.style.borderColor = "#4AF575";
-
+                        document.form_reg_dato.COMUNA.style.borderColor = "#4AF575";
+    /*
 
 
                         if (CONTACTOAADUANA == null || CONTACTOAADUANA.length == 0 || /^\s+$/.test(CONTACTOAADUANA)) {
@@ -384,25 +384,26 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_direccion" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
-                                                        <label>Ciudad </label>
-                                                        <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
+                                                        <label> Comuna</label>
+                                                        <select class="form-control select2" id="COMUNA" name="COMUNA" style="width: 100%;" value="<?php echo $COMUNA; ?>" <?php echo $DISABLED; ?>>
                                                             <option></option>
-                                                            <?php foreach ($ARRAYCIUDAD as $r) : ?>
-                                                                <?php if ($ARRAYCIUDAD) {    ?>
-                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>" 
-                                                                    <?php if ($CIUDAD == $r['ID_CIUDAD']) { echo "selected"; } ?>>
-                                                                    <?php echo $r['CIUDAD'] ?>, <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
+                                                            <?php foreach ($ARRAYCOMUNA as $r) : ?>
+                                                                <?php if ($ARRAYCOMUNA) {    ?>
+                                                                    <option value="<?php echo $r['ID_COMUNA']; ?>" 
+                                                                    <?php if ($COMUNA == $r['ID_COMUNA']) { echo "selected";  } ?>>
+                                                                        <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
                                                                     <option>No Hay Datos Registrados </option>
                                                                 <?php } ?>
+
                                                             <?php endforeach; ?>
                                                         </select>
-                                                        <label id="val_ciudad" class="validacion"> </label>
+                                                        <label id="val_comuna" class="validacion"> </label>
                                                     </div>
-                                                </div>
+                                                </div> 
                                             </div>
                                             <label>Contacto </label>
                                             <hr class="my-15">
@@ -560,7 +561,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $AADUANA->__SET('CONTACTO_AADUANA', $_REQUEST['CONTACTOAADUANA']);
                 $AADUANA->__SET('TELEFONO_AADUANA', $_REQUEST['TELEFONOAADUANA']);
                 $AADUANA->__SET('EMAIL_AADUANA', $_REQUEST['EMAILAADUANA']);
-                $AADUANA->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+                $AADUANA->__SET('ID_COMUNA', $_REQUEST['COMUNA']);
                 $AADUANA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                 $AADUANA->__SET('ID_USUARIOI', $IDUSUARIOS);
                 $AADUANA->__SET('ID_USUARIOM', $IDUSUARIOS);
@@ -593,7 +594,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $AADUANA->__SET('CONTACTO_AADUANA', $_REQUEST['CONTACTOAADUANA']);
                 $AADUANA->__SET('TELEFONO_AADUANA', $_REQUEST['TELEFONOAADUANA']);
                 $AADUANA->__SET('EMAIL_AADUANA', $_REQUEST['EMAILAADUANA']);
-                $AADUANA->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+                $AADUANA->__SET('ID_COMUNA', $_REQUEST['COMUNA']);
                 $AADUANA->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $AADUANA->__SET('ID_AADUANA', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE EDICION DEL CONTROLADOR

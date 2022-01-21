@@ -7,7 +7,7 @@ include_once "../../assest/config/validarUsuarioFruta.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../../assest/controlador/CIUDAD_ADO.php';
+include_once '../../assest/controlador/COMUNA_ADO.php';
 
 include_once '../../assest/controlador/AGCARGA_ADO.php';
 include_once '../../assest/modelo/AGCARGA.php';
@@ -15,7 +15,7 @@ include_once '../../assest/modelo/AGCARGA.php';
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 
-$CIUDAD_ADO =  new CIUDAD_ADO();
+$COMUNA_ADO =  new COMUNA_ADO();
 
 $AGCARGA_ADO =  new AGCARGA_ADO();
 //INIICIALIZAR MODELO
@@ -36,7 +36,7 @@ $SAGAGCARGA = "";
 $CONTACTOAGCARGA = "";
 $TELEFONOAGCARGA = "";
 $EMAILAGCARGA = "";
-$CIUDAD = "";
+$COMUNA = "";
 
 
 
@@ -46,10 +46,10 @@ $SINO = "";
 //INICIALIZAR ARREGLOS
 $ARRAYAGCARGA = "";
 $ARRAYAGCARGAID = "";
-$ARRAYCIUDAD = "";
+$ARRAYCOMUNA = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
+$ARRAYCOMUNA = $COMUNA_ADO->listarComuna3CBX();
 
 
 
@@ -76,7 +76,7 @@ if (isset($_REQUEST['GUARDAR'])) {
     $AGCARGA->__SET('CONTACTO_AGCARGA', $_REQUEST['CONTACTOAGCARGA']);
     $AGCARGA->__SET('TELEFONO_AGCARGA', $_REQUEST['TELEFONOAGCARGA']);
     $AGCARGA->__SET('EMAIL_AGCARGA', $_REQUEST['EMAILAGCARGA']);
-    $AGCARGA->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+    $AGCARGA->__SET('ID_COMUNA', $_REQUEST['COMUNA']);
     $AGCARGA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
     $AGCARGA->__SET('ID_USUARIOI', $IDUSUARIOS);
     $AGCARGA->__SET('ID_USUARIOM', $IDUSUARIOS);
@@ -120,7 +120,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                     GIROAGCARGA = document.getElementById("GIROAGCARGA").value;
                     SAGAGCARGA = document.getElementById("SAGAGCARGA").value;
                     DIRECCIONAGCARGA = document.getElementById("DIRECCIONAGCARGA").value;
-                    CIUDAD = document.getElementById("CIUDAD").selectedIndex;
+                    COMUNA = document.getElementById("COMUNA").selectedIndex;
                     CONTACTOAGCARGA = document.getElementById("CONTACTOAGCARGA").value;
                     TELEFONOAGCARGA = document.getElementById("TELEFONOAGCARGA").value;
                     EMAILAGCARGA = document.getElementById("EMAILAGCARGA").value;
@@ -200,15 +200,15 @@ if (isset($_REQUEST['GUARDAR'])) {
                     }
                     document.form_reg_dato.DIRECCIONAGCARGA.style.borderColor = "#4AF575";
 
-                    /*
-                        if (CIUDAD == null || CIUDAD == 0) {
-                            document.form_reg_dato.CIUDAD.focus();
-                            document.form_reg_dato.CIUDAD.style.borderColor = "#FF0000";
+                
+                        if (COMUNA == null || COMUNA == 0) {
+                            document.form_reg_dato.COMUNA.focus();
+                            document.form_reg_dato.COMUNA.style.borderColor = "#FF0000";
                             document.getElementById('val_ciudad').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
                             return false;
                         }
-                        document.form_reg_dato.CIUDAD.style.borderColor = "#4AF575";
-
+                        document.form_reg_dato.COMUNA.style.borderColor = "#4AF575";
+    /*
 
 
                         if (CONTACTOAGCARGA == null || CONTACTOAGCARGA.length == 0 || /^\s+$/.test(CONTACTOAGCARGA)) {
@@ -329,25 +329,26 @@ if (isset($_REQUEST['GUARDAR'])) {
                                                         <label id="val_direccion" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
-                                                        <label>Ciudad </label>
-                                                        <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
+                                                        <label> Comuna</label>
+                                                        <select class="form-control select2" id="COMUNA" name="COMUNA" style="width: 100%;" value="<?php echo $COMUNA; ?>" <?php echo $DISABLED; ?>>
                                                             <option></option>
-                                                            <?php foreach ($ARRAYCIUDAD as $r) : ?>
-                                                                <?php if ($ARRAYCIUDAD) {    ?>
-                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>"
-                                                                     <?php if ($CIUDAD == $r['ID_CIUDAD']) { echo "selected"; } ?>>
-                                                                        <?php echo $r['CIUDAD'] ?>, <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
+                                                            <?php foreach ($ARRAYCOMUNA as $r) : ?>
+                                                                <?php if ($ARRAYCOMUNA) {    ?>
+                                                                    <option value="<?php echo $r['ID_COMUNA']; ?>" 
+                                                                    <?php if ($COMUNA == $r['ID_COMUNA']) { echo "selected";  } ?>>
+                                                                        <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
                                                                     <option>No Hay Datos Registrados </option>
                                                                 <?php } ?>
+
                                                             <?php endforeach; ?>
                                                         </select>
-                                                        <label id="val_ciudad" class="validacion"> </label>
+                                                        <label id="val_comuna" class="validacion"> </label>
                                                     </div>
-                                                </div>
+                                                </div> 
                                             </div>
                                             <label>Contacto </label>
                                             <hr class="my-15">

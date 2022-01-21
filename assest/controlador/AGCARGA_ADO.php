@@ -145,8 +145,8 @@ class AGCARGA_ADO
         try {
 
 
-            if ($AGCARGA->__GET('ID_CIUDAD') == NULL) {
-                $AGCARGA->__SET('ID_CIUDAD', NULL);
+            if ($AGCARGA->__GET('ID_COMUNA') == NULL) {
+                $AGCARGA->__SET('ID_COMUNA', NULL);
             }
 
             $query =
@@ -163,7 +163,7 @@ class AGCARGA_ADO
                                              CONTACTO_AGCARGA , 
                                              TELEFONO_AGCARGA , 
                                              EMAIL_AGCARGA , 
-                                             ID_CIUDAD , 
+                                             ID_COMUNA , 
                                              ID_EMPRESA , 
                                              ID_USUARIOI , 
                                              ID_USUARIOM ,
@@ -188,7 +188,7 @@ class AGCARGA_ADO
                         $AGCARGA->__GET('CONTACTO_AGCARGA'),
                         $AGCARGA->__GET('TELEFONO_AGCARGA'),
                         $AGCARGA->__GET('EMAIL_AGCARGA'),
-                        $AGCARGA->__GET('ID_CIUDAD'),
+                        $AGCARGA->__GET('ID_COMUNA'),
                         $AGCARGA->__GET('ID_EMPRESA'),
                         $AGCARGA->__GET('ID_USUARIOI'),
                         $AGCARGA->__GET('ID_USUARIOM')
@@ -218,8 +218,8 @@ class AGCARGA_ADO
     {
 
         try {
-            if ($AGCARGA->__GET('ID_CIUDAD') == NULL) {
-                $AGCARGA->__SET('ID_CIUDAD', NULL);
+            if ($AGCARGA->__GET('ID_COMUNA') == NULL) {
+                $AGCARGA->__SET('ID_COMUNA', NULL);
             }
 
             $query = "
@@ -235,7 +235,7 @@ class AGCARGA_ADO
                     CONTACTO_AGCARGA  = ?,
                     TELEFONO_AGCARGA  = ?,
                     EMAIL_AGCARGA  = ?,
-                    ID_CIUDAD = ?,
+                    ID_COMUNA = ?,
                     ID_USUARIOM = ?
                 WHERE  ID_AGCARGA  = ?  ;";
             $this->conexion->prepare($query)
@@ -252,7 +252,7 @@ class AGCARGA_ADO
                         $AGCARGA->__GET('CONTACTO_AGCARGA'),
                         $AGCARGA->__GET('TELEFONO_AGCARGA'),
                         $AGCARGA->__GET('EMAIL_AGCARGA'),
-                        $AGCARGA->__GET('ID_CIUDAD'),
+                        $AGCARGA->__GET('ID_COMUNA'),
                         $AGCARGA->__GET('ID_USUARIOM'),
                         $AGCARGA->__GET('ID_AGCARGA')
 

@@ -23,7 +23,6 @@
         private   $ESTADO_REGISTRO; 
         private   $INGRESO;
         private   $MODIFICACION;
-        private   $ID_CIUDAD;
         private   $ID_EMPRESA;
         private   $ID_USUARIOI;
         private   $ID_USUARIOM;

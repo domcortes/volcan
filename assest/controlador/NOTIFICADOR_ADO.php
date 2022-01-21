@@ -145,10 +145,7 @@ class NOTIFICADOR_ADO
         try {
 
 
-            if ($NOTIFICADOR->__GET('ID_CIUDAD') == NULL) {
-                $NOTIFICADOR->__SET('ID_CIUDAD', NULL);
-            }
-
+           
             $query =
                 "INSERT INTO  fruta_notificador  
                                              (
@@ -160,7 +157,6 @@ class NOTIFICADOR_ADO
                                                      CONTACTO1_NOTIFICADOR ,  CARGO1_NOTIFICADOR ,  EMAIL1_NOTIFICADOR , 
                                                      CONTACTO2_NOTIFICADOR ,  CARGO2_NOTIFICADOR ,  EMAIL2_NOTIFICADOR , 
                                                      CONTACTO3_NOTIFICADOR ,  CARGO3_NOTIFICADOR ,  EMAIL3_NOTIFICADOR , 
-                                                     ID_CIUDAD , 
                                                      ID_EMPRESA , 
                                                      ID_USUARIOI , 
                                                      ID_USUARIOM , 
@@ -169,7 +165,7 @@ class NOTIFICADOR_ADO
                                                      ESTADO_REGISTRO 
                                             ) 
             VALUES
-	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  SYSDATE() , SYSDATE(), 1);";
+	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -187,7 +183,6 @@ class NOTIFICADOR_ADO
                         $NOTIFICADOR->__GET('CONTACTO3_NOTIFICADOR'),
                         $NOTIFICADOR->__GET('CARGO3_NOTIFICADOR'),
                         $NOTIFICADOR->__GET('EMAIL3_NOTIFICADOR'),
-                        $NOTIFICADOR->__GET('ID_CIUDAD'),
                         $NOTIFICADOR->__GET('ID_EMPRESA'),
                         $NOTIFICADOR->__GET('ID_USUARIOI'),
                         $NOTIFICADOR->__GET('ID_USUARIOM')
@@ -217,9 +212,6 @@ class NOTIFICADOR_ADO
     {
 
         try {
-            if ($NOTIFICADOR->__GET('ID_CIUDAD') == NULL) {
-                $NOTIFICADOR->__SET('ID_CIUDAD', NULL);
-            }
 
             $query = "
                 UPDATE  fruta_notificador  SET
@@ -237,7 +229,6 @@ class NOTIFICADOR_ADO
                     CONTACTO3_NOTIFICADOR  = ?,
                     CARGO3_NOTIFICADOR  = ?,
                     EMAIL3_NOTIFICADOR  = ?,
-                    ID_CIUDAD = ?,
                     ID_USUARIOM = ?
                 WHERE  ID_NOTIFICADOR  = ?  ;";
             $this->conexion->prepare($query)
@@ -257,7 +248,6 @@ class NOTIFICADOR_ADO
                         $NOTIFICADOR->__GET('CONTACTO3_NOTIFICADOR'),
                         $NOTIFICADOR->__GET('CARGO3_NOTIFICADOR'),
                         $NOTIFICADOR->__GET('EMAIL3_NOTIFICADOR'),
-                        $NOTIFICADOR->__GET('ID_CIUDAD'),
                         $NOTIFICADOR->__GET('ID_USUARIOM'),
                         $NOTIFICADOR->__GET('ID_NOTIFICADOR')
 

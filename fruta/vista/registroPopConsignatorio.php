@@ -4,7 +4,6 @@ include_once "../../assest/config/validarUsuarioFruta.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../../assest/controlador/CIUDAD_ADO.php';
 
 include_once '../../assest/controlador/CONSIGNATARIO_ADO.php';
 include_once '../../assest/modelo/CONSIGNATARIO.php';
@@ -12,7 +11,6 @@ include_once '../../assest/modelo/CONSIGNATARIO.php';
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 
-$CIUDAD_ADO =  new CIUDAD_ADO();
 
 $CONSIGNATARIO_ADO =  new CONSIGNATARIO_ADO();
 //INIICIALIZAR MODELO
@@ -37,7 +35,6 @@ $EMAILCONSIGNATARIO2 = "";
 $CONTACTOCONSIGNATARIO3 = "";
 $CARGOCONSIGNATARIO3 = "";
 $EMAILCONSIGNATARIO3 = "";
-$CIUDAD = "";
 
 
 
@@ -47,10 +44,8 @@ $SINO = "";
 //INICIALIZAR ARREGLOS
 $ARRAYCONSIGNATARIO = "";
 $ARRAYCONSIGNATARIOID = "";
-$ARRAYCIUDAD = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
 
 
 
@@ -80,7 +75,6 @@ if (isset($_REQUEST['GUARDAR'])) {
     $CONSIGNATARIO->__SET('CONTACTO3_CONSIGNATARIO', $_REQUEST['CONTACTOCONSIGNATARIO3']);
     $CONSIGNATARIO->__SET('CARGO3_CONSIGNATARIO', $_REQUEST['CARGOCONSIGNATARIO3']);
     $CONSIGNATARIO->__SET('EMAIL3_CONSIGNATARIO', $_REQUEST['EMAILCONSIGNATARIO3']);
-    $CONSIGNATARIO->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
     $CONSIGNATARIO->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
     $CONSIGNATARIO->__SET('ID_USUARIOI', $IDUSUARIOS);
     $CONSIGNATARIO->__SET('ID_USUARIOM', $IDUSUARIOS);
@@ -128,7 +122,6 @@ if (isset($_REQUEST['GUARDAR'])) {
                     CONTACTOCONSIGNATARIO3 = document.getElementById("CONTACTOCONSIGNATARIO3").value;
                     CARGOCONSIGNATARIO3 = document.getElementById("CARGOCONSIGNATARIO3").value;
                     EMAILCONSIGNATARIO3 = document.getElementById("EMAILCONSIGNATARIO3").value;
-                    CIUDAD = document.getElementById("CIUDAD").selectedIndex;
 
 
                     document.getElementById('val_nombre').innerHTML = "";
@@ -142,7 +135,6 @@ if (isset($_REQUEST['GUARDAR'])) {
                     document.getElementById('val_contacto3').innerHTML = "";
                     document.getElementById('val_cargo3').innerHTML = "";
                     document.getElementById('val_email3').innerHTML = "";
-                    document.getElementById('val_ciudad').innerHTML = "";
 
 
 
@@ -165,14 +157,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                     document.form_reg_dato.DIRECCIONCONSIGNATARIO.style.borderColor = "#4AF575";
 
                     /*
-                    if (CIUDAD == null || CIUDAD == 0) {
-                        document.form_reg_dato.CIUDAD.focus();
-                        document.form_reg_dato.CIUDAD.style.borderColor = "#FF0000";
-                        document.getElementById('val_ciudad').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
-                        return false;
-                    }
-                    document.form_reg_dato.CIUDAD.style.borderColor = "#4AF575";
-
+                
 
                     if (CONTACTOCONSIGNATARIO1 == null || CONTACTOCONSIGNATARIO1.length == 0 || /^\s+$/.test(CONTACTOCONSIGNATARIO1)) {
                         document.form_reg_dato.CONTACTOCONSIGNATARIO1.focus();
@@ -350,25 +335,6 @@ if (isset($_REQUEST['GUARDAR'])) {
                                                         <label>Telefono / Fax </label>
                                                         <input type="text" class="form-control" placeholder="Telefono / Fax Consignatorio" id="TELEFONOCONSIGNATARIO" name="TELEFONOCONSIGNATARIO" value="<?php echo $TELEFONOCONSIGNATARIO; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_telefono" class="validacion"> </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                                    <div class="form-group">
-                                                        <label>Ciudad </label>
-                                                        <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
-                                                            <option></option>
-                                                            <?php foreach ($ARRAYCIUDAD as $r) : ?>
-                                                                <?php if ($ARRAYCIUDAD) {    ?>
-                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>"
-                                                                     <?php if ($CIUDAD == $r['ID_CIUDAD']) {    echo "selected";   } ?>>
-                                                                     <?php echo $r['CIUDAD'] ?>, <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
-                                                                    </option>
-                                                                <?php } else { ?>
-                                                                    <option>No Hay Datos Registrados </option>
-                                                                <?php } ?>
-                                                            <?php endforeach; ?>
-                                                        </select>
-                                                        <label id="val_ciudad" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                             </div>

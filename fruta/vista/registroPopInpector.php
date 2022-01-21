@@ -4,7 +4,7 @@ include_once "../../assest/config/validarUsuarioFruta.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../../assest/controlador/CIUDAD_ADO.php';
+include_once '../../assest/controlador/COMUNA_ADO.php';
 
 include_once '../../assest/controlador/INPECTOR_ADO.php';
 include_once '../../assest/modelo/INPECTOR.php';
@@ -12,7 +12,7 @@ include_once '../../assest/modelo/INPECTOR.php';
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 
-$CIUDAD_ADO =  new CIUDAD_ADO();
+$COMUNA_ADO =  new COMUNA_ADO();
 
 $INPECTOR_ADO =  new INPECTOR_ADO();
 //INIICIALIZAR MODELO
@@ -29,7 +29,7 @@ $NOMBREINPECTOR = "";
 $DIRECCIONINPECTOR = "";
 $TELEFONOINPECTOR = "";
 $EMAILINPECTOR = "";
-$CIUDAD = "";
+$COMUNA = "";
 
 
 $FNOMBRE = "";
@@ -47,13 +47,13 @@ $BORDER2 = "";
 //INICIALIZAR ARREGLOS
 $ARRAYINPECTOR = "";
 $ARRAYINPECTORID = "";
-$ARRAYCIUDAD = "";
+$ARRAYCOMUNA = "";
 $ARRAYTINPECTOR = "";
 $ARRAYVERINPECTOR = "";
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
+$ARRAYCOMUNA = $COMUNA_ADO->listarComuna3CBX();
 
 
 

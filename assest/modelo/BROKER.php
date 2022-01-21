@@ -22,7 +22,6 @@
         private   $CARGO3_BROKER;
         private   $EMAIL3_BROKER;
         private   $ESTADO_REGISTRO;
-        private   $ID_CIUDAD;
         private	  $ID_EMPRESA; 
         private	  $ID_USUARIOI; 
         private	  $ID_USUARIOM; 

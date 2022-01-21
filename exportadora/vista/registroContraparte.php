@@ -4,14 +4,14 @@ include_once "../../assest/config/validarUsuarioExpo.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../../assest/controlador/CIUDAD_ADO.php';
+include_once '../../assest/controlador/COMUNA_ADO.php';
 
 include_once '../../assest/controlador/CONTRAPARTE_ADO.php';
 include_once '../../assest/modelo/CONTRAPARTE.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
-$CIUDAD_ADO =  new CIUDAD_ADO();
+$COMUNA_ADO =  new COMUNA_ADO();
 
 $CONTRAPARTE_ADO =  new CONTRAPARTE_ADO();
 //INIICIALIZAR MODELO
@@ -27,7 +27,7 @@ $NOMBRECONTRAPARTE = "";
 $DIRECCIONCONTRAPARTE = "";
 $TELEFONOCONTRAPARTE = "";
 $EMAILCONTRAPARTE = "";
-$CIUDAD = "";
+$COMUNA = "";
 
 
 $FNOMBRE = "";
@@ -45,13 +45,13 @@ $BORDER2 = "";
 //INICIALIZAR ARREGLOS
 $ARRAYCONTRAPARTE = "";
 $ARRAYCONTRAPARTEID = "";
-$ARRAYCIUDAD = "";
+$ARRAYCOMUNA = "";
 $ARRAYTCONTRAPARTE = "";
 $ARRAYVERCONTRAPARTE = "";
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
+$ARRAYCOMUNA = $COMUNA_ADO->listarComuna3CBX();
 $ARRAYCONTRAPARTE = $CONTRAPARTE_ADO->listarContrapartePorEmpresaCBX($EMPRESAS);
 include_once "../../assest/config/validarDatosUrl.php";
 include_once "../../assest/config/datosUrl.php";
@@ -102,7 +102,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $DIRECCIONCONTRAPARTE = "" . $r['DIRECCION_CONTRAPARTE'];
             $TELEFONOCONTRAPARTE = "" . $r['TELEFONO_CONTRAPARTE'];
             $EMAILCONTRAPARTE = "" . $r['EMAIL_CONTRAPARTE'];
-            $CIUDAD = "" . $r['ID_CIUDAD'];
+            $COMUNA = "" . $r['ID_COMUNA'];
         endforeach;
     }
 
@@ -124,7 +124,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $DIRECCIONCONTRAPARTE = "" . $r['DIRECCION_CONTRAPARTE'];
             $TELEFONOCONTRAPARTE = "" . $r['TELEFONO_CONTRAPARTE'];
             $EMAILCONTRAPARTE = "" . $r['EMAIL_CONTRAPARTE'];
-            $CIUDAD = "" . $r['ID_CIUDAD'];
+            $COMUNA = "" . $r['ID_COMUNA'];
         endforeach;
     }
 }
@@ -157,7 +157,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     DIRECCIONCONTRAPARTE = document.getElementById("DIRECCIONCONTRAPARTE").value;
                     TELEFONOCONTRAPARTE = document.getElementById("TELEFONOCONTRAPARTE").value;
                     EMAILCONTRAPARTE = document.getElementById("EMAILCONTRAPARTE").value;
-                    CIUDAD = document.getElementById("CIUDAD").selectedIndex;
+                    COMUNA = document.getElementById("COMUNA").selectedIndex;
 
 
 
@@ -166,7 +166,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     document.getElementById('val_direccion').innerHTML = "";
                     document.getElementById('val_telefono').innerHTML = "";
                     document.getElementById('val_email').innerHTML = "";
-                    document.getElementById('val_ciudad').innerHTML = "";
+                    document.getElementById('val_comuna').innerHTML = "";
 
 
                     if (NOMBRECONTRAPARTE == null || NOMBRECONTRAPARTE.length == 0 || /^\s+$/.test(NOMBRECONTRAPARTE)) {
@@ -211,18 +211,18 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                             return false;
                         }
                         document.form_reg_dato.EMAILCONTRAPARTE.style.borderColor = "#4AF575";
+ */
 
 
 
-
-                        if (CIUDAD == null || CIUDAD == 0) {
-                            document.form_reg_dato.CIUDAD.focus();
-                            document.form_reg_dato.CIUDAD.style.borderColor = "#FF0000";
-                            document.getElementById('val_ciudad').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                        if (COMUNA == null || COMUNA == 0) {
+                            document.form_reg_dato.COMUNA.focus();
+                            document.form_reg_dato.COMUNA.style.borderColor = "#FF0000";
+                            document.getElementById('val_comuna').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
                             return false;
                         }
-                        document.form_reg_dato.CIUDAD.style.borderColor = "#4AF575";
-                    */
+                        document.form_reg_dato.COMUNA.style.borderColor = "#4AF575";
+                   
 
 
 
@@ -310,25 +310,26 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_email" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
-                                                        <label>Ciudad </label>
-                                                        <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
+                                                        <label> Comuna</label>
+                                                        <select class="form-control select2" id="COMUNA" name="COMUNA" style="width: 100%;" value="<?php echo $COMUNA; ?>" <?php echo $DISABLED; ?>>
                                                             <option></option>
-                                                            <?php foreach ($ARRAYCIUDAD as $r) : ?>
-                                                                <?php if ($ARRAYCIUDAD) {    ?>
-                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>" 
-                                                                    <?php if ($CIUDAD == $r['ID_CIUDAD']) { echo "selected"; } ?>>
-                                                                    <?php echo $r['CIUDAD'] ?>, <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
+                                                            <?php foreach ($ARRAYCOMUNA as $r) : ?>
+                                                                <?php if ($ARRAYCOMUNA) {    ?>
+                                                                    <option value="<?php echo $r['ID_COMUNA']; ?>" 
+                                                                    <?php if ($COMUNA == $r['ID_COMUNA']) { echo "selected";  } ?>>
+                                                                        <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
                                                                     <option>No Hay Datos Registrados </option>
                                                                 <?php } ?>
+
                                                             <?php endforeach; ?>
                                                         </select>
-                                                        <label id="val_ciudad" class="validacion"> </label>
+                                                        <label id="val_comuna" class="validacion"> </label>
                                                     </div>
-                                                </div>
+                                                </div> 
                                             </div>
                                         </div>
                                         <!-- /.box-body -->                
@@ -455,7 +456,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $CONTRAPARTE->__SET('DIRECCION_CONTRAPARTE', $_REQUEST['DIRECCIONCONTRAPARTE']);
                 $CONTRAPARTE->__SET('TELEFONO_CONTRAPARTE', $_REQUEST['TELEFONOCONTRAPARTE']);
                 $CONTRAPARTE->__SET('EMAIL_CONTRAPARTE', $_REQUEST['EMAILCONTRAPARTE']);
-                $CONTRAPARTE->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+                $CONTRAPARTE->__SET('ID_COMUNA', $_REQUEST['COMUNA']);
                 $CONTRAPARTE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                 $CONTRAPARTE->__SET('ID_USUARIOI', $IDUSUARIOS);
                 $CONTRAPARTE->__SET('ID_USUARIOM', $IDUSUARIOS);
@@ -484,7 +485,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $CONTRAPARTE->__SET('DIRECCION_CONTRAPARTE', $_REQUEST['DIRECCIONCONTRAPARTE']);
                 $CONTRAPARTE->__SET('TELEFONO_CONTRAPARTE', $_REQUEST['TELEFONOCONTRAPARTE']);
                 $CONTRAPARTE->__SET('EMAIL_CONTRAPARTE', $_REQUEST['EMAILCONTRAPARTE']);
-                $CONTRAPARTE->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+                $CONTRAPARTE->__SET('ID_COMUNA', $_REQUEST['COMUNA']);
                 $CONTRAPARTE->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $CONTRAPARTE->__SET('ID_CONTRAPARTE', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE EDICION DEL CONTROLADOR

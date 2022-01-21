@@ -141,8 +141,8 @@ class EXPORTADORA_ADO
     {
         try {
 
-            if ($EXPORTADORA->__GET('ID_CIUDAD') == NULL) {
-                $EXPORTADORA->__SET('ID_CIUDAD', NULL);
+            if ($EXPORTADORA->__GET('ID_COMUNA') == NULL) {
+                $EXPORTADORA->__SET('ID_COMUNA', NULL);
             }
 
             $query =
@@ -154,7 +154,7 @@ class EXPORTADORA_ADO
                                                  RAZON_SOCIAL_EXPORTADORA ,  
                                                  GIRO_EXPORTADORA ,  
                                                  DIRECCION_EXPORTADORA , 
-                                                 ID_CIUDAD ,    
+                                                 ID_COMUNA ,    
                                                  ID_EMPRESA , 
                                                  ID_USUARIOI , 
                                                  ID_USUARIOM , 
@@ -177,7 +177,7 @@ class EXPORTADORA_ADO
                         $EXPORTADORA->__GET('RAZON_SOCIAL_EXPORTADORA'),
                         $EXPORTADORA->__GET('GIRO_EXPORTADORA'),
                         $EXPORTADORA->__GET('DIRECCION_EXPORTADORA'),
-                        $EXPORTADORA->__GET('ID_CIUDAD'),
+                        $EXPORTADORA->__GET('ID_COMUNA'),
                         $EXPORTADORA->__GET('ID_EMPRESA'),
                         $EXPORTADORA->__GET('ID_USUARIOI'),
                         $EXPORTADORA->__GET('ID_USUARIOM'),
@@ -200,8 +200,8 @@ class EXPORTADORA_ADO
     {
 
         try {
-            if ($EXPORTADORA->__GET('ID_CIUDAD') == NULL) {
-                $EXPORTADORA->__SET('ID_CIUDAD', NULL);
+            if ($EXPORTADORA->__GET('ID_COMUNA') == NULL) {
+                $EXPORTADORA->__SET('ID_COMUNA', NULL);
             }
 
             $query = "
@@ -213,7 +213,7 @@ class EXPORTADORA_ADO
                          RAZON_SOCIAL_EXPORTADORA = ?,
                          GIRO_EXPORTADORA = ?,
                          DIRECCION_EXPORTADORA = ?,
-                         ID_CIUDAD = ?,
+                         ID_COMUNA = ?,
                          ID_EMPRESA = ?,
                          ID_USUARIOM = ?,
                          CONTACTO1_EXPORTADORA  = ?,
@@ -233,7 +233,7 @@ class EXPORTADORA_ADO
                         $EXPORTADORA->__GET('RAZON_SOCIAL_EXPORTADORA'),
                         $EXPORTADORA->__GET('GIRO_EXPORTADORA'),
                         $EXPORTADORA->__GET('DIRECCION_EXPORTADORA'),
-                        $EXPORTADORA->__GET('ID_CIUDAD'),
+                        $EXPORTADORA->__GET('ID_COMUNA'),
                         $EXPORTADORA->__GET('ID_EMPRESA'),
                         $EXPORTADORA->__GET('ID_USUARIOM'),
                         $EXPORTADORA->__GET('CONTACTO1_EXPORTADORA'),
