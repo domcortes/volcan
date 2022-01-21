@@ -4,8 +4,10 @@ require_once '../../api/vendor/autoload.php';
 $detect = new Mobile_Detect;
 // Any mobile device (phones or tablets).
 session_start();
-if (isset($_SESSION["NOMBRE_USUARIO"])) {
-     header('Location: index.php');
+if (isset($_SESSION["NOMBRE_USUARIO"]) && isset($_SESSION["ID_TEMPORADA"])) {
+    if($_SESSION["NOMBRE_USUARIO"]!=""&& $_SESSION["ID_TEMPORADA"]!=""){
+        header('Location: index.php');
+    }
 }
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
@@ -50,9 +52,11 @@ $ARRAYVERPTUSUARIO="";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
 $ARRAYTEMPORADA = $TEMPORADA_ADO->listarTemporadaCBX();
-if (isset($_SESSION["ID_TEMPORADA"])) {
-    $TEMPORADA = $_SESSION["ID_TEMPORADA"];   
-} 
+if($_POST){
+    if (isset($_SESSION["ID_TEMPORADA"])) {
+        $TEMPORADA = $_SESSION["ID_TEMPORADA"];   
+    } 
+}
 ?>
 
 
@@ -86,13 +90,13 @@ if (isset($_SESSION["ID_TEMPORADA"])) {
             <script type="text/javascript">
                 function validacion() {
                     TEMPORADA = document.getElementById("TEMPORADA").selectedIndex;
-                    document.getElementById('val_temporada').innerHTML = "";
+                    document.getElementById('val_select_temporada').innerHTML = "";
 
            
                     if (TEMPORADA == null || TEMPORADA == 0) {
                         document.form_reg_dato.TEMPORADA.focus();
                         document.form_reg_dato.TEMPORADA.style.borderColor = "#FF0000";
-                        document.getElementById('val_temporada').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                        document.getElementById('val_select_temporada').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
                         return false;
                     }
                     document.form_reg_dato.TEMPORADA.style.borderColor = "#4AF575";
@@ -117,7 +121,7 @@ if (isset($_SESSION["ID_TEMPORADA"])) {
                     Inicio de sesion <strong id="title_section"></strong>
                 </div>
                 <div class="card-body login-card-body">
-                    <form class="form" role="form" method="post" name="form_reg_dato">
+                    <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" placeholder="NOMBRE USUARIO" id="NOMBRE" name="NOMBRE" value="<?php echo $NOMBRE; ?>" autocomplete="on" required >
                             <div class="input-group-append">
@@ -147,7 +151,7 @@ if (isset($_SESSION["ID_TEMPORADA"])) {
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                        <label id="val_temporada" class="validacion"> <?php echo  $MENSAJE; ?></label>
+                        <label id="val_select_temporada" class="validacion"> <?php echo  $MENSAJE; ?></label>
                         <div class="row">
                             <div class="col-12">
                                 <div class="btn-group col-12 d-flex">

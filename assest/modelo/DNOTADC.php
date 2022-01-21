@@ -11,6 +11,7 @@
         private	  $ID_DNOTA; 
         private	  $TNOTA;
         private	  $CANTIDAD; 
+        private	  $TOTAL; 
         private   $ESTADO;
         private   $ESTADO_REGISTRO;
         private   $INGRESO;

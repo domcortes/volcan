@@ -252,6 +252,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                         <th>Agente Aduana</th>
                                                         <th>Agente Carga</th>
                                                         <th>Tipo Embarque</th> 
+                                                        <th>Nave</th>
                                                         <th>Forma Pago</th>
                                                         <th>Modalidad Venta</th>
                                                         <th>Clausula Venta</th>
@@ -263,6 +264,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                         <th>Días Estimados</th>
                                                         <th>Días Reales </th>
                                                         <th>Destino Final </th>
+                                                        <th>BL/AWB </th>                                                        
                                                         <th>Empresa</th>
                                                         <th>Temporada</th>
                                                     </tr>
@@ -425,6 +427,41 @@ include_once "../../assest/config/datosUrLP.php";
                                                         } else {
                                                             $NOMBRETEMPORADA = "Sin Datos";
                                                         }                                                        
+
+                                                        if ($r['TEMBARQUE_ICARGA'] == "1") {
+                                                            $TEMBARQUE = "Terrestre";
+                                                            $NVIAJE="No Aplica";
+                                                            $NAVE="No Aplica";  
+                                                            $ARRAYLDESTINO =$LDESTINO_ADO->verLdestino( $r['ID_LDESTINO']);     
+                                                            if($ARRAYLDESTINO){
+                                                              $NOMBREDESTINO=$ARRAYLDESTINO[0]["NOMBRE_LDESTINO"];
+                                                            }else{
+                                                              $NOMBREDESTINO="Sin Datos";
+                                                            }
+                                                        }
+                                                        if ($r['TEMBARQUE_ICARGA'] == "2") {
+                                                            $TEMBARQUE = "Aereo";
+                                                            $NAVE=$r['NAVE_ICARGA'];
+                                                            $NVIAJE = $r['NVIAJE_ICARGA'];
+                                                            $ARRAYADESTINO =$ADESTINO_ADO->verAdestino( $r['ID_ADESTINO']);  
+                                                            if($ARRAYADESTINO){
+                                                              $NOMBREDESTINO=$ARRAYADESTINO[0]["NOMBRE_ADESTINO"];
+                                                            }else{
+                                                              $NOMBREDESTINO="Sin Datos";
+                                                            }
+                                                        }
+                                                        if ($r['TEMBARQUE_ICARGA'] == "3") {
+                                                            $TEMBARQUE = "Maritimo";
+                                                            $NAVE  = $r['NAVE_ICARGA'];
+                                                            $NVIAJE = $r['NVIAJE_ICARGA'];
+                                                            $ARRAYPDESTINO =$PDESTINO_ADO->verPdestino( $r['ID_PDESTINO']);
+                                                            if($ARRAYPDESTINO){
+                                                              $NOMBREDESTINO=$ARRAYPDESTINO[0]["NOMBRE_PDESTINO"];
+                                                            }else{
+                                                              $NOMBREDESTINO="Sin Datos";
+                                                            }
+                                                        }
+
                                                         $ARRAYDCARGA = $DICARGA_ADO->buscarPorIcarga($r['ID_ICARGA']);                                               
                                                         ?>
                                                         
@@ -485,6 +522,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                                 <td> <?php echo $NOMBREAADUANA; ?> </td>
                                                                 <td> <?php echo $NOMBREAGCARGA; ?> </td>
                                                                 <td> <?php echo $TEMBARQUE; ?> </td>
+                                                                <td> <?php echo $NAVE; ?> </td>
                                                                 <td> <?php echo $NOMBREFPAGO; ?> </td>
                                                                 <td> <?php echo $NOMBREMVENTA; ?> </td>
                                                                 <td> <?php echo $NOMBRECVENTA; ?> </td>
@@ -496,6 +534,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                                 <td> <?php echo $r['ESTIMADO']; ?> </td>
                                                                 <td> <?php echo $r['REAL']; ?> </td>
                                                                 <td> <?php echo $NOMBRDFINAL; ?> </td>
+                                                                <td> <?php echo $r['BOLAWBCRT_ICARGA']; ?> </td>
                                                                 <td> <?php echo $NOMBREEMPRESA; ?></td>
                                                                 <td> <?php echo $NOMBRETEMPORADA; ?></td>
                                                             </tr>

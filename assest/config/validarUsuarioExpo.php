@@ -107,11 +107,17 @@ if (isset($_SESSION["NOMBRE_USUARIO"])) {
  
     if (isset($_SESSION["ID_EMPRESA"])) {
         $EMPRESAS = $_SESSION["ID_EMPRESA"];
+        if($EMPRESAS==""){
+            echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
+        }
     }else {
         echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
     }
     if (isset($_SESSION["ID_TEMPORADA"])) {
         $TEMPORADAS  = $_SESSION["ID_TEMPORADA"];   
+        if($TEMPORADAS==""){
+            echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
+        }
     } else {
         echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
     }

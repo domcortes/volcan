@@ -555,14 +555,15 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../../assest/config/menuFruta.php"; ?>
+            <?php include_once "../../assest/config/menuFruta.php";
+            ?>
             <div class="content-wrapper">
                 <div class="container-full">
                     <!-- Content Header (Page header) -->
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Exportación</h3>
+                                <h3 class="page-title">Exportacion</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
@@ -1050,12 +1051,12 @@ if (isset($_POST)) {
                                                                 $ARRAYDNOTA=$DNOTADC_ADO->buscarPorNotaDicarga($IDOP,$s['ID_DICARGA']);
                                                                 if($ARRAYDNOTA){
                                                                     $CANTIDADDNOTA=$ARRAYDNOTA[0]["CANTIDAD"];
+                                                                    $TOTALNUEVO=$ARRAYDNOTA[0]['TOTAL'];
+                                                                    //$CANTIDADNOTA= ($ARRAYDNOTA[0]['TOTAL']/$s['CANTIDAD_ENVASE_DICARGA'])-$s['PRECIO_US_DICARGA'];
                                                                     if($ARRAYDNOTA[0]["TNOTA"] ==1){                                                                        
                                                                         $PRECIONUEVO=$s['PRECIO_US_DICARGA']+$CANTIDADDNOTA;
-                                                                        $TOTALNUEVO=$s['CANTIDAD_ENVASE_DICARGA']*$PRECIONUEVO;
                                                                     }else  if($ARRAYDNOTA[0]["TNOTA"] ==2){
                                                                         $PRECIONUEVO=$s['PRECIO_US_DICARGA']-$CANTIDADDNOTA;
-                                                                        $TOTALNUEVO=$s['CANTIDAD_ENVASE_DICARGA']*$PRECIONUEVO;
                                                                     }else{
                                                                         $PRECIONUEVO="Sin Datos";
                                                                         $TOTALNUEVO="Sin Datos";

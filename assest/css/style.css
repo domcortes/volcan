@@ -16,34 +16,16 @@ FORMATO DE MENSAJE DE VALIDACION DE FORMULARIO
 **/
 
 
-.validacion {
-    color      : #ff0000;
-    margin-left: 5%;
+.validacion, #validacion {
+    color: #ff0000;
+    font-size: 8px;
+    text-transform:capitalize;
 }
 
-#validacion {
-    color      : #ff0000;
-    margin-left: 5%;
-}
 
-.validacion2 {
-    color      : #FFFAFA ;
-    margin-left: 5%;
-    text-align: center;
-}
 
-#validacion2 {
-    color      : #FFFAFA ;
-    margin-left: 5%;
-    text-align: center;
-}
 
-.up{
-    margin-top: -10%;
-}
-#up{
-    margin-top: -10%;
-}
+
 
 /**
  FORMATO MENSAJE DE VALIDACIOND DE TABLAS VACIAS  

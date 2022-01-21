@@ -127,6 +127,7 @@ class DNOTADC_ADO
                                         (
                                             TNOTA, 
                                             CANTIDAD, 
+                                            TOTAL,
                                             ID_NOTA,  
                                             ID_DICARGA, 
                                             
@@ -136,13 +137,14 @@ class DNOTADC_ADO
                                             ESTADO_REGISTRO
                                         ) 
             VALUES
-	       	(?, ?, ?, ?, SYSDATE(),SYSDATE(), 1, 1);";
+	       	(?, ?, ?, ?, ?,  SYSDATE(),SYSDATE(), 1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
 
                         $DNOTADC->__GET('TNOTA'),
                         $DNOTADC->__GET('CANTIDAD'),
+                        $DNOTADC->__GET('TOTAL'),
                         $DNOTADC->__GET('ID_NOTA'),
                         $DNOTADC->__GET('ID_DICARGA')
 
@@ -177,6 +179,7 @@ class DNOTADC_ADO
                         MODIFICACION = SYSDATE(),
                         TNOTA = ?,
                         CANTIDAD = ?,
+                        TOTAL = ?,
                         ID_NOTA= ?,
                         ID_DICARGA= ?
                     WHERE ID_DNOTA = ?  ;";
@@ -186,6 +189,7 @@ class DNOTADC_ADO
 
                         $DNOTADC->__GET('TNOTA'),
                         $DNOTADC->__GET('CANTIDAD'),
+                        $DNOTADC->__GET('TOTAL'),
                         $DNOTADC->__GET('ID_NOTA'),
                         $DNOTADC->__GET('ID_DICARGA'),
                         $DNOTADC->__GET('ID_DNOTA')

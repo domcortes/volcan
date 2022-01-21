@@ -52,6 +52,7 @@ $CANTIDADENVASE = 0;
 $TOTALPRECIOUS = 0;
 $TOTALPRECIOUSNCND = 0;
 $PRECIOUSNCND = 0; 
+$CANTIDADNOTA=0;
 $IDDICARGA = "";
 $IDICARGA = "";
 
@@ -146,22 +147,20 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             $ESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
             $IDICARGA = "" . $r['ID_ICARGA'];
-            $ARRAYDNOTA=$DNOTADC_ADO->buscarPorNotaDicarga($IDP,$IDOP);
+            $ARRAYDNOTA=$DNOTADC_ADO->buscarPorNotaDicarga($IDP,$IDOP);            
             if($ARRAYDNOTA){
-                $CANTIDADNOTA=$ARRAYDNOTA[0]["CANTIDAD"];
+                $TOTALPRECIOUSNCND=$ARRAYDNOTA[0]["TOTAL"];
+                $CANTIDADNOTA= ($TOTALPRECIOUSNCND/$CANTIDADENVASE)-$PRECIOUS;
                 $TNOTA=$ARRAYDNOTA[0]["TNOTA"];
                 if($TNOTA==1){
-                    $PRECIOUSNCND = $r['PRECIO_US_DICARGA']+$CANTIDADNOTA ;
-                    $TOTALPRECIOUSNCND = $PRECIOUSNCND*$CANTIDADENVASE;
+                    $PRECIOUSNCND = $CANTIDADNOTA+$PRECIOUS ;
                 }
                 if($TNOTA==2){
-                    $PRECIOUSNCND =  $r['PRECIO_US_DICARGA']-$CANTIDADNOTA;
-                    $TOTALPRECIOUSNCND = $PRECIOUS*$CANTIDADENVASE;
+                    $PRECIOUSNCND =  $CANTIDADNOTA-$PRECIOUS;
                 }
-
             }else{
-                $PRECIOUSNCND = "" . $r['PRECIO_US_DICARGA'];
-                $TOTALPRECIOUSNCND = "" . $r['TOTAL_PRECIO_US_DICARGA'];
+                $PRECIOUSNCND = 0;
+                $TOTALPRECIOUSNCND = 0;
             }
         endforeach;
     }
@@ -186,22 +185,20 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             $ESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
             $IDICARGA = "" . $r['ID_ICARGA'];
-            $ARRAYDNOTA=$DNOTADC_ADO->buscarPorNotaDicarga($IDP,$IDOP);
+            $ARRAYDNOTA=$DNOTADC_ADO->buscarPorNotaDicarga($IDP,$IDOP);          
             if($ARRAYDNOTA){
-                $CANTIDADNOTA=$ARRAYDNOTA[0]["CANTIDAD"];
+                $TOTALPRECIOUSNCND=$ARRAYDNOTA[0]["TOTAL"];
+                $CANTIDADNOTA= ($TOTALPRECIOUSNCND/$CANTIDADENVASE)-$PRECIOUS;
                 $TNOTA=$ARRAYDNOTA[0]["TNOTA"];
                 if($TNOTA==1){
-                    $PRECIOUSNCND = $r['PRECIO_US_DICARGA']+$CANTIDADNOTA ;
-                    $TOTALPRECIOUSNCND = $PRECIOUSNCND*$CANTIDADENVASE;
+                    $PRECIOUSNCND = $CANTIDADNOTA+$PRECIOUS ;
                 }
                 if($TNOTA==2){
-                    $PRECIOUSNCND =  $r['PRECIO_US_DICARGA']-$CANTIDADNOTA;
-                    $TOTALPRECIOUSNCND = $PRECIOUS*$CANTIDADENVASE;
+                    $PRECIOUSNCND =  $CANTIDADNOTA-$PRECIOUS;
                 }
-
             }else{
-                $PRECIOUSNCND = "" . $r['PRECIO_US_DICARGA'];
-                $TOTALPRECIOUSNCND = "" . $r['TOTAL_PRECIO_US_DICARGA'];
+                $PRECIOUSNCND = 0;
+                $TOTALPRECIOUSNCND = 0;
             }
         endforeach;
     }
@@ -225,22 +222,20 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             $ESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
             $IDICARGA = "" . $r['ID_ICARGA'];
-            $ARRAYDNOTA=$DNOTADC_ADO->buscarPorNotaDicarga($IDP,$IDOP);
+            $ARRAYDNOTA=$DNOTADC_ADO->buscarPorNotaDicarga($IDP,$IDOP);          
             if($ARRAYDNOTA){
-                $CANTIDADNOTA=$ARRAYDNOTA[0]["CANTIDAD"];
+                $TOTALPRECIOUSNCND=$ARRAYDNOTA[0]["TOTAL"];
+                $CANTIDADNOTA= ($TOTALPRECIOUSNCND/$CANTIDADENVASE)-$PRECIOUS;
                 $TNOTA=$ARRAYDNOTA[0]["TNOTA"];
                 if($TNOTA==1){
-                    $PRECIOUSNCND = $r['PRECIO_US_DICARGA']+$CANTIDADNOTA ;
-                    $TOTALPRECIOUSNCND = $PRECIOUSNCND*$CANTIDADENVASE;
+                    $PRECIOUSNCND = $CANTIDADNOTA+$PRECIOUS ;
                 }
                 if($TNOTA==2){
-                    $PRECIOUSNCND =  $r['PRECIO_US_DICARGA']-$CANTIDADNOTA;
-                    $TOTALPRECIOUSNCND = $PRECIOUS*$CANTIDADENVASE;
+                    $PRECIOUSNCND =  $CANTIDADNOTA-$PRECIOUS;
                 }
-
             }else{
-                $PRECIOUSNCND = "" . $r['PRECIO_US_DICARGA'];
-                $TOTALPRECIOUSNCND = "" . $r['TOTAL_PRECIO_US_DICARGA'];
+                $PRECIOUSNCND = 0;
+                $TOTALPRECIOUSNCND = 0;
             }
         endforeach;
     }
@@ -265,31 +260,27 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             $ESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
             $IDICARGA = "" . $r['ID_ICARGA'];
-            $ARRAYDNOTA=$DNOTADC_ADO->buscarPorNotaDicarga($IDP,$IDOP);
+            $ARRAYDNOTA=$DNOTADC_ADO->buscarPorNotaDicarga($IDP,$IDOP);          
             if($ARRAYDNOTA){
-                $CANTIDADNOTA=$ARRAYDNOTA[0]["CANTIDAD"];
+                $TOTALPRECIOUSNCND=$ARRAYDNOTA[0]["TOTAL"];
+                $CANTIDADNOTA= ($TOTALPRECIOUSNCND/$CANTIDADENVASE)-$PRECIOUS;
                 $TNOTA=$ARRAYDNOTA[0]["TNOTA"];
                 if($TNOTA==1){
-                    $PRECIOUSNCND = $r['PRECIO_US_DICARGA']+$CANTIDADNOTA ;
-                    $TOTALPRECIOUSNCND = $PRECIOUSNCND*$CANTIDADENVASE;
+                    $PRECIOUSNCND = $CANTIDADNOTA+$PRECIOUS ;
                 }
                 if($TNOTA==2){
-                    $PRECIOUSNCND =  $r['PRECIO_US_DICARGA']-$CANTIDADNOTA;
-                    $TOTALPRECIOUSNCND = $PRECIOUS*$CANTIDADENVASE;
+                    $PRECIOUSNCND =  $CANTIDADNOTA-$PRECIOUS;
                 }
-
             }else{
-                $PRECIOUSNCND = "" . $r['PRECIO_US_DICARGA'];
-                $TOTALPRECIOUSNCND = "" . $r['TOTAL_PRECIO_US_DICARGA'];
+                $PRECIOUSNCND = 0;
+                $TOTALPRECIOUSNCND = 0;
             }
         endforeach;
     }
 }
 if ($_POST) {
-    if (isset($_REQUEST['CANTIDADNOTA'])) {
-        $CANTIDADNOTA = $_REQUEST['CANTIDADNOTA'];
-
-
+    if (isset($_REQUEST['TOTALPRECIOUSNCND'])) {
+        $TOTALPRECIOUSNCND = $_REQUEST['TOTALPRECIOUSNCND'];
     }
 }
 ?>
@@ -309,73 +300,102 @@ if ($_POST) {
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 function validacion() {
-                    CANTIDADNOTA = document.getElementById("CANTIDADNOTA").value;
-                    document.getElementById('val_cantidadnota').innerHTML = "";
+                    TOTALPRECIOUSNCND = document.getElementById("TOTALPRECIOUSNCND").value;
+                    TOTALPRECIOUS = document.getElementById("TOTALPRECIOUS").value;
+                    TNOTA = parseInt(document.getElementById("TNOTA").value);
+                    document.getElementById('val_totalusncnd').innerHTML = "";
                 
 
-                    if (CANTIDADNOTA == null || CANTIDADNOTA.length == 0 || /^\s+$/.test(CANTIDADNOTA)) {
-                        document.form_reg_dato.CANTIDADNOTA.focus();
-                        document.form_reg_dato.CANTIDADNOTA.style.borderColor = "#FF0000";
-                        document.getElementById('val_cantidadnota').innerHTML = "NO HA INGRESADO DATOS";
+                    if (TOTALPRECIOUSNCND == null || TOTALPRECIOUSNCND.length == 0 || /^\s+$/.test(TOTALPRECIOUSNCND)) {
+                        document.form_reg_dato.TOTALPRECIOUSNCND.focus();
+                        document.form_reg_dato.TOTALPRECIOUSNCND.style.borderColor = "#FF0000";
+                        document.getElementById('val_totalusncnd').innerHTML = "NO HA INGRESADO DATOS";
                         return false;
                     }
                     document.form_reg_dato.CANTIDADENVASE.style.borderColor = "#4AF575";
 
-                    if (CANTIDADNOTA == 0) {
-                        document.form_reg_dato.CANTIDADNOTA.focus();
-                        document.form_reg_dato.CANTIDADNOTA.style.borderColor = "#FF0000";
-                        document.getElementById('val_cantidadnota').innerHTML = "DEBE SER DISTINTO DE CERO";
+                    if (TOTALPRECIOUSNCND == 0) {
+                        document.form_reg_dato.TOTALPRECIOUSNCND.focus();
+                        document.form_reg_dato.TOTALPRECIOUSNCND.style.borderColor = "#FF0000";
+                        document.getElementById('val_totalusncnd').innerHTML = "DEBE SER DISTINTO DE CERO";
                         return false;
                     }
-                    document.form_reg_dato.CANTIDADNOTA.style.borderColor = "#4AF575";
-
+                    document.form_reg_dato.TOTALPRECIOUSNCND.style.borderColor = "#4AF575";
+                    
+                    if (TOTALPRECIOUSNCND <= TOTALPRECIOUS) {                        
+                        document.form_reg_dato.TOTALPRECIOUSNCND.focus();                        
+                        document.form_reg_dato.TOTALPRECIOUSNCND.style.borderColor = "#FF0000";                        
+                        document.getElementById('val_totalusncnd').innerHTML = "DEBE SER MATOR A TOTAL INSTRUCTIVO";                       
+                        return false;    
+                    }
+                    document.form_reg_dato.TOTALPRECIOUSNCND.style.borderColor = "#4AF575";
+                    if(TNOTA==1){
+                        if (TOTALPRECIOUSNCND <= TOTALPRECIOUS) {                        
+                            document.form_reg_dato.TOTALPRECIOUSNCND.focus();                        
+                            document.form_reg_dato.TOTALPRECIOUSNCND.style.borderColor = "#FF0000";                        
+                            document.getElementById('val_totalusncnd').innerHTML = "DEBE SER MATOR A TOTAL INSTRUCTIVO";                       
+                            return false;    
+                        } else {
+                            document.form_reg_dato.TOTALPRECIOUSNCND.style.borderColor = "#4AF575";
+                        }
+                    }
+                    if(TNOTA==2){
+                        if (TOTALPRECIOUSNCND >= TOTALPRECIOUS) {                        
+                            document.form_reg_dato.TOTALPRECIOUSNCND.focus();                        
+                            document.form_reg_dato.TOTALPRECIOUSNCND.style.borderColor = "#FF0000";                        
+                            document.getElementById('val_totalusncnd').innerHTML = "DEBE SER MATOR A TOTAL INSTRUCTIVO";                       
+                            return false;    
+                        } else {
+                            document.form_reg_dato.TOTALPRECIOUSNCND.style.borderColor = "#4AF575";
+                        }
+                    }
+                    
+                    
                 }
                 function precio(){
                     var precio;
-                    var total;
+                    var valorndnc;
                     var repuesta;
-                    CANTIDADNOTA = document.getElementById("CANTIDADNOTA").value;
-                    document.getElementById('val_cantidadnota').innerHTML = "";                
 
-                    if (CANTIDADNOTA == null || CANTIDADNOTA.length == 0 || /^\s+$/.test(CANTIDADNOTA)) {
-                        document.form_reg_dato.CANTIDADNOTA.focus();
-                        document.form_reg_dato.CANTIDADNOTA.style.borderColor = "#FF0000";
-                        document.getElementById('val_cantidadnota').innerHTML = "NO HA INGRESADO DATOS";
+                    TOTALPRECIOUSNCND = document.getElementById("TOTALPRECIOUSNCND").value;
+                    TNOTA = parseInt(document.getElementById("TNOTA").value);
+                    CANTIDADENVASEE = parseInt(document.getElementById("CANTIDADENVASEE").value);
+                    PRECIOUSE = parseFloat(document.getElementById("PRECIOUSE").value);
+
+                    document.getElementById('val_totalusncnd').innerHTML = "";                
+
+                    if (TOTALPRECIOUSNCND == null || TOTALPRECIOUSNCND.length == 0 || /^\s+$/.test(TOTALPRECIOUSNCND)) {
+                        document.form_reg_dato.TOTALPRECIOUSNCND.focus();
+                        document.form_reg_dato.TOTALPRECIOUSNCND.style.borderColor = "#FF0000";
+                        document.getElementById('val_totalusncnd').innerHTML = "NO HA INGRESADO DATOS";
                         repuesta = 1;
                     } else {
                         repuesta = 0;
                         document.form_reg_dato.CANTIDADENVASE.style.borderColor = "#4AF575";
                     }
-
-                    if (CANTIDADNOTA == 0) {
-                        document.form_reg_dato.CANTIDADNOTA.focus();
-                        document.form_reg_dato.CANTIDADNOTA.style.borderColor = "#FF0000";
-                        document.getElementById('val_cantidadnota').innerHTML = "DEBE SER DISTINTO DE CERO";
+                    if (TOTALPRECIOUSNCND == 0) {
+                        document.form_reg_dato.TOTALPRECIOUSNCND.focus();
+                        document.form_reg_dato.TOTALPRECIOUSNCND.style.borderColor = "#FF0000";
+                        document.getElementById('val_totalusncnd').innerHTML = "DEBE SER DISTINTO DE CERO";
                         repuesta = 1;
                     } else {
                         repuesta = 0;
-                        document.form_reg_dato.CANTIDADNOTA.style.borderColor = "#4AF575";
-                    }
-
-                        TNOTA = parseInt(document.getElementById("TNOTA").value);
-                        CANTIDADENVASEE = parseInt(document.getElementById("CANTIDADENVASEE").value);
-                        CANTIDADNOTA = parseFloat(document.getElementById("CANTIDADNOTA").value);
-                        PRECIOUSE = parseFloat(document.getElementById("PRECIOUSE").value);
-                        TOTALPRECIOUS = parseFloat(document.getElementById("TOTALPRECIOUS").value);
+                        document.form_reg_dato.TOTALPRECIOUSNCND.style.borderColor = "#4AF575";
+                    }                          
                     if (repuesta == 0) {
+                        valorndnc =     (TOTALPRECIOUSNCND / CANTIDADENVASEE) - PRECIOUSE;                       
                         if(TNOTA==1){
-                            precio =PRECIOUSE+CANTIDADNOTA;
+                            precio =PRECIOUSE+valorndnc;
                         }
                         if(TNOTA==2){
-                            precio =PRECIOUSE-CANTIDADNOTA;
-                        }
-                        total =precio*CANTIDADENVASEE;
-                        total = total.toFixed(2);                          
+                            precio =PRECIOUSE-valorndnc;
+                        } 
+                        valorndnc = valorndnc.toFixed(6); 
+                        precio = precio.toFixed(6);           
                         document.getElementById('PRECIOUSNCND').value = precio;
-                        document.getElementById('TOTALPRECIOUSNCND').value = total;
-                    }else{                        
-                        document.getElementById('PRECIOUSNCND').value = PRECIOUSE;
-                        document.getElementById('TOTALPRECIOUSNCND').value = TOTALPRECIOUS;
+                        document.getElementById('CANTIDADNOTA').value = valorndnc;
+                        document.getElementById('CANTIDADNOTAE').value = valorndnc;
+
                     }
                 }
 
@@ -405,7 +425,7 @@ if ($_POST) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Exportación</h3>
+                                <h3 class="page-title">Exportacion</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
@@ -414,7 +434,8 @@ if ($_POST) {
                                             <li class="breadcrumb-item" aria-current="page">Exportación</li>
                                             <li class="breadcrumb-item" aria-current="page">Nota D/C</li>
                                             <li class="breadcrumb-item" aria-current="page">Registro Nota D/C</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Registro Detalle </a> </li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroICarga.php">Registro Detalle </a>
+                                            </li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -520,7 +541,7 @@ if ($_POST) {
                                             <div class="form-group">
                                                 <label>Valor NC/ND </label>
                                                 <input type="hidden" id="CANTIDADNOTAE" name="CANTIDADNOTAE" value="<?php echo $CANTIDADNOTA; ?>" />
-                                                <input type="number" step="0.01" class="form-control"  placeholder="Valor NC/ND " id="CANTIDADNOTA" name="CANTIDADNOTA" onchange="precio()"  value="<?php echo $CANTIDADNOTA; ?>"   <?php echo $DISABLED; ?> />
+                                                <input type="number" step="0.000001" class="form-control"  placeholder="Valor NC/ND " id="CANTIDADNOTA" name="CANTIDADNOTA"   value="<?php echo number_format($CANTIDADNOTA,6 ); ?>"   disabled />
                                                 <label id="val_cantidadnota" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -535,7 +556,7 @@ if ($_POST) {
                                         <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6 ">
                                             <div class="form-group">
                                                 <label>Precio Instru. Con NC/ND</label>                                                
-                                                <input type="number" step="0.01" class="form-control"  placeholder="Precio Instru. Con NC/ND" id="PRECIOUSNCND" name="PRECIOUSNCND" value="<?php echo $PRECIOUSNCND; ?>" disabled/>                                                
+                                                <input type="number" step="0.000001" class="form-control"  placeholder="Precio Instru. Con NC/ND" id="PRECIOUSNCND" name="PRECIOUSNCND" value="<?php echo  number_format($PRECIOUSNCND,6 );  ?>" disabled/>                                                
                                             </div>
                                         </div>
                                         <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 col-xs-12 ">
@@ -549,7 +570,8 @@ if ($_POST) {
                                         <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 col-xs-12 ">
                                             <div class="form-group">
                                                 <label>Total Instru. Con NC/ND</label>                                                
-                                                <input type="number" step="0.01" class="form-control"  placeholder="Total Instru. Con NC/ND" id="TOTALPRECIOUSNCND" name="TOTALPRECIOUSNCND" value="<?php echo $TOTALPRECIOUSNCND; ?>" disabled/>                                                
+                                                <input type="number" step="0.01" class="form-control"  placeholder="Total Instru. Con NC/ND" id="TOTALPRECIOUSNCND" name="TOTALPRECIOUSNCND" onchange="precio()" value="<?php echo $TOTALPRECIOUSNCND; ?>"  <?php echo $DISABLED; ?> />                                                
+                                                <label id="val_totalusncnd" class="validacion"> </label>
                                             </div>
                                         </div>
                                     </div>
@@ -621,7 +643,8 @@ if ($_POST) {
             //OPERACION DE REGISTRO DE FILA
             if (isset($_REQUEST['CREAR'])) { 
                 $DNOTADC->__SET('TNOTA', $_REQUEST['TNOTA']);
-                $DNOTADC->__SET('CANTIDAD', $_REQUEST['CANTIDADNOTA']);
+                $DNOTADC->__SET('CANTIDAD', $_REQUEST['CANTIDADNOTAE']);
+                $DNOTADC->__SET('TOTAL', $_REQUEST['TOTALPRECIOUSNCND']);
                 $DNOTADC->__SET('ID_NOTA', $_REQUEST['IDP']);
                 $DNOTADC->__SET('ID_DICARGA', $_REQUEST['ID']);
                 $DNOTADC_ADO->agregarDnota($DNOTADC);
@@ -649,11 +672,13 @@ if ($_POST) {
 
                 $ARRAYDNOTA=$DNOTADC_ADO->buscarPorNotaDicarga($_REQUEST['IDP'],$_REQUEST['ID']);
                 if($ARRAYDNOTA){                    
+                    
                     $DNOTADC->__SET('TNOTA', $_REQUEST['TNOTA']);
-                    $DNOTADC->__SET('CANTIDAD', $_REQUEST['CANTIDADNOTA']);
+                    $DNOTADC->__SET('CANTIDAD', $_REQUEST['CANTIDADNOTAE']);
+                    $DNOTADC->__SET('TOTAL', $_REQUEST['TOTALPRECIOUSNCND']);
                     $DNOTADC->__SET('ID_NOTA', $_REQUEST['IDP']);
                     $DNOTADC->__SET('ID_DICARGA', $_REQUEST['ID']);
-                    $DNOTADC->__SET('ID_DNOTA', $ARRAYDNOTA[0]["ID_DNOTA"]);                    
+                    $DNOTADC->__SET('ID_DNOTA', $ARRAYDNOTA[0]["ID_DNOTA"]);               
                     $DNOTADC_ADO->actualizarDnota($DNOTADC);
 
                     
@@ -673,8 +698,7 @@ if ($_POST) {
                             })
                         </script>';
                     
-                }
-            }
+                }            }
 
             if (isset($_REQUEST['ELIMINAR'])) {
                 $ARRAYDNOTA=$DNOTADC_ADO->buscarPorNotaDicarga($_REQUEST['IDP'],$_REQUEST['ID']);
