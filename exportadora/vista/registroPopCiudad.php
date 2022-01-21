@@ -174,16 +174,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                                                         </select>
                                                         <label id="val_comuna" class="validacion"> </label>
                                                     </div>
-                                                </div>                                            
-                                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
-                                                        <div class="form-group">  
-                                                        <label>Agregar</label>                  
-                                                            <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" <?php echo $DISABLED; ?>  title="Agregar Comuna" id="defecto" name="pop" 
-                                                            Onclick="irPagina('registroPopComuna.php' ); ">
-                                                            <i class="icon-copy fa fa-plus" aria-hidden="true"></i>
-                                                            </button>
-                                                        </div>
-                                                </div>
+                                                </div>     
                                             </div>
                                         </div>
                                         <!-- /.box-body -->                                        

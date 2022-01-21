@@ -1,6 +1,6 @@
 <?php
 
-include_once "../../assest/config/validarUsuarioMaterial.php";
+include_once "../../assest/config/validarUsuarioExpo.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
@@ -63,7 +63,12 @@ if (isset($_REQUEST['GUARDAR'])) {
     $COMUNA_ADO->agregarComuna($COMUNA);
     //REDIRECCIONAR A PAGINA registroComuna.php
  
-    echo "<script type='text/javascript'> location.href ='registroPopCiudad.php';</script>";
+    echo "
+    <script type='text/javascript'>
+        window.opener.refrescar()
+        window.close();
+        </script> 
+    ";
 }
 
 
@@ -164,32 +169,18 @@ if (isset($_REQUEST['GUARDAR'])) {
                                                         </select>
                                                         <label id="val_provincia" class="validacion"> </label>
                                                     </div>
-                                                </div>                          
-                                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
-                                                    <div class="form-group">  
-                                                        <label>Agregar</label>                  
-                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" <?php echo $DISABLED; ?>  title="Agregar Provincia" id="defecto" name="pop"  Onclick="irPagina('registroPopProvincia.php' ); ">
-                                                            <i class="icon-copy fa fa-plus" aria-hidden="true"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
+                                                </div>      
                                             </div>                                        
                                         </div>
-                                        <!-- /.box-body -->                                                                       
+                                        <!-- /.box-body -->                                                                                                         
                                         <div class="box-footer">
                                             <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
-                                                <button type="button" class="btn  btn-success " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroPopCiudad.php'); ">
-                                                <i class="ti-back-left "></i> Volver
+                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="cerrar(); ">
+                                                    <i class="ti-back-close "></i> Cerrar
                                                 </button>
-                                                <?php if ($OP != "editar") { ?>
                                                     <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
-                                                <?php } else { ?>
-                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
-                                                        <i class="ti-save-alt"></i> Guardar
-                                                    </button>
-                                                <?php } ?>
                                             </div>
                                         </div>
                                     </form>
