@@ -132,8 +132,8 @@ class RESPONSABLE_ADO {
             if($RESPONSABLE->__GET('ID_USUARIO')==NULL){
                 $RESPONSABLE->__SET('ID_USUARIO', NULL);
             }
-            if($RESPONSABLE->__GET('ID_CIUDAD')==NULL){
-                $RESPONSABLE->__SET('ID_CIUDAD', NULL);
+            if($RESPONSABLE->__GET('ID_COMUNA')==NULL){
+                $RESPONSABLE->__SET('ID_COMUNA', NULL);
             }
             $query=
             "INSERT INTO  material_responsable  (    RUT_RESPONSABLE ,
@@ -144,7 +144,7 @@ class RESPONSABLE_ADO {
                                                      TELEFONO_RESPONSABLE ,
                                                      EMAIL_RESPONSABLE ,
                                                      ID_EMPRESA ,
-                                                     ID_CIUDAD ,
+                                                     ID_COMUNA ,
                                                      ID_USUARIO ,
                                                      ID_USUARIOI ,
                                                      ID_USUARIOM ,
@@ -165,7 +165,7 @@ class RESPONSABLE_ADO {
 
                     $RESPONSABLE->__GET('EMAIL_RESPONSABLE') ,
                     $RESPONSABLE->__GET('ID_EMPRESA') ,
-                    $RESPONSABLE->__GET('ID_CIUDAD') ,
+                    $RESPONSABLE->__GET('ID_COMUNA') ,
                     
                     $RESPONSABLE->__GET('ID_USUARIO') , 
                     $RESPONSABLE->__GET('ID_USUARIOI') ,
@@ -201,8 +201,8 @@ class RESPONSABLE_ADO {
             if($RESPONSABLE->__GET('ID_USUARIO')==NULL){
                 $RESPONSABLE->__SET('ID_USUARIO', NULL);
             }
-            if($RESPONSABLE->__GET('ID_CIUDAD')==NULL){
-                $RESPONSABLE->__SET('ID_CIUDAD', NULL);
+            if($RESPONSABLE->__GET('ID_COMUNA')==NULL){
+                $RESPONSABLE->__SET('ID_COMUNA', NULL);
             }
             $query = "
 		UPDATE  material_responsable  SET
@@ -214,7 +214,7 @@ class RESPONSABLE_ADO {
              TELEFONO_RESPONSABLE = ?,
              EMAIL_RESPONSABLE = ?,
              ID_EMPRESA = ? ,
-             ID_CIUDAD = ? ,
+             ID_COMUNA = ? ,
              ID_USUARIO = ?   ,
              ID_USUARIOM = ?         
 		WHERE  ID_RESPONSABLE = ?;";
@@ -228,7 +228,7 @@ class RESPONSABLE_ADO {
                     $RESPONSABLE->__GET('TELEFONO_RESPONSABLE')  ,
                     $RESPONSABLE->__GET('EMAIL_RESPONSABLE') ,
                     $RESPONSABLE->__GET('ID_EMPRESA') ,
-                    $RESPONSABLE->__GET('ID_CIUDAD') ,  
+                    $RESPONSABLE->__GET('ID_COMUNA') ,  
                     $RESPONSABLE->__GET('ID_USUARIO') , 
                     $RESPONSABLE->__GET('ID_USUARIOM') ,
                     $RESPONSABLE->__GET('ID_RESPONSABLE')

@@ -16,7 +16,7 @@
         private   $TELEFONO_COMPRADOR;
         private   $ESTADO_REGISTRO;
         private   $EMAIL_COMPRADOR;
-        private   $ID_CIUDAD;
+        private   $ID_COMUNA;
         private	  $ID_EMPRESA; 
         private	  $ID_USUARIOI; 
         private	  $ID_USUARIOM; 

@@ -128,8 +128,8 @@ class PROVEEDOR_ADO
     {
         try {
 
-            if($PROVEEDOR->__GET('ID_CIUDAD')==NULL){
-                $PROVEEDOR->__SET('ID_CIUDAD', NULL);
+            if($PROVEEDOR->__GET('ID_COMUNA')==NULL){
+                $PROVEEDOR->__SET('ID_COMUNA', NULL);
             }
             $query =
                 "INSERT INTO   material_proveedor   (
@@ -143,7 +143,7 @@ class PROVEEDOR_ADO
                                                       TELEFONO_PROVEEDOR  ,
                                                       EMAIL_PROVEEDOR  ,
                                                       ID_EMPRESA  ,
-                                                      ID_CIUDAD  ,
+                                                      ID_COMUNA  ,
                                                       ID_USUARIOI  ,
                                                       ID_USUARIOM  ,
                                                       INGRESO  ,
@@ -164,7 +164,7 @@ class PROVEEDOR_ADO
                         $PROVEEDOR->__GET('TELEFONO_PROVEEDOR'),
                         $PROVEEDOR->__GET('EMAIL_PROVEEDOR'),
                         $PROVEEDOR->__GET('ID_EMPRESA'),
-                        $PROVEEDOR->__GET('ID_CIUDAD'),
+                        $PROVEEDOR->__GET('ID_COMUNA'),
                         $PROVEEDOR->__GET('ID_USUARIOI'),
                         $PROVEEDOR->__GET('ID_USUARIOM')
                     )
@@ -196,8 +196,8 @@ class PROVEEDOR_ADO
     {
         try {
             
-            if($PROVEEDOR->__GET('ID_CIUDAD')==NULL){
-                $PROVEEDOR->__SET('ID_CIUDAD', NULL);
+            if($PROVEEDOR->__GET('ID_COMUNA')==NULL){
+                $PROVEEDOR->__SET('ID_COMUNA', NULL);
             }
             $query = "
 		UPDATE   material_proveedor   SET
@@ -211,7 +211,7 @@ class PROVEEDOR_ADO
               TELEFONO_PROVEEDOR  = ?,
               EMAIL_PROVEEDOR  = ?,
               ID_EMPRESA  = ?  ,
-              ID_CIUDAD  = ?   ,
+              ID_COMUNA  = ?   ,
               ID_USUARIOM  = ?           
 		WHERE   ID_PROVEEDOR  = ?;";
             $this->conexion->prepare($query)
@@ -226,7 +226,7 @@ class PROVEEDOR_ADO
                         $PROVEEDOR->__GET('TELEFONO_PROVEEDOR'),
                         $PROVEEDOR->__GET('EMAIL_PROVEEDOR'),
                         $PROVEEDOR->__GET('ID_EMPRESA'),
-                        $PROVEEDOR->__GET('ID_CIUDAD'),
+                        $PROVEEDOR->__GET('ID_COMUNA'),
                         $PROVEEDOR->__GET('ID_USUARIOM'),
                         $PROVEEDOR->__GET('ID_PROVEEDOR')
 

@@ -21,7 +21,7 @@ class PROVEEDOR {
     private   $INGRESO;
     private   $MODIFICACION;
     private   $ID_EMPRESA;
-    private   $ID_CIUDAD;
+    private   $ID_COMUNA;
     private   $ID_USUARIOI;
     private   $ID_USUARIOM;
     

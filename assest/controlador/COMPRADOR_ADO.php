@@ -144,8 +144,8 @@ class COMPRADOR_ADO
     {
         try {
 
-            if ($COMPRADOR->__GET('ID_CIUDAD') == NULL) {
-                $COMPRADOR->__SET('ID_CIUDAD', NULL);
+            if ($COMPRADOR->__GET('ID_COMUNA') == NULL) {
+                $COMPRADOR->__SET('ID_COMUNA', NULL);
             }
 
             $query =
@@ -158,7 +158,7 @@ class COMPRADOR_ADO
                                                      DIRECCION_COMPRADOR , 
                                                      TELEFONO_COMPRADOR , 
                                                      EMAIL_COMPRADOR ,  
-                                                     ID_CIUDAD ,
+                                                     ID_COMUNA ,
                                                      ID_EMPRESA , 
                                                      ID_USUARIOI , 
                                                      ID_USUARIOM ,  
@@ -179,7 +179,7 @@ class COMPRADOR_ADO
                         $COMPRADOR->__GET('DIRECCION_COMPRADOR'),
                         $COMPRADOR->__GET('TELEFONO_COMPRADOR'),
                         $COMPRADOR->__GET('EMAIL_COMPRADOR'),
-                        $COMPRADOR->__GET('ID_CIUDAD'),
+                        $COMPRADOR->__GET('ID_COMUNA'),
                         $COMPRADOR->__GET('ID_EMPRESA'),
                         $COMPRADOR->__GET('ID_USUARIOI'),
                         $COMPRADOR->__GET('ID_USUARIOM')
@@ -211,8 +211,8 @@ class COMPRADOR_ADO
     {
 
         try {
-            if ($COMPRADOR->__GET('ID_CIUDAD') == NULL) {
-                $COMPRADOR->__SET('ID_CIUDAD', NULL);
+            if ($COMPRADOR->__GET('ID_COMUNA') == NULL) {
+                $COMPRADOR->__SET('ID_COMUNA', NULL);
             }
 
             $query = "
@@ -224,7 +224,7 @@ class COMPRADOR_ADO
                     DIRECCION_COMPRADOR  = ?,
                     TELEFONO_COMPRADOR  = ?,
                     EMAIL_COMPRADOR  = ?,
-                    ID_CIUDAD = ?,
+                    ID_COMUNA = ?,
                     ID_USUARIOM = ?
                 WHERE  ID_COMPRADOR  = ?  ;";
             $this->conexion->prepare($query)
@@ -237,7 +237,7 @@ class COMPRADOR_ADO
                         $COMPRADOR->__GET('DIRECCION_COMPRADOR'),
                         $COMPRADOR->__GET('TELEFONO_COMPRADOR'),
                         $COMPRADOR->__GET('EMAIL_COMPRADOR'),
-                        $COMPRADOR->__GET('ID_CIUDAD'),
+                        $COMPRADOR->__GET('ID_COMUNA'),
                         $COMPRADOR->__GET('ID_USUARIOM'),
                         $COMPRADOR->__GET('ID_COMPRADOR')
 
