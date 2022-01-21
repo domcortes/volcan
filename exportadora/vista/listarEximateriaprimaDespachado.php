@@ -118,7 +118,7 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                 <div class="row">
                                     <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                         <div class="table-responsive">
-                                            <table id="existenciamp" class="table-hover " style="width: 150%;">
+                                            <table id="existencia" class="table-hover " style="width: 150%;">
                                                 <thead>
                                                     <tr class="text-left">
                                                         <th>Folio Original</th>
