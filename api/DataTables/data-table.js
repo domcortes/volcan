@@ -7967,26 +7967,7 @@ $(function () {
         var tableExistenciampd = $('#existenciampd').DataTable({
             //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
            
-            "createdRow":function(row, data,index){
-                //pintar una celda
-              /*  if(data[5]>7){
-                    $('td',row).css({                        
-                        'color': '#ff3f3f',
-                    });
-                } 
-                if(data[12]<=0){
-                    $('td',row).css({
-                        'background-color': '#ff5252',
-                        'color': 'white',
-                    });
-                }
-                if(data[14]<=0){
-                    $('td',row).css({
-                        'background-color': '#ff5252',
-                        'color': 'white',
-                    });
-                }*/
-            },    
+            
             
             //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
             'drawCallback':function(){
@@ -8237,17 +8218,10 @@ $(function () {
             'dom': 'Bfrtip',
                         
         });
-        var tableExistenciaind = $('#existenciaindd').DataTable({
+        var tableExistenciaindd = $('#existenciaindd').DataTable({
             //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
             
-            "createdRow":function(row, data,index){
-                //pintar una celda       
-                /*if(data[4]>7){
-                    $('td',row).css({               
-                        'color': '#ff3f3f',
-                    });
-                } */     
-            },    
+          
             
             //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
             'drawCallback':function(){
@@ -8492,31 +8466,10 @@ $(function () {
             'dom': 'Bfrtip',
                         
         });
-        var tableExistenciapt = $('#existenciaptd').DataTable({
+        var tableExistenciaptd = $('#existenciaptd').DataTable({
             //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
            
-            "createdRow":function(row, data,index){
-                //pintar una celda
-                /*if(data[6]>7){
-                    $('td',row).css({   
-                        'color': '#ff3f3f',
-                    });
-                } */
-                /*
-                if(data[14]<=0){
-                    $('td',row).css({
-                        'background-color': '#ff5252',
-                        'color': 'white',
-                    });
-                }
-                if(data[17]<=0){
-                    $('td',row).css({
-                        'background-color': '#ff5252',
-                        'color': 'white',
-                    });
-                } 
-                */
-            },   
+       
             //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
             'drawCallback':function(){
                 var api =this.api();  
