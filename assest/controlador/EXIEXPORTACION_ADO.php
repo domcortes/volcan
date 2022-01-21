@@ -3775,7 +3775,8 @@ class EXIEXPORTACION_ADO
 
             $datos = $this->conexion->prepare("SELECT 
                                                     FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE',
-                                                    FORMAT(IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'NETO'
+                                                    FORMAT(IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'NETO',
+                                                    FORMAT(IFNULL(SUM(KILOS_BRUTO_EXIEXPORTACION),0),2,'de_DE') AS 'BRUTO'
                                             FROM fruta_exiexportacion 
                                             WHERE ID_PCDESPACHO= '" . $IDPCDESPACHO . "'                                          
                                             AND ESTADO_REGISTRO = 1;");
