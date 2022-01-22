@@ -21,7 +21,6 @@
         private   $CARGO3_RFINAL;
         private   $EMAIL3_RFINAL;
         private   $ESTADO_REGISTRO;
-        private   $ID_CIUDAD;
         private	  $ID_EMPRESA; 
         private	  $ID_USUARIOI; 
         private	  $ID_USUARIOM; 

@@ -146,8 +146,14 @@ class PRODUCTOR_ADO {
     public function agregarProductor(PRODUCTOR $PRODUCTOR){
         try{
 
-            if($PRODUCTOR->__GET('ID_CIUDAD')==NULL){
-                $PRODUCTOR->__SET('ID_CIUDAD', NULL);
+            if($PRODUCTOR->__GET('ID_COMUNA')==NULL){
+                $PRODUCTOR->__SET('ID_COMUNA', NULL);
+            }
+            if($PRODUCTOR->__GET('ID_PROVINCIA')==NULL){
+                $PRODUCTOR->__SET('ID_PROVINCIA', NULL);
+            }
+            if($PRODUCTOR->__GET('ID_REGION')==NULL){
+                $PRODUCTOR->__SET('ID_REGION', NULL);
             }
             $query=            
             "INSERT INTO  fruta_productor    (
@@ -155,26 +161,34 @@ class PRODUCTOR_ADO {
                                          DV_PRODUCTOR ,
                                          NUMERO_PRODUCTOR , 
                                          NOMBRE_PRODUCTOR , 
+
                                          DIRECCION_PRODUCTOR , 
                                          TELEFONO_PRODUCTOR , 
                                          EMAIL_PRODUCTOR , 
+
                                          GIRO_PRODUCTOR , 
                                          CSG_PRODUCTOR , 
                                          SDP_PRODUCTOR , 
                                          PRB_PRODUCTOR , 
                                          GGN_PRODUCTOR , 
+
                                          CODIGO_ASOCIADO_PRODUCTOR , 
                                          NOMBRE_ASOCIADO_PRODUCTOR , 
+
                                          ID_EMPRESA ,  
-                                         ID_CIUDAD ,  
                                          ID_TPRODUCTOR ,
+
+                                         ID_COMUNA ,  
+                                         ID_PROVINCIA ,  
+                                         ID_REGION ,  
+
                                          ID_USUARIOI ,
                                          ID_USUARIOM ,
                                          INGRESO ,
                                          MODIFICACION , 
                                          ESTADO_REGISTRO  ) 
-            VALUES
-	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(),  1 );";
+            VALUES 
+	       	(?, ?, ?, ?,    ?, ?, ?,    ?, ?, ?, ?, ?,    ?, ?,    ?, ?,    ?, ?, ?,   ?, ?, SYSDATE() , SYSDATE(),  1 );";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -182,20 +196,28 @@ class PRODUCTOR_ADO {
                     $PRODUCTOR->__GET('RUT_PRODUCTOR'),
                     $PRODUCTOR->__GET('DV_PRODUCTOR'),
                     $PRODUCTOR->__GET('NUMERO_PRODUCTOR'), 
-                    $PRODUCTOR->__GET('NOMBRE_PRODUCTOR'),                    
+                    $PRODUCTOR->__GET('NOMBRE_PRODUCTOR'),     
+
                     $PRODUCTOR->__GET('DIRECCION_PRODUCTOR'),
                     $PRODUCTOR->__GET('TELEFONO_PRODUCTOR'),
                     $PRODUCTOR->__GET('EMAIL_PRODUCTOR'),
+
                     $PRODUCTOR->__GET('GIRO_PRODUCTOR'),
                     $PRODUCTOR->__GET('CSG_PRODUCTOR'),
                     $PRODUCTOR->__GET('SDP_PRODUCTOR'),
                     $PRODUCTOR->__GET('PRB_PRODUCTOR'),
                     $PRODUCTOR->__GET('GGN_PRODUCTOR'),
+
                     $PRODUCTOR->__GET('CODIGO_ASOCIADO_PRODUCTOR'),
                     $PRODUCTOR->__GET('NOMBRE_ASOCIADO_PRODUCTOR'),
+
                     $PRODUCTOR->__GET('ID_EMPRESA'),
-                    $PRODUCTOR->__GET('ID_CIUDAD'),
                     $PRODUCTOR->__GET('ID_TPRODUCTOR'),
+
+                    $PRODUCTOR->__GET('ID_COMUNA'),
+                    $PRODUCTOR->__GET('ID_PROVINCIA'),
+                    $PRODUCTOR->__GET('ID_REGION'),
+
                     $PRODUCTOR->__GET('ID_USUARIOI'),
                     $PRODUCTOR->__GET('ID_USUARIOM')
 
@@ -227,30 +249,44 @@ class PRODUCTOR_ADO {
 
         try{
 
-            if($PRODUCTOR->__GET('ID_CIUDAD')==NULL){
-                $PRODUCTOR->__SET('ID_CIUDAD', NULL);
+            if($PRODUCTOR->__GET('ID_COMUNA')==NULL){
+                $PRODUCTOR->__SET('ID_COMUNA', NULL);
             }
-
+            if($PRODUCTOR->__GET('ID_PROVINCIA')==NULL){
+                $PRODUCTOR->__SET('ID_PROVINCIA', NULL);
+            }
+            if($PRODUCTOR->__GET('ID_REGION')==NULL){
+                $PRODUCTOR->__SET('ID_REGION', NULL);
+            }
 
             $query = "
                     UPDATE  fruta_productor  SET
                          MODIFICACION = SYSDATE(),
+
                          RUT_PRODUCTOR  = ?,
                          DV_PRODUCTOR  = ?,
                          NOMBRE_PRODUCTOR  = ?,
+
                          DIRECCION_PRODUCTOR  = ?,
                          TELEFONO_PRODUCTOR  = ?,
                          EMAIL_PRODUCTOR  = ?,
+
                          GIRO_PRODUCTOR  = ?,
                          CSG_PRODUCTOR  = ?,
                          SDP_PRODUCTOR = ?,
                          PRB_PRODUCTOR = ?,
                          GGN_PRODUCTOR = ?,
+
                          CODIGO_ASOCIADO_PRODUCTOR = ?,
                          NOMBRE_ASOCIADO_PRODUCTOR = ?,
+
                          ID_EMPRESA = ?,
-                         ID_CIUDAD = ?,
                          ID_TPRODUCTOR = ?,
+
+                         ID_COMUNA = ?,  
+                         ID_PROVINCIA = ?,  
+                         ID_REGION = ?,  
+
                          ID_USUARIOM = ?
                     WHERE  ID_PRODUCTOR  = ?  ;";
             $this->conexion->prepare($query)
@@ -258,20 +294,28 @@ class PRODUCTOR_ADO {
                 array(                    
                     $PRODUCTOR->__GET('RUT_PRODUCTOR'),
                     $PRODUCTOR->__GET('DV_PRODUCTOR'),
-                    $PRODUCTOR->__GET('NOMBRE_PRODUCTOR'),                    
+                    $PRODUCTOR->__GET('NOMBRE_PRODUCTOR'),      
+
                     $PRODUCTOR->__GET('DIRECCION_PRODUCTOR'),
                     $PRODUCTOR->__GET('TELEFONO_PRODUCTOR'),
                     $PRODUCTOR->__GET('EMAIL_PRODUCTOR'),
+
                     $PRODUCTOR->__GET('GIRO_PRODUCTOR'),
                     $PRODUCTOR->__GET('CSG_PRODUCTOR'),
                     $PRODUCTOR->__GET('SDP_PRODUCTOR'),
                     $PRODUCTOR->__GET('PRB_PRODUCTOR'),
                     $PRODUCTOR->__GET('GGN_PRODUCTOR'),
+
                     $PRODUCTOR->__GET('CODIGO_ASOCIADO_PRODUCTOR'),
                     $PRODUCTOR->__GET('NOMBRE_ASOCIADO_PRODUCTOR'),
+
                     $PRODUCTOR->__GET('ID_EMPRESA'),
-                    $PRODUCTOR->__GET('ID_CIUDAD'),
                     $PRODUCTOR->__GET('ID_TPRODUCTOR'),
+
+                    $PRODUCTOR->__GET('ID_COMUNA'),
+                    $PRODUCTOR->__GET('ID_PROVINCIA'),
+                    $PRODUCTOR->__GET('ID_REGION'),
+
                     $PRODUCTOR->__GET('ID_USUARIOM'),
                     $PRODUCTOR->__GET('ID_PRODUCTOR')
                     

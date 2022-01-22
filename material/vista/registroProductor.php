@@ -5,7 +5,6 @@ include_once "../../assest/config/validarUsuarioMaterial.php";
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
 include_once '../../assest/controlador/TPRODUCTOR_ADO.php';
-include_once '../../assest/controlador/CIUDAD_ADO.php';
 include_once '../../assest/controlador/COMUNA_ADO.php';
 include_once '../../assest/controlador/PROVINCIA_ADO.php';
 include_once '../../assest/controlador/REGION_ADO.php';
@@ -17,7 +16,6 @@ include_once '../../assest/modelo/PRODUCTOR.php';
 //INICIALIZAR CONTROLADOR
 
 $TPRODUCTOR_ADO =  new TPRODUCTOR_ADO();
-$CIUDAD_ADO =  new CIUDAD_ADO();
 $COMUNA_ADO =  new COMUNA_ADO();
 $PROVINCIA_ADO =  new PROVINCIA_ADO();
 $REGION_ADO =  new REGION_ADO();
@@ -45,7 +43,6 @@ $NOMBREASOCIADOPRODUCTOR = "";
 
 
 
-$CIUDAD = "";
 $COMUNA = "";
 $PROVINCIA = "";
 $REGION = "";
@@ -70,7 +67,6 @@ $ARRAYVERPRODUCTOR = "";
 $ARRAYNUMERO = "";
 
 
-$ARRAYCIUDAD = "";
 $ARRAYCOMUNA = "";
 $ARRAYPROVINCIA = "";
 $ARRAYREGION = "";
@@ -78,10 +74,12 @@ $ARRAYREGION = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYPRODUCTOR = $PRODUCTOR_ADO->listarProductorPorEmpresaCBX($EMPRESAS);
 $ARRAYTPRODUCTOR = $TPRODUCTOR_ADO->listarTproductorPorEmpresaCBX($EMPRESAS);
-$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
-$ARRAYCOMUNA = $COMUNA_ADO->listarComunaCBX();
-$ARRAYPROVINCIA  = $PROVINCIA_ADO->listarProvinciaCBX();
-$ARRAYREGION = $REGION_ADO->listarRegionCBX();
+
+
+
+$ARRAYCOMUNA = $COMUNA_ADO->listarComuna3CBX();
+$ARRAYPROVINCIA  = $PROVINCIA_ADO->listarProvincia3CBX();
+$ARRAYREGION = $REGION_ADO->listarRegion3CBX();
 
 
 include_once "../../assest/config/validarDatosUrl.php";
@@ -140,7 +138,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $CODIGOASOCIADOPRODUCTOR = "" . $r['CODIGO_ASOCIADO_PRODUCTOR'];
             $NOMBREASOCIADOPRODUCTOR = "" . $r['NOMBRE_ASOCIADO_PRODUCTOR'];
             $EMPRESA = "" . $r['ID_EMPRESA'];
-            $CIUDAD = "" . $r['ID_CIUDAD'];
+
+
+            $COMUNA = "" . $r['ID_COMUNA'];
+            $PROVINCIA = "" . $r['ID_PROVINCIA'];
+            $REGION = "" . $r['ID_REGION'];
             $TPRODUCTOR = "" . $r['ID_TPRODUCTOR'];
         endforeach;
     }
@@ -228,14 +230,19 @@ if($_POST){
     if (isset($_REQUEST['EMPRESA'])) {
         $EMPRESA = $_REQUEST['EMPRESA'];
     }
-    if (isset($_REQUEST['CIUDAD'])) {
-        $CIUDAD = $_REQUEST['CIUDAD'];
+    if (isset($_REQUEST['COMUNA'])) {
+        $COMUNA = $_REQUEST['COMUNA'];
+    }
+    if (isset($_REQUEST['PROVINCIA'])) {
+        $PROVINCIA = $_REQUEST['PROVINCIA'];
+    }
+    if (isset($_REQUEST['REGION'])) {
+        $REGION = $_REQUEST['REGION'];
     }
     if (isset($_REQUEST['TPRODUCTOR'])) {
-        $TPRODUCTOR = $_REQUEST['CIUDAD'];
+        $TPRODUCTOR = $_REQUEST['TPRODUCTOR'];
     }
 }
-
 
 
 
@@ -272,8 +279,12 @@ if($_POST){
                     PRBPRODUCTOR = document.getElementById("PRBPRODUCTOR").value;
                     CODIGOASOCIADOPRODUCTOR = document.getElementById("CODIGOASOCIADOPRODUCTOR").value;
                     NOMBREASOCIADOPRODUCTOR = document.getElementById("NOMBREASOCIADOPRODUCTOR").value;
-                    CIUDAD = document.getElementById("CIUDAD").selectedIndex;
                     TPRODUCTOR = document.getElementById("TPRODUCTOR").selectedIndex;
+
+                    COMUNA = document.getElementById("COMUNA").selectedIndex;
+                    PROVINCIA = document.getElementById("PROVINCIA").selectedIndex;
+                    REGION = document.getElementById("REGION").selectedIndex;
+
 
                     document.getElementById('val_nombre').innerHTML = "";
                     document.getElementById('val_rut').innerHTML = "";
@@ -287,8 +298,12 @@ if($_POST){
                     document.getElementById('val_prb').innerHTML = "";
                     document.getElementById('val_codigo').innerHTML = "";
                     document.getElementById('val_nombrea').innerHTML = "";
-                    document.getElementById('val_ciudad').innerHTML = "";
                     document.getElementById('val_tproductor').innerHTML = "";
+
+
+                    document.getElementById('val_comuna').innerHTML = "";
+                    document.getElementById('val_provincia').innerHTML = "";
+                    document.getElementById('val_region').innerHTML = "";
 
 
                     if (RUTPRODUCTOR == null || RUTPRODUCTOR.length == 0 || /^\s+$/.test(RUTPRODUCTOR)) {
@@ -414,15 +429,30 @@ if($_POST){
 
                     */
 
-                    if (CIUDAD == null || CIUDAD == 0) {
-                        document.form_reg_dato.CIUDAD.focus();
-                        document.form_reg_dato.CIUDAD.style.borderColor = "#FF0000";
-                        document.getElementById('val_ciudad').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                 
+                    if (COMUNA == null || COMUNA == 0) {
+                        document.form_reg_dato.COMUNA.focus();
+                        document.form_reg_dato.COMUNA.style.borderColor = "#FF0000";
+                        document.getElementById('val_comuna').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
                         return false;
                     }
-                    document.form_reg_dato.CIUDAD.style.borderColor = "#4AF575";
+                    document.form_reg_dato.COMUNA.style.borderColor = "#4AF575";
 
+                    if (PROVINCIA == null || PROVINCIA == 0) {
+                        document.form_reg_dato.PROVINCIA.focus();
+                        document.form_reg_dato.PROVINCIA.style.borderColor = "#FF0000";
+                        document.getElementById('val_provincia').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                        return false;
+                    }
+                    document.form_reg_dato.PROVINCIA.style.borderColor = "#4AF575";
 
+                    if (REGION == null || REGION == 0) {
+                        document.form_reg_dato.REGION.focus();
+                        document.form_reg_dato.REGION.style.borderColor = "#FF0000";
+                        document.getElementById('val_region').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                        return false;
+                    }
+                    document.form_reg_dato.REGION.style.borderColor = "#4AF575";
 
                     if (TPRODUCTOR == null || TPRODUCTOR == 0) {
                         document.form_reg_dato.TPRODUCTOR.focus();
@@ -479,7 +509,6 @@ if($_POST){
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Mantenedores</li>
-                                            <li class="breadcrumb-item" aria-current="page">Fruta</li>
                                             <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Productor</a> </li>
                                         </ol>
                                     </nav>
@@ -593,35 +622,94 @@ if($_POST){
                                                         <input type="text" class="form-control" placeholder="Nombre Asociado Productor" id="NOMBREASOCIADOPRODUCTOR" name="NOMBREASOCIADOPRODUCTOR" value="<?php echo $NOMBREASOCIADOPRODUCTOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_nombrea" class="validacion"> </label>
                                                     </div>
-                                                </div>
-                                                 <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-9 col-9 col-xs-9">
+                                                </div>                                                     
+                                                <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-9 col-9 col-xs-9">
                                                     <div class="form-group">
-                                                        <label>Ciudad </label>
-                                                        <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
+                                                        <label> Comuna</label>
+                                                        <select class="form-control select2" id="COMUNA" name="COMUNA" style="width: 100%;" value="<?php echo $COMUNA; ?>" <?php echo $DISABLED; ?>>
                                                             <option></option>
-                                                            <?php foreach ($ARRAYCIUDAD as $r) : ?>
-                                                                <?php if ($ARRAYCIUDAD) {    ?>
-                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>" 
-                                                                    <?php if ($CIUDAD == $r['ID_CIUDAD']) { echo "selected"; } ?>>
-                                                                        <?php echo $r['CIUDAD'] ?>, <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
+                                                            <?php foreach ($ARRAYCOMUNA as $r) : ?>
+                                                                <?php if ($ARRAYCOMUNA) {    ?>
+                                                                    <option value="<?php echo $r['ID_COMUNA']; ?>" 
+                                                                    <?php if ($COMUNA == $r['ID_COMUNA']) { echo "selected";  } ?>>
+                                                                        <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
+                                                                    </option>
+                                                                <?php } else { ?>
+                                                                    <option>No Hay Datos Registrados </option>
+                                                                <?php } ?>
+
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                        <label id="val_comuna" class="validacion"> </label>
+                                                    </div>
+                                                </div>    
+                                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                                    <div class="form-group">  
+                                                    <label>Agregar</label>                  
+                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" <?php echo $DISABLED; ?>  title="Agregar Comuna" id="defecto" name="pop" 
+                                                        Onclick="abrirVentana('registroPopComuna.php' ); ">
+                                                        <i class="icon-copy fa fa-plus" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>        
+                                                <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-9 col-9 col-xs-9">
+                                                    <div class="form-group">
+                                                        <label> Provincia</label>
+                                                        <select class="form-control select2" id="PROVINCIA" name="PROVINCIA" style="width: 100%;" value="<?php echo $PROVINCIA; ?>" <?php echo $DISABLED; ?>>
+                                                            <option></option>
+                                                            <?php foreach ($ARRAYPROVINCIA as $r) : ?>
+                                                                <?php if ($ARRAYPROVINCIA) {    ?>
+                                                                    <option value="<?php echo $r['ID_PROVINCIA']; ?>" 
+                                                                        <?php if ($PROVINCIA == $r['ID_PROVINCIA']) {  echo "selected";  } ?>>
+                                                                         <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
+                                                                    </option>
+                                                                <?php } else { ?>
+                                                                    <option>No Hay Datos Registrados </option>
+                                                                <?php } ?>
+
+                                                            <?php endforeach; ?>
+
+                                                        </select>
+                                                        <label id="val_provincia" class="validacion"> </label>
+                                                    </div>
+                                                </div>  
+                                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                                    <div class="form-group">  
+                                                    <label>Agregar</label>                  
+                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" <?php echo $DISABLED; ?>  title="Agregar Provincia" id="defecto" name="pop" 
+                                                        Onclick="abrirVentana('registroPopProvincia.php' ); ">
+                                                        <i class="icon-copy fa fa-plus" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-9 col-9 col-xs-9">
+                                                    <div class="form-group">
+                                                        <label> Region</label>
+                                                        <select class="form-control select2" id="REGION" name="REGION" style="width: 100%;" value="<?php echo $REGION; ?>" <?php echo $DISABLED; ?>>
+                                                            <option></option>
+                                                            <?php foreach ($ARRAYREGION as $r) : ?>
+                                                                <?php if ($ARRAYREGION) {    ?>
+                                                                    <option value="<?php echo $r['ID_REGION']; ?>" 
+                                                                        <?php if ($REGION == $r['ID_REGION']) { echo "selected";  } ?>>
+                                                                        <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
                                                                     <option>No Hay Datos Registrados </option>
                                                                 <?php } ?>
                                                             <?php endforeach; ?>
                                                         </select>
-                                                        <label id="val_ciudad" class="validacion"> </label>
+                                                        <label id="val_region" class="validacion"> </label>
                                                     </div>
-                                                </div>
+                                                </div>   
                                                 <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                     <div class="form-group">  
                                                     <label>Agregar</label>                  
-                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" <?php echo $DISABLED; ?>  title="Agregar Ciudad" id="defecto" name="pop" 
-                                                        Onclick="abrirVentana('registroPopCiudad.php' ); ">
+                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" <?php echo $DISABLED; ?>  title="Agregar Region" id="defecto" name="pop" 
+                                                        Onclick="abrirVentana('registroPopRegion.php' ); ">
                                                         <i class="icon-copy fa fa-plus" aria-hidden="true"></i>
                                                         </button>
                                                     </div>
-                                                </div>
+                                                </div>   
                                                 <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-9 col-9 col-xs-9">
                                                     <div class="form-group">
                                                         <label>Tipo Productor</label>
@@ -636,7 +724,6 @@ if($_POST){
                                                                 <?php } else { ?>
                                                                     <option>No Hay Datos Registrados </option>
                                                                 <?php } ?>
-
                                                             <?php endforeach; ?>
                                                         </select>
                                                         <label id="val_tproductor" class="validacion"> </label>
@@ -791,7 +878,9 @@ if($_POST){
                 $PRODUCTOR->__SET('GGN_PRODUCTOR', $_REQUEST['GGNPRODUCTOR']);  
                 $PRODUCTOR->__SET('CODIGO_ASOCIADO_PRODUCTOR', $_REQUEST['CODIGOASOCIADOPRODUCTOR']);
                 $PRODUCTOR->__SET('NOMBRE_ASOCIADO_PRODUCTOR', $_REQUEST['NOMBREASOCIADOPRODUCTOR']);
-                $PRODUCTOR->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);    
+                $PRODUCTOR->__SET('ID_COMUNA', $_REQUEST['COMUNA']);  
+                $PRODUCTOR->__SET('ID_PROVINCIA', $_REQUEST['PROVINCIA']);  
+                $PRODUCTOR->__SET('ID_REGION', $_REQUEST['REGION']);   
                 $PRODUCTOR->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                 $PRODUCTOR->__SET('ID_TPRODUCTOR', $_REQUEST['TPRODUCTOR']);
                 $PRODUCTOR->__SET('ID_USUARIOI', $IDUSUARIOS);
@@ -830,13 +919,16 @@ if($_POST){
                 $PRODUCTOR->__SET('GGN_PRODUCTOR', $_REQUEST['GGNPRODUCTOR']);  
                 $PRODUCTOR->__SET('CODIGO_ASOCIADO_PRODUCTOR', $_REQUEST['CODIGOASOCIADOPRODUCTOR']);
                 $PRODUCTOR->__SET('NOMBRE_ASOCIADO_PRODUCTOR', $_REQUEST['NOMBREASOCIADOPRODUCTOR']);
-                $PRODUCTOR->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+                $PRODUCTOR->__SET('ID_COMUNA', $_REQUEST['COMUNA']);  
+                $PRODUCTOR->__SET('ID_PROVINCIA', $_REQUEST['PROVINCIA']);  
+                $PRODUCTOR->__SET('ID_REGION', $_REQUEST['REGION']);   
                 $PRODUCTOR->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                 $PRODUCTOR->__SET('ID_TPRODUCTOR', $_REQUEST['TPRODUCTOR']);
                 $PRODUCTOR->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $PRODUCTOR->__SET('ID_PRODUCTOR', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
                 $PRODUCTOR_ADO->actualizarProductor($PRODUCTOR);
+                
                 //REDIRECCIONAR A PAGINA registroProductor.php
                     echo '<script>
                     Swal.fire({
@@ -850,6 +942,7 @@ if($_POST){
                         location.href = "registroProductor.php";                            
                     })
                 </script>';
+                
             }
 
         

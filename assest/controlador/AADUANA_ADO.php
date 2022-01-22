@@ -144,8 +144,8 @@ class AADUANA_ADO
     {
         try {
 
-            if ($AADUANA->__GET('ID_CIUDAD') == NULL) {
-                $AADUANA->__SET('ID_CIUDAD', NULL);
+            if ($AADUANA->__GET('ID_COMUNA') == NULL) {
+                $AADUANA->__SET('ID_COMUNA', NULL);
             }
 
             $query =
@@ -161,7 +161,7 @@ class AADUANA_ADO
                                                  CONTACTO_AADUANA , 
                                                  TELEFONO_AADUANA , 
                                                  EMAIL_AADUANA , 
-                                                 ID_CIUDAD , 
+                                                 ID_COMUNA , 
                                                  ID_EMPRESA , 
                                                  ID_USUARIOI , 
                                                  ID_USUARIOM ,
@@ -185,7 +185,7 @@ class AADUANA_ADO
                         $AADUANA->__GET('CONTACTO_AADUANA'),
                         $AADUANA->__GET('TELEFONO_AADUANA'),
                         $AADUANA->__GET('EMAIL_AADUANA'),
-                        $AADUANA->__GET('ID_CIUDAD'),
+                        $AADUANA->__GET('ID_COMUNA'),
                         $AADUANA->__GET('ID_EMPRESA'),
                         $AADUANA->__GET('ID_USUARIOI'),
                         $AADUANA->__GET('ID_USUARIOM')
@@ -215,8 +215,8 @@ class AADUANA_ADO
     {
 
         try {
-            if ($AADUANA->__GET('ID_CIUDAD') == NULL) {
-                $AADUANA->__SET('ID_CIUDAD', NULL);
+            if ($AADUANA->__GET('ID_COMUNA') == NULL) {
+                $AADUANA->__SET('ID_COMUNA', NULL);
             }
             $query = "
                 UPDATE  fruta_aaduana  SET
@@ -230,7 +230,7 @@ class AADUANA_ADO
                     CONTACTO_AADUANA  = ?,
                     TELEFONO_AADUANA  = ?,
                     EMAIL_AADUANA  = ?,
-                    ID_CIUDAD = ?,
+                    ID_COMUNA = ?,
                     ID_USUARIOM = ?
                 WHERE  ID_AADUANA  = ?  ;";
             $this->conexion->prepare($query)
@@ -246,7 +246,7 @@ class AADUANA_ADO
                         $AADUANA->__GET('CONTACTO_AADUANA'),
                         $AADUANA->__GET('TELEFONO_AADUANA'),
                         $AADUANA->__GET('EMAIL_AADUANA'),
-                        $AADUANA->__GET('ID_CIUDAD'),
+                        $AADUANA->__GET('ID_COMUNA'),
                         $AADUANA->__GET('ID_USUARIOM'),
                         $AADUANA->__GET('ID_AADUANA')
 

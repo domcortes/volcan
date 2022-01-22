@@ -144,9 +144,7 @@ class NAVIERA_ADO {
         try{
             
             
-            if($NAVIERA->__GET('ID_CIUDAD')==NULL){
-                $NAVIERA->__SET('ID_CIUDAD', NULL);
-            }
+      
             $query=
             "INSERT INTO  transporte_naviera  (  
                                                     RUT_NAVIERA ,
@@ -160,7 +158,6 @@ class NAVIERA_ADO {
                                                     TELEFONO_NAVIERA ,
                                                     EMAIL_NAVIERA ,
                                                     NOTA_NAVIERA , 
-                                                    ID_CIUDAD , 
                                                     ID_EMPRESA , 
                                                     ID_USUARIOI , 
                                                     ID_USUARIOM , 
@@ -168,7 +165,7 @@ class NAVIERA_ADO {
                                                     MODIFICACION , 
                                                     ESTADO_REGISTRO 
                                                 ) VALUES
-	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(), 1);";
+	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(                    
@@ -183,7 +180,6 @@ class NAVIERA_ADO {
                     $NAVIERA->__GET('TELEFONO_NAVIERA'),
                     $NAVIERA->__GET('EMAIL_NAVIERA'),
                     $NAVIERA->__GET('NOTA_NAVIERA'),
-                    $NAVIERA->__GET('ID_CIUDAD')   ,
                     $NAVIERA->__GET('ID_EMPRESA')   ,
                     $NAVIERA->__GET('ID_USUARIOI')   ,
                     $NAVIERA->__GET('ID_USUARIOM')                    
@@ -211,9 +207,6 @@ class NAVIERA_ADO {
     public function actualizarNaviera(NAVIERA $NAVIERA){
         try{
             
-            if($NAVIERA->__GET('ID_CIUDAD')==NULL){
-                $NAVIERA->__SET('ID_CIUDAD', NULL);
-            }
             $query = "
 		UPDATE  transporte_naviera  SET
                     MODIFICACION = SYSDATE(),
@@ -227,7 +220,6 @@ class NAVIERA_ADO {
                     TELEFONO_NAVIERA = ?,
                     EMAIL_NAVIERA = ?,
                     NOTA_NAVIERA = ?,
-                    ID_CIUDAD = ?,
                     ID_USUARIOM = ?            
 		WHERE  ID_NAVIERA = ?;";
             $this->conexion->prepare($query)
@@ -242,8 +234,7 @@ class NAVIERA_ADO {
                         $NAVIERA->__GET('CONTACTO_NAVIERA'),
                         $NAVIERA->__GET('TELEFONO_NAVIERA'),
                         $NAVIERA->__GET('EMAIL_NAVIERA'),
-                        $NAVIERA->__GET('NOTA_NAVIERA'),
-                        $NAVIERA->__GET('ID_CIUDAD')      ,    
+                        $NAVIERA->__GET('NOTA_NAVIERA'), 
                         $NAVIERA->__GET('ID_USUARIOM') ,
                         $NAVIERA->__GET('ID_NAVIERA')
                         

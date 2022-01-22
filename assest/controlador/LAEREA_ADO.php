@@ -143,9 +143,6 @@ class LAEREA_ADO {
     public function agregarLaerea(LAEREA $LAEREA){
         try{
             
-            if($LAEREA->__GET('ID_CIUDAD')==NULL){
-                $LAEREA->__SET('ID_CIUDAD', NULL);
-            }
             
             $query=
             "INSERT INTO  transporte_laerea  (   
@@ -160,7 +157,6 @@ class LAEREA_ADO {
                                                  TELEFONO_LAEREA ,
                                                  EMAIL_LAEREA ,
                                                  NOTA_LAEREA , 
-                                                 ID_CIUDAD , 
                                                  ID_EMPRESA , 
                                                  ID_USUARIOI , 
                                                  ID_USUARIOM , 
@@ -168,7 +164,7 @@ class LAEREA_ADO {
                                                  MODIFICACION , 
                                                  ESTADO_REGISTRO 
                                             ) VALUES
-	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(), 1);";
+	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(                    
@@ -183,7 +179,6 @@ class LAEREA_ADO {
                     $LAEREA->__GET('TELEFONO_LAEREA'),
                     $LAEREA->__GET('EMAIL_LAEREA'),
                     $LAEREA->__GET('NOTA_LAEREA'),
-                    $LAEREA->__GET('ID_CIUDAD')  ,
                     $LAEREA->__GET('ID_EMPRESA')  ,
                     $LAEREA->__GET('ID_USUARIOI')  ,
                     $LAEREA->__GET('ID_USUARIOM')                    
@@ -210,9 +205,7 @@ class LAEREA_ADO {
     
     public function actualizarLaerea(LAEREA $LAEREA){
         try{
-            if($LAEREA->__GET('ID_CIUDAD')==NULL){
-                $LAEREA->__SET('ID_CIUDAD', NULL);
-            }
+        
             $query = "
                 UPDATE  transporte_laerea  SET
                     MODIFICACION = SYSDATE(),
@@ -226,9 +219,8 @@ class LAEREA_ADO {
                     TELEFONO_LAEREA = ?,
                     EMAIL_LAEREA = ?,
                     NOTA_LAEREA = ?,
-                    ID_CIUDAD = ?,
-                    ID_USUARIOM = ?
-                    
+
+                    ID_USUARIOM = ?                    
                 WHERE  ID_LAEREA = ?;";
             $this->conexion->prepare($query)
             ->execute(
@@ -243,7 +235,6 @@ class LAEREA_ADO {
                         $LAEREA->__GET('TELEFONO_LAEREA'),
                         $LAEREA->__GET('EMAIL_LAEREA'),
                         $LAEREA->__GET('NOTA_LAEREA'),
-                        $LAEREA->__GET('ID_CIUDAD')      ,  
                         $LAEREA->__GET('ID_USUARIOM')   ,  
                         $LAEREA->__GET('ID_LAEREA')
                         

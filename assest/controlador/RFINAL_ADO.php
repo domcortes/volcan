@@ -144,9 +144,6 @@ class RFINAL_ADO
     {
         try {
 
-            if ($RFINAL->__GET('ID_CIUDAD') == NULL) {
-                $RFINAL->__SET('ID_CIUDAD', NULL);
-            }
 
             $query =
                 "INSERT INTO  fruta_rfinal  
@@ -157,7 +154,6 @@ class RFINAL_ADO
                                                      CONTACTO1_RFINAL ,  CARGO1_RFINAL ,  EMAIL1_RFINAL , 
                                                      CONTACTO2_RFINAL ,  CARGO2_RFINAL ,  EMAIL2_RFINAL , 
                                                      CONTACTO3_RFINAL ,  CARGO3_RFINAL ,  EMAIL3_RFINAL , 
-                                                     ID_CIUDAD , 
                                                      ID_EMPRESA , 
                                                      ID_USUARIOI , 
                                                      ID_USUARIOM ,  
@@ -166,7 +162,7 @@ class RFINAL_ADO
                                                      ESTADO_REGISTRO 
                                         ) 
             VALUES
-	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  SYSDATE() , SYSDATE(), 1);";
+	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,   SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -183,7 +179,6 @@ class RFINAL_ADO
                         $RFINAL->__GET('CONTACTO3_RFINAL'),
                         $RFINAL->__GET('CARGO3_RFINAL'),
                         $RFINAL->__GET('EMAIL3_RFINAL'),
-                        $RFINAL->__GET('ID_CIUDAD'),
                         $RFINAL->__GET('ID_EMPRESA'),
                         $RFINAL->__GET('ID_USUARIOI'),
                         $RFINAL->__GET('ID_USUARIOM')
@@ -213,9 +208,6 @@ class RFINAL_ADO
     {
 
         try {
-            if ($RFINAL->__GET('ID_CIUDAD') == NULL) {
-                $RFINAL->__SET('ID_CIUDAD', NULL);
-            }
             $query = "
                     UPDATE  fruta_rfinal  SET
                         MODIFICACION  = SYSDATE() , 
@@ -230,7 +222,6 @@ class RFINAL_ADO
                         CONTACTO3_RFINAL  = ?,
                         CARGO3_RFINAL  = ?,
                         EMAIL3_RFINAL  = ?,
-                        ID_CIUDAD = ?,
                         ID_USUARIOM = ?
                     WHERE  ID_RFINAL  = ?  ;";
             $this->conexion->prepare($query)
@@ -248,7 +239,6 @@ class RFINAL_ADO
                         $RFINAL->__GET('CONTACTO3_RFINAL'),
                         $RFINAL->__GET('CARGO3_RFINAL'),
                         $RFINAL->__GET('EMAIL3_RFINAL'),
-                        $RFINAL->__GET('ID_CIUDAD'),
                         $RFINAL->__GET('ID_USUARIOM'),
                         $RFINAL->__GET('ID_RFINAL')
 

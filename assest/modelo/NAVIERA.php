@@ -20,7 +20,6 @@
         private   $EMAIL_NAVIERA;     
         private   $NOTA_NAVIERA;
         private   $ESTADO_REGISTRO; 
-        private   $ID_CIUDAD;
         private	  $ID_EMPRESA; 
         private	  $ID_USUARIOI; 
         private	  $ID_USUARIOM; 

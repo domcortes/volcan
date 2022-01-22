@@ -4,14 +4,12 @@ include_once "../../assest/config/validarUsuarioExpo.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 include_once '../../assest/controlador/LAEREA_ADO.php';
-include_once '../../assest/controlador/CIUDAD_ADO.php';
 include_once '../../assest/modelo/LAEREA.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 
 $LAEREA_ADO =  new LAEREA_ADO();
-$CIUDAD_ADO =  new CIUDAD_ADO();
 //INIICIALIZAR MODELO
 $LAEREA =  new LAEREA();
 
@@ -31,20 +29,16 @@ $NOTALAEREA = "";
 $CONTACTOLAEREA = "";
 $TELEFONOLAEREA = "";
 $EMAILLAEREA = "";
-$CIUDAD = "";
-
 
 
 //INICIALIZAR ARREGLOS
 $ARRAYLAEREA = "";
 $ARRAYLAEREAID = "";
-$ARRAYCIUDAD = "";
 
 
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
 
 //OPERACIONES
 //OPERACION DE REGISTRO DE FILA
@@ -69,7 +63,6 @@ if (isset($_REQUEST['GUARDAR'])) {
     $LAEREA->__SET('TELEFONO_LAEREA', $_REQUEST['TELEFONOLAEREA']);
     $LAEREA->__SET('EMAIL_LAEREA', $_REQUEST['EMAILLAEREA']);
     $LAEREA->__SET('NOTA_LAEREA', $_REQUEST['NOTALAEREA']);
-    $LAEREA->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
     $LAEREA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
     $LAEREA->__SET('ID_USUARIOI', $IDUSUARIOS);
     $LAEREA->__SET('ID_USUARIOM', $IDUSUARIOS);
@@ -110,7 +103,6 @@ if (isset($_REQUEST['GUARDAR'])) {
                     GIROLAEREA = document.getElementById("GIROLAEREA").value;
                     RAZONSOCIALLAEREA = document.getElementById("RAZONSOCIALLAEREA").value;
                     DIRRECIONLAEREA = document.getElementById("DIRRECIONLAEREA").value;
-                    CIUDAD = document.getElementById("CIUDAD").selectedIndex;
                     CONTACTOLAEREA = document.getElementById("CONTACTOLAEREA").value;
                     TELEFONOLAEREA = document.getElementById("TELEFONOLAEREA").value;
                     EMAILLAEREA = document.getElementById("EMAILLAEREA").value;
@@ -176,14 +168,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                     }
                     document.form_reg_dato.DIRRECIONLAEREA.style.borderColor = "#4AF575";
                     /*
-                                        if (CIUDAD == null || CIUDAD == 0) {
-                                            document.form_reg_dato.CIUDAD.focus();
-                                            document.form_reg_dato.CIUDAD.style.borderColor = "#FF0000";
-                                            document.getElementById('val_ciudad').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
-                                            return false;
-                                        }
-                                        document.form_reg_dato.CIUDAD.style.borderColor = "#4AF575";
-
+                                    
 
                                         if (CONTACTOLAEREA == null || CONTACTOLAEREA.length == 0 || /^\s+$/.test(CONTACTOLAEREA)) {
                                             document.form_reg_dato.CONTACTOLAEREA.focus();
@@ -290,25 +275,6 @@ if (isset($_REQUEST['GUARDAR'])) {
                                                         <label>Dirrecion </label>
                                                         <input type="text" class="form-control" placeholder="Dirrecion Laerea" id="DIRRECIONLAEREA" name="DIRRECIONLAEREA" value="<?php echo $DIRRECIONLAEREA; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_dirrecion" class="validacion"> </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                                    <div class="form-group">
-                                                        <label>Ciudad</label>
-                                                        <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
-                                                            <option></option>
-                                                            <?php foreach ($ARRAYCIUDAD as $r) : ?>
-                                                                <?php if ($ARRAYCIUDAD) {    ?>
-                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>" 
-                                                                    <?php if ($CIUDAD == $r['ID_CIUDAD']) { echo "selected";   } ?>>
-                                                                    <?php echo $r['CIUDAD'] ?>, <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
-                                                                    </option>
-                                                                <?php } else { ?>
-                                                                    <option>No Hay Datos Registrados </option>
-                                                                <?php } ?>
-                                                            <?php endforeach; ?>
-                                                        </select>
-                                                        <label id="val_ciudad" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                                  <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">

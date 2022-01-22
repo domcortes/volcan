@@ -18,15 +18,19 @@ include_once '../../assest/controlador/INPECTOR_ADO.php';
 include_once '../../assest/controlador/CONTRAPARTE_ADO.php';
 include_once '../../assest/controlador/PAIS_ADO.php';
 include_once '../../assest/controlador/TMANEJO_ADO.php';
-include_once '../../assest/controlador/PROVINCIA_ADO.php';
-include_once '../../assest/controlador/COMUNA_ADO.php';
-include_once '../../assest/controlador/CIUDAD_ADO.php';
 include_once '../../assest/controlador/TCALIBRE_ADO.php';
 
 
 
 include_once '../../assest/modelo/INPSAG.php';
 include_once '../../assest/modelo/EXIEXPORTACION.php';
+
+include_once '../../assest/controlador/PAIS_ADO.php';
+include_once '../../assest/controlador/REGION_ADO.php';
+include_once '../../assest/controlador/PROVINCIA_ADO.php';
+include_once '../../assest/controlador/COMUNA_ADO.php';
+include_once '../../assest/controlador/CIUDAD_ADO.php';
+
 
 
 //INCIALIZAR LAS VARIBLES
@@ -49,11 +53,14 @@ $INPECTOR_ADO =  new INPECTOR_ADO();
 $CONTRAPARTE_ADO =  new CONTRAPARTE_ADO();
 $PAIS_ADO =  new PAIS_ADO();
 $TMANEJO_ADO =  new TMANEJO_ADO();
+$TCALIBRE_ADO =  new TCALIBRE_ADO();
+
+
+$PAIS_ADO =  new PAIS_ADO();
+$REGION_ADO =  new REGION_ADO();
 $PROVINCIA_ADO =  new PROVINCIA_ADO();
 $COMUNA_ADO =  new COMUNA_ADO();
 $CIUDAD_ADO =  new CIUDAD_ADO();
-$TCALIBRE_ADO =  new TCALIBRE_ADO();
-
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 $NUMERO = "";
@@ -406,13 +413,33 @@ foreach ($ARRAYEXIEXPORTACION as $r) :
 
   foreach ($ARRAYEXIEXPORTACION2 as $d) :
     $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($d['ID_PRODUCTOR']);
-    
-    $ARRAYCIUDAD = $CIUDAD_ADO->listarCiudadeUbicaciónCompleta($ARRAYVERPRODUCTORID[0]["ID_CIUDAD"]);
-    $CIUDADPRODUCTOR=$ARRAYCIUDAD[0]["CIUDAD"];   
-    $COMUNAPRODUCTOR=$ARRAYCIUDAD[0]["COMUNA"];
-    $PROVINCIAPRODUCTOR=$ARRAYCIUDAD[0]["PROVINCIA"];
-    $REGIONPRODUCTOR=$ARRAYCIUDAD[0]["REGION"];
-    $PAISPRODUCTOR=$ARRAYCIUDAD[0]["PAIS"];
+    if($ARRAYVERPRODUCTORID){
+      $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]["CSG_PRODUCTOR"];
+      $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]["NOMBRE_PRODUCTOR"];
+      $ARRAYCOMUNA = $COMUNA_ADO->verComuna($ARRAYVERPRODUCTORID[0]["ID_COMUNA"]);
+      if($ARRAYCOMUNA){
+        $COMUNAPRODUCTOR=$ARRAYCOMUNA[0]["NOMBRE_COMUNA"];
+      }else{
+        $COMUNAPRODUCTOR="Sin Datos";
+      }
+      $ARRAYPROVINCIA = $PROVINCIA_ADO->verProvincia($ARRAYVERPRODUCTORID[0]["ID_PROVINCIA"]);
+      if($ARRAYPROVINCIA){
+        $PROVINCIAPRODUCTOR=$ARRAYPROVINCIA[0]["NOMBRE_PROVINCIA"];
+      }else{
+        $PROVINCIAPRODUCTOR="Sin Datos";
+      }
+      $ARRAYREGION = $REGION_ADO->verRegion($ARRAYVERPRODUCTORID[0]["ID_REGION"]);
+      if($ARRAYREGION){
+        $REGIONPRODUCTOR=$ARRAYREGION[0]["NOMBRE_REGION"];
+      }else{
+        $REGIONPRODUCTOR="Sin Datos";
+      }
+  
+    }else{
+      $COMUNAPRODUCTOR="Sin Datos";
+      $PROVINCIAPRODUCTOR="Sin Datos";
+      $REGIONPRODUCTOR="Sin Datos";
+    }
 
 
     $ARRAYPLANTA2=$PLANTA_ADO->verPlanta($d['ID_PLANTA2']);
@@ -570,14 +597,34 @@ foreach ($ARRAYEXIEXPORTACIONBOLSA as $a) :
 
   foreach ($ARRAYEXIEXPORTACIONPRODUCTOR as $b) :
     $ARRAYVERPRODUCTORID2 = $PRODUCTOR_ADO->verProductor($b['ID_PRODUCTOR']);
-    $CSGPRODUCTOR2 = $ARRAYVERPRODUCTORID2[0]["CSG_PRODUCTOR"];
-    $NOMBREPRODUCTOR2 = $ARRAYVERPRODUCTORID2[0]["NOMBRE_PRODUCTOR"];
-    $ARRAYCIUDAD = $CIUDAD_ADO->listarCiudadeUbicaciónCompleta($ARRAYVERPRODUCTORID2[0]["ID_CIUDAD"]);
-    $CIUDADPRODUCTOR2=$ARRAYCIUDAD[0]["CIUDAD"];   
-    $COMUNAPRODUCTOR2=$ARRAYCIUDAD[0]["COMUNA"];
-    $PROVINCIAPRODUCTOR2=$ARRAYCIUDAD[0]["PROVINCIA"];
-    $REGIONPRODUCTOR2=$ARRAYCIUDAD[0]["REGION"];
-    $PAISPRODUCTOR2=$ARRAYCIUDAD[0]["PAIS"];
+    if($ARRAYVERPRODUCTORID){
+      $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]["CSG_PRODUCTOR"];
+      $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]["NOMBRE_PRODUCTOR"];
+      $ARRAYCOMUNA = $COMUNA_ADO->verComuna($ARRAYVERPRODUCTORID[0]["ID_COMUNA"]);
+      if($ARRAYCOMUNA){
+        $COMUNAPRODUCTOR=$ARRAYCOMUNA[0]["NOMBRE_COMUNA"];
+      }else{
+        $COMUNAPRODUCTOR="Sin Datos";
+      }
+      $ARRAYPROVINCIA = $PROVINCIA_ADO->verProvincia($ARRAYVERPRODUCTORID[0]["ID_PROVINCIA"]);
+      if($ARRAYPROVINCIA){
+        $PROVINCIAPRODUCTOR=$ARRAYPROVINCIA[0]["NOMBRE_PROVINCIA"];
+      }else{
+        $PROVINCIAPRODUCTOR="Sin Datos";
+      }
+      $ARRAYREGION = $REGION_ADO->verRegion($ARRAYVERPRODUCTORID[0]["ID_REGION"]);
+      if($ARRAYREGION){
+        $REGIONPRODUCTOR=$ARRAYREGION[0]["NOMBRE_REGION"];
+      }else{
+        $REGIONPRODUCTOR="Sin Datos";
+      }
+  
+    }else{
+      $COMUNAPRODUCTOR="Sin Datos";
+      $PROVINCIAPRODUCTOR="Sin Datos";
+      $REGIONPRODUCTOR="Sin Datos";
+    }
+
 
 
 
@@ -609,9 +656,9 @@ foreach ($ARRAYEXIEXPORTACIONBOLSA as $a) :
 
             $html = $html . '              
             <tr >
-                <td class="left">' .  $CSGPRODUCTOR2 . '</td>
-                <td class="center">' . $NOMBREPRODUCTOR2 . '</td>
-                <td class="center">' . $COMUNAPRODUCTOR2 . '</td>
+                <td class="left">' .  $CSGPRODUCTOR . '</td>
+                <td class="center">' . $NOMBREPRODUCTOR . '</td>
+                <td class="center">' . $COMUNAPRODUCTOR . '</td>
                 <td class="center">' . $NOMBREESTANDAR . '</td>
                 <td class="center">' . $NOMBREVARIEDAD . '</td>
                 <th class="center">' . $TOTALENVASEVARIEDAD . '</th>

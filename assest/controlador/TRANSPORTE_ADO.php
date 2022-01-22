@@ -153,7 +153,6 @@ class TRANSPORTE_ADO
                                                          TELEFONO_TRANSPORTE ,
                                                          EMAIL_TRANSPORTE ,
                                                          NOTA_TRANSPORTE , 
-                                                         ID_CIUDAD , 
                                                          ID_EMPRESA ,
                                                          ID_USUARIOI ,
                                                          ID_USUARIOM ,
@@ -161,7 +160,7 @@ class TRANSPORTE_ADO
                                                          MODIFICACION , 
                                                          ESTADO_REGISTRO 
                                                 ) VALUES
-	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(), 1);";
+	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -176,7 +175,6 @@ class TRANSPORTE_ADO
                         $TRANSPORTE->__GET('TELEFONO_TRANSPORTE'),
                         $TRANSPORTE->__GET('EMAIL_TRANSPORTE'),
                         $TRANSPORTE->__GET('NOTA_TRANSPORTE'),
-                        $TRANSPORTE->__GET('ID_CIUDAD'),
                         $TRANSPORTE->__GET('ID_EMPRESA'),
                         $TRANSPORTE->__GET('ID_USUARIOI'),
                         $TRANSPORTE->__GET('ID_USUARIOM')
@@ -204,9 +202,7 @@ class TRANSPORTE_ADO
     {
         try {
             
-            if ($TRANSPORTE->__GET('ID_CIUDAD') == NULL) {
-                $TRANSPORTE->__SET('ID_CIUDAD', NULL);
-            }
+          
             $query = "
                 UPDATE  transporte_transporte  SET
                      MODIFICACION = SYSDATE(),
@@ -220,7 +216,6 @@ class TRANSPORTE_ADO
                      TELEFONO_TRANSPORTE = ?,
                      EMAIL_TRANSPORTE = ?,
                      NOTA_TRANSPORTE = ?,
-                     ID_CIUDAD = ?,
                      ID_EMPRESA = ?  ,
                      ID_USUARIOM = ?          
                 WHERE  ID_TRANSPORTE = ?;";
@@ -237,7 +232,6 @@ class TRANSPORTE_ADO
                         $TRANSPORTE->__GET('TELEFONO_TRANSPORTE'),
                         $TRANSPORTE->__GET('EMAIL_TRANSPORTE'),
                         $TRANSPORTE->__GET('NOTA_TRANSPORTE'),
-                        $TRANSPORTE->__GET('ID_CIUDAD'),
                         $TRANSPORTE->__GET('ID_EMPRESA'),
                         $TRANSPORTE->__GET('ID_USUARIOM'),
                         $TRANSPORTE->__GET('ID_TRANSPORTE')

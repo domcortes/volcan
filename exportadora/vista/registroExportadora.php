@@ -5,7 +5,7 @@ include_once "../../assest/config/validarUsuarioExpo.php";
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
 include_once '../../assest/controlador/COMUNA_ADO.php';
-include_once '../../assest/controlador/CIUDAD_ADO.php';
+include_once '../../assest/controlador/COMUNA_ADO.php';
 include_once '../../assest/controlador/EXPORTADORA_ADO.php';
 
 include_once '../../assest/modelo/EXPORTADORA.php';
@@ -20,7 +20,7 @@ include_once '../../assest/config/SUBIR.php';
 
 $EXPORTADORA_ADO =  new EXPORTADORA_ADO();
 $COMUNA_ADO =  new COMUNA_ADO();
-$CIUDAD_ADO =  new CIUDAD_ADO();
+$COMUNA_ADO =  new COMUNA_ADO();
 
 //INIICIALIZAR MODELO
 $EXPORTADORA =  new EXPORTADORA();
@@ -40,7 +40,7 @@ $RAZONSOCIALEXPORTADORA = "";
 $GIROEXPORTADORA = "";
 $DIRECCIONEXPORTADORA    = "";
 $COMUNA = "";
-$CIUDAD = "";
+$COMUNA = "";
 $CONTACTOEXPORTADORA1 = "";
 $EMAILEXPORTADORA1 = "";
 $TELEFONOEXPORTADORA1 = "";
@@ -63,13 +63,13 @@ $FOCUS2 = "";
 $ARRAYEXPORTADORA = "";
 $ARRAYEXPORTADORASID = "";
 $ARRAYCOMUNA = "";
-$ARRAYCIUDAD = "";
+$ARRAYCOMUNA = "";
 
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYEXPORTADORA = $EXPORTADORA_ADO->listarExportadoraCBX();
-$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
+$ARRAYCOMUNA = $COMUNA_ADO->listarComuna3CBX();
 include_once "../../assest/config/validarDatosUrl.php";
 include_once "../../assest/config/datosUrl.php";
 
@@ -121,7 +121,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $GIROEXPORTADORA = "" . $r['GIRO_EXPORTADORA'];
             $DIRECCIONEXPORTADORA = "" . $r['DIRECCION_EXPORTADORA'];            
             $EMPRESA = "" . $r['ID_EMPRESA'];
-            $CIUDAD = "" . $r['ID_CIUDAD'];
+            $COMUNA = "" . $r['ID_COMUNA'];
             $CONTACTOEXPORTADORA1 = "" . $r['CONTACTO1_EXPORTADORA'];
             $TELEFONOEXPORTADORA1 = "" . $r['TELEFONO1_EXPORTADORA'];
             $EMAILEXPORTADORA1 = "" . $r['EMAIL1_EXPORTADORA'];
@@ -153,7 +153,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $GIROEXPORTADORA = "" . $r['GIRO_EXPORTADORA'];
             $DIRECCIONEXPORTADORA = "" . $r['DIRECCION_EXPORTADORA'];      
             $EMPRESA = "" . $r['ID_EMPRESA'];
-            $CIUDAD = "" . $r['ID_CIUDAD'];
+            $COMUNA = "" . $r['ID_COMUNA'];
             $CONTACTOEXPORTADORA1 = "" . $r['CONTACTO1_EXPORTADORA'];
             $TELEFONOEXPORTADORA1 = "" . $r['TELEFONO1_EXPORTADORA'];
             $EMAILEXPORTADORA1 = "" . $r['EMAIL1_EXPORTADORA'];
@@ -172,7 +172,7 @@ if ($_POST) {
     $RAZONSOCIALEXPORTADORA  = $_POST['RAZONSOCIALEXPORTADORA'];
     $GIROEXPORTADORA  = $_POST['GIROEXPORTADORA'];
     $DIRECCIONEXPORTADORA  = $_POST['DIRECCIONEXPORTADORA'];
-    $CIUDAD  = $_POST['CIUDAD'];
+    $COMUNA  = $_POST['COMUNA'];
     $CONTACTOEXPORTADORA1 = $_POST['CONTACTOEXPORTADORA1'];
     $TELEFONOEXPORTADORA1 = $_POST['TELEFONOEXPORTADORA1'];
     $EMAILEXPORTADORA1  = $_POST['EMAILEXPORTADORA1'];
@@ -208,7 +208,7 @@ if ($_POST) {
                 RAZONSOCIALEXPORTADORA = document.getElementById("RAZONSOCIALEXPORTADORA").value;
                 GIROEXPORTADORA = document.getElementById("GIROEXPORTADORA").value;
                 DIRECCIONEXPORTADORA = document.getElementById("DIRECCIONEXPORTADORA").value;
-                CIUDAD = document.getElementById("CIUDAD").selectedIndex;
+                COMUNA = document.getElementById("COMUNA").selectedIndex;
                 CONTACTOEXPORTADORA1 = document.getElementById("CONTACTOEXPORTADORA1").value;
                 TELEFONOEXPORTADORA1 = document.getElementById("TELEFONOEXPORTADORA1").value;
                 EMAILEXPORTADORA1 = document.getElementById("EMAILEXPORTADORA1").value;
@@ -223,7 +223,7 @@ if ($_POST) {
                 document.getElementById('val_giro').innerHTML = "";
                 document.getElementById('val_rsocial').innerHTML = "";
                 document.getElementById('val_dirrecion').innerHTML = "";
-                document.getElementById('val_ciudad').innerHTML = "";
+                document.getElementById('val_comuna').innerHTML = "";
 
                 document.getElementById('val_email1').innerHTML = "";
                 document.getElementById('val_contacto1').innerHTML = "";
@@ -285,16 +285,16 @@ if ($_POST) {
                 }
                 document.form_reg_dato.DIRECCIONEXPORTADORA.style.borderColor = "#4AF575";
 
-                /*
-                             if (CIUDAD == null || CIUDAD == 0) {
-                                 document.form_reg_dato.CIUDAD.focus();
-                                 document.form_reg_dato.CIUDAD.style.borderColor = "#FF0000";
-                                 document.getElementById('val_ciudad').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                             if (COMUNA == null || COMUNA == 0) {
+                                 document.form_reg_dato.COMUNA.focus();
+                                 document.form_reg_dato.COMUNA.style.borderColor = "#FF0000";
+                                 document.getElementById('val_comuna').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
                                  return false;
                              }
-                             document.form_reg_dato.CIUDAD.style.borderColor = "#4AF575";
+                             document.form_reg_dato.COMUNA.style.borderColor = "#4AF575";
 
 
+                /*
                           
 
                                              if (CONTACTOEXPORTADORA1 == null || CONTACTOEXPORTADORA1.length == 0 || /^\s+$/.test(CONTACTOEXPORTADORA1)) {
@@ -460,32 +460,33 @@ if ($_POST) {
                                                         <label id="val_rsocial" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
                                                         <label>Dirreccion</label>
                                                         <input type="text" class="form-control" placeholder="Dirreccion  Exportadora" id="DIRECCIONEXPORTADORA" name="DIRECCIONEXPORTADORA" value="<?php echo $DIRECCIONEXPORTADORA; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_dirrecion" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
-                                                        <label>Ciudad</label>
-                                                        <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
+                                                        <label> Comuna</label>
+                                                        <select class="form-control select2" id="COMUNA" name="COMUNA" style="width: 100%;" value="<?php echo $COMUNA; ?>" <?php echo $DISABLED; ?>>
                                                             <option></option>
-                                                            <?php foreach ($ARRAYCIUDAD as $r) : ?>
-                                                                <?php if ($ARRAYCIUDAD) {    ?>
-                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>"
-                                                                     <?php if ($CIUDAD == $r['ID_CIUDAD']) {    echo "selected";  } ?>>
-                                                                     <?php echo $r['CIUDAD'] ?>, <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
+                                                            <?php foreach ($ARRAYCOMUNA as $r) : ?>
+                                                                <?php if ($ARRAYCOMUNA) {    ?>
+                                                                    <option value="<?php echo $r['ID_COMUNA']; ?>" 
+                                                                    <?php if ($COMUNA == $r['ID_COMUNA']) { echo "selected";  } ?>>
+                                                                        <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
                                                                     <option>No Hay Datos Registrados </option>
                                                                 <?php } ?>
+
                                                             <?php endforeach; ?>
                                                         </select>
-                                                        <label id="val_ciudad" class="validacion"> </label>
+                                                        <label id="val_comuna" class="validacion"> </label>
                                                     </div>
-                                                </div>
+                                                </div> 
                                             </div>
                                             <label>Contacto</label>
                                             <hr class="my-15">
@@ -686,7 +687,7 @@ if ($_POST) {
                 $EXPORTADORA->__SET('RAZON_SOCIAL_EXPORTADORA', $_REQUEST['RAZONSOCIALEXPORTADORA']);
                 $EXPORTADORA->__SET('GIRO_EXPORTADORA', $_REQUEST['GIROEXPORTADORA']);
                 $EXPORTADORA->__SET('DIRECCION_EXPORTADORA', $_REQUEST['DIRECCIONEXPORTADORA']);
-                $EXPORTADORA->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+                $EXPORTADORA->__SET('ID_COMUNA', $_REQUEST['COMUNA']);
                 $EXPORTADORA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                 $EXPORTADORA->__SET('CONTACTO1_EXPORTADORA', $_REQUEST['CONTACTOEXPORTADORA1']);
                 $EXPORTADORA->__SET('TELEFONO1_EXPORTADORA', $_REQUEST['TELEFONOEXPORTADORA1']);
@@ -737,7 +738,7 @@ if ($_POST) {
                 $EXPORTADORA->__SET('RAZON_SOCIAL_EXPORTADORA', $_REQUEST['RAZONSOCIALEXPORTADORA']);
                 $EXPORTADORA->__SET('GIRO_EXPORTADORA', $_REQUEST['GIROEXPORTADORA']);
                 $EXPORTADORA->__SET('DIRECCION_EXPORTADORA', $_REQUEST['DIRECCIONEXPORTADORA']);
-                $EXPORTADORA->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+                $EXPORTADORA->__SET('ID_COMUNA', $_REQUEST['COMUNA']);
                 $EXPORTADORA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                 $EXPORTADORA->__SET('CONTACTO1_EXPORTADORA', $_REQUEST['CONTACTOEXPORTADORA1']);
                 $EXPORTADORA->__SET('TELEFONO1_EXPORTADORA', $_REQUEST['TELEFONOEXPORTADORA1']);

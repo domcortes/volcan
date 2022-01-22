@@ -127,8 +127,8 @@ class CONTRAPARTE_ADO
         try {
 
 
-            if ($CONTRAPARTE->__GET('ID_CIUDAD') == NULL) {
-                $CONTRAPARTE->__SET('ID_CIUDAD', NULL);
+            if ($CONTRAPARTE->__GET('ID_COMUNA') == NULL) {
+                $CONTRAPARTE->__SET('ID_COMUNA', NULL);
             }
             $query =
                 "INSERT INTO  fruta_contraparte  
@@ -138,7 +138,7 @@ class CONTRAPARTE_ADO
                                                      DIRECCION_CONTRAPARTE , 
                                                      TELEFONO_CONTRAPARTE , 
                                                      EMAIL_CONTRAPARTE , 
-                                                     ID_CIUDAD  , 
+                                                     ID_COMUNA  , 
                                                      ID_EMPRESA , 
                                                      ID_USUARIOI , 
                                                      ID_USUARIOM , 
@@ -157,7 +157,7 @@ class CONTRAPARTE_ADO
                         $CONTRAPARTE->__GET('DIRECCION_CONTRAPARTE'),
                         $CONTRAPARTE->__GET('TELEFONO_CONTRAPARTE'),
                         $CONTRAPARTE->__GET('EMAIL_CONTRAPARTE'),
-                        $CONTRAPARTE->__GET('ID_CIUDAD'),
+                        $CONTRAPARTE->__GET('ID_COMUNA'),
                         $CONTRAPARTE->__GET('ID_EMPRESA'),
                         $CONTRAPARTE->__GET('ID_USUARIOI'),
                         $CONTRAPARTE->__GET('ID_USUARIOM')
@@ -189,8 +189,8 @@ class CONTRAPARTE_ADO
     {
 
         try {
-            if ($CONTRAPARTE->__GET('ID_CIUDAD') == NULL) {
-                $CONTRAPARTE->__SET('ID_CIUDAD', NULL);
+            if ($CONTRAPARTE->__GET('ID_COMUNA') == NULL) {
+                $CONTRAPARTE->__SET('ID_COMUNA', NULL);
             }
             $query = "
                 UPDATE  fruta_contraparte  SET
@@ -199,7 +199,7 @@ class CONTRAPARTE_ADO
                     DIRECCION_CONTRAPARTE  = ?,
                     TELEFONO_CONTRAPARTE  = ?,
                     EMAIL_CONTRAPARTE  = ?,
-                    ID_CIUDAD = ?,
+                    ID_COMUNA = ?,
                     ID_USUARIOM = ?
                 WHERE  ID_CONTRAPARTE  = ?  ;";
             $this->conexion->prepare($query)
@@ -210,7 +210,7 @@ class CONTRAPARTE_ADO
                         $CONTRAPARTE->__GET('DIRECCION_CONTRAPARTE'),
                         $CONTRAPARTE->__GET('TELEFONO_CONTRAPARTE'),
                         $CONTRAPARTE->__GET('EMAIL_CONTRAPARTE'),
-                        $CONTRAPARTE->__GET('ID_CIUDAD'),
+                        $CONTRAPARTE->__GET('ID_COMUNA'),
                         $CONTRAPARTE->__GET('ID_USUARIOM'),
                         $CONTRAPARTE->__GET('ID_CONTRAPARTE')
 

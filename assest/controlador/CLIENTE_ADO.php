@@ -131,8 +131,8 @@ class CLIENTE_ADO {
         try{
             
             
-            if($CLIENTE->__GET('ID_CIUDAD')==NULL){
-                $CLIENTE->__SET('ID_CIUDAD', NULL);
+            if($CLIENTE->__GET('ID_COMUNA')==NULL){
+                $CLIENTE->__SET('ID_COMUNA', NULL);
             }
             $query=
             "INSERT INTO  material_cliente  ( 
@@ -146,7 +146,7 @@ class CLIENTE_ADO {
                                                TELEFONO_CLIENTE ,
                                                EMAIL_CLIENTE ,
                                                ID_EMPRESA ,
-                                               ID_CIUDAD ,
+                                               ID_COMUNA ,
                                                ID_USUARIOI ,
                                                ID_USUARIOM ,
                                                INGRESO ,
@@ -166,7 +166,7 @@ class CLIENTE_ADO {
                     $CLIENTE->__GET('TELEFONO_CLIENTE')  ,
                     $CLIENTE->__GET('EMAIL_CLIENTE')    ,
                     $CLIENTE->__GET('ID_EMPRESA')   ,
-                    $CLIENTE->__GET('ID_CIUDAD')  ,
+                    $CLIENTE->__GET('ID_COMUNA')  ,
                     $CLIENTE->__GET('ID_USUARIOI') ,
                     $CLIENTE->__GET('ID_USUARIOM')                      
                 )
@@ -197,8 +197,8 @@ class CLIENTE_ADO {
     //ACTUALIZAR INFORMACION DE LA FILA
     public function actualizarCliente(CLIENTE $CLIENTE){
         try{
-            if($CLIENTE->__GET('ID_CIUDAD')==NULL){
-                $CLIENTE->__SET('ID_CIUDAD', NULL);
+            if($CLIENTE->__GET('ID_COMUNA')==NULL){
+                $CLIENTE->__SET('ID_COMUNA', NULL);
             }
             $query = "
 		UPDATE  material_cliente  SET
@@ -212,7 +212,7 @@ class CLIENTE_ADO {
              TELEFONO_CLIENTE = ?,
              EMAIL_CLIENTE = ?,
              ID_EMPRESA = ?  ,
-             ID_CIUDAD = ?  ,
+             ID_COMUNA = ?  ,
              ID_USUARIOM = ?            
 		WHERE  ID_CLIENTE = ?;";
             $this->conexion->prepare($query)
@@ -227,7 +227,7 @@ class CLIENTE_ADO {
                     $CLIENTE->__GET('TELEFONO_CLIENTE')  ,
                     $CLIENTE->__GET('EMAIL_CLIENTE')    ,
                     $CLIENTE->__GET('ID_EMPRESA')   ,
-                    $CLIENTE->__GET('ID_CIUDAD') ,
+                    $CLIENTE->__GET('ID_COMUNA') ,
                     $CLIENTE->__GET('ID_USUARIOM') ,      
                     $CLIENTE->__GET('ID_CLIENTE')
                     

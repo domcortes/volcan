@@ -438,40 +438,43 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             //OPERACIONES
             //OPERACION DE REGISTRO DE FILA
             if (isset($_REQUEST['GUARDAR'])) {
-
-                $ARRAYVALIDARBODEGA = $BODEGA_ADO->listarBodegaPorEmpresaPlantaPrincipalCBX($_REQUEST['EMPRESA'], $_REQUEST['PLANTABODEGA']);
-                $ARRAYVALIDARBODEGA2 = $BODEGA_ADO->listarBodegaPorEmpresaPlantaEnvasesCBX($_REQUEST['EMPRESA'], $_REQUEST['PLANTABODEGA']);
-                if ($ARRAYVALIDARBODEGA) {
-                    $SINO = 1;
-                    echo '<script>
-                            Swal.fire({
-                                icon:"warning",
-                                title:"Accion restringida",
-                                text:"Existe un registro asociado al los datos selecionados",
-                                showConfirmButton: true,
-                                confirmButtonText:"Cerrar",
-                                closeOnConfirm:false
-                            })
-                        </script>';
-                }else {
-                    $SINO = 0;
-                    $MENSAJE = "";
+                if ($_REQUEST['PRINCIPAL'] == 1) {
+                    $ARRAYVALIDARBODEGA = $BODEGA_ADO->listarBodegaPorEmpresaPlantaPrincipalCBX($_REQUEST['EMPRESA'], $_REQUEST['PLANTABODEGA']);
+                    if ($ARRAYVALIDARBODEGA) {
+                        $SINO = 1;
+                        echo '<script>
+                                Swal.fire({
+                                    icon:"warning",
+                                    title:"Accion restringida",
+                                    text:"Existe un registro asociado al los datos selecionados",
+                                    showConfirmButton: true,
+                                    confirmButtonText:"Cerrar",
+                                    closeOnConfirm:false
+                                })
+                            </script>';
+                    } else {
+                        $SINO = 0;
+                        $MENSAJE = "";
+                    }
                 }
-                if($ARRAYVALIDARBODEGA2){
-                    $SINO = 1;
-                    echo '<script>
-                            Swal.fire({
-                                icon:"warning",
-                                title:"Accion restringida",
-                                text:"Existe un registro asociado al los datos selecionados",
-                                showConfirmButton: true,
-                                confirmButtonText:"Cerrar",
-                                closeOnConfirm:false
-                            })
-                        </script>';
-                }else {
-                    $SINO = 0;
-                    $MENSAJE = "";
+                if ($_REQUEST['ENVASES'] == 1) {
+                    $ARRAYVALIDARBODEGA2 = $BODEGA_ADO->listarBodegaPorEmpresaPlantaEnvasesCBX($_REQUEST['EMPRESA'], $_REQUEST['PLANTABODEGA']);
+                    if($ARRAYVALIDARBODEGA2){
+                        $SINO = 1;
+                        echo '<script>
+                                Swal.fire({
+                                    icon:"warning",
+                                    title:"Accion restringida",
+                                    text:"Existe un registro asociado al los datos selecionados",
+                                    showConfirmButton: true,
+                                    confirmButtonText:"Cerrar",
+                                    closeOnConfirm:false
+                                })
+                            </script>';
+                    } else {
+                        $SINO = 0;
+                        $MENSAJE = "";
+                    }
                 }
 
                 if ($SINO == 0) {

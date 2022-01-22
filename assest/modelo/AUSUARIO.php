@@ -8,14 +8,16 @@ class AUSUARIO {
     
     //ATRIBUTOS DE LA CLASE
     private	  $ID_AUSUARIO;
-    private	  $FECHA_AUSUARIO; 
-    private	  $DETALLE_OPERACION_AUSUARIO; 
-    private	  $TIPO_OPERACION_AUSUARIO;
-    private   $TABLA_OBJETIVO_AUSUARIO;
-    private   $ESTADO_REGISTRO; 
-    private   $NOMBRE_USUARIO;
-    private   $INGRESO;
-    private   $MODIFICACION;
+    private	  $NUMERO_REGISTRO; 
+    private	  $NOMBRE_REGISTRO; 
+    private	  $TABLA;
+    private   $TMODULO;
+    private   $TOPERACION; 
+    private   $FECHA;
+    private   $ID_USUARIO;
+    private   $ID_EMPRESA;
+    private   $ID_PLANTA;
+    private   $ID_TEMPORADA;
     
     //FUNCIONES GET Y SET
     public function __GET($k){ return $this->$k; }

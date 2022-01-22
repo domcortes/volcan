@@ -23,7 +23,6 @@
         private   $CARGO3_NOTIFICADOR;
         private   $EMAIL3_NOTIFICADOR;
         private   $ESTADO_REGISTRO;
-        private   $ID_CIUDAD;
         private	  $ID_EMPRESA; 
         private	  $ID_USUARIOI; 
         private	  $ID_USUARIOM; 

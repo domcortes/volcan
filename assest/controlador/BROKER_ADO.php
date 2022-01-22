@@ -144,9 +144,6 @@ class BROKER_ADO
     {
         try {
 
-            if ($BROKER->__GET('ID_CIUDAD') == NULL) {
-                $BROKER->__SET('ID_CIUDAD', NULL);
-            }
 
             $query =
                 "INSERT INTO  fruta_broker  
@@ -158,7 +155,6 @@ class BROKER_ADO
                                              CONTACTO1_BROKER ,  CARGO1_BROKER ,  EMAIL1_BROKER , 
                                              CONTACTO2_BROKER ,  CARGO2_BROKER ,  EMAIL2_BROKER , 
                                              CONTACTO3_BROKER ,  CARGO3_BROKER ,  EMAIL3_BROKER , 
-                                             ID_CIUDAD ,
                                              ID_EMPRESA , 
                                              ID_USUARIOI , 
                                              ID_USUARIOM ,  
@@ -167,7 +163,7 @@ class BROKER_ADO
                                              ESTADO_REGISTRO 
                                         ) 
             VALUES
-	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,   SYSDATE() , SYSDATE(), 1);";
+	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,   SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -184,7 +180,6 @@ class BROKER_ADO
                         $BROKER->__GET('CONTACTO3_BROKER'),
                         $BROKER->__GET('CARGO3_BROKER'),
                         $BROKER->__GET('EMAIL3_BROKER'),
-                        $BROKER->__GET('ID_CIUDAD'),
                         $BROKER->__GET('ID_EMPRESA'),
                         $BROKER->__GET('ID_USUARIOI'),
                         $BROKER->__GET('ID_USUARIOM')
@@ -214,9 +209,6 @@ class BROKER_ADO
     {
 
         try {
-            if ($BROKER->__GET('ID_CIUDAD') == NULL) {
-                $BROKER->__SET('ID_CIUDAD', NULL);
-            }
             $query = "
                     UPDATE  fruta_broker  SET
                         MODIFICACION  = SYSDATE() , 
@@ -232,7 +224,6 @@ class BROKER_ADO
                         CONTACTO3_BROKER  = ?,
                         CARGO3_BROKER  = ?,
                         EMAIL3_BROKER  = ?,
-                        ID_CIUDAD = ?,
                         ID_USUARIOM = ?
                     WHERE  ID_BROKER  = ?  ;";
             $this->conexion->prepare($query)
@@ -251,7 +242,6 @@ class BROKER_ADO
                         $BROKER->__GET('CONTACTO3_BROKER'),
                         $BROKER->__GET('CARGO3_BROKER'),
                         $BROKER->__GET('EMAIL3_BROKER'),
-                        $BROKER->__GET('ID_CIUDAD'),
                         $BROKER->__GET('ID_USUARIOM'),
                         $BROKER->__GET('ID_BROKER')
 

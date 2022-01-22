@@ -21,7 +21,6 @@
         private   $EMAIL_LAEREA;     
         private   $NOTA_LAEREA;
         private   $ESTADO_REGISTRO; 
-        private   $ID_CIUDAD;
         private	  $ID_EMPRESA; 
         private	  $ID_USUARIOI; 
         private	  $ID_USUARIOM; 

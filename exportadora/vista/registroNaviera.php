@@ -4,14 +4,12 @@ include_once "../../assest/config/validarUsuarioExpo.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 include_once '../../assest/controlador/NAVIERA_ADO.php';
-include_once '../../assest/controlador/CIUDAD_ADO.php';
 include_once '../../assest/modelo/NAVIERA.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 
 $NAVIERA_ADO =  new NAVIERA_ADO();
-$CIUDAD_ADO =  new CIUDAD_ADO();
 //INIICIALIZAR MODELO
 $NAVIERA =  new NAVIERA();
 
@@ -31,14 +29,14 @@ $NOTANAVIERA = "";
 $CONTACTONAVIERA = "";
 $TELEFONONAVIERA = "";
 $EMAILNAVIERA = "";
-$CIUDAD = "";
+$COMUNA = "";
 $NUMERO="";
 
 
 //INICIALIZAR ARREGLOS
 $ARRAYNAVIERA = "";
 $ARRAYNAVIERAID = "";
-$ARRAYCIUDAD = "";
+$ARRAYCOMUNA = "";
 $ARRAYNAVIERA="";
 
 
@@ -46,7 +44,6 @@ $ARRAYNAVIERA="";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYNAVIERA = $NAVIERA_ADO->listarNavierPorEmpresaCBX($EMPRESAS);
-$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
 include_once "../../assest/config/validarDatosUrl.php";
 include_once "../../assest/config/datosUrl.php";
 
@@ -93,7 +90,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $GIRONAVIERA = "" . $r['GIRO_NAVIERA'];
             $RAZONSOCIALNAVIERA = "" . $r['RAZON_SOCIAL_NAVIERA'];
             $DIRRECIONNAVIERA = "" . $r['DIRECCION_NAVIERA'];
-            $CIUDAD = "" . $r['ID_CIUDAD'];
             $NOTANAVIERA = "" . $r['NOTA_NAVIERA'];
             $CONTACTONAVIERA = "" . $r['CONTACTO_NAVIERA'];
             $TELEFONONAVIERA = "" . $r['TELEFONO_NAVIERA'];
@@ -120,7 +116,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $GIRONAVIERA = "" . $r['GIRO_NAVIERA'];
             $RAZONSOCIALNAVIERA = "" . $r['RAZON_SOCIAL_NAVIERA'];
             $DIRRECIONNAVIERA = "" . $r['DIRECCION_NAVIERA'];
-            $CIUDAD = "" . $r['ID_CIUDAD'];
             $NOTANAVIERA = "" . $r['NOTA_NAVIERA'];
             $CONTACTONAVIERA = "" . $r['CONTACTO_NAVIERA'];
             $TELEFONONAVIERA = "" . $r['TELEFONO_NAVIERA'];
@@ -155,7 +150,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     GIRONAVIERA = document.getElementById("GIRONAVIERA").value;
                     RAZONSOCIALNAVIERA = document.getElementById("RAZONSOCIALNAVIERA").value;
                     DIRRECIONNAVIERA = document.getElementById("DIRRECIONNAVIERA").value;
-                    CIUDAD = document.getElementById("CIUDAD").selectedIndex;
                     CONTACTONAVIERA = document.getElementById("CONTACTONAVIERA").value;
                     TELEFONONAVIERA = document.getElementById("TELEFONONAVIERA").value;
                     EMAILNAVIERA = document.getElementById("EMAILNAVIERA").value;
@@ -166,7 +160,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     document.getElementById('val_giro').innerHTML = "";
                     document.getElementById('val_rsocial').innerHTML = "";
                     document.getElementById('val_dirrecion').innerHTML = "";
-                    document.getElementById('val_ciudad').innerHTML = "";
                     document.getElementById('val_contacto').innerHTML = "";
                     document.getElementById('val_telefono').innerHTML = "";
                     document.getElementById('val_email').innerHTML = "";
@@ -221,14 +214,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     document.form_reg_dato.DIRRECIONNAVIERA.style.borderColor = "#4AF575";
 
                     /*
-                    if (CIUDAD == null || CIUDAD == 0) {
-                        document.form_reg_dato.CIUDAD.focus();
-                        document.form_reg_dato.CIUDAD.style.borderColor = "#FF0000";
-                        document.getElementById('val_ciudad').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
-                        return false;
-                    }
-                    document.form_reg_dato.CIUDAD.style.borderColor = "#4AF575";
-
+               
 
                     if (CONTACTONAVIERA == null || CONTACTONAVIERA.length == 0 || /^\s+$/.test(CONTACTONAVIERA)) {
                         document.form_reg_dato.CONTACTONAVIERA.focus();
@@ -358,25 +344,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label>Dirrecion </label>
                                                         <input type="text" class="form-control" placeholder="Dirrecion Naviera" id="DIRRECIONNAVIERA" name="DIRRECIONNAVIERA" value="<?php echo $DIRRECIONNAVIERA; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_dirrecion" class="validacion"> </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                                    <div class="form-group">
-                                                        <label>Ciudad</label>
-                                                        <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
-                                                            <option></option>
-                                                            <?php foreach ($ARRAYCIUDAD as $r) : ?>
-                                                                <?php if ($ARRAYCIUDAD) {    ?>
-                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>" 
-                                                                    <?php if ($CIUDAD == $r['ID_CIUDAD']) { echo "selected";  } ?>>
-                                                                        <?php echo $r['CIUDAD'] ?>, <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
-                                                                    </option>
-                                                                <?php } else { ?>
-                                                                    <option>No Hay Datos Registrados </option>
-                                                                <?php } ?>
-                                                            <?php endforeach; ?>
-                                                        </select>
-                                                        <label id="val_ciudad" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                                  <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
@@ -544,7 +511,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $NAVIERA->__SET('TELEFONO_NAVIERA', $_REQUEST['TELEFONONAVIERA']);
                 $NAVIERA->__SET('EMAIL_NAVIERA', $_REQUEST['EMAILNAVIERA']);
                 $NAVIERA->__SET('NOTA_NAVIERA', $_REQUEST['NOTANAVIERA']);
-                $NAVIERA->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
                 $NAVIERA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                 $NAVIERA->__SET('ID_USUARIOI', $IDUSUARIOS);
                 $NAVIERA->__SET('ID_USUARIOM', $IDUSUARIOS);
@@ -581,7 +547,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $NAVIERA->__SET('TELEFONO_NAVIERA', $_REQUEST['TELEFONONAVIERA']);
                 $NAVIERA->__SET('EMAIL_NAVIERA', $_REQUEST['EMAILNAVIERA']);
                 $NAVIERA->__SET('NOTA_NAVIERA', $_REQUEST['NOTANAVIERA']);
-                $NAVIERA->__SET('CIUDAD', $_REQUEST['CIUDAD']);
                 $NAVIERA->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $NAVIERA->__SET('ID_NAVIERA', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE EDICION DEL CONTROLADOR

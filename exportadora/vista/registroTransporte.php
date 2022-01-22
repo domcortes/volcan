@@ -6,14 +6,12 @@ include_once "../../assest/config/validarUsuarioExpo.php";
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
 include_once '../../assest/controlador/TRANSPORTE_ADO.php';
-include_once '../../assest/controlador/CIUDAD_ADO.php';
 include_once '../../assest/modelo/TRANSPORTE.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 
 $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
-$CIUDAD_ADO =  new CIUDAD_ADO();
 //INIICIALIZAR MODELO
 $TRANSPORTE =  new TRANSPORTE();
 
@@ -33,7 +31,6 @@ $NOTATRANSPORTE = "";
 $CONTACTOTRANSPORTE = "";
 $TELEFONOTRANSPORTE = "";
 $EMAILTRANSPORTE = "";
-$CIUDAD = "";
 $EMPRESA = "";
 $NUMERO = "";
 
@@ -41,7 +38,6 @@ $NUMERO = "";
 //INICIALIZAR ARREGLOS
 $ARRAYTRANSPORTE = "";
 $ARRAYTRANSPORTEID = "";
-$ARRAYCIUDAD = "";
 $ARRAYEMPRESA = "";
 $ARRAYNUMERO = "";
 
@@ -50,7 +46,6 @@ $ARRAYNUMERO = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYTRANSPORTE = $TRANSPORTE_ADO->listarTransportePorEmpresaCBX($EMPRESAS);
-$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
 $ARRAYEMPRESA = $EMPRESA_ADO->listarEmpresaCBX();
 include_once "../../assest/config/validarDatosUrl.php";
 include_once "../../assest/config/datosUrl.php";
@@ -101,7 +96,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $CONTACTOTRANSPORTE = "" . $r['CONTACTO_TRANSPORTE'];
             $TELEFONOTRANSPORTE = "" . $r['TELEFONO_TRANSPORTE'];
             $EMAILTRANSPORTE = "" . $r['EMAIL_TRANSPORTE'];
-            $CIUDAD = "" . $r['ID_CIUDAD'];
             $EMPRESA = "" . $r['ID_EMPRESA'];
         endforeach;
     }
@@ -129,7 +123,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $CONTACTOTRANSPORTE = "" . $r['CONTACTO_TRANSPORTE'];
             $TELEFONOTRANSPORTE = "" . $r['TELEFONO_TRANSPORTE'];
             $EMAILTRANSPORTE = "" . $r['EMAIL_TRANSPORTE'];
-            $CIUDAD = "" . $r['ID_CIUDAD'];
             $EMPRESA = "" . $r['ID_EMPRESA'];
         endforeach;
     }
@@ -161,7 +154,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     GIROTRANSPORTE = document.getElementById("GIROTRANSPORTE").value;
                     RAZONSOCIALTRANSPORTE = document.getElementById("RAZONSOCIALTRANSPORTE").value;
                     DIRRECIONTRANSPORTE = document.getElementById("DIRRECIONTRANSPORTE").value;
-                    CIUDAD = document.getElementById("CIUDAD").selectedIndex;
                     CONTACTOTRANSPORTE = document.getElementById("CONTACTOTRANSPORTE").value;
                     TELEFONOTRANSPORTE = document.getElementById("TELEFONOTRANSPORTE").value;
                     EMAILTRANSPORTE = document.getElementById("EMAILTRANSPORTE").value;
@@ -172,7 +164,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     document.getElementById('val_giro').innerHTML = "";
                     document.getElementById('val_rsocial').innerHTML = "";
                     document.getElementById('val_dirrecion').innerHTML = "";
-                    document.getElementById('val_ciudad').innerHTML = "";
                     document.getElementById('val_contacto').innerHTML = "";
                     document.getElementById('val_telefono').innerHTML = "";
                     document.getElementById('val_email').innerHTML = "";
@@ -226,14 +217,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         return false;
                     }
                     document.form_reg_dato.DIRRECIONTRANSPORTE.style.borderColor = "#4AF575";
-                    /*
-                    if (CIUDAD == null || CIUDAD == 0) {
-                        document.form_reg_dato.CIUDAD.focus();
-                        document.form_reg_dato.CIUDAD.style.borderColor = "#FF0000";
-                        document.getElementById('val_ciudad').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
-                        return false;
-                    }
-                    document.form_reg_dato.CIUDAD.style.borderColor = "#4AF575";*/
+        
                     /*
 
                     if (CONTACTOTRANSPORTE == null || CONTACTOTRANSPORTE.length == 0 || /^\s+$/.test(CONTACTOTRANSPORTE)) {
@@ -365,25 +349,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label>Dirrecion </label>
                                                         <input type="text" class="form-control" placeholder="Dirrecion Transporte" id="DIRRECIONTRANSPORTE" name="DIRRECIONTRANSPORTE" value="<?php echo $DIRRECIONTRANSPORTE; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_dirrecion" class="validacion"> </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                                    <div class="form-group">
-                                                        <label>Ciudad</label>
-                                                        <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
-                                                            <option></option>
-                                                            <?php foreach ($ARRAYCIUDAD as $r) : ?>
-                                                                <?php if ($ARRAYCIUDAD) {    ?>
-                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>"
-                                                                     <?php if ($CIUDAD == $r['ID_CIUDAD']) {   echo "selected";  } ?>>
-                                                                     <?php echo $r['CIUDAD'] ?>, <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
-                                                                    </option>
-                                                                <?php } else { ?>
-                                                                    <option>No Hay Datos Registrados </option>
-                                                                <?php } ?>
-                                                            <?php endforeach; ?>
-                                                        </select>
-                                                        <label id="val_ciudad" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                                  <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">

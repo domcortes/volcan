@@ -8,7 +8,7 @@ include_once "../../assest/config/validarUsuarioMaterial.php";
 
 include_once '../../assest/controlador/RESPONSABLE_ADO.php';
 
-include_once '../../assest/controlador/CIUDAD_ADO.php';
+include_once '../../assest/controlador/COMUNA_ADO.php';
 
 
 include_once '../../assest/modelo/RESPONSABLE.php';
@@ -17,7 +17,7 @@ include_once '../../assest/modelo/RESPONSABLE.php';
 //INICIALIZAR CONTROLADOR
 $RESPONSABLE_ADO =  new RESPONSABLE_ADO();
 
-$CIUDAD_ADO =  new CIUDAD_ADO();
+$COMUNA_ADO =  new COMUNA_ADO();
 
 //INIICIALIZAR NOMBRE_RESPONSABLE
 
@@ -33,7 +33,7 @@ $GIRORESPONSABLE = "";
 $DIRECCIONRESPONSABLE = "";
 $TELEFONORESPONSABLE = "";
 $EMAILRESPONSABLE = "";
-$CIUDAD = "";
+$COMUNA = "";
 $EMPRESA = "";
 $USUARIO = "";
 $NUMERO = "";
@@ -51,7 +51,7 @@ $ARRAYRESPONSABLEID = "";
 $ARRAYRESPONSABLE = "";
 $ARRAYRESPONSABLEUSUARIO = "";
 $ARRAYEMPRESA = "";
-$ARRAYCIUDAD = "";
+$ARRAYCOMUNA = "";
 $ARRAYTUMEDIDA = "";
 $ARRAYNUMERO = "";
 
@@ -60,7 +60,7 @@ $ARRAYNUMERO = "";
 $ARRAYRESPONSABLE = $RESPONSABLE_ADO->listarResponsablePorEmpresaCBX($EMPRESAS);
 $ARRAYUSUARIO = $USUARIO_ADO->listarUsuarioCBX();
 $ARRAYEMPRESA = $EMPRESA_ADO->listarEmpresaCBX();
-$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
+$ARRAYCOMUNA = $COMUNA_ADO->listarComuna3CBX();
 include_once "../../assest/config/validarDatosUrl.php";
 include_once "../../assest/config/datosUrl.php";
 
@@ -112,7 +112,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $TELEFONORESPONSABLE = "" . $r['TELEFONO_RESPONSABLE'];
             $EMAILRESPONSABLE = "" . $r['EMAIL_RESPONSABLE'];
             $EMPRESA = "" . $r['ID_EMPRESA'];
-            $CIUDAD = "" . $r['ID_CIUDAD'];
+            $COMUNA = "" . $r['ID_COMUNA'];
             $USUARIO = "" . $r['ID_USUARIO'];
         endforeach;
     }
@@ -137,7 +137,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $TELEFONORESPONSABLE = "" . $r['TELEFONO_RESPONSABLE'];
             $EMAILRESPONSABLE = "" . $r['EMAIL_RESPONSABLE'];
             $EMPRESA = "" . $r['ID_EMPRESA'];
-            $CIUDAD = "" . $r['ID_CIUDAD'];
+            $COMUNA = "" . $r['ID_COMUNA'];
             $USUARIO = "" . $r['ID_USUARIO'];
         endforeach;
     }
@@ -161,8 +161,8 @@ if (isset($_POST)) {
     if (isset($_REQUEST['EMAILRESPONSABLE'])) {
         $EMAILRESPONSABLE = $_REQUEST['EMAILRESPONSABLE'];
     }
-    if (isset($_REQUEST['CIUDAD'])) {
-        $CIUDAD = $_REQUEST['CIUDAD'];
+    if (isset($_REQUEST['COMUNA'])) {
+        $COMUNA = $_REQUEST['COMUNA'];
     }
     if (isset($_REQUEST['USUARIO'])) {
         $USUARIO = $_REQUEST['USUARIO'];
@@ -194,7 +194,7 @@ if (isset($_POST)) {
                     DIRECCIONRESPONSABLE = document.getElementById("DIRECCIONRESPONSABLE").value;
                     TELEFONORESPONSABLE = document.getElementById("TELEFONORESPONSABLE").value;
                     EMAILRESPONSABLE = document.getElementById("EMAILRESPONSABLE").value;
-                    CIUDAD = document.getElementById("CIUDAD").selectedIndex;
+                    COMUNA = document.getElementById("COMUNA").selectedIndex;
 
 
                     document.getElementById('val_rut').innerHTML = "";
@@ -203,7 +203,7 @@ if (isset($_POST)) {
                     document.getElementById('val_direccion').innerHTML = "";
                     document.getElementById('val_telefono').innerHTML = "";
                     document.getElementById('val_email').innerHTML = "";
-                    document.getElementById('val_ciudad').innerHTML = "";
+                    document.getElementById('val_comuna').innerHTML = "";
 
 
                     if (RUTRESPONSABLE == null || RUTRESPONSABLE.length == 0 || /^\s+$/.test(RUTRESPONSABLE)) {
@@ -266,15 +266,15 @@ if (isset($_POST)) {
                     }
                     document.form_reg_dato.EMAILRESPONSABLE.style.borderColor = "#4AF575";
 
-
-                    if (CIUDAD == null || CIUDAD == 0) {
-                        document.form_reg_dato.CIUDAD.focus();
-                        document.form_reg_dato.CIUDAD.style.borderColor = "#FF0000";
-                        document.getElementById('val_ciudad').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                        */
+                    if (COMUNA == null || COMUNA == 0) {
+                        document.form_reg_dato.COMUNA.focus();
+                        document.form_reg_dato.COMUNA.style.borderColor = "#FF0000";
+                        document.getElementById('val_comuna').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
                         return false;
                     }
-                    document.form_reg_dato.CIUDAD.style.borderColor = "#4AF575";
-                    */
+                    document.form_reg_dato.COMUNA.style.borderColor = "#4AF575";
+                
 
 
 
@@ -374,26 +374,27 @@ if (isset($_POST)) {
                                                         <label id="val_email" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
-                                                        <label>Ciudad</label>
-                                                        <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
+                                                        <label> Comuna</label>
+                                                        <select class="form-control select2" id="COMUNA" name="COMUNA" style="width: 100%;" value="<?php echo $COMUNA; ?>" <?php echo $DISABLED; ?>>
                                                             <option></option>
-                                                            <?php foreach ($ARRAYCIUDAD as $r) : ?>
-                                                                <?php if ($ARRAYCIUDAD) {    ?>
-                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>"
-                                                                    <?php if ($CIUDAD == $r['ID_CIUDAD']) { echo "selected"; } ?>>
-                                                                    <?php echo $r['CIUDAD'] ?>, <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
+                                                            <?php foreach ($ARRAYCOMUNA as $r) : ?>
+                                                                <?php if ($ARRAYCOMUNA) {    ?>
+                                                                    <option value="<?php echo $r['ID_COMUNA']; ?>" 
+                                                                    <?php if ($COMUNA == $r['ID_COMUNA']) { echo "selected";  } ?>>
+                                                                        <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
-                                                                    <option>No Hay Datos Registados </option>
+                                                                    <option>No Hay Datos Registrados </option>
                                                                 <?php } ?>
+
                                                             <?php endforeach; ?>
                                                         </select>
-                                                        <label id="val_ciudad" class="validacion"> </label>
+                                                        <label id="val_comuna" class="validacion"> </label>
                                                     </div>
-                                                </div>
-                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                </div> 
+                                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
                                                         <label>Usuario</label>
                                                         <select class="form-control select2" id="USUARIO" name="USUARIO" style="width: 100%;" value="<?php echo $USUARIO; ?>" <?php echo $DISABLED; ?>>
@@ -561,7 +562,7 @@ if (isset($_POST)) {
                     $RESPONSABLE->__SET('TELEFONO_RESPONSABLE', $_REQUEST['TELEFONORESPONSABLE']);
                     $RESPONSABLE->__SET('EMAIL_RESPONSABLE', $_REQUEST['EMAILRESPONSABLE']);
                     $RESPONSABLE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-                    $RESPONSABLE->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+                    $RESPONSABLE->__SET('ID_COMUNA', $_REQUEST['COMUNA']);
                     $RESPONSABLE->__SET('ID_USUARIO', $_REQUEST['USUARIO']);
                     $RESPONSABLE->__SET('ID_USUARIOI', $IDUSUARIOS);
                     $RESPONSABLE->__SET('ID_USUARIOM', $IDUSUARIOS);
@@ -616,7 +617,7 @@ if (isset($_POST)) {
                     $RESPONSABLE->__SET('TELEFONO_RESPONSABLE', $_REQUEST['TELEFONORESPONSABLE']);
                     $RESPONSABLE->__SET('EMAIL_RESPONSABLE', $_REQUEST['EMAILRESPONSABLE']);
                     $RESPONSABLE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-                    $RESPONSABLE->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+                    $RESPONSABLE->__SET('ID_COMUNA', $_REQUEST['COMUNA']);
                     $RESPONSABLE->__SET('ID_USUARIO', $_REQUEST['USUARIO']);
                     $RESPONSABLE->__SET('ID_USUARIOM', $IDUSUARIOS);
                     $RESPONSABLE->__SET('ID_RESPONSABLE', $_REQUEST['ID']);

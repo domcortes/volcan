@@ -182,21 +182,15 @@ if (isset($_REQUEST['GUARDAR'])) {
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- /.box-body -->                                                                                               
+                                        <!-- /.box-body -->                                                                                                        
                                         <div class="box-footer">
                                             <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
-                                                <button type="button" class="btn  btn-success " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroPopProvincia.php'); ">
-                                                    <i class="ti-back-left "></i> Volver
+                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="cerrar(); ">
+                                                    <i class="ti-back-close "></i> Cerrar
                                                 </button>
-                                                <?php if ($OP != "editar") { ?>
                                                     <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
-                                                <?php } else { ?>
-                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
-                                                        <i class="ti-save-alt"></i> Guardar
-                                                    </button>
-                                                <?php } ?>
                                             </div>
                                         </div>
                                     </form>
