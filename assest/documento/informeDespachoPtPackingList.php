@@ -702,7 +702,7 @@ foreach ($ARRAYEXIEXPORTACIONBOLSA as $a) :
                 <td class="left">' .  $CSGPRODUCTOR . '</td>
                 <td class="center">' . $NOMBREPRODUCTOR . '</td>
                 <td class="center">' . $COMUNAPRODUCTOR . '</td>
-                <td class="center">' . $NOMBREPROVINICA . '</td>
+                <td class="center">' . $PROVINCIAPRODUCTOR . '</td>
                 <td class="center">' . $NOMBREVARIEDAD . '</td>
                 <th class="center">' . $TOTALENVASEVARIEDAD . '</th>
             </tr>
