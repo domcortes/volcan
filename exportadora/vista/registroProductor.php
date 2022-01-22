@@ -175,7 +175,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $CODIGOASOCIADOPRODUCTOR = "" . $r['CODIGO_ASOCIADO_PRODUCTOR'];
             $NOMBREASOCIADOPRODUCTOR = "" . $r['NOMBRE_ASOCIADO_PRODUCTOR'];
             $EMPRESA = "" . $r['ID_EMPRESA'];
-            $CIUDAD = "" . $r['ID_CIUDAD'];
+            $COMUNA = "" . $r['ID_COMUNA'];
+            $PROVINCIA = "" . $r['ID_PROVINCIA'];
+            $REGION = "" . $r['ID_REGION'];
             $TPRODUCTOR = "" . $r['ID_TPRODUCTOR'];
         endforeach;
     }
