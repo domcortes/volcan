@@ -54,7 +54,7 @@ $ARRAYEMPRESA = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYPLANTA = $PLANTA_ADO->listarPlantaCBX();
 $ARRAYCOMUNA = $COMUNA_ADO->listarComunaCBX();
-$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudadCBX();
+$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
 $ARRAYEMPRESA = $EMPRESA_ADO->listarEmpresaCBX();
 include_once "../../assest/config/validarDatosUrl.php";
 include_once "../../assest/config/datosUrl.php";
@@ -321,10 +321,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                             <option></option>
                                                             <?php foreach ($ARRAYCIUDAD as $r) : ?>
                                                                 <?php if ($ARRAYCIUDAD) {    ?>
-                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>" <?php if ($CIUDAD == $r['ID_CIUDAD']) {
-                                                                                                                        echo "selected";
-                                                                                                                    } ?>>
-                                                                        <?php echo $r['NOMBRE_CIUDAD'] ?>
+                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>" 
+                                                                    <?php if ($CIUDAD == $r['ID_CIUDAD']) {   echo "selected";    } ?>>
+                                                                        <?php echo $r['CIUDAD'] ?>, <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
                                                                     <option>No Hay Datos Registrados </option>

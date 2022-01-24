@@ -230,10 +230,9 @@ if (isset($_REQUEST['GUARDAR'])) {
                                                             <option></option>
                                                             <?php foreach ($ARRAYCIUDAD as $r) : ?>
                                                                 <?php if ($ARRAYCIUDAD) {    ?>
-                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>" <?php if ($CIUDAD == $r['ID_CIUDAD']) {
-                                                                                                                        echo "selected";
-                                                                                                                    } ?>>
-                                                                        <?php echo $r['NOMBRE_CIUDAD'] ?>
+                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>"
+                                                                     <?php if ($CIUDAD == $r['ID_CIUDAD']) { echo "selected"; } ?>>
+                                                                        <?php echo $r['CIUDAD'] ?>, <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
                                                                     <option>No Hay Datos Registrados </option>
