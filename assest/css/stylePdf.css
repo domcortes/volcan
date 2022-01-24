@@ -154,7 +154,7 @@ font-face {
   table td {
 	text-align: center;
 	font-size: 8px;
-	text-transform: capitalize;
+	text-transform: none;
   }
   
   table td h3{
