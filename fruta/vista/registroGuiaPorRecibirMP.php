@@ -457,9 +457,7 @@ if (empty($ARRAYFOLIO3)) {
             $EXIMATERIAPRIMA_ADO->despachadoInterplanta($EXIMATERIAPRIMA);
             endforeach;
 
-            $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTmateriaprima($EMPRESAS, $PLANTAS, $TEMPORADAS);
-            $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
-
+           
             foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
                 $EXIMATERIAPRIMA->__SET('FOLIO_EXIMATERIAPRIMA',  $r['FOLIO_EXIMATERIAPRIMA']);
                 $EXIMATERIAPRIMA->__SET('FOLIO_AUXILIAR_EXIMATERIAPRIMA', $r['FOLIO_AUXILIAR_EXIMATERIAPRIMA']);
@@ -478,7 +476,7 @@ if (empty($ARRAYFOLIO3)) {
                 $EXIMATERIAPRIMA->__SET('ID_TMANEJO', $r['ID_TMANEJO']);
                 $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO1', $r['ID_TTRATAMIENTO1']);
                 $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO2', $r['ID_TTRATAMIENTO2']);
-                $EXIMATERIAPRIMA->__SET('ID_FOLIO', $FOLIO);
+                $EXIMATERIAPRIMA->__SET('ID_FOLIO', $r['ID_FOLIO']);
                 $EXIMATERIAPRIMA->__SET('ID_ESTANDAR', $r['ID_ESTANDAR']);
                 $EXIMATERIAPRIMA->__SET('ID_PRODUCTOR', $r['ID_PRODUCTOR']);
                 $EXIMATERIAPRIMA->__SET('ID_VESPECIES', $r['ID_VESPECIES']);
@@ -495,9 +493,9 @@ if (empty($ARRAYFOLIO3)) {
             if($ARRAYDESPACHOE){
                 $DESPACHOE->__SET('ID_DESPACHO', $ARRAYDESPACHOE[0]['ID_DESPACHO']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-            $DESPACHOE_ADO->cerrado($DESPACHOE);
+                $DESPACHOE_ADO->cerrado($DESPACHOE);
                 
-            //   $DESPACHOE->__SET('ID_DESPACHO', $ARRAYDESPACHOE[0]['ID_DESPACHO']);
+                $DESPACHOE->__SET('ID_DESPACHO', $ARRAYDESPACHOE[0]['ID_DESPACHO']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $DESPACHOE_ADO->Aprobado($DESPACHOE);
                 
