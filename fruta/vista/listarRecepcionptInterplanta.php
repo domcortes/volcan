@@ -331,13 +331,13 @@ include_once "../../assest/config/datosUrLP.php";
                                                                     </div>
                                                                 </div>
                                                             </form>
-                                                        </td>
+                                                        </td>                                                        
                                                         <td><?php echo $ESTADODESPACHO; ?></td>
+                                                        <td><?php echo $r['FECHA']; ?></td>
+                                                        <td><?php echo $NUMEROGUIADEPACHO; ?></td>
                                                         <td><?php echo $TDESPACHO; ?></td>
                                                         <td><?php echo $CSGCSPDESTINO; ?></td>
                                                         <td><?php echo $DESTINO; ?></td>
-                                                        <td><?php echo $r['FECHA']; ?></td>
-                                                        <td><?php echo $NUMEROGUIADEPACHO; ?></td>
                                                         <td><?php echo $r['ENVASE']; ?></td>
                                                         <td><?php echo $r['NETO']; ?></td>
                                                         <td><?php echo $r['BRUTO']; ?></td>
