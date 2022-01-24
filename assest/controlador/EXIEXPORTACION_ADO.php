@@ -2013,8 +2013,7 @@ class EXIEXPORTACION_ADO
                                                 FROM fruta_exiexportacion 
                                                 WHERE  
                                                     FOLIO_AUXILIAR_EXIEXPORTACION LIKE '" . $FOLIOAUXILIAREXIEXPORTACION . "' 
-                                                    AND ESTADO_REGISTRO =  1 
-                                                    AND ESTADO != 0  ;");
+                                                      ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -2035,9 +2034,7 @@ class EXIEXPORTACION_ADO
             $datos = $this->conexion->prepare(" SELECT * 
                                                 FROM fruta_exiexportacion 
                                                 WHERE  
-                                                    FOLIO_AUXILIAR_EXIEXPORTACION LIKE '" . $FOLIOAUXILIAREXIEXPORTACION . "' 
-                                                    AND ESTADO_REGISTRO =  1 
-                                                    AND ESTADO != 0  
+                                                    FOLIO_AUXILIAR_EXIEXPORTACION LIKE '" . $FOLIOAUXILIAREXIEXPORTACION . "'                                                     
                                                     GROUP BY FOLIO_AUXILIAR_EXIEXPORTACION ;");
             $datos->execute();
             $resultado = $datos->fetchAll();

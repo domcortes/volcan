@@ -2090,9 +2090,7 @@ class EXIINDUSTRIAL_ADO
             $datos = $this->conexion->prepare(" SELECT * 
                                                 FROM fruta_exiindustrial 
                                                 WHERE  
-                                                     FOLIO_AUXILIAR_EXIINDUSTRIAL LIKE '" . $FOLIOAUXILIAREXIEXPORTACION . "' 
-                                                    AND ESTADO_REGISTRO =  1 
-                                                    AND ESTADO != 0  
+                                                     FOLIO_AUXILIAR_EXIINDUSTRIAL LIKE '" . $FOLIOAUXILIAREXIEXPORTACION . "'                                                     
                                                     GROUP BY `FOLIO_AUXILIAR_EXIINDUSTRIAL` ;");
             $datos->execute();
             $resultado = $datos->fetchAll();

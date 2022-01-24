@@ -402,9 +402,7 @@ include_once "../../assest/config/datosUrLP.php";
                 $EXIINDUSTRIAL_ADO->despachadoInterplanta($EXIINDUSTRIAL);
             endforeach;
 
-            $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTindustrial($EMPRESAS, $PLANTAS, $TEMPORADAS);
-            $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
-
+         
             foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
                 $EXIINDUSTRIAL->__SET('FOLIO_EXIINDUSTRIAL',  $r['FOLIO_EXIINDUSTRIAL']);
                 $EXIINDUSTRIAL->__SET('FOLIO_AUXILIAR_EXIINDUSTRIAL', $r['FOLIO_AUXILIAR_EXIINDUSTRIAL']);
@@ -415,7 +413,7 @@ include_once "../../assest/config/datosUrLP.php";
                 $EXIINDUSTRIAL->__SET('TCOBRO', $r['TCOBRO']);
                 $EXIINDUSTRIAL->__SET('INGRESO', $r['INGRESO']);
                 $EXIINDUSTRIAL->__SET('ID_TMANEJO', $r['ID_TMANEJO']);
-                $EXIINDUSTRIAL->__SET('ID_FOLIO', $FOLIO);
+                $EXIINDUSTRIAL->__SET('ID_FOLIO', $r['ID_FOLIO']);
                 $EXIINDUSTRIAL->__SET('ID_ESTANDAR', $r['ID_ESTANDAR']);
                 $EXIINDUSTRIAL->__SET('ID_ESTANDARMP', $r['ID_ESTANDARMP']);
                 $EXIINDUSTRIAL->__SET('ID_ESTANDARPT', $r['ID_ESTANDARPT']);

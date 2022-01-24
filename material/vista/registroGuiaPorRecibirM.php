@@ -434,7 +434,7 @@ include_once "../../assest/config/datosUrLP.php";
             foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
                 $INVENTARIOM->__SET('ID_INVENTARIO', $r['ID_INVENTARIO']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-              //  $INVENTARIOM_ADO->despachado($INVENTARIOM);
+                $INVENTARIOM_ADO->despachado($INVENTARIOM);
             endforeach;
 
             foreach ($ARRAYEXISENCIADESPACHOMP as $r) :

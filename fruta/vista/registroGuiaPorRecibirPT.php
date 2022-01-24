@@ -429,9 +429,7 @@ include_once "../../assest/config/datosUrLP.php";
                 $EXIEXPORTACION_ADO->despachadoInterplanta($EXIEXPORTACION);
             endforeach;
 
-            $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTexportacion($EMPRESAS, $PLANTAS, $TEMPORADAS);
-            $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
-
+          
             foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
                 $EXIEXPORTACION->__SET('FOLIO_EXIEXPORTACION',  $r['FOLIO_EXIEXPORTACION']);
                 $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $r['FOLIO_AUXILIAR_EXIEXPORTACION']);
@@ -458,7 +456,7 @@ include_once "../../assest/config/datosUrLP.php";
                 $EXIEXPORTACION->__SET('ID_TMANEJO', $r['ID_TMANEJO']);
                 $EXIEXPORTACION->__SET('ID_TCATEGORIA', $r['ID_TCATEGORIA']);
                 $EXIEXPORTACION->__SET('ID_TCOLOR', $r['ID_TCOLOR']);
-                $EXIEXPORTACION->__SET('ID_FOLIO', $FOLIO);
+                $EXIEXPORTACION->__SET('ID_FOLIO', $r['ID_FOLIO']);
                 $EXIEXPORTACION->__SET('ID_ESTANDAR', $r['ID_ESTANDAR']);
                 $EXIEXPORTACION->__SET('ID_PRODUCTOR', $r['ID_PRODUCTOR']);
                 $EXIEXPORTACION->__SET('ID_VESPECIES', $r['ID_VESPECIES']);
