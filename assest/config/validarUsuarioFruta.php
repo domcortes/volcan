@@ -13,6 +13,7 @@
     $ARRAYTEMPORADAS = "";
     $ARRAYTUSUARIO = "";
     $ARRAYNOMBRESUSUARIOSLOGIN="";
+    $ARRAYAVISOS="";
     
 
     $PFRUTA="";
@@ -48,6 +49,8 @@
     $PEXPORTADORA="";
     $PEEXPORTACION="";
     
+    $PADMINISTRADOR="";
+    $PADAPERTURA="";
 
     $TMONEDA1="";
     $TMONEDA2="";
@@ -64,6 +67,7 @@
     include_once '../../assest/controlador/USUARIO_ADO.php';
     include_once '../../assest/controlador/TUSUARIO_ADO.php';
     include_once '../../assest/controlador/PTUSUARIO_ADO.php';
+    include_once '../../assest/controlador/AVISO_ADO.php';
 
     include_once '../../assest/controlador/EMPRESA_ADO.php';
     include_once '../../assest/controlador/PLANTA_ADO.php';
@@ -73,6 +77,7 @@
     $USUARIO_ADO = new USUARIO_ADO();
     $TUSUARIO_ADO = new TUSUARIO_ADO();
     $PTUSUARIO_ADO = new PTUSUARIO_ADO();
+    $AVISO_ADO = new AVISO_ADO();
 
     $EMPRESA_ADO =  new EMPRESA_ADO();
     $PLANTA_ADO =  new PLANTA_ADO();

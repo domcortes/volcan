@@ -75,6 +75,8 @@ class PTUSUARIO {
     //privilegios del administrador
     private $ADMINISTRADOR;
     private $ADUSUARIO;
+    private $ADAPERTURA;
+    private $ADAVISO;
 
     //estadistica
     private $ESTADISTICA;
