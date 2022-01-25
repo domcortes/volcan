@@ -664,12 +664,7 @@ $html = $html . '
         <div id="client">
           <div class="address"><b>observations</b></div>
           <div class="address">  ' . $OBSERVACIONES . ' </div>
-        </div>        
-        <div id="invoice">
-          <div class="date "><b><hr></b></div>
-          <div class="date  center"> Firm responsible</div>
-          <div class="date  center">  ' . $NOMBRERESPONSABLE . '</div>
-        </div>
+        </div>  
       </div>
     </main>
   </body>
