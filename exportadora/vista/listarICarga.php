@@ -152,6 +152,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                         <th>Contenedor</th>
                                                         <th>Fecha ETD</th>
                                                         <th>Fecha ETA</th>
+                                                        <th>Fecha Real ETA</th>
                                                         <th>Días Estimados</th>
                                                         <th>Días Reales </th>
                                                         <th>Destino Final </th>
@@ -314,6 +315,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                             <td> <?php echo $r['CONTENEDOR']; ?> </td>
                                                             <td> <?php echo $r['FECHAETD']; ?> </td>
                                                             <td> <?php echo $r['FECHAETA']; ?> </td>
+                                                            <td> <?php echo $r['FECHAETAREAL']; ?> </td>
                                                             <td> <?php echo $r['ESTIMADO']; ?> </td>
                                                             <td> <?php echo $r['REAL']; ?> </td>
                                                             <td> <?php echo $NOMBRDFINAL; ?> </td>

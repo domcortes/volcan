@@ -93,6 +93,8 @@ $MAGRUPADO="";
 $ADMINISTRADOR="";
 $ADMINISTRADORTODO="";
 $ADUSUARIO="";
+$ADAPERTURA="";
+$ADAVISO="";
 
 $DISABLED="";
 $DISABLED2="disabled";
@@ -271,6 +273,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $DISABLEDADMINISTRADOR="";
             }
             $ADUSUARIO = "" . $r['ADUSUARIO'];
+            $ADAPERTURA = "" . $r['ADAPERTURA'];
+            $ADAVISO = "" . $r['ADAVISO'];
 
             $TUSUARIO = "" . $r['ID_TUSUARIO'];
         endforeach;
@@ -350,6 +354,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             
             $ADMINISTRADOR = "" . $r['ADMINISTRADOR'];
             $ADUSUARIO = "" . $r['ADUSUARIO'];
+            $ADAPERTURA = "" . $r['ADAPERTURA'];
+            $ADAVISO = "" . $r['ADAVISO'];
 
             $TUSUARIO = "" . $r['ID_TUSUARIO'];
         endforeach;
@@ -468,6 +474,10 @@ if (isset($_POST)) {
                 document.getElementById('FGRECEPCION').checked = false;   
                 document.getElementById('FGDESPACHO').checked = false;   
                 document.getElementById('FGGUIA').checked = false;   
+                
+                document.getElementById('FGRECEPCION').disabled = true;   
+                document.getElementById('FGDESPACHO').disabled = true;   
+                document.getElementById('FGGUIA').disabled = true;   
             }
         }         
         function frutapacking(){              
@@ -478,7 +488,10 @@ if (isset($_POST)) {
 
             }else{  
                 document.getElementById('FPPROCESO').checked = false;   
-                document.getElementById('FPREEMBALEJE').checked = false;    
+                document.getElementById('FPREEMBALEJE').checked = false;
+                
+                document.getElementById('FPPROCESO').disabled = true;   
+                document.getElementById('FPREEMBALEJE').disabled = true;       
             }
         }         
         function frutasag(){              
@@ -487,6 +500,8 @@ if (isset($_POST)) {
                 document.getElementById('FSAGINSPECCION').checked = true;   
             }else{  
                 document.getElementById('FSAGINSPECCION').checked = false;   
+                
+                document.getElementById('FSAGINSPECCION').disabled = true;     
             }
         }     
         function frutafrigorifico(){              
@@ -506,6 +521,13 @@ if (isset($_POST)) {
                 document.getElementById('FFRREPALETIZAJE').checked = false; 
                 document.getElementById('FFRPC').checked = false;   
                 document.getElementById('FFRCFOLIO').checked = false;   
+                
+                document.getElementById('FFRECEPCION').disabled = true;  
+                document.getElementById('FFRDESPACHO').disabled = true;   
+                document.getElementById('FFRGUIA').disabled = true;   
+                document.getElementById('FFRREPALETIZAJE').disabled = true; 
+                document.getElementById('FFRPC').disabled = true;   
+                document.getElementById('FFRCFOLIO').disabled = true;                   
             }
         } 
         function frutacalidad(){              
@@ -517,6 +539,9 @@ if (isset($_POST)) {
             }else{   
                 document.getElementById('FCFRECHAZO').checked = false;   
                 document.getElementById('FCFLEVANTAMIENTO').checked = false;   
+                
+                document.getElementById('FCFRECHAZO').disabled = true;   
+                document.getElementById('FCFLEVANTAMIENTO').disabled = true;  
             }
         }   
         function material(){            
@@ -571,7 +596,11 @@ if (isset($_POST)) {
             }else{                  
                 document.getElementById('MMRECEPION').disabled = true;   
                 document.getElementById('MMDEAPCHO').disabled = true;   
-                document.getElementById('MMGUIA').disabled = true;                   
+                document.getElementById('MMGUIA').disabled = true;         
+                
+                document.getElementById('MMRECEPION').disabled = true;   
+                document.getElementById('MMDEAPCHO').disabled = true;    
+                document.getElementById('MMGUIA').disabled = true;          
                 
             }
         }          
@@ -586,6 +615,10 @@ if (isset($_POST)) {
                 document.getElementById('MEDESPACHO').disabled = true;   
                 document.getElementById('MEGUIA').disabled = true;  
                 
+                document.getElementById('MERECEPCION').disabled = true;   
+                document.getElementById('MEDESPACHO').disabled = true;    
+                document.getElementById('MEGUIA').disabled = true;      
+                
             }
         }  
         function madministracion(){            
@@ -597,6 +630,8 @@ if (isset($_POST)) {
                 document.getElementById('MAOC').disabled = true;   
                 document.getElementById('MAOCAR').disabled = true;  
                 
+                document.getElementById('MAOC').disabled = true;   
+                document.getElementById('MAOCAR').disabled = true;    
             }
         }  
         function mkardex(){            
@@ -608,6 +643,8 @@ if (isset($_POST)) {
                 document.getElementById('MKMATERIAL').disabled = true;   
                 document.getElementById('MKENVASE').disabled = true; 
                 
+                document.getElementById('MKMATERIAL').disabled = true;   
+                document.getElementById('MKENVASE').disabled = true;    
             }
         }  
         function exportadora(){              
@@ -685,19 +722,24 @@ if (isset($_POST)) {
             if(ADMINISTRADOR==true){    
                 document.getElementById('ADMINISTRADORTODO').disabled = false;   
                 document.getElementById('ADUSUARIO').disabled = false;   
+                document.getElementById('ADAPERTURA').disabled = false;   
+                document.getElementById('ADAVISO').disabled = false;   
             }else{                  
                 document.getElementById('ADMINISTRADORTODO').disabled = true;   
                 document.getElementById('ADUSUARIO').disabled = true;
+                document.getElementById('ADAPERTURA').disabled = true;
+                document.getElementById('ADAVISO').disabled = true;
                  
                 document.getElementById('ADMINISTRADORTODO').checked = false;   
                 document.getElementById('ADMINISTRADOR').checked = false;   
                 document.getElementById('ADUSUARIO').checked = false;    
+                document.getElementById('ADAPERTURA').checked = false;   
+                document.getElementById('ADAVISO').checked = false;   
             }
         }    
         function frutatodo(){              
             FRUTATODO = document.getElementById('FRUTATODO').checked;
             if(FRUTATODO==true){    
-                document.getElementById('FRUTA').checked = true;  
                 document.getElementById('FGRANEL').checked = true;   
                 document.getElementById('FGRECEPCION').checked = true;   
                 document.getElementById('FGDESPACHO').checked = true;   
@@ -763,7 +805,6 @@ if (isset($_POST)) {
                 document.getElementById('FCFLEVANTAMIENTO').disabled = true;   
                 document.getElementById('FEXISTENCIA').disabled = false;   
 
-                document.getElementById('FRUTA').checked = false;  
                 document.getElementById('FGRANEL').checked = false;   
                 document.getElementById('FGRECEPCION').checked = false;   
                 document.getElementById('FGDESPACHO').checked = false;   
@@ -789,7 +830,6 @@ if (isset($_POST)) {
         function materialtodo(){              
             MATERIALESTODO = document.getElementById('MATERIALESTODO').checked;
             if(MATERIALESTODO==true){    
-                document.getElementById('MATERIALES').checked = true;  
                 document.getElementById('MMATERIALES').checked = true;   
                 document.getElementById('MMRECEPION').checked = true;   
                 document.getElementById('MMDEAPCHO').checked = true;   
@@ -805,7 +845,6 @@ if (isset($_POST)) {
                 document.getElementById('MKMATERIAL').checked = true;   
                 document.getElementById('MKENVASE').checked = true;   
                 
-                document.getElementById('MMATERIALES').disabled = false;   
                 document.getElementById('MMRECEPION').disabled = false;   
                 document.getElementById('MMDEAPCHO').disabled = false;   
                 document.getElementById('MMGUIA').disabled = false;   
@@ -821,7 +860,6 @@ if (isset($_POST)) {
                 document.getElementById('MKENVASE').disabled = false;                   
 
             }else{
-                document.getElementById('MATERIALES').checked = false;  
                 document.getElementById('MMATERIALES').checked = false;   
                 document.getElementById('MMRECEPION').checked = false;   
                 document.getElementById('MMDEAPCHO').checked = false;   
@@ -837,7 +875,6 @@ if (isset($_POST)) {
                 document.getElementById('MKMATERIAL').checked = false;   
                 document.getElementById('MKENVASE').checked = false;    
                 
-                document.getElementById('MMATERIALES').disabled = false;   
                 document.getElementById('MMRECEPION').disabled = true;   
                 document.getElementById('MMDEAPCHO').disabled = true;   
                 document.getElementById('MMGUIA').disabled = true;   
@@ -857,12 +894,10 @@ if (isset($_POST)) {
         function exportadoratodo(){              
             EXPORTADORATODO = document.getElementById('EXPORTADORATODO').checked;
             if(EXPORTADORATODO==true){    
-                document.getElementById('EXPORTADORA').checked = true;   
                 document.getElementById('EMATERIALES').checked = true;   
                 document.getElementById('EEXPORTACION').checked = true;    
                 document.getElementById('EINFORMES').checked = true;  
             }else{
-                document.getElementById('EXPORTADORA').checked = false;   
                 document.getElementById('EMATERIALES').checked = false;   
                 document.getElementById('EEXPORTACION').checked = false;    
                 document.getElementById('EINFORMES').checked = false;   
@@ -907,13 +942,11 @@ if (isset($_POST)) {
         function mantenedorestodo(){              
             MANTENEDORESTODO = document.getElementById('MANTENEDORESTODO').checked;
             if(MANTENEDORESTODO==true){    
-                document.getElementById('MANTENEDORES').checked = true;   
                 document.getElementById('MREGISTRO').checked = true;   
                 document.getElementById('MEDITAR').checked = true;    
                 document.getElementById('MVER').checked = true;  
                 document.getElementById('MAGRUPADO').checked = true;  
             }else{
-                document.getElementById('MANTENEDORES').checked = false;   
                 document.getElementById('MREGISTRO').checked = false;   
                 document.getElementById('MEDITAR').checked = false;    
                 document.getElementById('MVER').checked = false;  
@@ -922,14 +955,18 @@ if (isset($_POST)) {
         }        
         function administradorstodo(){              
             ADMINISTRADORTODO = document.getElementById('ADMINISTRADORTODO').checked;
-            if(ADMINISTRADORTODO==true){    
-                document.getElementById('ADMINISTRADOR').checked = true;   
+            if(ADMINISTRADORTODO==true){     
                 document.getElementById('ADUSUARIO').checked = true;   
+                document.getElementById('ADAPERTURA').checked = true;   
+                document.getElementById('ADAVISO').checked = true;   
             }else{
-                document.getElementById('ADMINISTRADOR').checked = false;   
                 document.getElementById('ADUSUARIO').checked = false;   
+                document.getElementById('ADAPERTURA').checked = false;   
+                document.getElementById('ADAVISO').checked = false;   
             }
         }
+
+
         function validacion() {
 
             TUSUARIO = document.getElementById("TUSUARIO").selectedIndex;
@@ -1363,6 +1400,14 @@ if (isset($_POST)) {
                                                 <div class="col-xxl-4 col-xl-4 col-lg-5 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <input type="checkbox" id="ADUSUARIO"  name="ADUSUARIO" class="filled-in chk-col-success"   <?php if ($ADUSUARIO == "1") { echo "checked"; } ?>  <?php echo $DISABLED;?> <?php echo $DISABLEDADMINISTRADOR;?>>
                                                     <label for="ADUSUARIO">Usuario</label>	
+                                                </div>                                          
+                                                <div class="col-xxl-4 col-xl-4 col-lg-5 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                    <input type="checkbox" id="ADAPERTURA"  name="ADAPERTURA" class="filled-in chk-col-success"   <?php if ($ADAPERTURA == "1") { echo "checked"; } ?>  <?php echo $DISABLED;?> <?php echo $DISABLEDADMINISTRADOR;?>>
+                                                    <label for="ADAPERTURA">Apertura Registros</label>	
+                                                </div>                                          
+                                                <div class="col-xxl-4 col-xl-4 col-lg-5 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                    <input type="checkbox" id="ADAVISO"  name="ADAVISO" class="filled-in chk-col-success"   <?php if ($ADAVISO == "1") { echo "checked"; } ?>  <?php echo $DISABLED;?> <?php echo $DISABLEDADMINISTRADOR;?>>
+                                                    <label for="ADAVISO">Avisos</label>	
                                                 </div>
                                             </div>          
                                         </fieldset>
@@ -1549,7 +1594,7 @@ if (isset($_POST)) {
                     $PTUSUARIO->__SET('ESTASTOPMP', isset($_REQUEST['ESTASTOPMP']));  
                     $PTUSUARIO->__SET('ESTAINFORME', isset($_REQUEST['ESTAINFORME']));  
                     $PTUSUARIO->__SET('ESTAEXISTENCIA', isset($_REQUEST['ESTAEXISTENCIA']));  
-                                        $PTUSUARIO->__SET('ESTAPRODUCTOR', isset($_REQUEST['ESTAPRODUCTOR']));
+                    $PTUSUARIO->__SET('ESTAPRODUCTOR', isset($_REQUEST['ESTAPRODUCTOR']));
                     $PTUSUARIO->__SET('MANTENEDORES', isset($_REQUEST['MANTENEDORES'])); 
                     $PTUSUARIO->__SET('MREGISTRO', isset($_REQUEST['MREGISTRO'])); 
                     $PTUSUARIO->__SET('MEDITAR', isset($_REQUEST['MEDITAR'])); 
@@ -1557,6 +1602,8 @@ if (isset($_POST)) {
                     $PTUSUARIO->__SET('MAGRUPADO', isset($_REQUEST['MAGRUPADO'])); 
                     $PTUSUARIO->__SET('ADMINISTRADOR', isset($_REQUEST['ADMINISTRADOR']));
                     $PTUSUARIO->__SET('ADUSUARIO', isset($_REQUEST['ADUSUARIO']));
+                    $PTUSUARIO->__SET('ADAPERTURA', isset($_REQUEST['ADAPERTURA']));
+                    $PTUSUARIO->__SET('ADAVISO', isset($_REQUEST['ADAVISO']));
                     $PTUSUARIO->__SET('ID_USUARIOI', $IDUSUARIOS); 
                     $PTUSUARIO->__SET('ID_USUARIOM', $IDUSUARIOS); 
                     $PTUSUARIO->__SET('ID_TUSUARIO', $_REQUEST['TUSUARIO']); 
@@ -1635,6 +1682,8 @@ if (isset($_POST)) {
                 $PTUSUARIO->__SET('MAGRUPADO', isset($_REQUEST['MAGRUPADO'])); 
                 $PTUSUARIO->__SET('ADMINISTRADOR', isset($_REQUEST['ADMINISTRADOR']));
                 $PTUSUARIO->__SET('ADUSUARIO', isset($_REQUEST['ADUSUARIO']));
+                $PTUSUARIO->__SET('ADAPERTURA', isset($_REQUEST['ADAPERTURA']));
+                $PTUSUARIO->__SET('ADAVISO', isset($_REQUEST['ADAVISO']));
                 $PTUSUARIO->__SET('ID_USUARIOM', $IDUSUARIOS);  
                 $PTUSUARIO->__SET('ID_PTUSUARIO', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE EDICION DEL CONTROLADOR

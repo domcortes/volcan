@@ -13,6 +13,7 @@ $ARRAYPLANTAS = "";
 $ARRAYTEMPORADAS = "";
 $ARRAYTUSUARIO = "";
 $ARRAYNOMBRESUSUARIOSLOGIN = "";
+$ARRAYAVISOS="";
 
 
 $PMATERIALES="";
@@ -36,6 +37,10 @@ $PMEDITAR="";
 $PMVER="";
 $PMAGRUPADO="";
 
+
+$PADMINISTRADOR="";
+$PADAPERTURA="";
+
 $EMPRESACAMBIAR = "";
 $PLANTACAMBIAR = "";
 $ARRAYEMPRESACAMBIAR = "";
@@ -50,6 +55,7 @@ $TTMONEDA2="";
 include_once '../../assest/controlador/USUARIO_ADO.php';
 include_once '../../assest/controlador/TUSUARIO_ADO.php';
 include_once '../../assest/controlador/PTUSUARIO_ADO.php';
+include_once '../../assest/controlador/AVISO_ADO.php';
 
 include_once '../../assest/controlador/EMPRESA_ADO.php';
 include_once '../../assest/controlador/PLANTA_ADO.php';
@@ -59,6 +65,7 @@ include_once '../../assest/controlador/TEMPORADA_ADO.php';
 $USUARIO_ADO = new USUARIO_ADO();
 $TUSUARIO_ADO = new TUSUARIO_ADO();
 $PTUSUARIO_ADO = new PTUSUARIO_ADO();
+$AVISO_ADO = new AVISO_ADO();
 
 $EMPRESA_ADO =  new EMPRESA_ADO();
 $PLANTA_ADO =  new PLANTA_ADO();

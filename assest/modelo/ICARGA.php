@@ -16,6 +16,7 @@ class ICARGA
     private      $FECHA_MODIFCIACION;
     private      $FECHAETD_ICARGA;
     private      $FECHAETA_ICARGA;
+    private      $FECHAETAREAL_ICARGA;
     private      $FDA_ICARGA;
     private      $TEMBARQUE_ICARGA;
     private      $CRT_ICARGA;

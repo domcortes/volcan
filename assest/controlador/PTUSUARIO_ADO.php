@@ -200,7 +200,9 @@ class PTUSUARIO_ADO {
                                                         MAGRUPADO , 
 
                                                         ADMINISTRADOR , 
-                                                        ADUSUARIO , 
+                                                        ADUSUARIO ,  
+                                                        ADAPERTURA ,  
+                                                        ADAVISO , 
 
                                                         ID_USUARIOI , 
                                                         ID_USUARIOM , 
@@ -210,7 +212,7 @@ class PTUSUARIO_ADO {
                                                         MODIFICACION,
                                                         ESTADO_REGISTRO
                                              ) VALUES
-	       	( ?, ?, ?, ?, ?,    ?, ?, ?,    ?, ?,   ?, ?, ?, ?, ?, ?, ?,   ?, ?, ?,  ?,    ?, ?, ?, ?, ?,   ?, ?, ?, ?,   ?, ?, ?,   ?, ?, ?,    ?, ?, ?, ?,   ?, ?, ?, ?, ?, ?,      ?, ?, ?, ?, ?,      ?, ?,     ?, ?, ?,  SYSDATE(), SYSDATE(), 1);";
+	       	( ?, ?, ?, ?, ?,    ?, ?, ?,    ?, ?,   ?, ?, ?, ?, ?, ?, ?,   ?, ?, ?,  ?,    ?, ?, ?, ?, ?,   ?, ?, ?, ?,   ?, ?, ?,   ?, ?, ?,    ?, ?, ?, ?,   ?, ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?, ?, ?,      ?, ?, ?,  SYSDATE(), SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(              
@@ -280,6 +282,8 @@ class PTUSUARIO_ADO {
 
                     $PTUSUARIO->__GET('ADMINISTRADOR')  , 
                     $PTUSUARIO->__GET('ADUSUARIO')  , 
+                    $PTUSUARIO->__GET('ADAPERTURA')  , 
+                    $PTUSUARIO->__GET('ADAVISO')  , 
 
                     $PTUSUARIO->__GET('ID_USUARIOI')  ,  
                     $PTUSUARIO->__GET('ID_USUARIOM')  ,  
@@ -382,6 +386,8 @@ class PTUSUARIO_ADO {
 
                 ADMINISTRADOR = ?,
                 ADUSUARIO = ?,
+                ADAPERTURA = ?,
+                ADAVISO = ?,
 
                 ID_USUARIOM = ?          
 		WHERE  ID_PTUSUARIO = ?;";
@@ -454,6 +460,9 @@ class PTUSUARIO_ADO {
 
                     $PTUSUARIO->__GET('ADMINISTRADOR')  , 
                     $PTUSUARIO->__GET('ADUSUARIO')  , 
+                    $PTUSUARIO->__GET('ADAPERTURA')  , 
+                    $PTUSUARIO->__GET('ADAVISO')  , 
+
 
                     $PTUSUARIO->__GET('ID_USUARIOM')  ,             
                     $PTUSUARIO->__GET('ID_PTUSUARIO')

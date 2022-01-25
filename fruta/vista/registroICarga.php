@@ -148,6 +148,7 @@ $BROKER = "";
 $RFINAL = "";
 $FECHAETD = "";
 $FECHAETA = "";
+$FECHAETAREAL = "";
 $AADUANA = "";
 $AGCARGA = "";
 $TEMBARQUE = "";
@@ -433,6 +434,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $MERCADO = $r['ID_MERCADO'];
             $FECHAETD = $r['FECHAETD_ICARGA'];
             $FECHAETA = $r['FECHAETA_ICARGA'];
+            $FECHAETAREAL = $r['FECHAETAREAL_ICARGA'];
             $AADUANA = $r['ID_AADUANA'];
             $AGCARGA = $r['ID_AGCARGA'];
             $DFINAL = $r['ID_DFINAL'];
@@ -523,6 +525,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $MERCADO = $r['ID_MERCADO'];
             $FECHAETD = $r['FECHAETD_ICARGA'];
             $FECHAETA = $r['FECHAETA_ICARGA'];
+            $FECHAETAREAL = $r['FECHAETAREAL_ICARGA'];
             $AADUANA = $r['ID_AADUANA'];
             $AGCARGA = $r['ID_AGCARGA'];
             $DFINAL = $r['ID_DFINAL'];
@@ -615,6 +618,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $MERCADO = $r['ID_MERCADO'];
             $FECHAETD = $r['FECHAETD_ICARGA'];
             $FECHAETA = $r['FECHAETA_ICARGA'];
+            $FECHAETAREAL = $r['FECHAETAREAL_ICARGA'];
             $AADUANA = $r['ID_AADUANA'];
             $AGCARGA = $r['ID_AGCARGA'];
             $DFINAL = $r['ID_DFINAL'];
@@ -722,6 +726,9 @@ if (isset($_POST)) {
     }
     if (isset($_REQUEST['FECHAETA'])) {
         $FECHAETA = $_REQUEST['FECHAETA'];
+    }
+    if (isset($_REQUEST['FECHAETAREAL'])) {
+        $FECHAETAREAL = $_REQUEST['FECHAETAREAL'];
     }
     if (isset($_REQUEST['AADUANA'])) {
         $AADUANA = $_REQUEST['AADUANA'];
@@ -1451,6 +1458,7 @@ if (isset($_POST)) {
 
                     FECHAETD = document.getElementById("FECHAETD").value;
                     FECHAETA = document.getElementById("FECHAETA").value;
+                    FECHAETAREAL = document.getElementById("FECHAETAREAL").value;
                     AGCARGA = document.getElementById("AGCARGA").selectedIndex;
 
                     
@@ -1497,6 +1505,7 @@ if (isset($_POST)) {
                     document.getElementById('val_agcarga').innerHTML = "";
                     document.getElementById('val_fechaetd').innerHTML = "";
                     document.getElementById('val_fechaeta').innerHTML = "";
+                    document.getElementById('val_fechaetareal').innerHTML = "";
                     
                     document.getElementById('val_atmosfera').innerHTML = "";
                     document.getElementById('val_t').innerHTML = "";
@@ -1647,7 +1656,7 @@ if (isset($_POST)) {
                     }
                     document.form_reg_dato.FECHAETD.style.borderColor = "#4AF575";
 
-                    if (FECHAETA == null || FECHAETA.length == 0 || /^\s+$/.test(FECHAETA)) {
+                    if (FECHAETA == null || FECHAETA.length == 0 || /^\s+$/.test(FECHAETA)) { 
                         document.form_reg_dato.FECHAETA.focus();
                         document.form_reg_dato.FECHAETA.style.borderColor = "#FF0000";
                         document.getElementById('val_fechaeta').innerHTML = "NO A INGRESADO DATO";
@@ -1655,6 +1664,14 @@ if (isset($_POST)) {
                     }
                     document.form_reg_dato.FECHAETA.style.borderColor = "#4AF575";
 
+
+                    if (FECHAETAREAL == null || FECHAETAREAL.length == 0 || /^\s+$/.test(FECHAETAREAL)) {
+                        document.form_reg_dato.FECHAETAREAL.focus();
+                        document.form_reg_dato.FECHAETAREAL.style.borderColor = "#FF0000";
+                        document.getElementById('val_fechaetareal').innerHTML = "NO A INGRESADO DATO";
+                        return false;
+                    }
+                    document.form_reg_dato.FECHAETAREAL.style.borderColor = "#4AF575";
 
                     if (AGCARGA == null || AGCARGA == 0) {
                         document.form_reg_dato.AGCARGA.focus();
@@ -2410,6 +2427,14 @@ if (isset($_POST)) {
                                                     <input type="hidden" class="form-control" placeholder="FECHA PROCESO" id="FECHAETAE" name="FECHAETAE" value="<?php echo $FECHAETA; ?>" />
                                                     <input type="date" class="form-control" placeholder="Fecha ETA" id="FECHAETA" name="FECHAETA" value="<?php echo $FECHAETA; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_fechaeta" class="validacion"> </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                <div class="form-group">
+                                                    <label>Fecha Real ETA</label>
+                                                    <input type="hidden" class="form-control" placeholder="FECHA PROCESO" id="FECHAETAREALE" name="FECHAETAREALE" value="<?php echo $FECHAETAREAL; ?>" />
+                                                    <input type="date" class="form-control" placeholder="Fecha ETA Real" id="FECHAETAREAL" name="FECHAETAREAL" value="<?php echo $FECHAETAREAL; ?>" <?php echo $DISABLED; ?> />
+                                                    <label id="val_fechaetareal" class="validacion"> </label>
                                                 </div>
                                             </div>
                                             <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-9 col-sm-9 col-9 col-xs-9">
@@ -3456,6 +3481,7 @@ if (isset($_POST)) {
                 $ICARGA->__SET('NREFERENCIA_ICARGA', $_REQUEST['NUMEROREFERENCIAINSTRUCTIVO']);
                 $ICARGA->__SET('FECHAETD_ICARGA', $_REQUEST['FECHAETD']);
                 $ICARGA->__SET('FECHAETA_ICARGA', $_REQUEST['FECHAETA']);
+                $ICARGA->__SET('FECHAETAREAL_ICARGA', $_REQUEST['FECHAETAREAL']);
                 $ICARGA->__SET('FDA_ICARGA', $_REQUEST['FDA']);
                 $ICARGA->__SET('TEMBARQUE_ICARGA', $_REQUEST['TEMBARQUE']);
                 $ICARGA->__SET('FUMIGADO_ICARGA', $_REQUEST['FUMIGADO']);
@@ -3555,6 +3581,7 @@ if (isset($_POST)) {
                 $ICARGA->__SET('NREFERENCIA_ICARGA', $_REQUEST['NUMEROREFERENCIAINSTRUCTIVO']);
                 $ICARGA->__SET('FECHAETD_ICARGA', $_REQUEST['FECHAETD']);
                 $ICARGA->__SET('FECHAETA_ICARGA', $_REQUEST['FECHAETA']);
+                $ICARGA->__SET('FECHAETAREAL_ICARGA', $_REQUEST['FECHAETAREAL']);
                 $ICARGA->__SET('FDA_ICARGA', $_REQUEST['FDA']);
                 $ICARGA->__SET('TEMBARQUE_ICARGA', $_REQUEST['TEMBARQUE']);
                 $ICARGA->__SET('FUMIGADO_ICARGA', $_REQUEST['FUMIGADO']);
@@ -3685,6 +3712,7 @@ if (isset($_POST)) {
                     $ICARGA->__SET('NREFERENCIA_ICARGA', $_REQUEST['NUMEROREFERENCIAINSTRUCTIVO']);
                     $ICARGA->__SET('FECHAETD_ICARGA', $_REQUEST['FECHAETD']);
                     $ICARGA->__SET('FECHAETA_ICARGA', $_REQUEST['FECHAETA']);
+                    $ICARGA->__SET('FECHAETAREAL_ICARGA', $_REQUEST['FECHAETAREAL']);
                     $ICARGA->__SET('FDA_ICARGA', $_REQUEST['FDA']);
                     $ICARGA->__SET('TEMBARQUE_ICARGA', $_REQUEST['TEMBARQUE']);
                     $ICARGA->__SET('FUMIGADO_ICARGA', $_REQUEST['FUMIGADO']);

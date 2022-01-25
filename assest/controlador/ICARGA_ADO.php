@@ -137,6 +137,7 @@ class ICARGA_ADO
                                                 DATE_FORMAT(FECHA_CDOCUMENTAL_ICARGA, '%d/%m/%Y') AS 'FECHACD', 
                                                 DATE_FORMAT(FECHAETD_ICARGA, '%d/%m/%Y') AS 'FECHAETD', 
                                                 DATE_FORMAT(FECHAETA_ICARGA, '%d/%m/%Y') AS 'FECHAETA', 
+                                                DATE_FORMAT(FECHAETAREAL_ICARGA, '%d/%m/%Y') AS 'FECHAETAREAL', 
                                                 DATE_FORMAT(FECHASTACKING_ICARGA, '%d/%m/%Y') AS 'FECHAESTACKING', 
                                                 DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO', 
                                                 DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION'
@@ -269,7 +270,9 @@ class ICARGA_ADO
             if ($ICARGA->__GET('ID_SEGURO') == NULL) {
                 $ICARGA->__SET('ID_SEGURO', NULL);
             }
-
+            if ($ICARGA->__GET('FECHAETAREAL_ICARGA') == NULL) {
+                $ICARGA->__SET('FECHAETAREAL_ICARGA', NULL);
+            }
             $query =
                 "INSERT INTO fruta_icarga ( 
                                             NUMERO_ICARGA, 
@@ -278,6 +281,7 @@ class ICARGA_ADO
                                             NREFERENCIA_ICARGA, 
                                             FECHAETD_ICARGA, 
                                             FECHAETA_ICARGA, 
+                                            FECHAETAREAL_ICARGA, 
                                             FDA_ICARGA, 
                                             TEMBARQUE_ICARGA, 
                                             CRT_ICARGA,  
@@ -340,7 +344,7 @@ class ICARGA_ADO
                                             ESTADO_REGISTRO
                                         ) 
             VALUES
-	       	    (  ?,  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
+	       	    (  ?,  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
                  0, 0, 0, 0, SYSDATE(), SYSDATE(), 1, 2, 1);";
             $this->conexion->prepare($query)
                 ->execute(
@@ -351,6 +355,7 @@ class ICARGA_ADO
                         $ICARGA->__GET('NREFERENCIA_ICARGA'),
                         $ICARGA->__GET('FECHAETD_ICARGA'),
                         $ICARGA->__GET('FECHAETA_ICARGA'),
+                        $ICARGA->__GET('FECHAETAREAL_ICARGA'),
                         $ICARGA->__GET('FDA_ICARGA'),
                         $ICARGA->__GET('TEMBARQUE_ICARGA'),
                         $ICARGA->__GET('CRT_ICARGA'),
@@ -511,6 +516,9 @@ class ICARGA_ADO
         if ($ICARGA->__GET('ID_SEGURO') == NULL) {
             $ICARGA->__SET('ID_SEGURO', NULL);
         }
+        if ($ICARGA->__GET('FECHAETAREAL_ICARGA') == NULL) {
+            $ICARGA->__SET('FECHAETAREAL_ICARGA', NULL);
+        }
 
         try {
             $query = "
@@ -521,6 +529,7 @@ class ICARGA_ADO
             NREFERENCIA_ICARGA = ?, 
             FECHAETD_ICARGA = ?, 
             FECHAETA_ICARGA = ?, 
+            FECHAETAREAL_ICARGA = ?, 
             FDA_ICARGA = ?, 
             TEMBARQUE_ICARGA = ?, 
             CRT_ICARGA = ?,
@@ -585,6 +594,7 @@ class ICARGA_ADO
                         $ICARGA->__GET('NREFERENCIA_ICARGA'),
                         $ICARGA->__GET('FECHAETD_ICARGA'),
                         $ICARGA->__GET('FECHAETA_ICARGA'),
+                        $ICARGA->__GET('FECHAETAREAL_ICARGA'),
                         $ICARGA->__GET('FDA_ICARGA'),
                         $ICARGA->__GET('TEMBARQUE_ICARGA'),
                         $ICARGA->__GET('CRT_ICARGA'),
@@ -661,6 +671,7 @@ class ICARGA_ADO
                                                         FECHA_ICARGA AS 'FECHA', 
                                                         FECHAETD_ICARGA AS 'FECHAETD', 
                                                         FECHAETA_ICARGA AS 'FECHAETA', 
+                                                        FECHAETAREAL_ICARGA AS 'FECHAETAREAL', 
                                                         IFNULL(BOLAWBCRT_ICARGA, 'Sin Datos' ) AS 'CONTENEDOR',
                                                         IFNULL(TOTAL_ENVASE_ICAGRA,0) AS 'ENVASE',
                                                         IFNULL(TOTAL_NETO_ICARGA,0) AS 'NETO',

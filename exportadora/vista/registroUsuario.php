@@ -360,7 +360,7 @@ if ($_POST) {
                                                     <label id="val_sapellido" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Telefono</label>
                                                     <input type="number" class="form-control" placeholder="Telefono" id="TELEFONO" name="TELEFONO" value="<?php echo $TELEFONO; ?>" <?php echo $DISABLED; ?> />

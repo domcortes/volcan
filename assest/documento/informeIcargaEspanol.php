@@ -286,7 +286,7 @@ if($ARRAYICARGA){
     $BOOKINGINSTRUCTIVO = $ARRAYICARGA[0]['BOOKING_ICARGA'];
     $TEMBARQUE = $ARRAYICARGA[0]['TEMBARQUE_ICARGA'];
     $FECHAETD = $ARRAYICARGA[0]['FECHAETD'];
-    $FECHAETA = $ARRAYICARGA[0]['FECHAETA'];    
+    $FECHAETAREAL = $ARRAYICARGA[0]['FECHAETAREAL'];    
     $BOLAWBCRTINSTRUCTIVO = $ARRAYICARGA[0]['BOLAWBCRT_ICARGA'];
 
 
@@ -726,7 +726,15 @@ $html='
            <td class="color2 left">'.$FUMIGADO.'</td>      
            <th class="color2 left">Número Contenedor: </th>       
            <td class="color2 left">'.$NUMEROCONTENEDOR.'</td>    
-         </tr>   
+         </tr>  
+         <tr>       
+           <th class="color2 left">Fecha Real ETA : </th> 
+           <td class="color2 left">'.$FECHAETAREAL.'</td>      
+           <th class="color2 left">&nbsp; </th>    
+           <td class="color2 left">&nbsp;</td>      
+           <th class="color2 left">&nbsp; </th>       
+           <td class="color2 left">&nbsp;</td>    
+         </tr>    
          ';
          if ($TEMBARQUE == "1") {
            $html = $html . '

@@ -14,6 +14,7 @@ $ARRAYTEMPORADAS = "";
 $ARRAYTUSUARIO = "";
 $ARRAYVERPTUSUARIO = "";
 $ARRAYNOMBRESUSUARIOSLOGIN = "";
+$ARRAYAVISOS="";
 
 $EMPRESACAMBIAR = "";
 $PLANTACAMBIAR = "";
@@ -39,11 +40,13 @@ $PMVER="";
 $PMAGRUPADO="";
 $PADMINISTRADOR="";
 $PADUSUARIO="";
-
+$PADAPERTURA="";
+$PADAVISO="";
 
 include_once '../../assest/controlador/USUARIO_ADO.php';
 include_once '../../assest/controlador/TUSUARIO_ADO.php';
 include_once '../../assest/controlador/PTUSUARIO_ADO.php';
+include_once '../../assest/controlador/AVISO_ADO.php';
 
 include_once '../../assest/controlador/EMPRESA_ADO.php';
 include_once '../../assest/controlador/PLANTA_ADO.php';
@@ -53,6 +56,7 @@ include_once '../../assest/controlador/TEMPORADA_ADO.php';
 $USUARIO_ADO = new USUARIO_ADO();
 $TUSUARIO_ADO = new TUSUARIO_ADO();
 $PTUSUARIO_ADO = new PTUSUARIO_ADO();
+$AVISO_ADO = new AVISO_ADO();
 
 $EMPRESA_ADO =  new EMPRESA_ADO();
 $PLANTA_ADO =  new PLANTA_ADO();
@@ -88,6 +92,8 @@ if (isset($_SESSION["NOMBRE_USUARIO"])) {
 
         $PADMINISTRADOR = $ARRAYVERPTUSUARIO[0]['ADMINISTRADOR'];
         $PADUSUARIO = $ARRAYVERPTUSUARIO[0]['ADUSUARIO'];
+        $PADAPERTURA = $ARRAYVERPTUSUARIO[0]['ADAPERTURA'];
+        $PADAVISO = $ARRAYVERPTUSUARIO[0]['ADAVISO'];
 
         
     
@@ -103,6 +109,8 @@ if (isset($_SESSION["NOMBRE_USUARIO"])) {
         $PMAGRUPADO="";
         $PADMINISTRADOR="";
         $PADUSUARIO="";
+        $PADAPERTURA="";
+        $PADAVISO="";
     }
  
     if (isset($_SESSION["ID_EMPRESA"])) {
