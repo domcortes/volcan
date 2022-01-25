@@ -224,6 +224,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                     <th>Fecha Corte Documental </th>
                                                     <th>Fecha ETD </th>
                                                     <th>Fecha ETA</th>
+                                                    <th>Fecha Real ETA</th>
                                                     <th>Recibidor Final</th>
                                                     <th>Tipo Embarque</th>
                                                     <th>Nave</th>
@@ -317,6 +318,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                         $BOLAWBCRTICARGA=$ARRAYICARGA[0]['BOLAWBCRT_ICARGA'];
                                                         $FECHAETD=$ARRAYICARGA[0]['FECHAETD_ICARGA'];
                                                         $FECHAETA=$ARRAYICARGA[0]['FECHAETA_ICARGA'];
+                                                        $FECHAETAREAL=$ARRAYICARGA[0]['FECHAETAREAL_ICARGA'];
                                                         $FECHACDOCUMENTAL=$ARRAYICARGA[0]['FECHA_CDOCUMENTAL_ICARGA'];
                                                         if ($ARRAYICARGA[0]['TEMBARQUE_ICARGA'] == "1") {
                                                             $TEMBARQUE = "Terrestre";
@@ -376,6 +378,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                         $BOLAWBCRTICARGA="No Aplica";
                                                         $FECHAETD=$r['FECHAETD_DESPACHOEX'];
                                                         $FECHAETA=$r['FECHAETA_DESPACHOEX'];
+                                                        $FECHAETAREAL="";
                                                         $FECHACDOCUMENTAL="";
                                                         if ($r['TEMBARQUE_DESPACHOEX'] == "1") {
                                                             $TEMBARQUE = "Terrestre";
@@ -596,6 +599,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $FECHACDOCUMENTAL; ?></td>
                                                             <td><?php echo $FECHAETD; ?></td>
                                                             <td><?php echo $FECHAETA; ?></td>
+                                                            <td><?php echo $FECHAETAREAL; ?></td>
                                                             <td><?php echo $NOMBRERFINAL; ?></td>
                                                             <td><?php echo $TEMBARQUE; ?></td>
                                                             <td><?php echo $NAVE; ?></td>
