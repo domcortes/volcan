@@ -12,6 +12,7 @@
         private	  $TNOTA;
         private	  $CANTIDAD; 
         private	  $TOTAL; 
+        private	  $NOTA; 
         private   $ESTADO;
         private   $ESTADO_REGISTRO;
         private   $INGRESO;

@@ -55,7 +55,7 @@ $PRECIOUSNCND = 0;
 $CANTIDADNOTA=0;
 $IDDICARGA = "";
 $IDICARGA = "";
-
+$NOTA="";
 
 $PESOENVASEESTANDAR = 0;
 $PESOPALLETEESTANDAR = 0;
@@ -119,7 +119,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $NOMBRETNOTA="Nora de Debito";
         }
         if($TNOTA==2){
-            $NOMBRETNOTA="Nota de Credicto";
+            $NOMBRETNOTA="Nota de Credito";
         }
     }
 
@@ -136,31 +136,44 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
         $ARRAYDICARGA = $DICARGA_ADO->verDicarga($IDOP);
         foreach ($ARRAYDICARGA as $r) :
             $CANTIDADENVASE = "" . $r['CANTIDAD_ENVASE_DICARGA'];
-            $KILOSNETO = "" . $r['KILOS_NETO_DICARGA'];
-            $KILOSBRUTO = "" . $r['KILOS_BRUTO_DICARGA'];
-            $PRECIOUS = "" . $r['PRECIO_US_DICARGA'];
-            $TOTALPRECIOUS = "" . $r['TOTAL_PRECIO_US_DICARGA'];
-            $EEXPORTACION = "" . $r['ID_ESTANDAR'];
             $CALIBRE = "" . $r['ID_TCALIBRE'];
+            $ARRAYVERCALIBRE=$TCALIBRE_ADO->verCalibre($CALIBRE);
+            if($ARRAYVERCALIBRE){
+               $NOMBRECALIBRE= $ARRAYVERCALIBRE[0]['NOMBRE_TCALIBRE'];
+            }else{
+                $NOMBRECALIBRE="Sin Datos";
+            }
             $TMONEDA = "" . $r['ID_TMONEDA'];
+            $ARRAYVERTMONEDA=$TMONEDA_ADO->verTmoneda($TMONEDA);
+            if($ARRAYVERTMONEDA){
+                $NOMBRETMONEDA= $ARRAYVERTMONEDA[0]['NOMBRE_TMONEDA'];
+            }else{
+                $NOMBRETMONEDA="Sin Datos";
+            }
+            $EEXPORTACION=$r['ID_ESTANDAR'];
             $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($EEXPORTACION);
-            $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
-            $ESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
+            if($ARRAYVERESTANDAR){
+                $NOMBRESTANDAR=$ARRAYVERESTANDAR[0]['CODIGO_ESTANDAR'] ."-". $ARRAYVERESTANDAR[0]['NOMBRE_ESTANDAR'];
+                $ESPECIES = $ARRAYVERESTANDAR[0]['ID_ESPECIES'];
+                $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
+                if($ARRAYVERESPECIES){
+                    $NOMBREESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
+                }else{
+                    $NOMBREESPECIES="Sin Datos";
+                }
+            }else{
+                $NOMBRESTANDAR="Sin Datos";
+                $NOMBREESPECIES="Sin Datos";
+            }            
             $IDICARGA = "" . $r['ID_ICARGA'];
             $ARRAYDNOTA=$DNOTADC_ADO->buscarPorNotaDicarga($IDP,$IDOP);            
             if($ARRAYDNOTA){
-                $TOTALPRECIOUSNCND=$ARRAYDNOTA[0]["TOTAL"];
-                $CANTIDADNOTA= ($TOTALPRECIOUSNCND/$CANTIDADENVASE)-$PRECIOUS;
-                $TNOTA=$ARRAYDNOTA[0]["TNOTA"];
-                if($TNOTA==1){
-                    $PRECIOUSNCND = $CANTIDADNOTA+$PRECIOUS ;
-                }
-                if($TNOTA==2){
-                    $PRECIOUSNCND =  $CANTIDADNOTA-$PRECIOUS;
-                }
+                $NOTA=$ARRAYDNOTA[0]["NOTA"];
+                $TOTALPRECIOUSNCND =$ARRAYDNOTA[0]["TOTAL"];
+                $CANTIDADNOTA = $CANTIDADENVASE  / $ARRAYDNOTA[0]["TOTAL"];                  
             }else{
-                $PRECIOUSNCND = 0;
                 $TOTALPRECIOUSNCND = 0;
+                $CANTIDADNOTA = 0;                
             }
         endforeach;
     }
@@ -174,31 +187,44 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
         $ARRAYDICARGA = $DICARGA_ADO->verDicarga($IDOP);
         foreach ($ARRAYDICARGA as $r) :
             $CANTIDADENVASE = "" . $r['CANTIDAD_ENVASE_DICARGA'];
-            $KILOSNETO = "" . $r['KILOS_NETO_DICARGA'];
-            $KILOSBRUTO = "" . $r['KILOS_BRUTO_DICARGA'];
-            $PRECIOUS = "" . $r['PRECIO_US_DICARGA'];
-            $TOTALPRECIOUS = "" . $r['TOTAL_PRECIO_US_DICARGA'];
-            $EEXPORTACION = "" . $r['ID_ESTANDAR'];
             $CALIBRE = "" . $r['ID_TCALIBRE'];
+            $ARRAYVERCALIBRE=$TCALIBRE_ADO->verCalibre($CALIBRE);
+            if($ARRAYVERCALIBRE){
+               $NOMBRECALIBRE= $ARRAYVERCALIBRE[0]['NOMBRE_TCALIBRE'];
+            }else{
+                $NOMBRECALIBRE="Sin Datos";
+            }
             $TMONEDA = "" . $r['ID_TMONEDA'];
+            $ARRAYVERTMONEDA=$TMONEDA_ADO->verTmoneda($TMONEDA);
+            if($ARRAYVERTMONEDA){
+                $NOMBRETMONEDA= $ARRAYVERTMONEDA[0]['NOMBRE_TMONEDA'];
+            }else{
+                $NOMBRETMONEDA="Sin Datos";
+            }
+            $EEXPORTACION=$r['ID_ESTANDAR'];
             $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($EEXPORTACION);
-            $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
-            $ESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
-            $IDICARGA = "" . $r['ID_ICARGA'];
-            $ARRAYDNOTA=$DNOTADC_ADO->buscarPorNotaDicarga($IDP,$IDOP);          
-            if($ARRAYDNOTA){
-                $TOTALPRECIOUSNCND=$ARRAYDNOTA[0]["TOTAL"];
-                $CANTIDADNOTA= ($TOTALPRECIOUSNCND/$CANTIDADENVASE)-$PRECIOUS;
-                $TNOTA=$ARRAYDNOTA[0]["TNOTA"];
-                if($TNOTA==1){
-                    $PRECIOUSNCND = $CANTIDADNOTA+$PRECIOUS ;
-                }
-                if($TNOTA==2){
-                    $PRECIOUSNCND =  $CANTIDADNOTA-$PRECIOUS;
+            if($ARRAYVERESTANDAR){
+                $NOMBRESTANDAR=$ARRAYVERESTANDAR[0]['CODIGO_ESTANDAR'] ."-". $ARRAYVERESTANDAR[0]['NOMBRE_ESTANDAR'];
+                $ESPECIES = $ARRAYVERESTANDAR[0]['ID_ESPECIES'];
+                $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
+                if($ARRAYVERESPECIES){
+                    $NOMBREESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
+                }else{
+                    $NOMBREESPECIES="Sin Datos";
                 }
             }else{
-                $PRECIOUSNCND = 0;
+                $NOMBRESTANDAR="Sin Datos";
+                $NOMBREESPECIES="Sin Datos";
+            }            
+            $IDICARGA = "" . $r['ID_ICARGA'];
+            $ARRAYDNOTA=$DNOTADC_ADO->buscarPorNotaDicarga($IDP,$IDOP);            
+            if($ARRAYDNOTA){
+                $NOTA=$ARRAYDNOTA[0]["NOTA"];
+                $TOTALPRECIOUSNCND =$ARRAYDNOTA[0]["TOTAL"];
+                $CANTIDADNOTA = $CANTIDADENVASE  / $ARRAYDNOTA[0]["TOTAL"];                  
+            }else{
                 $TOTALPRECIOUSNCND = 0;
+                $CANTIDADNOTA = 0;                
             }
         endforeach;
     }
@@ -211,31 +237,44 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
         $ARRAYDICARGA = $DICARGA_ADO->verDicarga($IDOP);
         foreach ($ARRAYDICARGA as $r) :
             $CANTIDADENVASE = "" . $r['CANTIDAD_ENVASE_DICARGA'];
-            $KILOSNETO = "" . $r['KILOS_NETO_DICARGA'];
-            $KILOSBRUTO = "" . $r['KILOS_BRUTO_DICARGA'];
-            $PRECIOUS = "" . $r['PRECIO_US_DICARGA'];
-            $TOTALPRECIOUS = "" . $r['TOTAL_PRECIO_US_DICARGA'];
-            $EEXPORTACION = "" . $r['ID_ESTANDAR'];
             $CALIBRE = "" . $r['ID_TCALIBRE'];
+            $ARRAYVERCALIBRE=$TCALIBRE_ADO->verCalibre($CALIBRE);
+            if($ARRAYVERCALIBRE){
+               $NOMBRECALIBRE= $ARRAYVERCALIBRE[0]['NOMBRE_TCALIBRE'];
+            }else{
+                $NOMBRECALIBRE="Sin Datos";
+            }
             $TMONEDA = "" . $r['ID_TMONEDA'];
+            $ARRAYVERTMONEDA=$TMONEDA_ADO->verTmoneda($TMONEDA);
+            if($ARRAYVERTMONEDA){
+                $NOMBRETMONEDA= $ARRAYVERTMONEDA[0]['NOMBRE_TMONEDA'];
+            }else{
+                $NOMBRETMONEDA="Sin Datos";
+            }
+            $EEXPORTACION=$r['ID_ESTANDAR'];
             $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($EEXPORTACION);
-            $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
-            $ESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
-            $IDICARGA = "" . $r['ID_ICARGA'];
-            $ARRAYDNOTA=$DNOTADC_ADO->buscarPorNotaDicarga($IDP,$IDOP);          
-            if($ARRAYDNOTA){
-                $TOTALPRECIOUSNCND=$ARRAYDNOTA[0]["TOTAL"];
-                $CANTIDADNOTA= ($TOTALPRECIOUSNCND/$CANTIDADENVASE)-$PRECIOUS;
-                $TNOTA=$ARRAYDNOTA[0]["TNOTA"];
-                if($TNOTA==1){
-                    $PRECIOUSNCND = $CANTIDADNOTA+$PRECIOUS ;
-                }
-                if($TNOTA==2){
-                    $PRECIOUSNCND =  $CANTIDADNOTA-$PRECIOUS;
+            if($ARRAYVERESTANDAR){
+                $NOMBRESTANDAR=$ARRAYVERESTANDAR[0]['CODIGO_ESTANDAR'] ."-". $ARRAYVERESTANDAR[0]['NOMBRE_ESTANDAR'];
+                $ESPECIES = $ARRAYVERESTANDAR[0]['ID_ESPECIES'];
+                $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
+                if($ARRAYVERESPECIES){
+                    $NOMBREESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
+                }else{
+                    $NOMBREESPECIES="Sin Datos";
                 }
             }else{
-                $PRECIOUSNCND = 0;
+                $NOMBRESTANDAR="Sin Datos";
+                $NOMBREESPECIES="Sin Datos";
+            }            
+            $IDICARGA = "" . $r['ID_ICARGA'];
+            $ARRAYDNOTA=$DNOTADC_ADO->buscarPorNotaDicarga($IDP,$IDOP);            
+            if($ARRAYDNOTA){
+                $NOTA=$ARRAYDNOTA[0]["NOTA"];
+                $TOTALPRECIOUSNCND =$ARRAYDNOTA[0]["TOTAL"];
+                $CANTIDADNOTA = $CANTIDADENVASE  / $ARRAYDNOTA[0]["TOTAL"];                  
+            }else{
                 $TOTALPRECIOUSNCND = 0;
+                $CANTIDADNOTA = 0;                
             }
         endforeach;
     }
@@ -251,29 +290,44 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
         $ARRAYDICARGA = $DICARGA_ADO->verDicarga($IDOP);
         foreach ($ARRAYDICARGA as $r) :
             $CANTIDADENVASE = "" . $r['CANTIDAD_ENVASE_DICARGA'];
-            $KILOSNETO = "" . $r['KILOS_NETO_DICARGA'];
-            $KILOSBRUTO = "" . $r['KILOS_BRUTO_DICARGA'];
-            $EEXPORTACION = "" . $r['ID_ESTANDAR'];
             $CALIBRE = "" . $r['ID_TCALIBRE'];
+            $ARRAYVERCALIBRE=$TCALIBRE_ADO->verCalibre($CALIBRE);
+            if($ARRAYVERCALIBRE){
+               $NOMBRECALIBRE= $ARRAYVERCALIBRE[0]['NOMBRE_TCALIBRE'];
+            }else{
+                $NOMBRECALIBRE="Sin Datos";
+            }
             $TMONEDA = "" . $r['ID_TMONEDA'];
+            $ARRAYVERTMONEDA=$TMONEDA_ADO->verTmoneda($TMONEDA);
+            if($ARRAYVERTMONEDA){
+                $NOMBRETMONEDA= $ARRAYVERTMONEDA[0]['NOMBRE_TMONEDA'];
+            }else{
+                $NOMBRETMONEDA="Sin Datos";
+            }
+            $EEXPORTACION=$r['ID_ESTANDAR'];
             $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($EEXPORTACION);
-            $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
-            $ESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
-            $IDICARGA = "" . $r['ID_ICARGA'];
-            $ARRAYDNOTA=$DNOTADC_ADO->buscarPorNotaDicarga($IDP,$IDOP);          
-            if($ARRAYDNOTA){
-                $TOTALPRECIOUSNCND=$ARRAYDNOTA[0]["TOTAL"];
-                $CANTIDADNOTA= ($TOTALPRECIOUSNCND/$CANTIDADENVASE)-$PRECIOUS;
-                $TNOTA=$ARRAYDNOTA[0]["TNOTA"];
-                if($TNOTA==1){
-                    $PRECIOUSNCND = $CANTIDADNOTA+$PRECIOUS ;
-                }
-                if($TNOTA==2){
-                    $PRECIOUSNCND =  $CANTIDADNOTA-$PRECIOUS;
+            if($ARRAYVERESTANDAR){
+                $NOMBRESTANDAR=$ARRAYVERESTANDAR[0]['CODIGO_ESTANDAR'] ."-". $ARRAYVERESTANDAR[0]['NOMBRE_ESTANDAR'];
+                $ESPECIES = $ARRAYVERESTANDAR[0]['ID_ESPECIES'];
+                $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
+                if($ARRAYVERESPECIES){
+                    $NOMBREESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
+                }else{
+                    $NOMBREESPECIES="Sin Datos";
                 }
             }else{
-                $PRECIOUSNCND = 0;
+                $NOMBRESTANDAR="Sin Datos";
+                $NOMBREESPECIES="Sin Datos";
+            }            
+            $IDICARGA = "" . $r['ID_ICARGA'];
+            $ARRAYDNOTA=$DNOTADC_ADO->buscarPorNotaDicarga($IDP,$IDOP);            
+            if($ARRAYDNOTA){
+                $NOTA=$ARRAYDNOTA[0]["NOTA"];
+                $TOTALPRECIOUSNCND =$ARRAYDNOTA[0]["TOTAL"];
+                $CANTIDADNOTA = $CANTIDADENVASE  / $ARRAYDNOTA[0]["TOTAL"];                  
+            }else{
                 $TOTALPRECIOUSNCND = 0;
+                $CANTIDADNOTA = 0;                
             }
         endforeach;
     }
@@ -281,6 +335,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 if ($_POST) {
     if (isset($_REQUEST['TOTALPRECIOUSNCND'])) {
         $TOTALPRECIOUSNCND = $_REQUEST['TOTALPRECIOUSNCND'];
+    }
+    if (isset($_REQUEST['NOTA'])) {
+        $NOTA = $_REQUEST['NOTA'];
     }
 }
 ?>
@@ -301,9 +358,10 @@ if ($_POST) {
             <script type="text/javascript">
                 function validacion() {
                     TOTALPRECIOUSNCND = document.getElementById("TOTALPRECIOUSNCND").value;
-                    TOTALPRECIOUS = document.getElementById("TOTALPRECIOUS").value;
-                    TNOTA = parseInt(document.getElementById("TNOTA").value);
+                    TNOTA = document.getElementById("TNOTA").value;
+                    NOTA = document.getElementById("NOTA").value;
                     document.getElementById('val_totalusncnd').innerHTML = "";
+                    document.getElementById('val_nota').innerHTML = "";
                 
 
                     if (TOTALPRECIOUSNCND == null || TOTALPRECIOUSNCND.length == 0 || /^\s+$/.test(TOTALPRECIOUSNCND)) {
@@ -321,46 +379,40 @@ if ($_POST) {
                         return false;
                     }
                     document.form_reg_dato.TOTALPRECIOUSNCND.style.borderColor = "#4AF575";
-                    
-                    if (TOTALPRECIOUSNCND <= TOTALPRECIOUS) {                        
-                        document.form_reg_dato.TOTALPRECIOUSNCND.focus();                        
-                        document.form_reg_dato.TOTALPRECIOUSNCND.style.borderColor = "#FF0000";                        
-                        document.getElementById('val_totalusncnd').innerHTML = "DEBE SER MATOR A TOTAL INSTRUCTIVO";                       
-                        return false;    
-                    }
-                    document.form_reg_dato.TOTALPRECIOUSNCND.style.borderColor = "#4AF575";
                     if(TNOTA==1){
-                        if (TOTALPRECIOUSNCND <= TOTALPRECIOUS) {                        
-                            document.form_reg_dato.TOTALPRECIOUSNCND.focus();                        
-                            document.form_reg_dato.TOTALPRECIOUSNCND.style.borderColor = "#FF0000";                        
-                            document.getElementById('val_totalusncnd').innerHTML = "DEBE SER MATOR A TOTAL INSTRUCTIVO";                       
-                            return false;    
-                        } else {
-                            document.form_reg_dato.TOTALPRECIOUSNCND.style.borderColor = "#4AF575";
+                        if (TOTALPRECIOUSNCND < 0) {
+                            document.form_reg_dato.TOTALPRECIOUSNCND.focus();
+                            document.form_reg_dato.TOTALPRECIOUSNCND.style.borderColor = "#FF0000";
+                            document.getElementById('val_totalusncnd').innerHTML = "NO PUEDE SER MENOR A ZERO";
+                            return false;
                         }
                     }
                     if(TNOTA==2){
-                        if (TOTALPRECIOUSNCND >= TOTALPRECIOUS) {                        
-                            document.form_reg_dato.TOTALPRECIOUSNCND.focus();                        
-                            document.form_reg_dato.TOTALPRECIOUSNCND.style.borderColor = "#FF0000";                        
-                            document.getElementById('val_totalusncnd').innerHTML = "DEBE SER MATOR A TOTAL INSTRUCTIVO";                       
-                            return false;    
-                        } else {
-                            document.form_reg_dato.TOTALPRECIOUSNCND.style.borderColor = "#4AF575";
+                        if (TOTALPRECIOUSNCND > 0) {
+                            document.form_reg_dato.TOTALPRECIOUSNCND.focus();
+                            document.form_reg_dato.TOTALPRECIOUSNCND.style.borderColor = "#FF0000";
+                            document.getElementById('val_totalusncnd').innerHTML = "NO PUEDE SER MATOR A ZERO";
+                            return false;
                         }
                     }
+                    
+                    if (NOTA == null || NOTA.length == 0 || /^\s+$/.test(NOTA)) {
+                        document.form_reg_dato.NOTA.focus();
+                        document.form_reg_dato.NOTA.style.borderColor = "#FF0000";
+                        document.getElementById('val_nota').innerHTML = "NO A INGRESADO DATO";
+                        return false;
+                    }
+                    document.form_reg_dato.NOTA.style.borderColor = "#4AF575";
+                    
                     
                     
                 }
                 function precio(){
-                    var precio;
                     var valorndnc;
                     var repuesta;
 
                     TOTALPRECIOUSNCND = document.getElementById("TOTALPRECIOUSNCND").value;
-                    TNOTA = parseInt(document.getElementById("TNOTA").value);
                     CANTIDADENVASEE = parseInt(document.getElementById("CANTIDADENVASEE").value);
-                    PRECIOUSE = parseFloat(document.getElementById("PRECIOUSE").value);
 
                     document.getElementById('val_totalusncnd').innerHTML = "";                
 
@@ -383,16 +435,8 @@ if ($_POST) {
                         document.form_reg_dato.TOTALPRECIOUSNCND.style.borderColor = "#4AF575";
                     }                          
                     if (repuesta == 0) {
-                        valorndnc =     (TOTALPRECIOUSNCND / CANTIDADENVASEE) - PRECIOUSE;                       
-                        if(TNOTA==1){
-                            precio =PRECIOUSE+valorndnc;
-                        }
-                        if(TNOTA==2){
-                            precio =PRECIOUSE-valorndnc;
-                        } 
-                        valorndnc = valorndnc.toFixed(6); 
-                        precio = precio.toFixed(6);           
-                        document.getElementById('PRECIOUSNCND').value = precio;
+                        valorndnc =     ( CANTIDADENVASEE  / TOTALPRECIOUSNCND );                       
+                        console.log(valorndnc);     
                         document.getElementById('CANTIDADNOTA').value = valorndnc;
                         document.getElementById('CANTIDADNOTAE').value = valorndnc;
 
@@ -448,7 +492,6 @@ if ($_POST) {
                             <div class="box-header with-border bg-info">                                   
                                 <h4 class="box-title">Registro Detalle</h4>                                        
                             </div>
-
                             <form class="form" role="form" method="post" name="form_reg_dato">
                                 <div class="box-body ">
                                     <div class="row">
@@ -464,72 +507,37 @@ if ($_POST) {
                                                 <input type="hidden" class="form-control" placeholder="ID TEMPORADA" id="TEMPORADA" name="TEMPORADA" value="<?php echo $TEMPORADAS; ?>" />
                                                 <label>Estandar</label>
                                                 <input type="hidden" class="form-control" placeholder="EEXPORTACIONE" id="EEXPORTACIONE" name="EEXPORTACIONE" value="<?php echo $EEXPORTACION; ?>" />
-                                                <select class="form-control select2" id="EEXPORTACION" name="EEXPORTACION"  style="width: 100%;" disabled>
-                                                    <option></option>
-                                                    <?php foreach ($ARRAYESTANDAR as $r) : ?>
-                                                        <?php if ($ARRAYESTANDAR) {    ?>
-                                                            <option value="<?php echo $r['ID_ESTANDAR']; ?>" <?php if ($EEXPORTACION == $r['ID_ESTANDAR']) {  echo "selected"; } ?>>                                                                
-                                                               <?php echo $r['CODIGO_ESTANDAR'] ?> <?php echo $r['NOMBRE_ESTANDAR'] ?>
-                                                            </option>
-                                                        <?php } else { ?>
-                                                            <option>No Hay Datos Registrados </option>
-                                                        <?php } ?>
-                                                    <?php endforeach; ?>
-                                                </select>
+                                                <input type="text" class="form-control" placeholder="EEXPORTACION" id="EEXPORTACION" name="EEXPORTACION" value="<?php echo $NOMBRESTANDAR; ?>" disabled style="background-color: #eeeeee;" />                                            
                                                 <label id="val_estandar" class="validacion"> </label>
                                             </div>
                                         </div>
+                                        <!--
                                         <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Especies </label>
                                                 <input type="hidden" class="form-control" placeholder="ESPECIESE" id="ESPECIESE" name="ESPECIESE" value="<?php echo $ESPECIES; ?>" />
-                                                <input type="text" class="form-control" placeholder="ESPECIES" id="ESPECIES" name="ESPECIES" value="<?php echo $ESPECIES; ?>" disabled style="background-color: #eeeeee;" />
+                                                <input type="text" class="form-control" placeholder="ESPECIES" id="ESPECIES" name="ESPECIES" value="<?php echo $NOMBREESPECIES; ?>" disabled style="background-color: #eeeeee;" />
                                                 <label id="val_especies" class="validacion"> </label>
                                             </div>
                                         </div>
-
+                                        -->
                                         <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Calibre</label>
                                                 <input type="hidden" class="form-control" placeholder="CALIBREE" id="CALIBREE" name="CALIBREE" value="<?php echo $CALIBRE; ?>" />
-                                                <select class="form-control select2" id="CALIBRE" name="CALIBRE" style="width: 100%;" disabled>
-                                                    <option></option>
-                                                    <?php foreach ($ARRAYCALIBRE as $r) : ?>
-                                                        <?php if ($ARRAYCALIBRE) {    ?>
-                                                            <option value="<?php echo $r['ID_TCALIBRE']; ?>" <?php if ($CALIBRE == $r['ID_TCALIBRE']) {  echo "selected"; } ?>>
-                                                                <?php echo $r['NOMBRE_TCALIBRE'] ?>
-                                                            </option>
-                                                        <?php } else { ?>
-                                                            <option>No Hay Datos Registrados </option>
-                                                        <?php } ?>
-                                                    <?php endforeach; ?>
-                                                </select>
+                                                <input type="text" class="form-control" placeholder="CALIBRE" id="CALIBRE" name="CALIBRE" value="<?php echo $NOMBRECALIBRE; ?>" disabled style="background-color: #eeeeee;"  />                                           
                                                 <label id="val_calibre" class="validacion"> </label>
                                             </div>
                                         </div>
-
                                         <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Tipo Moneda</label>
                                                 <input type="hidden" class="form-control" placeholder="TMONEDAE" id="TMONEDAE" name="TMONEDAE" value="<?php echo $TMONEDA; ?>" />
-                                                <select class="form-control select2" id="TMONEDA" name="TMONEDA" style="width: 100%;"  disabled >
-                                                    <option></option>
-                                                    <?php foreach ($ARRAYTMONEDA as $r) : ?>
-                                                        <?php if ($ARRAYTMONEDA) {    ?>
-                                                            <option value="<?php echo $r['ID_TMONEDA']; ?>" <?php if ($TMONEDA == $r['ID_TMONEDA']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>>
-                                                                <?php echo $r['NOMBRE_TMONEDA'] ?>
-                                                            </option>
-                                                        <?php } else { ?>
-                                                            <option>No Hay Datos Registrados </option>
-                                                        <?php } ?>
-                                                    <?php endforeach; ?>
-                                                </select>
+                                                <input type="text" class="form-control" placeholder="TMONEDA" id="TMONEDA" name="TMONEDA" value="<?php echo $NOMBRETMONEDA; ?>" disabled style="background-color: #eeeeee;"/>   
                                                 <label id="val_tmoneda" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6 ">
+                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Cantidad Envase</label>
                                                 <input type="hidden" id="CANTIDADENVASEE" name="CANTIDADENVASEE" value="<?php echo $CANTIDADENVASE; ?>" />
@@ -537,41 +545,27 @@ if ($_POST) {
                                                 <label id="val_cantidad" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6 ">
+                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Valor NC/ND </label>
                                                 <input type="hidden" id="CANTIDADNOTAE" name="CANTIDADNOTAE" value="<?php echo $CANTIDADNOTA; ?>" />
-                                                <input type="number" step="0.000001" class="form-control"  placeholder="Valor NC/ND " id="CANTIDADNOTA" name="CANTIDADNOTA"   value="<?php echo number_format($CANTIDADNOTA,6 ); ?>"   disabled />
+                                                <input type="number" step="0.000001" class="form-control"  placeholder="Valor NC/ND " id="CANTIDADNOTA" name="CANTIDADNOTA"   value="<?php echo $CANTIDADNOTA; ?>"   disabled />
                                                 <label id="val_cantidadnota" class="validacion"> </label>
                                             </div>
-                                        </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6 ">
+                                        </div>                                       
+                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
-                                                <label>Precio Instructivo</label>
-                                                <input type="hidden" id="PRECIOUSE" name="PRECIOUSE" value="<?php echo $PRECIOUS; ?>" />
-                                                <input type="number" step="0.01" class="form-control"  placeholder="Precio Instructivo" id="PRECIOUS" name="PRECIOUS" value="<?php echo $PRECIOUS; ?>" disabled/>
-                                                <label id="val_us" class="validacion"> </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6 ">
-                                            <div class="form-group">
-                                                <label>Precio Instru. Con NC/ND</label>                                                
-                                                <input type="number" step="0.000001" class="form-control"  placeholder="Precio Instru. Con NC/ND" id="PRECIOUSNCND" name="PRECIOUSNCND" value="<?php echo  number_format($PRECIOUSNCND,6 );  ?>" disabled/>                                                
-                                            </div>
-                                        </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 col-xs-12 ">
-                                            <div class="form-group">
-                                                <label>Total Instructivo</label>
-                                                <input type="hidden" id="TOTALPRECIOUS" name="TOTALPRECIOUS" value="<?php echo $TOTALPRECIOUS; ?>" />
-                                                <input type="number" step="0.01" class="form-control" placeholder="Total Instructivo" id="TOTALPRECIOUSV" name="TOTALPRECIOUSV" value="<?php echo $TOTALPRECIOUS; ?>" disabled style="background-color: #eeeeee;" />
-                                                <label id="val_totalus" class="validacion"> </label>
-                                            </div>
-                                        </div>                                        
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 col-xs-12 ">
-                                            <div class="form-group">
-                                                <label>Total Instru. Con NC/ND</label>                                                
-                                                <input type="number" step="0.01" class="form-control"  placeholder="Total Instru. Con NC/ND" id="TOTALPRECIOUSNCND" name="TOTALPRECIOUSNCND" onchange="precio()" value="<?php echo $TOTALPRECIOUSNCND; ?>"  <?php echo $DISABLED; ?> />                                                
+                                                <label>Total </label>                                                
+                                                <input type="number" step="0.01" class="form-control"  placeholder="Total  Con NC/ND" id="TOTALPRECIOUSNCND" name="TOTALPRECIOUSNCND" onchange="precio()" value="<?php echo $TOTALPRECIOUSNCND; ?>"  <?php echo $DISABLED; ?> />                                                
                                                 <label id="val_totalusncnd" class="validacion"> </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
+                                            <div class="form-group">
+                                                <input type="hidden" class="form-control" placeholder="NOTA" id="NOTAE" name="NOTAE" value="<?php echo $NOTA; ?>" />
+                                                <label>Detalle Nota </label>
+                                                <textarea class="form-control" rows="1"  placeholder="Ingrese Nota, Motivo e Observacion  " id="NOTA" name="NOTA" <?php echo $DISABLED; ?>><?php echo $NOTA; ?></textarea>
+                                                <label id="val_nota" class="validacion"> </label>
                                             </div>
                                         </div>
                                     </div>
@@ -616,7 +610,7 @@ if ($_POST) {
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
                 <?php include_once "../../assest/config/footer.php";   ?>
-                <?php include_once "../../assest/config/menuExtraFruta.php"; ?>
+                <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../../assest/config/urlBase.php"; ?>
@@ -634,7 +628,7 @@ if ($_POST) {
                 Toast.fire({
                   icon: "info",
                   title: "Información Importante",
-                  html:"<label>Tipo de Nota NC/ND: '.$NOMBRETNOTA.'</label>"
+                  html:"<label><b>Tipo de Nota:</b> </label> <br>  <b>'.$NOMBRETNOTA.'</b>"
                 })
             </script>';
         ?>
@@ -645,6 +639,7 @@ if ($_POST) {
                 $DNOTADC->__SET('TNOTA', $_REQUEST['TNOTA']);
                 $DNOTADC->__SET('CANTIDAD', $_REQUEST['CANTIDADNOTAE']);
                 $DNOTADC->__SET('TOTAL', $_REQUEST['TOTALPRECIOUSNCND']);
+                $DNOTADC->__SET('NOTA', $_REQUEST['NOTA']);
                 $DNOTADC->__SET('ID_NOTA', $_REQUEST['IDP']);
                 $DNOTADC->__SET('ID_DICARGA', $_REQUEST['ID']);
                 $DNOTADC_ADO->agregarDnota($DNOTADC);
@@ -676,6 +671,7 @@ if ($_POST) {
                     $DNOTADC->__SET('TNOTA', $_REQUEST['TNOTA']);
                     $DNOTADC->__SET('CANTIDAD', $_REQUEST['CANTIDADNOTAE']);
                     $DNOTADC->__SET('TOTAL', $_REQUEST['TOTALPRECIOUSNCND']);
+                    $DNOTADC->__SET('NOTA', $_REQUEST['NOTA']);
                     $DNOTADC->__SET('ID_NOTA', $_REQUEST['IDP']);
                     $DNOTADC->__SET('ID_DICARGA', $_REQUEST['ID']);
                     $DNOTADC->__SET('ID_DNOTA', $ARRAYDNOTA[0]["ID_DNOTA"]);               

@@ -84,7 +84,7 @@ $FECHAMODIFCIACION = "";
 $IDINOTA = "";
 $FECHAINOTA = "";
 $TNOTA = "";
-$OBSERVACIONINOTA = "";
+$OBSERVACIONES = "";
 $ICARGAD="";
 $BOOKINGINSTRUCTIVO = "";
 $BOLAWBCRTINSTRUCTIVO="";
@@ -114,7 +114,7 @@ $EMPRESA = "";
 $PLANTA = "";
 $TEMPORADA = "";
 $TOTALPRECIOUSNUEVO=0;
-
+$ITEM=0;
 //INICIALIZAR ARREGLOS
 $ARRAYEMPRESA = "";
 $ARRAYPLANTA = "";
@@ -166,6 +166,8 @@ if ($ARRAYVERNOTADCNC) {
   $FECHAINOTA = $ARRAYVERNOTADCNC[0]["FECHA"];
   $TNOTA = $ARRAYVERNOTADCNC[0]["TNOTA"];
   $ICARGA = $ARRAYVERNOTADCNC[0]["ID_ICARGA"];
+  $OBSERVACIONES = $ARRAYVERNOTADCNC[0]["OBSERVACIONES"];
+  
   
   $IDUSUARIOI = $ARRAYVERNOTADCNC[0]['ID_USUARIOI'];  
   $ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
@@ -584,130 +586,91 @@ $html = '
         <table border="0" cellspacing="0" cellpadding="0">
           <thead>
             <tr>
-              <th colspan="12" class="center">DETAIL.</th>
+              <th colspan="4" class="center">DETAIL.</th>
             </tr>
             <tr>
-              <th class="color center ">Amount Boxes</th>
+              <th class="color center ">Item</th>
               <th class="color center ">Description of goods </th>
-              <th class="color center ">Net Weight </th>
-              <th class="color center ">Gross Weight </th>
-              <th class="color center ">Net Kilo </th>
-              <th class="color center ">Gross Kilo </th>
               <th class="color center ">Type of currency </th>
-              <th class="color center"> value CN/DN</th>
-              <th class="color center ">Price</th>
-              <th class="color center"> New price</th>
-              <th class="color center ">Total</th>    
-              <th class="color center ">New Total </th>    
+              <th class="color center ">Total</th>      
             </tr>
           </thead>
            <tbody>
           ';
           foreach ($ARRAYDCARGA as $s) :
 
-            $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($s['ID_ESTANDAR']);
-            if ($ARRAYEEXPORTACION) {
-            $CODIGOESTANDAR = $ARRAYEEXPORTACION[0]['CODIGO_ESTANDAR'];
-            $NOMBREESTANTAR = $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'];
-            $NETOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_NETO_ESTANDAR'];
-            $BRUTOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_BRUTO_ESTANDAR'];
-            } else {
-            $CODIGOESTANDAR = "Sin Datos";
-            $NOMBREESTANTAR = "Sin Datos";
-            $NETOESTANTAR = "Sin Datos";
-            $BRUTOESTANTAR = "Sin Datos";
-            }
-            
-            $ARRAYCALIBRE = $TCALIBRE_ADO->verCalibre($s['ID_TCALIBRE']);
-            if ($ARRAYCALIBRE) {
-            $NOMBRECALIBRE = $ARRAYCALIBRE[0]['NOMBRE_TCALIBRE'];
-            } else {
-            $NOMBRECALIBRE = "Sin Datos";
-            }
-            $ARRAYTMONEDA = $TMONEDA_ADO->verTmoneda($s['ID_TMONEDA']);
-            if ($ARRAYTMONEDA) {
-            $NOMBRETMONEDA = $ARRAYTMONEDA[0]['NOMBRE_TMONEDA'];
-            } else {
-            $NOMBRETMONEDA = "Sin Datos";
-            }
+
             $ARRAYDNOTA=$DNOTADC_ADO->buscarPorNotaDicarga($IDOP,$s['ID_DICARGA']);
             if($ARRAYDNOTA){
                 $CANTIDADDNOTA=$ARRAYDNOTA[0]["CANTIDAD"];
-                if($ARRAYDNOTA[0]["TNOTA"] ==1){                                                                        
-                    $PRECIONUEVO=$s['PRECIO_US_DICARGA']+$CANTIDADDNOTA;
-                    $TOTALNUEVO=$s['CANTIDAD_ENVASE_DICARGA']*$PRECIONUEVO;
-                }else  if($ARRAYDNOTA[0]["TNOTA"] ==2){
-                    $PRECIONUEVO=$s['PRECIO_US_DICARGA']-$CANTIDADDNOTA;
-                    $TOTALNUEVO=$s['CANTIDAD_ENVASE_DICARGA']*$PRECIONUEVO;
-                }else{
-                    $PRECIONUEVO="Sin Datos";
-                    $TOTALNUEVO=0;
+                $TOTALNUEVO=$ARRAYDNOTA[0]["TOTAL"];
+                $NOTA=$ARRAYDNOTA[0]["NOTA"];     
+
+                $ITEM+=1;                
+                $TOTALPRECIOUSNUEVO=$TOTALPRECIOUSNUEVO+$TOTALNUEVO;
+                $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($s['ID_ESTANDAR']);
+                if ($ARRAYEEXPORTACION) {
+                  $CODIGOESTANDAR = $ARRAYEEXPORTACION[0]['CODIGO_ESTANDAR'];
+                  $NOMBREESTANTAR = $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'];
+                  $NETOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_NETO_ESTANDAR'];
+                  $BRUTOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_BRUTO_ESTANDAR'];
+                } else {
+                  $CODIGOESTANDAR = "Sin Datos";
+                  $NOMBREESTANTAR = "Sin Datos";
+                  $NETOESTANTAR = "Sin Datos";
+                  $BRUTOESTANTAR = "Sin Datos";
+                }            
+                $ARRAYCALIBRE = $TCALIBRE_ADO->verCalibre($s['ID_TCALIBRE']);
+                if ($ARRAYCALIBRE) {
+                  $NOMBRECALIBRE = $ARRAYCALIBRE[0]['NOMBRE_TCALIBRE'];
+                } else {
+                $NOMBRECALIBRE = "Sin Datos";
                 }
-            }else{
-                $CANTIDADDNOTA="Sin Datos";
-                $PRECIONUEVO="Sin Datos";
-                $TOTALNUEVO=0;
-            }
-            
-          $TOTALPRECIOUSNUEVO=$TOTALPRECIOUSNUEVO+$TOTALNUEVO;
-            
-            $html = $html . '              
-              <tr class="">
-                  <td class="center">'.$s['ENVASE'].'</td>
-                    <td class="center">'.$NOMBREESTANTAR.'</td>
-                    <td class="center">'.number_format($NETOESTANTAR, 2, ",", ".").'</td>
-                    <td class="center">'.number_format($BRUTOESTANTAR, 2, ",", ".").'</td>
-                    <td class="center">'.$s['NETO'].'</td>
-                    <td class="center">'.$s['BRUTO'].'</td>
-                    <td class="center">'.$NOMBRETMONEDA.'</td>
-                    <td class=" center">'.$CANTIDADDNOTA.'</td>
-                    <td class="center">'.$s['US'].'</td>
-                    <td class=" center">'.$PRECIONUEVO.'</td>
-                    <td class="center">'.$s['TOTALUS'].'</td>
-                    <td class=" center">'.number_format($TOTALNUEVO, 0, "", ".").'</td>
-              </tr>
-            ';
+                $ARRAYTMONEDA = $TMONEDA_ADO->verTmoneda($s['ID_TMONEDA']);
+                if ($ARRAYTMONEDA) {
+                  $NOMBRETMONEDA = $ARRAYTMONEDA[0]['NOMBRE_TMONEDA'];
+                } else {
+                  $NOMBRETMONEDA = "Sin Datos";
+                }             
+                   
+                  $html = $html . '              
+                    <tr class="">
+                        <td class="center">'.$ITEM.'</td>
+                          <td class="center">'.$NOTA.'</td>
+                          <td class="center">'.$NOMBRETMONEDA.'</td>
+                          <td class=" center">'.number_format($TOTALNUEVO,2,",",".").'</td>
+                    </tr>
+                  ';
+                }else{
+                  $NOTA="Sin Datos";
+                  $CANTIDADDNOTA=0;
+                  $TOTALNUEVO=0;
+              } 
             endforeach;
             $html = $html . '
                     
                         <tr class="bt">
-                          <th class="color center">'.$TOTALENVASEV.'</th>
                           <td class="color center">&nbsp;</td>
                           <td class="color center">&nbsp;</td>
                           <th class="color right">Sub total</td>
-                          <th class="color center">'.$TOTALNETOV.'</th>
-                          <th class="color center">'.$TOTALBRUTOV.'</th>
-                          <td class="color center">&nbsp;</td>
-                          <td class="color center">&nbsp;</td>
-                          <td class="color center">&nbsp;</td>
-                          <td class="color center">&nbsp;</td>
-                          <th class="color center">'.$TOTALUSV.'</th>
-                          <th class="color center">'.number_format($TOTALPRECIOUSNUEVO, 0, "", ".").'</th>
+                          <th class="color center">'. number_format( $TOTALPRECIOUSNUEVO,2,",",".").'</th>
                         </tr>
-                    ';
-            
-            
-            
-
-$html = $html . '
-    
+                    ';  
+$html = $html . '    
   </tbody>
   </table>
 <br><br><br><br><br>
   <div id="details" class="clearfix">
-
         <div id="client">
           <div class="address"><b>observations</b></div>
           <div class="address">  ' . $OBSERVACIONES . ' </div>
-        </div>
-        
+        </div>        
         <div id="invoice">
           <div class="date "><b><hr></b></div>
           <div class="date  center"> Firm responsible</div>
           <div class="date  center">  ' . $NOMBRERESPONSABLE . '</div>
         </div>
       </div>
-
     </main>
   </body>
 </html>

@@ -128,6 +128,8 @@ class DNOTADC_ADO
                                             TNOTA, 
                                             CANTIDAD, 
                                             TOTAL,
+
+                                            NOTA,
                                             ID_NOTA,  
                                             ID_DICARGA, 
                                             
@@ -137,7 +139,7 @@ class DNOTADC_ADO
                                             ESTADO_REGISTRO
                                         ) 
             VALUES
-	       	(?, ?, ?, ?, ?,  SYSDATE(),SYSDATE(), 1, 1);";
+	       	(?, ?, ?,    ?, ?, ?,  SYSDATE(),SYSDATE(), 1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -145,6 +147,8 @@ class DNOTADC_ADO
                         $DNOTADC->__GET('TNOTA'),
                         $DNOTADC->__GET('CANTIDAD'),
                         $DNOTADC->__GET('TOTAL'),
+
+                        $DNOTADC->__GET('NOTA'),
                         $DNOTADC->__GET('ID_NOTA'),
                         $DNOTADC->__GET('ID_DICARGA')
 
@@ -177,11 +181,15 @@ class DNOTADC_ADO
             $query = "
                     UPDATE fruta_dnotadc SET
                         MODIFICACION = SYSDATE(),
+
                         TNOTA = ?,
                         CANTIDAD = ?,
                         TOTAL = ?,
+                        
+                        NOTA= ?,
                         ID_NOTA= ?,
                         ID_DICARGA= ?
+                        
                     WHERE ID_DNOTA = ?  ;";
             $this->conexion->prepare($query)
                 ->execute(
@@ -190,8 +198,11 @@ class DNOTADC_ADO
                         $DNOTADC->__GET('TNOTA'),
                         $DNOTADC->__GET('CANTIDAD'),
                         $DNOTADC->__GET('TOTAL'),
+
+                        $DNOTADC->__GET('NOTA'),
                         $DNOTADC->__GET('ID_NOTA'),
                         $DNOTADC->__GET('ID_DICARGA'),
+
                         $DNOTADC->__GET('ID_DNOTA')
 
                     )

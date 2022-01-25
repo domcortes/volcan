@@ -1018,12 +1018,9 @@ if (isset($_POST)) {
                                                             <th>Kilo Neto </th>
                                                             <th>Kilo Bruto </th>
                                                             <th>Calibre </th>     
-                                                            <th>Tipo Moneda </th>                                                           
-                                                            <th>Valor NC/ND </th>
-                                                            <th>Precio Instructivo </th>   
-                                                            <th>Precio Instru. Con NC/ND</th>   
-                                                            <th>Total Instructivo </th>
-                                                            <th>Total Instru. Con NC/ND </th>
+                                                            <th>Detalle Nota  </th>
+                                                            <th>Tipo Moneda </th>         
+                                                            <th>Total  </th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -1051,19 +1048,11 @@ if (isset($_POST)) {
                                                                 $ARRAYDNOTA=$DNOTADC_ADO->buscarPorNotaDicarga($IDOP,$s['ID_DICARGA']);
                                                                 if($ARRAYDNOTA){
                                                                     $CANTIDADDNOTA=$ARRAYDNOTA[0]["CANTIDAD"];
-                                                                    $TOTALNUEVO=$ARRAYDNOTA[0]['TOTAL'];
-                                                                    //$CANTIDADNOTA= ($ARRAYDNOTA[0]['TOTAL']/$s['CANTIDAD_ENVASE_DICARGA'])-$s['PRECIO_US_DICARGA'];
-                                                                    if($ARRAYDNOTA[0]["TNOTA"] ==1){                                                                        
-                                                                        $PRECIONUEVO=$s['PRECIO_US_DICARGA']+$CANTIDADDNOTA;
-                                                                    }else  if($ARRAYDNOTA[0]["TNOTA"] ==2){
-                                                                        $PRECIONUEVO=$s['PRECIO_US_DICARGA']-$CANTIDADDNOTA;
-                                                                    }else{
-                                                                        $PRECIONUEVO="Sin Datos";
-                                                                        $TOTALNUEVO="Sin Datos";
-                                                                    }
+                                                                    $TOTALNUEVO=$ARRAYDNOTA[0]['TOTAL'];                                                               
+                                                                    $NOTA=$ARRAYDNOTA[0]['NOTA'];
                                                                 }else{
                                                                     $CANTIDADDNOTA="Sin Datos";
-                                                                    $PRECIONUEVO="Sin Datos";
+                                                                    $NOTA="Sin Datos";
                                                                     $TOTALNUEVO="Sin Datos";
                                                                 }
                                                                 ?>
@@ -1103,11 +1092,8 @@ if (isset($_POST)) {
                                                                     <td><?php echo $s['KILOS_NETO_DICARGA']; ?></td>
                                                                     <td><?php echo $s['KILOS_BRUTO_DICARGA']; ?></td>
                                                                     <td><?php echo $NOMBRECALIBRE; ?></td>
+                                                                    <td><?php echo $NOTA; ?></td>
                                                                     <td><?php echo $NOMBRETMONEDA; ?></td>
-                                                                    <td><?php echo $CANTIDADDNOTA; ?></td>
-                                                                    <td><?php echo $s['PRECIO_US_DICARGA']; ?></td>
-                                                                    <td><?php echo $PRECIONUEVO; ?></td>
-                                                                    <td><?php echo $s['TOTAL_PRECIO_US_DICARGA']; ?></td>
                                                                     <td><?php echo $TOTALNUEVO; ?></td>
                                                                 </tr>
                                                             <?php endforeach; ?>
