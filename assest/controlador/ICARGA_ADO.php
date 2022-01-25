@@ -284,6 +284,7 @@ class ICARGA_ADO
                                             FECHAETAREAL_ICARGA, 
                                             FDA_ICARGA, 
                                             TEMBARQUE_ICARGA, 
+                                            NCONTENEDOR_ICARGA,
                                             CRT_ICARGA,  
                                             FECHASTACKING_ICARGA,
                                             NVIAJE_ICARGA, 
@@ -344,7 +345,7 @@ class ICARGA_ADO
                                             ESTADO_REGISTRO
                                         ) 
             VALUES
-	       	    (  ?,  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
+	       	    (  ?,  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
                  0, 0, 0, 0, SYSDATE(), SYSDATE(), 1, 2, 1);";
             $this->conexion->prepare($query)
                 ->execute(
@@ -358,6 +359,7 @@ class ICARGA_ADO
                         $ICARGA->__GET('FECHAETAREAL_ICARGA'),
                         $ICARGA->__GET('FDA_ICARGA'),
                         $ICARGA->__GET('TEMBARQUE_ICARGA'),
+                        $ICARGA->__GET('NCONTENEDOR_ICARGA'),
                         $ICARGA->__GET('CRT_ICARGA'),
                         $ICARGA->__GET('FECHASTACKING_ICARGA'),
                         $ICARGA->__GET('NVIAJE_ICARGA'),
@@ -532,6 +534,7 @@ class ICARGA_ADO
             FECHAETAREAL_ICARGA = ?, 
             FDA_ICARGA = ?, 
             TEMBARQUE_ICARGA = ?, 
+            NCONTENEDOR_ICARGA = ?, 
             CRT_ICARGA = ?,
             FECHASTACKING_ICARGA = ?,
             NVIAJE_ICARGA = ?, 
@@ -597,6 +600,7 @@ class ICARGA_ADO
                         $ICARGA->__GET('FECHAETAREAL_ICARGA'),
                         $ICARGA->__GET('FDA_ICARGA'),
                         $ICARGA->__GET('TEMBARQUE_ICARGA'),
+                        $ICARGA->__GET('NCONTENEDOR_ICARGA'),
                         $ICARGA->__GET('CRT_ICARGA'),
                         $ICARGA->__GET('FECHASTACKING_ICARGA'),
                         $ICARGA->__GET('NVIAJE_ICARGA'),

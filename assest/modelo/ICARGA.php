@@ -19,6 +19,7 @@ class ICARGA
     private      $FECHAETAREAL_ICARGA;
     private      $FDA_ICARGA;
     private      $TEMBARQUE_ICARGA;
+    private      $NCONTENEDOR_ICARGA;
     private      $CRT_ICARGA;
     private      $NVIAJE_ICARGA;
     private      $NAVE_ICARGA;
