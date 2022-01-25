@@ -149,6 +149,7 @@ $RFINAL = "";
 $FECHAETD = "";
 $FECHAETA = "";
 $FECHAETAREAL = "";
+$NCONTENEDOR="";
 $AADUANA = "";
 $AGCARGA = "";
 $TEMBARQUE = "";
@@ -417,7 +418,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
         //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
         foreach ($ARRAYVERICARGA as $r) :
-
             $NUMEROVER = $r['NUMERO_ICARGA'];
             $FECHAINSTRUCTIVO = $r['FECHA_ICARGA'];
             $TSERVICIO = $r['ID_TSERVICIO'];
@@ -435,6 +435,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $FECHAETD = $r['FECHAETD_ICARGA'];
             $FECHAETA = $r['FECHAETA_ICARGA'];
             $FECHAETAREAL = $r['FECHAETAREAL_ICARGA'];
+            $NCONTENEDOR = $r['NCONTENEDOR_ICARGA'];
             $AADUANA = $r['ID_AADUANA'];
             $AGCARGA = $r['ID_AGCARGA'];
             $DFINAL = $r['ID_DFINAL'];
@@ -526,6 +527,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $FECHAETD = $r['FECHAETD_ICARGA'];
             $FECHAETA = $r['FECHAETA_ICARGA'];
             $FECHAETAREAL = $r['FECHAETAREAL_ICARGA'];
+            $NCONTENEDOR = $r['NCONTENEDOR_ICARGA'];
             $AADUANA = $r['ID_AADUANA'];
             $AGCARGA = $r['ID_AGCARGA'];
             $DFINAL = $r['ID_DFINAL'];
@@ -619,6 +621,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $FECHAETD = $r['FECHAETD_ICARGA'];
             $FECHAETA = $r['FECHAETA_ICARGA'];
             $FECHAETAREAL = $r['FECHAETAREAL_ICARGA'];
+            $NCONTENEDOR = $r['NCONTENEDOR_ICARGA'];
             $AADUANA = $r['ID_AADUANA'];
             $AGCARGA = $r['ID_AGCARGA'];
             $DFINAL = $r['ID_DFINAL'];
@@ -730,6 +733,9 @@ if (isset($_POST)) {
     if (isset($_REQUEST['FECHAETAREAL'])) {
         $FECHAETAREAL = $_REQUEST['FECHAETAREAL'];
     }
+    if (isset($_REQUEST['NCONTENEDOR'])) {
+        $NCONTENEDOR = $_REQUEST['NCONTENEDOR'];
+    }    
     if (isset($_REQUEST['AADUANA'])) {
         $AADUANA = $_REQUEST['AADUANA'];
     }
@@ -2433,8 +2439,16 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Fecha Real ETA</label>
                                                     <input type="hidden" class="form-control" placeholder="FECHA PROCESO" id="FECHAETAREALE" name="FECHAETAREALE" value="<?php echo $FECHAETAREAL; ?>" />
-                                                    <input type="date" class="form-control" placeholder="Fecha Real ETA" id="FECHAETAREAL" name="FECHAETAREAL" value="<?php echo $FECHAETAREAL; ?>" <?php echo $DISABLED; ?> />
+                                                    <input type="date" class="form-control" placeholder="Fecha ETA Real" id="FECHAETAREAL" name="FECHAETAREAL" value="<?php echo $FECHAETAREAL; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_fechaetareal" class="validacion"> </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                <div class="form-group">
+                                                    <label>N° Contenedor </label>
+                                                    <input type="hidden" class="form-control" placeholder="NCONTENEDORE" id="NCONTENEDORE" name="NCONTENEDORE" value="<?php echo $NCONTENEDOR; ?>" />
+                                                    <input type="text" class="form-control" placeholder="N° Contenedor" id="NCONTENEDOR" name="NCONTENEDOR" value="<?php echo $NCONTENEDOR; ?>" <?php echo $DISABLED; ?>/>
+                                                    <label id=" val_ncontenedor" class="validacion"> </label>
                                                 </div>
                                             </div>
                                             <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-9 col-sm-9 col-9 col-xs-9">
@@ -3482,6 +3496,7 @@ if (isset($_POST)) {
                 $ICARGA->__SET('FECHAETD_ICARGA', $_REQUEST['FECHAETD']);
                 $ICARGA->__SET('FECHAETA_ICARGA', $_REQUEST['FECHAETA']);
                 $ICARGA->__SET('FECHAETAREAL_ICARGA', $_REQUEST['FECHAETAREAL']);
+                $ICARGA->__SET('NCONTENEDOR_ICARGA', $_REQUEST['NCONTENEDOR']);                
                 $ICARGA->__SET('FDA_ICARGA', $_REQUEST['FDA']);
                 $ICARGA->__SET('TEMBARQUE_ICARGA', $_REQUEST['TEMBARQUE']);
                 $ICARGA->__SET('FUMIGADO_ICARGA', $_REQUEST['FUMIGADO']);
@@ -3582,6 +3597,7 @@ if (isset($_POST)) {
                 $ICARGA->__SET('FECHAETD_ICARGA', $_REQUEST['FECHAETD']);
                 $ICARGA->__SET('FECHAETA_ICARGA', $_REQUEST['FECHAETA']);
                 $ICARGA->__SET('FECHAETAREAL_ICARGA', $_REQUEST['FECHAETAREAL']);
+                $ICARGA->__SET('NCONTENEDOR_ICARGA', $_REQUEST['NCONTENEDOR']);      
                 $ICARGA->__SET('FDA_ICARGA', $_REQUEST['FDA']);
                 $ICARGA->__SET('TEMBARQUE_ICARGA', $_REQUEST['TEMBARQUE']);
                 $ICARGA->__SET('FUMIGADO_ICARGA', $_REQUEST['FUMIGADO']);
@@ -3713,6 +3729,7 @@ if (isset($_POST)) {
                     $ICARGA->__SET('FECHAETD_ICARGA', $_REQUEST['FECHAETD']);
                     $ICARGA->__SET('FECHAETA_ICARGA', $_REQUEST['FECHAETA']);
                     $ICARGA->__SET('FECHAETAREAL_ICARGA', $_REQUEST['FECHAETAREAL']);
+                    $ICARGA->__SET('NCONTENEDOR_ICARGA', $_REQUEST['NCONTENEDOR']);      
                     $ICARGA->__SET('FDA_ICARGA', $_REQUEST['FDA']);
                     $ICARGA->__SET('TEMBARQUE_ICARGA', $_REQUEST['TEMBARQUE']);
                     $ICARGA->__SET('FUMIGADO_ICARGA', $_REQUEST['FUMIGADO']);
