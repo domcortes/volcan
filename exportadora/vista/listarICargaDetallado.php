@@ -256,12 +256,14 @@ include_once "../../assest/config/datosUrLP.php";
                                                         <th>Forma Pago</th>
                                                         <th>Modalidad Venta</th>
                                                         <th>Clausula Venta</th>
-                                                        <th>Tipo Flete</th>                                                        
-                                                        <th>Tipo Contenedor</th>
-                                                        <th>Contenedor</th>
+                                                        <th>Tipo Flete</th>
+                                                        <th>Fecha Corte Documental</th>   
                                                         <th>Fecha ETD</th>
                                                         <th>Fecha ETA</th>
-                                                        <th>Fecha Real ETA</th>
+                                                        <th>Fecha Real ETA</th>                                            
+                                                        <th>Tipo Contenedor</th>
+                                                        <th>BL/AWB</th>
+                                                        <th>N° Contenedor</th>
                                                         <th>Días Estimados</th>
                                                         <th>Días Reales </th>
                                                         <th>Destino Final </th>
@@ -462,7 +464,13 @@ include_once "../../assest/config/datosUrLP.php";
                                                               $NOMBREDESTINO="Sin Datos";
                                                             }
                                                         }
-
+                                                    
+                                                        $ARRAYDESPACHOEX=$DESPACHOEX_ADO->buscarDespachoExPorIcarga($r['ID_ICARGA']);  
+                                                        if($ARRAYDESPACHOEX){
+                                                            $NUMEROCONTENEDOR=$ARRAYDESPACHOEX[0]["NUMERO_CONTENEDOR_DESPACHOEX"];
+                                                        }else{
+                                                            $NUMEROCONTENEDOR=$r['NCONTENEDOR_ICARGA'];
+                                                        } 
                                                         $ARRAYDCARGA = $DICARGA_ADO->buscarPorIcarga($r['ID_ICARGA']);                                               
                                                         ?>
                                                         
@@ -528,11 +536,13 @@ include_once "../../assest/config/datosUrLP.php";
                                                                 <td> <?php echo $NOMBREMVENTA; ?> </td>
                                                                 <td> <?php echo $NOMBRECVENTA; ?> </td>
                                                                 <td> <?php echo $NOMBRETFLETE; ?> </td>  
-                                                                <td> <?php echo $NOMBRETCONTENEDOR; ?> </td>
-                                                                <td> <?php echo $r['CONTENEDOR']; ?> </td>
+                                                                <td> <?php echo $r['FECHACORTEDOCUMENTAL']; ?> </td>
                                                                 <td> <?php echo $r['FECHAETD']; ?> </td>
                                                                 <td> <?php echo $r['FECHAETA']; ?> </td>
                                                                 <td> <?php echo $r['FECHAETAREAL']; ?> </td>
+                                                                <td> <?php echo $NOMBRETCONTENEDOR; ?> </td>
+                                                                <td> <?php echo $r['BLAWB']; ?> </td>
+                                                                <td> <?php echo $NUMEROCONTENEDOR; ?> </td>
                                                                 <td> <?php echo $r['ESTIMADO']; ?> </td>
                                                                 <td> <?php echo $r['REAL']; ?> </td>
                                                                 <td> <?php echo $NOMBRDFINAL; ?> </td>

@@ -253,7 +253,7 @@ if($ARRAYICARGA){
 
     }else{
       $FDADESPACHOEX="No Data";
-      $NUMEROCONTENEDOR="No Data";
+      $NUMEROCONTENEDOR=$ARRAYICARGA[0]['NCONTENEDOR_ICARGA'];
       $NUMEROSELLO="No Data";
       $FECHADESPACHOEX="No Data";
       $LUGARDECARGA="No Data";
