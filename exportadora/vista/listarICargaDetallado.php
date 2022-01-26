@@ -266,8 +266,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                         <th>N° Contenedor</th>
                                                         <th>Días Estimados</th>
                                                         <th>Días Reales </th>
-                                                        <th>Destino Final </th>
-                                                        <th>BL/AWB </th>                                                        
+                                                        <th>Destino Final </th>                                                   
                                                         <th>Empresa</th>
                                                         <th>Temporada</th>
                                                     </tr>
@@ -546,7 +545,6 @@ include_once "../../assest/config/datosUrLP.php";
                                                                 <td> <?php echo $r['ESTIMADO']; ?> </td>
                                                                 <td> <?php echo $r['REAL']; ?> </td>
                                                                 <td> <?php echo $NOMBRDFINAL; ?> </td>
-                                                                <td> <?php echo $r['BOLAWBCRT_ICARGA']; ?> </td>
                                                                 <td> <?php echo $NOMBREEMPRESA; ?></td>
                                                                 <td> <?php echo $NOMBRETEMPORADA; ?></td>
                                                             </tr>
