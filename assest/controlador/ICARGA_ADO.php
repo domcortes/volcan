@@ -273,6 +273,9 @@ class ICARGA_ADO
             if ($ICARGA->__GET('FECHAETAREAL_ICARGA') == NULL) {
                 $ICARGA->__SET('FECHAETAREAL_ICARGA', NULL);
             }
+            if ($ICARGA->__GET('FECHA_CDOCUMENTAL_ICARGA') == NULL) {
+                $ICARGA->__SET('FECHA_CDOCUMENTAL_ICARGA', NULL);
+            }
             $query =
                 "INSERT INTO fruta_icarga ( 
                                             NUMERO_ICARGA, 
@@ -521,6 +524,9 @@ class ICARGA_ADO
         if ($ICARGA->__GET('FECHAETAREAL_ICARGA') == NULL) {
             $ICARGA->__SET('FECHAETAREAL_ICARGA', NULL);
         }
+        if ($ICARGA->__GET('FECHA_CDOCUMENTAL_ICARGA') == NULL) {
+            $ICARGA->__SET('FECHA_CDOCUMENTAL_ICARGA', NULL);
+        }
 
         try {
             $query = "
@@ -673,10 +679,11 @@ class ICARGA_ADO
             $datos = $this->conexion->prepare("SELECT *,DATEDIFF( FECHAETA_ICARGA, FECHAETD_ICARGA) AS 'ESTIMADO',
                                                         DATEDIFF(CURDATE(), FECHAETD_ICARGA ) AS 'REAL',
                                                         FECHA_ICARGA AS 'FECHA', 
+                                                        FECHA_CDOCUMENTAL_ICARGA AS 'FECHACORTEDOCUMENTAL', 
                                                         FECHAETD_ICARGA AS 'FECHAETD', 
                                                         FECHAETA_ICARGA AS 'FECHAETA', 
                                                         FECHAETAREAL_ICARGA AS 'FECHAETAREAL', 
-                                                        IFNULL(BOLAWBCRT_ICARGA, 'Sin Datos' ) AS 'CONTENEDOR',
+                                                        IFNULL(BOLAWBCRT_ICARGA, 'Sin Datos' ) AS 'BLAWB',
                                                         IFNULL(TOTAL_ENVASE_ICAGRA,0) AS 'ENVASE',
                                                         IFNULL(TOTAL_NETO_ICARGA,0) AS 'NETO',
                                                         IFNULL(TOTAL_BRUTO_ICARGA,0) AS 'BRUTO',

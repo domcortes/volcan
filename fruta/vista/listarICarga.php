@@ -147,11 +147,13 @@ include_once "../../assest/config/datosUrLP.php";
                                                         <th class="text-center">Operaciónes </th>
                                                         <th>Estado Instructivo</th>
                                                         <th>Tipo Emarque</th>
-                                                        <th>Tipo Contenedor</th>
-                                                        <th>Contenedor</th>
+                                                        <th>Fecha Corte Documental</th>
                                                         <th>Fecha ETD</th>
                                                         <th>Fecha ETA</th>
                                                         <th>Fecha Real ETA</th>
+                                                        <th>BL/AWB </th>
+                                                        <th>Tipo Contenedor</th>
+                                                        <th>N° Contenedor</th>
                                                         <th>Días Estimados</th>
                                                         <th>Días Reales </th>
                                                         <th>Destino Final </th>
@@ -215,9 +217,13 @@ include_once "../../assest/config/datosUrLP.php";
                                                             $NOMBRETEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
                                                         } else {
                                                             $NOMBRETEMPORADA = "Sin Datos";
-                                                        }
-                                                        
-                                                        $ARRAYDESPACHOEX=$DESPACHOEX_ADO->buscarDespachoExPorIcarga($r['ID_ICARGA']);                                                     
+                                                        }                                                        
+                                                        $ARRAYDESPACHOEX=$DESPACHOEX_ADO->buscarDespachoExPorIcarga($r['ID_ICARGA']);  
+                                                        if($ARRAYDESPACHOEX){
+                                                            $NUMEROCONTENEDOR=$ARRAYDESPACHOEX[0]["NUMERO_CONTENEDOR_DESPACHOEX"];
+                                                        }else{
+                                                            $NUMEROCONTENEDOR=$r['NCONTENEDOR_ICARGA'];
+                                                        }                                                   
                                                         ?>
                                                         <tr class="text-left">
                                                             <td> <?php echo $r['NUMERO_ICARGA']; ?>  </td>
@@ -243,8 +249,6 @@ include_once "../../assest/config/datosUrLP.php";
                                                                                 <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_ICARGA']; ?>" />
                                                                                 <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroICarga" />
                                                                                 <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarICarga" />
-
-
                                                                                 <span href="#" class="dropdown-item">                         
                                                                                     <div class="btn-group btn-block col-12" role="group" aria-label="Acciones generales">  
                                                                                         <?php if ($r['ESTADO'] == "0") { ?>
@@ -256,15 +260,13 @@ include_once "../../assest/config/datosUrLP.php";
                                                                                                 <button type="submit" class="btn  btn-warning " id="EDITARURL" name="EDITARURL" data-toggle="tooltip"  title="Editar">
                                                                                                     <i class="ti-pencil-alt"></i> Editar
                                                                                                 </button>
-                                                                                        <?php } ?>  
-                                                                                        
+                                                                                        <?php } ?>                                                                                          
                                                                                         <?php if ($ARRAYDESPACHOEX) { ?>
                                                                                             <button type="submit" class="btn btn-success " id="CARGADO" name="CARGADO"  data-toggle="tooltip"  title="Cargado"
                                                                                             <?php  if ($r['ESTADO_ICARGA'] == "3")  { echo "disabled"; }?>>
                                                                                                 <i class="fa fa-check"></i> Cargado
                                                                                             </button>  
                                                                                         <?php } ?>  
-
                                                                                     </div>                                                                                   
                                                                                 </span>                                                                            
                                                                                 <hr>     
@@ -310,11 +312,13 @@ include_once "../../assest/config/datosUrLP.php";
                                                             </td>
                                                             <td> <?php echo $ESTADOICARGA; ?> </td>
                                                             <td> <?php echo $TEMBARQUE; ?> </td>
-                                                            <td> <?php echo $NOMBRETCONTENEDOR; ?> </td>
-                                                            <td> <?php echo $r['CONTENEDOR']; ?> </td>
+                                                            <td> <?php echo $r['FECHACORTEDOCUMENTAL']; ?> </td>
                                                             <td> <?php echo $r['FECHAETD']; ?> </td>
                                                             <td> <?php echo $r['FECHAETA']; ?> </td>
                                                             <td> <?php echo $r['FECHAETAREAL']; ?> </td>
+                                                            <td> <?php echo $r['BLAWB']; ?> </td>
+                                                            <td> <?php echo $NOMBRETCONTENEDOR; ?> </td>
+                                                            <td> <?php echo $NUMEROCONTENEDOR; ?> </td>
                                                             <td> <?php echo $r['ESTIMADO']; ?> </td>
                                                             <td> <?php echo $r['REAL']; ?> </td>
                                                             <td> <?php echo $NOMBRDFINAL; ?> </td>
