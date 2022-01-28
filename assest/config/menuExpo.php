@@ -324,7 +324,22 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               </li>
             </ul>
           </li>
-        <?php  } ?>      
+        <?php  } ?>   
+        <?php if($PELIQUIDACION=="1"){ ?>
+          <li class="treeview">
+            <a href="#">
+              <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/exchange.svg" class="svg-icon" alt="">
+              <span> Liquidación</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="#">Registro Valor Liqui.</i></a></li>
+                <li><a href="#">Agrupado Valor Liqui.</i></a></li>      
+            </ul>
+          </li>
+        <?php  } ?>   
         <?php if($PEINFORMES=="1"){ ?>
           <li class="treeview">
             <a href="#">
@@ -669,6 +684,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                 <li><a href="registroContraparte.php"></i>Contraparte</a></li>
                 <li><a href="registroInpector.php"></i>Inpector</a></li>
                 <li><a href="registroComprador.php"></i>Comprador</a></li>
+                <li><a href="registroTitem.php"></i>Item Liqui.</a></li>
               </ul>
             </li>      
           </ul>
@@ -691,6 +707,28 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="registroUsuarioEmpPro.php">Usu. Asoc.Empre. Prod.</i></a></li>
             </ul>
           </li>    
+        <?php  } ?>   
+        <?php if($PADAPERTURA=="1"){ ?>
+          <li class="treeview">
+            <a href="#">
+              <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/tickers.svg" class="svg-icon" alt="">
+              <span>Apetura Registros</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="#">registro</i></a></li>
+            </ul>
+          </li> 
+        <?php  } ?>
+        <?php if($PADAVISO=="1"){ ?>
+          <li>
+            <a href="registroUsuarioAviso.php">
+              <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/miscellaneous.svg" class="svg-icon" alt="">
+              <span>Avisos</span>
+            </a>
+          </li> 
         <?php  } ?>
       <?php  } ?>
     </ul>
