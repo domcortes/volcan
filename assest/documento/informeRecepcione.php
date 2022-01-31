@@ -292,7 +292,7 @@ $html = '
     </header>
     <main>
       <h2 class="titulo" style="text-align: center; color: black;">
-        INFORME RECEPCION MATERIALES
+        INFORME RECEPCION ENVASES
         <br>
         <b> Numero Recepción: ' . $NUMERORECEPCION . '</b>
       </h2>
