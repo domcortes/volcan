@@ -205,7 +205,6 @@ class VALOR_ADO
                         FECHA_VALOR = ?,
                         OBSERVACION_VALOR= ?,
 
-                        ID_ICARGA = ?,
                         ID_EMPRESA = ?,
                         ID_TEMPORADA = ?, 
 
@@ -215,10 +214,8 @@ class VALOR_ADO
                 ->execute(
                     array(
                         $VALOR->__GET('FECHA_VALOR'),
-                        $VALOR->__GET('TVALOR'),
-                        $VALOR->__GET('OBSERVACIONES'),
+                        $VALOR->__GET('OBSERVACION_VALOR'),
 
-                        $VALOR->__GET('ID_ICARGA'),
                         $VALOR->__GET('ID_EMPRESA'),
                         $VALOR->__GET('ID_TEMPORADA'),
 

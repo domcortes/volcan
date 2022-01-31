@@ -309,6 +309,34 @@ class DICARGA_ADO
             die($e->getMessage());
         }
     }
+    
+    public function buscarPorIcargaLimitado1($IDICARGA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT  detalle.ID_TMONEDA AS 'ID_TMONEDA',
+                                                        (SELECT NOMBRE_TMONEDA
+                                                        FROM fruta_tmoneda
+                                                        WHERE ID_TMONEDA= detalle.ID_TMONEDA     
+                                                        LIMIT 1
+                                                        ) AS 'TMONEDA'
+                                                FROM fruta_dicarga  detalle
+                                                WHERE detalle.ID_ICARGA = '" . $IDICARGA . "'  
+                                                AND detalle.ESTADO_REGISTRO = 1
+                                                LIMIT 1;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function buscarInvoiceIntPorIcarga($IDICARGA){
         try {
 

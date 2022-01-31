@@ -179,9 +179,9 @@ class DVALOR_ADO
                         MODIFICACION = SYSDATE(),
 
                         VALOR_DVALOR = ?,                        
-                        ID_TITEM= ?
+                        ID_TITEM= ?,
                         ID_USUARIOM= ?,
-                        ID_VALOR= ?,
+                        ID_VALOR= ?
                         
                     WHERE ID_DVALOR = ?  ;";
             $this->conexion->prepare($query)
@@ -227,7 +227,7 @@ class DVALOR_ADO
         }
     }
 
-    public function buscarPorNotaItem($IDVALOR, $IDTITEM)
+    public function buscarPorValorItem($IDVALOR, $IDTITEM)
     {
         try {
 
@@ -251,6 +251,27 @@ class DVALOR_ADO
         }
     }
 
+    public function contarPorValor($IDVALOR)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT IFNULL(COUNT(ID_DVALOR),0) AS 'CONTEO'
+                                                FROM liquidacion_dvalor 
+                                                WHERE ID_VALOR = '" . $IDVALOR . "'  
+                                                AND ESTADO_REGISTRO = 1;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     //OTRAS FUNCIONES
     //CAMBIO DE ESTADO DE LA FILA

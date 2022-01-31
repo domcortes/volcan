@@ -789,6 +789,32 @@ class ICARGA_ADO
             die($e->getMessage());
         }
     }
+    
+    public function listarIcargaDespachadoNoLiquidacionCBX($IDEMPRESA, $IDTEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *, DATEDIFF( FECHAETA_ICARGA, FECHAETD_ICARGA) AS 'ESTIMADO',
+                                                       DATEDIFF(CURDATE(), FECHAETD_ICARGA ) AS 'REAL'
+                                            FROM fruta_icarga  
+                                            WHERE ESTADO_REGISTRO = 1
+                                            AND  ESTADO_ICARGA = 3
+                                            AND  LIQUIDACION IS NULL
+                                            AND ID_EMPRESA = '" . $IDEMPRESA . "'
+                                            AND ID_TEMPORADA = '" . $IDTEMPORADA . "' ; ");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function listarIcargaTomadoCBX($IDEMPRESA, $IDTEMPORADA)
     {
         try {
@@ -1071,6 +1097,28 @@ class ICARGA_ADO
                 ->execute(
                     array(
                         $ICARGA->__GET('ID_USUARIOM'),
+                        $ICARGA->__GET('ID_ICARGA')
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
+    public function liquidacion(ICARGA $ICARGA)
+    {
+
+        try {
+            $query = "
+            UPDATE fruta_icarga SET			
+                MODIFICACION = SYSDATE(),     
+                LIQUIDACION = 1
+            WHERE ID_ICARGA= ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
                         $ICARGA->__GET('ID_ICARGA')
                     )
 

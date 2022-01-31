@@ -280,6 +280,28 @@ class TITEM_ADO
             die($e->getMessage());
         }
     }
+    
+    public function contarTitemPorEmpresaCBX($IDEMPRESA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT IFNULL(COUNT(ID_TITEM),0) AS 'CONTEO'
+                                                FROM  liquidacion_titem  
+                                                WHERE  ESTADO_REGISTRO = 1
+                                                AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     public function obtenerNumero($IDEMPRESA)
     {
