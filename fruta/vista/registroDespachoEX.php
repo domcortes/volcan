@@ -1477,7 +1477,7 @@ if (isset($_POST)) {
                                             </div>
                                             <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="form-group">
-                                                    <label>Sin Inspección USDA</label>
+                                                    <label>Sin Inspección</label>
                                                     <input type="hidden" class="form-control" placeholder="TINPUSDA" id="TINPUSDAE" name="TINPUSDAE" value="<?php echo $TINPUSDA; ?>" />
                                                     <select class="form-control select2" id="TINPUSDA" name="TINPUSDA" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED2; ?> >
                                                         <option></option>
