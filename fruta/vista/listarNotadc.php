@@ -184,7 +184,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                     <th>Fecha Nota </th>
                                                     <th>Tipo Nota </th>                                                    
                                                     <th>Número Referencia  </th>
-                                                    <th>Cliente(Recibidor Final) </th>
+                                                    <th>Recibidor Final </th>
                                                     <th>Número Invoice  </th>
                                                     <th>Motivo Nota </th>
                                                     <th>Fecha Ingreso</th>

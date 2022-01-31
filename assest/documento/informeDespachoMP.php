@@ -311,7 +311,7 @@ $html = '
     </header>
     <main>
       <h2 class="titulo" style="text-align: center; color: black;">
-        INFORME DESPACHO
+        INFORME DESPACHO MATERIA PRIMA
         <br>
         <b> Numero Despacho: ' . $NUMERO . '</b>
       </h2>

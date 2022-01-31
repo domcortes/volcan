@@ -176,7 +176,7 @@ include_once "../../assest/config/datosUrLP.php";
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="modulo" class="table table-hover " style="width: 100%;">
+                                        <table id="modulo" class="table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr class="text-left">
                                                     <th>Número Nota</th>
@@ -185,7 +185,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                     <th>Fecha Nota </th>
                                                     <th>Tipo Nota </th>                                                    
                                                     <th>Número Referencia  </th>
-                                                    <th>Cliente(Recibidor Final) </th>
+                                                    <th>Recibidor Final </th>
                                                     <th>Número Invoice  </th>
                                                     <th>Motivo Nota </th>
                                                     <th>Fecha Ingreso</th>

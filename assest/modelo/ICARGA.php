@@ -42,6 +42,7 @@ class ICARGA
     private      $TOTAL_NETO_ICARGA;
     private      $TOTAL_BRUTO_ICARGA;
     private      $TOTAL_US_ICARGA;
+    private      $LIQUIDACION;
     private      $ESTADO;
     private      $ESTADO_ICARGA;
     private      $ESTADO_REGISTRO;

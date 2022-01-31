@@ -1145,7 +1145,7 @@ if (isset($_POST)) {
                 $INPSAG->__SET('ID_INPSAG', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $INPSAG_ADO->actualizarInpsag($INPSAG);
-/*
+
                 if ($_SESSION['parametro1'] == "crear") {
                     $_SESSION["parametro"] = $_REQUEST['IDP'];
                     $_SESSION["parametro1"] = "crear";
@@ -1177,7 +1177,7 @@ if (isset($_POST)) {
                             location.href = "registroInpsag.php?op";                            
                         })
                     </script>';
-                }*/
+                }
 
             }
             //OPERACION PARA CERRAR LA INPSAG

@@ -214,6 +214,7 @@
             </a>
             <ul class="treeview-menu">
               <li><a href="listarProductorRecepcionmp.php">Recepcion MP</i></a></li>
+              <li><a href="listarProductorRecepcionind.php">Recepcion IND</i></a></li>
               <li><a href="listarProductorProceso.php">Proceso</i></a></li>
             </ul>
           </li>   

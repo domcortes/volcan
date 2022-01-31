@@ -22,6 +22,12 @@ FORMATO DE MENSAJE DE VALIDACION DE FORMULARIO
     text-transform:capitalize;
 }
 
+.validacion2, #validacion2 {
+    color: #ff0000;
+    font-size: 20px;
+    text-transform:uppercase;
+}
+
 
 
 
