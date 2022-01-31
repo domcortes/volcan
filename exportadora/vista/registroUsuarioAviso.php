@@ -275,6 +275,7 @@ if ($_POST) {
                                             <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Dia Inicio</label>
+                                                    <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" <?php echo $IDOP; ?> />
                                                     <input type="number" class="form-control" placeholder="Dia Inicio" id="DIA_INICIO" name="DIA_INICIO" value="<?php echo $DIA_INICIO; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_diainicio" class="validacion"> </label>
                                                 </div>
@@ -293,7 +294,7 @@ if ($_POST) {
                                                         <option></option>
                                                         <option value="1" <?php if ($TPRIORIDAD == "1") { echo "selected";  } ?>> Crítico </option>
                                                         <option value="2" <?php if ($TPRIORIDAD == "2") { echo "selected";  } ?>> Advertencia </option>
-                                                        <option value="2" <?php if ($TPRIORIDAD == "2") { echo "selected";  } ?>> No Crítico </option>
+                                                        <option value="3" <?php if ($TPRIORIDAD == "3") { echo "selected";  } ?>> No Crítico </option>
                                                     </select>
                                                     <label id="val_tprioridad" class="validacion"> </label>
                                                 </div>
