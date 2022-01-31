@@ -311,7 +311,7 @@ class EXPORTADORA_ADO
             $datos = $this->conexion->prepare("SELECT * 
                                                FROM  fruta_exportadora  
                                                WHERE  ESTADO_REGISTRO  = 1
-                                               AND ID_EMPRESA  '".$EMPRESA."';	");
+                                               AND ID_EMPRESA =  '".$EMPRESA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
