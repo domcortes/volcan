@@ -498,4 +498,214 @@ class CONSULTA_ADO
     }
 
 
+    public function contarRegistrosAbiertosMateriales($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 
+                                                    (
+                                                        select IFNULL( COUNT(recepcione.ID_RECEPCION),0) 
+                                                        FROM material_recepcione recepcione
+                                                        WHERE recepcione.ESTADO = 1     
+                                                        AND recepcione.ESTADO_REGISTRO = 1
+                                                        AND ID_EMPRESA = '".$EMPRESA."'
+                                                        AND ID_PLANTA = '".$PLANTA."'
+                                                        AND ID_TEMPORADA = '".$TEMPORADA."'
+                                                    ) AS 'RECEPCIONE',
+                                                    (
+                                                        select IFNULL( COUNT(recepcionm.ID_RECEPCION),0) 
+                                                        FROM material_recepcionm recepcionm
+                                                        WHERE recepcionm.ESTADO = 1
+                                                        AND recepcionm.ESTADO_REGISTRO = 1
+                                                        AND ID_EMPRESA = '".$EMPRESA."'
+                                                        AND ID_PLANTA = '".$PLANTA."'
+                                                        AND ID_TEMPORADA = '".$TEMPORADA."'
+                                                    ) AS 'RECEPCIONM',
+                                                    (
+                                                        select IFNULL( COUNT(despachoe.ID_DESPACHO),0) 
+                                                        FROM material_despachoe despachoe
+                                                        WHERE despachoe.ESTADO = 1
+                                                        AND despachoe.ESTADO_REGISTRO = 1
+                                                        AND ID_EMPRESA = '".$EMPRESA."'
+                                                        AND ID_PLANTA = '".$PLANTA."'
+                                                        AND ID_TEMPORADA = '".$TEMPORADA."'
+                                                    ) AS 'DESPACHOE',
+                                                    (
+                                                        select IFNULL( COUNT(despachom.ID_DESPACHO),0) 
+                                                        FROM material_despachom despachom
+                                                        WHERE despachom.ESTADO = 1
+                                                        AND despachom.ESTADO_REGISTRO = 1
+                                                        AND ID_EMPRESA = '".$EMPRESA."'
+                                                        AND ID_PLANTA = '".$PLANTA."'
+                                                        AND ID_TEMPORADA = '".$TEMPORADA."'
+                                                    ) AS 'DESPACHOM'
+                                                ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function contarRegistrosAbiertosFruta($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 
+                                                        ( SELECT IFNULL( COUNT(recepcionmp.ID_RECEPCION),0)
+                                                        FROM fruta_recepcionmp recepcionmp
+                                                        WHERE recepcionmp.ESTADO = 1
+                                                        AND recepcionmp.ESTADO_REGISTRO = 1
+                                                        AND ID_EMPRESA = '".$EMPRESA."'
+                                                        AND ID_PLANTA = '".$PLANTA."'
+                                                        AND ID_TEMPORADA = '".$TEMPORADA."'
+                                                        ) AS 'RECEPCIONMP',
+                                                        ( SELECT IFNULL( COUNT(recepcionind.ID_RECEPCION),0)
+                                                        FROM fruta_recepcionind recepcionind
+                                                        WHERE recepcionind.ESTADO = 1
+                                                        AND recepcionind.ESTADO_REGISTRO = 1
+                                                        AND ID_EMPRESA = '".$EMPRESA."'
+                                                        AND ID_PLANTA = '".$PLANTA."'
+                                                        AND ID_TEMPORADA = '".$TEMPORADA."'
+                                                        )AS 'RECEPCIONIND',
+                                                        ( SELECT IFNULL( COUNT(recepcionp.ID_RECEPCION),0)
+                                                        FROM fruta_recepcionpt recepcionp
+                                                        WHERE recepcionp.ESTADO = 1
+                                                        AND recepcionp.ESTADO_REGISTRO = 1
+                                                        AND ID_EMPRESA = '".$EMPRESA."'
+                                                        AND ID_PLANTA = '".$PLANTA."'
+                                                        AND ID_TEMPORADA = '".$TEMPORADA."'
+                                                        )AS 'RECEPCIONPT', 
+                                                        ( SELECT IFNULL( COUNT(recepcionmp.ID_RECEPCION),0)
+                                                        FROM fruta_recepcionmp recepcionmp
+                                                        WHERE recepcionmp.ESTADO = 1
+                                                        AND recepcionmp.ESTADO_REGISTRO = 1
+                                                        AND ID_EMPRESA = '".$EMPRESA."'
+                                                        AND ID_PLANTA = '".$PLANTA."'
+                                                        AND ID_TEMPORADA = '".$TEMPORADA."'
+                                                        )+
+                                                        ( SELECT IFNULL( COUNT(recepcionind.ID_RECEPCION),0)
+                                                        FROM fruta_recepcionind recepcionind
+                                                        WHERE recepcionind.ESTADO = 1
+                                                        AND recepcionind.ESTADO_REGISTRO = 1
+                                                        AND ID_EMPRESA = '".$EMPRESA."'
+                                                        AND ID_PLANTA = '".$PLANTA."'
+                                                        AND ID_TEMPORADA = '".$TEMPORADA."'
+                                                        )+
+                                                        ( SELECT IFNULL( COUNT(recepcionp.ID_RECEPCION),0)
+                                                        FROM fruta_recepcionpt recepcionp
+                                                        WHERE recepcionp.ESTADO = 1
+                                                        AND recepcionp.ESTADO_REGISTRO = 1
+                                                        AND ID_EMPRESA = '".$EMPRESA."'
+                                                        AND ID_PLANTA = '".$PLANTA."'
+                                                        AND ID_TEMPORADA = '".$TEMPORADA."'
+                                                        ) AS 'RECEPCION',
+                                                        ( SELECT IFNULL( COUNT(despachomp.ID_DESPACHO),0)
+                                                        FROM fruta_despachomp despachomp
+                                                        WHERE despachomp.ESTADO = 1
+                                                        AND despachomp.ESTADO_REGISTRO = 1
+                                                        AND ID_EMPRESA = '".$EMPRESA."'
+                                                        AND ID_PLANTA = '".$PLANTA."'
+                                                        AND ID_TEMPORADA = '".$TEMPORADA."'
+                                                        ) AS 'DESPACHOMP',
+                                                        ( SELECT IFNULL( COUNT(despachoind.ID_DESPACHO),0)
+                                                        FROM fruta_despachoind despachoind
+                                                        WHERE despachoind.ESTADO = 1
+                                                        AND despachoind.ESTADO_REGISTRO = 1
+                                                        AND ID_EMPRESA = '".$EMPRESA."'
+                                                        AND ID_PLANTA = '".$PLANTA."'
+                                                        AND ID_TEMPORADA = '".$TEMPORADA."'
+                                                        ) AS 'DESPACHOIND',
+                                                        ( SELECT IFNULL( COUNT(despachopt.ID_DESPACHO),0)
+                                                        FROM fruta_despachopt despachopt
+                                                        WHERE despachopt.ESTADO = 1
+                                                        AND despachopt.ESTADO_REGISTRO = 1
+                                                        AND ID_EMPRESA = '".$EMPRESA."'
+                                                        AND ID_PLANTA = '".$PLANTA."'
+                                                        AND ID_TEMPORADA = '".$TEMPORADA."'
+                                                        ) AS 'DESPACHOPT',
+                                                        ( SELECT IFNULL( COUNT(despachoex.ID_DESPACHOEX),0)
+                                                        FROM fruta_despachoex despachoex
+                                                        WHERE despachoex.ESTADO = 1
+                                                        AND despachoex.ESTADO_REGISTRO = 1
+                                                        AND ID_EMPRESA = '".$EMPRESA."'
+                                                        AND ID_PLANTA = '".$PLANTA."'
+                                                        AND ID_TEMPORADA = '".$TEMPORADA."'
+                                                        ) AS 'DESPACHOEXPO'  ,
+                                                        ( SELECT IFNULL( COUNT(despachomp.ID_DESPACHO),0)
+                                                        FROM fruta_despachomp despachomp
+                                                        WHERE despachomp.ESTADO = 1
+                                                        AND despachomp.ESTADO_REGISTRO = 1
+                                                        AND ID_EMPRESA = '".$EMPRESA."'
+                                                        AND ID_PLANTA = '".$PLANTA."'
+                                                        AND ID_TEMPORADA = '".$TEMPORADA."'
+                                                        ) +
+                                                        ( SELECT IFNULL( COUNT(despachoind.ID_DESPACHO),0)
+                                                        FROM fruta_despachoind despachoind
+                                                        WHERE despachoind.ESTADO = 1
+                                                        AND despachoind.ESTADO_REGISTRO = 1
+                                                        AND ID_EMPRESA = '".$EMPRESA."'
+                                                        AND ID_PLANTA = '".$PLANTA."'
+                                                        AND ID_TEMPORADA = '".$TEMPORADA."'
+                                                        ) +
+                                                        ( SELECT IFNULL( COUNT(despachopt.ID_DESPACHO),0)
+                                                        FROM fruta_despachopt despachopt
+                                                        WHERE despachopt.ESTADO = 1
+                                                        AND despachopt.ESTADO_REGISTRO = 1
+                                                        AND ID_EMPRESA = '".$EMPRESA."'
+                                                        AND ID_PLANTA = '".$PLANTA."'
+                                                        AND ID_TEMPORADA = '".$TEMPORADA."'
+                                                        ) +
+                                                        ( SELECT IFNULL( COUNT(despachoex.ID_DESPACHOEX),0)
+                                                        FROM fruta_despachoex despachoex
+                                                        WHERE despachoex.ESTADO = 1
+                                                        AND despachoex.ESTADO_REGISTRO = 1
+                                                        AND ID_EMPRESA = '".$EMPRESA."'
+                                                        AND ID_PLANTA = '".$PLANTA."'
+                                                        AND ID_TEMPORADA = '".$TEMPORADA."'
+                                                        ) AS 'DESPACHO',
+                                                        ( SELECT IFNULL( COUNT(proceso.ID_PROCESO),0)
+                                                        FROM fruta_proceso proceso
+                                                        WHERE proceso.ESTADO = 1
+                                                        AND proceso.ESTADO_REGISTRO = 1
+                                                        AND ID_EMPRESA = '".$EMPRESA."'
+                                                        AND ID_PLANTA = '".$PLANTA."'
+                                                        AND ID_TEMPORADA = '".$TEMPORADA."'
+                                                        ) AS 'PROCESO' ,
+                                                        ( SELECT IFNULL( COUNT(reembalaje.ID_REEMBALAJE),0)
+                                                        FROM fruta_reembalaje reembalaje
+                                                        WHERE reembalaje.ESTADO = 1
+                                                        AND reembalaje.ESTADO_REGISTRO = 1
+                                                        AND ID_EMPRESA = '".$EMPRESA."'
+                                                        AND ID_PLANTA = '".$PLANTA."'
+                                                        AND ID_TEMPORADA = '".$TEMPORADA."'
+                                                        ) AS 'REEMBALAJE',
+                                                        ( SELECT IFNULL( COUNT(repaletizajeex.ID_REPALETIZAJE),0)
+                                                        FROM fruta_repaletizajeex repaletizajeex
+                                                        WHERE repaletizajeex.ESTADO = 1
+                                                        AND repaletizajeex.ESTADO_REGISTRO = 1
+                                                        AND ID_EMPRESA = '".$EMPRESA."'
+                                                        AND ID_PLANTA = '".$PLANTA."'
+                                                        AND ID_TEMPORADA = '".$TEMPORADA."'
+                                                        ) AS 'REPALETIZAJE'
+                                                ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 }
