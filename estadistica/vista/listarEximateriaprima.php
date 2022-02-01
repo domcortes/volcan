@@ -50,6 +50,7 @@ $ARRAYVERPRODUCTORID = "";
 $ARRAYVERVESPECIESID = "";
 $ARRAYVERESPECIESID = "";
 
+$ARRAYDESPACHO2="";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
 
@@ -204,6 +205,7 @@ if ( $TEMPORADAS) {
                                                             $COLOR="Sin Datos";
                                                         }
                                                         $ARRAYRECEPCION = $RECEPCIONMP_ADO->verRecepcion2($r['ID_RECEPCION']);
+                                                        $ARRAYDESPACHO2=$DESPACHOMP_ADO->verDespachomp2($r['ID_DESPACHO2']);
                                                         if ($ARRAYRECEPCION) {
                                                             $NUMERORECEPCION = $ARRAYRECEPCION[0]["NUMERO_RECEPCION"];
                                                             $FECHARECEPCION = $ARRAYRECEPCION[0]["FECHA"];
@@ -242,6 +244,20 @@ if ( $TEMPORADAS) {
                                                                     $ORIGEN = "Sin Datos";
                                                                 }
                                                             }
+                                                        }else if($ARRAYDESPACHO2){                                                                
+                                                            $NUMERORECEPCION = $ARRAYDESPACHO2[0]["NUMERO_DESPACHO"];
+                                                            $FECHARECEPCION = $ARRAYDESPACHO2[0]["FECHA"];                                                                
+                                                            $NUMEROGUIARECEPCION = $ARRAYDESPACHO2[0]["NUMERO_GUIA_DESPACHO"];
+                                                            $TIPORECEPCION = "Interplanta";
+                                                            $FECHAGUIARECEPCION = "";                                                                
+                                                            $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYDESPACHO2[0]['ID_PLANTA']);
+                                                            if ($ARRAYPLANTA2) {
+                                                                $ORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+                                                                $CSGCSPORIGEN=$ARRAYPLANTA2[0]['CODIGO_SAG_PLANTA'];
+                                                            } else {
+                                                                $ORIGEN = "Sin Datos";
+                                                                $CSGCSPORIGEN="Sin Datos";
+                                                            }                                                        
                                                         } else {
                                                             $NUMERORECEPCION = "Sin Datos";
                                                             $FECHARECEPCION = "";
