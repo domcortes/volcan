@@ -928,7 +928,7 @@ class EXIEXPORTACION_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_exiexportacion 
                                         WHERE ID_DESPACHO= '" . $IDDESPACHO . "'                                           
                                         AND ESTADO_REGISTRO = 1
-                                        AND ESTADO = ;");
+                                        AND ESTADO = 7;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -2137,7 +2137,7 @@ class EXIEXPORTACION_ADO
                                             FROM fruta_exiexportacion 
                                             WHERE   ESTADO_REGISTRO =  1 
                                                 AND ESTADO = 2
-                                                AND FOLIO_AUXILIAR_EXIEXPORTACION LIKE '" . $FOLIOAUXILIAREXIEXPORTACION . "'
+                                                AND FOLIO_AUXILIAR_EXIEXPORTACION = '" . $FOLIOAUXILIAREXIEXPORTACION . "'
                                                 AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_PLANTA = '" . $PLANTA . "' 
                                             GROUP BY FOLIO_AUXILIAR_EXIEXPORTACION, ID_ESTANDAR, ID_PLANTA         
@@ -2207,7 +2207,7 @@ class EXIEXPORTACION_ADO
                                             FROM fruta_exiexportacion 
                                             WHERE   ESTADO_REGISTRO =  1 
                                                 AND ESTADO > 0
-                                                AND FOLIO_AUXILIAR_EXIEXPORTACION LIKE '" . $FOLIOAUXILIAREXIEXPORTACION . "' 
+                                                AND FOLIO_AUXILIAR_EXIEXPORTACION = '" . $FOLIOAUXILIAREXIEXPORTACION . "' 
                                                 AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_PLANTA = '" . $PLANTA . "'
                                             GROUP BY FOLIO_AUXILIAR_EXIEXPORTACION, ID_ESTANDAR, ID_PLANTA           
@@ -2241,7 +2241,7 @@ class EXIEXPORTACION_ADO
                                                     IFNULL(SUM(KILOS_DESHIRATACION_EXIEXPORTACION),0) AS 'DESHIRATACION',
                                                     IFNULL(SUM(KILOS_BRUTO_EXIEXPORTACION),0) AS 'BRUTO' 
                                             FROM fruta_exiexportacion 
-                                            WHERE   FOLIO_AUXILIAR_EXIEXPORTACION LIKE '" . $FOLIOAUXILIAREXIEXPORTACION . "' 
+                                            WHERE   FOLIO_AUXILIAR_EXIEXPORTACION = '" . $FOLIOAUXILIAREXIEXPORTACION . "' 
                                             AND ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
                                             GROUP BY FOLIO_AUXILIAR_EXIEXPORTACION, ID_ESTANDAR, ID_PLANTA            
@@ -2277,7 +2277,7 @@ class EXIEXPORTACION_ADO
                                                     EMBOLSADO
                                                 FROM fruta_exiexportacion 
                                                 WHERE  
-                                                    FOLIO_AUXILIAR_EXIEXPORTACION LIKE '" . $FOLIOAUXILIAREXIEXPORTACION . "' 
+                                                    FOLIO_AUXILIAR_EXIEXPORTACION = '" . $FOLIOAUXILIAREXIEXPORTACION . "' 
                                                     AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                     AND ID_PLANTA = '" . $PLANTA . "'
                                                     AND ESTADO_REGISTRO =  1 
@@ -2311,7 +2311,7 @@ class EXIEXPORTACION_ADO
                                                     EMBOLSADO
                                                 FROM fruta_exiexportacion 
                                                 WHERE  
-                                                    FOLIO_AUXILIAR_EXIEXPORTACION LIKE '" . $FOLIOAUXILIAREXIEXPORTACION . "' 
+                                                    FOLIO_AUXILIAR_EXIEXPORTACION = '" . $FOLIOAUXILIAREXIEXPORTACION . "' 
                                                     AND ID_EMPRESA = '" . $EMPRESA . "'
                                                     AND ID_PLANTA = '" . $PLANTA . "' 
                                                     AND ESTADO_REGISTRO =  1 
@@ -2345,7 +2345,7 @@ class EXIEXPORTACION_ADO
                                                     EMBOLSADO
                                                 FROM fruta_exiexportacion 
                                                 WHERE  
-                                                    FOLIO_AUXILIAR_EXIEXPORTACION LIKE '" . $FOLIOAUXILIAREXIEXPORTACION . "' 
+                                                    FOLIO_AUXILIAR_EXIEXPORTACION = '" . $FOLIOAUXILIAREXIEXPORTACION . "' 
                                                     AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                     AND ID_PLANTA = '" . $PLANTA . "'
                                                     AND ESTADO_REGISTRO =  1 
@@ -2379,7 +2379,7 @@ class EXIEXPORTACION_ADO
                                                     EMBOLSADO
                                                 FROM fruta_exiexportacion 
                                                 WHERE  
-                                                    FOLIO_AUXILIAR_EXIEXPORTACION LIKE '" . $FOLIOAUXILIAREXIEXPORTACION . "' 
+                                                    FOLIO_AUXILIAR_EXIEXPORTACION = '" . $FOLIOAUXILIAREXIEXPORTACION . "' 
                                                     AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                     AND ID_PLANTA = '" . $PLANTA . "'
                                                     ;");

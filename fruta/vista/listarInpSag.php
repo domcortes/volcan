@@ -146,7 +146,8 @@ include_once "../../assest/config/datosUrLP.php";
                                         <table id="sag" class="table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr class="text-left">
-                                                    <th>Numero </th>
+                                                    <th>Numero Interno</th>
+                                                    <th>Numero Inspecion</th>
                                                     <th>Estado</th>
                                                     <th class="text-center">Operaciónes</th>
                                                     <th>Fecha Inspección </th>
@@ -218,6 +219,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                     ?>
 
                                                     <tr class="text-left">
+                                                        <td> <?php echo $r['CORRELATIVO_INPSAG']; ?></td>
                                                         <td> <?php echo $r['NUMERO_INPSAG']; ?></td>
                                                         <td>
                                                             <?php if ($r['ESTADO'] == "0") { ?>

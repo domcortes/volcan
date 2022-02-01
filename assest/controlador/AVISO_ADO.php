@@ -272,6 +272,144 @@ class AVISO_ADO {
         
     }
 
+    public function listarAvisoActivosCBX(){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT MENSAJE, (DIA_TERMINO -DATE_FORMAT(SYSDATE(),'%d')) AS 'DIASTERMINO',
+                                                        if(TPRIORIDAD = 1,'badge badge-danger',
+                                                            if(TPRIORIDAD=2,'badge badge-warning',
+                                                                if(TPRIORIDAD=3,'badge badge-info',
+                                                                'Sin Datos'))) AS 'TPRIORIDAD',                                                                
+                                                        if(TPRIORIDAD = 1,'Critico',
+                                                            if(TPRIORIDAD=2,'Advertencia',
+                                                                if(TPRIORIDAD=3,'No Critico',
+                                                                'Sin Datos'))) AS 'NOMBRETPRIORIDAD'
+                                                FROM `usuario_aviso` 
+                                                WHERE ESTADO_REGISTRO = 1
+                                                AND if(TAVISO = 1, FECHA_TERMINO IS NULL ,
+                                                        if(TAVISO = 2,FECHA_TERMINO>=SYSDATE(),
+                                                        ''))     
+                                                AND DIA_INICIO = DATE_FORMAT(SYSDATE(),'%d')
+                                                OR DIA_TERMINO = DATE_FORMAT(SYSDATE(),'%d')
+            
+            
+                                            ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+    public function listarAvisoActivosSiempreCBX(){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT MENSAJE, (DIA_TERMINO -DATE_FORMAT(SYSDATE(),'%d')) AS 'DIASTERMINO',
+                                                        if(TPRIORIDAD = 1,'badge badge-danger',
+                                                            if(TPRIORIDAD=2,'badge badge-warning',
+                                                                if(TPRIORIDAD=3,'badge badge-info',
+                                                                'Sin Datos'))) AS 'TPRIORIDAD',                                                                
+                                                        if(TPRIORIDAD = 1,'Critico',
+                                                            if(TPRIORIDAD=2,'Advertencia',
+                                                                if(TPRIORIDAD=3,'No Critico',
+                                                                'Sin Datos'))) AS 'NOMBRETPRIORIDAD'
+                                                FROM `usuario_aviso` 
+                                                WHERE ESTADO_REGISTRO = 1
+                                                AND TAVISO = 1
+                                                AND FECHA_TERMINO IS NULL 
+                                                AND DIA_INICIO = DATE_FORMAT(SYSDATE(),'%d')
+                                                OR DIA_TERMINO = DATE_FORMAT(SYSDATE(),'%d')
+            
+            
+                                            ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+    public function listarAvisoActivosFijoCBX(){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT MENSAJE, (DIA_TERMINO -DATE_FORMAT(SYSDATE(),'%d')) AS 'DIASTERMINO',
+                                                        if(TPRIORIDAD = 1,'badge badge-danger',
+                                                            if(TPRIORIDAD=2,'badge badge-warning',
+                                                                if(TPRIORIDAD=3,'badge badge-info',
+                                                                'Sin Datos'))) AS 'TPRIORIDAD',                                                                
+                                                        if(TPRIORIDAD = 1,'Critico',
+                                                            if(TPRIORIDAD=2,'Advertencia',
+                                                                if(TPRIORIDAD=3,'No Critico',
+                                                                'Sin Datos'))) AS 'NOMBRETPRIORIDAD'
+                                                FROM `usuario_aviso` 
+                                                WHERE ESTADO_REGISTRO = 1
+                                                AND TAVISO = 2
+                                                AND FECHA_TERMINO>=SYSDATE()
+                                                AND DIA_INICIO = DATE_FORMAT(SYSDATE(),'%d')
+                                                OR DIA_TERMINO = DATE_FORMAT(SYSDATE(),'%d')
+            
+            
+                                            ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+
+    public function listarAvisoTodosCBX(){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT *, (DIA_TERMINO -DATE_FORMAT(SYSDATE(),'%d')) AS 'DIASTERMINO',
+                                                        if(TPRIORIDAD = 1,'badge badge-danger',
+                                                            if(TPRIORIDAD=2,'badge badge-warning',
+                                                                if(TPRIORIDAD=3,'badge badge-info',
+                                                                'Sin Datos'))) AS 'TPRIORIDAD',                                                                
+                                                        if(TPRIORIDAD = 1,'Critico',
+                                                            if(TPRIORIDAD=2,'Advertencia',
+                                                                if(TPRIORIDAD=3,'No Critico',
+                                                                'Sin Datos'))) AS 'NOMBRETPRIORIDAD'
+                                                FROM `usuario_aviso` 
+                                                WHERE ESTADO_REGISTRO = 1
+            
+            
+                                            ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
 
     
 }

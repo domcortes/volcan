@@ -1,6 +1,5 @@
 <?php
 
-
 include_once "../../assest/config/validarUsuarioExpo.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
@@ -30,6 +29,9 @@ include_once '../../assest/controlador/PROCESO_ADO.php';
 include_once '../../assest/controlador/REEMBALAJE_ADO.php';
 include_once '../../assest/controlador/DESPACHOPT_ADO.php';
 include_once '../../assest/controlador/DESPACHOEX_ADO.php';
+include_once '../../assest/controlador/TINPSAG_ADO.php';
+include_once '../../assest/controlador/INPSAG_ADO.php';
+
 
 
 //INCIALIZAR LAS VARIBLES
@@ -61,20 +63,14 @@ $DESPACHOPT_ADO =  new DESPACHOPT_ADO();
 $DESPACHOEX_ADO =  new DESPACHOEX_ADO();
 $PROCESO_ADO =  new PROCESO_ADO();
 $REEMBALAJE_ADO =  new REEMBALAJE_ADO();
+$TINPSAG_ADO =  new TINPSAG_ADO();
+$INPSAG_ADO =  new INPSAG_ADO();
 
-
-//INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
-
-
-
-
-//INICIALIZAR ARREGLOS
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 $TOTALNETO = "";
 $TOTALENVASE = "";
 $TAMAÑO=0;
 $CONTADOR=0;
-
 
 
 //INICIALIZAR ARREGLOS
@@ -89,6 +85,9 @@ $ARRAYVERFOLIOID = "";
 $ARRAYEMPRESA = "";
 $ARRAYPLANTA = "";
 $ARRAYVERRECEPCIONPT = "";
+$ARRAYDESPACHO2="";
+$ARRAYTINPSAG = "";
+$ARRAYINPSAG = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 if ($EMPRESAS  &&  $TEMPORADAS) {
@@ -115,6 +114,17 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                 function irPagina(url) {
                     location.href = "" + url;
                 }
+                function abrirPestana(url) {
+                    var win = window.open(url, '_blank');
+                    win.focus();
+                }
+                //FUNCION PARA ABRIR VENTANA QUE SE ENCUENTRA LA OPERACIONES DE DETALLE DE RECEPCION
+                function abrirVentana(url) {
+                    var opciones =
+                        "'directories=no, location=no, menubar=no, scrollbars=yes, statusbar=no, tittlebar=no, width=1000, height=800'";
+                    window.open(url, 'window', opciones);
+                }
+              
             </script>
 
 </head>
@@ -150,7 +160,6 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                             <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                         </div>
                     </div>
-
                     <!-- Main content -->
                     <section class="content">
                         <div class="box">
@@ -195,6 +204,9 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                         <th>Número Reembalaje </th>
                                                         <th>Fecha Reembalaje </th>
                                                         <th>Tipo Reembalaje </th>
+                                                        <th>Número Inspección </th>
+                                                        <th>Fecha Inspección </th>
+                                                        <th>Tipo Inspección </th>
                                                         <th>Número Despacho </th>
                                                         <th>Fecha Despacho </th>
                                                         <th>Número Guía Despacho </th>
@@ -293,6 +305,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                                 $COLOR="Sin Datos";
                                                             }
                                                             $ARRAYRECEPCION = $RECEPCIONPT_ADO->verRecepcion2($r['ID_RECEPCION']);
+                                                            $ARRAYDESPACHO2 = $DESPACHOPT_ADO->verDespachopt($r['ID_DESPACHO2']);
                                                             if ($ARRAYRECEPCION) {
                                                                 $NUMERORECEPCION = $ARRAYRECEPCION[0]["NUMERO_RECEPCION"];
                                                                 $FECHARECEPCION = $ARRAYRECEPCION[0]["FECHA"];
@@ -320,6 +333,21 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                                         $CSGCSPORIGEN="Sin Datos";
                                                                     }
                                                                 }
+                                                            }else if($ARRAYDESPACHO2){
+                                                                
+                                                                $NUMERORECEPCION = $ARRAYDESPACHO2[0]["NUMERO_DESPACHO"];
+                                                                $FECHARECEPCION = $ARRAYDESPACHO2[0]["FECHA"];                                                                
+                                                                $NUMEROGUIARECEPCION = $ARRAYDESPACHO2[0]["NUMERO_GUIA_DESPACHO"];
+                                                                $TIPORECEPCION = "Interplanta";
+                                                                $FECHAGUIARECEPCION = "";                                                                
+                                                                $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYDESPACHO2[0]['ID_PLANTA']);
+                                                                if ($ARRAYPLANTA2) {
+                                                                    $ORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+                                                                    $CSGCSPORIGEN=$ARRAYPLANTA2[0]['CODIGO_SAG_PLANTA'];
+                                                                } else {
+                                                                    $ORIGEN = "Sin Datos";
+                                                                    $CSGCSPORIGEN="Sin Datos";
+                                                                }                                                        
                                                             } else {
                                                                 $NUMERORECEPCION = "Sin Datos";
                                                                 $FECHARECEPCION = "";
@@ -365,6 +393,22 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                                 $FECHAREPALETIZAJE = "";
                                                             }
 
+                                                            $ARRAYINPSAG = $INPSAG_ADO->verInpsag3($r['ID_INPSAG']);
+                                                            if ($ARRAYINPSAG) {
+                                                                $FECHAINPSAG = $ARRAYINPSAG[0]["FECHA"];                                                                
+                                                                $NUMEROINPSAG = $ARRAYINPSAG[0]["NUMERO_INPSAG"]."-".$ARRAYINPSAG[0]["CORRELATIVO_INPSAG"];
+                                                                $ARRAYTINPSAG=$TINPSAG_ADO->verTinpsag($ARRAYINPSAG[0]["ID_TINPSAG"]);
+                                                                if($ARRAYTINPSAG){
+                                                                    $NOMBRETINPSAG= $ARRAYTINPSAG[0]["NOMBRE_TINPSAG"];
+                                                                }else{
+                                                                    $NOMBRETINPSAG = "Sin Datos";
+                                                                }
+                                         
+                                                            } else {
+                                                                $FECHAINPSAG = "";
+                                                                $NUMEROINPSAG = "Sin Datos";
+                                                                $NOMBRETINPSAG = "Sin Datos";
+                                                            }
                                                             $ARRAYVERDESPACHOPT = $DESPACHOPT_ADO->verDespachopt2($r['ID_DESPACHO']);
                                                             $ARRYADESPACHOEX = $DESPACHOEX_ADO->verDespachoex2($r['ID_DESPACHOEX']);
                                                             if ($ARRAYVERDESPACHOPT) {
@@ -565,8 +609,10 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                                     </span>
                                                                 </td>
                                                                 <td>                     
-                                                                    <span class="<?php echo $TRECHAZOCOLOR; ?>">                                                                        
-                                                                        <?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>                                                                                                                                                                                                                
+                                                                    <span class="<?php echo $TRECHAZOCOLOR; ?>">
+                                                                        <a Onclick="abrirPestana('../../assest/documento/informeTarjasPT.php?parametro=<?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>&&parametro1=<?php echo $r['ID_EMPRESA']; ?>&&parametro2=<?php echo $r['ID_PLANTA']; ?>&&tipo=2');">                                                                        
+                                                                            <?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>                                                                                                                                        
+                                                                        </a>
                                                                     </span>
                                                                 </td>
                                                                 <td><?php echo $r['EMBALADO']; ?></td>
@@ -601,6 +647,9 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                                 <td><?php echo $NUMEROREEMBALEJE; ?></td>
                                                                 <td><?php echo $FECHAREEMBALEJE; ?></td>
                                                                 <td><?php echo $TREEMBALAJE; ?></td>
+                                                                <td><?php echo $NUMEROINPSAG; ?></td>
+                                                                <td><?php echo $FECHAINPSAG; ?></td>
+                                                                <td><?php echo $NOMBRETINPSAG; ?></td>
                                                                 <td><?php echo $NUMERODESPACHO; ?></td>
                                                                 <td><?php echo $FECHADESPACHO; ?></td>
                                                                 <td><?php echo $NUMEROGUIADESPACHO; ?></td>
@@ -630,7 +679,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                         </div>
                                     </div>
                                 </div>
-                            </div>       
+                            </div>   
                             <div class="box-footer">
                                 <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
                                     <div class="form-row align-items-center" role="group" aria-label="Datos">

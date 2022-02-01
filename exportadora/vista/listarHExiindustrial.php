@@ -51,19 +51,23 @@ $DESPACHOIND_ADO =  new DESPACHOIND_ADO();
 $PROCESO_ADO =  new PROCESO_ADO();
 $REEMBALAJE_ADO =  new REEMBALAJE_ADO();
 $RECHAZOMP_ADO =  new RECHAZOMP_ADO();
+
+
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
-
+$TOTALNETO = "";
 
 
 //INICIALIZAR ARREGLOS
 $ARRAYEXIINDUSTRIAL = "";
+$ARRAYTOTALEXIINDUSTRIAL = "";
 $ARRAYEVERINDUSTRIALID = "";
 $ARRAYVERPRODUCTORID = "";
 $ARRAYVERPVESPECIESID = "";
 $ARRAYVERVESPECIESID = "";
 $ARRAYVERESPECIESID = "";
 $ARRAYVERFOLIOID = "";
+$ARRAYDESPACHO2="";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 if ($EMPRESAS   && $TEMPORADAS) {
@@ -206,19 +210,16 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                         } else {
                                                             $CSGPRODUCTOR = "Sin Datos";
                                                             $NOMBREPRODUCTOR = "Sin Datos";
-                                                        }                                                        
+                                                        }
+
                                                         $ARRAYEVERERECEPCIONID = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDAR']);
                                                         $ARRAYEVERERECEPCIONID2 = $ERECEPCION_ADO->verEstandar($r['ID_ESTANDARMP']);
-                                                        $ARRAYEVERERECEPCIONID3 = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDARPT']);
                                                         if ($ARRAYEVERERECEPCIONID) {
                                                             $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
                                                             $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
                                                         }else  if ($ARRAYEVERERECEPCIONID2) {
                                                             $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID2[0]['CODIGO_ESTANDAR'];
                                                             $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID2[0]['NOMBRE_ESTANDAR'];
-                                                        }else  if ($ARRAYEVERERECEPCIONID3) {
-                                                            $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID3[0]['CODIGO_ESTANDAR'];
-                                                            $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID3[0]['NOMBRE_ESTANDAR'];
                                                         } else {
                                                             $CODIGOESTANDAR = "Sin Datos";
                                                             $NOMBREESTANDAR = "Sin Datos";
@@ -238,6 +239,7 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                         }
 
                                                         $ARRAYRECEPCION = $RECEPCIONIND_ADO->verRecepcion2($r['ID_RECEPCION']);
+                                                        $ARRAYDESPACHO2=$DESPACHOIND_ADO->verDespachomp2($r['ID_DESPACHO2']);
                                                         if ($ARRAYRECEPCION) {
                                                             $NUMERORECEPCION = $ARRAYRECEPCION[0]["NUMERO_RECEPCION"];
                                                             $FECHARECEPCION = $ARRAYRECEPCION[0]["FECHA"];
@@ -265,6 +267,20 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                                     $CSGCSPORIGEN="Sin Datos";
                                                                 }
                                                             }
+                                                        }else if($ARRAYDESPACHO2){                                                                
+                                                            $NUMERORECEPCION = $ARRAYDESPACHO2[0]["NUMERO_DESPACHO"];
+                                                            $FECHARECEPCION = $ARRAYDESPACHO2[0]["FECHA"];                                                                
+                                                            $NUMEROGUIARECEPCION = $ARRAYDESPACHO2[0]["NUMERO_GUIA_DESPACHO"];
+                                                            $TIPORECEPCION = "Interplanta";
+                                                            $FECHAGUIARECEPCION = "";                                                                
+                                                            $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYDESPACHO2[0]['ID_PLANTA']);
+                                                            if ($ARRAYPLANTA2) {
+                                                                $ORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+                                                                $CSGCSPORIGEN=$ARRAYPLANTA2[0]['CODIGO_SAG_PLANTA'];
+                                                            } else {
+                                                                $ORIGEN = "Sin Datos";
+                                                                $CSGCSPORIGEN="Sin Datos";
+                                                            }                                                        
                                                         } else {
                                                             $NUMERORECEPCION = "Sin Datos";
                                                             $FECHARECEPCION = "";
