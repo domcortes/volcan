@@ -1474,7 +1474,7 @@ if (isset($_POST)) {
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                     $DESPACHOIND_ADO->Confirmado($DESPACHOIND);
 
-                    $ARRAYEXISENCIADESPACHOMP = $EXIINDUSTRIAL_ADO->buscarPorDespacho($_REQUEST['IDP']);
+                    $ARRAYEXISENCIADESPACHOMP = $EXIINDUSTRIAL_ADO->verExistenciaPorDespacho2($_REQUEST['IDP']);
                     foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
                         if ($_REQUEST['TDESPACHOE'] == "1") {
                             $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL', $r['ID_EXIINDUSTRIAL']);

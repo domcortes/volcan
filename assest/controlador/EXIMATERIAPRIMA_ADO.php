@@ -605,6 +605,28 @@ class EXIMATERIAPRIMA_ADO
             die($e->getMessage());
         }
     }
+    
+    public function verExistenciaPorDespacho2($IDDESPACHO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_eximateriaprima 
+                                    WHERE ID_DESPACHO= '" . $IDDESPACHO . "'                                           
+                                    AND ESTADO_REGISTRO = 1
+                                    AND ESTADO = 7;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function verExistenciaPorDespachoEnTransito($IDDESPACHO)
     {
         try {
