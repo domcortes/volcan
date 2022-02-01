@@ -220,7 +220,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         document.getElementById('val_temporada').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
                         return false;
                     }
-                    document.form_reg_dato.AFOLIO.style.borderColor = "#4AF575";
+                    document.form_reg_dato.TEMPORADA.style.borderColor = "#4AF575";
+                
+
 
                 }
 
@@ -517,26 +519,23 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             if (isset($_REQUEST['GUARDAR'])) {
                 $ARRAYVALIDARFOLIO = $FOLIO_ADO->validarFolio($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA'], $_REQUEST['TFOLIO']);
                 if ($ARRAYVALIDARFOLIO) {
-                    $SINO = 1;
+                    $SINO = "1";                  
                     echo '<script>
                             Swal.fire({
                                 icon:"warning",
                                 title:"Accion restringida",
-                                text:"Existe un registro asociado al los datos selecionados",
+                                text:"Existe un registro asociado al los datos selecionados.",
                                 showConfirmButton: true,
                                 confirmButtonText:"Cerrar",
                                 closeOnConfirm:false
                             })
                         </script>';
-                    $EMPRESA = $_REQUEST['EMPRESA'];
-                    $PLANTA = $_REQUEST['PLANTA'];
-                    $TFOLIO = $_REQUEST['TFOLIO'];
-                    $TEMPORADA = $_REQUEST['TEMPORADA'];
+                        echo "wolas";
                 } else {
-                    $SINO = 0;
+                    $SINO = "0";
                 }
 
-                if ($SINO == 0) {
+                if ($SINO == "0") {
                     //FUNCION PARA GENERAR EL FOLIO
                     $NUMEROFOLIO2 = (int)$_REQUEST['EMPRESA'] . $_REQUEST['PLANTA'] . $_REQUEST['TFOLIO'] . $_REQUEST['TEMPORADA'];
                     $NUMEROFOLIO = $NUMEROFOLIO2 * 10000;
@@ -587,6 +586,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                     $FOLIO_ADO->agregarFolio($FOLIO);
                     //REDIRECCIONAR A PAGINA registroFolio.php
+                    
                     echo '<script>
                         Swal.fire({
                             icon:"success",
@@ -599,6 +599,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                             location.href = "registroFolio.php";                            
                         })
                     </script>';
+
                 }
             }
             //OPERACION EDICION DE FILA
