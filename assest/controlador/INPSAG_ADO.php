@@ -157,6 +157,28 @@ class INPSAG_ADO
         }
     }
 
+    public function verInpsag3($ID)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *, DATE_FORMAT(FECHA_INPSAG, '%Y/%m/%d') AS 'FECHA',
+                                                    DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' 
+                                            FROM fruta_inpsag
+                                            WHERE ID_INPSAG = '" . $ID . "';");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function verInpsagCsv($ID)
     {
         try {
