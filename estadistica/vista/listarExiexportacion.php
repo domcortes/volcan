@@ -28,6 +28,8 @@ include_once '../../assest/controlador/PROCESO_ADO.php';
 include_once '../../assest/controlador/REEMBALAJE_ADO.php';
 include_once '../../assest/controlador/DESPACHOPT_ADO.php';
 include_once '../../assest/controlador/DESPACHOEX_ADO.php';
+include_once '../../assest/controlador/TINPSAG_ADO.php';
+include_once '../../assest/controlador/INPSAG_ADO.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -58,6 +60,8 @@ $DESPACHOPT_ADO =  new DESPACHOPT_ADO();
 $DESPACHOEX_ADO =  new DESPACHOEX_ADO();
 $PROCESO_ADO =  new PROCESO_ADO();
 $REEMBALAJE_ADO =  new REEMBALAJE_ADO();
+$TINPSAG_ADO =  new TINPSAG_ADO();
+$INPSAG_ADO =  new INPSAG_ADO();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
@@ -84,6 +88,10 @@ $ARRAYVERFOLIOID = "";
 $ARRAYEMPRESA = "";
 $ARRAYPLANTA = "";
 $ARRAYVERRECEPCIONPT = "";
+$ARRAYDESPACHO2="";
+$ARRAYTINPSAG = "";
+$ARRAYINPSAG = "";
+
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 if ( $TEMPORADAS) {
@@ -187,7 +195,10 @@ if ( $TEMPORADAS) {
                                                         <th>Tipo Proceso </th>
                                                         <th>Número Reembalaje </th>
                                                         <th>Fecha Reembalaje </th>
-                                                        <th>Tipo Reembalaje </th>
+                                                        <th>Tipo Reembalaje </th>                                             
+                                                        <th>Número Inspección </th>
+                                                        <th>Fecha Inspección </th>
+                                                        <th>Tipo Inspección </th>
                                                         <th>Tipo Manejo</th>
                                                         <th>Tipo Calibre </th>
                                                         <th>Tipo Embalaje </th>
@@ -279,6 +290,7 @@ if ( $TEMPORADAS) {
                                                                 $COLOR="Sin Datos";
                                                             }
                                                             $ARRAYRECEPCION = $RECEPCIONPT_ADO->verRecepcion2($r['ID_RECEPCION']);
+                                                            $ARRAYDESPACHO2 = $DESPACHOPT_ADO->verDespachopt($r['ID_DESPACHO2']);
                                                             if ($ARRAYRECEPCION) {
                                                                 $NUMERORECEPCION = $ARRAYRECEPCION[0]["NUMERO_RECEPCION"];
                                                                 $FECHARECEPCION = $ARRAYRECEPCION[0]["FECHA"];
@@ -306,6 +318,21 @@ if ( $TEMPORADAS) {
                                                                         $CSGCSPORIGEN="Sin Datos";
                                                                     }
                                                                 }
+                                                            }else if($ARRAYDESPACHO2){
+                                                                
+                                                                $NUMERORECEPCION = $ARRAYDESPACHO2[0]["NUMERO_DESPACHO"];
+                                                                $FECHARECEPCION = $ARRAYDESPACHO2[0]["FECHA"];                                                                
+                                                                $NUMEROGUIARECEPCION = $ARRAYDESPACHO2[0]["NUMERO_GUIA_DESPACHO"];
+                                                                $TIPORECEPCION = "Interplanta";
+                                                                $FECHAGUIARECEPCION = "";                                                                
+                                                                $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYDESPACHO2[0]['ID_PLANTA']);
+                                                                if ($ARRAYPLANTA2) {
+                                                                    $ORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+                                                                    $CSGCSPORIGEN=$ARRAYPLANTA2[0]['CODIGO_SAG_PLANTA'];
+                                                                } else {
+                                                                    $ORIGEN = "Sin Datos";
+                                                                    $CSGCSPORIGEN="Sin Datos";
+                                                                }                                                        
                                                             } else {
                                                                 $NUMERORECEPCION = "Sin Datos";
                                                                 $FECHARECEPCION = "";
@@ -342,6 +369,22 @@ if ( $TEMPORADAS) {
                                                                 $TREEMBALAJE = "Sin datos";
                                                             }
 
+                                                            $ARRAYINPSAG = $INPSAG_ADO->verInpsag3($r['ID_INPSAG']);
+                                                            if ($ARRAYINPSAG) {
+                                                                $FECHAINPSAG = $ARRAYINPSAG[0]["FECHA"];                                                                
+                                                                $NUMEROINPSAG = $ARRAYINPSAG[0]["NUMERO_INPSAG"]."-".$ARRAYINPSAG[0]["CORRELATIVO_INPSAG"];
+                                                                $ARRAYTINPSAG=$TINPSAG_ADO->verTinpsag($ARRAYINPSAG[0]["ID_TINPSAG"]);
+                                                                if($ARRAYTINPSAG){
+                                                                    $NOMBRETINPSAG= $ARRAYTINPSAG[0]["NOMBRE_TINPSAG"];
+                                                                }else{
+                                                                    $NOMBRETINPSAG = "Sin Datos";
+                                                                }
+                                         
+                                                            } else {
+                                                                $FECHAINPSAG = "";
+                                                                $NUMEROINPSAG = "Sin Datos";
+                                                                $NOMBRETINPSAG = "Sin Datos";
+                                                            }
                                                             $ARRATREPALETIZAJE = $REPALETIZAJEEX_ADO->verRepaletizaje2($r['ID_REPALETIZAJE']);
                                                             if ($ARRATREPALETIZAJE) {
                                                                 $FECHAREPALETIZAJE = $ARRATREPALETIZAJE[0]["INGRESO"];
@@ -509,6 +552,9 @@ if ( $TEMPORADAS) {
                                                                 <td><?php echo $NUMEROREEMBALEJE; ?></td>
                                                                 <td><?php echo $FECHAREEMBALEJE; ?></td>
                                                                 <td><?php echo $TREEMBALAJE; ?></td>
+                                                                <td><?php echo $NUMEROINPSAG; ?></td>
+                                                                <td><?php echo $FECHAINPSAG; ?></td>
+                                                                <td><?php echo $NOMBRETINPSAG; ?></td>
                                                                 <td><?php echo $NOMBRETMANEJO; ?></td>
                                                                 <td><?php echo $NOMBRETCALIBRE; ?></td>
                                                                 <td><?php echo $NOMBRETEMBALAJE; ?></td>
