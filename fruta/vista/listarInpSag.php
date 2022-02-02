@@ -219,8 +219,8 @@ include_once "../../assest/config/datosUrLP.php";
                                                     ?>
 
                                                     <tr class="text-left">
-                                                        <td> <?php echo $r['CORRELATIVO_INPSAG']; ?></td>
                                                         <td> <?php echo $r['NUMERO_INPSAG']; ?></td>
+                                                        <td> <?php echo $r['CORRELATIVO_INPSAG']; ?></td>
                                                         <td>
                                                             <?php if ($r['ESTADO'] == "0") { ?>
                                                                 <button type="button" class="btn btn-block btn-danger">Cerrado</button>

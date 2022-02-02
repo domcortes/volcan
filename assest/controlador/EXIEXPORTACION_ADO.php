@@ -2172,7 +2172,7 @@ class EXIEXPORTACION_ADO
                                             FROM fruta_exiexportacion 
                                             WHERE   ESTADO_REGISTRO =  1 
                                                 AND ESTADO = 8
-                                                AND FOLIO_AUXILIAR_EXIEXPORTACION LIKE '" . $FOLIOAUXILIAREXIEXPORTACION . "' 
+                                                AND FOLIO_AUXILIAR_EXIEXPORTACION = '" . $FOLIOAUXILIAREXIEXPORTACION . "' 
                                                 AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_PLANTA = '" . $PLANTA . "'
                                             GROUP BY FOLIO_AUXILIAR_EXIEXPORTACION, ID_ESTANDAR, ID_PLANTA            
