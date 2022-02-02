@@ -5047,7 +5047,8 @@ class EXIEXPORTACION_ADO
                                                 FROM fruta_exiexportacion  
                                                 WHERE  ID_FOLIO= '" . $IDFOLIO . "' 
                                                 AND FOLIO_MANUAL = 0
-                                                ORDER BY ULTIMOFOLIO; ");
+                                                AND ID_DESPACHO2 IS NUll
+                                                ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -5070,7 +5071,8 @@ class EXIEXPORTACION_ADO
                                                 FROM fruta_exiexportacion  
                                                 WHERE  ID_FOLIO= '" . $IDFOLIO . "' 
                                                 AND FOLIO_MANUAL = 0
-                                                ORDER BY ULTIMOFOLIO; ");
+                                                AND ID_DESPACHO2 IS NUll
+                                                ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -5092,8 +5094,8 @@ class EXIEXPORTACION_ADO
                                                 FROM fruta_exiexportacion  
                                                 WHERE  ID_FOLIO= '" . $IDFOLIO . "' 
                                                 AND FOLIO_MANUAL = 0
-                                                AND ESTADO_REGISTRO !=0
-                                                ORDER BY ULTIMOFOLIO; ");
+                                                AND ID_DESPACHO2 IS NUll
+                                                ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -5115,7 +5117,31 @@ class EXIEXPORTACION_ADO
                                                 FROM fruta_exiexportacion  
                                                 WHERE  ID_FOLIO= '" . $IDFOLIO . "' 
                                                 AND FOLIO_MANUAL = 0
-                                                ORDER BY ULTIMOFOLIO; ");
+                                                AND ID_DESPACHO2 IS NUll
+                                                ; ");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function obtenerFolioReembalaje($IDFOLIO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT IFNULL(MAX(FOLIO_AUXILIAR_EXIEXPORTACION),0) AS 'ULTIMOFOLIO'
+                                                FROM fruta_exiexportacion  
+                                                WHERE  ID_FOLIO= '" . $IDFOLIO . "' 
+                                                AND FOLIO_MANUAL = 0
+                                                AND ID_DESPACHO2 IS NUll
+                                                ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
