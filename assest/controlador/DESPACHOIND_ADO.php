@@ -535,10 +535,12 @@ class DESPACHOIND_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,
-                                                FECHA_DESPACHO AS 'FECHA',
+                                                    FECHA_DESPACHO AS 'FECHA',
+                                                    WEEK(FECHA_DESPACHO)+1 AS 'SEMANA',
+                                                    WEEKOFYEAR(FECHA_DESPACHO) AS 'SEMANAISO',  
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
-                                                IFNULL(KILOS_NETO_DESPACHO,0)  AS 'NETO'
+                                                    IFNULL(KILOS_NETO_DESPACHO,0)  AS 'NETO'
                                         FROM fruta_despachoind                                                                           
                                         WHERE  ESTADO_REGISTRO = 1 
                                         AND ID_EMPRESA = '" . $EMPRESA . "' 
@@ -589,9 +591,12 @@ class DESPACHOIND_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,
-                                                DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',  
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
+                                                    FECHA_DESPACHO AS 'FECHA',  
+                                                
+                                                    WEEK(FECHA_DESPACHO)+1 AS 'SEMANA',
+                                                    WEEKOFYEAR(FECHA_DESPACHO) AS 'SEMANAISO',  
+                                                DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION', 
                                                 IFNULL(KILOS_NETO_DESPACHO,0) AS 'NETO'
                                         FROM fruta_despachoind                                                                           
                                         WHERE  ESTADO_REGISTRO = 1 
@@ -644,10 +649,12 @@ class DESPACHOIND_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,
-                                                DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',  
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
-                                                IFNULL(KILOS_NETO_DESPACHO,0)  AS 'NETO'
+                                                    FECHA_DESPACHO AS 'FECHA',  
+                                                    WEEK(FECHA_DESPACHO)+1 AS 'SEMANA',
+                                                    WEEKOFYEAR(FECHA_DESPACHO) AS 'SEMANAISO',  
+                                                    DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION', 
+                                                    IFNULL(KILOS_NETO_DESPACHO,0)  AS 'NETO'
                                         FROM fruta_despachoind                                                                           
                                         WHERE  ESTADO_REGISTRO = 1 
                                                 AND   TDESPACHO = 1
