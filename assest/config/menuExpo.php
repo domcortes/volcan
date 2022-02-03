@@ -328,7 +328,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
         <?php if($PELIQUIDACION=="1"){ ?>
           <li class="treeview">
             <a href="#">
-              <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/exchange.svg" class="svg-icon" alt="">
+              <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/transactions.svg" class="svg-icon" alt="">
               <span> Liquidación</span>
               <span class="pull-right-container">
                 <i class="fa fa-angle-right pull-right"></i>
