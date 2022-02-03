@@ -486,6 +486,10 @@ class PROCESO_ADO
                                                     IFNULL(KILOS_NETO_PROCESO,0) AS 'NETO',                                        
                                                     IFNULL(KILOS_NETO_ENTRADA,0) AS 'ENTRADA',
                                                     FECHA_PROCESO AS 'FECHA',
+                                                    
+                                                    WEEK(FECHA_PROCESO)+1 AS 'SEMANA',                                                     
+                                                    WEEKOFYEAR(FECHA_PROCESO) AS 'SEMANAISO', 
+                                                    
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' 
                                                 FROM fruta_proceso                                                        
