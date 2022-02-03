@@ -2338,8 +2338,8 @@ class EXIMATERIAPRIMA_ADO
                                                 FROM fruta_eximateriaprima  
                                                 WHERE  ID_FOLIO= '" . $IDFOLIO . "' 
                                                 AND FOLIO_MANUAL = 0
-                                                AND ESTADO_REGISTRO !=0
-                                                ORDER BY ULTIMOFOLIO; ");
+                                                AND ID_DESPACHO2 IS NULL
+                                                ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
