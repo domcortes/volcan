@@ -181,6 +181,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                     <th>Numero Oc Interno</th>
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificación</th>
+                                                    <th>Semana Recepción </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -339,6 +340,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                         <td><?php echo $NUMEROIOCOMPRA; ?></td>
                                                         <td><?php echo $r['INGRESO']; ?></td>
                                                         <td><?php echo $r['MODIFICACION']; ?></td>
+                                                        <td><?php echo $r['SEMANA']; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
