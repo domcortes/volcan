@@ -445,6 +445,8 @@ class DESPACHOPT_ADO
 
             $datos = $this->conexion->prepare("SELECT *,
                                                     FECHA_DESPACHO AS 'FECHA',
+                                                    WEEK(FECHA_DESPACHO)+1 AS 'SEMANA',
+                                                    WEEKOFYEAR(FECHA_DESPACHO) AS 'SEMANAISO',  
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
                                                     IFNULL(CANTIDAD_ENVASE_DESPACHO,0) AS 'ENVASE',   
@@ -506,12 +508,14 @@ class DESPACHOPT_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT * ,
-                                                FECHA_DESPACHO AS 'FECHA',
-                                                DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
-                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
-                                                 IFNULL(CANTIDAD_ENVASE_DESPACHO,0) AS 'ENVASE',   
-                                                 IFNULL(KILOS_NETO_DESPACHO,0) AS 'NETO',  
-                                                 IFNULL(KILOS_BRUTO_DESPACHO,0)  AS 'BRUTO' 
+                                                    FECHA_DESPACHO AS 'FECHA',
+                                                    WEEK(FECHA_DESPACHO)+1 AS 'SEMANA',
+                                                    WEEKOFYEAR(FECHA_DESPACHO) AS 'SEMANAISO',  
+                                                    DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
+                                                    IFNULL(CANTIDAD_ENVASE_DESPACHO,0) AS 'ENVASE',   
+                                                    IFNULL(KILOS_NETO_DESPACHO,0) AS 'NETO',  
+                                                    IFNULL(KILOS_BRUTO_DESPACHO,0)  AS 'BRUTO' 
                                         FROM fruta_despachopt                                                                           
                                         WHERE ESTADO_REGISTRO = 1                                                                                                        
                                         AND ID_EMPRESA = '" . $EMPRESA . "' 
@@ -564,12 +568,14 @@ class DESPACHOPT_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT * ,
-                                                FECHA_DESPACHO AS 'FECHA',
-                                                DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
-                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION',
-                                                 IFNULL(CANTIDAD_ENVASE_DESPACHO,0) AS 'ENVASE',   
-                                                 IFNULL(KILOS_NETO_DESPACHO,0) AS 'NETO',  
-                                                 IFNULL(KILOS_BRUTO_DESPACHO,0)  AS 'BRUTO' 
+                                                    FECHA_DESPACHO AS 'FECHA',
+                                                    WEEK(FECHA_DESPACHO)+1 AS 'SEMANA',
+                                                    WEEKOFYEAR(FECHA_DESPACHO) AS 'SEMANAISO',  
+                                                    DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION',
+                                                    IFNULL(CANTIDAD_ENVASE_DESPACHO,0) AS 'ENVASE',   
+                                                    IFNULL(KILOS_NETO_DESPACHO,0) AS 'NETO',  
+                                                    IFNULL(KILOS_BRUTO_DESPACHO,0)  AS 'BRUTO' 
                                         FROM fruta_despachopt                                                                           
                                         WHERE ESTADO_REGISTRO = 1                                                                                                        
                                         AND ID_EMPRESA = '" . $EMPRESA . "' 
@@ -620,14 +626,22 @@ class DESPACHOPT_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * 
-                                        FROM fruta_despachopt                                                                           
-                                        WHERE ESTADO_REGISTRO = 1                                                                                                        
-                                        AND TDESPACHO = 1
-                                        AND ESTADO_DESPACHO = 2
-                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
-                                        AND ID_PLANTA2 = '" . $PLANTA . "'
-                                        AND ID_TEMPORADA = '" . $TEMPORADA . "' ;	");
+            $datos = $this->conexion->prepare("SELECT * ,
+                                                    FECHA_DESPACHO AS 'FECHA',
+                                                    WEEK(FECHA_DESPACHO)+1 AS 'SEMANA',
+                                                    WEEKOFYEAR(FECHA_DESPACHO) AS 'SEMANAISO',  
+                                                    DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
+                                                    IFNULL(CANTIDAD_ENVASE_DESPACHO,0) AS 'ENVASE',   
+                                                    IFNULL(KILOS_NETO_DESPACHO,0) AS 'NETO',  
+                                                    IFNULL(KILOS_BRUTO_DESPACHO,0)  AS 'BRUTO' 
+                                                FROM fruta_despachopt                                                                           
+                                                WHERE ESTADO_REGISTRO = 1                                                                                                        
+                                                AND TDESPACHO = 1
+                                                AND ESTADO_DESPACHO = 2
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                                AND ID_PLANTA2 = '" . $PLANTA . "'
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;

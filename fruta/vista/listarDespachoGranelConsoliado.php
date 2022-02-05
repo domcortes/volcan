@@ -105,24 +105,9 @@ $ARRAYMGUIAPT = "";
 
 
 
-if ($EMPRESAS  &&  $TEMPORADAS) {
-
-
-    $ARRAYDESPACHOIND = $DESPACHOIND_ADO->listarDespachompEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
-    $ARRAYDESPACHOINDTOTALES = $DESPACHOIND_ADO->obtenerTotalesDespachompEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
-    $TOTALNETOIND = $ARRAYDESPACHOINDTOTALES[0]['NETO'];
-
-    $ARRAYDESPACHOMP = $DESPACHOMP_ADO->listarDespachompEmpresaTemporadaCBX($EMPRESAS, $TEMPORADAS);
-    $ARRAYDESPACHOMPTOTALES = $DESPACHOMP_ADO->obtenerTotalesDespachompEmpresaTemporadaCBX($EMPRESAS, $TEMPORADAS);
-    $TOTALENVASEMP = $ARRAYDESPACHOMPTOTALES[0]['ENVASE'];
-    $TOTALNETOMP = $ARRAYDESPACHOMPTOTALES[0]['NETO'];
-    $TOTALBRUTOMP = $ARRAYDESPACHOMPTOTALES[0]['BRUTO'];
-
-
-
-    $TOTALNETO  = number_format(  $TOTALNETOMP + $TOTALNETOIND, 2, ",", ".");
-    $TOTALBRUTO = number_format(  $TOTALBRUTOMP, 2, ",", ".");
-    $TOTALENVASE  = number_format( $TOTALENVASEMP, 2, ",", ".");
+if ($EMPRESAS  && $PLANTAS &&  $TEMPORADAS) {
+    $ARRAYDESPACHOIND = $DESPACHOIND_ADO->listarDespachompEmpresaPlantaTemporadaCBX($EMPRESAS,$PLANTAS,  $TEMPORADAS);   
+    $ARRAYDESPACHOMP = $DESPACHOMP_ADO->listarDespachompEmpresaPlantaTemporadaCBX($EMPRESAS,$PLANTAS,  $TEMPORADAS);
 }
 
 
@@ -250,6 +235,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                     <th>Nombre Conductor </th>
                                                     <th>Patente Camión </th>
                                                     <th>Patente Carro </th>
+                                                    <th>Semana Despacho </th>
                                                     <th>Empresa</th>
                                                     <th>Planta</th>
                                                     <th>Temporada</th>
@@ -463,7 +449,8 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $NOMBRETRANSPORTE; ?></td>
                                                             <td><?php echo $NOMBRECONDUCTOR; ?></td>
                                                             <td><?php echo $r['PATENTE_CAMION']; ?></td>
-                                                            <td><?php echo $r['PATENTE_CARRO']; ?></td>
+                                                            <td><?php echo $r['PATENTE_CARRO']; ?></td>                  
+                                                            <td><?php echo $r['SEMANA']; ?></td>
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>
@@ -706,7 +693,8 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $NOMBRETRANSPORTE; ?></td>
                                                             <td><?php echo $NOMBRECONDUCTOR; ?></td>
                                                             <td><?php echo $r['PATENTE_CAMION']; ?></td>
-                                                            <td><?php echo $r['PATENTE_CARRO']; ?></td>
+                                                            <td><?php echo $r['PATENTE_CARRO']; ?></td>                  
+                                                            <td><?php echo $r['SEMANA']; ?></td>
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>

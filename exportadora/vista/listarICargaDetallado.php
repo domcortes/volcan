@@ -266,7 +266,12 @@ include_once "../../assest/config/datosUrLP.php";
                                                         <th>N° Contenedor</th>
                                                         <th>Días Estimados</th>
                                                         <th>Días Reales </th>
-                                                        <th>Destino Final </th>                                                   
+                                                        <th>Destino Final </th>       
+                                                        <th>Semana Instructivo</th>
+                                                        <th>Semana Corte Documental</th>
+                                                        <th>Semana ETD</th>
+                                                        <th>Semana ETA</th>
+                                                        <th>Semana Real ETA</th>                                            
                                                         <th>Empresa</th>
                                                         <th>Temporada</th>
                                                     </tr>
@@ -545,6 +550,11 @@ include_once "../../assest/config/datosUrLP.php";
                                                                 <td> <?php echo $r['ESTIMADO']; ?> </td>
                                                                 <td> <?php echo $r['REAL']; ?> </td>
                                                                 <td> <?php echo $NOMBRDFINAL; ?> </td>
+                                                                <td> <?php echo $r['SEMANA']; ?> </td>
+                                                                <td> <?php echo $r['SEMANACORTEDOCUMENTAL']; ?> </td>
+                                                                <td> <?php echo $r['SEMANAETD']; ?> </td>
+                                                                <td> <?php echo $r['SEMANAETA']; ?> </td>
+                                                                <td> <?php echo $r['SEMANAETAREAL']; ?> </td>
                                                                 <td> <?php echo $NOMBREEMPRESA; ?></td>
                                                                 <td> <?php echo $NOMBRETEMPORADA; ?></td>
                                                             </tr>

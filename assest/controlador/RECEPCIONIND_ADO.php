@@ -519,6 +519,14 @@ class RECEPCIONIND_ADO
             $datos = $this->conexion->prepare("SELECT *  ,
                                                     FECHA_GUIA_RECEPCION AS 'FECHA_GUIA',
                                                     FECHA_RECEPCION AS 'FECHA',
+                                                    
+                                                    WEEK(FECHA_RECEPCION)+1 AS 'SEMANA', 
+                                                    WEEK(FECHA_GUIA_RECEPCION)+1 AS 'SEMANAGUIA', 
+
+                                                    
+                                                    WEEKOFYEAR(FECHA_RECEPCION) AS 'SEMANAISO', 
+                                                    WEEKOFYEAR(FECHA_GUIA_RECEPCION) AS 'SEMANAGUIAISO', 
+                                                    
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
                                                     IFNULL(CANTIDAD_ENVASE_RECEPCION,0)  AS 'ENVASE',
@@ -547,10 +555,18 @@ class RECEPCIONIND_ADO
     public function listarRecepcionEmpresaPlantaTemporadaCBX($EMPRESA,  $PLANTA, $TEMPORADA)
     {
         try {
-
+ 
             $datos = $this->conexion->prepare("SELECT *  ,
                                                     FECHA_GUIA_RECEPCION AS 'FECHA_GUIA',
                                                     FECHA_RECEPCION AS 'FECHA',
+                                                    
+                                                    WEEK(FECHA_RECEPCION)+1 AS 'SEMANA', 
+                                                    WEEK(FECHA_GUIA_RECEPCION)+1 AS 'SEMANAGUIA', 
+
+                                                    
+                                                    WEEKOFYEAR(FECHA_RECEPCION) AS 'SEMANAISO', 
+                                                    WEEKOFYEAR(FECHA_GUIA_RECEPCION) AS 'SEMANAGUIAISO', 
+                                                    
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
                                                     IFNULL(CANTIDAD_ENVASE_RECEPCION,0)  AS 'ENVASE',

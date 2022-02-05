@@ -189,6 +189,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                     <th>Motivo Nota </th>
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificación</th>
+                                                    <th>Semana Nota </th>
                                                     <th>Empresa</th>
                                                     <th>Temporada</th>
                                                 </tr>
@@ -285,14 +286,13 @@ include_once "../../assest/config/datosUrLP.php";
                                                         </td>
                                                         <td><?php echo $r['FECHA']; ?></td>
                                                         <td><?php echo $NOMBRETNOTA; ?></td>
-
                                                         <td><?php echo $NUMEROIREFERENCIA; ?></td>
                                                         <td><?php echo $NOMBRERFINAL; ?></td>
                                                         <td><?php echo $NUMEROICARGA; ?></td>
-
                                                         <td><?php echo $r['OBSERVACIONES']; ?></td>
                                                         <td><?php echo $r['INGRESO']; ?></td>
                                                         <td><?php echo $r['MODIFICACION']; ?></td>
+                                                        <td><?php echo $r['SEMANA']; ?></td>
                                                         <td><?php echo $NOMBREEMPRESA; ?></td>
                                                         <td><?php echo $NOMBRETEMPORADA; ?></td>
                                                     </tr>

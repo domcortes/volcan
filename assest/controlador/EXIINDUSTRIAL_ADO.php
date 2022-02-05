@@ -2539,8 +2539,8 @@ class EXIINDUSTRIAL_ADO
             $datos = $this->conexion->prepare("SELECT IFNULL(COUNT(FOLIO_EXIINDUSTRIAL),0) AS 'ULTIMOFOLIO',
                                                     IFNULL(MAX(FOLIO_EXIINDUSTRIAL),0) AS 'ULTIMOFOLIO2' 
                                                     FROM fruta_exiindustrial  
-                                                    WHERE  ID_FOLIO= '" . $IDFOLIO . "'
-                                                           AND ESTADO_REGISTRO !=0  ;");
+                                                    WHERE  ID_FOLIO= '" . $IDFOLIO . "'                                                           
+                                                    AND ID_DESPACHO2 IS NULL ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;

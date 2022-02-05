@@ -683,6 +683,19 @@ class ICARGA_ADO
                                                         FECHAETD_ICARGA AS 'FECHAETD', 
                                                         FECHAETA_ICARGA AS 'FECHAETA', 
                                                         FECHAETAREAL_ICARGA AS 'FECHAETAREAL', 
+                                                        
+                                                        WEEK(FECHA_ICARGA)+1 AS 'SEMANA', 
+                                                        WEEK(FECHA_CDOCUMENTAL_ICARGA)+1 AS 'SEMANACORTEDOCUMENTAL', 
+                                                        WEEK(FECHAETD_ICARGA)+1 AS 'SEMANAETD', 
+                                                        WEEK(FECHAETA_ICARGA)+1 AS 'SEMANAETA', 
+                                                        WEEK(FECHAETAREAL_ICARGA)+1 AS 'SEMANAETAREAL', 
+
+                                                        WEEKOFYEAR(FECHA_ICARGA) AS 'SEMANAISO', 
+                                                        WEEKOFYEAR(FECHA_CDOCUMENTAL_ICARGA) AS 'SEMANACORTEDOCUMENTALISO', 
+                                                        WEEKOFYEAR(FECHAETD_ICARGA) AS 'SEMANAETDISO', 
+                                                        WEEKOFYEAR(FECHAETA_ICARGA) AS 'SEMANAETAISO', 
+                                                        WEEKOFYEAR(FECHAETAREAL_ICARGA) AS 'SEMANAETAREALISO', 
+
                                                         IFNULL(BOLAWBCRT_ICARGA, 'Sin Datos' ) AS 'BLAWB',
                                                         IFNULL(TOTAL_ENVASE_ICAGRA,0) AS 'ENVASE',
                                                         IFNULL(TOTAL_NETO_ICARGA,0) AS 'NETO',

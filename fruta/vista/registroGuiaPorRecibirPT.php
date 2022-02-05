@@ -62,22 +62,18 @@ $ARRAYVERTRANSPORTE = "";
 $ARRAYVERCONDUCTOR = "";
 $ARRAYMGUIAPT = "";
 
+
+
+if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
+
+    $ARRAYDESPACHOPT = $DESPACHOPT_ADO->listarDespachoptEmpresaPlantaTemporadaGuiaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
+
+}
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTexportacion($EMPRESAS, $PLANTAS, $TEMPORADAS);
 if (empty($ARRAYFOLIO)) {
     $DISABLEDFOLIO = "disabled";
     $MENSAJEFOLIO = " NECESITA <b> CREAR LOS FOLIOS PT </b> , PARA OCUPAR LA <b>  FUNCIONALIDAD </b>.  FAVOR DE <b> CONTACTARSE CON EL ADMINISTRADOR </b>";
-}
-
-
-if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-
-    $ARRAYDESPACHOPT = $DESPACHOPT_ADO->listarDespachoptEmpresaPlantaTemporadaGuiaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYDESPACHOPTTOTALES = $DESPACHOPT_ADO->obtenerTotalesDespachoptEmpresaPlantaTemporadaGuiaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
-
-    $TOTALBRUTO = $ARRAYDESPACHOPTTOTALES[0]['BRUTO'];
-    $TOTALNETO = $ARRAYDESPACHOPTTOTALES[0]['NETO'];
-    $TOTALENVASE = $ARRAYDESPACHOPTTOTALES[0]['ENVASE'];
 }
 
 
@@ -184,6 +180,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                     <th>Nombre Conductor </th>
                                                     <th>Patente Camión </th>
                                                     <th>Patente Carro </th>
+                                                    <th>Semana Despacho </th>
                                                     <th>Empresa</th>
                                                     <th>Planta</th>
                                                     <th>Temporada</th>
@@ -353,7 +350,8 @@ include_once "../../assest/config/datosUrLP.php";
                                                         <td><?php echo $NOMBRETRANSPORTE; ?></td>
                                                         <td><?php echo $NOMBRECONDUCTOR; ?></td>
                                                         <td><?php echo $r['PATENTE_CAMION']; ?></td>
-                                                        <td><?php echo $r['PATENTE_CARRO']; ?></td>
+                                                        <td><?php echo $r['PATENTE_CARRO']; ?></td>                             
+                                                        <td><?php echo $r['SEMANA']; ?></td>
                                                         <td><?php echo $NOMBREEMPRESA; ?></td>
                                                         <td><?php echo $NOMBREPLANTA; ?></td>
                                                         <td><?php echo $NOMBRETEMPORADA; ?></td>

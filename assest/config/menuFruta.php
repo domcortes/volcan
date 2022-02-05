@@ -362,8 +362,9 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                         <li><a href="listarRecepcionindInterplanta.php">Agrupado Interplanta<i class="ti-more"></i></a></li>
                       </ul>
                     </li>
+                    <li><a href="listarRecepcionGranelConsolidado.php">Consolidado Recepción<i class="ti-more"></i></a></li>     
                   </ul>
-                </li>          
+                </li>     
               <?php  } ?>
               <?php if($PFGDESPACHO=="1"){ ?>
                 <li class="treeview">

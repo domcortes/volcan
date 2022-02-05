@@ -154,6 +154,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                     <th>PT Embolsado</th>       
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificacion</th>
+                                                    <th>Semana Reembalaje</th>
                                                     <th>Empresa</th>
                                                     <th>Planta</th>
                                                     <th>Temporada</th>
@@ -295,15 +296,14 @@ include_once "../../assest/config/datosUrLP.php";
                                                         <td><?php echo $r['INDUSTRIALNC']; ?></td>
                                                         <td><?php echo $r['INDUSTRIAL']; ?></td>
                                                         <td><?php echo number_format( $r['ENTRADA']-$r['EXPORTACION']-$r['INDUSTRIAL'],2,".",""); ?></td>
-
                                                         <td><?php echo $r['PDEXPORTACION_REEMBALAJE']; ?></td>
                                                         <td><?php echo $r['PDEXPORTACIONCD_REEMBALAJE']-$r['PDEXPORTACION_REEMBALAJE']; ?></td>
                                                         <td><?php echo $r['PDINDUSTRIAL_REEMBALAJE']; ?></td>
                                                         <td><?php echo number_format($r['PORCENTAJE_REEMBALAJE'], 2, ",", ".");  ?></td>
-
                                                         <td><?php echo $ENVASESEMBOLSADO; ?></td>
                                                         <td><?php echo $r['INGRESO']; ?></td>
                                                         <td><?php echo $r['MODIFICACION']; ?></td>
+                                                        <td><?php echo $r['SEMANA']; ?></td>
                                                         <td><?php echo $NOMBREEMPRESA; ?></td>
                                                         <td><?php echo $NOMBREPLANTA; ?></td>
                                                         <td><?php echo $NOMBRETEMPORADA; ?></td>
