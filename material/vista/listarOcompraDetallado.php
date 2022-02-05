@@ -152,6 +152,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                     <th>Tipo Moneda</th>
                                                     <th>Tipo Cambio</th>
                                                     <th>Reponsable</th>
+                                                    <th>Semana Orden </th>
                                                     <th>Empresa</th>
                                                     <th>Temporada</th>
                                                 </tr>
@@ -244,6 +245,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                             <td><?php echo $NOMBRETMONEDA; ?></td>
                                                             <td><?php echo $r['TCAMBIO_OCOMPRA']; ?></td>
                                                             <td><?php echo $NOMBRERESPONSABLE; ?></td>
+                                                            <td><?php echo $r['SEMANA']; ?></td>
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>
                                                         </tr>

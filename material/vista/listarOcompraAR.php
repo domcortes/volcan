@@ -151,6 +151,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                     <th>Reponsable</th>
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificación</th>
+                                                    <th>Semana Orden </th>
                                                     <th>Empresa</th>
                                                     <th>Temporada</th>
                                                 </tr>
@@ -276,6 +277,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                         <td><?php echo $NOMBRERESPONSABLE; ?></td>
                                                         <td><?php echo $r['INGRESO']; ?></td>
                                                         <td><?php echo $r['MODIFICACION']; ?></td>
+                                                        <td><?php echo $r['SEMANA']; ?></td>
                                                         <td><?php echo $NOMBREEMPRESA; ?></td>
                                                         <td><?php echo $NOMBRETEMPORADA; ?></td>
                                                     </tr>
