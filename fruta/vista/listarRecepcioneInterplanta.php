@@ -181,7 +181,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                     <th>Despacho Materia Prima </th>
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificación</th>
-                                                    <th>Semana Recepción </th>
+                                                    <th>Semana Despacho </th>
                                                     <th>Empresa</th>
                                                     <th>Planta</th>
                                                     <th>Temporada</th>

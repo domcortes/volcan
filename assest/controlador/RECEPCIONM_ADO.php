@@ -512,10 +512,12 @@ class RECEPCIONM_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT *  ,
-                                                DATE_FORMAT(INGRESO, '%Y-%m-%d ') AS 'INGRESO',
-                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d ') AS 'MODIFICACION',
-                                                FECHA_RECEPCION AS 'FECHA',
-                                                IFNULL(`TOTAL_CANTIDAD_RECEPCION`,0) AS 'CANTIDAD'
+                                                        DATE_FORMAT(INGRESO, '%Y-%m-%d ') AS 'INGRESO',
+                                                        DATE_FORMAT(MODIFICACION, '%Y-%m-%d ') AS 'MODIFICACION',
+                                                        FECHA_RECEPCION AS 'FECHA',
+                                                        WEEK(FECHA_RECEPCION)+1 AS 'SEMANA',                                                     
+                                                        WEEKOFYEAR(FECHA_RECEPCION) AS 'SEMANAISO',
+                                                        IFNULL(`TOTAL_CANTIDAD_RECEPCION`,0) AS 'CANTIDAD'
                                              FROM `material_recepcionm`
                                              WHERE ESTADO_REGISTRO = 1 
                                              AND ID_EMPRESA = '".$IDEMPRESA."' 

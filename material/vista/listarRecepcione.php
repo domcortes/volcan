@@ -180,6 +180,10 @@ include_once "../../assest/config/datosUrLP.php";
                                                     <th>Numero Oc Interno</th>
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificación</th>
+                                                    <th>Semana Recepción </th>
+                                                    <th>Empresa</th>
+                                                    <th>Planta</th>
+                                                    <th>Temporada</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -269,6 +273,24 @@ include_once "../../assest/config/datosUrLP.php";
                                                     }else{
                                                         $NUMERORECEPCIONIND="No Aplica";
                                                     }
+                                                    $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
+                                                    if ($ARRAYEMPRESA) {
+                                                        $NOMBREEMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
+                                                    } else {
+                                                        $NOMBREEMPRESA = "Sin Datos";
+                                                    }
+                                                    $ARRAYPLANTA = $PLANTA_ADO->verPlanta($r['ID_PLANTA']);
+                                                    if ($ARRAYPLANTA) {
+                                                        $NOMBREPLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
+                                                    } else {
+                                                        $NOMBREPLANTA = "Sin Datos";
+                                                    }
+                                                    $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($r['ID_TEMPORADA']);
+                                                    if ($ARRAYTEMPORADA) {
+                                                        $NOMBRETEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
+                                                    } else {
+                                                        $NOMBRETEMPORADA = "Sin Datos";
+                                                    }
                                                     ?>
 
                                                     <tr class="center">
@@ -338,6 +360,10 @@ include_once "../../assest/config/datosUrLP.php";
                                                         <td><?php echo $NUMEROIOCOMPRA; ?></td>
                                                         <td><?php echo $r['INGRESO']; ?></td>
                                                         <td><?php echo $r['MODIFICACION']; ?></td>
+                                                        <td><?php echo $r['SEMANA']; ?></td>
+                                                        <td><?php echo $NOMBREEMPRESA; ?></td>
+                                                        <td><?php echo $NOMBREPLANTA; ?></td>
+                                                        <td><?php echo $NOMBRETEMPORADA; ?></td>
 
                                                     </tr>
                                                 <?php endforeach; ?>

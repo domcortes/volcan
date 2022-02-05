@@ -561,10 +561,12 @@ class DESPACHOM_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,
-                                                FECHA_DESPACHO AS 'FECHA',  
-                                                DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
-                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION', 
-                                                IFNULL(CANTIDAD_DESPACHO,0)  AS 'CANTIDAD'
+                                                        FECHA_DESPACHO AS 'FECHA',  
+                                                        WEEK(FECHA_DESPACHO)+1 AS 'SEMANA',                                                     
+                                                        WEEKOFYEAR(FECHA_DESPACHO) AS 'SEMANAISO',
+                                                        DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                        DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION', 
+                                                        IFNULL(CANTIDAD_DESPACHO,0)  AS 'CANTIDAD'
                                         FROM material_despachom                                                                           
                                         WHERE ESTADO_REGISTRO = 1 
                                         AND ID_EMPRESA = '" . $EMPRESA . "' 
@@ -641,10 +643,12 @@ class DESPACHOM_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,
-                                                FECHA_DESPACHO AS 'FECHA',  
-                                                DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
-                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION', 
-                                                IFNULL(CANTIDAD_DESPACHO,0)  AS 'CANTIDAD'
+                                                        FECHA_DESPACHO AS 'FECHA',  
+                                                        WEEK(FECHA_DESPACHO)+1 AS 'SEMANA',                                                     
+                                                        WEEKOFYEAR(FECHA_DESPACHO) AS 'SEMANAISO',
+                                                        DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                        DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION', 
+                                                        IFNULL(CANTIDAD_DESPACHO,0)  AS 'CANTIDAD'
                                         FROM material_despachom                                                                           
                                         WHERE ESTADO_REGISTRO = 1 
                                         AND ESTADO_DESPACHO = 4
@@ -724,10 +728,12 @@ class DESPACHOM_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,
-                                                FECHA_DESPACHO AS 'FECHA',  
-                                                DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
-                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION', 
-                                                IFNULL(CANTIDAD_DESPACHO,0)  AS 'CANTIDAD'
+                                                        FECHA_DESPACHO AS 'FECHA',  
+                                                        WEEK(FECHA_DESPACHO)+1 AS 'SEMANA',                                                     
+                                                        WEEKOFYEAR(FECHA_DESPACHO) AS 'SEMANAISO',
+                                                        DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                        DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION', 
+                                                        IFNULL(CANTIDAD_DESPACHO,0)  AS 'CANTIDAD'
                                         FROM material_despachom                                                                           
                                         WHERE   ESTADO_REGISTRO = 1 
                                                 AND TDESPACHO = 2

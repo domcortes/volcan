@@ -176,6 +176,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                     <th>Patente Carro </th>
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificación</th>
+                                                    <th>Semana Despacho </th>
                                                     <th>Empresa</th>
                                                     <th>Planta</th>
                                                     <th>Temporada</th>
@@ -384,6 +385,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                         <td><?php echo $r['PATENTE_CARRO']; ?></td>
                                                         <td><?php echo $r['INGRESO']; ?></td>
                                                         <td><?php echo $r['MODIFICACION']; ?></td>
+                                                        <td><?php echo $r['SEMANA']; ?></td>
                                                         <td><?php echo $NOMBREEMPRESA; ?></td>
                                                         <td><?php echo $NOMBREPLANTA; ?></td>
                                                         <td><?php echo $NOMBRETEMPORADA; ?></td>
