@@ -513,7 +513,9 @@ class DESPACHOMP_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,
-                                                    FECHA_DESPACHO AS 'FECHA',  
+                                                    FECHA_DESPACHO AS 'FECHA',
+                                                    WEEK(FECHA_DESPACHO)+1 AS 'SEMANA',
+                                                    WEEKOFYEAR(FECHA_DESPACHO) AS 'SEMANAISO',    
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
                                                     IFNULL(CANTIDAD_ENVASE_DESPACHO,0) AS 'ENVASE',

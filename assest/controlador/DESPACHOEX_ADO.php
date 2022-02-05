@@ -722,6 +722,12 @@ class DESPACHOEX_ADO
                                                     FECHA_GUIA_DESPACHOEX AS 'GUIA',
                                                     FECHAETA_DESPACHOEX AS 'ETA' ,
                                                     FECHAETD_DESPACHOEX AS 'ETD',
+                                                    
+                                                    WEEK(FECHA_DESPACHOEX)+1 AS 'SEMANA',
+                                                    WEEK(FECHA_GUIA_DESPACHOEX)+1 AS 'SEMANAGUIA',
+                                                    WEEKOFYEAR(FECHA_DESPACHOEX) AS 'SEMANAISO',  
+                                                    WEEKOFYEAR(FECHA_GUIA_DESPACHOEX) AS 'SEMANAGUIAISO',  
+
                                                     FORMAT(CANTIDAD_ENVASE_DESPACHOEX,0,'de_DE')  AS 'ENVASE',
                                                     FORMAT(KILOS_NETO_DESPACHOEX,2,'de_DE')  AS 'NETO',
                                                     FORMAT(KILOS_BRUTO_DESPACHOEX,2,'de_DE')  AS 'BRUTO'
