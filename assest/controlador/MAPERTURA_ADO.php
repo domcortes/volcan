@@ -136,12 +136,12 @@ class MAPERTURA_ADO {
             
             $query=
             "INSERT INTO  usuario_mapertura  (
-                                             MOTIVO_MAPERTURA , 
-                                             TABLA , 
-                                             ID_REGISTRO , 
-                                             ID_USUARIO , 
+                                                MOTIVO_MAPERTURA , 
+                                                TABLA , 
+                                                ID_REGISTRO , 
+                                                ID_USUARIO  
                                             ) VALUES
-	       	( ?, ?, ?, ?,);";
+	       	( ?, ?, ?, ?);";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -162,19 +162,32 @@ class MAPERTURA_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarMapertura($id){
-        try{$sql="DELETE FROM  usuario_mapertura  WHERE  ID_MAPERTURA =".$id.";";
-        $statement=$this->conexion->prepare($sql);
-        $statement->execute();
+        try{
+            $sql="DELETE FROM  usuario_mapertura  WHERE  ID_MAPERTURA =".$id.";";
+            $statement=$this->conexion->prepare($sql);
+            $statement->execute();
         }catch(Exception $e){
             die($e->getMessage());
             
         }
         
-    }   
+    }    
     
 
     //FUNCIONES ESPECIALIZADAS
+    public function aperturaRegistro ($TABLA,$COLUMNA,$ID){
+        try{ 
 
+            $sql="  UPDATE ".$TABLA." SET	
+                            MODIFICACION = SYSDATE(),		
+                            ESTADO = 1
+                    WHERE ".$COLUMNA."= ".$ID.";";
+            $statement=$this->conexion->prepare($sql);
+            $statement->execute();
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
  
     
 

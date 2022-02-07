@@ -47,7 +47,7 @@ class FICHA_ADO {
     public function listarFicha(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_ficha` limit 8;	");
+            $datos=$this->conexion->prepare("SELECT * FROM   material_ficha   limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -66,7 +66,7 @@ class FICHA_ADO {
     public function listarFichaCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_ficha` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM   material_ficha   WHERE   ESTADO_REGISTRO   = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -86,7 +86,7 @@ class FICHA_ADO {
     public function listarFicha2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_ficha` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM   material_ficha   WHERE   ESTADO_REGISTRO   = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -110,8 +110,8 @@ class FICHA_ADO {
             $datos=$this->conexion->prepare("SELECT * ,            
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION'  
-                                            FROM `material_ficha` 
-                                            WHERE `ID_FICHA`= '".$ID."';");
+                                            FROM   material_ficha   
+                                            WHERE   ID_FICHA  = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -133,8 +133,8 @@ class FICHA_ADO {
             $datos=$this->conexion->prepare("SELECT * ,            
                                                     DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION'  
-                                            FROM `material_ficha` 
-                                            WHERE `ID_FICHA`= '".$ID."';");
+                                            FROM   material_ficha   
+                                            WHERE   ID_FICHA  = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -159,18 +159,18 @@ class FICHA_ADO {
 
             
             $query=
-            "INSERT INTO `material_ficha` (
-                                            `NUMERO_FICHA`,
-                                            `OBSERVACIONES_FICHA`,                                            
-                                            `ID_ESTANDAR`, 
-                                            `ID_EMPRESA`, 
-                                            `ID_TEMPORADA`,  
-                                            `ID_USUARIOI`, 
-                                            `ID_USUARIOM`, 
-                                            `INGRESO`, 
-                                            `MODIFICACION`,  
-                                            `ESTADO`,
-                                            `ESTADO_REGISTRO`
+            "INSERT INTO   material_ficha   (
+                                              NUMERO_FICHA  ,
+                                              OBSERVACIONES_FICHA  ,                                            
+                                              ID_ESTANDAR  , 
+                                              ID_EMPRESA  , 
+                                              ID_TEMPORADA  ,  
+                                              ID_USUARIOI  , 
+                                              ID_USUARIOM  , 
+                                              INGRESO  , 
+                                              MODIFICACION  ,  
+                                              ESTADO  ,
+                                              ESTADO_REGISTRO  
                                            )  VALUES
 	       	( ?, ?, ?, ?, ?, ?, ?,  SYSDATE() , SYSDATE(), 1, 1 );";
             $this->conexion->prepare($query)
@@ -194,7 +194,7 @@ class FICHA_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarFicha($id){
-        try{$sql="DELETE FROM `material_ficha` WHERE `ID_FICHA`=".$id.";";
+        try{$sql="DELETE FROM   material_ficha   WHERE   ID_FICHA  =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -209,14 +209,14 @@ class FICHA_ADO {
     public function actualizarFicha(FICHA $FICHA){
         try{
             $query = "
-                UPDATE `material_ficha` SET
-                    `MODIFICACION`= SYSDATE(),
-                    `OBSERVACIONES_FICHA`= ?,
-                    `ID_ESTANDAR`= ?,
-                    `ID_EMPRESA`= ?,
-                    `ID_TEMPORADA`= ? ,
-                    `ID_USUARIOM`= ?   
-                WHERE `ID_FICHA`= ?;";
+                UPDATE   material_ficha   SET
+                      MODIFICACION  = SYSDATE(),
+                      OBSERVACIONES_FICHA  = ?,
+                      ID_ESTANDAR  = ?,
+                      ID_EMPRESA  = ?,
+                      ID_TEMPORADA  = ? ,
+                      ID_USUARIOM  = ?   
+                WHERE   ID_FICHA  = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -244,9 +244,9 @@ class FICHA_ADO {
 
         try{
             $query = "
-    UPDATE `material_ficha` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_FICHA`= ?;";
+    UPDATE   material_ficha   SET			
+              ESTADO_REGISTRO   = 0
+    WHERE   ID_FICHA  = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -264,9 +264,9 @@ class FICHA_ADO {
     public function habilitar(FICHA $FICHA){
         try{
             $query = "
-    UPDATE `material_ficha` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_FICHA`= ?;";
+    UPDATE   material_ficha   SET			
+              ESTADO_REGISTRO   = 1
+    WHERE   ID_FICHA  = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -287,10 +287,10 @@ class FICHA_ADO {
 
         try{
             $query = "
-    UPDATE `material_ficha` SET			
-            `MODIFICACION`= SYSDATE(),		
-            `ESTADO` = 0
-    WHERE `ID_FICHA`= ?;";
+    UPDATE   material_ficha   SET			
+              MODIFICACION  = SYSDATE(),		
+              ESTADO   = 0
+    WHERE   ID_FICHA  = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -308,10 +308,10 @@ class FICHA_ADO {
     public function abierto(FICHA $FICHA){
         try{
             $query = "
-    UPDATE `material_ficha` SET				
-            `MODIFICACION`= SYSDATE(),	
-            `ESTADO` = 1
-    WHERE `ID_FICHA`= ?;";
+    UPDATE   material_ficha   SET				
+              MODIFICACION  = SYSDATE(),	
+              ESTADO   = 1
+    WHERE   ID_FICHA  = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -332,7 +332,7 @@ class FICHA_ADO {
 
 
             $datos = $this->conexion->prepare(" SELECT *
-                                            FROM `material_ficha`
+                                            FROM   material_ficha  
                                             WHERE 
                                                  ID_ESTANDAR = '" . $ESTANDAR . "'
                                                  AND OBSERVACIONES_FICHA LIKE '" . $OBSERVACIONESRECEPCION . "'  
@@ -363,8 +363,8 @@ class FICHA_ADO {
             $datos=$this->conexion->prepare("SELECT *,           
                                                 DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                 DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION'  
-                                            FROM `material_ficha` 
-                                            WHERE `ESTADO_REGISTRO` = 1
+                                            FROM   material_ficha   
+                                            WHERE   ESTADO_REGISTRO   = 1
                                             AND ID_EMPRESA = '" . $IDEMPRESA . "'     
                                             AND  ID_TEMPORADA = '" . $IDTEMPORADA . "' ;	");
             $datos->execute();
@@ -382,14 +382,39 @@ class FICHA_ADO {
         
     }
 
+    public function listarFichaCerradoPorEmpresaTemporadaCBX($IDEMPRESA,$IDTEMPORADA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT *,           
+                                                DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION'  
+                                            FROM   material_ficha   
+                                            WHERE   ESTADO_REGISTRO   = 1
+                                            AND ESTADO = 0
+                                            AND ID_EMPRESA = '" . $IDEMPRESA . "'     
+                                            AND  ID_TEMPORADA = '" . $IDTEMPORADA . "' ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
     public function listarFichaPorEmpresaTemporada2CBX($IDEMPRESA,$IDTEMPORADA){
         try{
             
             $datos=$this->conexion->prepare("SELECT *,           
                                                 DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                 DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION'  
-                                            FROM `material_ficha` 
-                                            WHERE `ESTADO_REGISTRO` = 1
+                                            FROM   material_ficha   
+                                            WHERE   ESTADO_REGISTRO   = 1
                                             AND ID_EMPRESA = '" . $IDEMPRESA . "'     
                                             AND  ID_TEMPORADA = '" . $IDTEMPORADA . "' ;	");
             $datos->execute();
@@ -742,7 +767,7 @@ class FICHA_ADO {
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                     IFNULL(COUNT(NUMERO_FICHA),0) AS 'NUMERO'
-                                                FROM `material_ficha`
+                                                FROM   material_ficha  
                                                 WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 AND  ID_TEMPORADA = '" . $IDTEMPORADA . "'  
                                                     ; ");

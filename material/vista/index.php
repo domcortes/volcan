@@ -4,15 +4,31 @@ include_once "../../assest/config/validarUsuarioMaterial.php";
 
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
+include_once "../../assest/controlador/CONSULTA_ADO.php";
+
 
 //INICIALIZAR CONTROLADOR
+$CONSULTA_ADO =  NEW CONSULTA_ADO;
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
+$RECEPCIONE=0;
+$RECEPCIONM=0;
+$DESPACHOE=0;
+$DESPACHOM=0;
 
 
 //INICIALIZAR ARREGLOS
+$ARRAYREGISTROSABIERTOS="";
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
+$ARRAYREGISTROSABIERTOS=$CONSULTA_ADO->contarRegistrosAbiertosMateriales($EMPRESAS,$PLANTAS,$TEMPORADAS);
+if($ARRAYREGISTROSABIERTOS){
+    $RECEPCIONE=$ARRAYREGISTROSABIERTOS[0]["RECEPCIONE"];
+    $RECEPCIONM=$ARRAYREGISTROSABIERTOS[0]["RECEPCIONM"];
+    $DESPACHOE=$ARRAYREGISTROSABIERTOS[0]["DESPACHOE"];
+    $DESPACHOM=$ARRAYREGISTROSABIERTOS[0]["DESPACHOM"];
+}
+
 
 
 include_once "../../assest/config/ValidardatosUrl.php";
@@ -43,12 +59,10 @@ include_once "../../assest/config/ValidardatosUrl.php";
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
-        <?php include_once "../../assest/config/menuMaterial.php";
-        ?>
+        <?php include_once "../../assest/config/menuMaterial.php"; ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="container-full">
-
                 <!-- Content Header (Page header) -->
                 <div class="content-header">
                     <div class="d-flex align-items-center">
@@ -67,8 +81,6 @@ include_once "../../assest/config/ValidardatosUrl.php";
                     </div>
                 </div>
                 <section class="content">
-
-
                 </section>
             </div>
         </div>

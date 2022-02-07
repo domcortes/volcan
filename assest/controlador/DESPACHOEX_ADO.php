@@ -652,8 +652,8 @@ class DESPACHOEX_ADO
                                                     FECHAETD_DESPACHOEX  AS 'ETD',
 
 
-                                                    WEEK(FECHA_DESPACHOEX)+1 AS 'SEMANA',
-                                                    WEEK(FECHA_GUIA_DESPACHOEX)+1 AS 'SEMANAGUIA',
+                                                    WEEK(FECHA_DESPACHOEX,3) AS 'SEMANA',
+                                                    WEEK(FECHA_GUIA_DESPACHOEX,3) AS 'SEMANAGUIA',
                                                     WEEKOFYEAR(FECHA_DESPACHOEX) AS 'SEMANAISO',  
                                                     WEEKOFYEAR(FECHA_GUIA_DESPACHOEX) AS 'SEMANAGUIAISO',  
 
@@ -723,8 +723,8 @@ class DESPACHOEX_ADO
                                                     FECHAETA_DESPACHOEX AS 'ETA' ,
                                                     FECHAETD_DESPACHOEX AS 'ETD',
                                                     
-                                                    WEEK(FECHA_DESPACHOEX)+1 AS 'SEMANA',
-                                                    WEEK(FECHA_GUIA_DESPACHOEX)+1 AS 'SEMANAGUIA',
+                                                    WEEK(FECHA_DESPACHOEX,3) AS 'SEMANA',
+                                                    WEEK(FECHA_GUIA_DESPACHOEX,3) AS 'SEMANAGUIA',
                                                     WEEKOFYEAR(FECHA_DESPACHOEX) AS 'SEMANAISO',  
                                                     WEEKOFYEAR(FECHA_GUIA_DESPACHOEX) AS 'SEMANAGUIAISO',  
 

@@ -563,7 +563,6 @@ class ICARGA_ADO
             TOTAL_NETO_ICARGA = ?, 
             TOTAL_BRUTO_ICARGA = ?,
             TOTAL_US_ICARGA = ?,   
-            ESTADO_ICARGA = 2, 
             ID_EXPPORTADORA = ?, 
             ID_CONSIGNATARIO = ?, 
             ID_NOTIFICADOR = ?, 
@@ -672,6 +671,55 @@ class ICARGA_ADO
 
 
     //LISTAS
+    public function listarIcargaCerradoEmpresaTemporadaCBX($EMPRESA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *,DATEDIFF( FECHAETA_ICARGA, FECHAETD_ICARGA) AS 'ESTIMADO',
+                                                        DATEDIFF(CURDATE(), FECHAETD_ICARGA ) AS 'REAL',
+                                                        FECHA_ICARGA AS 'FECHA', 
+                                                        FECHA_CDOCUMENTAL_ICARGA AS 'FECHACORTEDOCUMENTAL', 
+                                                        FECHAETD_ICARGA AS 'FECHAETD', 
+                                                        FECHAETA_ICARGA AS 'FECHAETA', 
+                                                        FECHAETAREAL_ICARGA AS 'FECHAETAREAL', 
+                                                        
+                                                        WEEK(FECHA_ICARGA,3) AS 'SEMANA', 
+                                                        WEEK(FECHA_CDOCUMENTAL_ICARGA,3) AS 'SEMANACORTEDOCUMENTAL', 
+                                                        WEEK(FECHAETD_ICARGA,3) AS 'SEMANAETD', 
+                                                        WEEK(FECHAETA_ICARGA,3) AS 'SEMANAETA', 
+                                                        WEEK(FECHAETAREAL_ICARGA,3) AS 'SEMANAETAREAL', 
+
+                                                        WEEKOFYEAR(FECHA_ICARGA) AS 'SEMANAISO', 
+                                                        WEEKOFYEAR(FECHA_CDOCUMENTAL_ICARGA) AS 'SEMANACORTEDOCUMENTALISO', 
+                                                        WEEKOFYEAR(FECHAETD_ICARGA) AS 'SEMANAETDISO', 
+                                                        WEEKOFYEAR(FECHAETA_ICARGA) AS 'SEMANAETAISO', 
+                                                        WEEKOFYEAR(FECHAETAREAL_ICARGA) AS 'SEMANAETAREALISO', 
+
+                                                        IFNULL(BOLAWBCRT_ICARGA, 'Sin Datos' ) AS 'BLAWB',
+                                                        IFNULL(TOTAL_ENVASE_ICAGRA,0) AS 'ENVASE',
+                                                        IFNULL(TOTAL_NETO_ICARGA,0) AS 'NETO',
+                                                        IFNULL(TOTAL_BRUTO_ICARGA,0) AS 'BRUTO',
+                                                        IFNULL(TOTAL_US_ICARGA,0) AS 'US'
+                                            FROM fruta_icarga  
+                                            WHERE ESTADO_REGISTRO = 1     
+                                            AND ESTADO = 0                                                                                                   
+                                            AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                            AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                            
+                                            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function listarIcargaEmpresaTemporadaCBX($EMPRESA, $TEMPORADA)
     {
         try {
@@ -684,11 +732,11 @@ class ICARGA_ADO
                                                         FECHAETA_ICARGA AS 'FECHAETA', 
                                                         FECHAETAREAL_ICARGA AS 'FECHAETAREAL', 
                                                         
-                                                        WEEK(FECHA_ICARGA)+1 AS 'SEMANA', 
-                                                        WEEK(FECHA_CDOCUMENTAL_ICARGA)+1 AS 'SEMANACORTEDOCUMENTAL', 
-                                                        WEEK(FECHAETD_ICARGA)+1 AS 'SEMANAETD', 
-                                                        WEEK(FECHAETA_ICARGA)+1 AS 'SEMANAETA', 
-                                                        WEEK(FECHAETAREAL_ICARGA)+1 AS 'SEMANAETAREAL', 
+                                                        WEEK(FECHA_ICARGA,3) AS 'SEMANA', 
+                                                        WEEK(FECHA_CDOCUMENTAL_ICARGA,3) AS 'SEMANACORTEDOCUMENTAL', 
+                                                        WEEK(FECHAETD_ICARGA,3) AS 'SEMANAETD', 
+                                                        WEEK(FECHAETA_ICARGA,3) AS 'SEMANAETA', 
+                                                        WEEK(FECHAETAREAL_ICARGA,3) AS 'SEMANAETAREAL', 
 
                                                         WEEKOFYEAR(FECHA_ICARGA) AS 'SEMANAISO', 
                                                         WEEKOFYEAR(FECHA_CDOCUMENTAL_ICARGA) AS 'SEMANACORTEDOCUMENTALISO', 
@@ -1021,7 +1069,7 @@ class ICARGA_ADO
 		UPDATE fruta_icarga SET
             MODIFICACION = SYSDATE(),     			
             ESTADO_ICARGA = 2
-		WHERE ID_ICARGA= ?;";
+		WHERE ID_ICARGA= ? AND ESTADO_ICARGA < 3;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -1041,7 +1089,7 @@ class ICARGA_ADO
 		UPDATE fruta_icarga SET	
             MODIFICACION = SYSDATE(),     		
             ESTADO_ICARGA = 3
-		WHERE ID_ICARGA= ?;";
+		WHERE ID_ICARGA= ?   ;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(

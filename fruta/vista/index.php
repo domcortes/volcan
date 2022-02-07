@@ -1,28 +1,49 @@
 <?php
 include_once "../../assest/config/validarUsuarioFruta.php";
 
+
+
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../../assest/controlador/TUSUARIO_ADO.php';
-include_once '../../assest/controlador/USUARIO_ADO.php';
-include_once '../../assest/controlador/EMPRESA_ADO.php';
-include_once '../../assest/controlador/PLANTA_ADO.php';
-include_once '../../assest/controlador/TEMPORADA_ADO.php';
+include_once "../../assest/controlador/CONSULTA_ADO.php";
+
 
 //INICIALIZAR CONTROLADOR
-$TUSUARIO_ADO = new TUSUARIO_ADO();
-$USUARIO_ADO = new USUARIO_ADO();
-$EMPRESA_ADO =  new EMPRESA_ADO();
-$PLANTA_ADO =  new PLANTA_ADO();
-$TEMPORADA_ADO =  new TEMPORADA_ADO();
+$CONSULTA_ADO =  NEW CONSULTA_ADO;
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
+$RECEPCION=0;
+$RECEPCIONMP=0;
+$RECEPCIONIND=0;
+$RECEPCIONPT=0;
+$DESPACHO=0;
+$PROCESO=0;
+$REEMBALAJE=0;
+$REPALETIZAJE=0;
 
 //INICIALIZAR ARREGLOS
+$ARRAYREGISTROSABIERTOS="";
+$ARRAYAVISOS1=$AVISO_ADO->listarAvisoActivosCBX();
+//$ARRAYAVISOS2=$AVISO_ADO->listarAvisoActivosFijoCBX();
+
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-
+$ARRAYREGISTROSABIERTOS=$CONSULTA_ADO->contarRegistrosAbiertosFruta($EMPRESAS,$PLANTAS,$TEMPORADAS);
+if($ARRAYREGISTROSABIERTOS){
+    $RECEPCION=$ARRAYREGISTROSABIERTOS[0]["RECEPCION"];
+    $RECEPCIONMP=$ARRAYREGISTROSABIERTOS[0]["RECEPCIONMP"];
+    $RECEPCIONIND=$ARRAYREGISTROSABIERTOS[0]["RECEPCIONIND"];
+    $RECEPCIONPT=$ARRAYREGISTROSABIERTOS[0]["RECEPCIONPT"];
+    $DESPACHO=$ARRAYREGISTROSABIERTOS[0]["DESPACHO"];
+    $DESPACHOMP=$ARRAYREGISTROSABIERTOS[0]["DESPACHOMP"];
+    $DESPACHOIND=$ARRAYREGISTROSABIERTOS[0]["DESPACHOIND"];
+    $DESPACHOPT=$ARRAYREGISTROSABIERTOS[0]["DESPACHOPT"];
+    $DESPACHOEXPO=$ARRAYREGISTROSABIERTOS[0]["DESPACHOEXPO"];
+    $PROCESO=$ARRAYREGISTROSABIERTOS[0]["PROCESO"];
+    $REEMBALAJE=$ARRAYREGISTROSABIERTOS[0]["REEMBALAJE"];
+    $REPALETIZAJE=$ARRAYREGISTROSABIERTOS[0]["REPALETIZAJE"];
+}
 
 
 ?>
@@ -30,7 +51,6 @@ $TEMPORADA_ADO =  new TEMPORADA_ADO();
 
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <title>INICIO</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -47,7 +67,6 @@ $TEMPORADA_ADO =  new TEMPORADA_ADO();
             }
         </script>
 </head>
-
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
@@ -71,10 +90,10 @@ $TEMPORADA_ADO =  new TEMPORADA_ADO();
                             <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                         </div>
                     </div>
-                    <!-- Main content -->
-                    <section class="content">
-                        
-                    </section>
+                    <!-- Main content -->                        
+                        <section class="content">
+
+                        </section>
                     <!-- /.content -->
                 </div>
             </div>

@@ -460,7 +460,7 @@ class DESPACHOMP_ADO
             $query = "
                     UPDATE fruta_despachomp SET			
                             ESTADO_DESPACHO = 2
-                    WHERE ID_DESPACHO= ?;";
+                    WHERE ID_DESPACHO= ? AND ESTADO_DESPACHO !=4;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -514,7 +514,7 @@ class DESPACHOMP_ADO
 
             $datos = $this->conexion->prepare("SELECT *,
                                                     FECHA_DESPACHO AS 'FECHA',
-                                                    WEEK(FECHA_DESPACHO)+1 AS 'SEMANA',
+                                                    WEEK(FECHA_DESPACHO,3) AS 'SEMANA',
                                                     WEEKOFYEAR(FECHA_DESPACHO) AS 'SEMANAISO',    
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
@@ -544,7 +544,7 @@ class DESPACHOMP_ADO
 
             $datos = $this->conexion->prepare("SELECT *,
                                                     FECHA_DESPACHO AS 'FECHA',
-                                                    WEEK(FECHA_DESPACHO)+1 AS 'SEMANA',
+                                                    WEEK(FECHA_DESPACHO,3) AS 'SEMANA',
                                                     WEEKOFYEAR(FECHA_DESPACHO) AS 'SEMANAISO',  
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' , 
@@ -606,7 +606,7 @@ class DESPACHOMP_ADO
             $datos = $this->conexion->prepare("SELECT *,
                                                     FECHA_DESPACHO AS 'FECHA',
 
-                                                    WEEK(FECHA_DESPACHO)+1 AS 'SEMANA',
+                                                    WEEK(FECHA_DESPACHO,3) AS 'SEMANA',
                                                     WEEKOFYEAR(FECHA_DESPACHO) AS 'SEMANAISO',  
 
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
@@ -667,7 +667,7 @@ class DESPACHOMP_ADO
 
             $datos = $this->conexion->prepare("SELECT *,
                                                 FECHA_DESPACHO AS 'FECHA',  
-                                                WEEK(FECHA_DESPACHO)+1 AS 'SEMANA',
+                                                WEEK(FECHA_DESPACHO,3) AS 'SEMANA',
                                                 WEEKOFYEAR(FECHA_DESPACHO) AS 'SEMANAISO',  
 
                                                 DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',

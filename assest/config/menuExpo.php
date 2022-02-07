@@ -475,6 +475,33 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
             </ul>
           </li>      
         <?php  } ?>
+        <?php if($PADMINISTRADOR=="1"){ ?>   
+          <?php if($PADAPERTURA=="1"){ ?> 
+            <li class="treeview">
+              <a href="#">
+                <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/extensions.svg" class="svg-icon" alt="">
+                <span>Apertura Registro</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-right pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">         
+                <?php if($PEMATERIALES=="1"){ ?>
+                  <li><a href="listarAPficha.php">Ficha Consumo </a></li>
+                <?php  } ?>         
+                <?php if($PEEXPORTACION=="1"){ ?>
+                  <li><a href="listarAPiCarga.php">Instructivo Carga </a></li>
+                <?php  } ?>  
+                <?php if($PEEXPORTACION=="1"){ ?>
+                  <li><a href="listarAPnotadc.php">Nota D/C </a></li>
+                <?php  } ?>  
+                <?php if($PELIQUIDACION=="1"){ ?>
+                  <li><a href="listarAPvalor.php">Valor Liquidación </a></li>
+                <?php  } ?>                   
+              </ul>
+            </li> 
+          <?php  } ?>  
+        <?php  } ?> 
       <?php  } ?>
       <?php if($PMANTENEDORES=="1"){ ?>
         <li class="header">Configuraciones</li>
@@ -708,20 +735,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
             </ul>
           </li>    
         <?php  } ?>   
-        <?php if($PADAPERTURA=="1"){ ?>
-          <li class="treeview">
-            <a href="#">
-              <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/tickers.svg" class="svg-icon" alt="">
-              <span>Apetura Registros</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="#">registro</i></a></li>
-            </ul>
-          </li> 
-        <?php  } ?>
         <?php if($PADAVISO=="1"){ ?>
           <li>
             <a href="registroUsuarioAviso.php">

@@ -91,6 +91,8 @@ if (isset($_SESSION["NOMBRE_USUARIO"])) {
         $PMEDITAR = $ARRAYVERPTUSUARIO[0]['MEDITAR'];
         $PMVER = $ARRAYVERPTUSUARIO[0]['MVER'];
         $PMAGRUPADO = $ARRAYVERPTUSUARIO[0]['MAGRUPADO'];
+        
+        
 
         $PADMINISTRADOR = $ARRAYVERPTUSUARIO[0]['ADMINISTRADOR'];
         $PADUSUARIO = $ARRAYVERPTUSUARIO[0]['ADUSUARIO'];
@@ -103,13 +105,15 @@ if (isset($_SESSION["NOMBRE_USUARIO"])) {
         $PEXPORTADORA="";
         $PEMATERIALES="";
         $PEEXPORTACION="";
-        $ELIQUIDACION="";
+        $ELIQUIDACION="";        
         $PEINFORMES=""; 
+
         $PMANTENEDORES="";
         $PMREGISTRO="";
         $PMEDITAR="";
         $PMVER="";
         $PMAGRUPADO="";
+        
         $PADMINISTRADOR="";
         $PADUSUARIO="";
         $PADAPERTURA="";

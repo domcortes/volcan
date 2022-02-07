@@ -893,6 +893,37 @@ class RECEPCIONE_ADO {
         }
         
     }
+    public function listarRecepcionCerradoPorEmpresaPlantaTemporadaCBX($IDEMPRESA,$IDPLANTA,$IDTEMPORADA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT * ,
+                                                        DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                        DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
+                                                        FECHA_RECEPCION AS 'FECHA',
+                                                        WEEK(FECHA_RECEPCION,3) AS 'SEMANA',                                                     
+                                                        WEEKOFYEAR(FECHA_RECEPCION) AS 'SEMANAISO',
+                                                        IFNULL( TOTAL_CANTIDAD_RECEPCION ,0) AS 'CANTIDAD' 
+                                             FROM  material_recepcione 
+                                             WHERE ESTADO_REGISTRO = 1 
+                                             AND ESTADO = 0
+                                             AND ID_EMPRESA = '".$IDEMPRESA."' 
+                                             AND ID_PLANTA = '".$IDPLANTA."'
+                                             AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+    
     public function listarRecepcionPorEmpresaPlantaTemporadaCBX($IDEMPRESA,$IDPLANTA,$IDTEMPORADA){
         try{
             
@@ -900,7 +931,7 @@ class RECEPCIONE_ADO {
                                                         DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                         DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
                                                         FECHA_RECEPCION AS 'FECHA',
-                                                        WEEK(FECHA_RECEPCION)+1 AS 'SEMANA',                                                     
+                                                        WEEK(FECHA_RECEPCION,3) AS 'SEMANA',                                                     
                                                         WEEKOFYEAR(FECHA_RECEPCION) AS 'SEMANAISO',
                                                         IFNULL( TOTAL_CANTIDAD_RECEPCION ,0) AS 'CANTIDAD' 
                                              FROM  material_recepcione 
