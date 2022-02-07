@@ -634,8 +634,8 @@ class DESPACHOE_ADO
         try {
             $query = "
                     UPDATE material_despachoe SET			
-                            ESTADO_DESPACHO = 2
-                    WHERE ID_DESPACHO= ?;";
+                            ESTADO_DESPACHO = 2 
+                    WHERE ID_DESPACHO= ? AND ESTADO_DESPACHO !=4;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -691,6 +691,36 @@ class DESPACHOE_ADO
                                             FROM material_despachoe                                                                           
                                             WHERE ESTADO_REGISTRO = 1 
                                             AND ID_DESPACHOMP = '" . $DESPACHOMP . "' ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function listarDespachoeCerradoEmpresaPlantaTemporadaCBX($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *,
+                                                        FECHA_DESPACHO AS 'FECHA',   
+                                                        WEEK(FECHA_DESPACHO)+1 AS 'SEMANA',                                                     
+                                                        WEEKOFYEAR(FECHA_DESPACHO) AS 'SEMANAISO',
+                                                        DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                        DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION',
+                                                        IFNULL(CANTIDAD_DESPACHO,0)  AS 'CANTIDAD'
+                                        FROM material_despachoe                                                                           
+                                        WHERE  ESTADO_REGISTRO = 1 
+                                        AND ESTADO = 0
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                        AND ID_PLANTA = '" . $PLANTA . "'
+                                        AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;

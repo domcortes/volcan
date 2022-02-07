@@ -1423,7 +1423,7 @@ if (isset($_POST)) {
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                     $DESPACHOM_ADO->Confirmado($DESPACHOM);
 
-                    $ARRAYEXISENCIADESPACHOM = $INVENTARIOM_ADO->buscarPorDespacho($_REQUEST['IDP']);
+                    $ARRAYEXISENCIADESPACHOM = $INVENTARIOM_ADO->buscarPorEnDespacho($_REQUEST['IDP']);
                     foreach ($ARRAYEXISENCIADESPACHOM as $r) :
 
                         if ($_REQUEST['TDESPACHOE'] == "1") {

@@ -1183,6 +1183,33 @@ class INVENTARIOE_ADO
         }
     }
 
+    public function buscarPorEnDespacho($IDDESPACHO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT 
+                                                * , 
+                                                IFNULL(CANTIDAD_SALIDA,0) AS 'CANTIDAD' ,
+                                                IFNULL(VALOR_UNITARIO,0) AS 'VALOR'
+                                            FROM material_inventarioe 
+                                                WHERE ID_DESPACHO= '" . $IDDESPACHO . "' 
+                                                AND ESTADO = 3
+                                                AND ESTADO_REGISTRO = 1
+                                                AND ID_BODEGA2 IS NULL
+                                                ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function buscarPorDespacho($IDDESPACHO)
     {
         try {

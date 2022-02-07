@@ -464,6 +464,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
             </ul>
           </li>
         <?php  } ?> 
+
         <?php if($PMKARDEX=="1"){ ?>     
           <li class="treeview">
             <a href="#">
@@ -482,7 +483,37 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <?php  } ?>  
             </ul>
           </li>
-        <?php  } ?>  
+        <?php  } ?>          
+        <?php if($PADMINISTRADOR=="1"){ ?>   
+          <?php if($PADAPERTURA=="1"){ ?> 
+            <li class="treeview">
+              <a href="#">
+                <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/extensions.svg" class="svg-icon" alt="">
+                <span>Apertura Registro</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-right pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">                
+                <?php if($PMERECEPCION=="1"){ ?>
+                  <li><a href="listarAPrecepcionm.php">Recepcion Materiales </a></li>
+                <?php  } ?>  
+                <?php if($PMMDEAPCHO=="1"){ ?>
+                  <li><a href="listarAPDespachom.php">Despacho Materiales </a></li>
+                <?php  } ?>  
+                <?php if($PMERECEPCION=="1"){ ?>
+                  <li><a href="listarAPrecepcione.php">Recepcion Envases </a></li>
+                <?php  } ?>  
+                <?php if($PMEDESPACHO=="1"){ ?>
+                  <li><a href="listarAPdespachoe.php">Despacho Envases </a></li>
+                <?php  } ?>  
+                <?php if($PMAOC=="1"){ ?>
+                  <li><a href="listarAPocompra.php">Orden Compra </a></li>
+                <?php  } ?>                  
+              </ul>
+            </li> 
+          <?php  } ?>  
+        <?php  } ?>   
       <?php  } ?>      
       <?php if($PMANTENEDORES=="1"){ ?>
         <li class="header">Configuraciones</li>

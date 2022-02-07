@@ -496,6 +496,7 @@ class CONSULTA_ADO
             die($e->getMessage());
         }
     }
+    
 
 
     public function contarRegistrosAbiertosMateriales($EMPRESA, $PLANTA, $TEMPORADA)
