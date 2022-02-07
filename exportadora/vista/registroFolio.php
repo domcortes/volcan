@@ -76,7 +76,7 @@ $ARRAYVERTEMPORADA2 = "";
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-$ARRAYFOLIO = $FOLIO_ADO->listarFolioCBX();
+$ARRAYFOLIO = $FOLIO_ADO->buscarFoliPorEmpresa($EMPRESAS);
 $ARRAYEMPRESA = $EMPRESA_ADO->listarEmpresaCBX();
 $ARRAYPLANTA = $PLANTA_ADO->listarPlantaPropiaCBX();
 $ARRAYTEMPORADA = $TEMPORADA_ADO->listarTemporadaCBX();
@@ -238,7 +238,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php //include_once "../../assest/config/menuExpo.php"; ?>
+            <?php include_once "../../assest/config/menuExpo.php"; ?>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <div class="container-full">
@@ -506,7 +506,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             <!-- /.content-wrapper -->
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php //include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
                 <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
