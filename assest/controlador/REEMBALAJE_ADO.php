@@ -436,7 +436,7 @@ class REEMBALAJE_ADO
                                                         IFNULL(KILOS_NETO_REEMBALAJE,0) AS 'NETO',                                        
                                                         IFNULL(KILOS_NETO_ENTRADA,0) AS 'ENTRADA',   
                                                         FECHA_REEMBALAJE AS 'FECHA',
-                                                        WEEK(FECHA_REEMBALAJE)+1 AS 'SEMANA',                                                     
+                                                        WEEK(FECHA_REEMBALAJE,3) AS 'SEMANA',                                                     
                                                         WEEKOFYEAR(FECHA_REEMBALAJE) AS 'SEMANAISO',
                                                         DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                         DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' 

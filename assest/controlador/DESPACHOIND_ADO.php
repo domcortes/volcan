@@ -510,7 +510,7 @@ class DESPACHOIND_ADO
 
             $datos = $this->conexion->prepare("SELECT *,
                                                     FECHA_DESPACHO AS 'FECHA',  
-                                                    WEEK(FECHA_DESPACHO)+1 AS 'SEMANA',
+                                                    WEEK(FECHA_DESPACHO,3) AS 'SEMANA',
                                                     WEEKOFYEAR(FECHA_DESPACHO) AS 'SEMANAISO',    
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
@@ -538,7 +538,7 @@ class DESPACHOIND_ADO
 
             $datos = $this->conexion->prepare("SELECT *,
                                                     FECHA_DESPACHO AS 'FECHA',
-                                                    WEEK(FECHA_DESPACHO)+1 AS 'SEMANA',
+                                                    WEEK(FECHA_DESPACHO,3) AS 'SEMANA',
                                                     WEEKOFYEAR(FECHA_DESPACHO) AS 'SEMANAISO',  
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
@@ -595,7 +595,7 @@ class DESPACHOIND_ADO
             $datos = $this->conexion->prepare("SELECT *,
                                                     FECHA_DESPACHO AS 'FECHA',  
                                                 
-                                                    WEEK(FECHA_DESPACHO)+1 AS 'SEMANA',
+                                                    WEEK(FECHA_DESPACHO,3) AS 'SEMANA',
                                                     WEEKOFYEAR(FECHA_DESPACHO) AS 'SEMANAISO',  
                                                 DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                 DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION', 
@@ -652,7 +652,7 @@ class DESPACHOIND_ADO
 
             $datos = $this->conexion->prepare("SELECT *,
                                                     FECHA_DESPACHO AS 'FECHA',  
-                                                    WEEK(FECHA_DESPACHO)+1 AS 'SEMANA',
+                                                    WEEK(FECHA_DESPACHO,3) AS 'SEMANA',
                                                     WEEKOFYEAR(FECHA_DESPACHO) AS 'SEMANAISO',  
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION', 

@@ -683,11 +683,11 @@ class ICARGA_ADO
                                                         FECHAETA_ICARGA AS 'FECHAETA', 
                                                         FECHAETAREAL_ICARGA AS 'FECHAETAREAL', 
                                                         
-                                                        WEEK(FECHA_ICARGA)+1 AS 'SEMANA', 
-                                                        WEEK(FECHA_CDOCUMENTAL_ICARGA)+1 AS 'SEMANACORTEDOCUMENTAL', 
-                                                        WEEK(FECHAETD_ICARGA)+1 AS 'SEMANAETD', 
-                                                        WEEK(FECHAETA_ICARGA)+1 AS 'SEMANAETA', 
-                                                        WEEK(FECHAETAREAL_ICARGA)+1 AS 'SEMANAETAREAL', 
+                                                        WEEK(FECHA_ICARGA,3) AS 'SEMANA', 
+                                                        WEEK(FECHA_CDOCUMENTAL_ICARGA,3) AS 'SEMANACORTEDOCUMENTAL', 
+                                                        WEEK(FECHAETD_ICARGA,3) AS 'SEMANAETD', 
+                                                        WEEK(FECHAETA_ICARGA,3) AS 'SEMANAETA', 
+                                                        WEEK(FECHAETAREAL_ICARGA,3) AS 'SEMANAETAREAL', 
 
                                                         WEEKOFYEAR(FECHA_ICARGA) AS 'SEMANAISO', 
                                                         WEEKOFYEAR(FECHA_CDOCUMENTAL_ICARGA) AS 'SEMANACORTEDOCUMENTALISO', 
@@ -732,11 +732,11 @@ class ICARGA_ADO
                                                         FECHAETA_ICARGA AS 'FECHAETA', 
                                                         FECHAETAREAL_ICARGA AS 'FECHAETAREAL', 
                                                         
-                                                        WEEK(FECHA_ICARGA)+1 AS 'SEMANA', 
-                                                        WEEK(FECHA_CDOCUMENTAL_ICARGA)+1 AS 'SEMANACORTEDOCUMENTAL', 
-                                                        WEEK(FECHAETD_ICARGA)+1 AS 'SEMANAETD', 
-                                                        WEEK(FECHAETA_ICARGA)+1 AS 'SEMANAETA', 
-                                                        WEEK(FECHAETAREAL_ICARGA)+1 AS 'SEMANAETAREAL', 
+                                                        WEEK(FECHA_ICARGA,3) AS 'SEMANA', 
+                                                        WEEK(FECHA_CDOCUMENTAL_ICARGA,3) AS 'SEMANACORTEDOCUMENTAL', 
+                                                        WEEK(FECHAETD_ICARGA,3) AS 'SEMANAETD', 
+                                                        WEEK(FECHAETA_ICARGA,3) AS 'SEMANAETA', 
+                                                        WEEK(FECHAETAREAL_ICARGA,3) AS 'SEMANAETAREAL', 
 
                                                         WEEKOFYEAR(FECHA_ICARGA) AS 'SEMANAISO', 
                                                         WEEKOFYEAR(FECHA_CDOCUMENTAL_ICARGA) AS 'SEMANACORTEDOCUMENTALISO', 

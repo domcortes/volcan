@@ -598,7 +598,7 @@ class OCOMPRA_ADO {
                                                         DATE_FORMAT(INGRESO, '%Y-%m-%d ') AS 'INGRESO',
                                                         DATE_FORMAT(MODIFICACION, '%Y-%m-%d ') AS 'MODIFICACION',
                                                         FECHA_OCOMPRA AS 'FECHA',
-                                                        WEEK(FECHA_OCOMPRA)+1 AS 'SEMANA',                                                     
+                                                        WEEK(FECHA_OCOMPRA,3) AS 'SEMANA',                                                     
                                                         WEEKOFYEAR(FECHA_OCOMPRA) AS 'SEMANAISO',
                                                         IFNULL(TOTAL_CANTIDAD_OCOMPRA,0) AS 'CANTIDAD',
                                                         IFNULL(TOTAL_VALOR_OCOMPRA,0) AS 'TOTAL_VALOR'
@@ -629,7 +629,7 @@ class OCOMPRA_ADO {
                                                         DATE_FORMAT(INGRESO, '%Y-%m-%d ') AS 'INGRESO',
                                                         DATE_FORMAT(MODIFICACION, '%Y-%m-%d ') AS 'MODIFICACION',
                                                         FECHA_OCOMPRA AS 'FECHA',
-                                                        WEEK(FECHA_OCOMPRA)+1 AS 'SEMANA',                                                     
+                                                        WEEK(FECHA_OCOMPRA,3) AS 'SEMANA',                                                     
                                                         WEEKOFYEAR(FECHA_OCOMPRA) AS 'SEMANAISO',
                                                         IFNULL(TOTAL_CANTIDAD_OCOMPRA,0) AS 'CANTIDAD',
                                                         IFNULL(TOTAL_VALOR_OCOMPRA,0) AS 'TOTAL_VALOR'

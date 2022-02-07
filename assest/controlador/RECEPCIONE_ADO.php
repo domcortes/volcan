@@ -900,7 +900,7 @@ class RECEPCIONE_ADO {
                                                         DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                         DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
                                                         FECHA_RECEPCION AS 'FECHA',
-                                                        WEEK(FECHA_RECEPCION)+1 AS 'SEMANA',                                                     
+                                                        WEEK(FECHA_RECEPCION,3) AS 'SEMANA',                                                     
                                                         WEEKOFYEAR(FECHA_RECEPCION) AS 'SEMANAISO',
                                                         IFNULL( TOTAL_CANTIDAD_RECEPCION ,0) AS 'CANTIDAD' 
                                              FROM  material_recepcione 
@@ -931,7 +931,7 @@ class RECEPCIONE_ADO {
                                                         DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                         DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
                                                         FECHA_RECEPCION AS 'FECHA',
-                                                        WEEK(FECHA_RECEPCION)+1 AS 'SEMANA',                                                     
+                                                        WEEK(FECHA_RECEPCION,3) AS 'SEMANA',                                                     
                                                         WEEKOFYEAR(FECHA_RECEPCION) AS 'SEMANAISO',
                                                         IFNULL( TOTAL_CANTIDAD_RECEPCION ,0) AS 'CANTIDAD' 
                                              FROM  material_recepcione 

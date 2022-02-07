@@ -477,8 +477,8 @@ class RECEPCIONPT_ADO
                                                     FECHA_GUIA_RECEPCION AS 'FECHA_GUIA',
                                                     FECHA_RECEPCION AS 'FECHA',
                                             
-                                                    WEEK(FECHA_RECEPCION)+1 AS 'SEMANA', 
-                                                    WEEK(FECHA_GUIA_RECEPCION)+1 AS 'SEMANAGUIA',                                                     
+                                                    WEEK(FECHA_RECEPCION,3) AS 'SEMANA', 
+                                                    WEEK(FECHA_GUIA_RECEPCION,3) AS 'SEMANAGUIA',                                                     
                                                     WEEKOFYEAR(FECHA_RECEPCION) AS 'SEMANAISO', 
                                                     WEEKOFYEAR(FECHA_GUIA_RECEPCION) AS 'SEMANAGUIAISO', 
 
@@ -547,8 +547,8 @@ class RECEPCIONPT_ADO
             $datos = $this->conexion->prepare("SELECT *  ,
                                                     FECHA_GUIA_RECEPCION AS 'FECHA_GUIA',
                                                     FECHA_RECEPCION AS 'FECHA',
-                                                    WEEK(FECHA_RECEPCION)+1 AS 'SEMANA', 
-                                                    WEEK(FECHA_GUIA_RECEPCION)+1 AS 'SEMANAGUIA',                                                     
+                                                    WEEK(FECHA_RECEPCION,3) AS 'SEMANA', 
+                                                    WEEK(FECHA_GUIA_RECEPCION,3) AS 'SEMANAGUIA',                                                     
                                                     WEEKOFYEAR(FECHA_RECEPCION) AS 'SEMANAISO', 
                                                     WEEKOFYEAR(FECHA_GUIA_RECEPCION) AS 'SEMANAGUIAISO', 
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',

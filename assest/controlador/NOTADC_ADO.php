@@ -345,7 +345,7 @@ class NOTADC_ADO
             $datos = $this->conexion->prepare("SELECT *,
                                                 FECHA_NOTA AS 'FECHA',  
                                                 
-                                                WEEK(FECHA_NOTA)+1 AS 'SEMANA',
+                                                WEEK(FECHA_NOTA,3) AS 'SEMANA',
                                                 WEEKOFYEAR(FECHA_NOTA) AS 'SEMANAISO', 
                                                 
                                                 INGRESO AS 'INGRESO',
@@ -375,7 +375,7 @@ class NOTADC_ADO
             $datos = $this->conexion->prepare("SELECT *,
                                                 FECHA_NOTA AS 'FECHA',  
                                                 
-                                                WEEK(FECHA_NOTA)+1 AS 'SEMANA',
+                                                WEEK(FECHA_NOTA,3) AS 'SEMANA',
                                                 WEEKOFYEAR(FECHA_NOTA) AS 'SEMANAISO', 
                                                 
                                                 INGRESO AS 'INGRESO',
