@@ -506,8 +506,7 @@ if (isset($_POST)) {
                                         <input type="hidden" class="form-control" placeholder="URL DRECEPCIONE" id="URLD" name="URLD" value="registroDrecepcionm" />
                                         <input type="hidden" class="form-control" placeholder="URL DTRECEPCIONE" id="URLT" name="URLT" value="registroDtrecepcionm" />
                                         <div class="col-auto">
-                                            <button type="submit" class="btn btn-success btn-block mb-2" data-toggle="tooltip" title="Agregar Detalle Recepción" id="CREARDURL" name="CREARDURL"
-                                            <?php if ($ESTADO == 0) {  echo "disabled";} ?> 
+                                            <button type="submit" class="btn btn-success btn-block mb-2" data-toggle="tooltip" title="Agregar Detalle Recepción" id="CREARDURL" name="CREARDURL"                                            
                                             <?php if ($DIFERENCIA == 0) { echo "disabled style='background-color: #eeeeee;'"; } ?> <?php echo $DISABLED; ?> >
                                                 Agregar Tarja
                                             </button>
