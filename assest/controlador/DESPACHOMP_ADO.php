@@ -460,7 +460,7 @@ class DESPACHOMP_ADO
             $query = "
                     UPDATE fruta_despachomp SET			
                             ESTADO_DESPACHO = 2
-                    WHERE ID_DESPACHO= ?;";
+                    WHERE ID_DESPACHO= ? AND ESTADO_DESPACHO !=4;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
