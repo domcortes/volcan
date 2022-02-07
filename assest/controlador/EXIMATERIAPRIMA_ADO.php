@@ -1091,6 +1091,7 @@ class EXIMATERIAPRIMA_ADO
                                                 WHERE existencia.ID_ESTANDAR= estandar.ID_ESTANDAR 
                                                 AND estandar.ID_PRODUCTO=producto.ID_PRODUCTO 
                                                 AND existencia.ESTADO_REGISTRO = 1
+                                                AND existencia.ESTADO = 7
                                                 AND existencia.ID_DESPACHO= '" . $IDDESPACHO . "'  
                                                 GROUP BY estandar.ID_PRODUCTO  
                                                 
