@@ -223,7 +223,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     document.form_reg_dato.TEMPORADA.style.borderColor = "#4AF575";
                 
 
-
                 }
 
 
@@ -239,7 +238,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../../assest/config/menuExpo.php"; ?>
+            <?php //include_once "../../assest/config/menuExpo.php"; ?>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <div class="container-full">
@@ -274,7 +273,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                         <h4 class="box-title">Registro Folio Fruta</h4>                                    
                                     </div>
                                     <!-- /.box-header -->
-                                    <form class="form" role="form" method="get" name="form_reg_dato" id="form_reg_dato">
+                                    <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                                         <div class="box-body">
                                             <hr class="my-15">
                                             <div class="row">
@@ -372,10 +371,10 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                         <div class="box-footer">
                                             <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
                                                 <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroFolio.php');">
-                                                <i class="ti-trash"></i>Cancelar
+                                                    <i class="ti-trash"></i>Cancelar
                                                 </button>
                                                 <?php if ($OP != "editar") { ?>
-                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()" >
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
                                                 <?php } else { ?>
@@ -507,7 +506,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             <!-- /.content-wrapper -->
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php //include_once "../../assest/config/footer.php"; ?>
                 <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
@@ -516,7 +515,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             //OPERACIONES
             //OPERACION DE REGISTRO DE FILA
 
+            echo "wolas 1";
             if (isset($_REQUEST['GUARDAR'])) {
+                echo "wolas 2" ;
                 $ARRAYVALIDARFOLIO = $FOLIO_ADO->validarFolio($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA'], $_REQUEST['TFOLIO']);
                 if ($ARRAYVALIDARFOLIO) {
                     $SINO = "1";                  
