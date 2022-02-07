@@ -122,16 +122,21 @@
             $PFCFRUTA = $ARRAYVERPTUSUARIO[0]['FCFRUTA'];
             $PFCFRECHAZO = $ARRAYVERPTUSUARIO[0]['FCFRECHAZO'];
             $PFCFLEVANTAMIENTO = $ARRAYVERPTUSUARIO[0]['FCFLEVANTAMIENTO'];
-            $PFEXISTENCIA = $ARRAYVERPTUSUARIO[0]['FEXISTENCIA'];            
+            $PFEXISTENCIA = $ARRAYVERPTUSUARIO[0]['FEXISTENCIA'];    
+
             $PMATERIALES = $ARRAYVERPTUSUARIO[0]['MATERIALES'];            
             $PMENVASE = $ARRAYVERPTUSUARIO[0]['MENVASE'];
             $PMERECEPCION = $ARRAYVERPTUSUARIO[0]['MERECEPCION'];
             $PMEDESPACHO = $ARRAYVERPTUSUARIO[0]['MEDESPACHO'];
             $PMEGUIA = $ARRAYVERPTUSUARIO[0]['MEGUIA'];
             $PMKARDEX = $ARRAYVERPTUSUARIO[0]['MKARDEX'];
-            $PMKENVASE = $ARRAYVERPTUSUARIO[0]['MKENVASE'];        
+            $PMKENVASE = $ARRAYVERPTUSUARIO[0]['MKENVASE'];    
+
             $PEXPORTADORA = $ARRAYVERPTUSUARIO[0]['EXPORTADORA'];
             $PEEXPORTACION = $ARRAYVERPTUSUARIO[0]['EEXPORTACION'];
+            
+            $PADMINISTRADOR= $ARRAYVERPTUSUARIO[0]['ADMINISTRADOR'];
+            $PADAPERTURA= $ARRAYVERPTUSUARIO[0]['ADAPERTURA'];
 
         }else{       
             $PFRUTA="";
@@ -139,11 +144,14 @@
             $PFGRECEPCION="";
             $PFGDESPACHO="";
             $PFGGUIA="";
+
             $PFPACKING="";
             $PFPPROCESO="";
             $PFPREEMBALEJE="";
+
             $PFSAG="";
             $PFSAGINSPECCION="";
+
             $PFFRIGORIFICO="";
             $PFFRECEPCION="";
             $PFFRDESPACHO="";
@@ -151,9 +159,11 @@
             $PFFRREPALETIZAJE="";
             $PFFRPC="";
             $PFFRCFOLIO="";
+
             $PFCFRUTA="";
             $PFCFRECHAZO="";
             $PFCFLEVANTAMIENTO="";
+            
             $PFEXISTENCIA="";
             
             $PMATERIALES="";
@@ -166,6 +176,9 @@
         
             $PEXPORTADORA="";
             $PEEXPORTACION="";
+            
+            $PADMINISTRADOR="";
+            $PADAPERTURA="";
             
         }
      
