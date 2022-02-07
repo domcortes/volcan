@@ -3666,6 +3666,9 @@ if (isset($_POST)) {
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $ICARGA_ADO->actualizarIcarga($ICARGA);
 
+                $ICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
+                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                $ICARGA_ADO->PorCargar($ICARGA);
                 
                 if ($_SESSION['parametro1'] == "crear") {
                     $_SESSION["parametro"] = $_REQUEST['IDP'];
@@ -3797,6 +3800,9 @@ if (isset($_POST)) {
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                     $ICARGA_ADO->actualizarIcarga($ICARGA);
 
+                    $ICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
+                    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                    $ICARGA_ADO->PorCargar($ICARGA);
 
                     $ICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR

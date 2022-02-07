@@ -338,6 +338,36 @@ class NOTADC_ADO
 
 
     //LISTAR
+    public function listarNotaCerradoEmpresaTemporadaCBX($EMPRESA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *,
+                                                FECHA_NOTA AS 'FECHA',  
+                                                
+                                                WEEK(FECHA_NOTA)+1 AS 'SEMANA',
+                                                WEEKOFYEAR(FECHA_NOTA) AS 'SEMANAISO', 
+                                                
+                                                INGRESO AS 'INGRESO',
+                                                MODIFICACION AS 'MODIFICACION'
+                                        FROM fruta_notadc                                                                           
+                                        WHERE ESTADO_REGISTRO = 1
+                                        AND ESTADO = 0
+                                        AND  ID_EMPRESA = '" . $EMPRESA . "' 
+                                        AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function listarNotaEmpresaTemporadaCBX($EMPRESA, $TEMPORADA)
     {
         try {
