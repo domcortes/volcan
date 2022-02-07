@@ -5,31 +5,17 @@ include_once "../../assest/config/validarUsuarioMaterial.php";
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 include_once '../../assest/controlador/MAPERTURA_ADO.php';
 
-//controlador materiales
-include_once '../../assest/controlador/RECEPCIONM_ADO.php';
-include_once '../../assest/controlador/RECEPCIONE_ADO.php';
 
 
 include_once '../../assest/modelo/MAPERTURA.php';
-
-//modelo materiales
-include_once '../../assest/modelo/RECEPCIONM.php';
-include_once '../../assest/modelo/RECEPCIONE.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 $MAPERTURA_ADO =  new MAPERTURA_ADO();
 
-//controlador materiales
-$RECEPCIONM_ADO =  new RECEPCIONM_ADO();
-$RECEPCIONE_ADO =  new RECEPCIONE_ADO();
 
 //INIICIALIZAR MODELO
 $MAPERTURA =  new MAPERTURA();
-
-//modelo materiales
-$RECEPCIONM =  new RECEPCIONM();
-$RECEPCIONE =  new RECEPCIONE();
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
