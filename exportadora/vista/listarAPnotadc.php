@@ -247,24 +247,24 @@ include_once "../../assest/config/datosUrLAP.php";
                                                                 <button type="button" class="btn btn-block btn-success">Abierto</button>
                                                             <?php  }  ?>
                                                         </td>                                                              
-                                                            <td class="text-center">
-                                                                <form method="post" id="form1">
-                                                                    <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_NOTA']; ?>" />
-                                                                    <input type="hidden" class="form-control" placeholder="NUMERO" id="NUMERO" name="NUMERO" value="<?php echo $r['NUMERO_NOTA']; ?>"/>
-                                                                    <input type="hidden" class="form-control" placeholder="TABLA" id="TABLA" name="TABLA" value="fruta_notadc" />
-                                                                    <input type="hidden" class="form-control" placeholder="COLUMNA" id="COLUMNA" name="COLUMNA" value="ID_NOTA" />
-                                                                    <input type="hidden" class="form-control" placeholder="TITULO" id="TITULO" name="TITULO" value="Nota D/C" />
-                                                                    <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroAP" />
-                                                                    <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarAPnotadc" />
-                                                                    <?php if ($r['ESTADO'] == "0") { ?>
-                                                                        <span href="#" class="dropdown-item" data-toggle="tooltip" title="Abrir Registro">
-                                                                            <button type="submit" class="btn btn-success btn-sm " id="ABRIRURL" name="ABRIRURL">
-                                                                                <i class="fa fa-folder-open"></i><br> Abrir
-                                                                            </button>
-                                                                        </span>
-                                                                    <?php } ?>
-                                                                </form>
-                                                            </td> 
+                                                        <td class="text-center">
+                                                            <form method="post" id="form1">
+                                                                <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_NOTA']; ?>" />
+                                                                <input type="hidden" class="form-control" placeholder="NUMERO" id="NUMERO" name="NUMERO" value="<?php echo $r['NUMERO_NOTA']; ?>"/>
+                                                                <input type="hidden" class="form-control" placeholder="TABLA" id="TABLA" name="TABLA" value="fruta_notadc" />
+                                                                <input type="hidden" class="form-control" placeholder="COLUMNA" id="COLUMNA" name="COLUMNA" value="ID_NOTA" />
+                                                                <input type="hidden" class="form-control" placeholder="TITULO" id="TITULO" name="TITULO" value="Nota D/C" />
+                                                                <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroAP" />
+                                                                <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarAPnotadc" />
+                                                                <?php if ($r['ESTADO'] == "0") { ?>
+                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Abrir Registro">
+                                                                        <button type="submit" class="btn btn-success btn-sm " id="ABRIRURL" name="ABRIRURL">
+                                                                            <i class="fa fa-folder-open"></i><br> Abrir
+                                                                        </button>
+                                                                    </span>
+                                                                <?php } ?>
+                                                            </form>
+                                                        </td> 
                                                         <td><?php echo $r['FECHA']; ?></td>
                                                         <td><?php echo $NOMBRETNOTA; ?></td>
                                                         <td><?php echo $NUMEROIREFERENCIA; ?></td>

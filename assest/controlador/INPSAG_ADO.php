@@ -419,6 +419,36 @@ class INPSAG_ADO
         }
     }
     
+    public function listarInpsagCerradoPlantaTemporadaCBX($PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *,
+                                                    DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
+                                                   IFNULL(CANTIDAD_ENVASE_INPSAG,0)  AS 'ENVASE',
+                                                   IFNULL(KILOS_NETO_INPSAG,0)  AS 'NETO',
+                                                   IFNULL(KILOS_BRUTO_INPSAG,0)  AS 'BRUTO',
+                                                   IFNULL(CIF_INPSAG,0)  AS 'CIF'
+                                        FROM fruta_inpsag                                                                                                     
+                                        WHERE ESTADO_REGISTRO = 1     
+                                        AND ESTADO = 0                                                                                                   
+                                        AND ID_PLANTA = '" . $PLANTA . "'
+                                        AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                        ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function listarInpsagPlantaTemporadaCBX($PLANTA, $TEMPORADA)
     {
         try {

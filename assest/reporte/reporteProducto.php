@@ -2,14 +2,14 @@
 <?php
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/PRODUCTO_ADO.php';
-include_once '../controlador/FAMILIA_ADO.php';
-include_once '../controlador/SUBFAMILIA_ADO.php';
-include_once '../controlador/TUMEDIDA_ADO.php';
-include_once '../controlador/ESPECIES_ADO.php';
-include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/PLANTA_ADO.php';
-include_once '../controlador/TEMPORADA_ADO.php';
+include_once '../../assest/controlador/PRODUCTO_ADO.php';
+include_once '../../assest/controlador/FAMILIA_ADO.php';
+include_once '../../assest/controlador/SUBFAMILIA_ADO.php';
+include_once '../../assest/controlador/TUMEDIDA_ADO.php';
+include_once '../../assest/controlador/ESPECIES_ADO.php';
+include_once '../../assest/controlador/EMPRESA_ADO.php';
+include_once '../../assest/controlador/PLANTA_ADO.php';
+include_once '../../assest/controlador/TEMPORADA_ADO.php';
 
 
 //INCIALIZAR LAS VARIBLES

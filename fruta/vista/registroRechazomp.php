@@ -140,7 +140,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     $OP = $_SESSION['parametro1'];
 
     //OBTENECION DE INFORMACION DE LA TABLAS DE LA VISTA
-    $ARRAYTOMADA = $EXIMATERIAPRIMA_ADO->buscarPorRechazo2($IDOP);
+    $ARRAYTOMADA = $EXIMATERIAPRIMA_ADO->verExistenciaPorRechazo2($IDOP);
 
     //OBTENCIONS DE TOTALES O EL RESUMEN DE LAS TABLAS
     $ARRAYEXISTENCIAMPTOTAL = $EXIMATERIAPRIMA_ADO->obtenerTotalesRechazo($IDOP);
@@ -933,7 +933,7 @@ if (isset($_POST)) {
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $RECHAZOMP_ADO->cerrado($RECHAZOMP);
 
-                $ARRAYEXIMATERIAPRIMA = $EXIMATERIAPRIMA_ADO->buscarPorRechazo($_REQUEST['IDP']);
+                $ARRAYEXIMATERIAPRIMA = $EXIMATERIAPRIMA_ADO->buscarPorRechazo2($_REQUEST['IDP']);
             
                 foreach ($ARRAYEXIMATERIAPRIMA as $r) :
                     if( $_REQUEST['TRECHAZOE']==1){

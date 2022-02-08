@@ -52,10 +52,10 @@ $ARRAYRECHAZO = "";
 
 
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-    $ARRAYRECHAZO = $RECHAZOPT_ADO->listarRechazoEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYRECHAZO = $RECHAZOPT_ADO->listarRechazoCerrarEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
 }
 include_once "../../assest/config/validarDatosUrl.php";
-include_once "../../assest/config/datosUrLP.php";
+include_once "../../assest/config/datosUrLAP.php";
 
 
 ?>
@@ -65,7 +65,7 @@ include_once "../../assest/config/datosUrLP.php";
 <html lang="es">
 
 <head>
-    <title>Agrupado Rechazo PT</title>
+    <title>Rechazo Producto Terminado</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -107,16 +107,14 @@ include_once "../../assest/config/datosUrLP.php";
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                            <h3 class="page-title">Calidad de Fruta</h3>
+                            <h3 class="page-title">Apertura Registro</h3>
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
-                                        <li class="breadcrumb-item" aria-current="page">Modulo</li>
-                                        <li class="breadcrumb-item" aria-current="page">Calidad de Fruta</li>
-                                        <li class="breadcrumb-item" aria-current="page">Rechazo</li>
-                                        <li class="breadcrumb-item" aria-current="page">Producto Terminado</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Rechazo </a>  </li>
+                                        <li class="breadcrumb-item" aria-current="page">Módulo</li>
+                                        <li class="breadcrumb-item" aria-current="page">Apertura Registro</li>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Rechazo Producto Terminado </a>  </li>
                                     </ol>
                                 </nav>
                             </div>
@@ -221,43 +219,23 @@ include_once "../../assest/config/datosUrLP.php";
                                                             <?php if ($r['ESTADO'] == "1") { ?>
                                                                 <button type="button" class="btn btn-block btn-success">Abierto</button>
                                                             <?php  }  ?>
-                                                        </td>
+                                                        </td>                  
                                                         <td class="text-center">
                                                             <form method="post" id="form1">
-                                                                <div class="list-icons d-inline-flex">
-                                                                    <div class="list-icons-item dropdown">
-                                                                        <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                            <i class="glyphicon glyphicon-cog"></i>
+                                                                <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_RECHAZO']; ?>" />
+                                                                <input type="hidden" class="form-control" placeholder="NUMERO" id="NUMERO" name="NUMERO" value="<?php echo $r['NUMERO_RECHAZO']; ?>"/>
+                                                                <input type="hidden" class="form-control" placeholder="TABLA" id="TABLA" name="TABLA" value="fruta_rechazopt" />
+                                                                <input type="hidden" class="form-control" placeholder="COLUMNA" id="COLUMNA" name="COLUMNA" value="ID_RECHAZO" />
+                                                                <input type="hidden" class="form-control" placeholder="TITULO" id="TITULO" name="TITULO" value="Rechazo Producto Terminado" />
+                                                                <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroAP" />
+                                                                <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarAPrechazopt" />
+                                                                <?php if ($r['ESTADO'] == "0") { ?>
+                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Abrir Registro">
+                                                                        <button type="submit" class="btn btn-success btn-sm " id="ABRIRURL" name="ABRIRURL">
+                                                                            <i class="fa fa-folder-open"></i><br> Abrir
                                                                         </button>
-                                                                        <div class="dropdown-menu dropdown-menu-right">
-                                                                            <button class="dropdown-menu" aria-labelledby="dropdownMenuButton"></button>
-                                                                            <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_RECHAZO']; ?>" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroRechazopt" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarRechazopt" />
-                                                                            <?php if ($r['ESTADO'] == "0") { ?>
-
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
-                                                                                    <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
-                                                                                        <i class="ti-eye"></i> Ver
-                                                                                    </button>
-                                                                                </span>
-                                                                            <?php } ?>
-                                                                            <?php if ($r['ESTADO'] == "1") { ?>
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
-                                                                                    <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
-                                                                                        <i class="ti-pencil-alt"></i> Editar
-                                                                                    </button>
-                                                                                </span>
-                                                                            <?php } ?>
-                                                                            <hr>
-                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../../assest/documento/informeRechazopt.php?parametro=<?php echo $r['ID_RECHAZO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                    <i class="fa fa-file-pdf-o"></i> Informe
-                                                                                </button>
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                                    </span>
+                                                                <?php } ?>
                                                             </form>
                                                         </td>
                                                         <td><?php echo $r['FECHA']; ?></td>

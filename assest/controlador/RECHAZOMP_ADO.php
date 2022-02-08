@@ -336,6 +336,36 @@ class RECHAZOMP_ADO
     }
 
     //LISTAR
+    public function listarRechazoCerradoEmpresaPlantaTemporadaCBX($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * ,  
+                                                    IFNULL(CANTIDAD_ENVASE_RECHAZO,0) AS 'ENVASE'   ,                                                 
+                                                    IFNULL(KILOS_NETO_RECHAZO,0) AS 'NETO'    ,                                                 
+                                                    IFNULL(KILOS_BRUTO_RECHAZO,0) AS 'BRUTO',
+                                                    FECHA_RECHAZO AS 'FECHA', 
+                                                    DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO', 
+                                                    DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION'
+                                                FROM fruta_rechazomp                                                        
+                                                WHERE ESTADO_REGISTRO = 1   
+                                                AND ESTADO = 0                                                                                                     
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                                AND ID_PLANTA = '" . $PLANTA . "'
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "' ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function listarRechazoEmpresaPlantaTemporadaCBX($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {

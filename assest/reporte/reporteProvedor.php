@@ -2,9 +2,9 @@
 <?php
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/PROVEEDOR_ADO.php';
-include_once '../controlador/CIUDAD_ADO.php';
-include_once '../controlador/EMPRESA_ADO.php';
+include_once '../../assest/controlador/PROVEEDOR_ADO.php';
+include_once '../../assest/controlador/CIUDAD_ADO.php';
+include_once '../../assest/controlador/EMPRESA_ADO.php';
 
 
 //INCIALIZAR LAS VARIBLES
