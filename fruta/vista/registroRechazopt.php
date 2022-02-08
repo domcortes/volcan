@@ -143,7 +143,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     $OP = $_SESSION['parametro1'];
 
     //OBTENECION DE INFORMACION DE LA TABLAS DE LA VISTA    
-    $ARRAYTOMADA = $EXIEXPORTACION_ADO->buscarPorRechazo($IDOP);
+    $ARRAYTOMADA = $EXIEXPORTACION_ADO->verExistenciaPorRechazo($IDOP);
 
     //OBTENCIONS DE TOTALES O EL RESUMEN DE LAS TABLAS
     $ARRAYEXISTENCIAMPTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesRechazo($IDOP);

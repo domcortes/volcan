@@ -1261,8 +1261,7 @@ class EXIMATERIAPRIMA_ADO
                                                     IFNULL(KILOS_PROMEDIO_EXIMATERIAPRIMA,3) AS 'PROMEDIO'
                                                 FROM fruta_eximateriaprima 
                                                 WHERE ID_RECHAZADO= '" . $IDRECHAZADO . "'  
-                                                AND ESTADO_REGISTRO = 1
-                                                AND ESTADO = 10 ;");
+                                                AND ESTADO_REGISTRO = 1 ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -1277,6 +1276,34 @@ class EXIMATERIAPRIMA_ADO
         }
     }
     public function buscarPorRechazo2($IDRECHAZADO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("  SELECT * ,  
+                                                    IFNULL(DATE_FORMAT(FECHA_COSECHA_EXIMATERIAPRIMA, '%d-%m-%Y'),'Sin Datos') AS 'COSECHA',
+                                                    FORMAT(IFNULL(CANTIDAD_ENVASE_EXIMATERIAPRIMA,0),0,'de_DE') AS 'ENVASE',
+                                                    FORMAT(IFNULL(KILOS_NETO_EXIMATERIAPRIMA,0),2,'de_DE') AS 'NETO',
+                                                    FORMAT(IFNULL(KILOS_BRUTO_EXIMATERIAPRIMA,0),0,'de_DE') AS 'BRUTO',
+                                                    FORMAT(IFNULL(KILOS_PROMEDIO_EXIMATERIAPRIMA,3),5,'de_DE') AS 'PROMEDIO'
+                                                FROM fruta_eximateriaprima 
+                                                WHERE ID_RECHAZADO= '" . $IDRECHAZADO . "'  
+                                                AND ESTADO_REGISTRO = 1
+                                                AND ESTADO = 10;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function verExistenciaPorRechazo2($IDRECHAZADO)
     {
         try {
 

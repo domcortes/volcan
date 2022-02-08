@@ -183,7 +183,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     $IDOP = $_SESSION['parametro'];
     $OP = $_SESSION['parametro1'];
 
-    $ARRAYTOMADO = $EXIEXPORTACION_ADO->buscarPordespacho2($IDOP);
+    $ARRAYTOMADO = $EXIEXPORTACION_ADO->buscarPordespacho($IDOP);
 
     $ARRAYDESPACHOTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesDespacho($IDOP);
     $ARRAYDESPACHOTOTAL2 = $EXIEXPORTACION_ADO->obtenerTotalesDespacho2($IDOP);
