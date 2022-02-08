@@ -2,24 +2,24 @@
 <?php
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES 
-include_once '../controlador/TUSUARIO_ADO.php';
-include_once '../controlador/USUARIO_ADO.php';
-include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/PLANTA_ADO.php';
-include_once '../controlador/TEMPORADA_ADO.php';
+include_once '../../assest/controlador/TUSUARIO_ADO.php';
+include_once '../../assest/controlador/USUARIO_ADO.php';
+include_once '../../assest/controlador/EMPRESA_ADO.php';
+include_once '../../assest/controlador/PLANTA_ADO.php';
+include_once '../../assest/controlador/TEMPORADA_ADO.php';
 
 
-include_once '../controlador/FOLIO_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/DESPACHOEX_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
-include_once '../controlador/ECOMERCIAL_ADO.php';
+include_once '../../assest/controlador/FOLIO_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/DESPACHOEX_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/ECOMERCIAL_ADO.php';
 
 
 
-include_once '../controlador/ICARGA_ADO.php';
+include_once '../../assest/controlador/ICARGA_ADO.php';
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 $TUSUARIO_ADO = new TUSUARIO_ADO();
@@ -71,14 +71,19 @@ if($_REQUEST['parametro']){
    
    $ARRAYCONSOLIDADODESPACHO =  $DESPACHOEX_ADO->consolidadoDespachoExistencia($IDOP);
    if($ARRAYCONSOLIDADODESPACHO){
-   
      $ARRAYCONSOLIDADODESPACHOTOTAL =  $DESPACHOEX_ADO->obtenerTotalconsolidadoDespachoExistencia2($IDOP);
      $TOTALENVASECONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['ENVASE'];
      $TOTALNETOCONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['NETO'];
      $TOTALBRUTOCONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['BRUTO'];
    
    
-
+     $ARRAYVERICARGA = $ICARGA_ADO->verIcarga($IDOP);   
+     $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYVERICARGA[0]['ID_EMPRESA']);
+     if($ARRAYEMPRESA){
+       $NOMBREEMPRESA=$ARRAYEMPRESA[0]["NOMBRE_EMPRESA"];
+     }else{    
+       $NOMBREEMPRESA="";
+     }
    }
    
 

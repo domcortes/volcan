@@ -1,72 +1,74 @@
 
 <?php
 //BASE
-include_once '../controlador/TUSUARIO_ADO.php';
-include_once '../controlador/USUARIO_ADO.php';
-include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/PLANTA_ADO.php';
-include_once '../controlador/TEMPORADA_ADO.php';
+include_once '../../assest/controlador/TUSUARIO_ADO.php';
+include_once '../../assest/controlador/USUARIO_ADO.php';
+include_once '../../assest/controlador/EMPRESA_ADO.php';
+include_once '../../assest/controlador/PLANTA_ADO.php';
+include_once '../../assest/controlador/TEMPORADA_ADO.php';
 
 // OPERACION
-include_once '../controlador/MERCADO_ADO.php';
-include_once '../controlador/TSERVICIO_ADO.php';
+include_once '../../assest/controlador/MERCADO_ADO.php';
+include_once '../../assest/controlador/TSERVICIO_ADO.php';
 
-include_once '../controlador/EXPORTADORA_ADO.php';
-include_once '../controlador/CONSIGNATARIO_ADO.php';
-include_once '../controlador/NOTIFICADOR_ADO.php';
-include_once '../controlador/BROKER_ADO.php';
-include_once '../controlador/RFINAL_ADO.php';
+include_once '../../assest/controlador/EXPORTADORA_ADO.php';
+include_once '../../assest/controlador/CONSIGNATARIO_ADO.php';
+include_once '../../assest/controlador/NOTIFICADOR_ADO.php';
+include_once '../../assest/controlador/BROKER_ADO.php';
+include_once '../../assest/controlador/RFINAL_ADO.php';
 
-include_once '../controlador/AGCARGA_ADO.php';
-include_once '../controlador/AADUANA_ADO.php';
-include_once '../controlador/DFINAL_ADO.php';
-
-
-include_once '../controlador/TRANSPORTE_ADO.php';
-include_once '../controlador/LCARGA_ADO.php';
-include_once '../controlador/LDESTINO_ADO.php';
-
-include_once '../controlador/LAEREA_ADO.php';
-include_once '../controlador/AERONAVE_ADO.php';
-include_once '../controlador/ACARGA_ADO.php';
-include_once '../controlador/ADESTINO_ADO.php';
-
-include_once '../controlador/NAVIERA_ADO.php';
-include_once '../controlador/PCARGA_ADO.php';
-include_once '../controlador/PDESTINO_ADO.php';
+include_once '../../assest/controlador/AGCARGA_ADO.php';
+include_once '../../assest/controlador/AADUANA_ADO.php';
+include_once '../../assest/controlador/DFINAL_ADO.php';
 
 
-include_once '../controlador/FPAGO_ADO.php';
-include_once '../controlador/MVENTA_ADO.php';
-include_once '../controlador/CVENTA_ADO.php';
-include_once '../controlador/TFLETE_ADO.php';
+include_once '../../assest/controlador/TRANSPORTE_ADO.php';
+include_once '../../assest/controlador/LCARGA_ADO.php';
+include_once '../../assest/controlador/LDESTINO_ADO.php';
 
-include_once '../controlador/TCONTENEDOR_ADO.php';
-include_once '../controlador/ATMOSFERA_ADO.php';
-include_once '../controlador/PAIS_ADO.php';
-include_once '../controlador/SEGURO_ADO.php';
+include_once '../../assest/controlador/LAEREA_ADO.php';
+include_once '../../assest/controlador/AERONAVE_ADO.php';
+include_once '../../assest/controlador/ACARGA_ADO.php';
+include_once '../../assest/controlador/ADESTINO_ADO.php';
 
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/ESPECIES_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
-include_once '../controlador/TMONEDA_ADO.php';
-include_once '../controlador/TMANEJO_ADO.php';
-include_once '../controlador/CIUDAD_ADO.php';
+include_once '../../assest/controlador/NAVIERA_ADO.php';
+include_once '../../assest/controlador/PCARGA_ADO.php';
+include_once '../../assest/controlador/PDESTINO_ADO.php';
 
 
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/DESPACHOEX_ADO.php';
-include_once '../controlador/EXIEXPORTACION_ADO.php'; 
-include_once '../controlador/TEMBALAJE_ADO.php';
-include_once '../controlador/ECOMERCIAL_ADO.php';
-include_once '../controlador/TETIQUETA_ADO.php';
-include_once '../controlador/TCATEGORIA_ADO.php';
+include_once '../../assest/controlador/FPAGO_ADO.php';
+include_once '../../assest/controlador/MVENTA_ADO.php';
+include_once '../../assest/controlador/CVENTA_ADO.php';
+include_once '../../assest/controlador/TFLETE_ADO.php';
+
+include_once '../../assest/controlador/TCONTENEDOR_ADO.php';
+include_once '../../assest/controlador/ATMOSFERA_ADO.php';
+include_once '../../assest/controlador/PAIS_ADO.php';
+include_once '../../assest/controlador/SEGURO_ADO.php';
+
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/ESPECIES_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/TMONEDA_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/CIUDAD_ADO.php';
+
+
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/DESPACHOEX_ADO.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php'; 
+include_once '../../assest/controlador/TEMBALAJE_ADO.php';
+include_once '../../assest/controlador/ECOMERCIAL_ADO.php';
+include_once '../../assest/controlador/TETIQUETA_ADO.php';
+include_once '../../assest/controlador/TCATEGORIA_ADO.php';
+include_once '../../assest/controlador/TINPSAG_ADO.php';
+include_once '../../assest/controlador/INPSAG_ADO.php';
 
 
 
-include_once '../controlador/ICARGA_ADO.php';
-include_once '../controlador/DICARGA_ADO.php';
+include_once '../../assest/controlador/ICARGA_ADO.php';
+include_once '../../assest/controlador/DICARGA_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -121,6 +123,8 @@ $TEMBALAJE_ADO = new TEMBALAJE_ADO();
 $ECOMERCIAL_ADO = new ECOMERCIAL_ADO();
 $TETIQUETA_ADO = new TETIQUETA_ADO();
 $TCATEGORIA_ADO = new TCATEGORIA_ADO();
+$TINPSAG_ADO =  new TINPSAG_ADO();
+$INPSAG_ADO =  new INPSAG_ADO();
 
 
 $ICARGA_ADO =  new ICARGA_ADO();
@@ -164,6 +168,13 @@ $EMPRESA = "";
 $PLANTA = "";
 $TEMPORADA = "";
 $TOTALPRECIOUSNUEVO=0;
+
+
+$FDADESPACHOEX="";
+$NUMEROCONTENEDOR="";
+$NUMEROSELLO="";
+$FECHADESPACHOEX="";
+$LUGARDECARGA="";;
 
 //INICIALIZAR ARREGLOS
 $ARRAYEMPRESA = "";
@@ -216,33 +227,8 @@ if($ARRAYICARGA){
     $ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
     $NOMBRERESPONSABLE = $ARRAYUSUARIO2[0]["NOMBRE_COMPLETO"];
   
-    $ARRAYDESPACHOEX=$DESPACHOEX_ADO->buscarDespachoExPorIcarga($IDOP);
-    if($ARRAYDESPACHOEX){
-      $FECHADESPACHOEX=$ARRAYDESPACHOEX[0]['FECHA'];
-      $NUMEROCONTENEDOR=$ARRAYDESPACHOEX[0]['NUMERO_CONTENEDOR_DESPACHOEX'];
-      $NUMEROSELLO=$ARRAYDESPACHOEX[0]['NUMERO_SELLO_DESPACHOEX'];
-      $TERMOGRAFODESPACHOEX=$ARRAYDESPACHOEX[0]['TERMOGRAFO_DESPACHOEX'];
-      $ARRAYTOMADO = $EXIEXPORTACION_ADO->buscarPordespachoEx($ARRAYDESPACHOEX[0]['ID_DESPACHOEX']);
-
-
-      $ARRAYVERPLANTA = $PLANTA_ADO->verPlanta($ARRAYDESPACHOEX[0]['ID_PLANTA']);
-      if($ARRAYVERPLANTA){
-        $LUGARDECARGA=$ARRAYVERPLANTA[0]["RAZON_SOCIAL_PLANTA"];
-        $CODIGOSAGPLANTA=$ARRAYVERPLANTA[0]["CODIGO_SAG_PLANTA"];
-        $NOMBREPLANTA=$ARRAYVERPLANTA[0]["NOMBRE_PLANTA"];
-        $FDADESPACHOEX=$ARRAYVERPLANTA[0]["FDA_PLANTA"];
-      }else{
-        $FECHADESPACHOEX="Sin Datos";
-        $NOMBREPLANTA="Sin Datos";
-        $LUGARDECARGA="Sin Datos";
-      }
-    }else{
-      $FDADESPACHOEX="Sin Datos";
-      $NUMEROCONTENEDOR="Sin Datos";
-      $NUMEROSELLO="Sin Datos";
-      $FECHADESPACHOEX="Sin Datos";
-      $LUGARDECARGA="Sin Datos";
-    }
+  
+      $ARRAYDESPACHOEX=$DESPACHOEX_ADO->buscarDespachoExPorIcarga($IDOP);
     
       
       $NUMEROICARGA=$ARRAYICARGA[0]["NUMERO_ICARGA"];
@@ -520,12 +506,14 @@ $html = '
         <th class="color center ">Variedad </th>
         <th class="color center ">Nombre Planta </th>
         <th class="color center ">CSP Planta </th>
-        <th class="color center ">N° Folio </th>
+        <th class="color center ">N° Folio Original</th>
+        <th class="color center ">N° Folio Nuevo</th>
         <th class="color center ">Embalaje </th>
         <th class="color center ">Fecha Embalaje </th>
         <th class="color center ">Calibres </th>
         <th class="color center ">Categoria </th>
         <th class="color center ">Calidad </th>
+        <th class="color center ">Condición SAG</th>
         <th class="color center ">Etiqueta </th>
         <th class="color center ">Envases </th>
         <th class="color center ">Kilos Neto </th>
@@ -568,140 +556,183 @@ $html=$html.'
 
 ';
 
-foreach ($ARRAYTOMADO as $r) :
 
-    $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
-    if ($ARRAYVERPRODUCTORID) {
-        $GGNPRODUCTOR = $ARRAYVERPRODUCTORID[0]['GGN_PRODUCTOR'];
-        $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
-        $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
+
+
+foreach ($ARRAYDESPACHOEX as $s) :
+  
+  $FECHADESPACHOEX=$As['FECHA'];
+  $NUMEROCONTENEDOR=$As['NUMERO_CONTENEDOR_DESPACHOEX'];
+  $NUMEROSELLO=$As['NUMERO_SELLO_DESPACHOEX'];
+  $TERMOGRAFODESPACHOEX=$As['TERMOGRAFO_DESPACHOEX'];
+  $ARRAYVERPLANTA = $PLANTA_ADO->verPlanta($s['ID_PLANTA']);
+  if($ARRAYVERPLANTA){
+    $LUGARDECARGA=$ARRAYVERPLANTA[0]["RAZON_SOCIAL_PLANTA"];
+    $CODIGOSAGPLANTA=$ARRAYVERPLANTA[0]["CODIGO_SAG_PLANTA"];
+    $NOMBREPLANTA=$ARRAYVERPLANTA[0]["NOMBRE_PLANTA"];
+    $FDADESPACHOEX=$ARRAYVERPLANTA[0]["FDA_PLANTA"];
+  }else{
+    $FECHADESPACHOEX="Sin Datos";
+    $NOMBREPLANTA="Sin Datos";
+    $LUGARDECARGA="Sin Datos";
+  }
+
+
+  $ARRAYTOMADO = $EXIEXPORTACION_ADO->buscarPordespachoEx($s['ID_DESPACHOEX']);
+  foreach ($ARRAYTOMADO as $r) :
+
+
+    $ARRAYINPSAG = $INPSAG_ADO->verInpsag3($r['ID_INPSAG']);
+    if ($ARRAYINPSAG) {
+        $FECHAINPSAG = $ARRAYINPSAG[0]["FECHA"];                                                                
+        $NUMEROINPSAG = $ARRAYINPSAG[0]["NUMERO_INPSAG"]."-".$ARRAYINPSAG[0]["CORRELATIVO_INPSAG"];
+        $ARRAYTINPSAG=$TINPSAG_ADO->verTinpsag($ARRAYINPSAG[0]["ID_TINPSAG"]);
+        if($ARRAYTINPSAG){
+            $NOMBRETINPSAG= $ARRAYTINPSAG[0]["NOMBRE_TINPSAG"];
+        }else{
+            $NOMBRETINPSAG = "Sin Datos";
+        }
+
     } else {
-        $GGNPRODUCTOR = "Sin Datos";
-        $CSGPRODUCTOR = "Sin Datos";
-        $NOMBREPRODUCTOR = "Sin Datos";
-    }
-    $ARRAYTCATEGORIA=$TCATEGORIA_ADO->verTcategoria($r['ID_TCATEGORIA']);
-    if($ARRAYTCATEGORIA){      
-      $NOMBRETCATEGORIA = $ARRAYTCATEGORIA[0]['NOMBRE_TCATEGORIA'];
-    }else{
-      $NOMBRETCATEGORIA="CAT1";
+        $FECHAINPSAG = "";
+        $NUMEROINPSAG = "Sin Datos";
+        $NOMBRETINPSAG = "Sin Datos";
     }
 
-    
-    $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
-    if ($ARRAYVERVESPECIESID) {
-        $NOMBREVESPECIES = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
-        $ARRAYVERESPECIESID = $ESPECIES_ADO->verEspecies($ARRAYVERVESPECIESID[0]['ID_ESPECIES']);
-        if ($ARRAYVERVESPECIESID) {
-            $NOMBRESPECIES = $ARRAYVERESPECIESID[0]['NOMBRE_ESPECIES'];
+      $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+        if ($ARRAYVERPRODUCTORID) {
+            $GGNPRODUCTOR = $ARRAYVERPRODUCTORID[0]['GGN_PRODUCTOR'];
+            $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
+            $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
         } else {
+            $GGNPRODUCTOR = "Sin Datos";
+            $CSGPRODUCTOR = "Sin Datos";
+            $NOMBREPRODUCTOR = "Sin Datos";
+        }
+        $ARRAYTCATEGORIA=$TCATEGORIA_ADO->verTcategoria($r['ID_TCATEGORIA']);
+        if($ARRAYTCATEGORIA){      
+          $NOMBRETCATEGORIA = $ARRAYTCATEGORIA[0]['NOMBRE_TCATEGORIA'];
+        }else{
+          $NOMBRETCATEGORIA="CAT1";
+        }
+
+        
+        $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+        if ($ARRAYVERVESPECIESID) {
+            $NOMBREVESPECIES = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
+            $ARRAYVERESPECIESID = $ESPECIES_ADO->verEspecies($ARRAYVERVESPECIESID[0]['ID_ESPECIES']);
+            if ($ARRAYVERVESPECIESID) {
+                $NOMBRESPECIES = $ARRAYVERESPECIESID[0]['NOMBRE_ESPECIES'];
+            } else {
+                $NOMBRESPECIES = "Sin Datos";
+            }
+        } else {
+            $NOMBREVESPECIES = "Sin Datos";
             $NOMBRESPECIES = "Sin Datos";
         }
-    } else {
-        $NOMBREVESPECIES = "Sin Datos";
-        $NOMBRESPECIES = "Sin Datos";
-    }
-    $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
-    if ($ARRAYEVERERECEPCIONID) {
-        $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
-        $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
-        $ARRAYTETIQUETA=$TETIQUETA_ADO->verEtiqueta($ARRAYEVERERECEPCIONID[0]['ID_TETIQUETA']);
-        if($ARRAYTETIQUETA){
-            $NOMBRETETIQUETA = $ARRAYTETIQUETA[0]['NOMBRE_TETIQUETA'];
-        }else{
+        $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
+        if ($ARRAYEVERERECEPCIONID) {
+            $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
+            $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
+            $ARRAYTETIQUETA=$TETIQUETA_ADO->verEtiqueta($ARRAYEVERERECEPCIONID[0]['ID_TETIQUETA']);
+            if($ARRAYTETIQUETA){
+                $NOMBRETETIQUETA = $ARRAYTETIQUETA[0]['NOMBRE_TETIQUETA'];
+            }else{
+                $NOMBRETETIQUETA = "Sin Datos";
+            }
+            $ARRAYECOMERCIAL=$ECOMERCIAL_ADO->verEcomercial($ARRAYEVERERECEPCIONID[0]['ID_ECOMERCIAL']);        
+            if($ARRAYECOMERCIAL){
+                $NOMBREECOMERCIAL = $ARRAYECOMERCIAL[0]['NOMBRE_ECOMERCIAL'];
+            }else{
+                $NOMBREECOMERCIAL = "Sin Datos";
+            }
+
+        } else {
+            $NOMBREESTANDAR = "Sin Datos";
+            $CODIGOESTANDAR = "Sin Datos";
             $NOMBRETETIQUETA = "Sin Datos";
-        }
-        $ARRAYECOMERCIAL=$ECOMERCIAL_ADO->verEcomercial($ARRAYEVERERECEPCIONID[0]['ID_ECOMERCIAL']);        
-        if($ARRAYECOMERCIAL){
-            $NOMBREECOMERCIAL = $ARRAYECOMERCIAL[0]['NOMBRE_ECOMERCIAL'];
-        }else{
             $NOMBREECOMERCIAL = "Sin Datos";
         }
 
-    } else {
-        $NOMBREESTANDAR = "Sin Datos";
-        $CODIGOESTANDAR = "Sin Datos";
-        $NOMBRETETIQUETA = "Sin Datos";
-        $NOMBREECOMERCIAL = "Sin Datos";
-    }
+
+        $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
+        if ($ARRAYTCALIBRE) {
+            $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
+        } else {
+            $NOMBRETCALIBRE = "Sin Datos";
+        }
+        $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($r['ID_TEMBALAJE']);
+        if ($ARRAYTEMBALAJE) {
+            $NOMBRETEMBALAJE = $ARRAYTEMBALAJE[0]['NOMBRE_TEMBALAJE'];
+        } else {
+            $NOMBRETEMBALAJE = "Sin Datos";
+        }
+        $html = $html . '    
+              <tr class="center">        
+                  <td class=" center ">' . $NUMEROIREFERENCIA . ' </td>
+                  <td class=" center ">' . $NOMBREEXPPORTADORA . ' </td>
+                  <td class=" center ">' . $NOMBREPRODUCTOR . ' </td>
+                  <td class=" center ">' . $CSGPRODUCTOR . ' </td>
+                  <td class=" center ">' . $GGNPRODUCTOR . ' </td>
+                  <td class=" center ">' . $NOMBRESPECIES . ' </td>
+                  <td class=" center ">' . $NOMBREVESPECIES . ' </td>
+                  <td class=" center ">' . $NOMBREPLANTA . ' </td>
+                  <td class=" center ">' . $CODIGOSAGPLANTA . ' </td>
+                  <td class=" center">' . $r['FOLIO_EXIEXPORTACION'] . '</td>
+                  <td class=" center">' . $r['FOLIO_AUXILIAR_EXIEXPORTACION'] . '</td>
+                  <td class=" center ">' . $NOMBREECOMERCIAL . ' </td>
+                  <td class=" center">' . $r['EMBALADO'] . '</td>
+                  <td class=" center ">' . $NOMBRETCALIBRE . ' </td>
+                  <td class=" center ">' . $NOMBRETCATEGORIA . ' </td>
+                  <td class=" center ">Exportacion</td>
+                  <td class=" center ">' . $NOMBRETINPSAG . ' </td>
+                  <td class=" center ">' . $NOMBRETETIQUETA . ' </td>
+                  <td class=" center">' . $r['ENVASE'] . '</td>
+                  <td class=" center">' . $r['NETO'] . '</td>
+                  <td class=" center">' . $r['BRUTO'] . '</td>
+                  <td class=" center ">' . $NOMBRERFINAL . ' </td>  
+
+                  ';
+
+                  if ($TEMBARQUE == "1") {
+
+                  $html=$html.'
+                                  <td class=" center ">'.$NOMBRETRANSPORTE.' </td>  
+                                  <td class=" center ">' . $NUMEROCONTENEDOR . ' </td>   
+                                  <td class=" center ">'.$NOMBREORIGEN.'</td>
+                                  <td class=" center "> '.$NOMBREDESTINO.'</td>
+                                  ';
+                  }
+                                  
+                  if ($TEMBARQUE == "2") {
+
+                  $html=$html.'
+                                  <td class=" center ">'.$NAVE.' / '.$NVIAJE.' </td>  
+                                  <td class=" center ">' . $NUMEROCONTENEDOR . ' </td>   
+                                  <td class=" center ">'.$NOMBREORIGEN.'</td>
+                                  <td class=" center "> '.$NOMBREDESTINO.'</td>
+                                  ';
+                  }
+
+                  if ($TEMBARQUE == "3") {
+
+                  $html=$html.'
+                                  <td class=" center ">'.$NAVE.' / '.$NVIAJE.' </td>  
+                                  <td class=" center ">' . $NUMEROCONTENEDOR . ' </td>   
+                                  <td class=" center ">'.$NOMBREORIGEN.'</td>
+                                  <td class=" center "> '.$NOMBREDESTINO.'</td>
+                                  ';
+                  }
+
+                  $html=$html.'
+
+                                <td class=" center ">' . $TERMOGRAFODESPACHOEX . ' </td>   
+                              </tr>
+                              ';
 
 
-    $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
-    if ($ARRAYTCALIBRE) {
-        $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
-    } else {
-        $NOMBRETCALIBRE = "Sin Datos";
-    }
-    $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($r['ID_TEMBALAJE']);
-    if ($ARRAYTEMBALAJE) {
-        $NOMBRETEMBALAJE = $ARRAYTEMBALAJE[0]['NOMBRE_TEMBALAJE'];
-    } else {
-        $NOMBRETEMBALAJE = "Sin Datos";
-    }
-    $html = $html . '    
-            <tr class="center">        
-                <td class=" center ">' . $NUMEROIREFERENCIA . ' </td>
-                <td class=" center ">' . $NOMBREEXPPORTADORA . ' </td>
-                <td class=" center ">' . $NOMBREPRODUCTOR . ' </td>
-                <td class=" center ">' . $CSGPRODUCTOR . ' </td>
-                <td class=" center ">' . $GGNPRODUCTOR . ' </td>
-                <td class=" center ">' . $NOMBRESPECIES . ' </td>
-                <td class=" center ">' . $NOMBREVESPECIES . ' </td>
-                <td class=" center ">' . $NOMBREPLANTA . ' </td>
-                <td class=" center ">' . $CODIGOSAGPLANTA . ' </td>
-                <td class=" center">' . $r['FOLIO_AUXILIAR_EXIEXPORTACION'] . '</td>
-                <td class=" center ">' . $NOMBREECOMERCIAL . ' </td>
-                <td class=" center">' . $r['EMBALADO'] . '</td>
-                <td class=" center ">' . $NOMBRETCALIBRE . ' </td>
-                <td class=" center ">' . $NOMBRETCATEGORIA . ' </td>
-                <td class=" center ">Exportacion</td>
-                <td class=" center ">' . $NOMBRETETIQUETA . ' </td>
-                <td class=" center">' . $r['ENVASE'] . '</td>
-                <td class=" center">' . $r['NETO'] . '</td>
-                <td class=" center">' . $r['BRUTO'] . '</td>
-                <td class=" center ">' . $NOMBRERFINAL . ' </td>  
-
-                ';
-
-if ($TEMBARQUE == "1") {
-
- $html=$html.'
-                <td class=" center ">'.$NOMBRETRANSPORTE.' </td>  
-                <td class=" center ">' . $NUMEROCONTENEDOR . ' </td>   
-                <td class=" center ">'.$NOMBREORIGEN.'</td>
-                <td class=" center "> '.$NOMBREDESTINO.'</td>
-                ';
- }
-                
-if ($TEMBARQUE == "2") {
-
- $html=$html.'
-                <td class=" center ">'.$NAVE.' / '.$NVIAJE.' </td>  
-                <td class=" center ">' . $NUMEROCONTENEDOR . ' </td>   
-                <td class=" center ">'.$NOMBREORIGEN.'</td>
-                <td class=" center "> '.$NOMBREDESTINO.'</td>
-                ';
-}
-
-if ($TEMBARQUE == "3") {
-
- $html=$html.'
-                <td class=" center ">'.$NAVE.' / '.$NVIAJE.' </td>  
-                <td class=" center ">' . $NUMEROCONTENEDOR . ' </td>   
-                <td class=" center ">'.$NOMBREORIGEN.'</td>
-                <td class=" center "> '.$NOMBREDESTINO.'</td>
-                ';
-}
-
- $html=$html.'
-
-              <td class=" center ">' . $TERMOGRAFODESPACHOEX . ' </td>   
-            </tr>
-            ';
-
-
-        endforeach;
-
+  endforeach;
+endforeach;
 $html = $html . '
         </tbody>
       </table>
