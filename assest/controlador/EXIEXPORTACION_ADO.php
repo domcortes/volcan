@@ -3292,6 +3292,7 @@ class EXIEXPORTACION_ADO
                                                     AND ID_PLANTA = '" . $PLANTA . "'
                                                     AND ID_TEMPORADA = '" . $TEMPORADA . "'                                                      
                                                     AND ESTADO_REGISTRO = 1 
+                                                    AND TESTADOSAG IS NULL
                                                         ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -3334,8 +3335,7 @@ class EXIEXPORTACION_ADO
                                                     AND ID_PLANTA = '" . $PLANTA . "'
                                                     AND ID_TEMPORADA = '" . $TEMPORADA . "'                                                      
                                                     AND ESTADO_REGISTRO = 1 
-                                                    AND TESTADOSAG BETWEEN 2 AND 4  
-                                                    AND ID_INPSAG IS NOT NULL
+                                                    AND TESTADOSAG BETWEEN 2 AND 5  
                                                         ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
