@@ -1261,7 +1261,8 @@ class EXIMATERIAPRIMA_ADO
                                                     IFNULL(KILOS_PROMEDIO_EXIMATERIAPRIMA,3) AS 'PROMEDIO'
                                                 FROM fruta_eximateriaprima 
                                                 WHERE ID_RECHAZADO= '" . $IDRECHAZADO . "'  
-                                                AND ESTADO_REGISTRO = 1;");
+                                                AND ESTADO_REGISTRO = 1
+                                                AND ESTADO = 10 ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;

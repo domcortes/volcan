@@ -310,6 +310,38 @@ class REPALETIZAJEEX_ADO
 
 
     //LISTAS
+    public function listarRepaletizajeCerradoEmpresaPlantaTemporadaCBX($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * ,
+        
+                                            DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',  
+                                            DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION',  
+                                            IFNULL(CANTIDAD_ENVASE_ORIGINAL,0) AS 'ENVASER',
+                                            IFNULL(KILOS_NETO_ORIGINAL,0)AS 'NETOO',   
+                                            IFNULL(CANTIDAD_ENVASE_REPALETIZAJE,0) AS 'ENVASEO',   
+                                            IFNULL(KILOS_NETO_REPALETIZAJE,0)AS 'NETOR' 
+                                        FROM fruta_repaletizajeex
+                                         WHERE ESTADO_REGISTRO = 1           
+                                         AND ESTADO = 0                                                                                           
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                        AND ID_PLANTA = '" . $PLANTA . "'
+                                        AND ID_TEMPORADA = '" . $TEMPORADA . "' 
+                                         ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     public function listarRepaletizajeEmpresaPlantaTemporadaCBX($EMPRESA, $PLANTA, $TEMPORADA)
     {

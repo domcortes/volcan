@@ -638,6 +638,46 @@ class DESPACHOEX_ADO
 
 
     //LISTAR
+    public function listarDespachoexCerradoEmpresaPlantaTemporadaCBX($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT * ,
+                                                    DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' , 
+                                                    FECHA_DESPACHOEX  AS 'FECHA' ,
+                                                    FECHA_GUIA_DESPACHOEX  AS 'GUIA',
+                                                    FECHAETA_DESPACHOEX  AS 'ETA' ,
+                                                    FECHAETD_DESPACHOEX  AS 'ETD',
+
+
+                                                    WEEK(FECHA_DESPACHOEX,3) AS 'SEMANA',
+                                                    WEEK(FECHA_GUIA_DESPACHOEX,3) AS 'SEMANAGUIA',
+                                                    WEEKOFYEAR(FECHA_DESPACHOEX) AS 'SEMANAISO',  
+                                                    WEEKOFYEAR(FECHA_GUIA_DESPACHOEX) AS 'SEMANAGUIAISO',  
+
+                                                    IFNULL(CANTIDAD_ENVASE_DESPACHOEX,0)  AS 'ENVASE',
+                                                    IFNULL(KILOS_NETO_DESPACHOEX,0)  AS 'NETO',
+                                                    IFNULL(KILOS_BRUTO_DESPACHOEX,0)  AS 'BRUTO'
+                                                FROM fruta_despachoex                                                                           
+                                                WHERE ESTADO_REGISTRO = 1        
+                                                AND ESTADO = 0                                                                                                
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                                AND ID_PLANTA = '" . $PLANTA . "'
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     public function listarDespachoexEmpresaPlantaTemporadaCBX($EMPRESA, $PLANTA, $TEMPORADA)
     {

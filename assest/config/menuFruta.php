@@ -779,7 +779,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               </span>
             </a>
             <ul class="treeview-menu">
-
               <li class="treeview">
                 <a href="#">Disponible
                   <span class="pull-left-container">
@@ -818,7 +817,66 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               </li>
             </ul>
           </li>             
-        <?php  } ?>
+        <?php  } ?>        
+        <?php if($PADMINISTRADOR=="1"){ ?>   
+          <?php if($PADAPERTURA=="1"){ ?> 
+            <li class="treeview">
+              <a href="#">
+                <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/extensions.svg" class="svg-icon" alt="">
+                <span>Apertura Registro</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-right pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">             
+                <?php if($PFGRANEL=="1"){ ?>     
+                  <?php if($PFGRECEPCION=="1"){ ?>
+                    <li><a href="listarAPrecepcionmp.php">Recepcion Materia Prima </a></li>
+                    <li><a href="listarAPrecepcionind.php">Recepcion Producto Industrial </a></li>
+                  <?php  } ?>         
+                  <?php if($PFGDESPACHO=="1"){ ?>
+                    <li><a href="listarAPdespachomp.php">Despacho Materia Prima </a></li>
+                    <li><a href="listarAPdespachoind.php">Despacho Producto Industrial </a></li>
+                  <?php  } ?>    
+                <?php  } ?>    
+                <?php if($PFPACKING=="1"){ ?>
+                  <?php if($PFPPROCESO=="1"){ ?>
+                    <li><a href="listarAPproceso.php">Proceso </a></li>
+                  <?php  } ?>       
+                  <?php if($PFPREEMBALEJE=="1"){ ?>
+                    <li><a href="listarAPreembalajeEx.php">Reembalaje </a></li>
+                  <?php  } ?>    
+                <?php  } ?>    
+                <?php if($PFSAG=="1"){ ?>
+                  <?php if($PFSAGINSPECCION=="1"){ ?>
+                    <li><a href="listarAPInpSag.php">Inspección SAG </a></li>
+                  <?php  } ?>      
+                <?php  } ?>    
+                <?php if($PFFRIGORIFICO=="1"){ ?>     
+                  <?php if($PFFRECEPCION=="1"){ ?>
+                    <li><a href="listarAPrecepcionpt.php">Recepcion Producto Terminado </a></li>
+                  <?php  } ?>         
+                  <?php if($PFFRDESPACHO=="1"){ ?>
+                    <li><a href="listarAPdespachopt.php">Despacho Producto Terminado </a></li>
+                    <li><a href="listarAPdespachoEX.php">Despacho Exportacion </a></li>
+                  <?php  } ?>    
+                  <?php if($PFFRREPALETIZAJE=="1"){ ?>
+                    <li><a href="listarAPrepaletizajePTFrigorifico.php"> Repaletizaje </a></li>
+                  <?php  } ?>   
+                  <?php if($PFFRREPALETIZAJE=="1"){ ?>
+                    <li><a href="listarAPpcdespacho.php"> Planificador Carga </a></li>
+                  <?php  } ?>   
+                <?php  } ?>                   
+                <?php if($PFCFRUTA=="1"){ ?>
+                  <?php if($PFCFRECHAZO=="1"){ ?>
+                    <li><a href="listarAPrechazomp.php"> Rechazo Materia Prima </a></li>
+                    <li><a href="listarAPrechazopt.php"> Rechazo Producto Terminado </a></li>
+                  <?php  } ?>   
+                <?php  } ?>   
+              </ul>
+            </li> 
+          <?php  } ?>  
+        <?php  } ?>   
       <?php  } ?> 
     </ul>
   </section>

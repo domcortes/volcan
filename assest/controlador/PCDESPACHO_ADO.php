@@ -254,6 +254,36 @@ class PCDESPACHO_ADO
 
     //FUNCIONES ESPECIALIZADAS
     //LISTAR
+    public function listarPcdespachoCerradoEmpresaPlantaTemporadaCBX($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * , 
+                                                    DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO' ,
+                                                    DATE_FORMAT(MODIFICACION, '%Y-%m-%d')  AS 'MODIFICACION'  ,
+                                                    FECHA_PCDESPACHO   AS 'FECHA'  ,
+                                                    IFNULL(CANTIDAD_ENVASE_PCDESPACHO,0) AS 'ENVASE',
+                                                    IFNULL(KILOS_NETO_PCDESPACHO,0) AS 'NETO'
+                                                FROM fruta_pcdespacho 
+                                                WHERE ESTADO_REGISTRO = 1
+                                                AND ESTADO = 0
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                                AND ID_PLANTA = '" . $PLANTA . "'
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                        ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function listarPcdespachoEmpresaPlantaTemporadaCBX($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {
@@ -439,6 +469,27 @@ class PCDESPACHO_ADO
         }
     }
 
+    public function buscarPorDespacho2($IDDESEXPORTACION)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_pcdespacho 
+                                            WHERE ID_DESPACHOEX = '" . $IDDESEXPORTACION . "'
+                                            AND ESTADO_REGISTRO = 1
+                                            AND ESTADO_PCDESPACHO = 3;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     //TOTALES
 
@@ -623,7 +674,7 @@ class PCDESPACHO_ADO
             $query = "
                 UPDATE fruta_pcdespacho SET			
                         ESTADO_PCDESPACHO = 2
-                WHERE ID_PCDESPACHO= ?;";
+                WHERE ID_PCDESPACHO= ? AND ESTADO_PCDESPACHO < 3 ;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(

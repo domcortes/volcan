@@ -877,6 +877,28 @@ class EXIEXPORTACION_ADO
             die($e->getMessage());
         }
     }
+    
+    public function verExistenciaPorDespachoEX2($IDDESPACHOEX)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_exiexportacion 
+                                        WHERE ID_DESPACHOEX= '" . $IDDESPACHOEX . "'                                           
+                                        AND ESTADO_REGISTRO = 1
+                                        AND ESTADO = 7;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function verExistenciaPorDespacho($IDDESPACHO)
     {
         try {
@@ -3454,7 +3476,7 @@ class EXIEXPORTACION_ADO
                                                     IFNULL(existencia.KILOS_BRUTO_EXIEXPORTACION,0) AS 'BRUTO'
                                                 FROM fruta_exiexportacion existencia, fruta_reapt detalle 
                                                 WHERE existencia.ID_EXIEXPORTACION = detalle.ID_EXIEXPORTACION     
-                                                AND existencia.ESTADO_REGISTRO = 1                                           
+                                                AND existencia.ESTADO_REGISTRO = 1                                     
                                                 AND detalle.ID_RECHAZO= '" . $IDRECHAZADO . "'  
                                             ;");
             $datos->execute();

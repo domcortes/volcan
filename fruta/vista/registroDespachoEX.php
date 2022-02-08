@@ -2723,8 +2723,8 @@ if (isset($_POST)) {
                 $DESPACHOEX_ADO->cerrado($DESPACHOEX);
 
            
-                $ARRAYEXISENCIADESPACHOEX = $EXIEXPORTACION_ADO->verExistenciaPorDespachoEx($_REQUEST['IDP']);
-                $ARRAYPCDESPACHO = $PCDESPACHO_ADO->buscarPorDespacho($_REQUEST['IDP']);
+                $ARRAYEXISENCIADESPACHOEX = $EXIEXPORTACION_ADO->verExistenciaPorDespachoEX2($_REQUEST['IDP']);
+                $ARRAYPCDESPACHO = $PCDESPACHO_ADO->buscarPorDespacho2($_REQUEST['IDP']);
 
                 foreach ($ARRAYPCDESPACHO as $r) :
                     $PCDESPACHO->__SET('ID_PCDESPACHO', $r['ID_PCDESPACHO']);
