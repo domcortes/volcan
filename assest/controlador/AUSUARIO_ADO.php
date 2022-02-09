@@ -130,6 +130,7 @@ class AUSUARIO_ADO {
                                                 TMODULO ,
                                                 TOPERACION ,
 
+                                                MENSAJE ,
                                                 TABLA ,
                                                 ID_REGISTRO ,
                                                 
@@ -140,7 +141,7 @@ class AUSUARIO_ADO {
 
                                                 INGRESO 
                                             ) VALUES
-	       	( ?, ?, ?,   ?, ?,   ?, ?, ?, ?, SYSDATE() );";
+	       	( ?, ?, ?,   ?, ?, ?,   ?, ?, ?, ?, SYSDATE() );";
             $this->conexion->prepare($query)
             ->execute(
                 array(                    
@@ -148,6 +149,7 @@ class AUSUARIO_ADO {
                     $AUSUARIO->__GET('TMODULO') ,
                     $AUSUARIO->__GET('TOPERACION') ,
 
+                    $AUSUARIO->__GET('MENSAJE') ,
                     $AUSUARIO->__GET('TABLA') ,
                     $AUSUARIO->__GET('ID_REGISTRO') ,
 
@@ -163,8 +165,9 @@ class AUSUARIO_ADO {
             die($e->getMessage());
         }
     } 
+    
 
-    public function agregarAusuario2($NUMERO,$TMODULO,$TOPERACION,$TABLA, $IDREGISTRO, $USUARIO,$EMPRESA,$PLANTA,$TEMPORADA){
+    public function agregarAusuario2($NUMERO,$TMODULO,$TOPERACION, $MENSAJE, $TABLA, $REGISTRO, $USUARIO, $EMPRESA, $PLANTA, $TEMPORADA){
         try{                   
             $query=
                                             "INSERT INTO  usuario_ausuario  
@@ -173,31 +176,20 @@ class AUSUARIO_ADO {
                                                 TMODULO ,
                                                 TOPERACION ,
 
+                                                MENSAJE ,
                                                 TABLA ,
                                                 ID_REGISTRO ,
-                                                
+
                                                 ID_USUARIO ,
                                                 ID_EMPRESA ,
                                                 ID_PLANTA ,
-                                                ID_TEMPORADA ,
+                                                ID_TEMPORADA ,                                                
 
                                                 INGRESO 
                                             ) VALUES
-                                            ( 
-                                                '".$NUMERO."',
-                                                '".$TMODULO."', 
-                                                '".$TOPERACION."',  
+	       	                                (  ".$NUMERO.",  ".$TMODULO.",  ".$TOPERACION.",   '".$MENSAJE."',  '".$TABLA."', ".$REGISTRO.",  ".$USUARIO.", ".$EMPRESA.", ".$PLANTA.", ".$TEMPORADA.",    SYSDATE()  );";
 
-                                                '".$TABLA."', 
-                                                '".$IDREGISTRO."',
-
-                                                '".$USUARIO."', 
-                                                '".$EMPRESA."', 
-                                                '".$PLANTA."', 
-                                                '".$TEMPORADA."', 
-                                                
-                                                SYSDATE()
-                                            );";
+                                         
             $this->conexion->prepare($query)
             ->execute( );
             
