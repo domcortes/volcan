@@ -136,6 +136,9 @@ class PTUSUARIO_ADO {
             $query=
             "INSERT INTO  usuario_ptusuario  (          
                                                         FRUTA,
+                                                        FAVISO,
+                                                        FRABIERTO,
+
                                                         FGRANEL,
                                                         FGRECEPCION,
                                                         FGDESPACHO,
@@ -163,6 +166,8 @@ class PTUSUARIO_ADO {
                                                         FEXISTENCIA,
                    
                                                         MATERIALES,
+                                                        MRABIERTO,
+
                                                         MMATERIALES,
                                                         MMRECEPION,
                                                         MMDEAPCHO,
@@ -213,11 +218,14 @@ class PTUSUARIO_ADO {
                                                         MODIFICACION,
                                                         ESTADO_REGISTRO
                                              ) VALUES
-	       	( ?, ?, ?, ?, ?,    ?, ?, ?,    ?, ?,   ?, ?, ?, ?, ?, ?, ?,   ?, ?, ?,  ?,    ?, ?, ?, ?, ?,   ?, ?, ?, ?,   ?, ?, ?,   ?, ?, ?,    ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?, ?, ?,      ?, ?, ?,  SYSDATE(), SYSDATE(), 1);";
+	       	( ?, ?, ?,     ?, ?, ?, ?,    ?, ?, ?,    ?, ?,   ?, ?, ?, ?, ?, ?, ?,   ?, ?, ?,   ?,    ?,?,     ?, ?, ?, ?,   ?, ?, ?, ?,   ?, ?, ?,   ?, ?, ?,    ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?, ?, ?,      ?, ?, ?,  SYSDATE(), SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(              
                     $PTUSUARIO->__GET('FRUTA')  ,  
+                    $PTUSUARIO->__GET('FAVISO')  ,  
+                    $PTUSUARIO->__GET('FRABIERTO')  ,  
+
                     $PTUSUARIO->__GET('FGRANEL')  ,  
                     $PTUSUARIO->__GET('FGRECEPCION')  ,  
                     $PTUSUARIO->__GET('FGDESPACHO')  ,  
@@ -245,6 +253,8 @@ class PTUSUARIO_ADO {
                     $PTUSUARIO->__GET('FEXISTENCIA')  , 
 
                     $PTUSUARIO->__GET('MATERIALES')  ,  
+                    $PTUSUARIO->__GET('MRABIERTO')  ,  
+                    
                     $PTUSUARIO->__GET('MMATERIALES')  ,  
                     $PTUSUARIO->__GET('MMRECEPION')  ,  
                     $PTUSUARIO->__GET('MMDEAPCHO')  ,  
@@ -323,6 +333,9 @@ class PTUSUARIO_ADO {
                 MODIFICACION = SYSDATE(),
 
                 FRUTA = ?,
+                FAVISO = ?,
+                FRABIERTO = ?,
+                
                 FGRANEL = ?,
                 FGRECEPCION = ?,
                 FGDESPACHO = ?,
@@ -350,6 +363,8 @@ class PTUSUARIO_ADO {
                 FEXISTENCIA = ?,
                 
                 MATERIALES = ?,
+                MRABIERTO = ?,
+                
                 MMATERIALES = ?,
                 MMRECEPION = ?,
                 MMDEAPCHO = ?,
@@ -399,6 +414,9 @@ class PTUSUARIO_ADO {
                 array(                        
 
                     $PTUSUARIO->__GET('FRUTA')  ,  
+                    $PTUSUARIO->__GET('FAVISO')  ,  
+                    $PTUSUARIO->__GET('FRABIERTO')  ,  
+
                     $PTUSUARIO->__GET('FGRANEL')  ,  
                     $PTUSUARIO->__GET('FGRECEPCION')  ,  
                     $PTUSUARIO->__GET('FGDESPACHO')  ,  
@@ -424,7 +442,10 @@ class PTUSUARIO_ADO {
                     $PTUSUARIO->__GET('FCFLEVANTAMIENTO')  ,  
                  
                     $PTUSUARIO->__GET('FEXISTENCIA')  , 
+
                     $PTUSUARIO->__GET('MATERIALES')  ,  
+                    $PTUSUARIO->__GET('MRABIERTO')  ,  
+
                     $PTUSUARIO->__GET('MMATERIALES')  ,  
                     $PTUSUARIO->__GET('MMRECEPION')  ,  
                     $PTUSUARIO->__GET('MMDEAPCHO')  ,  

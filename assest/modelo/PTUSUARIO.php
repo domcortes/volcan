@@ -8,10 +8,11 @@ class PTUSUARIO {
     
     //ATRIBUTOS DE LA CLASE
     private	$ID_PTUSUARIO;    
-
     //privilegios de sistema fruta
-    //granel
     private $FRUTA;
+    private $FAVISO;
+    private $FRABIERTO;
+    //granel
     private $FGRANEL;
     private $FGRECEPCION;
     private $FGDESPACHO;
@@ -37,11 +38,10 @@ class PTUSUARIO {
     private $FCFLEVANTAMIENTO;
     //existencia
     private $FEXISTENCIA;
-
-
     //privilegios de sistema materiales
-    //materiales
     private $MATERIALES;
+    private $MRABIERTO;
+    //materiales
     private $MMATERIALES;
     private $MMRECEPION;
     private $MMDEAPCHO;
@@ -59,14 +59,12 @@ class PTUSUARIO {
     private $MKARDEX;
     private $MKMATERIAL;
     private $MKENVASE;
-
     //privilegios de sistema exportadora
     private $EXPORTADORA;
     private $EMATERIALES;
     private $EEXPORTACION;
     private $ELIQUIDACION;
     private $EINFORMES;
-
     //privilegios de mantenedores sitemas
     private $MANTENEDORES;
     private $MREGISTRO;
@@ -78,7 +76,6 @@ class PTUSUARIO {
     private $ADUSUARIO;
     private $ADAPERTURA;
     private $ADAVISO;
-
     //estadistica
     private $ESTADISTICA;
     private $ESTARVSP;
@@ -86,8 +83,6 @@ class PTUSUARIO {
     private $ESTAINFORME;
     private $ESTAEXISTENCIA;
     private $ESTAPRODUCTOR;
-
-
     //datos de ingresos
     private $INGRESO; 
     private $MODIFICACION; 

@@ -81,6 +81,74 @@ include_once "../../assest/config/ValidardatosUrl.php";
                     </div>
                 </div>
                 <section class="content">
+                        <div class="row">	              
+                            <?php if($PMRABIERTO=="1"){ ?>                            
+                                <?php if($PMATERIALES=="1"){ ?>            
+                                    <?php if($PMMRECEPION=="1"){ ?>
+                                        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6 col-xs-6">                           
+                                            <div class="box pull-up  ribbon-box       ">
+                                                <div class="box-body ">
+                                                    <div class="ribbon ribbon-warning"><span>Recepciones Materiales </span></div>  
+                                                    <p class="my-2 mb-0 pt-5 ">
+                                                        <div class="text-center my-2">
+                                                            <div class="font-size-40"><?php echo $RECEPCIONM; ?></div>
+                                                            <span>Abiertos</span>
+                                                        </div>
+                                                    </p>
+                                                </div>
+                                            </div>   
+                                        </div>	                                 
+                                    <?php  } ?>        
+                                    <?php if($PMMDEAPCHO=="1"){ ?>                     
+                                        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6 col-xs-6">                                            
+                                            <div class="box pull-up  ribbon-box       ">
+                                                <div class="box-body ">
+                                                    <div class="ribbon ribbon-warning"><span>Despacho Materiales </span></div>  
+                                                    <p class="my-2 mb-0 pt-5 ">
+                                                        <div class="text-center my-2">
+                                                            <div class="font-size-40"><?php echo $DESPACHOM; ?></div>
+                                                            <span>Abiertos</span>
+                                                        </div>
+                                                    </p>
+                                                </div>
+                                            </div>   
+                                        </div>                                    
+                                    <?php  } ?>                                      
+                                <?php  } ?>            
+                                <?php if($PMENVASE=="1"){ ?>      
+                                    <?php if($PMERECEPCION=="1"){ ?>
+                                        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6 col-xs-6">                                 
+                                            <div class="box pull-up  ribbon-box      ">
+                                                <div class="box-body ">
+                                                    <div class="ribbon ribbon-warning"><span>Recepciones Envases </span></div>  
+                                                    <p class="my-2 mb-0 pt-5 ">
+                                                        <div class="text-center my-2">
+                                                            <div class="font-size-40"><?php echo $RECEPCIONE; ?></div>
+                                                            <span>Abiertos</span>
+                                                        </div>
+                                                    </p>
+                                                </div>
+                                            </div>   
+                                        </div>	 	           
+                                    <?php  } ?>        
+                                    <?php if($PMEDESPACHO=="1"){ ?>                           
+                                        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6 col-xs-6">                                     
+                                            <div class="box pull-up  ribbon-box       ">
+                                                <div class="box-body ">
+                                                    <div class="ribbon ribbon-warning"><span>Despacho Envases </span></div>  
+                                                    <p class="my-2 mb-0 pt-5 ">
+                                                        <div class="text-center my-2">
+                                                            <div class="font-size-40"><?php echo $DESPACHOE; ?></div>
+                                                            <span>Abiertos</span>
+                                                        </div>
+                                                    </p>
+                                                </div>
+                                            </div>   
+                                        </div>  	           
+                                    <?php  } ?>                                   
+                                <?php  } ?>   
+                            <?php  } ?>      
+                        </div>  
                 </section>
             </div>
         </div>

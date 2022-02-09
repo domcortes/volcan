@@ -17,6 +17,7 @@ $ARRAYAVISOS="";
 
 
 $PMATERIALES="";
+$PMRABIERTO="";
 $PMMATERIALES="";
 $PMMRECEPION="";
 $PMMDEAPCHO="";
@@ -90,6 +91,8 @@ if (isset($_SESSION["NOMBRE_USUARIO"])) {
              echo "<script type='text/javascript'> location.href ='../../';</script>";
         }    
         $PMMATERIALES= $ARRAYVERPTUSUARIO[0]['MMATERIALES'];
+        $PMRABIERTO= $ARRAYVERPTUSUARIO[0]['MRABIERTO'];
+
         $PMMRECEPION= $ARRAYVERPTUSUARIO[0]['MMRECEPION'];
         $PMMDEAPCHO= $ARRAYVERPTUSUARIO[0]['MMDEAPCHO'];
         $PMMGUIA= $ARRAYVERPTUSUARIO[0]['MMGUIA'];
@@ -118,6 +121,7 @@ if (isset($_SESSION["NOMBRE_USUARIO"])) {
 
     }else{              
         $PMATERIALES="";
+        $PMRABIERTO="";
         $PMMATERIALES="";
         $PMMRECEPION="";
         $PMMDEAPCHO="";
