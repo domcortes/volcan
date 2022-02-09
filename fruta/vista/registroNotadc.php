@@ -644,7 +644,7 @@ if (isset($_POST)) {
                                                 <select class="form-control select2" id="TNOTA" name="TNOTA" style="width: 100%;" <?php echo $DISABLED; ?>   <?php echo $DISABLED3; ?>>
                                                     <option></option>
                                                     <option value="1" <?php if ($TNOTA == "1") {  echo "selected";  } ?>> Debito</option>
-                                                    <option value="2" <?php if ($TNOTA == "2") { echo "selected";  } ?>> Credicto</option>
+                                                    <option value="2" <?php if ($TNOTA == "2") { echo "selected";  } ?>> Credito</option>
                                                 </select>
                                                 <label id="val_tnota" class="validacion"> </label>
                                             </div>

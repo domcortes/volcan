@@ -202,7 +202,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                     if($r['TNOTA']==1){
                                                         $NOMBRETNOTA="Debito";
                                                     }else  if($r['TNOTA']==2){
-                                                        $NOMBRETNOTA="Credicto";
+                                                        $NOMBRETNOTA="Credito";
                                                     }else{
                                                         $NOMBRETNOTA="Sin Datos";
                                                     }
