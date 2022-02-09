@@ -9,11 +9,11 @@ class AUSUARIO {
     //ATRIBUTOS DE LA CLASE
     private	  $ID_AUSUARIO;
     private	  $NUMERO_REGISTRO; 
-    private	  $NOMBRE_REGISTRO; 
-    private	  $TABLA;
     private   $TMODULO;
     private   $TOPERACION; 
-    private   $FECHA;
+    private   $INGRESO;
+    private	  $TABLA;
+    private	  $ID_REGISTRO;
     private   $ID_USUARIO;
     private   $ID_EMPRESA;
     private   $ID_PLANTA;
