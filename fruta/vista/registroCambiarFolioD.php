@@ -3,7 +3,10 @@ include_once "../../assest/config/validarUsuarioFruta.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
+include_once '../../assest/controlador/CFOLIO_ADO.php';
 include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
+
+include_once '../../assest/modelo/CFOLIO.php';
 include_once '../../assest/modelo/EXIEXPORTACION.php';
 
 
@@ -11,9 +14,11 @@ include_once '../../assest/modelo/EXIEXPORTACION.php';
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 
+$CFOLIO_ADO =  new CFOLIO_ADO();
 $EXIEXPORTACION_ADO =  new EXIEXPORTACION_ADO();
 
 //INIICIALIZAR MODELO
+$CFOLIO =  new CFOLIO();
 $EXIEXPORTACION =  new EXIEXPORTACION();
 
 //INICIALIZACION VARIABLES
@@ -21,6 +26,7 @@ $EXIEXPORTACION =  new EXIEXPORTACION();
 
 $FOLIO = "";
 $FOLION = "";
+$MOTIVO = "";
 $SINO = "";
 
 $MENSAJE = "";
@@ -57,6 +63,9 @@ if ($_POST) {
     if (isset($_REQUEST['FOLION'])) {
         $FOLION = $_REQUEST['FOLION'];
     }
+    if (isset($_REQUEST['MOTIVO'])) {
+        $MOTIVO = $_REQUEST['MOTIVO'];
+    }
 }
 
 ?>
@@ -78,7 +87,10 @@ if ($_POST) {
                 function validacion() {
 
                     FOLION = document.getElementById("FOLION").value;
+                    MOTIVO = document.getElementById("MOTIVO").value;
+
                     document.getElementById('val_fn').innerHTML = "";
+                    document.getElementById('val_motivo').innerHTML = "";
 
 
                     if (FOLION == null || FOLION.length == 0 || /^\s+$/.test(FOLION)) {
@@ -97,6 +109,16 @@ if ($_POST) {
                         return false;
                     }
                     document.form_reg_dato.FOLION.style.borderColor = "#4AF575";
+
+
+                    if (MOTIVO == null || MOTIVO.length == 0 || /^\s+$/.test(MOTIVO)) {
+                        document.form_reg_dato.MOTIVO.focus();
+                        document.form_reg_dato.MOTIVO.style.borderColor = "#FF0000";
+                        document.getElementById('val_motivo').innerHTML = "NO A INGRESADO DATO";
+                        return false;
+                    }
+                    document.form_reg_dato.MOTIVO.style.borderColor = "#4AF575";
+
 
                 }
 
@@ -166,6 +188,11 @@ if ($_POST) {
                                                 <input type="number" class="form-control" placeholder="Folio Nuevo" id="FOLION" name="FOLION" value="<?php echo $FOLION; ?>" />
                                                 <label id="val_fn" class="validacion"> <?php echo $MENSAJE; ?></label>
                                             </div>
+                                        </div>                                        
+                                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">                                            
+                                            <label>Motivo</label>
+                                            <textarea class="form-control" rows="1" placeholder="Motivo" id="MOTIVO" name="MOTIVO" > <?php echo $MOTIVO; ?></textarea>
+                                            <label id="val_motivo" class="validacion"> </label>
                                         </div>
                                     </div>
                                     <!-- /.row -->
@@ -198,21 +225,21 @@ if ($_POST) {
         <?php         
                 //OPERACIONES
                 //OPERACION DE REGISTRO DE FILA
-                if (isset($_REQUEST['CAMBIAR'])) {
-                    /*
-                        $ARRAYFOLIOPOEXPO = $EXIEXPORTACION_ADO->buscarPorFolio($_REQUEST['FOLION']);
-                        if ($ARRAYFOLIOPOEXPO) {
-                            $SINO = "1";
-                            $MENSAJE = "EL FOLIO INGRESADO EXISTE";
-                        } else {
-                            $SINO = "0";
-                            $$MENSAJE = "";
-                        }                    
-                        if ($SINO == "0") {}*/
+                if (isset($_REQUEST['CAMBIAR'])) {                  
                     
+
+                            
+                            $CFOLIO->__SET('FOLIOORIGINAL', $_REQUEST['FOLIOE']);
+                            $CFOLIO->__SET('FOLIONUEVO', $_REQUEST['FOLION']);
+                            $CFOLIO->__SET('MOTIVO', $_REQUEST['MOTIVO']);
+                            $CFOLIO->__SET('ID_EXIEXPORTACION', $_REQUEST['ID']);
+                            $CFOLIO->__SET('ID_USUARIO',$IDUSUARIOS);
+                            $CFOLIO_ADO->agregarCfolio($CFOLIO);
+
                             $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $_REQUEST['FOLION']);
                             $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $_REQUEST['ID']);
                             $EXIEXPORTACION_ADO->cambioFolio($EXIEXPORTACION);
+                            
                             echo '<script>
                                     Swal.fire({
                                         icon:"info",
