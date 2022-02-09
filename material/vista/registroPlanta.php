@@ -5,7 +5,8 @@ include_once "../../assest/config/validarUsuarioMaterial.php";
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
 include_once '../../assest/controlador/COMUNA_ADO.php';
-include_once '../../assest/controlador/CIUDAD_ADO.php';
+include_once '../../assest/controlador/PROVINCIA_ADO.php';
+include_once '../../assest/controlador/REGION_ADO.php';
 
 
 include_once '../../assest/modelo/PLANTA.php';
@@ -13,7 +14,9 @@ include_once '../../assest/modelo/PLANTA.php';
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 $COMUNA_ADO =  new COMUNA_ADO();
-$CIUDAD_ADO =  new CIUDAD_ADO();
+$PROVINCIA_ADO =  new PROVINCIA_ADO();
+$REGION_ADO =  new REGION_ADO();
+
 
 //INIICIALIZAR MODELO
 $PLANTA =  new PLANTA();
@@ -28,10 +31,11 @@ $NOMBREPLANTA = "";
 $RAZONSOCIAL = "";
 $DIRECCION = "";
 $CODIGOSAG = "";
-$COMUNA = "";
 $FDA = "";
 $TPLANTA = "";
-$CIUDAD = "";
+$COMUNA = "";
+$PROVINCIA = "";
+$REGION = "";
 $EMPRESA = "";
 
 $NOMBRE = "";
@@ -53,9 +57,10 @@ $ARRAYEMPRESA = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYPLANTA = $PLANTA_ADO->listarPlantaCBX();
-$ARRAYCOMUNA = $COMUNA_ADO->listarComunaCBX();
-$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
-$ARRAYEMPRESA = $EMPRESA_ADO->listarEmpresaCBX();
+
+$ARRAYCOMUNA = $COMUNA_ADO->listarComuna3CBX();
+$ARRAYPROVINCIA  = $PROVINCIA_ADO->listarProvincia3CBX();
+$ARRAYREGION = $REGION_ADO->listarRegion3CBX();
 include_once "../../assest/config/validarDatosUrl.php";
 include_once "../../assest/config/datosUrl.php";
 
@@ -101,7 +106,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $DIRECCION = "" . $r['DIRECCION_PLANTA'];
             $CODIGOSAG = "" . $r['CODIGO_SAG_PLANTA'];
             $FDA = "" . $r['FDA_PLANTA'];
-            $CIUDAD = "" . $r['ID_CIUDAD'];
+            $COMUNA = "" . $r['ID_COMUNA'];
+            $PROVINCIA = "" . $r['ID_PROVINCIA'];
+            $REGION = "" . $r['ID_REGION'];
             $TPLANTA = "" . $r['TPLANTA'];
         endforeach;
     }
@@ -124,12 +131,43 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $DIRECCION = "" . $r['DIRECCION_PLANTA'];
             $CODIGOSAG = "" . $r['CODIGO_SAG_PLANTA'];
             $FDA = "" . $r['FDA_PLANTA'];
-            $CIUDAD = "" . $r['ID_CIUDAD'];
+            $COMUNA = "" . $r['ID_COMUNA'];
+            $PROVINCIA = "" . $r['ID_PROVINCIA'];
+            $REGION = "" . $r['ID_REGION'];
             $TPLANTA = "" . $r['TPLANTA'];
         endforeach;
     }
 }
 
+if($_POST){
+    if (isset($_REQUEST['NOMBREPLANTA'])) {
+        $NOMBREPLANTA = $_REQUEST['NOMBREPLANTA'];
+    }
+    if (isset($_REQUEST['RAZONSOCIAL'])) {
+        $RAZONSOCIAL = $_REQUEST['RAZONSOCIAL'];
+    }
+    if (isset($_REQUEST['DIRECCION'])) {
+        $DIRECCION = $_REQUEST['DIRECCION'];
+    }
+    if (isset($_REQUEST['CODIGOSAG'])) {
+        $CODIGOSAG = $_REQUEST['CODIGOSAG'];
+    }
+    if (isset($_REQUEST['FDA'])) {
+        $FDA = $_REQUEST['FDA'];
+    }  
+    if (isset($_REQUEST['COMUNA'])) {
+        $COMUNA = $_REQUEST['COMUNA'];
+    }
+    if (isset($_REQUEST['PROVINCIA'])) {
+        $PROVINCIA = $_REQUEST['PROVINCIA'];
+    }
+    if (isset($_REQUEST['REGION'])) {
+        $REGION = $_REQUEST['REGION'];
+    }
+    if (isset($_REQUEST['TPLANTA'])) {
+        $TPLANTA = $_REQUEST['TPLANTA'];
+    }
+}
 
 ?>
 
@@ -157,7 +195,10 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     DIRECCION = document.getElementById("DIRECCION").value;
                     CODIGOSAG = document.getElementById("CODIGOSAG").value;
                     TPLANTA = document.getElementById("TPLANTA").selectedIndex;
-                    CIUDAD = document.getElementById("CIUDAD").selectedIndex;
+                    COMUNA = document.getElementById("COMUNA").selectedIndex;
+                    PROVINCIA = document.getElementById("PROVINCIA").selectedIndex;
+                    REGION = document.getElementById("REGION").selectedIndex;
+
                     FDA = document.getElementById("FDA").value;
 
                     document.getElementById('val_nombre').innerHTML = "";
@@ -165,7 +206,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     document.getElementById('val_direccion').innerHTML = "";
                     document.getElementById('val_codigosag').innerHTML = "";
                     document.getElementById('val_tplanta').innerHTML = "";
-                    document.getElementById('val_ciudad').innerHTML = "";
+                    document.getElementById('val_comuna').innerHTML = "";
+                    document.getElementById('val_provincia').innerHTML = "";
+                    document.getElementById('val_region').innerHTML = "";
                     document.getElementById('val_fda').innerHTML = "";
 
                     if (NOMBREPLANTA == null || NOMBREPLANTA.length == 0 || /^\s+$/.test(NOMBREPLANTA)) {
@@ -205,13 +248,29 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     }
                     document.form_reg_dato.TPLANTA.style.borderColor = "#4AF575";
 
-                    if (CIUDAD == null || CIUDAD == 0) {
-                        document.form_reg_dato.CIUDAD.focus();
-                        document.form_reg_dato.CIUDAD.style.borderColor = "#FF0000";
-                        document.getElementById('val_ciudad').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                    if (COMUNA == null || COMUNA == 0) {
+                        document.form_reg_dato.COMUNA.focus();
+                        document.form_reg_dato.COMUNA.style.borderColor = "#FF0000";
+                        document.getElementById('val_comuna').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
                         return false;
                     }
-                    document.form_reg_dato.CIUDAD.style.borderColor = "#4AF575";
+                    document.form_reg_dato.COMUNA.style.borderColor = "#4AF575";
+
+                    if (PROVINCIA == null || PROVINCIA == 0) {
+                        document.form_reg_dato.PROVINCIA.focus();
+                        document.form_reg_dato.PROVINCIA.style.borderColor = "#FF0000";
+                        document.getElementById('val_provincia').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                        return false;
+                    }
+                    document.form_reg_dato.PROVINCIA.style.borderColor = "#4AF575";
+
+                    if (REGION == null || REGION == 0) {
+                        document.form_reg_dato.REGION.focus();
+                        document.form_reg_dato.REGION.style.borderColor = "#FF0000";
+                        document.getElementById('val_region').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                        return false;
+                    }
+                    document.form_reg_dato.REGION.style.borderColor = "#4AF575";
 
 
                     if (FDA == null || FDA.length == 0 || /^\s+$/.test(FDA)) {
@@ -304,26 +363,29 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label>Tipo Planta</label>
                                                         <select class="form-control select2" id="TPLANTA" name="TPLANTA" style="width: 100%;" value="<?php echo $TPLANTA; ?>" <?php echo $DISABLED; ?>>
                                                             <option></option>
-                                                            <option value="1" <?php if ($TPLANTA == "1") {
-                                                                                    echo "selected";
-                                                                                } ?>> Propia </option>
-                                                            <option value="2" <?php if ($TPLANTA == "2") {
-                                                                                    echo "selected";
-                                                                                } ?>> Externa </option>
+                                                            <option value="1" <?php if ($TPLANTA == "1") { echo "selected"; } ?>> Propia </option>
+                                                            <option value="2" <?php if ($TPLANTA == "2") { echo "selected"; } ?>> Externa </option>
                                                         </select>
                                                         <label id="val_tplanta" class="validacion"> </label>
                                                     </div>
-                                                </div>
+                                                </div>   
                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">    
                                                     <div class="form-group">
-                                                        <label>Ciudad</label>
-                                                        <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
+                                                        <label>FDA</label>
+                                                        <input type="number" class="form-control" placeholder="FDA" id="FDA" name="FDA" value="<?php echo $FDA; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_fda" class="validacion"> </label>
+                                                    </div>
+                                                </div>                                             
+                                                <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-9 col-9 col-xs-9">
+                                                    <div class="form-group">
+                                                        <label> Comuna</label>
+                                                        <select class="form-control select2" id="COMUNA" name="COMUNA" style="width: 100%;" value="<?php echo $COMUNA; ?>" <?php echo $DISABLED; ?>>
                                                             <option></option>
-                                                            <?php foreach ($ARRAYCIUDAD as $r) : ?>
-                                                                <?php if ($ARRAYCIUDAD) {    ?>
-                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>" 
-                                                                    <?php if ($CIUDAD == $r['ID_CIUDAD']) {   echo "selected";    } ?>>
-                                                                        <?php echo $r['CIUDAD'] ?>, <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
+                                                            <?php foreach ($ARRAYCOMUNA as $r) : ?>
+                                                                <?php if ($ARRAYCOMUNA) {    ?>
+                                                                    <option value="<?php echo $r['ID_COMUNA']; ?>" 
+                                                                    <?php if ($COMUNA == $r['ID_COMUNA']) { echo "selected";  } ?>>
+                                                                        <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
                                                                     <option>No Hay Datos Registrados </option>
@@ -331,16 +393,76 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
                                                             <?php endforeach; ?>
                                                         </select>
-                                                        <label id="val_ciudad" class="validacion"> </label>
+                                                        <label id="val_comuna" class="validacion"> </label>
+                                                    </div>
+                                                </div>    
+                                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                                    <div class="form-group">  
+                                                    <label>Agregar</label>                  
+                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" <?php echo $DISABLED; ?>  title="Agregar Comuna" id="defecto" name="pop" 
+                                                        Onclick="abrirVentana('registroPopComuna.php' ); ">
+                                                        <i class="icon-copy fa fa-plus" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>        
+                                                <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-9 col-9 col-xs-9">
+                                                    <div class="form-group">
+                                                        <label> Provincia</label>
+                                                        <select class="form-control select2" id="PROVINCIA" name="PROVINCIA" style="width: 100%;" value="<?php echo $PROVINCIA; ?>" <?php echo $DISABLED; ?>>
+                                                            <option></option>
+                                                            <?php foreach ($ARRAYPROVINCIA as $r) : ?>
+                                                                <?php if ($ARRAYPROVINCIA) {    ?>
+                                                                    <option value="<?php echo $r['ID_PROVINCIA']; ?>" 
+                                                                        <?php if ($PROVINCIA == $r['ID_PROVINCIA']) {  echo "selected";  } ?>>
+                                                                         <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
+                                                                    </option>
+                                                                <?php } else { ?>
+                                                                    <option>No Hay Datos Registrados </option>
+                                                                <?php } ?>
+
+                                                            <?php endforeach; ?>
+
+                                                        </select>
+                                                        <label id="val_provincia" class="validacion"> </label>
+                                                    </div>
+                                                </div>  
+                                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                                    <div class="form-group">  
+                                                    <label>Agregar</label>                  
+                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" <?php echo $DISABLED; ?>  title="Agregar Provincia" id="defecto" name="pop" 
+                                                        Onclick="abrirVentana('registroPopProvincia.php' ); ">
+                                                        <i class="icon-copy fa fa-plus" aria-hidden="true"></i>
+                                                        </button>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">    
-                                                <div class="form-group">
-                                                    <label>FDA</label>
-                                                    <input type="number" class="form-control" placeholder="FDA" id="FDA" name="FDA" value="<?php echo $FDA; ?>" <?php echo $DISABLED; ?> />
-                                                    <label id="val_fda" class="validacion"> </label>
-                                                </div>
+                                                <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-9 col-9 col-xs-9">
+                                                    <div class="form-group">
+                                                        <label> Region</label>
+                                                        <select class="form-control select2" id="REGION" name="REGION" style="width: 100%;" value="<?php echo $REGION; ?>" <?php echo $DISABLED; ?>>
+                                                            <option></option>
+                                                            <?php foreach ($ARRAYREGION as $r) : ?>
+                                                                <?php if ($ARRAYREGION) {    ?>
+                                                                    <option value="<?php echo $r['ID_REGION']; ?>" 
+                                                                        <?php if ($REGION == $r['ID_REGION']) { echo "selected";  } ?>>
+                                                                        <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
+                                                                    </option>
+                                                                <?php } else { ?>
+                                                                    <option>No Hay Datos Registrados </option>
+                                                                <?php } ?>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                        <label id="val_region" class="validacion"> </label>
+                                                    </div>
+                                                </div>   
+                                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                                    <div class="form-group">  
+                                                    <label>Agregar</label>                  
+                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" <?php echo $DISABLED; ?>  title="Agregar Region" id="defecto" name="pop" 
+                                                        Onclick="abrirVentana('registroPopRegion.php' ); ">
+                                                        <i class="icon-copy fa fa-plus" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
+                                                </div> 
                                             </div>
                                         </div>
                                         <!-- /.box-body -->                             
@@ -464,9 +586,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $PLANTA->__SET('CODIGO_SAG_PLANTA', $_REQUEST['CODIGOSAG']);
                 $PLANTA->__SET('FDA_PLANTA', $_REQUEST['FDA']);
                 $PLANTA->__SET('TPLANTA', $_REQUEST['TPLANTA']);
+                $PLANTA->__SET('ID_COMUNA', $_REQUEST['COMUNA']);  
+                $PLANTA->__SET('ID_PROVINCIA', $_REQUEST['PROVINCIA']);  
+                $PLANTA->__SET('ID_REGION', $_REQUEST['REGION']);   
                 $PLANTA->__SET('ID_USUARIOI', $IDUSUARIOS);
                 $PLANTA->__SET('ID_USUARIOM', $IDUSUARIOS);
-                $PLANTA->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $PLANTA_ADO->agregarPlanta($PLANTA);
                 //REDIRECCIONAR A PAGINA registroPlanta.php
@@ -495,12 +619,15 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $PLANTA->__SET('CODIGO_SAG_PLANTA', $_REQUEST['CODIGOSAG']);
                 $PLANTA->__SET('FDA_PLANTA', $_REQUEST['FDA']);
                 $PLANTA->__SET('TPLANTA', $_REQUEST['TPLANTA']);
-                $PLANTA->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+                $PLANTA->__SET('ID_COMUNA', $_REQUEST['COMUNA']);  
+                $PLANTA->__SET('ID_PROVINCIA', $_REQUEST['PROVINCIA']);  
+                $PLANTA->__SET('ID_REGION', $_REQUEST['REGION']);   
                 $PLANTA->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $PLANTA->__SET('ID_PLANTA', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
                 $PLANTA_ADO->actualizarPlanta($PLANTA);
                 //REDIRECCIONAR A PAGINA registroPlanta.php
+                
                 echo '<script>
                     Swal.fire({
                         icon:"success",

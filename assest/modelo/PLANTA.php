@@ -11,7 +11,6 @@
         private	  $ID_PLANTA; 
         private	  $NOMBRE_PLANTA;
         private	  $RAZON_SOCIAL_PLANTA;    
-        private	  $ID_CIUDAD;
         private	  $DIRECCION_PLANTA;
         private	  $CODIGO_SAG_PLANTA;
         private	  $FDA_PLANTA;
@@ -19,6 +18,9 @@
         private   $INGRESO;
         private   $MODIFICACION;
         private   $ESTADO_REGISTRO;
+        private	  $ID_COMUNA;
+        private	  $ID_PROVINCIA;
+        private	  $ID_REGION;
         private   $ID_USUARIOI;
         private   $ID_USUARIOM;
         

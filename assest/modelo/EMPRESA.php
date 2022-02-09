@@ -15,13 +15,15 @@
         private	  $RAZON_SOCIAL_EMPRESA;
         private	  $DIRECCION_EMPRESA;
         private	  $GIRO_EMPRESA;
-        private	  $ID_CIUDAD;
         private	  $TELEFONO_EMPRESA;
         private	  $ENCARGADO_COMPRA_EMPRESA;
         private	  $LOGO_EMPRESA;
         private   $ESTADO_REGISTRO;
         private   $INGRESO;
         private   $MODIFICACION;
+        private	  $ID_COMUNA;
+        private	  $ID_PROVINCIA;
+        private	  $ID_REGION;
         private   $ID_USUARIOI;
         private   $ID_USUARIOM;
         

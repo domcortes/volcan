@@ -154,14 +154,16 @@ class EMPRESA_ADO {
                                                   TELEFONO_EMPRESA  , 
                                                   ENCARGADO_COMPRA_EMPRESA  , 
                                                   LOGO_EMPRESA  , 
-                                                  ID_CIUDAD  ,
+                                                  ID_COMUNA  ,
+                                                  ID_PROVINCIA  ,
+                                                  ID_REGION  ,
                                                   ID_USUARIOI  ,
                                                   ID_USUARIOM  ,
                                                   INGRESO  ,
                                                   MODIFICACION  , 
                                                   ESTADO_REGISTRO  
                                              ) VALUES
-	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE(), SYSDATE(), 1);";
+	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE(), SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -175,7 +177,9 @@ class EMPRESA_ADO {
                     $EMPRESA->__GET('TELEFONO_EMPRESA'),
                     $EMPRESA->__GET('ENCARGADO_COMPRA_EMPRESA'), 
                     $EMPRESA->__GET('LOGO_EMPRESA'),
-                    $EMPRESA->__GET('ID_CIUDAD'),
+                    $EMPRESA->__GET('ID_COMUNA'),
+                    $EMPRESA->__GET('ID_PROVINCIA'),
+                    $EMPRESA->__GET('ID_REGION'),
                     $EMPRESA->__GET('ID_USUARIOI'),
                     $EMPRESA->__GET('ID_USUARIOM')
                     
@@ -206,7 +210,9 @@ class EMPRESA_ADO {
               TELEFONO_EMPRESA   = ?,
               ENCARGADO_COMPRA_EMPRESA   = ?,
               LOGO_EMPRESA   = ?,
-              ID_CIUDAD  = ?,
+              ID_COMUNA  = ?,
+              ID_PROVINCIA  = ?,
+              ID_REGION  = ?,
               ID_USUARIOM  = ?
 		WHERE   ID_EMPRESA  = ?;";
             $this->conexion->prepare($query)
@@ -221,7 +227,9 @@ class EMPRESA_ADO {
                     $EMPRESA->__GET('TELEFONO_EMPRESA'),
                     $EMPRESA->__GET('ENCARGADO_COMPRA_EMPRESA'),
                     $EMPRESA->__GET('LOGO_EMPRESA'),
-                    $EMPRESA->__GET('ID_CIUDAD'),
+                    $EMPRESA->__GET('ID_COMUNA'),
+                    $EMPRESA->__GET('ID_PROVINCIA'),
+                    $EMPRESA->__GET('ID_REGION'),
                     $EMPRESA->__GET('ID_USUARIOM'),
                     $EMPRESA->__GET('ID_EMPRESA')
                     

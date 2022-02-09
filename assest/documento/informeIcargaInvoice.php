@@ -51,9 +51,12 @@ include_once '../../assest/controlador/ESPECIES_ADO.php';
 include_once '../../assest/controlador/VESPECIES_ADO.php';
 include_once '../../assest/controlador/TCALIBRE_ADO.php';
 include_once '../../assest/controlador/TMONEDA_ADO.php';
-include_once '../../assest/controlador/CIUDAD_ADO.php';
 include_once '../../assest/controlador/ECOMERCIAL_ADO.php';
  
+include_once '../../assest/controlador/PAIS_ADO.php';
+include_once '../../assest/controlador/REGION_ADO.php';
+include_once '../../assest/controlador/PROVINCIA_ADO.php';
+include_once '../../assest/controlador/COMUNA_ADO.php';
 
 include_once '../../assest/controlador/PRODUCTOR_ADO.php';
 include_once '../../assest/controlador/DESPACHOEX_ADO.php';
@@ -107,12 +110,16 @@ $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $PAIS_ADO =  new PAIS_ADO();
 $TCALIBRE_ADO = new TCALIBRE_ADO();
 $TMONEDA_ADO = new TMONEDA_ADO();
-$CIUDAD_ADO = new CIUDAD_ADO();
 $ECOMERCIAL_ADO = new ECOMERCIAL_ADO();
 
 
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 $DESPACHOEX_ADO = new DESPACHOEX_ADO();
+
+$PAIS_ADO =  new PAIS_ADO();
+$REGION_ADO =  new REGION_ADO();
+$PROVINCIA_ADO =  new PROVINCIA_ADO();
+$COMUNA_ADO =  new COMUNA_ADO();
 
 $ICARGA_ADO =  new ICARGA_ADO();
 $DICARGA_ADO =  new DICARGA_ADO();
@@ -192,6 +199,9 @@ $ARRAYDCARGA = "";
 $ARRAYCALIBRE = "";
 $ARRAYNUMERO = "";
 $ARRAYVERNOTADCNC="";
+$ARRAYCOMUNA="";
+$ARRYAPROVINCIA="";
+$ARRYAREGION="";
 
 
 if (isset($_REQUEST['usuario'])) {
@@ -491,9 +501,9 @@ if($ARRAYICARGA){
     $RAZONSOCIALEMPRESA = $ARRAYEMPRESA[0]["RAZON_SOCIAL_EMPRESA"];
     $RUTEMPRESA=$ARRAYEMPRESA[0]["RUT_EMPRESA"]."-".$ARRAYEMPRESA[0]["DV_EMPRESA"];
     $DIRECCIONEMPRESA=$ARRAYEMPRESA[0]["DIRECCION_EMPRESA"];
-    $ARRAYCIUDAD=$CIUDAD_ADO->listarCiudadeCoProRePACBX($ARRAYEMPRESA[0]["ID_CIUDAD"]);
-    if($ARRAYCIUDAD){
-      $UBICACION=$ARRAYCIUDAD[0]["UBICACION"];
+    $ARRAYCOMUNA=$COMUNA_ADO->verComuna2($ARRAYEMPRESA[0]["ID_COMUNA"]);
+    if($ARRAYCOMUNA){
+      $UBICACION=$ARRAYCOMUNA[0]["COMUNA"].", ".$ARRAYCOMUNA[0]["PAIS"];
       $DIRECCIONEMPRESA=$DIRECCIONEMPRESA.", ".$UBICACION;
     }else{
       $DIRECCIONEMPRESA=$DIRECCIONEMPRESA;

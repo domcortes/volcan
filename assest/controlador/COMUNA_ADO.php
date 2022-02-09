@@ -148,6 +148,35 @@ class COMUNA_ADO {
         }
         
     }
+    public function verComuna2($ID){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT 
+                                                    comuna.ID_COMUNA  ,
+                                                    comuna.NOMBRE_COMUNA  AS 'COMUNA',
+                                                    provincia.NOMBRE_PROVINCIA  AS 'PROVINCIA',
+                                                    region.NOMBRE_REGION  AS 'REGION',
+                                                    pais.NOMBRE_PAIS  AS 'PAIS'
+                                                FROM  ubicacion_comuna comuna, ubicacion_provincia provincia, ubicacion_region region, ubicacion_pais pais
+                                                WHERE ID_COMUNA= '".$ID."'
+                                                    AND comuna.ID_PROVINCIA = provincia.ID_PROVINCIA 
+                                                    AND provincia.ID_REGION = region.ID_REGION 
+                                                    AND region.ID_PAIS = pais.ID_PAIS
+                                                    ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
 
   
     

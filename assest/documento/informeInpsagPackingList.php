@@ -29,7 +29,6 @@ include_once '../../assest/controlador/PAIS_ADO.php';
 include_once '../../assest/controlador/REGION_ADO.php';
 include_once '../../assest/controlador/PROVINCIA_ADO.php';
 include_once '../../assest/controlador/COMUNA_ADO.php';
-include_once '../../assest/controlador/CIUDAD_ADO.php';
 
 
 
@@ -60,7 +59,6 @@ $PAIS_ADO =  new PAIS_ADO();
 $REGION_ADO =  new REGION_ADO();
 $PROVINCIA_ADO =  new PROVINCIA_ADO();
 $COMUNA_ADO =  new COMUNA_ADO();
-$CIUDAD_ADO =  new CIUDAD_ADO();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 $NUMERO = "";
@@ -108,6 +106,13 @@ $NOMBREPLANTA2="";
 $COMUNAPLANTA2="";
 $PROVINCIAPLANTA2="";
 
+
+$CSPPLANTA="";
+$NOMBREPLANTA="";    
+$COMUNAPLANTA="";
+$PROVINCIAPLANTA="";
+$REGIONPLANTA="";
+$PAISPLANTA="";
 
 
 
@@ -441,21 +446,33 @@ foreach ($ARRAYEXIEXPORTACION as $r) :
       $REGIONPRODUCTOR="Sin Datos";
     }
 
-
     $ARRAYPLANTA2=$PLANTA_ADO->verPlanta($d['ID_PLANTA2']);
     if($ARRAYPLANTA2){
       $CSPPLANTA=$ARRAYPLANTA2[0]["CODIGO_SAG_PLANTA"];
-      $NOMBREPLANTA=$ARRAYPLANTA2[0]["NOMBRE_PLANTA"];  
-      $ARRAYCIUDAD = $CIUDAD_ADO->listarCiudadeUbicaciónCompleta($ARRAYPLANTA2[0]["ID_CIUDAD"]);
-      $CIUDADPLANTA=$ARRAYCIUDAD[0]["CIUDAD"];   
-      $COMUNAPLANTA=$ARRAYCIUDAD[0]["COMUNA"];
-      $PROVINCIAPLANTA=$ARRAYCIUDAD[0]["PROVINCIA"];
-      $REGIONPLANTA=$ARRAYCIUDAD[0]["REGION"];
-      $PAISPLANTA=$ARRAYCIUDAD[0]["PAIS"];
+      $NOMBREPLANTA=$ARRAYPLANTA2[0]["NOMBRE_PLANTA"];        
+      $ARRAYCOMUNA=$COMUNA_ADO->verComuna2($ARRAYPLANTA2[0]["ID_COMUNA"]);
+      if($ARRAYCOMUNA){
+        $COMUNAPLANTA=$ARRAYCOMUNA[0]["COMUNA"];
+        $PAISPLANTA=$ARRAYCOMUNA[0]["PAIS"];
+      }else{
+        $COMUNAPLANTA="";
+        $PAISPLANTA="";
+      }
+      $ARRAYPROVINCIA=$PROVINCIA_ADO->verProvincia($ARRAYPLANTA2[0]["ID_PROVINCIA"]); 
+      if($ARRAYPROVINCIA){
+        $PROVINCIAPLANTA=$ARRAYPROVINCIA[0]["NOMBRE_PROVINCIA"];
+      }else{
+        $PROVINCIAPLANTA="";
+      }
+      $ARRAYREGION=$REGION_ADO->verRegion($ARRAYPLANTA2[0]["ID_REGION"]); 
+      if($ARRAYREGION){
+        $REGIONPLANTA=$ARRAYREGION[0]["NOMBRE_REGION"];
+      }else{
+        $REGIONPLANTA="";
+      }
     }else{
       $CSPPLANTA="";
-      $NOMBREPLANTA="";        
-      $CIUDADPLANTA="";   
+      $NOMBREPLANTA="";    
       $COMUNAPLANTA="";
       $PROVINCIAPLANTA="";
       $REGIONPLANTA="";

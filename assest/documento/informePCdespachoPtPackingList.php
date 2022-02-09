@@ -27,7 +27,6 @@ include_once '../../assest/controlador/PAIS_ADO.php';
 include_once '../../assest/controlador/REGION_ADO.php';
 include_once '../../assest/controlador/PROVINCIA_ADO.php';
 include_once '../../assest/controlador/COMUNA_ADO.php';
-include_once '../../assest/controlador/CIUDAD_ADO.php';
 
 
 
@@ -57,7 +56,6 @@ $PAIS_ADO =  new PAIS_ADO();
 $REGION_ADO =  new REGION_ADO();
 $PROVINCIA_ADO =  new PROVINCIA_ADO();
 $COMUNA_ADO =  new COMUNA_ADO();
-$CIUDAD_ADO =  new CIUDAD_ADO();
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
@@ -410,15 +408,36 @@ foreach ($ARRAYEXIEXPORTACION as $d) :
     }
   
     $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($d['ID_PLANTA2']);
-    if ($ARRAYPLANTA2) {
-      $CSPPLANTA2 = $ARRAYPLANTA2[0]["CODIGO_SAG_PLANTA"];
-      $NOMBREPLANTA2 = $ARRAYPLANTA2[0]["NOMBRE_PLANTA"];
-      $ARRAYCIUDAD = $CIUDAD_ADO->listarCiudadeUbicaciónCompleta($ARRAYPLANTA2[0]["ID_CIUDAD"]);
-      $CIUDADPLANTA=$ARRAYCIUDAD[0]["CIUDAD"];   
-      $COMUNAPLANTA=$ARRAYCIUDAD[0]["COMUNA"];
-      $PROVINCIAPLANTA=$ARRAYCIUDAD[0]["PROVINCIA"];
-      $REGIONPLANTA=$ARRAYCIUDAD[0]["REGION"];
-      $PAISPLANTA=$ARRAYCIUDAD[0]["PAIS"];
+    if($ARRAYPLANTA2){
+      $CSPPLANTA=$ARRAYPLANTA2[0]["CODIGO_SAG_PLANTA"];
+      $NOMBREPLANTA=$ARRAYPLANTA2[0]["NOMBRE_PLANTA"];        
+      $ARRAYCOMUNA=$COMUNA_ADO->verComuna2($ARRAYPLANTA2[0]["ID_COMUNA"]);
+      if($ARRAYCOMUNA){
+        $COMUNAPLANTA=$ARRAYCOMUNA[0]["COMUNA"];
+        $PAISPLANTA=$ARRAYCOMUNA[0]["PAIS"];
+      }else{
+        $COMUNAPLANTA="";
+        $PAISPLANTA="";
+      }
+      $ARRAYPROVINCIA=$PROVINCIA_ADO->verProvincia($ARRAYPLANTA2[0]["ID_PROVINCIA"]); 
+      if($ARRAYPROVINCIA){
+        $PROVINCIAPLANTA=$ARRAYPROVINCIA[0]["NOMBRE_PROVINCIA"];
+      }else{
+        $PROVINCIAPLANTA="";
+      }
+      $ARRAYREGION=$REGION_ADO->verRegion($ARRAYPLANTA2[0]["ID_REGION"]); 
+      if($ARRAYREGION){
+        $REGIONPLANTA=$ARRAYREGION[0]["NOMBRE_REGION"];
+      }else{
+        $REGIONPLANTA="";
+      }
+    }else{
+      $CSPPLANTA="";
+      $NOMBREPLANTA="";    
+      $COMUNAPLANTA="";
+      $PROVINCIAPLANTA="";
+      $REGIONPLANTA="";
+      $PAISPLANTA="";
     }
 
 
@@ -454,8 +473,8 @@ foreach ($ARRAYEXIEXPORTACION as $d) :
                           <td class="center">' . $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'] . '</td>      4
                           <td class="center">' . $PROVINCIAPRODUCTOR . '</td>      
                           <td class="center">' . $COMUNAPRODUCTOR . '</td>          
-                          <td class="center">' . $CSPPLANTA2 . '</td>     
-                          <td class="center">' . $NOMBREPLANTA2 . '</td>    
+                          <td class="center">' . $CSPPLANTA . '</td>     
+                          <td class="center">' . $NOMBREPLANTA . '</td>    
                           <td class="center">' . $PROVINCIAPLANTA . '</td>   
                           <td class="center">' . $COMUNAPLANTA . '</td>   
                           <td class=" center">' . $d['EMBALADO'] . '</td>

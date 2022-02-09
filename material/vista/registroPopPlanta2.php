@@ -5,7 +5,9 @@ include_once "../../assest/config/validarUsuarioMaterial.php";
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
 include_once '../../assest/controlador/COMUNA_ADO.php';
-include_once '../../assest/controlador/CIUDAD_ADO.php';
+include_once '../../assest/controlador/PROVINCIA_ADO.php';
+include_once '../../assest/controlador/REGION_ADO.php';
+
 
 
 include_once '../../assest/modelo/PLANTA.php';
@@ -13,7 +15,8 @@ include_once '../../assest/modelo/PLANTA.php';
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 $COMUNA_ADO =  new COMUNA_ADO();
-$CIUDAD_ADO =  new CIUDAD_ADO();
+$PROVINCIA_ADO =  new PROVINCIA_ADO();
+$REGION_ADO =  new REGION_ADO();
 
 //INIICIALIZAR MODELO
 $PLANTA =  new PLANTA();
@@ -32,7 +35,9 @@ $CODIGOSAG = "";
 $COMUNA = "";
 $FDA = "";
 $TPLANTA = "";
-$CIUDAD = "";
+$COMUNA = "";
+$PROVINCIA = "";
+$REGION = "";
 $CONTRAPARTE = "";
 $EMPRESA = "";
 
@@ -54,8 +59,9 @@ $ARRAYEMPRESA = "";
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
-$ARRAYEMPRESA = $EMPRESA_ADO->listarEmpresaCBX();
+$ARRAYCOMUNA = $COMUNA_ADO->listarComuna3CBX();
+$ARRAYPROVINCIA  = $PROVINCIA_ADO->listarProvincia3CBX();
+$ARRAYREGION = $REGION_ADO->listarRegion3CBX();
 
 //OPERACIONES
 //OPERACION DE REGISTRO DE FILA
@@ -71,7 +77,9 @@ if (isset($_REQUEST['GUARDAR'])) {
     $PLANTA->__SET('CODIGO_SAG_PLANTA', $_REQUEST['CODIGOSAG']);
     $PLANTA->__SET('FDA_PLANTA', $_REQUEST['FDA']);
     $PLANTA->__SET('TPLANTA', "2");
-    $PLANTA->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+    $PLANTA->__SET('ID_COMUNA', $_REQUEST['COMUNA']);  
+    $PLANTA->__SET('ID_PROVINCIA', $_REQUEST['PROVINCIA']);  
+    $PLANTA->__SET('ID_REGION', $_REQUEST['REGION']);   
     $PLANTA->__SET('ID_USUARIOI', $IDUSUARIOS);
     $PLANTA->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
@@ -112,14 +120,18 @@ if (isset($_REQUEST['GUARDAR'])) {
                     RAZONSOCIAL = document.getElementById("RAZONSOCIAL").value;
                     DIRECCION = document.getElementById("DIRECCION").value;
                     CODIGOSAG = document.getElementById("CODIGOSAG").value;
-                    CIUDAD = document.getElementById("CIUDAD").selectedIndex;
+                    COMUNA = document.getElementById("COMUNA").selectedIndex;
+                    PROVINCIA = document.getElementById("PROVINCIA").selectedIndex;
+                    REGION = document.getElementById("REGION").selectedIndex;
                     FDA = document.getElementById("FDA").value;
 
                     document.getElementById('val_nombre').innerHTML = "";
                     document.getElementById('val_razonsocial').innerHTML = "";
                     document.getElementById('val_direccion').innerHTML = "";
                     document.getElementById('val_codigosag').innerHTML = "";
-                    document.getElementById('val_ciudad').innerHTML = "";
+                    document.getElementById('val_comuna').innerHTML = "";
+                    document.getElementById('val_provincia').innerHTML = "";
+                    document.getElementById('val_region').innerHTML = "";
                     document.getElementById('val_fda').innerHTML = "";
 
                     if (NOMBREPLANTA == null || NOMBREPLANTA.length == 0 || /^\s+$/.test(NOMBREPLANTA)) {
@@ -152,13 +164,30 @@ if (isset($_REQUEST['GUARDAR'])) {
                     document.form_reg_dato.CODIGOSAG.style.borderColor = "#4AF575";
 
 
-                    if (CIUDAD == null || CIUDAD == 0) {
-                        document.form_reg_dato.CIUDAD.focus();
-                        document.form_reg_dato.CIUDAD.style.borderColor = "#FF0000";
-                        document.getElementById('val_ciudad').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+
+                    if (COMUNA == null || COMUNA == 0) {
+                        document.form_reg_dato.COMUNA.focus();
+                        document.form_reg_dato.COMUNA.style.borderColor = "#FF0000";
+                        document.getElementById('val_comuna').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
                         return false;
                     }
-                    document.form_reg_dato.CIUDAD.style.borderColor = "#4AF575";
+                    document.form_reg_dato.COMUNA.style.borderColor = "#4AF575";
+
+                    if (PROVINCIA == null || PROVINCIA == 0) {
+                        document.form_reg_dato.PROVINCIA.focus();
+                        document.form_reg_dato.PROVINCIA.style.borderColor = "#FF0000";
+                        document.getElementById('val_provincia').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                        return false;
+                    }
+                    document.form_reg_dato.PROVINCIA.style.borderColor = "#4AF575";
+
+                    if (REGION == null || REGION == 0) {
+                        document.form_reg_dato.REGION.focus();
+                        document.form_reg_dato.REGION.style.borderColor = "#FF0000";
+                        document.getElementById('val_region').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                        return false;
+                    }
+                    document.form_reg_dato.REGION.style.borderColor = "#4AF575";
 
 
                     if (FDA == null || FDA.length == 0 || /^\s+$/.test(FDA)) {
@@ -222,17 +251,24 @@ if (isset($_REQUEST['GUARDAR'])) {
                                                         <input type="number" class="form-control" placeholder="Codigo SAG" id="CODIGOSAG" name="CODIGOSAG" value="<?php echo $CODIGOSAG; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_codigosag" class="validacion"> </label>
                                                     </div>
-                                                </div>
+                                                </div>   
                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">    
                                                     <div class="form-group">
-                                                        <label>Ciudad</label>
-                                                        <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
+                                                        <label>FDA</label>
+                                                        <input type="number" class="form-control" placeholder="FDA" id="FDA" name="FDA" value="<?php echo $FDA; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_fda" class="validacion"> </label>
+                                                    </div>
+                                                </div>                                    
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">    
+                                                    <div class="form-group">
+                                                        <label> Comuna</label>
+                                                        <select class="form-control select2" id="COMUNA" name="COMUNA" style="width: 100%;" value="<?php echo $COMUNA; ?>" <?php echo $DISABLED; ?>>
                                                             <option></option>
-                                                            <?php foreach ($ARRAYCIUDAD as $r) : ?>
-                                                                <?php if ($ARRAYCIUDAD) {    ?>
-                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>"
-                                                                     <?php if ($CIUDAD == $r['ID_CIUDAD']) { echo "selected"; } ?>>
-                                                                        <?php echo $r['CIUDAD'] ?>, <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
+                                                            <?php foreach ($ARRAYCOMUNA as $r) : ?>
+                                                                <?php if ($ARRAYCOMUNA) {    ?>
+                                                                    <option value="<?php echo $r['ID_COMUNA']; ?>" 
+                                                                    <?php if ($COMUNA == $r['ID_COMUNA']) { echo "selected";  } ?>>
+                                                                        <?php echo $r['COMUNA'] ?>, <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
                                                                     <option>No Hay Datos Registrados </option>
@@ -240,16 +276,49 @@ if (isset($_REQUEST['GUARDAR'])) {
 
                                                             <?php endforeach; ?>
                                                         </select>
-                                                        <label id="val_ciudad" class="validacion"> </label>
+                                                        <label id="val_comuna" class="validacion"> </label>
                                                     </div>
-                                                </div>
+                                                </div>       
                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">    
                                                     <div class="form-group">
-                                                        <label>FDA</label>
-                                                        <input type="number" class="form-control" placeholder="FDA" id="FDA" name="FDA" value="<?php echo $FDA; ?>" <?php echo $DISABLED; ?> />
-                                                        <label id="val_fda" class="validacion"> </label>
+                                                        <label> Provincia</label>
+                                                        <select class="form-control select2" id="PROVINCIA" name="PROVINCIA" style="width: 100%;" value="<?php echo $PROVINCIA; ?>" <?php echo $DISABLED; ?>>
+                                                            <option></option>
+                                                            <?php foreach ($ARRAYPROVINCIA as $r) : ?>
+                                                                <?php if ($ARRAYPROVINCIA) {    ?>
+                                                                    <option value="<?php echo $r['ID_PROVINCIA']; ?>" 
+                                                                        <?php if ($PROVINCIA == $r['ID_PROVINCIA']) {  echo "selected";  } ?>>
+                                                                         <?php echo $r['PROVINCIA'] ?>, <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
+                                                                    </option>
+                                                                <?php } else { ?>
+                                                                    <option>No Hay Datos Registrados </option>
+                                                                <?php } ?>
+
+                                                            <?php endforeach; ?>
+
+                                                        </select>
+                                                        <label id="val_provincia" class="validacion"> </label>
                                                     </div>
-                                                </div>
+                                                </div>  
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">    
+                                                    <div class="form-group">
+                                                        <label> Region</label>
+                                                        <select class="form-control select2" id="REGION" name="REGION" style="width: 100%;" value="<?php echo $REGION; ?>" <?php echo $DISABLED; ?>>
+                                                            <option></option>
+                                                            <?php foreach ($ARRAYREGION as $r) : ?>
+                                                                <?php if ($ARRAYREGION) {    ?>
+                                                                    <option value="<?php echo $r['ID_REGION']; ?>" 
+                                                                        <?php if ($REGION == $r['ID_REGION']) { echo "selected";  } ?>>
+                                                                        <?php echo $r['REGION'] ?>, <?php echo $r['PAIS'] ?>
+                                                                    </option>
+                                                                <?php } else { ?>
+                                                                    <option>No Hay Datos Registrados </option>
+                                                                <?php } ?>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                        <label id="val_region" class="validacion"> </label>
+                                                    </div>
+                                                </div>   
                                             </div>
                                         </div>
                                         <!-- /.box-body -->                             
