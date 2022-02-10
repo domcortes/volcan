@@ -10,7 +10,7 @@ class EXIINDUSTRIAL {
     //ATRIBUTOS DE LA CLASE
     private	  $ID_EXIINDUSTRIAL; 
     private	  $FOLIO_EXIINDUSTRIAL;
-    private   $FOLIO_AUXILIAR_EXIINDUSTRIAL;
+    private   $FOLIO_AUXILIAR_EXIINDUSTRIAL;    
     private	  $FECHA_EMBALADO_EXIINDUSTRIAL;
     private	  $CANTIDAD_ENVASE_EXIINDUSTRIAL;
     private	  $KILOS_NETO_EXIINDUSTRIAL;
@@ -36,28 +36,29 @@ class EXIINDUSTRIAL {
     private   $INGRESO;
     private   $MODIFICACION;
     private	  $ID_TMANEJO;
-    private	  $ID_FOLIO;
-    private	  $ID_ESTANDAR;
     private	  $ID_PRODUCTOR;
-    private	  $ID_VESPECIES;    
+    private	  $ID_VESPECIES;  
     private   $ID_EMPRESA;
     private   $ID_PLANTA;
     private   $ID_TEMPORADA;
+    private	  $ID_FOLIO;
+    private	  $ID_ESTANDAR;  
+    private   $ID_TCALIBRE;
+    private   $ID_TEMBALAJE;
+    private   $ID_TTRATAMIENTO1;
+    private   $ID_TTRATAMIENTO2;
+    private   $ID_ESTANDARMP;
+    private   $ID_RECHAZADOMP;
+    private   $ID_LEVANTAMIENTOMP;
     private	  $ID_RECEPCION;
-    private	  $ID_PLANTA2;
-    private	  $ID_PLANTA3;
     private	  $ID_PROCESO;
     private	  $ID_REEMBALAJE;
     private   $ID_DESPACHO;
-    private   $ID_DESPACHO2;    
-    private   $ID_TCALIBRE;
-    private   $ID_TEMBALAJE;
-    private   $ID_RECHAZADOMP;
-    private   $ID_LEVANTAMIENTOMP;
-    private   $ID_RECHAZADOPT;
-    private   $ID_LEVANTAMIENTOPT;
-    private   $ID_ESTANDARMP;
-    private   $ID_ESTANDARPT;
+    private   $ID_DESPACHO2;   
+    private   $ID_DESPACHO3;     
+    private	  $ID_PLANTA2;
+    private	  $ID_PLANTA3;
+    private   $ID_EXIINDUSTRIAL2;
     
     
     //FUNCIONES GET Y SET
