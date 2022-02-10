@@ -45,7 +45,7 @@ class PLANTA_ADO {
     public function listarPlanta(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `principal_planta` limit 6;	");
+            $datos=$this->conexion->prepare("SELECT * FROM   principal_planta   limit 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -65,7 +65,7 @@ class PLANTA_ADO {
     public function listarPlantaCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `principal_planta` WHERE  `ESTADO_REGISTRO` = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM   principal_planta   WHERE    ESTADO_REGISTRO   = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -86,8 +86,8 @@ class PLANTA_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT * 
-                                            FROM `principal_planta` 
-                                            WHERE  `ESTADO_REGISTRO` = 1
+                                            FROM   principal_planta   
+                                            WHERE    ESTADO_REGISTRO   = 1
                                             AND TPLANTA = 1	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -107,8 +107,8 @@ class PLANTA_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT * 
-                                            FROM `principal_planta` 
-                                            WHERE  `ESTADO_REGISTRO` = 1
+                                            FROM   principal_planta   
+                                            WHERE    ESTADO_REGISTRO   = 1
                                             AND ID_PLANTA != '".$PLANTA."'
                                             AND TPLANTA = 1	");
             $datos->execute();
@@ -129,8 +129,8 @@ class PLANTA_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT * 
-                                            FROM `principal_planta` 
-                                            WHERE  `ESTADO_REGISTRO` = 1
+                                            FROM   principal_planta   
+                                            WHERE    ESTADO_REGISTRO   = 1
                                             AND TPLANTA = 2	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -151,7 +151,7 @@ class PLANTA_ADO {
     public function listarPlanta2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `principal_planta` WHERE  `ESTADO_REGISTRO`= 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM   principal_planta   WHERE    ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -171,7 +171,7 @@ class PLANTA_ADO {
     public function verPlanta($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `principal_planta` WHERE `ID_PLANTA`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM   principal_planta   WHERE   ID_PLANTA  = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -192,7 +192,7 @@ class PLANTA_ADO {
     public function buscarNombrePlanta($NOMBRE){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `principal_planta` WHERE `NOMBRE_PLANTA` LIKE '%".$NOMBRE."%';");
+            $datos=$this->conexion->prepare("SELECT * FROM   principal_planta   WHERE   NOMBRE_PLANTA   LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -213,22 +213,24 @@ class PLANTA_ADO {
         try{
             
             $query=
-            "INSERT INTO `principal_planta` ( 
-                                                `NOMBRE_PLANTA`, 
-                                                `RAZON_SOCIAL_PLANTA`,  
-                                                `DIRECCION_PLANTA`,  
-                                                `CODIGO_SAG_PLANTA`,  
-                                                `FDA_PLANTA`, 
-                                                `TPLANTA`,
-                                                `ID_CIUDAD`, 
-                                                `ID_USUARIOI`, 
-                                                `ID_USUARIOM`, 
-                                                `INGRESO`,
-                                                `MODIFICACION`,
-                                                `ESTADO_REGISTRO`
+            "INSERT INTO   principal_planta   ( 
+                                                  NOMBRE_PLANTA  , 
+                                                  RAZON_SOCIAL_PLANTA  ,  
+                                                  DIRECCION_PLANTA  ,  
+                                                  CODIGO_SAG_PLANTA  ,  
+                                                  FDA_PLANTA  , 
+                                                  TPLANTA  ,
+                                                  ID_COMUNA  ,
+                                                  ID_PROVINCIA  ,
+                                                  ID_REGION  ,
+                                                  ID_USUARIOI  , 
+                                                  ID_USUARIOM  , 
+                                                  INGRESO  ,
+                                                  MODIFICACION  ,
+                                                  ESTADO_REGISTRO  
                                             ) 
              VALUES
-	       	( ?, ?, ?, ?,  ?, ?, ?, ?, ?,SYSDATE(), SYSDATE(), 1);";
+	       	( ?, ?, ?, ?,  ?, ?, ?, ?, ?,  ?, ?,   SYSDATE(), SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -239,7 +241,9 @@ class PLANTA_ADO {
                     $PLANTA->__GET('CODIGO_SAG_PLANTA'),
                     $PLANTA->__GET('FDA_PLANTA'),
                     $PLANTA->__GET('TPLANTA'),
-                    $PLANTA->__GET('ID_CIUDAD'),
+                    $PLANTA->__GET('ID_COMUNA'),
+                    $PLANTA->__GET('ID_PROVINCIA'),
+                    $PLANTA->__GET('ID_REGION'),
                     $PLANTA->__GET('ID_USUARIOI'),
                     $PLANTA->__GET('ID_USUARIOM')
 
@@ -255,7 +259,7 @@ class PLANTA_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarPlanta($id){
-        try{$sql="DELETE FROM `principal_planta` WHERE `ID_PLANTA`=".$id.";";
+        try{$sql="DELETE FROM   principal_planta   WHERE   ID_PLANTA  =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -269,17 +273,19 @@ class PLANTA_ADO {
     public function actualizarPlanta(PLANTA $PLANTA){
         try{
             $query = "
-        UPDATE `principal_planta` SET
-           `MODIFICACION`  = SYSDATE(), 
-           `NOMBRE_PLANTA`  = ?, 
-           `RAZON_SOCIAL_PLANTA`= ?,  
-           `DIRECCION_PLANTA`= ?, 
-           `CODIGO_SAG_PLANTA`= ?, 
-           `FDA_PLANTA` = ?   ,
-           `TPLANTA` = ?   ,
-           `ID_CIUDAD`= ?  ,
-           `ID_USUARIOM`= ? 
-		WHERE `ID_PLANTA`= ?;";
+        UPDATE   principal_planta   SET
+             MODIFICACION    = SYSDATE(), 
+             NOMBRE_PLANTA    = ?, 
+             RAZON_SOCIAL_PLANTA  = ?,  
+             DIRECCION_PLANTA  = ?, 
+             CODIGO_SAG_PLANTA  = ?, 
+             FDA_PLANTA   = ?   ,
+             TPLANTA   = ?   ,
+             ID_COMUNA  = ?,
+             ID_PROVINCIA  = ?,
+             ID_REGION  = ?,
+             ID_USUARIOM  = ? 
+		WHERE   ID_PLANTA  = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -289,7 +295,9 @@ class PLANTA_ADO {
                     $PLANTA->__GET('CODIGO_SAG_PLANTA'),
                     $PLANTA->__GET('FDA_PLANTA'),
                     $PLANTA->__GET('TPLANTA'),
-                    $PLANTA->__GET('ID_CIUDAD'),
+                    $PLANTA->__GET('ID_COMUNA'),
+                    $PLANTA->__GET('ID_PROVINCIA'),
+                    $PLANTA->__GET('ID_REGION'),
                     $PLANTA->__GET('ID_USUARIOM'),
                     $PLANTA->__GET('ID_PLANTA')
                     
@@ -310,10 +318,10 @@ class PLANTA_ADO {
 
         try{
             $query = "
-		UPDATE `principal_planta` SET				
-        `MODIFICACION`= SYSDATE(),	
-            `ESTADO_REGISTRO` = 0
-		WHERE `ID_PLANTA`= ?;";
+		UPDATE   principal_planta   SET				
+          MODIFICACION  = SYSDATE(),	
+              ESTADO_REGISTRO   = 0
+		WHERE   ID_PLANTA  = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -332,10 +340,10 @@ class PLANTA_ADO {
 
         try{
             $query = "
-		UPDATE `principal_planta` SET				
-        `MODIFICACION`= SYSDATE(),	
-            `ESTADO_REGISTRO` = 1
-		WHERE `ID_PLANTA`= ?;";
+		UPDATE   principal_planta   SET				
+          MODIFICACION  = SYSDATE(),	
+              ESTADO_REGISTRO   = 1
+		WHERE   ID_PLANTA  = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -355,10 +363,10 @@ class PLANTA_ADO {
     public function listarPlantaDistinto($IDPLANTA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `principal_planta` 
+            $datos=$this->conexion->prepare("SELECT * FROM   principal_planta   
                                             WHERE 
                                                 ID_PLANTA != '".$IDPLANTA."'
-                                            AND `ESTADO_REGISTRO` = 1;	");
+                                            AND   ESTADO_REGISTRO   = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;

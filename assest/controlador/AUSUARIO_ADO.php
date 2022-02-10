@@ -127,29 +127,31 @@ class AUSUARIO_ADO {
             $query=
             "INSERT INTO  usuario_ausuario  (   
                                                 NUMERO_REGISTRO , 
-                                                NOMBRE_REGISTRO ,
-
-                                                TABLA ,
                                                 TMODULO ,
                                                 TOPERACION ,
+
+                                                MENSAJE ,
+                                                TABLA ,
+                                                ID_REGISTRO ,
                                                 
                                                 ID_USUARIO ,
                                                 ID_EMPRESA ,
                                                 ID_PLANTA ,
                                                 ID_TEMPORADA ,
 
-                                                FECHA 
+                                                INGRESO 
                                             ) VALUES
-	       	( ?, ?,   ?, ?, ?,   ?, ?, ?, ?, SYSDATE(), 1);";
+	       	( ?, ?, ?,   ?, ?, ?,   ?, ?, ?, ?, SYSDATE() );";
             $this->conexion->prepare($query)
             ->execute(
                 array(                    
                     $AUSUARIO->__GET('NUMERO_REGISTRO')  ,
-                    $AUSUARIO->__GET('NOMBRE_REGISTRO') ,
-
-                    $AUSUARIO->__GET('TABLA') ,
                     $AUSUARIO->__GET('TMODULO') ,
                     $AUSUARIO->__GET('TOPERACION') ,
+
+                    $AUSUARIO->__GET('MENSAJE') ,
+                    $AUSUARIO->__GET('TABLA') ,
+                    $AUSUARIO->__GET('ID_REGISTRO') ,
 
                     $AUSUARIO->__GET('ID_USUARIO')  ,
                     $AUSUARIO->__GET('ID_EMPRESA') ,
@@ -163,35 +165,31 @@ class AUSUARIO_ADO {
             die($e->getMessage());
         }
     } 
+    
 
-    public function agregarAusuario2($NUMERO,$NOMBRE,$TABLA,$TMODULO,$TOPERACION,$USUARIO,$EMPRESA,$PLANTA,$TEMPORADA){
+    public function agregarAusuario2($NUMERO,$TMODULO,$TOPERACION, $MENSAJE, $TABLA, $REGISTRO, $USUARIO, $EMPRESA, $PLANTA, $TEMPORADA){
         try{                   
             $query=
-            "INSERT INTO  usuario_ausuario  
-            (   
-                NUMERO_REGISTRO , 
-                NOMBRE_REGISTRO ,
-                TABLA ,
-                TMODULO ,
-                TOPERACION ,                                                
-                ID_USUARIO ,
-                ID_EMPRESA ,
-                ID_PLANTA ,
-                ID_TEMPORADA ,
-                FECHA 
-            ) VALUES
-	       	( 
-                '".$NUMERO."',
-                '".$NOMBRE."',
-                '".$TABLA."',
-                ".$TMODULO."', 
-                '".$TOPERACION."',   
-                '".$USUARIO."', 
-                '".$EMPRESA."', 
-                '".$PLANTA."', 
-                '".$TEMPORADA."', 
-                SYSDATE()
-            );";
+                                            "INSERT INTO  usuario_ausuario  
+                                            (   
+                                                NUMERO_REGISTRO , 
+                                                TMODULO ,
+                                                TOPERACION ,
+
+                                                MENSAJE ,
+                                                TABLA ,
+                                                ID_REGISTRO ,
+
+                                                ID_USUARIO ,
+                                                ID_EMPRESA ,
+                                                ID_PLANTA ,
+                                                ID_TEMPORADA ,                                                
+
+                                                INGRESO 
+                                            ) VALUES
+	       	                                (  ".$NUMERO.",  ".$TMODULO.",  ".$TOPERACION.",   '".$MENSAJE."',  '".$TABLA."', ".$REGISTRO.",  ".$USUARIO.", ".$EMPRESA.", ".$PLANTA.", ".$TEMPORADA.",    SYSDATE()  );";
+
+                                         
             $this->conexion->prepare($query)
             ->execute( );
             

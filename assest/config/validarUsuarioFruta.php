@@ -17,6 +17,8 @@
     
 
     $PFRUTA="";
+    $PFAVISO="";
+    $PFRABIERTO="";
     $PFGRANEL="";
     $PFGRECEPCION="";
     $PFGDESPACHO="";
@@ -101,7 +103,10 @@
                 session_destroy();
                 echo "<script type='text/javascript'> location.href ='../../';</script>";
             }    
-            $PFGRANEL = $ARRAYVERPTUSUARIO[0]['FGRANEL'];
+            $PFGRANEL = $ARRAYVERPTUSUARIO[0]['FGRANEL'];            
+            $PFAVISO = $ARRAYVERPTUSUARIO[0]['FAVISO']; 
+            $PFRABIERTO = $ARRAYVERPTUSUARIO[0]['FRABIERTO']; 
+
             $PFGRECEPCION = $ARRAYVERPTUSUARIO[0]['FGRECEPCION'];
             $PFGDESPACHO = $ARRAYVERPTUSUARIO[0]['FGDESPACHO'];
             $PFGGUIA = $ARRAYVERPTUSUARIO[0]['FGGUIA'];
@@ -140,6 +145,9 @@
 
         }else{       
             $PFRUTA="";
+            $PFAVISO="";
+            $PFRABIERTO="";
+
             $PFGRANEL="";
             $PFGRECEPCION="";
             $PFGDESPACHO="";

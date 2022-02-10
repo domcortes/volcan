@@ -18,6 +18,8 @@ $TUSUARIO="";
 
 $FRUTA="";
 $FRUTATODO="";
+$FAVISO="";
+$FRABIERTO="";
 $FGRANEL="";
 $FGRECEPCION="";
 $FGDESPACHO="";
@@ -40,6 +42,7 @@ $FCFLEVANTAMIENTO="";
 $FEXISTENCIA="";
 
 $MATERIALES="";
+$MRABIERTO="";
 $MATERIALESTODO="";
 $MMATERIALES="";
 $MMATERIALESTODO="";
@@ -173,6 +176,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             if($FRUTA=="1"){
                 $DISABLEDFRUTA="";
             }
+            $FAVISO= "" . $r['FAVISO'];
+            $FRABIERTO= "" . $r['FRABIERTO'];
             $FGRANEL= "" . $r['FGRANEL'];
             if($FGRANEL=="1"){
                 $DISABLEDFRUTAGRANEL="";
@@ -213,6 +218,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             if($MATERIALES=="1"){
                 $DISABLEDMATERIAL="";
             }
+            $MRABIERTO = "" . $r['MRABIERTO'];
             $MMATERIALES = "" . $r['MMATERIALES'];
             if($MMATERIALES=="1"){
                 $DISABLEDMMATERIAL="";
@@ -299,6 +305,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         foreach ($ARRAYPTUSUARIOID as $r) :
             
             $FRUTA= "" . $r['FRUTA'];
+            $FAVISO= "" . $r['FAVISO'];
+            $FRABIERTO= "" . $r['FRABIERTO'];
             $FGRANEL= "" . $r['FGRANEL'];
             $FGRECEPCION= "" . $r['FGRECEPCION'];
             $FGDESPACHO= "" . $r['FGDESPACHO'];
@@ -321,6 +329,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $FEXISTENCIA= "" . $r['FEXISTENCIA'];
 
             $MATERIALES = "" . $r['MATERIALES'];
+            $MRABIERTO = "" . $r['MRABIERTO'];
             $MMATERIALES = "" . $r['MMATERIALES'];
             $MMRECEPION = "" . $r['MMRECEPION'];
             $MMDEAPCHO = "" . $r['MMDEAPCHO'];
@@ -414,6 +423,8 @@ if (isset($_POST)) {
             if(FRUTA==true){    
                 document.getElementById('FRUTATODO').disabled = false;  
                 document.getElementById('FGRANEL').disabled = false;   
+                document.getElementById('FAVISO').disabled = false;   
+                document.getElementById('FRABIERTO').disabled = false;   
                 document.getElementById('FPACKING').disabled = false;   
                 document.getElementById('FFRIGORIFICO').disabled = false;   
                 document.getElementById('FSAG').disabled = false;  
@@ -423,6 +434,8 @@ if (isset($_POST)) {
             }else{
                 document.getElementById('FRUTATODO').disabled = true;  
                 document.getElementById('FGRANEL').disabled = true;   
+                document.getElementById('FAVISO').disabled = true;   
+                document.getElementById('FRABIERTO').disabled = true;   
                 document.getElementById('FGRECEPCION').disabled = true;   
                 document.getElementById('FGDESPACHO').disabled = true;   
                 document.getElementById('FGGUIA').disabled = true;   
@@ -445,6 +458,8 @@ if (isset($_POST)) {
                 
                 document.getElementById('FRUTATODO').checked = false;  
                 document.getElementById('FGRANEL').checked = false;   
+                document.getElementById('FAVISO').checked = false;   
+                document.getElementById('FRABIERTO').checked = false;   
                 document.getElementById('FGRECEPCION').checked = false;   
                 document.getElementById('FGDESPACHO').checked = false;   
                 document.getElementById('FGGUIA').checked = false;   
@@ -552,11 +567,13 @@ if (isset($_POST)) {
             if(MATERIALES==true){  
                 document.getElementById('MATERIALESTODO').disabled = false;   
                 document.getElementById('MMATERIALES').disabled = false;   
+                document.getElementById('MRABIERTO').disabled = false;   
                 document.getElementById('MENVASE').disabled = false;   
                 document.getElementById('MADMINISTRACION').disabled = false;   
                 document.getElementById('MKARDEX').disabled = false;   
             }else{    
                 document.getElementById('MATERIALESTODO').disabled = true;  
+                document.getElementById('MRABIERTO').disabled = true;   
                 document.getElementById('MMATERIALES').disabled = true;   
                 document.getElementById('MMRECEPION').disabled = true;   
                 document.getElementById('MMDEAPCHO').disabled = true;   
@@ -573,6 +590,7 @@ if (isset($_POST)) {
                 document.getElementById('MKENVASE').disabled = true;   
                 
                 document.getElementById('MATERIALESTODO').checked = false;  
+                document.getElementById('MRABIERTO').checked = false;   
                 document.getElementById('MATERIALES').checked = false;  
                 document.getElementById('MMATERIALES').checked = false;   
                 document.getElementById('MMRECEPION').checked = false;   
@@ -748,6 +766,8 @@ if (isset($_POST)) {
             FRUTATODO = document.getElementById('FRUTATODO').checked;
             if(FRUTATODO==true){    
                 document.getElementById('FGRANEL').checked = true;   
+                document.getElementById('FAVISO').checked = true;   
+                document.getElementById('FRABIERTO').checked = true;   
                 document.getElementById('FGRECEPCION').checked = true;   
                 document.getElementById('FGDESPACHO').checked = true;   
                 document.getElementById('FGGUIA').checked = true;   
@@ -769,6 +789,8 @@ if (isset($_POST)) {
                 document.getElementById('FEXISTENCIA').checked = true;   
                 
                 document.getElementById('FGRANEL').disabled = false;   
+                document.getElementById('FRABIERTO').disabled = false;   
+                document.getElementById('FGRECEPCION').disabled = false; 
                 document.getElementById('FGRECEPCION').disabled = false;   
                 document.getElementById('FGDESPACHO').disabled = false;   
                 document.getElementById('FGGUIA').disabled = false;   
@@ -792,6 +814,8 @@ if (isset($_POST)) {
             }else{
 
                 document.getElementById('FGRANEL').disabled = false;   
+                document.getElementById('FAVISO').disabled = false;   
+                document.getElementById('FRABIERTO').disabled = false;   
                 document.getElementById('FGRECEPCION').disabled = true;   
                 document.getElementById('FGDESPACHO').disabled = true;   
                 document.getElementById('FGGUIA').disabled = true;   
@@ -813,6 +837,8 @@ if (isset($_POST)) {
                 document.getElementById('FEXISTENCIA').disabled = false;   
 
                 document.getElementById('FGRANEL').checked = false;   
+                document.getElementById('FAVISO').checked = false;   
+                document.getElementById('FRABIERTO').checked = false;   
                 document.getElementById('FGRECEPCION').checked = false;   
                 document.getElementById('FGDESPACHO').checked = false;   
                 document.getElementById('FGGUIA').checked = false;   
@@ -837,6 +863,7 @@ if (isset($_POST)) {
         function materialtodo(){              
             MATERIALESTODO = document.getElementById('MATERIALESTODO').checked;
             if(MATERIALESTODO==true){    
+                document.getElementById('MRABIERTO').checked = true;   
                 document.getElementById('MMATERIALES').checked = true;   
                 document.getElementById('MMRECEPION').checked = true;   
                 document.getElementById('MMDEAPCHO').checked = true;   
@@ -852,6 +879,7 @@ if (isset($_POST)) {
                 document.getElementById('MKMATERIAL').checked = true;   
                 document.getElementById('MKENVASE').checked = true;   
                 
+                document.getElementById('MRABIERTO').disabled = false;   
                 document.getElementById('MMRECEPION').disabled = false;   
                 document.getElementById('MMDEAPCHO').disabled = false;   
                 document.getElementById('MMGUIA').disabled = false;   
@@ -867,6 +895,7 @@ if (isset($_POST)) {
                 document.getElementById('MKENVASE').disabled = false;                   
 
             }else{
+                document.getElementById('MRABIERTO').checked = false;   
                 document.getElementById('MMATERIALES').checked = false;   
                 document.getElementById('MMRECEPION').checked = false;   
                 document.getElementById('MMDEAPCHO').checked = false;   
@@ -882,6 +911,7 @@ if (isset($_POST)) {
                 document.getElementById('MKMATERIAL').checked = false;   
                 document.getElementById('MKENVASE').checked = false;    
                 
+                document.getElementById('MRABIERTO').disabled = false;   
                 document.getElementById('MMRECEPION').disabled = true;   
                 document.getElementById('MMDEAPCHO').disabled = true;   
                 document.getElementById('MMGUIA').disabled = true;   
@@ -1072,7 +1102,18 @@ if (isset($_POST)) {
                                                     <input type="checkbox" id="FRUTATODO"  name="FRUTATODO" class="filled-in chk-col-danger"      <?php echo $FRUTATODO;?>  onchange="frutatodo();"  <?php echo $DISABLED;?> <?php echo $DISABLEDFRUTA;?>>
                                                     <label for="FRUTATODO">Selecionar Todo</label>                                        
                                                 </div>
-                                            </div>                  
+                                            </div>      
+                                            <hr>
+                                            <div class="row">                                             
+                                                <div class="col-xxl-4 col-xl-4 col-lg-5 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                    <input type="checkbox" id="FAVISO"  name="FAVISO" class="filled-in chk-col-success"   <?php if ($FAVISO == "1") { echo "checked"; } ?>  <?php echo $DISABLED;?> <?php echo $DISABLEDFRUTA;?>>
+                                                    <label for="FAVISO">Mostrar Avisos</label>	
+                                                </div>                                             
+                                                <div class="col-xxl-4 col-xl-4 col-lg-5 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                    <input type="checkbox" id="FRABIERTO"  name="FRABIERTO" class="filled-in chk-col-success"   <?php if ($FRABIERTO == "1") { echo "checked"; } ?>  <?php echo $DISABLED;?> <?php echo $DISABLEDFRUTA;?>>
+                                                    <label for="FRABIERTO">Mostrar Registro Abiertos</label>	
+                                                </div>  
+                                            </div>           
                                             <hr>                    
                                             <fieldset>     
                                                 <legend>Granel </legend> 
@@ -1209,7 +1250,14 @@ if (isset($_POST)) {
                                                     <input type="checkbox" id="MATERIALESTODO"  name="MATERIALESTODO" class="filled-in chk-col-danger"      <?php echo $MATERIALESTODO;?>  onchange="materialtodo();"  <?php echo $DISABLED;?> <?php echo $DISABLEDMATERIAL;?>>
                                                     <label for="MATERIALESTODO">Selecionar Todo</label>                                        
                                                 </div>
-                                            </div>                  
+                                            </div>       
+                                            <hr>
+                                            <div class="row">                                            
+                                                <div class="col-xxl-4 col-xl-4 col-lg-5 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                    <input type="checkbox" id="MRABIERTO"  name="MRABIERTO" class="filled-in chk-col-success"   <?php if ($MRABIERTO == "1") { echo "checked"; } ?>  <?php echo $DISABLED;?> <?php echo $DISABLEDMATERIAL;?>>
+                                                    <label for="MRABIERTO">Mostrar Registros Abiertos</label>	
+                                                </div>
+                                            </div>            
                                             <hr>                    
                                             <fieldset>     
                                                 <legend>Material </legend> 
@@ -1563,6 +1611,8 @@ if (isset($_POST)) {
                     //UTILIZACION METODOS SET DEL MODELO
                     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
                     $PTUSUARIO->__SET('FRUTA', isset($_REQUEST['FRUTA'])); 
+                    $PTUSUARIO->__SET('FAVISO', isset($_REQUEST['FAVISO']));  
+                    $PTUSUARIO->__SET('FRABIERTO', isset($_REQUEST['FRABIERTO']));
                     $PTUSUARIO->__SET('FGRANEL', isset($_REQUEST['FGRANEL'])); 
                     $PTUSUARIO->__SET('FGRECEPCION', isset($_REQUEST['FGRECEPCION'])); 
                     $PTUSUARIO->__SET('FGDESPACHO', isset($_REQUEST['FGDESPACHO'])); 
@@ -1583,7 +1633,8 @@ if (isset($_POST)) {
                     $PTUSUARIO->__SET('FCFRECHAZO', isset($_REQUEST['FCFRECHAZO'])); 
                     $PTUSUARIO->__SET('FCFLEVANTAMIENTO', isset($_REQUEST['FCFLEVANTAMIENTO'])); 
                     $PTUSUARIO->__SET('FEXISTENCIA', isset($_REQUEST['FEXISTENCIA']));              
-                    $PTUSUARIO->__SET('MATERIALES', isset($_REQUEST['MATERIALES'])); 
+                    $PTUSUARIO->__SET('MATERIALES', isset($_REQUEST['MATERIALES']));         
+                    $PTUSUARIO->__SET('MRABIERTO', isset($_REQUEST['MRABIERTO'])); 
                     $PTUSUARIO->__SET('MMATERIALES', isset($_REQUEST['MMATERIALES'])); 
                     $PTUSUARIO->__SET('MMRECEPION', isset($_REQUEST['MMRECEPION'])); 
                     $PTUSUARIO->__SET('MMDEAPCHO', isset($_REQUEST['MMDEAPCHO'])); 
@@ -1644,6 +1695,8 @@ if (isset($_POST)) {
                 //UTILIZACION METODOS SET DEL MODELO
                 //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO  
                 $PTUSUARIO->__SET('FRUTA', isset($_REQUEST['FRUTA'])); 
+                $PTUSUARIO->__SET('FAVISO', isset($_REQUEST['FAVISO']));  
+                $PTUSUARIO->__SET('FRABIERTO', isset($_REQUEST['FRABIERTO'])); 
                 $PTUSUARIO->__SET('FGRANEL', isset($_REQUEST['FGRANEL'])); 
                 $PTUSUARIO->__SET('FGRECEPCION', isset($_REQUEST['FGRECEPCION'])); 
                 $PTUSUARIO->__SET('FGDESPACHO', isset($_REQUEST['FGDESPACHO'])); 
@@ -1664,7 +1717,8 @@ if (isset($_POST)) {
                 $PTUSUARIO->__SET('FCFRECHAZO', isset($_REQUEST['FCFRECHAZO'])); 
                 $PTUSUARIO->__SET('FCFLEVANTAMIENTO', isset($_REQUEST['FCFLEVANTAMIENTO'])); 
                 $PTUSUARIO->__SET('FEXISTENCIA', isset($_REQUEST['FEXISTENCIA']));   
-                $PTUSUARIO->__SET('MATERIALES', isset($_REQUEST['MATERIALES'])); 
+                $PTUSUARIO->__SET('MATERIALES', isset($_REQUEST['MATERIALES']));       
+                $PTUSUARIO->__SET('MRABIERTO', isset($_REQUEST['MRABIERTO'])); 
                 $PTUSUARIO->__SET('MMATERIALES', isset($_REQUEST['MMATERIALES'])); 
                 $PTUSUARIO->__SET('MMRECEPION', isset($_REQUEST['MMRECEPION'])); 
                 $PTUSUARIO->__SET('MMDEAPCHO', isset($_REQUEST['MMDEAPCHO'])); 

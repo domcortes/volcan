@@ -306,13 +306,8 @@ if($ARRAYDESPACHOEX){
   $CSPPLANTA=$ARRAYPLANTA[0]['CODIGO_SAG_PLANTA'];
   $RAZONPLANTA=$ARRAYPLANTA[0]['RAZON_SOCIAL_PLANTA'];
   
-  
-  $ARRAYCIUDAD3 = $CIUDAD_ADO->verCiudad($ARRAYPLANTA[0]['ID_CIUDAD']);
-  $CIUDADPLANTA=$ARRAYCIUDAD3[0]['NOMBRE_CIUDAD'];
-  
-  
-  $ARRAYCOMUNA3 = $COMUNA_ADO->verComuna($ARRAYCIUDAD3[0]['ID_COMUNA']);
-  $COMUNAPLANTA=$ARRAYCOMUNA3[0]['NOMBRE_COMUNA'];;
+  $ARRAYCOMUNA3 = $COMUNA_ADO->verComuna($ARRAYPLANTA[0]['ID_COMUNA']);
+  $COMUNAPLANTA = $ARRAYCOMUNA3[0]['NOMBRE_COMUNA'];;
   
   $EMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
   $EMPRESAURL = $ARRAYEMPRESA[0]['LOGO_EMPRESA'];
@@ -426,7 +421,6 @@ $html = '
            <div class="address"><b>Exportadora: </b>' . $NOMBREEXPORTADORA . '</div>
            <div class="address"><b>Establecimiento: </b>' . $RAZONPLANTA . '</div>
            <div class="address"><b>Comuna: </b>' . $COMUNAPLANTA . '</div>
-           <div class="address"><b>Ciudad: </b>' . $CIUDADPLANTA . '</div>
            <div class="address"><b>CSP: </b>' . $CSPPLANTA . '</div>
            <div class="address"><b>Estado Despacho: </b> ' . $ESTADO . ' </div>
         </div>   
