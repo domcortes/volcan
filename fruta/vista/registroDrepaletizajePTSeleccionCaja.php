@@ -66,6 +66,8 @@ $CAJATOTAL = "";
 $CAJATOTAL2 = 0;
 $FOLIOALIAS = "";
 
+$TOTALSELECION="";
+
 $KILONETOEXITENCIA = "";
 $PDESHISDRATACIONEXISTENCIA = "";
 $KILOSDESHIDRATACIONEXITENCIA = "";
@@ -210,7 +212,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../../assest/config/menuFruta.php"; ?>
+            <?php //include_once "../../assest/config/menuFruta.php"; ?>
             <div class="content-wrapper">
                 <div class="container-full">
                     <!-- Content Header (Page header) -->
@@ -540,7 +542,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 $ARRAYSELECIONARIDFOLIO = $_REQUEST['IDFOLIO'];
                 $ARRAYSELECIONARCAJAS = $_REQUEST['CAJAS'];
                 $ARRAYSELECIONARIDEXIEXPORTACION = $_REQUEST['IDEXIEXPORTACION'];  
-                if ($SINO0 == "0") {
+     
+                    
+                
                     foreach ($ARRAYSELECIONARCAJASID as $F) :
                         $IDCAJAS = $F - 1;
                         $CAJAS = $ARRAYSELECIONARCAJAS[$IDCAJAS];
@@ -558,29 +562,30 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 
                         if ($CAJAS != "") {
                             $SINO = "0";
-                            $MENSAJE2 = $MENSAJE2;
+                            $MENSAJE = $MENSAJE;
                             if ($CAJATOTAL == 0) {
                                 $SINO = "1";
-                                $MENSAJE2 = $MENSAJE2 . "" . $NUMEROFOLIO . ": Debe seleionar un registro que tenga envases mayores a cero.";
+                                $MENSAJE = $MENSAJE . "" . $NUMEROFOLIO . ": Debe seleionar un registro que tenga envases mayores a cero.";
                             } else {
                                 if ($CAJAS <= 0) {
                                     $SINO = "1";
-                                    $MENSAJE2 = $MENSAJE2 . "  " . $NUMEROFOLIO . ": Solo deben ingresar un valor mayor a zero.";
+                                    $MENSAJE = $MENSAJE . "  " . $NUMEROFOLIO . ": Solo deben ingresar un valor mayor a zero.";
                                 } else {
                                     $SINO = "0";
-                                    $MENSAJE2 = $MENSAJE2;
+                                    $MENSAJE = $MENSAJE;
                                     if ($CAJAS <= $ARRAYEXIEXPORTACIONBOLSASELECCION[0]['CANTIDAD_ENVASE_EXIEXPORTACION']) {
                                         $SINO = "0";
-                                        $MENSAJE2 = $MENSAJE2;
+                                        $MENSAJE = $MENSAJE;
                                     } else {
                                         $SINO = "1";
-                                        $MENSAJE2 = $MENSAJE2 . " " . $NUMEROFOLIO . ": El valor a ingresar deb ser ser menor o igual al original.";
+                                        $MENSAJE = $MENSAJE . " " . $NUMEROFOLIO . ": El valor a ingresar debe ser ser menor o igual al original.";
                                     }
                                 }
                             }
                         } else {
                             $SINO = "1";
-                            $MENSAJE2 = $MENSAJE2;
+                            $MENSAJE = $MENSAJE;
+                            
                         }
                         if ($SINO == "0") {
 
@@ -677,9 +682,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                     endforeach;
                 
                     if ($SINO == "0") {
-                        $_SESSION["parametro"] =  $_REQUEST['IDP'];
-                        $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-
                         if ($MENSAJE == "") { 
                             $_SESSION["parametro"] =  $_REQUEST['IDP'];
                             $_SESSION["parametro1"] =  $_REQUEST['OPP'];
@@ -712,15 +714,15 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                             </script>';
                         }  
 
-                    }else{
-                        if($MENSAJE2!=""){
+                    }else{                        
+                        if($MENSAJE!=""){
                             $_SESSION["parametro"] =  $_REQUEST['IDP'];
                             $_SESSION["parametro1"] =  $_REQUEST['OPP'];
                             echo '<script>
                                 Swal.fire({
                                     icon:"warning",
                                     title:"Accion realizadas, con errores.",
-                                    text:"' . $MENSAJE2 . '",
+                                    text:"' . $MENSAJE . '",
                                     showConfirmButton: true,
                                     confirmButtonText:"Cerrar",
                                     closeOnConfirm:false
@@ -728,42 +730,25 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                     location.href="registroDrepaletizajePTSeleccionCaja.php?op";                        
                                 })
                             </script>';
-
-                        }else{          
-                                
+                        }else{                            
                             $_SESSION["parametro"] =  $_REQUEST['IDP'];
                             $_SESSION["parametro1"] =  $_REQUEST['OPP'];
                             echo '<script>
                                 Swal.fire({
-                                    icon:"success",
-                                    title:"Accion realizada.",
+                                    icon:"warning",
+                                    title:"Accion realizada",
                                     text:"Se agregado la selección al repaletizaje.",
                                     showConfirmButton: true,
                                     confirmButtonText:"Volver al repaletizaje",
                                     closeOnConfirm:false
                                 }).then((result)=>{
-                                    location.href="' . $_REQUEST['URLO'] . '.php?op";                        
+                                    location.href="' . $_REQUEST['URLO'] . '.php?op";                         
                                 })
                             </script>';
+
                         }
                     }
-                }                
-            }else{              
-                $MENSAJE0 =$MENSAJE0." Se debe selecionar al menos los envases de una existencia.";
-                $_SESSION["parametro"] =  $_REQUEST['IDP'];
-                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-                echo '<script>
-                    Swal.fire({
-                        icon:"warning",
-                        title:"Accion restringida.",
-                        text:"' . $MENSAJE0 . '",
-                        showConfirmButton: true,
-                        confirmButtonText:"Cerrar",
-                        closeOnConfirm:false
-                    }).then((result)=>{
-                        location.href="registroDrepaletizajePTSeleccionCaja.php?op";                        
-                    })
-                </script>';
+             
             }
         }
         if (isset($_REQUEST['MANTENER'])) {
