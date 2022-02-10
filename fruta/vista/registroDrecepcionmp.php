@@ -986,7 +986,6 @@ if ($_POST) {
             //CONSULTA PARA OBTENER DATOS BASE PARA EL CALCULO DEL NUMEOR DE FOLIO Y NUMERO LINEA
             $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTmateriaprima($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
             $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
-            $ARRAYULTIMOFOLIO = $EXIMATERIAPRIMA_ADO->obtenerFolio($FOLIO);
             if (isset($_REQUEST['FOLIOMANUAL'])) {
                 $FOLIOMANUAL = $_REQUEST['FOLIOMANUAL'];
             }
@@ -1007,19 +1006,18 @@ if ($_POST) {
                 $SINO = "0";
                 //$ARRAYULTIMOFOLIO = $DRECEPCIONPT_ADO->obtenerFolio($FOLIO);
 
-                $ARRAYULTIMOFOLIO = $EXIMATERIAPRIMA_ADO->obtenerFolio($FOLIO);
+                $ARRAYULTIMOFOLIO = $EXIMATERIAPRIMA_ADO->obtenerFolio($FOLIO, $_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
                 if ($ARRAYULTIMOFOLIO) {
                     if ($ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'] == 0) {
-                        $FOLIOEXPORTACION = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
+                        $FOLIOMATERIAPRIMA = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
                     } else {
-                        $FOLIOEXPORTACION =   $ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'];
+                        $FOLIOMATERIAPRIMA =   $ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'];
                     }
                 } else {
-                    $FOLIOEXPORTACION = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
+                    $FOLIOMATERIAPRIMA = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
                 }
-                $NUMEROFOLIODRECEPCION = $FOLIOEXPORTACION + 1;
+                $NUMEROFOLIODRECEPCION = $FOLIOMATERIAPRIMA + 1;
                 $ARRAYFOLIOPOEXPO = $EXIMATERIAPRIMA_ADO->buscarPorFolio($NUMEROFOLIODRECEPCION);
-
                 while (count($ARRAYFOLIOPOEXPO) == 1) {
                     $ARRAYFOLIOPOEXPO = $EXIMATERIAPRIMA_ADO->buscarPorFolio($NUMEROFOLIODRECEPCION);
                     if (count($ARRAYFOLIOPOEXPO) == 1) {
