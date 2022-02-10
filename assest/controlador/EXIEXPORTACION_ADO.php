@@ -492,6 +492,9 @@ class EXIEXPORTACION_ADO
             if ($EXIEXPORTACION->__GET('ID_TCOLOR') == NULL) {
                 $EXIEXPORTACION->__SET('ID_TCOLOR', NULL);
             }
+            if ($EXIEXPORTACION->__GET('ID_DESPACHO2') == NULL) {
+                $EXIEXPORTACION->__SET('ID_DESPACHO2', NULL);
+            }
             $query =
                 "INSERT INTO fruta_exiexportacion (                    
                                                     FOLIO_EXIEXPORTACION,
@@ -534,6 +537,8 @@ class EXIEXPORTACION_ADO
                                                     ID_VESPECIES,
 
                                                     ID_PLANTA2,
+                                                    ID_DESPACHO2,
+
                                                     ID_RECEPCION,
                                                     ID_PROCESO,
                                                     ID_REPALETIZAJE,  
@@ -547,7 +552,7 @@ class EXIEXPORTACION_ADO
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                  ) VALUES
-	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?, ?,   ?, ?, ?,    SYSDATE(), 1, 1);";
+	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?, ?, ?,    ?, ?,    ?, ?, ?, ?, ?,   ?, ?, ?,    SYSDATE(), 1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -592,6 +597,8 @@ class EXIEXPORTACION_ADO
                         $EXIEXPORTACION->__GET('ID_VESPECIES'),
 
                         $EXIEXPORTACION->__GET('ID_PLANTA2'),
+                        $EXIEXPORTACION->__GET('ID_DESPACHO2'),
+
                         $EXIEXPORTACION->__GET('ID_RECEPCION'),
                         $EXIEXPORTACION->__GET('ID_PROCESO'),
                         $EXIEXPORTACION->__GET('ID_REPALETIZAJE'),
