@@ -1917,8 +1917,8 @@ class EXIINDUSTRIAL_ADO
                                                     FORMAT(IFNULL(KILOS_NETO_EXIINDUSTRIAL*PRECIO_KILO,0),2,'de_DE') AS 'PRECIO'   
                                         FROM fruta_exiindustrial 
                                         WHERE ID_DESPACHO= '" . $IDDESPACHOIND . "'   
-                                        AND ESTADO BETWEEN 3 AND  5
-                                        AND ESTADO_REGISTRO = 1;");
+                                        AND ESTADO_REGISTRO = 1
+                                        ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -2532,15 +2532,19 @@ class EXIINDUSTRIAL_ADO
 
 
     //OBTENER EL ULTIMO FOLIO OCUPADO DEL DETALLE DE  RECEPCIONS
-    public function obtenerFolio($IDFOLIO)
+    public function obtenerFolio($IDFOLIO, $EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT IFNULL(COUNT(FOLIO_EXIINDUSTRIAL),0) AS 'ULTIMOFOLIO',
-                                                    IFNULL(MAX(FOLIO_EXIINDUSTRIAL),0) AS 'ULTIMOFOLIO2' 
+            $datos = $this->conexion->prepare("SELECT 
+                                                        IFNULL(MAX(FOLIO_EXIINDUSTRIAL),0) AS 'ULTIMOFOLIO' 
                                                     FROM fruta_exiindustrial  
                                                     WHERE  ID_FOLIO= '" . $IDFOLIO . "'                                                           
-                                                    AND ID_DESPACHO2 IS NULL ;");
+                                                    AND ID_DESPACHO2 IS NULL                                                     
+                                                    AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                                    AND ID_PLANTA = '" . $PLANTA . "'
+                                                    AND ID_TEMPORADA = '" . $TEMPORADA . "' 
+                                                    ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
