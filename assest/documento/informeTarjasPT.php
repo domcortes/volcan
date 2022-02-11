@@ -74,6 +74,7 @@ $TAMAÑO = "";
 $ALIASFOLIO = "";
 $TOTALENVASE = "";
 $TOTALNETO = "";
+$TIPO=0;
 
 
 //INICIALIZAR ARREGLOS
@@ -103,21 +104,18 @@ if (isset($_REQUEST['parametro2'])) {
 	$PLANTA=$_REQUEST['parametro2'];
 }
 if (isset($_REQUEST['tipo'])) {
-	$TIPO=$_REQUEST['parametro1'];
-}else{
-	$TIPO=0;
+	$TIPO=$_REQUEST['tipo'];
 }
 
 if($TIPO==1){
 	$ARRAYEXISTENCIAPT = $EXIEXPORTACION_ADO->buscarPorFolioAgrupadoDisponible($IDOP,$EMPRESA,$PLANTA);
-}else if($TIPO==2){
-	$ARRAYEXISTENCIAPT = $EXIEXPORTACION_ADO->buscarPorFolioAgrupadoDespachado($IDOP,$EMPRESA,$PLANTA);
-}else if ($TIPO==3){
-	$ARRAYEXISTENCIAPT = $EXIEXPORTACION_ADO->buscarPorFolioAgrupadoHistorial($IDOP,$EMPRESA,$PLANTA);
-}else{
-	$ARRAYEXISTENCIAPT = $EXIEXPORTACION_ADO->buscarPorFolioAgrupadoTodos($IDOP,$EMPRESA,$PLANTA);
 }
-
+if($TIPO==2){
+	$ARRAYEXISTENCIAPT = $EXIEXPORTACION_ADO->buscarPorFolioAgrupadoDespachado($IDOP,$EMPRESA,$PLANTA);
+}
+if ($TIPO==3){
+	$ARRAYEXISTENCIAPT = $EXIEXPORTACION_ADO->buscarPorFolioAgrupadoHistorial($IDOP,$EMPRESA,$PLANTA);
+}
 
 
 
@@ -206,12 +204,12 @@ $html = '
 foreach ($ARRAYEXISTENCIAPT as $r) :
 	if($TIPO==1){
 		$ARRAYEXISTENCIAPORFOLIO=$EXIEXPORTACION_ADO->buscarPorFoliotTarjaDisponible($r['FOLIO_AUXILIAR_EXIEXPORTACION'],$r['ID_EMPRESA'],$r['ID_PLANTA']);
-	}else if($TIPO==2){
+	}
+	if($TIPO==2){
 		$ARRAYEXISTENCIAPORFOLIO=$EXIEXPORTACION_ADO->buscarPorFoliotTarjaDespachado($r['FOLIO_AUXILIAR_EXIEXPORTACION'],$r['ID_EMPRESA'],$r['ID_PLANTA']);
-	}else if ($TIPO==3){
+	}
+	if ($TIPO==3){
 		$ARRAYEXISTENCIAPORFOLIO=$EXIEXPORTACION_ADO->buscarPorFoliotTarjaHistorial($r['FOLIO_AUXILIAR_EXIEXPORTACION'],$r['ID_EMPRESA'],$r['ID_PLANTA']);
-	}else{
-		$ARRAYEXISTENCIAPORFOLIO=$EXIEXPORTACION_ADO->buscarPorFoliotTarjaTodos($r['FOLIO_AUXILIAR_EXIEXPORTACION'],$r['ID_EMPRESA'],$r['ID_PLANTA']);
 	}
 	$ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
 	if($ARRAYEEXPORTACION){
