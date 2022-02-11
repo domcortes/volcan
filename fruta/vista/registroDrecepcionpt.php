@@ -632,6 +632,7 @@ if ($_POST) {
                     STOCKESTANDAR = document.getElementById("STOCKESTANDAR").value;
                     COLORESTANDAR = document.getElementById("COLORESTANDAR").value;
                     CATEGORIAESTANDAR = document.getElementById("CATEGORIAESTANDAR").value;
+                    TRECEPCION = document.getElementById("TRECEPCION").value;
 
 
                     NOTADRECEPCION = document.getElementById("NOTADRECEPCION").selectedIndex;
@@ -1236,7 +1237,7 @@ if ($_POST) {
                     $FOLIOMANUAL = $_REQUEST['FOLIOMANUAL'];
                 }
                 if ($FOLIOMANUAL == "on") {
-                    $NUMEROFOLIODRECEPCION = $_REQUEST['NUMEROFOLIODRECEPCION'];
+                    $NUMEROFOLIODEXPORTACION = $_REQUEST['NUMEROFOLIODRECEPCION'];
                     $FOLIOMANUALR = "1";
                     $ARRAYFOLIOPOEXPO = $EXIEXPORTACION_ADO->buscarPorFolio($NUMEROFOLIODEXPORTACION);
                     if ($ARRAYFOLIOPOEXPO) {
