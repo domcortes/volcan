@@ -42,7 +42,7 @@ $DRECEPCIONIND =  new DRECEPCIONIND();
 //INICIALIZAR VARIABLES
 
 $PROCESO = "";
-$FOLIODRECEPCIONIND = "";
+$FOLIOINDUSTRIAL = "";
 $NUMEROFOLIODINDUSTRIAL = "";
 $FECHAEMBALADODINDUSTRIAL = "";
 $CANTIDADENVASEDINDUSTRIAL = "";
@@ -781,17 +781,17 @@ if ($_POST) {
                 //OBTENER EL FOLIO DEL DETALLE DE EXPORTACION DEL PROCESO
                     $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTindustrial($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
                     $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
-                    $ARRAYULTIMOFOLIO = $EXIINDUSTRIAL_ADO->obtenerFolio($FOLIO);
+                    $ARRAYULTIMOFOLIO = $EXIINDUSTRIAL_ADO->obtenerFolio($FOLIO,$_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
                     if ($ARRAYULTIMOFOLIO) {
                         if ($ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'] == 0) {
-                            $FOLIODRECEPCIONIND = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
+                            $FOLIOINDUSTRIAL = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
                         } else {
-                            $FOLIODRECEPCIONIND =  $ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO2'];
+                            $FOLIOINDUSTRIAL = $ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'];
                         }
                     } else {
-                        $FOLIODRECEPCIONIND = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
+                        $FOLIOINDUSTRIAL = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
                     }
-                    $NUMEROFOLIODINDUSTRIAL = $FOLIODRECEPCIONIND + 1;
+                    $NUMEROFOLIODINDUSTRIAL = $FOLIOINDUSTRIAL + 1;
 
                     $KILOSBRUTODRECEPCION = $_REQUEST['KILOSBRUTODRECEPCION'];
                     //CONSULTA PARA LA OBTENCION DE LOS PARAMETROS DEL ESTANDAR DE EXPORTACION

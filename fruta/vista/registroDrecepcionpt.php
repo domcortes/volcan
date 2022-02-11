@@ -1238,7 +1238,7 @@ if ($_POST) {
                 if ($FOLIOMANUAL == "on") {
                     $NUMEROFOLIODRECEPCION = $_REQUEST['NUMEROFOLIODRECEPCION'];
                     $FOLIOMANUALR = "1";
-                    $ARRAYFOLIOPOEXPO = $EXIEXPORTACION_ADO->buscarPorFolio($NUMEROFOLIODRECEPCION);
+                    $ARRAYFOLIOPOEXPO = $EXIEXPORTACION_ADO->buscarPorFolio($NUMEROFOLIODEXPORTACION);
                     if ($ARRAYFOLIOPOEXPO) {
                         $SINO = "1";
                         $MENSAJE = "El folio ingresado, ya existe.";
@@ -1250,7 +1250,7 @@ if ($_POST) {
                 if ($FOLIOMANUAL != "on") {
                     $FOLIOMANUALR = "0";
                     $SINO = "0";
-                    $ARRAYULTIMOFOLIO = $EXIEXPORTACION_ADO->obtenerFolioRecepción($FOLIO);
+                    $ARRAYULTIMOFOLIO = $EXIEXPORTACION_ADO->obtenerFolioRecepción($FOLIO,$_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
                     if ($ARRAYULTIMOFOLIO) {
                         if ($ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'] == 0) {
                             $FOLIOEXPORTACION = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
@@ -1261,10 +1261,10 @@ if ($_POST) {
                         $FOLIOEXPORTACION = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
                     }
                     $NUMEROFOLIODRECEPCION = $FOLIOEXPORTACION + 1;
-                    $ARRAYFOLIOPOEXPO = $EXIEXPORTACION_ADO->buscarPorFolio($NUMEROFOLIODRECEPCION);
+                    $ARRAYFOLIOPOEXPO = $EXIEXPORTACION_ADO->buscarPorFolio($NUMEROFOLIODRECEPCION,$_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
 
                     while (count($ARRAYFOLIOPOEXPO) == 1) {
-                        $ARRAYFOLIOPOEXPO = $EXIEXPORTACION_ADO->buscarPorFolio($NUMEROFOLIODRECEPCION);
+                        $ARRAYFOLIOPOEXPO = $EXIEXPORTACION_ADO->buscarPorFolio($NUMEROFOLIODRECEPCION,$_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
                         if (count($ARRAYFOLIOPOEXPO) == 1) {
                             $NUMEROFOLIODRECEPCION += 1;
                         }

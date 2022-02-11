@@ -88,7 +88,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 
     $ARRAYEXIINDUSTRIAL1= $EXIINDUSTRIAL_ADO->listarExiindustrialEmpresaPlantaTemporadaDisponibleCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
     $ARRAYEXIINDUSTRIAL2 = $EXIINDUSTRIAL_ADO->listarExiindustrialRechazoMPEmpresaPlantaTemporadaDisponibleCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYEXIINDUSTRIAL3 = $EXIINDUSTRIAL_ADO->listarExiindustrialRechazoPTEmpresaPlantaTemporadaDisponibleCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
 
 }
 
@@ -126,8 +125,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../../assest/config/menuFruta.php"; 
-            ?>
+            <?php //include_once "../../assest/config/menuFruta.php";  ?>
             <div class="content-wrapper">
                 <div class="container-full">
                     <!-- Content Header (Page header) -->
@@ -325,73 +323,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                                                 <td><?php echo $r['MODIFICACION']; ?></td>
                                                             </tr>
                                                         <?php endforeach; ?>
-                                                        <?php foreach ($ARRAYEXIINDUSTRIAL3 as $r) : ?>
-
-                                                            <?php
-                                                            $CONTADOR = $CONTADOR + 1;
-
-                                                            $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
-                                                            if ($ARRAYVERPRODUCTORID) {
-
-                                                                $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
-                                                                $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
-                                                            } else {
-                                                                $CSGPRODUCTOR = "Sin Datos";
-                                                                $NOMBREPRODUCTOR = "Sin Datos";
-                                                            }
-
-                                                            $ARRAYEVERERECEPCIONID3 = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDARPT']);
-                                                            if ($ARRAYEVERERECEPCIONID3) {
-                                                                $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID3[0]['CODIGO_ESTANDAR'];
-                                                                $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID3[0]['NOMBRE_ESTANDAR'];
-                                                            } else {
-                                                                $CODIGOESTANDAR = "Sin Datos";
-                                                                $NOMBREESTANDAR = "Sin Datos";
-                                                            }
-                                                            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
-                                                            if ($ARRAYVERVESPECIESID) {
-                                                                $NOMBREVESPECIES = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
-                                                                $ARRAYVERESPECIESID = $ESPECIES_ADO->verEspecies($ARRAYVERVESPECIESID[0]['ID_ESPECIES']);
-                                                                if ($ARRAYVERVESPECIESID) {
-                                                                    $NOMBRESPECIES = $ARRAYVERESPECIESID[0]['NOMBRE_ESPECIES'];
-                                                                } else {
-                                                                    $NOMBRESPECIES = "Sin Datos";
-                                                                }
-                                                            } else {
-                                                                $NOMBREVESPECIES = "Sin Datos";
-                                                                $NOMBRESPECIES = "Sin Datos";
-                                                            }
-                                                            ?>
-                                                            <tr class="text-left">
-                                                                <td><?php echo $r['FOLIO_AUXILIAR_EXIINDUSTRIAL']; ?> </td>
-                                                                <td><?php echo $r['EMBALADO']; ?> </td>
-                                                                <td>
-                                                                    <div class="form-group">
-                                                                        <input type="checkbox" name="SELECIONAREXISTENCIA[]" id="SELECIONAREXISTENCIA<?php echo $r['ID_EXIINDUSTRIAL']; ?>" value="<?php echo $r['ID_EXIINDUSTRIAL']; ?>">
-                                                                        <label for="SELECIONAREXISTENCIA<?php echo $r['ID_EXIINDUSTRIAL']; ?>"> Seleccionar</label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="form-group">
-                                                                        <input type="hidden" class="form-control" name="IDCAJA[]" value="<?php echo  $CONTADOR; ?>">
-                                                                        <input type="hidden" class="form-control" name="FOLIO[]" value="<?php echo  $r['FOLIO_AUXILIAR_EXIINDUSTRIAL']; ?>">
-                                                                        <input type="hidden" class="form-control" name="IDEXISTENCIA[]" value="<?php echo $r['ID_EXIINDUSTRIAL']; ?>">
-                                                                        <input type="hidden" class="form-control" name="NETOORIGINAL[]" value="<?php echo $r['KILOS_NETO_EXIINDUSTRIAL']; ?>">
-                                                                        <input type="text" pattern="^[0-9]+([.][0-9]{1,3})?$" class="form-control" name="NETO[]">
-                                                                    </div>
-                                                                </td>
-                                                                <td><?php echo $CSGPRODUCTOR; ?></td>
-                                                                <td><?php echo $NOMBREPRODUCTOR; ?></td>
-                                                                <td><?php echo $CODIGOESTANDAR; ?></td>
-                                                                <td><?php echo $NOMBREESTANDAR; ?></td>
-                                                                <td><?php echo $NOMBRESPECIES; ?></td>
-                                                                <td><?php echo $NOMBREVESPECIES; ?></td>
-                                                                <td><?php echo $r['NETO']; ?></td>
-                                                                <td><?php echo $r['DIAS']; ?></td>
-                                                                <td><?php echo $r['INGRESO']; ?></td>
-                                                                <td><?php echo $r['MODIFICACION']; ?></td>
-                                                            </tr>
-                                                        <?php endforeach; ?>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -493,13 +424,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
         }
         if (isset($_REQUEST['DIVIDIR'])) {
             $IDDESPACHO = $_REQUEST['IDP'];
-            $ARRAYFOLIO = $_REQUEST['FOLIO'];
-            $ARRAYIDEXISTENCIA = $_REQUEST['IDEXISTENCIA'];
-            $ARRAYIDCAJA = $_REQUEST['IDCAJA'];
-            $ARRAYNETOORIGINAL = $_REQUEST['NETOORIGINAL'];
-            $ARRAYNETO = $_REQUEST['NETO'];
 
-            if (isset($_REQUEST['IDCAJA'])) {
+            if (isset($_REQUEST['IDEXISTENCIA'])) {
+                $ARRAYFOLIO = $_REQUEST['FOLIO'];
+                $ARRAYIDEXISTENCIA = $_REQUEST['IDEXISTENCIA'];
+                $ARRAYIDCAJA = $_REQUEST['IDCAJA'];
+                $ARRAYNETOORIGINAL = $_REQUEST['NETOORIGINAL'];
+                $ARRAYNETO = $_REQUEST['NETO'];
+
                 foreach ($ARRAYIDCAJA as $ID) :
                     $IDNETO = $ID - 1;
 
@@ -513,27 +445,27 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                         $SINONETO = 0;
                         $MENSAJEPRECIO = $MENSAJE;
                         if ($NETO <= 0) {
-                            $SINONETO = 1;
-                            $MENSAJE = $MENSAJE . "  " . $FOLIOORIGINAL . ": SOLO DEBEN INGRESAR UN VALOR MAYOR A ZERO";
+                            $SINNO = 1;
+                            $MENSAJE = $MENSAJE . "  " . $FOLIOORIGINAL . ": Solo deben ingresar un valor mayor a zero.";
                         } else {
                             if ($NETO >= $NETOORIGINAL) {
-                                $SINONETO = 1;
-                                $MENSAJE = $MENSAJE . "  " . $FOLIOORIGINAL . ": LOS KILOS DESPACHADOS NO PUEDE SER MAYOR O IGUAL A LOS KILOS NETO";
+                                $SINNO = 1;
+                                $MENSAJE = $MENSAJE . "  " . $FOLIOORIGINAL . ":Los kilos despachados no puede ser mayor o igual los kilos netos.";
                             } else {
-                                $SINONETO = 0;
+                                $SINNO = 0;
                                 $MENSAJE = $MENSAJE;
                             }
                         }
                     } else {
-                        $SINONETO = 1;
-                        // $MENSAJE = $MENSAJE . " <br> " . $FOLIOEXIINDUSTRIALPRECIO . ": SE DEBE INGRESAR UN DATO EN KILOS DESPACHO";
+                         $SINNO = 1;
+                         $MENSAJE = $MENSAJE;
                     }
-                    if ($SINONETO == 0) {
-                        $EXIINDUSTRIAL->__SET('ID_DESPACHO', $IDDESPACHO);
-                        $EXIINDUSTRIAL->__SET('KILOS_NETO_EXIINDUSTRIAL', $NETO);
+                    if ($SINNO == 0) {
+                        $EXIINDUSTRIAL->__SET('ID_DESPACHO3', $IDDESPACHO);
                         $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL', $IDEXISTENCIA);
                         // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                        $EXIINDUSTRIAL_ADO->actualizarSelecionarDespachoNeto($EXIINDUSTRIAL);
+                        $EXIINDUSTRIAL_ADO->repaletizado($EXIINDUSTRIAL);
+
 
                         $NETONUEVO = $NETOORIGINAL - $NETO;                 
 
@@ -547,32 +479,85 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                             $EXIINDUSTRIAL->__SET('FOLIO_EXIINDUSTRIAL', $r['FOLIO_EXIINDUSTRIAL']);
                             $EXIINDUSTRIAL->__SET('FOLIO_AUXILIAR_EXIINDUSTRIAL', $r['FOLIO_AUXILIAR_EXIINDUSTRIAL']);
                             $EXIINDUSTRIAL->__SET('FECHA_EMBALADO_EXIINDUSTRIAL', $r['FECHA_EMBALADO_EXIINDUSTRIAL']);
-                            $EXIINDUSTRIAL->__SET('KILOS_NETO_EXIINDUSTRIAL', $NETONUEVO);
+                            $EXIINDUSTRIAL->__SET('KILOS_NETO_EXIINDUSTRIAL', $NETO);    
                             $EXIINDUSTRIAL->__SET('ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL', $FOLIOALIASESTACTICO);
-                            $EXIINDUSTRIAL->__SET('ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL', $FOLIOALIASDIANAMICO);
-                            $EXIINDUSTRIAL->__SET('TCOBRO', $r['TCOBRO']);
-                            $EXIINDUSTRIAL->__SET('INGRESO', $r['INGRESO']);
+                            $EXIINDUSTRIAL->__SET('ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL', $FOLIOALIASDIANAMICO);                            
+                            $EXIINDUSTRIAL->__SET('STOCK', $r['STOCK']);
+                            $EXIINDUSTRIAL->__SET('EMBOLSADO', $r['EMBOLSADO']);
+                            $EXIINDUSTRIAL->__SET('PREFRIO', $r['PREFRIO']);
+                            $EXIINDUSTRIAL->__SET('TESTADOSAG', $r['TESTADOSAG']);
+                            $EXIINDUSTRIAL->__SET('GASIFICADO', $r['GASIFICADO']); 
+                            $EXIINDUSTRIAL->__SET('TCOBRO', $r['TCOBRO']);                          
+                            $EXIINDUSTRIAL->__SET('FECHA_RECEPCION', $r['FECHA_RECEPCION']);
+                            $EXIINDUSTRIAL->__SET('FECHA_PROCESO', $r['FECHA_PROCESO']);
+                            $EXIINDUSTRIAL->__SET('FECHA_REEMBALAJE', $r['FECHA_REEMBALAJE']);
+                            $EXIINDUSTRIAL->__SET('INGRESO', $r['INGRESO']);                            
                             $EXIINDUSTRIAL->__SET('ID_TMANEJO', $r['ID_TMANEJO']);
-                            $EXIINDUSTRIAL->__SET('ID_FOLIO',  $r['ID_FOLIO']);
-                            $EXIINDUSTRIAL->__SET('ID_ESTANDAR', $r['ID_ESTANDAR']);
-                            $EXIINDUSTRIAL->__SET('ID_ESTANDARMP', $r['ID_ESTANDARMP']);
-                            $EXIINDUSTRIAL->__SET('ID_ESTANDARPT', $r['ID_ESTANDARPT']);
-
                             $EXIINDUSTRIAL->__SET('ID_PRODUCTOR', $r['ID_PRODUCTOR']);
                             $EXIINDUSTRIAL->__SET('ID_VESPECIES', $r['ID_VESPECIES']);
-
-                            $EXIINDUSTRIAL->__SET('ID_DESPACHO2', $r['ID_DESPACHO2']);
-                            $EXIINDUSTRIAL->__SET('ID_REEMBALAJE', $r['ID_REEMBALAJE']);
-                            $EXIINDUSTRIAL->__SET('ID_PROCESO', $r['ID_PROCESO']);
-                            $EXIINDUSTRIAL->__SET('ID_RECEPCION', $r['ID_RECEPCION']);
-
+                            $EXIINDUSTRIAL->__SET('ID_ESTANDAR', $r['ID_ESTANDAR']);
+                            $EXIINDUSTRIAL->__SET('ID_FOLIO',  $r['ID_FOLIO']);    
                             $EXIINDUSTRIAL->__SET('ID_EMPRESA', $EMPRESAS);
                             $EXIINDUSTRIAL->__SET('ID_PLANTA', $PLANTAS);
-                            $EXIINDUSTRIAL->__SET('ID_TEMPORADA', $TEMPORADAS);
+                            $EXIINDUSTRIAL->__SET('ID_TEMPORADA', $TEMPORADAS);   
+                            $EXIINDUSTRIAL->__SET('ID_TCALIBRE', $r['ID_TCALIBRE']);
+                            $EXIINDUSTRIAL->__SET('ID_TEMBALAJE', $r['ID_TEMBALAJE']);
+                            $EXIINDUSTRIAL->__SET('ID_TTRATAMIENTO1', $r['ID_TTRATAMIENTO1']);
+                            $EXIINDUSTRIAL->__SET('ID_TTRATAMIENTO2', $r['ID_TTRATAMIENTO2']);    
+                            $EXIINDUSTRIAL->__SET('ID_ESTANDARMP', $r['ID_ESTANDARMP']);
+                            $EXIINDUSTRIAL->__SET('ID_RECEPCION', $r['ID_RECEPCION']);
+                            $EXIINDUSTRIAL->__SET('ID_PROCESO', $r['ID_PROCESO']);
+                            $EXIINDUSTRIAL->__SET('ID_REEMBALAJE', $r['ID_REEMBALAJE']);    
+                            $EXIINDUSTRIAL->__SET('ID_DESPACHO', $IDDESPACHO);
+                            $EXIINDUSTRIAL->__SET('ID_DESPACHO2', $r['ID_DESPACHO2']);                            
+                            $EXIINDUSTRIAL->__SET('ID_PLANTA2', $r['ID_PLANTA2']);
+                            $EXIINDUSTRIAL->__SET('ID_PLANTA3', $r['ID_PLANTA3']);
+                            $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL2', $r['ID_EXIINDUSTRIAL']); 
                             //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                            $EXIINDUSTRIAL_ADO->agregarExiindustrialDespacho($EXIINDUSTRIAL);
-                        endforeach;       
-                        $SINNO=0;                 
+                            $EXIINDUSTRIAL_ADO->agregarExiindustrialDespachoNuevo($EXIINDUSTRIAL);
+
+                            
+                            $EXIINDUSTRIAL->__SET('FOLIO_EXIINDUSTRIAL', $r['FOLIO_EXIINDUSTRIAL']);
+                            $EXIINDUSTRIAL->__SET('FOLIO_AUXILIAR_EXIINDUSTRIAL', $r['FOLIO_AUXILIAR_EXIINDUSTRIAL']);
+                            $EXIINDUSTRIAL->__SET('FECHA_EMBALADO_EXIINDUSTRIAL', $r['FECHA_EMBALADO_EXIINDUSTRIAL']);
+                            $EXIINDUSTRIAL->__SET('KILOS_NETO_EXIINDUSTRIAL', $NETONUEVO);    
+                            $EXIINDUSTRIAL->__SET('ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL', $FOLIOALIASESTACTICO);
+                            $EXIINDUSTRIAL->__SET('ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL', $FOLIOALIASDIANAMICO);                            
+                            $EXIINDUSTRIAL->__SET('STOCK', $r['STOCK']);
+                            $EXIINDUSTRIAL->__SET('EMBOLSADO', $r['EMBOLSADO']);
+                            $EXIINDUSTRIAL->__SET('PREFRIO', $r['PREFRIO']);
+                            $EXIINDUSTRIAL->__SET('TESTADOSAG', $r['TESTADOSAG']);
+                            $EXIINDUSTRIAL->__SET('GASIFICADO', $r['GASIFICADO']);      
+                            $EXIINDUSTRIAL->__SET('TCOBRO', $r['TCOBRO']);                          
+                            $EXIINDUSTRIAL->__SET('FECHA_RECEPCION', $r['FECHA_RECEPCION']);
+                            $EXIINDUSTRIAL->__SET('FECHA_PROCESO', $r['FECHA_PROCESO']);
+                            $EXIINDUSTRIAL->__SET('FECHA_REEMBALAJE', $r['FECHA_REEMBALAJE']);
+                            $EXIINDUSTRIAL->__SET('INGRESO', $r['INGRESO']);                            
+                            $EXIINDUSTRIAL->__SET('ID_TMANEJO', $r['ID_TMANEJO']);
+                            $EXIINDUSTRIAL->__SET('ID_PRODUCTOR', $r['ID_PRODUCTOR']);
+                            $EXIINDUSTRIAL->__SET('ID_VESPECIES', $r['ID_VESPECIES']);
+                            $EXIINDUSTRIAL->__SET('ID_ESTANDAR', $r['ID_ESTANDAR']);
+                            $EXIINDUSTRIAL->__SET('ID_FOLIO',  $r['ID_FOLIO']);    
+                            $EXIINDUSTRIAL->__SET('ID_EMPRESA', $EMPRESAS);
+                            $EXIINDUSTRIAL->__SET('ID_PLANTA', $PLANTAS);
+                            $EXIINDUSTRIAL->__SET('ID_TEMPORADA', $TEMPORADAS);     
+                            $EXIINDUSTRIAL->__SET('ID_TCALIBRE', $r['ID_TCALIBRE']);
+                            $EXIINDUSTRIAL->__SET('ID_TEMBALAJE', $r['ID_TEMBALAJE']);
+                            $EXIINDUSTRIAL->__SET('ID_TTRATAMIENTO1', $r['ID_TTRATAMIENTO1']);
+                            $EXIINDUSTRIAL->__SET('ID_TTRATAMIENTO2', $r['ID_TTRATAMIENTO2']);    
+                            $EXIINDUSTRIAL->__SET('ID_ESTANDARMP', $r['ID_ESTANDARMP']);
+                            $EXIINDUSTRIAL->__SET('ID_RECEPCION', $r['ID_RECEPCION']);
+                            $EXIINDUSTRIAL->__SET('ID_PROCESO', $r['ID_PROCESO']);
+                            $EXIINDUSTRIAL->__SET('ID_REEMBALAJE', $r['ID_REEMBALAJE']); 
+                            $EXIINDUSTRIAL->__SET('ID_DESPACHO2', $r['ID_DESPACHO2']);     
+                            $EXIINDUSTRIAL->__SET('ID_DESPACHO3', $IDDESPACHO);                          
+                            $EXIINDUSTRIAL->__SET('ID_PLANTA2', $r['ID_PLANTA2']);
+                            $EXIINDUSTRIAL->__SET('ID_PLANTA3', $r['ID_PLANTA3']);
+                            $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL2', $r['ID_EXIINDUSTRIAL']); 
+                            //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                            $EXIINDUSTRIAL_ADO->agregarExiindustrialDespachoResto($EXIINDUSTRIAL);
+
+                        endforeach;                 
                     }
                 endforeach;
 
@@ -593,7 +578,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                 location.href="' . $_REQUEST['URLO'] . '.php?op";                        
                             })
                         </script>';
-                         //  echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
                     }else{                        
                         $_SESSION["parametro"] =  $_REQUEST['IDP'];
                         $_SESSION["parametro1"] =  $_REQUEST['OPP'];
@@ -610,15 +594,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                             })
                         </script>';
                     }
-                }
-                if ($SINONETO == 1) {
-                    if ($MENSAJE != "") {
+                }else{                        
+                    if($MENSAJE!=""){
                         $_SESSION["parametro"] =  $_REQUEST['IDP'];
                         $_SESSION["parametro1"] =  $_REQUEST['OPP'];
                         echo '<script>
                             Swal.fire({
                                 icon:"warning",
-                                title:"Accion restringida",
+                                title:"Accion realizadas, con errores.",
                                 text:"' . $MENSAJE . '",
                                 showConfirmButton: true,
                                 confirmButtonText:"Cerrar",
@@ -627,8 +610,25 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                 location.href="registroSelecionExistenciaINDDespachoIND.php?op";                        
                             })
                         </script>';
+                    }else{                            
+                        $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                        $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                        echo '<script>
+                            Swal.fire({
+                                icon:"success",
+                                title:"Accion realizada",
+                                text:"Se agregado la selección al despacho.",
+                                showConfirmButton: true,
+                                confirmButtonText:"Volver al despacho",
+                                closeOnConfirm:false
+                            }).then((result)=>{
+                                location.href="' . $_REQUEST['URLO'] . '.php?op";                         
+                            })
+                        </script>';
+
                     }
                 }
+                
 
             }
         }

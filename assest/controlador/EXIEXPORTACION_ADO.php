@@ -382,6 +382,8 @@ class EXIEXPORTACION_ADO
 
 
 
+ 
+
     public function agregarExiexportacionGuia(EXIEXPORTACION $EXIEXPORTACION)
     {
         try {
@@ -392,6 +394,18 @@ class EXIEXPORTACION_ADO
             if ($EXIEXPORTACION->__GET('ID_TCOLOR') == NULL) {
                 $EXIEXPORTACION->__SET('ID_TCOLOR', NULL);
             }
+            if ($EXIEXPORTACION->__GET('ID_DESPACHO2') == NULL) {
+                $EXIEXPORTACION->__SET('ID_DESPACHO2', NULL);
+            }
+            if ($EXIEXPORTACION->__GET('ID_INPSAG2') == NULL) {
+                $EXIEXPORTACION->__SET('ID_INPSAG2', NULL);
+            }
+            if ($EXIEXPORTACION->__GET('ID_PLANTA3') == NULL) {
+                $EXIEXPORTACION->__SET('ID_PLANTA3', NULL);
+            }
+            if ($EXIEXPORTACION->__GET('ID_EXIEXPORTACION2') == NULL) {
+                $EXIEXPORTACION->__SET('ID_EXIEXPORTACION2', NULL);
+            }
             $query =
                 "INSERT INTO fruta_exiexportacion (                    
                                                     FOLIO_EXIEXPORTACION,
@@ -399,40 +413,68 @@ class EXIEXPORTACION_ADO
                                                     FOLIO_MANUAL,
                                                     FECHA_EMBALADO_EXIEXPORTACION,
                                                     CANTIDAD_ENVASE_EXIEXPORTACION,
+
                                                     KILOS_NETO_EXIEXPORTACION,
                                                     KILOS_BRUTO_EXIEXPORTACION,
                                                     PDESHIDRATACION_EXIEXPORTACION,
                                                     KILOS_DESHIRATACION_EXIEXPORTACION,
                                                     OBSERVACION_EXIESPORTACION,
+
                                                     ALIAS_DINAMICO_FOLIO_EXIESPORTACION,
                                                     ALIAS_ESTATICO_FOLIO_EXIESPORTACION,                                               
                                                     STOCK, 
                                                     EMBOLSADO, 
                                                     GASIFICADO, 
+
                                                     PREFRIO,
                                                     TESTADOSAG,
                                                     VGM,
-                                                    INGRESO,
                                                     COLOR,
+
+                                                    FECHA_RECEPCION,
+                                                    FECHA_PROCESO,
+                                                    FECHA_REEMBALAJE,
+                                                    FECHA_REPALETIZAJE,
+
+                                                    INGRESO,
+
                                                     ID_TCALIBRE,  
                                                     ID_TEMBALAJE,
+
                                                     ID_TMANEJO,
-                                                    ID_TCATEGORIA,
-                                                    ID_TCOLOR,
                                                     ID_FOLIO,
                                                     ID_ESTANDAR,
                                                     ID_PRODUCTOR,   
                                                     ID_VESPECIES,
-                                                    ID_PLANTA2,    
-                                                    ID_DESPACHO2,
+
                                                     ID_EMPRESA,
                                                     ID_PLANTA,
                                                     ID_TEMPORADA, 
+                                                    
+                                                    ID_TCATEGORIA,
+                                                    ID_TCOLOR,
+
+                                                    ID_RECEPCION,
+                                                    ID_PROCESO,
+                                                    ID_REEMBALAJE,
+                                                    
+                                                    ID_RECHAZADO,
+                                                    ID_LEVANTAMIENTO,
+
+                                                    ID_DESPACHO2,
+                                                    ID_INPSAG2,
+                                                    ID_REPALETIZAJE2,
+                                                    ID_EXIEXPORTACION2,
+
+                                                    ID_PLANTA2,
+                                                    ID_PLANTA3,
+
+
                                                     MODIFICACION,
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                  ) VALUES
-	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?,     SYSDATE(), 2, 1);";
+	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?,   ?, ?, ?, ?,   ?,   ?, ?,    ?, ?, ?, ?, ?,   ?, ?,  ?,    ?, ?,   ?, ?, ?,    ?, ?,   ?, ?, ?, ?,     ?, ?,     SYSDATE(), 2, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -442,35 +484,65 @@ class EXIEXPORTACION_ADO
                         $EXIEXPORTACION->__GET('FOLIO_MANUAL'),
                         $EXIEXPORTACION->__GET('FECHA_EMBALADO_EXIEXPORTACION'),
                         $EXIEXPORTACION->__GET('CANTIDAD_ENVASE_EXIEXPORTACION'),
+
                         $EXIEXPORTACION->__GET('KILOS_NETO_EXIEXPORTACION'),
                         $EXIEXPORTACION->__GET('KILOS_BRUTO_EXIEXPORTACION'),
                         $EXIEXPORTACION->__GET('PDESHIDRATACION_EXIEXPORTACION'),
                         $EXIEXPORTACION->__GET('KILOS_DESHIRATACION_EXIEXPORTACION'),
                         $EXIEXPORTACION->__GET('OBSERVACION_EXIESPORTACION'),
+
                         $EXIEXPORTACION->__GET('ALIAS_DINAMICO_FOLIO_EXIESPORTACION'),
                         $EXIEXPORTACION->__GET('ALIAS_ESTATICO_FOLIO_EXIESPORTACION'),
                         $EXIEXPORTACION->__GET('STOCK'),
                         $EXIEXPORTACION->__GET('EMBOLSADO'),
                         $EXIEXPORTACION->__GET('GASIFICADO'),
+
                         $EXIEXPORTACION->__GET('PREFRIO'),
                         $EXIEXPORTACION->__GET('TESTADOSAG'),
                         $EXIEXPORTACION->__GET('VGM'),
-                        $EXIEXPORTACION->__GET('INGRESO'),
                         $EXIEXPORTACION->__GET('COLOR'),
+
+                        $EXIEXPORTACION->__GET('FECHA_RECEPCION'),
+                        $EXIEXPORTACION->__GET('FECHA_PROCESO'),
+                        $EXIEXPORTACION->__GET('FECHA_REEMBALAJE'),
+                        $EXIEXPORTACION->__GET('FECHA_REPALETIZAJE'),
+
+                        $EXIEXPORTACION->__GET('INGRESO'),
+                        
                         $EXIEXPORTACION->__GET('ID_TCALIBRE'),
                         $EXIEXPORTACION->__GET('ID_TEMBALAJE'),
+                      
                         $EXIEXPORTACION->__GET('ID_TMANEJO'),
-                        $EXIEXPORTACION->__GET('ID_TCATEGORIA'),
-                        $EXIEXPORTACION->__GET('ID_TCOLOR'),
                         $EXIEXPORTACION->__GET('ID_FOLIO'),
                         $EXIEXPORTACION->__GET('ID_ESTANDAR'),
                         $EXIEXPORTACION->__GET('ID_PRODUCTOR'),
                         $EXIEXPORTACION->__GET('ID_VESPECIES'),
-                        $EXIEXPORTACION->__GET('ID_PLANTA2'),
-                        $EXIEXPORTACION->__GET('ID_DESPACHO2'),
+
                         $EXIEXPORTACION->__GET('ID_EMPRESA'),
                         $EXIEXPORTACION->__GET('ID_PLANTA'),
-                        $EXIEXPORTACION->__GET('ID_TEMPORADA')
+                        $EXIEXPORTACION->__GET('ID_TEMPORADA'),
+
+                        $EXIEXPORTACION->__GET('ID_TCATEGORIA'),
+                        $EXIEXPORTACION->__GET('ID_TCOLOR'),
+
+                        $EXIEXPORTACION->__GET('ID_RECEPCION'),
+                        $EXIEXPORTACION->__GET('ID_PROCESO'),
+                        $EXIEXPORTACION->__GET('ID_REEMBALAJE'),
+                        
+                        $EXIEXPORTACION->__GET('ID_RECHAZADO'),
+                        $EXIEXPORTACION->__GET('ID_LEVANTAMIENTO'),
+
+                        $EXIEXPORTACION->__GET('ID_DESPACHO2'),
+                        $EXIEXPORTACION->__GET('ID_INPSAG2'),
+                        $EXIEXPORTACION->__GET('ID_REPALETIZAJE2'),
+                        $EXIEXPORTACION->__GET('ID_EXIEXPORTACION2'),
+
+                        $EXIEXPORTACION->__GET('ID_PLANTA2'),
+                        $EXIEXPORTACION->__GET('ID_PLANTA3')
+
+
+                        
+
 
                     )
 
@@ -479,7 +551,6 @@ class EXIEXPORTACION_ADO
             die($e->getMessage());
         }
     }
-
 
 
     public function agregarExiexportacionRepaletizaje(EXIEXPORTACION $EXIEXPORTACION)
@@ -495,6 +566,15 @@ class EXIEXPORTACION_ADO
             if ($EXIEXPORTACION->__GET('ID_DESPACHO2') == NULL) {
                 $EXIEXPORTACION->__SET('ID_DESPACHO2', NULL);
             }
+            if ($EXIEXPORTACION->__GET('ID_INPSAG2') == NULL) {
+                $EXIEXPORTACION->__SET('ID_INPSAG2', NULL);
+            }
+            if ($EXIEXPORTACION->__GET('ID_PLANTA3') == NULL) {
+                $EXIEXPORTACION->__SET('ID_PLANTA3', NULL);
+            }
+            if ($EXIEXPORTACION->__GET('ID_EXIEXPORTACION2') == NULL) {
+                $EXIEXPORTACION->__SET('ID_EXIEXPORTACION2', NULL);
+            }
             $query =
                 "INSERT INTO fruta_exiexportacion (                    
                                                     FOLIO_EXIEXPORTACION,
@@ -518,41 +598,53 @@ class EXIEXPORTACION_ADO
                                                     PREFRIO,
                                                     TESTADOSAG,
                                                     VGM,
+                                                    COLOR,
+
                                                     FECHA_RECEPCION,
                                                     FECHA_PROCESO,
-
                                                     FECHA_REEMBALAJE,
                                                     FECHA_REPALETIZAJE,
+
                                                     INGRESO,
-                                                    COLOR,
+
                                                     ID_TCALIBRE,  
                                                     ID_TEMBALAJE,
 
                                                     ID_TMANEJO,
-                                                    ID_TCATEGORIA,
-                                                    ID_TCOLOR,
                                                     ID_FOLIO,
                                                     ID_ESTANDAR,
                                                     ID_PRODUCTOR,   
                                                     ID_VESPECIES,
 
-                                                    ID_PLANTA2,
-                                                    ID_DESPACHO2,
+                                                    ID_EMPRESA,
+                                                    ID_PLANTA,
+                                                    ID_TEMPORADA, 
+                                                    
+                                                    ID_TCATEGORIA,
+                                                    ID_TCOLOR,
 
                                                     ID_RECEPCION,
                                                     ID_PROCESO,
                                                     ID_REPALETIZAJE,  
                                                     ID_REEMBALAJE,
+                                                    
+                                                    ID_RECHAZADO,
+                                                    ID_LEVANTAMIENTO,
 
-                                                    ID_EMPRESA,
-                                                    ID_PLANTA,
-                                                    ID_TEMPORADA, 
+                                                    ID_DESPACHO2,
+                                                    ID_INPSAG2,
+                                                    ID_REPALETIZAJE2,  
+                                                    ID_EXIEXPORTACION2,
+
+                                                    ID_PLANTA2,
+                                                    ID_PLANTA3,
+
 
                                                     MODIFICACION,
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                  ) VALUES
-	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?, ?, ?,    ?, ?,    ?, ?, ?, ?, ?,   ?, ?, ?,    SYSDATE(), 1, 1);";
+	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?,   ?, ?, ?, ?,   ?,   ?, ?,    ?, ?, ?, ?, ?,   ?, ?,  ?,    ?, ?,   ?, ?, ?, ?,   ?, ?,   ?, ?, ?, ?,     ?, ?,     SYSDATE(), 1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -578,35 +670,50 @@ class EXIEXPORTACION_ADO
                         $EXIEXPORTACION->__GET('PREFRIO'),
                         $EXIEXPORTACION->__GET('TESTADOSAG'),
                         $EXIEXPORTACION->__GET('VGM'),
+                        $EXIEXPORTACION->__GET('COLOR'),
+
                         $EXIEXPORTACION->__GET('FECHA_RECEPCION'),
                         $EXIEXPORTACION->__GET('FECHA_PROCESO'),
-
                         $EXIEXPORTACION->__GET('FECHA_REEMBALAJE'),
                         $EXIEXPORTACION->__GET('FECHA_REPALETIZAJE'),
+
                         $EXIEXPORTACION->__GET('INGRESO'),
-                        $EXIEXPORTACION->__GET('COLOR'),
+                        
                         $EXIEXPORTACION->__GET('ID_TCALIBRE'),
                         $EXIEXPORTACION->__GET('ID_TEMBALAJE'),
                       
                         $EXIEXPORTACION->__GET('ID_TMANEJO'),
-                        $EXIEXPORTACION->__GET('ID_TCATEGORIA'),
-                        $EXIEXPORTACION->__GET('ID_TCOLOR'),
                         $EXIEXPORTACION->__GET('ID_FOLIO'),
                         $EXIEXPORTACION->__GET('ID_ESTANDAR'),
                         $EXIEXPORTACION->__GET('ID_PRODUCTOR'),
                         $EXIEXPORTACION->__GET('ID_VESPECIES'),
 
-                        $EXIEXPORTACION->__GET('ID_PLANTA2'),
-                        $EXIEXPORTACION->__GET('ID_DESPACHO2'),
+                        $EXIEXPORTACION->__GET('ID_EMPRESA'),
+                        $EXIEXPORTACION->__GET('ID_PLANTA'),
+                        $EXIEXPORTACION->__GET('ID_TEMPORADA'),
+
+                        $EXIEXPORTACION->__GET('ID_TCATEGORIA'),
+                        $EXIEXPORTACION->__GET('ID_TCOLOR'),
 
                         $EXIEXPORTACION->__GET('ID_RECEPCION'),
                         $EXIEXPORTACION->__GET('ID_PROCESO'),
                         $EXIEXPORTACION->__GET('ID_REPALETIZAJE'),
                         $EXIEXPORTACION->__GET('ID_REEMBALAJE'),
+                        
+                        $EXIEXPORTACION->__GET('ID_RECHAZADO'),
+                        $EXIEXPORTACION->__GET('ID_LEVANTAMIENTO'),
 
-                        $EXIEXPORTACION->__GET('ID_EMPRESA'),
-                        $EXIEXPORTACION->__GET('ID_PLANTA'),
-                        $EXIEXPORTACION->__GET('ID_TEMPORADA')
+                        $EXIEXPORTACION->__GET('ID_DESPACHO2'),
+                        $EXIEXPORTACION->__GET('ID_INPSAG2'),
+                        $EXIEXPORTACION->__GET('ID_REPALETIZAJE2'),
+                        $EXIEXPORTACION->__GET('ID_EXIEXPORTACION2'),
+
+                        $EXIEXPORTACION->__GET('ID_PLANTA2'),
+                        $EXIEXPORTACION->__GET('ID_PLANTA3')
+
+
+                        
+
 
                     )
 
@@ -615,9 +722,6 @@ class EXIEXPORTACION_ADO
             die($e->getMessage());
         }
     }
-
-
-
 
 
     //ELIMINAR FILA, NO SE UTILIZA
@@ -2041,7 +2145,8 @@ class EXIEXPORTACION_ADO
             $datos = $this->conexion->prepare(" SELECT * 
                                                 FROM fruta_exiexportacion 
                                                 WHERE  
-                                                    FOLIO_AUXILIAR_EXIEXPORTACION = '" . $FOLIOAUXILIAREXIEXPORTACION . "' 
+                                                    FOLIO_AUXILIAR_EXIEXPORTACION = '" . $FOLIOAUXILIAREXIEXPORTACION . "'
+                                                    
                                                       ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -2895,7 +3000,7 @@ class EXIEXPORTACION_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -2995,7 +3100,7 @@ class EXIEXPORTACION_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -3020,7 +3125,7 @@ class EXIEXPORTACION_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -3045,7 +3150,7 @@ class EXIEXPORTACION_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -3489,7 +3594,7 @@ class EXIEXPORTACION_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -3518,7 +3623,7 @@ class EXIEXPORTACION_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -3547,7 +3652,7 @@ class EXIEXPORTACION_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -3705,7 +3810,7 @@ class EXIEXPORTACION_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -4049,7 +4154,7 @@ class EXIEXPORTACION_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -4079,7 +4184,7 @@ class EXIEXPORTACION_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -4105,7 +4210,7 @@ class EXIEXPORTACION_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -5110,7 +5215,7 @@ class EXIEXPORTACION_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -5119,7 +5224,7 @@ class EXIEXPORTACION_ADO
         }
     }
     
-    public function obtenerFolioRepaletizaje($IDFOLIO)
+    public function obtenerFolioRepaletizaje($IDFOLIO, $EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {
 
@@ -5128,13 +5233,16 @@ class EXIEXPORTACION_ADO
                                                 WHERE  ID_FOLIO= '" . $IDFOLIO . "' 
                                                 AND FOLIO_MANUAL = 0
                                                 AND ID_DESPACHO2 IS NUll
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                                AND ID_PLANTA = '" . $PLANTA . "'
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "' 
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -5142,7 +5250,7 @@ class EXIEXPORTACION_ADO
             die($e->getMessage());
         }
     }
-    public function obtenerFolioRecepción($IDFOLIO)
+    public function obtenerFolioRecepción($IDFOLIO, $EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {
 
@@ -5151,13 +5259,16 @@ class EXIEXPORTACION_ADO
                                                 WHERE  ID_FOLIO= '" . $IDFOLIO . "' 
                                                 AND FOLIO_MANUAL = 0
                                                 AND ID_DESPACHO2 IS NUll
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                                AND ID_PLANTA = '" . $PLANTA . "'
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "' 
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -5165,7 +5276,7 @@ class EXIEXPORTACION_ADO
             die($e->getMessage());
         }
     }
-    public function obtenerFolioProceso($IDFOLIO)
+    public function obtenerFolioProceso($IDFOLIO, $EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {
 
@@ -5174,13 +5285,16 @@ class EXIEXPORTACION_ADO
                                                 WHERE  ID_FOLIO= '" . $IDFOLIO . "' 
                                                 AND FOLIO_MANUAL = 0
                                                 AND ID_DESPACHO2 IS NUll
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                                AND ID_PLANTA = '" . $PLANTA . "'
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "' 
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -5188,7 +5302,7 @@ class EXIEXPORTACION_ADO
             die($e->getMessage());
         }
     }
-    public function obtenerFolioReembalaje($IDFOLIO)
+    public function obtenerFolioReembalaje($IDFOLIO, $EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {
 
@@ -5197,13 +5311,16 @@ class EXIEXPORTACION_ADO
                                                 WHERE  ID_FOLIO= '" . $IDFOLIO . "' 
                                                 AND FOLIO_MANUAL = 0
                                                 AND ID_DESPACHO2 IS NUll
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                                AND ID_PLANTA = '" . $PLANTA . "'
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "' 
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -6807,7 +6924,7 @@ class EXIEXPORTACION_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -6832,7 +6949,7 @@ class EXIEXPORTACION_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;

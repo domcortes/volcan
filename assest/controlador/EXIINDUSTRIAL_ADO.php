@@ -308,64 +308,152 @@ class EXIINDUSTRIAL_ADO
 
     public function agregarExiindustrialGuia(EXIINDUSTRIAL $EXIINDUSTRIAL)
     {
+        if ($EXIINDUSTRIAL->__GET('ID_TCALIBRE') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_TCALIBRE', NULL);
+        }
+        if ($EXIINDUSTRIAL->__GET('ID_TEMBALAJE') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_TEMBALAJE', NULL);
+        }    
+        if ($EXIINDUSTRIAL->__GET('ID_TTRATAMIENTO1') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_TTRATAMIENTO2', NULL);
+        } 
+        if ($EXIINDUSTRIAL->__GET('ID_ESTANDAR') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_ESTANDAR', NULL);
+        }       
+        if ($EXIINDUSTRIAL->__GET('ID_ESTANDARMP') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_ESTANDARMP', NULL);
+        }    
+        if ($EXIINDUSTRIAL->__GET('ID_RECEPCION') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_RECEPCION', NULL);
+        }  
+        if ($EXIINDUSTRIAL->__GET('ID_PROCESO') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_PROCESO', NULL);
+        }
+        if ($EXIINDUSTRIAL->__GET('ID_REEMBALAJE') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_REEMBALAJE', NULL);
+        }
+        if ($EXIINDUSTRIAL->__GET('ID_DESPACHO2') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_DESPACHO2', NULL);
+        }
+        if ($EXIINDUSTRIAL->__GET('ID_DESPACHO3') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_DESPACHO3', NULL);
+        }
+        if ($EXIINDUSTRIAL->__GET('ID_PLANTA2') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_PLANTA2', NULL);
+        }
+        if ($EXIINDUSTRIAL->__GET('ID_PLANTA3') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_PLANTA3', NULL);
+        } 
         try {
             $query =
                 "INSERT INTO fruta_exiindustrial (  
                                                     FOLIO_EXIINDUSTRIAL,
                                                     FOLIO_AUXILIAR_EXIINDUSTRIAL,
                                                     FECHA_EMBALADO_EXIINDUSTRIAL,   
-                                                    KILOS_NETO_EXIINDUSTRIAL,       
+                                                    KILOS_NETO_EXIINDUSTRIAL,      
+
                                                     ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL,   
+                                                    ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL,    
 
-                                                    ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL,   
-                                                    TCOBRO,         
+                                                    STOCK,    
+                                                    EMBOLSADO,    
+                                                    PREFRIO,    
+                                                    TESTADOSAG,    
+                                                    GASIFICADO,   
+
+                                                    TCOBRO,     
+
+                                                    FECHA_RECEPCION,     
+                                                    FECHA_PROCESO,     
+                                                    FECHA_REEMBALAJE,              
                                                     INGRESO,    
-                                                    ID_TMANEJO, 
-                                                    ID_FOLIO,
                                                     
-                                                    ID_ESTANDAR,
-                                                    ID_ESTANDARMP,
-                                                    ID_ESTANDARPT,
-
+                                                    ID_TMANEJO, 
                                                     ID_PRODUCTOR,
                                                     ID_VESPECIES,
-                                                    ID_PLANTA2,
-                                                    ID_DESPACHO2,
-                                                    ID_EMPRESA, 
+                                                    ID_ESTANDAR,
+                                                    ID_FOLIO,
 
+                                                    ID_EMPRESA, 
                                                     ID_PLANTA, 
                                                     ID_TEMPORADA,
+                                                    
+                                                    ID_TCALIBRE,
+                                                    ID_TEMBALAJE,
+                                                    ID_TTRATAMIENTO1,
+                                                    ID_TTRATAMIENTO2,
+
+                                                    ID_ESTANDARMP,
+                                                    ID_RECEPCION,
+                                                    ID_PROCESO,
+                                                    ID_REEMBALAJE,
+
+                                                    ID_DESPACHO2,
+                                                    ID_DESPACHO3,
+
+                                                    
+                                                    ID_PLANTA2,
+                                                    ID_PLANTA3,
+                                                    ID_EXIINDUSTRIAL2,
 
                                                     MODIFICACION,
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                 ) VALUES
-	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,  ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?,  SYSDATE(),  2, 1);";
+	       	( ?, ?, ?, ?,   ?, ?,  ?, ?, ?, ?, ?,    ?,   ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?,   ?, ?, ?, ?,   ?, ?, ?, ?,   ?, ?,   ?, ?, ?, SYSDATE(),  2, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
 
+
+                        
                         $EXIINDUSTRIAL->__GET('FOLIO_EXIINDUSTRIAL'),
                         $EXIINDUSTRIAL->__GET('FOLIO_AUXILIAR_EXIINDUSTRIAL'),
                         $EXIINDUSTRIAL->__GET('FECHA_EMBALADO_EXIINDUSTRIAL'),
                         $EXIINDUSTRIAL->__GET('KILOS_NETO_EXIINDUSTRIAL'),
+
                         $EXIINDUSTRIAL->__GET('ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL'),
                         $EXIINDUSTRIAL->__GET('ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL'),
+                        
+                        $EXIINDUSTRIAL->__GET('STOCK'),
+                        $EXIINDUSTRIAL->__GET('EMBOLSADO'),
+                        $EXIINDUSTRIAL->__GET('PREFRIO'),
+                        $EXIINDUSTRIAL->__GET('TESTADOSAG'),
+                        $EXIINDUSTRIAL->__GET('GASIFICADO'),  
+
                         $EXIINDUSTRIAL->__GET('TCOBRO'),
+                      
+                        $EXIINDUSTRIAL->__GET('FECHA_RECEPCION'),
+                        $EXIINDUSTRIAL->__GET('FECHA_PROCESO'),
+                        $EXIINDUSTRIAL->__GET('FECHA_REEMBALAJE'),
                         $EXIINDUSTRIAL->__GET('INGRESO'),
+                        
                         $EXIINDUSTRIAL->__GET('ID_TMANEJO'),
-                        $EXIINDUSTRIAL->__GET('ID_FOLIO'),
-                        $EXIINDUSTRIAL->__GET('ID_ESTANDAR'),
-                        $EXIINDUSTRIAL->__GET('ID_ESTANDARMP'),
-                        $EXIINDUSTRIAL->__GET('ID_ESTANDARPT'),
                         $EXIINDUSTRIAL->__GET('ID_PRODUCTOR'),
                         $EXIINDUSTRIAL->__GET('ID_VESPECIES'),
-                        $EXIINDUSTRIAL->__GET('ID_PLANTA2'),
-                        $EXIINDUSTRIAL->__GET('ID_DESPACHO2'),
+                        $EXIINDUSTRIAL->__GET('ID_ESTANDAR'),
+                        $EXIINDUSTRIAL->__GET('ID_FOLIO'),
+
                         $EXIINDUSTRIAL->__GET('ID_EMPRESA'),
                         $EXIINDUSTRIAL->__GET('ID_PLANTA'),
-                        $EXIINDUSTRIAL->__GET('ID_TEMPORADA')
+                        $EXIINDUSTRIAL->__GET('ID_TEMPORADA'),                       
+              
+                        $EXIINDUSTRIAL->__GET('ID_TCALIBRE'),
+                        $EXIINDUSTRIAL->__GET('ID_TEMBALAJE'),
+                        $EXIINDUSTRIAL->__GET('ID_TTRATAMIENTO1'),
+                        $EXIINDUSTRIAL->__GET('ID_TTRATAMIENTO2'),
 
+                        $EXIINDUSTRIAL->__GET('ID_ESTANDARMP'),
+                        $EXIINDUSTRIAL->__GET('ID_RECEPCION'),
+                        $EXIINDUSTRIAL->__GET('ID_PROCESO'),
+                        $EXIINDUSTRIAL->__GET('ID_REEMBALAJE'),
+
+                        $EXIINDUSTRIAL->__GET('ID_DESPACHO2'),
+                        $EXIINDUSTRIAL->__GET('ID_DESPACHO3'),
+                        
+                        $EXIINDUSTRIAL->__GET('ID_PLANTA2'),
+                        $EXIINDUSTRIAL->__GET('ID_PLANTA3'),
+                        $EXIINDUSTRIAL->__GET('ID_EXIINDUSTRIAL2')     
                     )
 
                 );
@@ -373,75 +461,310 @@ class EXIINDUSTRIAL_ADO
             die($e->getMessage());
         }
     }
-    public function agregarExiindustrialDespacho(EXIINDUSTRIAL $EXIINDUSTRIAL)
+
+    public function agregarExiindustrialDespachoNuevo(EXIINDUSTRIAL $EXIINDUSTRIAL)
     {
+        if ($EXIINDUSTRIAL->__GET('ID_TCALIBRE') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_TCALIBRE', NULL);
+        }
+        if ($EXIINDUSTRIAL->__GET('ID_TEMBALAJE') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_TEMBALAJE', NULL);
+        }    
+        if ($EXIINDUSTRIAL->__GET('ID_TTRATAMIENTO1') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_TTRATAMIENTO2', NULL);
+        } 
+        if ($EXIINDUSTRIAL->__GET('ID_ESTANDAR') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_ESTANDAR', NULL);
+        }       
+        if ($EXIINDUSTRIAL->__GET('ID_ESTANDARMP') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_ESTANDARMP', NULL);
+        }    
+        if ($EXIINDUSTRIAL->__GET('ID_RECEPCION') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_RECEPCION', NULL);
+        }  
+        if ($EXIINDUSTRIAL->__GET('ID_PROCESO') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_PROCESO', NULL);
+        }
+        if ($EXIINDUSTRIAL->__GET('ID_REEMBALAJE') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_REEMBALAJE', NULL);
+        }
+        if ($EXIINDUSTRIAL->__GET('ID_DESPACHO') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_DESPACHO', NULL);
+        }
+        if ($EXIINDUSTRIAL->__GET('ID_DESPACHO2') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_DESPACHO2', NULL);
+        }
+        if ($EXIINDUSTRIAL->__GET('ID_PLANTA2') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_PLANTA2', NULL);
+        }
+        if ($EXIINDUSTRIAL->__GET('ID_PLANTA3') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_PLANTA3', NULL);
+        } 
         try {
             $query =
                 "INSERT INTO fruta_exiindustrial (  
                                                     FOLIO_EXIINDUSTRIAL,
                                                     FOLIO_AUXILIAR_EXIINDUSTRIAL,
                                                     FECHA_EMBALADO_EXIINDUSTRIAL,   
-                                                    KILOS_NETO_EXIINDUSTRIAL,       
+                                                    KILOS_NETO_EXIINDUSTRIAL,      
+
                                                     ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL,   
-
                                                     ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL,    
-                                                    TCOBRO,              
-                                                    INGRESO,    
-                                                    ID_TMANEJO, 
-                                                    ID_FOLIO,
 
-                                                    ID_ESTANDAR,
-                                                    ID_ESTANDARMP,
-                                                    ID_ESTANDARPT,
+                                                    STOCK,    
+                                                    EMBOLSADO,    
+                                                    PREFRIO,    
+                                                    TESTADOSAG,    
+                                                    GASIFICADO,   
+
+                                                    TCOBRO,     
+
+                                                    FECHA_RECEPCION,     
+                                                    FECHA_PROCESO,     
+                                                    FECHA_REEMBALAJE,              
+                                                    INGRESO,    
+                                                    
+                                                    ID_TMANEJO, 
                                                     ID_PRODUCTOR,
                                                     ID_VESPECIES,
-
-                                                    ID_DESPACHO2,
-                                                    ID_REEMBALAJE,
-                                                    ID_PROCESO,
-                                                    ID_RECEPCION,
-
+                                                    ID_ESTANDAR,
+                                                    ID_FOLIO,
 
                                                     ID_EMPRESA, 
                                                     ID_PLANTA, 
                                                     ID_TEMPORADA,
+                                                    
+                                                    ID_TCALIBRE,
+                                                    ID_TEMBALAJE,
+                                                    ID_TTRATAMIENTO1,
+                                                    ID_TTRATAMIENTO2,
+
+                                                    ID_ESTANDARMP,
+                                                    ID_RECEPCION,
+                                                    ID_PROCESO,
+                                                    ID_REEMBALAJE,
+
+                                                    ID_DESPACHO,
+                                                    ID_DESPACHO2,
+                                                    
+                                                    ID_PLANTA2,
+                                                    ID_PLANTA3,
+                                                    ID_EXIINDUSTRIAL2,
 
                                                     MODIFICACION,
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                 ) VALUES
-	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,  ?, ?, ?, ?, ?,   ?, ?, ?, ?,  ?, ?, ?,  SYSDATE(),  2, 1);";
+	       	( ?, ?, ?, ?,   ?, ?,  ?, ?, ?, ?, ?,    ?,   ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?,   ?, ?, ?, ?,   ?, ?, ?, ?,   ?, ?,   ?, ?, ?,      SYSDATE(),  3, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
 
+
+                        
                         $EXIINDUSTRIAL->__GET('FOLIO_EXIINDUSTRIAL'),
                         $EXIINDUSTRIAL->__GET('FOLIO_AUXILIAR_EXIINDUSTRIAL'),
                         $EXIINDUSTRIAL->__GET('FECHA_EMBALADO_EXIINDUSTRIAL'),
                         $EXIINDUSTRIAL->__GET('KILOS_NETO_EXIINDUSTRIAL'),
+
                         $EXIINDUSTRIAL->__GET('ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL'),
-
                         $EXIINDUSTRIAL->__GET('ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL'),
-                        $EXIINDUSTRIAL->__GET('TCOBRO'),
-                        $EXIINDUSTRIAL->__GET('INGRESO'),
-                        $EXIINDUSTRIAL->__GET('ID_TMANEJO'),
-                        $EXIINDUSTRIAL->__GET('ID_FOLIO'),
+                        
+                        $EXIINDUSTRIAL->__GET('STOCK'),
+                        $EXIINDUSTRIAL->__GET('EMBOLSADO'),
+                        $EXIINDUSTRIAL->__GET('PREFRIO'),
+                        $EXIINDUSTRIAL->__GET('TESTADOSAG'),
+                        $EXIINDUSTRIAL->__GET('GASIFICADO'),  
 
-                        $EXIINDUSTRIAL->__GET('ID_ESTANDAR'),
-                        $EXIINDUSTRIAL->__GET('ID_ESTANDARMP'),
-                        $EXIINDUSTRIAL->__GET('ID_ESTANDARPT'),
+                        $EXIINDUSTRIAL->__GET('TCOBRO'),
+                      
+                        $EXIINDUSTRIAL->__GET('FECHA_RECEPCION'),
+                        $EXIINDUSTRIAL->__GET('FECHA_PROCESO'),
+                        $EXIINDUSTRIAL->__GET('FECHA_REEMBALAJE'),
+                        $EXIINDUSTRIAL->__GET('INGRESO'),
+                        
+                        $EXIINDUSTRIAL->__GET('ID_TMANEJO'),
                         $EXIINDUSTRIAL->__GET('ID_PRODUCTOR'),
                         $EXIINDUSTRIAL->__GET('ID_VESPECIES'),
-
-                        $EXIINDUSTRIAL->__GET('ID_DESPACHO2'),
-                        $EXIINDUSTRIAL->__GET('ID_REEMBALAJE'),
-                        $EXIINDUSTRIAL->__GET('ID_PROCESO'),
-                        $EXIINDUSTRIAL->__GET('ID_RECEPCION'),
+                        $EXIINDUSTRIAL->__GET('ID_ESTANDAR'),
+                        $EXIINDUSTRIAL->__GET('ID_FOLIO'),
 
                         $EXIINDUSTRIAL->__GET('ID_EMPRESA'),
                         $EXIINDUSTRIAL->__GET('ID_PLANTA'),
-                        $EXIINDUSTRIAL->__GET('ID_TEMPORADA')
+                        $EXIINDUSTRIAL->__GET('ID_TEMPORADA'),                       
+              
+                        $EXIINDUSTRIAL->__GET('ID_TCALIBRE'),
+                        $EXIINDUSTRIAL->__GET('ID_TEMBALAJE'),
+                        $EXIINDUSTRIAL->__GET('ID_TTRATAMIENTO1'),
+                        $EXIINDUSTRIAL->__GET('ID_TTRATAMIENTO2'),
 
+                        $EXIINDUSTRIAL->__GET('ID_ESTANDARMP'),
+                        $EXIINDUSTRIAL->__GET('ID_RECEPCION'),
+                        $EXIINDUSTRIAL->__GET('ID_PROCESO'),
+                        $EXIINDUSTRIAL->__GET('ID_REEMBALAJE'),
+
+                        $EXIINDUSTRIAL->__GET('ID_DESPACHO'),
+                        $EXIINDUSTRIAL->__GET('ID_DESPACHO2'),
+                        
+                        $EXIINDUSTRIAL->__GET('ID_PLANTA2'),
+                        $EXIINDUSTRIAL->__GET('ID_PLANTA3'),
+                        $EXIINDUSTRIAL->__GET('ID_EXIINDUSTRIAL2')     
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    
+    public function agregarExiindustrialDespachoResto(EXIINDUSTRIAL $EXIINDUSTRIAL)
+    {
+        if ($EXIINDUSTRIAL->__GET('ID_TCALIBRE') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_TCALIBRE', NULL);
+        }
+        if ($EXIINDUSTRIAL->__GET('ID_TEMBALAJE') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_TEMBALAJE', NULL);
+        }    
+        if ($EXIINDUSTRIAL->__GET('ID_TTRATAMIENTO1') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_TTRATAMIENTO2', NULL);
+        } 
+        if ($EXIINDUSTRIAL->__GET('ID_ESTANDAR') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_ESTANDAR', NULL);
+        }       
+        if ($EXIINDUSTRIAL->__GET('ID_ESTANDARMP') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_ESTANDARMP', NULL);
+        }    
+        if ($EXIINDUSTRIAL->__GET('ID_RECEPCION') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_RECEPCION', NULL);
+        }  
+        if ($EXIINDUSTRIAL->__GET('ID_PROCESO') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_PROCESO', NULL);
+        }
+        if ($EXIINDUSTRIAL->__GET('ID_REEMBALAJE') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_REEMBALAJE', NULL);
+        }
+        if ($EXIINDUSTRIAL->__GET('ID_DESPACHO2') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_DESPACHO2', NULL);
+        }
+        if ($EXIINDUSTRIAL->__GET('ID_DESPACHO3') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_DESPACHO3', NULL);
+        }
+        if ($EXIINDUSTRIAL->__GET('ID_PLANTA2') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_PLANTA2', NULL);
+        }
+        if ($EXIINDUSTRIAL->__GET('ID_PLANTA3') == NULL) {
+            $EXIINDUSTRIAL->__SET('ID_PLANTA3', NULL);
+        } 
+        try {
+            $query =
+                "INSERT INTO fruta_exiindustrial (  
+                                                    FOLIO_EXIINDUSTRIAL,
+                                                    FOLIO_AUXILIAR_EXIINDUSTRIAL,
+                                                    FECHA_EMBALADO_EXIINDUSTRIAL,   
+                                                    KILOS_NETO_EXIINDUSTRIAL,      
+
+                                                    ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL,   
+                                                    ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL,    
+
+                                                    STOCK,    
+                                                    EMBOLSADO,    
+                                                    PREFRIO,    
+                                                    TESTADOSAG,    
+                                                    GASIFICADO,   
+
+                                                    TCOBRO,     
+
+                                                    FECHA_RECEPCION,     
+                                                    FECHA_PROCESO,     
+                                                    FECHA_REEMBALAJE,              
+                                                    INGRESO,    
+                                                    
+                                                    ID_TMANEJO, 
+                                                    ID_PRODUCTOR,
+                                                    ID_VESPECIES,
+                                                    ID_ESTANDAR,
+                                                    ID_FOLIO,
+
+                                                    ID_EMPRESA, 
+                                                    ID_PLANTA, 
+                                                    ID_TEMPORADA,
+                                                    
+                                                    ID_TCALIBRE,
+                                                    ID_TEMBALAJE,
+                                                    ID_TTRATAMIENTO1,
+                                                    ID_TTRATAMIENTO2,
+
+                                                    ID_ESTANDARMP,
+                                                    ID_RECEPCION,
+                                                    ID_PROCESO,
+                                                    ID_REEMBALAJE,
+
+                                                    ID_DESPACHO2,
+                                                    ID_DESPACHO3,
+
+                                                    
+                                                    ID_PLANTA2,
+                                                    ID_PLANTA3,
+                                                    ID_EXIINDUSTRIAL2,
+
+                                                    MODIFICACION,
+                                                    ESTADO,  
+                                                    ESTADO_REGISTRO
+                                                ) VALUES
+	       	( ?, ?, ?, ?,   ?, ?,  ?, ?, ?, ?, ?,    ?,   ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?,   ?, ?, ?, ?,   ?, ?, ?, ?,   ?, ?,   ?, ?, ?, SYSDATE(),  2, 1);";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+
+
+                        
+                        $EXIINDUSTRIAL->__GET('FOLIO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('FOLIO_AUXILIAR_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('FECHA_EMBALADO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('KILOS_NETO_EXIINDUSTRIAL'),
+
+                        $EXIINDUSTRIAL->__GET('ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL'),
+                        
+                        $EXIINDUSTRIAL->__GET('STOCK'),
+                        $EXIINDUSTRIAL->__GET('EMBOLSADO'),
+                        $EXIINDUSTRIAL->__GET('PREFRIO'),
+                        $EXIINDUSTRIAL->__GET('TESTADOSAG'),
+                        $EXIINDUSTRIAL->__GET('GASIFICADO'),  
+
+                        $EXIINDUSTRIAL->__GET('TCOBRO'),
+                      
+                        $EXIINDUSTRIAL->__GET('FECHA_RECEPCION'),
+                        $EXIINDUSTRIAL->__GET('FECHA_PROCESO'),
+                        $EXIINDUSTRIAL->__GET('FECHA_REEMBALAJE'),
+                        $EXIINDUSTRIAL->__GET('INGRESO'),
+                        
+                        $EXIINDUSTRIAL->__GET('ID_TMANEJO'),
+                        $EXIINDUSTRIAL->__GET('ID_PRODUCTOR'),
+                        $EXIINDUSTRIAL->__GET('ID_VESPECIES'),
+                        $EXIINDUSTRIAL->__GET('ID_ESTANDAR'),
+                        $EXIINDUSTRIAL->__GET('ID_FOLIO'),
+
+                        $EXIINDUSTRIAL->__GET('ID_EMPRESA'),
+                        $EXIINDUSTRIAL->__GET('ID_PLANTA'),
+                        $EXIINDUSTRIAL->__GET('ID_TEMPORADA'),                       
+              
+                        $EXIINDUSTRIAL->__GET('ID_TCALIBRE'),
+                        $EXIINDUSTRIAL->__GET('ID_TEMBALAJE'),
+                        $EXIINDUSTRIAL->__GET('ID_TTRATAMIENTO1'),
+                        $EXIINDUSTRIAL->__GET('ID_TTRATAMIENTO2'),
+
+                        $EXIINDUSTRIAL->__GET('ID_ESTANDARMP'),
+                        $EXIINDUSTRIAL->__GET('ID_RECEPCION'),
+                        $EXIINDUSTRIAL->__GET('ID_PROCESO'),
+                        $EXIINDUSTRIAL->__GET('ID_REEMBALAJE'),
+
+                        $EXIINDUSTRIAL->__GET('ID_DESPACHO2'),
+                        $EXIINDUSTRIAL->__GET('ID_DESPACHO3'),
+                        
+                        $EXIINDUSTRIAL->__GET('ID_PLANTA2'),
+                        $EXIINDUSTRIAL->__GET('ID_PLANTA3'),
+                        $EXIINDUSTRIAL->__GET('ID_EXIINDUSTRIAL2')     
                     )
 
                 );
@@ -1074,6 +1397,29 @@ class EXIINDUSTRIAL_ADO
                 ->execute(
                     array(
                         $EXIINDUSTRIAL->__GET('FECHA_DESPACHO'),
+                        $EXIINDUSTRIAL->__GET('ID_EXIINDUSTRIAL')
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    
+    public function repaletizado(EXIINDUSTRIAL $EXIINDUSTRIAL)
+    {
+        try {
+            $query = "
+                        UPDATE fruta_exiindustrial SET	
+                                MODIFICACION = SYSDATE(),	   
+                                ID_DESPACHO3 = ?   ,        	
+                                ESTADO = 6
+                        WHERE ID_EXIINDUSTRIAL= ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $EXIINDUSTRIAL->__GET('ID_DESPACHO3'),
                         $EXIINDUSTRIAL->__GET('ID_EXIINDUSTRIAL')
                     )
 
@@ -1917,8 +2263,8 @@ class EXIINDUSTRIAL_ADO
                                                     FORMAT(IFNULL(KILOS_NETO_EXIINDUSTRIAL*PRECIO_KILO,0),2,'de_DE') AS 'PRECIO'   
                                         FROM fruta_exiindustrial 
                                         WHERE ID_DESPACHO= '" . $IDDESPACHOIND . "'   
-                                        AND ESTADO BETWEEN 3 AND  5
-                                        AND ESTADO_REGISTRO = 1;");
+                                        AND ESTADO_REGISTRO = 1
+                                        ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -2532,15 +2878,20 @@ class EXIINDUSTRIAL_ADO
 
 
     //OBTENER EL ULTIMO FOLIO OCUPADO DEL DETALLE DE  RECEPCIONS
-    public function obtenerFolio($IDFOLIO)
+    public function obtenerFolio($IDFOLIO, $EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT IFNULL(COUNT(FOLIO_EXIINDUSTRIAL),0) AS 'ULTIMOFOLIO',
-                                                    IFNULL(MAX(FOLIO_EXIINDUSTRIAL),0) AS 'ULTIMOFOLIO2' 
+            $datos = $this->conexion->prepare("SELECT 
+                                                        IFNULL(MAX(FOLIO_EXIINDUSTRIAL),0) AS 'ULTIMOFOLIO' 
                                                     FROM fruta_exiindustrial  
                                                     WHERE  ID_FOLIO= '" . $IDFOLIO . "'                                                           
-                                                    AND ID_DESPACHO2 IS NULL ;");
+                                                    AND ID_DESPACHO2 IS NULL                                                                     
+                                                    AND ID_DESPACHO3 IS NULL                                                     
+                                                    AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                                    AND ID_PLANTA = '" . $PLANTA . "'
+                                                    AND ID_TEMPORADA = '" . $TEMPORADA . "' 
+                                                    ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;

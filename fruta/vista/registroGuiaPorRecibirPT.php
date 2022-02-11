@@ -429,6 +429,9 @@ include_once "../../assest/config/datosUrLP.php";
 
           
             foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
+
+
+
                 $EXIEXPORTACION->__SET('FOLIO_EXIEXPORTACION',  $r['FOLIO_EXIEXPORTACION']);
                 $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $r['FOLIO_AUXILIAR_EXIEXPORTACION']);
                 $EXIEXPORTACION->__SET('FOLIO_MANUAL', $r['FOLIO_MANUAL']);
@@ -440,7 +443,7 @@ include_once "../../assest/config/datosUrLP.php";
                 $EXIEXPORTACION->__SET('KILOS_DESHIRATACION_EXIEXPORTACION', $r['KILOS_DESHIRATACION_EXIEXPORTACION']);
                 $EXIEXPORTACION->__SET('OBSERVACION_EXIESPORTACION', $r['OBSERVACION_EXIESPORTACION']);
                 $EXIEXPORTACION->__SET('ALIAS_DINAMICO_FOLIO_EXIESPORTACION', $r['ALIAS_DINAMICO_FOLIO_EXIESPORTACION']);
-                $EXIEXPORTACION->__SET('ALIAS_ESTATICO_FOLIO_EXIESPORTACION', $r['ALIAS_ESTATICO_FOLIO_EXIESPORTACION']);
+                $EXIEXPORTACION->__SET('ALIAS_ESTATICO_FOLIO_EXIESPORTACION', $r['ALIAS_ESTATICO_FOLIO_EXIESPORTACION']);         
                 $EXIEXPORTACION->__SET('STOCK', $r['STOCK']);
                 $EXIEXPORTACION->__SET('EMBOLSADO', $r['EMBOLSADO']);
                 $EXIEXPORTACION->__SET('GASIFICADO', $r['GASIFICADO']);
@@ -449,6 +452,10 @@ include_once "../../assest/config/datosUrLP.php";
                 $EXIEXPORTACION->__SET('VGM', $r['VGM']);
                 $EXIEXPORTACION->__SET('INGRESO', $r['INGRESO']);
                 $EXIEXPORTACION->__SET('COLOR', $r['COLOR']);
+                $EXIEXPORTACION->__SET('FECHA_RECEPCION', $r["FECHA_RECEPCION"]);
+                $EXIEXPORTACION->__SET('FECHA_PROCESO', $r["FECHA_PROCESO"]);
+                $EXIEXPORTACION->__SET('FECHA_REEMBALAJE', $r["FECHA_REEMBALAJE"]);
+                $EXIEXPORTACION->__SET('FECHA_REPALETIZAJE', $r["FECHA_REPALETIZAJE"]);
                 $EXIEXPORTACION->__SET('ID_TCALIBRE', $r['ID_TCALIBRE']);
                 $EXIEXPORTACION->__SET('ID_TEMBALAJE', $r['ID_TEMBALAJE']);
                 $EXIEXPORTACION->__SET('ID_TMANEJO', $r['ID_TMANEJO']);
@@ -458,11 +465,20 @@ include_once "../../assest/config/datosUrLP.php";
                 $EXIEXPORTACION->__SET('ID_ESTANDAR', $r['ID_ESTANDAR']);
                 $EXIEXPORTACION->__SET('ID_PRODUCTOR', $r['ID_PRODUCTOR']);
                 $EXIEXPORTACION->__SET('ID_VESPECIES', $r['ID_VESPECIES']);
-                $EXIEXPORTACION->__SET('ID_PLANTA2', $r['ID_PLANTA2']);
-                $EXIEXPORTACION->__SET('ID_DESPACHO2', $_REQUEST['ID']);
                 $EXIEXPORTACION->__SET('ID_EMPRESA', $EMPRESAS);
                 $EXIEXPORTACION->__SET('ID_PLANTA', $PLANTAS);
                 $EXIEXPORTACION->__SET('ID_TEMPORADA', $TEMPORADAS);
+                $EXIEXPORTACION->__SET('ID_RECEPCION', $r["ID_RECEPCION"]); 
+                $EXIEXPORTACION->__SET('ID_PROCESO', $r["ID_PROCESO"]); 
+                $EXIEXPORTACION->__SET('ID_REEMBALAJE', $r["ID_REEMBALAJE"]);  
+                $EXIEXPORTACION->__SET('ID_RECHAZADO', $r["ID_RECHAZADO"]);  
+                $EXIEXPORTACION->__SET('ID_LEVANTAMIENTO', $r["ID_LEVANTAMIENTO"]);   
+                $EXIEXPORTACION->__SET('ID_PLANTA2', $r["ID_PLANTA2"]);
+                $EXIEXPORTACION->__SET('ID_PLANTA3', $r["ID_PLANTA"]);
+                $EXIEXPORTACION->__SET('ID_DESPACHO2', $_REQUEST['ID']); 
+                $EXIEXPORTACION->__SET('ID_INPSAG2', $r["ID_INPSAG2"]); 
+                $EXIEXPORTACION->__SET('ID_REPALETIZAJE2', $r["ID_REPALETIZAJE2"]);    
+                $EXIEXPORTACION->__SET('ID_EXIEXPORTACION2', $r["ID_EXIEXPORTACION2"]);  
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $EXIEXPORTACION_ADO->agregarExiexportacionGuia($EXIEXPORTACION);
             endforeach;

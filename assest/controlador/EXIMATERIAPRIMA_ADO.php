@@ -2359,7 +2359,7 @@ class EXIMATERIAPRIMA_ADO
     //OBTENER EL ULTIMO FOLIO OCUPADO DEL DETALLE DE  RECEPCIONS
 
 
-    public function obtenerFolio($IDFOLIO)
+    public function obtenerFolio($IDFOLIO, $EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {
 
@@ -2367,7 +2367,10 @@ class EXIMATERIAPRIMA_ADO
                                                 FROM fruta_eximateriaprima  
                                                 WHERE  ID_FOLIO= '" . $IDFOLIO . "' 
                                                 AND FOLIO_MANUAL = 0
-                                                AND ID_DESPACHO2 IS NULL
+                                                AND ID_DESPACHO2 IS NULL                                                                              
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                                AND ID_PLANTA = '" . $PLANTA . "'
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "' 
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
