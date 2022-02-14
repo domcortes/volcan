@@ -385,7 +385,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 
         if (isset($_REQUEST['DIVIDIR'])) {
 
-            $SINO=1;
             $IDDESPACHO = $_REQUEST['IDP'];
             $ARRAYIDCAJA = $_REQUEST['IDCAJA'];
             $ARRAYESTANDAR = $_REQUEST['ESTANDAR'];
@@ -409,26 +408,26 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 
 
                     if ($ENVASE != "") {
-                        $SINOENVASE = 0;
+                        $SINO = 0;
                         $MENSAJE = $MENSAJE;
                         if ($ENVASE <= 0) {
-                            $SINOENVASE = 1;
+                            $SINO = 1;
                             $MENSAJE = $MENSAJE . "" . $FOLIOORIGINAL . ": SOLO DEBEN INGRESAR UN VALOR MAYOR A ZERO";
                         } else {
                             if ($ENVASE >= $ENVASEORIGINAL) {
-                                $SINOENVASE = 1;
+                                $SINO = 1;
                                 $MENSAJE = $MENSAJE . " " . $FOLIOORIGINAL . ": LA CANTIDAD DE ENVASES NO PUEDE SER MAYOR O IGUAL A LOS ENVASES ORIGINAL";
                             } else {
-                                $SINOENVASE = 0;
+                                $SINO = 0;
                                 $MENSAJE = $MENSAJE;
                             }
                         }
                     } else {
-                        $SINOENVASE = 1;
+                        $SINO = 1;
                         //$MENSAJE = $MENSAJE . "" . $FOLIOORIGINAL . ": SE DEBE INGRESAR UN DATO EN KILOS DESPACHO. ";
                     }
 
-                    if ($SINOENVASE == 0) {
+                    if ($SINO == 0) {
                         $ARRAYVERESTANDAR = $ERECEPCION_ADO->verEstandar($ESTANDAR);
                         $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]["PESO_ENVASE_ESTANDAR"];
 
@@ -443,17 +442,13 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                         $NETONUEVO = $ENVASE * $PROMEDIO;
                         $PESOENVASENUEVO = $ENVASE * $PESOENVASEESTANDAR;
                         $BRUTONUEVO = $NETONUEVO + $PESOENVASENUEVO + $PESOPALLET;
-                        
 
                         //ACTUALIZA LOS DATOS DE LA FOLIO ACTUAL
 
-                        $EXIMATERIAPRIMA->__SET('ID_DESPACHO', $IDDESPACHO);
+                        $EXIMATERIAPRIMA->__SET('ID_DESPACHO3', $IDDESPACHO);
                         $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $IDEXISTENCIA);
-                        $EXIMATERIAPRIMA->__SET('CANTIDAD_ENVASE_EXIMATERIAPRIMA', $ENVASENUEVO);
-                        $EXIMATERIAPRIMA->__SET('KILOS_NETO_EXIMATERIAPRIMA', $NETONUEVO);
-                        $EXIMATERIAPRIMA->__SET('KILOS_BRUTO_EXIMATERIAPRIMA', $BRUTONUEVO);
                         // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                         $EXIMATERIAPRIMA_ADO->actualizareEnvasesDespachoKilos($EXIMATERIAPRIMA);
+                        $EXIMATERIAPRIMA_ADO->repaletizadoDespacho($EXIMATERIAPRIMA);
 
                         $FOLIOALIASESTACTICO = $FOLIOORIGINAL;
                         $FOLIOALIASDIANAMICO = "EMPRESA:" . $_REQUEST['EMPRESA'] . "_PLANTA:" . $_REQUEST['PLANTA'] . "_TEMPORADA:" . $_REQUEST['TEMPORADA'] .
@@ -462,40 +457,88 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                         //CREA UNA FOLIO NUEVO CON EL RESTANTE DE LOS ENVASES
                         $ARRAYVEREXITENICA = $EXIMATERIAPRIMA_ADO->verEximateriaprima($IDEXISTENCIA);
                         foreach ($ARRAYVEREXITENICA as $r) :
+                            
                             $EXIMATERIAPRIMA->__SET('FOLIO_EXIMATERIAPRIMA', $r['FOLIO_EXIMATERIAPRIMA']);
                             $EXIMATERIAPRIMA->__SET('FOLIO_AUXILIAR_EXIMATERIAPRIMA', $r['FOLIO_AUXILIAR_EXIMATERIAPRIMA']);
                             $EXIMATERIAPRIMA->__SET('FOLIO_MANUAL', $r['FOLIO_MANUAL']);
-                            $EXIMATERIAPRIMA->__SET('FECHA_COSECHA_EXIMATERIAPRIMA', $r['FECHA_COSECHA_EXIMATERIAPRIMA']);
+                            $EXIMATERIAPRIMA->__SET('FECHA_COSECHA_EXIMATERIAPRIMA', $r['FECHA_COSECHA_EXIMATERIAPRIMA']); 
+                            $EXIMATERIAPRIMA->__SET('CANTIDAD_ENVASE_EXIMATERIAPRIMA', $ENVASENUEVO);
+                            $EXIMATERIAPRIMA->__SET('KILOS_NETO_EXIMATERIAPRIMA', $NETONUEVO);
+                            $EXIMATERIAPRIMA->__SET('KILOS_BRUTO_EXIMATERIAPRIMA', $BRUTONUEVO);
+                            $EXIMATERIAPRIMA->__SET('KILOS_PROMEDIO_EXIMATERIAPRIMA', $r['KILOS_PROMEDIO_EXIMATERIAPRIMA']);
+                            $EXIMATERIAPRIMA->__SET('PESO_PALLET_EXIMATERIAPRIMA',  $r['PESO_PALLET_EXIMATERIAPRIMA']);    
+                            $EXIMATERIAPRIMA->__SET('ALIAS_DINAMICO_FOLIO_EXIMATERIAPRIMA', $FOLIOALIASDIANAMICO);
+                            $EXIMATERIAPRIMA->__SET('ALIAS_ESTATICO_FOLIO_EXIMATERIAPRIMA', $FOLIOALIASESTACTICO);
+                            $EXIMATERIAPRIMA->__SET('GASIFICADO', $r['GASIFICADO']);
+                            $EXIMATERIAPRIMA->__SET('COLOR', $r['COLOR']);    
+                            $EXIMATERIAPRIMA->__SET('FECHA_RECEPCION', $r['FECHA_RECEPCION']);
+                            $EXIMATERIAPRIMA->__SET('INGRESO', $r['INGRESO']);    
+                            $EXIMATERIAPRIMA->__SET('ID_TMANEJO', $r['ID_TMANEJO']);
+                            $EXIMATERIAPRIMA->__SET('ID_FOLIO', $r['ID_FOLIO']);
+                            $EXIMATERIAPRIMA->__SET('ID_ESTANDAR', $r['ID_ESTANDAR']);
+                            $EXIMATERIAPRIMA->__SET('ID_PRODUCTOR', $r['ID_PRODUCTOR']);
+                            $EXIMATERIAPRIMA->__SET('ID_VESPECIES', $r['ID_VESPECIES']);    
+                            $EXIMATERIAPRIMA->__SET('ID_EMPRESA', $EMPRESAS);
+                            $EXIMATERIAPRIMA->__SET('ID_PLANTA', $PLANTAS);
+                            $EXIMATERIAPRIMA->__SET('ID_TEMPORADA', $TEMPORADAS);    
+                            $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO1', $r['ID_TTRATAMIENTO1']);
+                            $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO2', $r['ID_TTRATAMIENTO2']);    
+                            $EXIMATERIAPRIMA->__SET('ID_RECEPCION', $r['ID_RECEPCION']);
+                            $EXIMATERIAPRIMA->__SET('ID_DESPACHO', $IDDESPACHO);
+                            $EXIMATERIAPRIMA->__SET('ID_DESPACHO2', $r['ID_DESPACHO2']);
+                            $EXIMATERIAPRIMA->__SET('ID_PROCESO2', $r['ID_PROCESO2']);   
+                            $EXIMATERIAPRIMA->__SET('ID_RECHAZADO', $r['ID_RECHAZADO']);
+                            $EXIMATERIAPRIMA->__SET('ID_LEVANTAMIENTO', $r['ID_LEVANTAMIENTO']);
+                            $EXIMATERIAPRIMA->__SET('ID_PLANTA3', $r['ID_PLANTA3']);
+                            $EXIMATERIAPRIMA->__SET('ID_PLANTA3', $r['ID_PLANTA3']);
+                            $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA2', $r['ID_EXIMATERIAPRIMA']);
+                            // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                            $EXIMATERIAPRIMA_ADO->agregarEximateriaprimaDespachoNuevo($EXIMATERIAPRIMA);
+
+                            
+                            $EXIMATERIAPRIMA->__SET('FOLIO_EXIMATERIAPRIMA', $r['FOLIO_EXIMATERIAPRIMA']);
+                            $EXIMATERIAPRIMA->__SET('FOLIO_AUXILIAR_EXIMATERIAPRIMA', $r['FOLIO_AUXILIAR_EXIMATERIAPRIMA']);
+                            $EXIMATERIAPRIMA->__SET('FOLIO_MANUAL', $r['FOLIO_MANUAL']);
+                            $EXIMATERIAPRIMA->__SET('FECHA_COSECHA_EXIMATERIAPRIMA', $r['FECHA_COSECHA_EXIMATERIAPRIMA']); 
                             $EXIMATERIAPRIMA->__SET('CANTIDAD_ENVASE_EXIMATERIAPRIMA', $ENVASERESTANTE);
                             $EXIMATERIAPRIMA->__SET('KILOS_NETO_EXIMATERIAPRIMA', $NETORESTANTE);
                             $EXIMATERIAPRIMA->__SET('KILOS_BRUTO_EXIMATERIAPRIMA', $BRUTORESTANTE);
                             $EXIMATERIAPRIMA->__SET('KILOS_PROMEDIO_EXIMATERIAPRIMA', $r['KILOS_PROMEDIO_EXIMATERIAPRIMA']);
-                            $EXIMATERIAPRIMA->__SET('PESO_PALLET_EXIMATERIAPRIMA',  $r['PESO_PALLET_EXIMATERIAPRIMA']);
+                            $EXIMATERIAPRIMA->__SET('PESO_PALLET_EXIMATERIAPRIMA',  $r['PESO_PALLET_EXIMATERIAPRIMA']);    
                             $EXIMATERIAPRIMA->__SET('ALIAS_DINAMICO_FOLIO_EXIMATERIAPRIMA', $FOLIOALIASDIANAMICO);
                             $EXIMATERIAPRIMA->__SET('ALIAS_ESTATICO_FOLIO_EXIMATERIAPRIMA', $FOLIOALIASESTACTICO);
                             $EXIMATERIAPRIMA->__SET('GASIFICADO', $r['GASIFICADO']);
-                            $EXIMATERIAPRIMA->__SET('INGRESO', $r['INGRESO']);
+                            $EXIMATERIAPRIMA->__SET('COLOR', $r['COLOR']);    
+                            $EXIMATERIAPRIMA->__SET('FECHA_RECEPCION', $r['FECHA_RECEPCION']);
+                            $EXIMATERIAPRIMA->__SET('INGRESO', $r['INGRESO']);    
                             $EXIMATERIAPRIMA->__SET('ID_TMANEJO', $r['ID_TMANEJO']);
-                            $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO1', $r['ID_TTRATAMIENTO1']);
-                            $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO2', $r['ID_TTRATAMIENTO2']);
                             $EXIMATERIAPRIMA->__SET('ID_FOLIO', $r['ID_FOLIO']);
                             $EXIMATERIAPRIMA->__SET('ID_ESTANDAR', $r['ID_ESTANDAR']);
                             $EXIMATERIAPRIMA->__SET('ID_PRODUCTOR', $r['ID_PRODUCTOR']);
-                            $EXIMATERIAPRIMA->__SET('ID_VESPECIES', $r['ID_VESPECIES']);
-                            $EXIMATERIAPRIMA->__SET('ID_RECEPCION', $r['ID_RECEPCION']);
-                            $EXIMATERIAPRIMA->__SET('ID_DESPACHO2', $r['ID_DESPACHO2']);
+                            $EXIMATERIAPRIMA->__SET('ID_VESPECIES', $r['ID_VESPECIES']);    
                             $EXIMATERIAPRIMA->__SET('ID_EMPRESA', $EMPRESAS);
                             $EXIMATERIAPRIMA->__SET('ID_PLANTA', $PLANTAS);
-                            $EXIMATERIAPRIMA->__SET('ID_TEMPORADA', $TEMPORADAS);
-                        // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                            $EXIMATERIAPRIMA_ADO->agregarEximateriaprimaDespacho($EXIMATERIAPRIMA);
+                            $EXIMATERIAPRIMA->__SET('ID_TEMPORADA', $TEMPORADAS);    
+                            $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO1', $r['ID_TTRATAMIENTO1']);
+                            $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO2', $r['ID_TTRATAMIENTO2']);    
+                            $EXIMATERIAPRIMA->__SET('ID_RECEPCION', $r['ID_RECEPCION']);
+                            $EXIMATERIAPRIMA->__SET('ID_DESPACHO3', $IDDESPACHO);
+                            $EXIMATERIAPRIMA->__SET('ID_DESPACHO2', $r['ID_DESPACHO2']);
+                            $EXIMATERIAPRIMA->__SET('ID_PROCESO2', $r['ID_PROCESO2']);   
+                            $EXIMATERIAPRIMA->__SET('ID_RECHAZADO', $r['ID_RECHAZADO']);
+                            $EXIMATERIAPRIMA->__SET('ID_LEVANTAMIENTO', $r['ID_LEVANTAMIENTO']);
+                            $EXIMATERIAPRIMA->__SET('ID_PLANTA3', $r['ID_PLANTA3']);
+                            $EXIMATERIAPRIMA->__SET('ID_PLANTA3', $r['ID_PLANTA3']);
+                            $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA2', $r['ID_EXIMATERIAPRIMA']);
+                            // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                            $EXIMATERIAPRIMA_ADO->agregarEximateriaprimaDespachoResto($EXIMATERIAPRIMA);
+
                         endforeach;
-                        $SINO = 0;
                     }
                 endforeach;
-
-                if ($SINO == 0) {    
-                    if ($MENSAJE == "") { 
+                
+                if ($SINNO == 0) {    
+                    if ($MENSAJE == "") {                
                         $_SESSION["parametro"] =  $_REQUEST['IDP'];
                         $_SESSION["parametro1"] =  $_REQUEST['OPP'];
                         echo '<script>
@@ -510,7 +553,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                 location.href="' . $_REQUEST['URLO'] . '.php?op";                        
                             })
                         </script>';
-                        //echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
                     }else{                        
                         $_SESSION["parametro"] =  $_REQUEST['IDP'];
                         $_SESSION["parametro1"] =  $_REQUEST['OPP'];
@@ -526,16 +568,15 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                 location.href="' . $_REQUEST['URLO'] . '.php?op";                        
                             })
                         </script>';
-                    }                   
-                }
-                if ($SINOENVASE == 1) {
-                    if ($MENSAJE != "") {
+                    }
+                }else{                        
+                    if($MENSAJE!=""){
                         $_SESSION["parametro"] =  $_REQUEST['IDP'];
                         $_SESSION["parametro1"] =  $_REQUEST['OPP'];
                         echo '<script>
                             Swal.fire({
                                 icon:"warning",
-                                title:"Accion restringida",
+                                title:"Accion realizadas, con errores.",
                                 text:"' . $MENSAJE . '",
                                 showConfirmButton: true,
                                 confirmButtonText:"Cerrar",
@@ -544,8 +585,25 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                 location.href="registroSelecionExistenciaMPDespachoMp.php?op";                        
                             })
                         </script>';
+                    }else{                            
+                        $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                        $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                        echo '<script>
+                            Swal.fire({
+                                icon:"success",
+                                title:"Accion realizada",
+                                text:"Se agregado la selección al despacho.",
+                                showConfirmButton: true,
+                                confirmButtonText:"Volver al despacho",
+                                closeOnConfirm:false
+                            }).then((result)=>{
+                                location.href="' . $_REQUEST['URLO'] . '.php?op";                         
+                            })
+                        </script>';
+
                     }
                 }
+                
             }
         }
         ?>
