@@ -68,6 +68,7 @@ $TEMPORADA_ADO =  new TEMPORADA_ADO();
 
 
 if (isset($_REQUEST['CERRARS'])) {
+    $AUSUARIO_ADO->agregarAusuario2('NULL',3,0,"".$_SESSION["NOMBRE_USUARIO"].", Cierre Sesion","usuario_usuario",$_SESSION["ID_USUARIO"],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
     session_destroy();
     header('Location: iniciarSession.php');
 }
