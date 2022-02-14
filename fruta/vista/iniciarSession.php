@@ -11,6 +11,7 @@ if (isset($_SESSION["NOMBRE_USUARIO"])) {
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 include_once '../../assest/controlador/USUARIO_ADO.php';
 include_once '../../assest/controlador/PTUSUARIO_ADO.php';
+include_once "../../assest/controlador/AUSUARIO_ADO.php";
 //include_once '../../assest/controlador/EMPRESA_ADO.php';
 //include_once '../../assest/controlador/PLANTA_ADO.php';
 //include_once '../../assest/controlador/TEMPORADA_ADO.php';
@@ -19,6 +20,7 @@ include_once '../../assest/controlador/PTUSUARIO_ADO.php';
 //INICIALIZAR CONTROLADOR
 $USUARIO_ADO = new USUARIO_ADO();
 $PTUSUARIO_ADO = new PTUSUARIO_ADO();
+$AUSUARIO_ADO =  NEW AUSUARIO_ADO;
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
@@ -143,6 +145,7 @@ $ARRAYVERPTUSUARIO="";
                 $CONTRASENA = $_REQUEST['CONTRASENA'];
                 $ARRAYINICIOSESSION = $USUARIO_ADO->iniciarSession($NOMBRE, $CONTRASENA);
                 if (empty($ARRAYINICIOSESSION) ||  sizeof($ARRAYINICIOSESSION) == 0) {
+                    $AUSUARIO_ADO->agregarAusuario2('NULL',1,0, "".$_REQUEST['NOMBRE'].", los datos ingresados no coinciden con el usuario." , "usuario_usuario" , 'NULL' ,'NULL','NULL','NULL','NULL' );  
                     echo
                     '<script>
                             Swal.fire({
@@ -166,6 +169,7 @@ $ARRAYVERPTUSUARIO="";
                             $_SESSION["ID_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_USUARIO'];
                             $_SESSION["NOMBRE_USUARIO"] = $ARRAYINICIOSESSION[0]['NOMBRE_USUARIO'];
                             $_SESSION["TIPO_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_TUSUARIO'];
+                            $AUSUARIO_ADO->agregarAusuario2('NULL',1,0,"".$ARRAYINICIOSESSION[0]['NOMBRE_USUARIO'].", Inicio Sesion","usuario_usuario",$ARRAYINICIOSESSION[0]['ID_USUARIO'],$ARRAYINICIOSESSION[0]['ID_USUARIO'],'NULL','NULL','NULL' );
                             //$MENSAJE = "DATOS CORRECTOS ";
                             //$MENSAJE2 = "";
                             echo
