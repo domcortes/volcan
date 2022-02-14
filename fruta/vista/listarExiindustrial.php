@@ -188,6 +188,9 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         if ($r['ESTADO'] == "5") {
                                                             $ESTADO = "En Transito";
                                                         }
+                                                        if ($r['ESTADO'] == "6") {
+                                                            $ESTADO = "Repaletizado";
+                                                        }
 
                                                         $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
                                                         if ($ARRAYVERPRODUCTORID) {
