@@ -14,6 +14,7 @@ if (isset($_SESSION["NOMBRE_USUARIO"]) && isset($_SESSION["ID_TEMPORADA"])) {
 include_once '../../assest/controlador/USUARIO_ADO.php';
 include_once '../../assest/controlador/TEMPORADA_ADO.php';
 include_once '../../assest/controlador/PTUSUARIO_ADO.php';
+include_once "../../assest/controlador/AUSUARIO_ADO.php";
 //include_once '../controlador/EMPRESA_ADO.php';
 //include_once '../controlador/PLANTA_ADO.php';
 //include_once '../controlador/TEMPORADA_ADO.php';
@@ -25,6 +26,7 @@ $TEMPORADA_ADO = new TEMPORADA_ADO();
 $PTUSUARIO_ADO = new PTUSUARIO_ADO();
 
 
+$AUSUARIO_ADO =  NEW AUSUARIO_ADO;
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
@@ -186,6 +188,7 @@ if($_POST){
                 $CONTRASENA = $_REQUEST['CONTRASENA'];
                 $ARRAYINICIOSESSION = $USUARIO_ADO->iniciarSession($NOMBRE, $CONTRASENA);
                 if (empty($ARRAYINICIOSESSION) ||  sizeof($ARRAYINICIOSESSION) == 0) {
+                    $AUSUARIO_ADO->agregarAusuario2('NULL',4,0, "".$_REQUEST['NOMBRE'].", los datos ingresados no coinciden con el usuario." , "usuario_usuario" , 'NULL' ,'NULL','NULL','NULL','NULL' );                    
                     echo
                     '<script>
                             Swal.fire({
@@ -197,12 +200,10 @@ if($_POST){
                                     location.href = "iniciarSession.php";
                                 }
                             })
-                        </script>';
+                        </script>';                        
                     // $MENSAJE2 = "NOMBRE USUARIO O CONTRASE&Ntilde;A INVALIDO";
                     // $MENSAJE = "";
-                } else {
-
-                    
+                } else {                    
                     $ARRAYVERPTUSUARIO  =$PTUSUARIO_ADO->listarPtusuarioPorTusuarioCBX($ARRAYINICIOSESSION[0]['ID_TUSUARIO']);
                     if($ARRAYVERPTUSUARIO){
                         $PESTADISTICA  =$ARRAYVERPTUSUARIO[0]['ESTADISTICA'];      
@@ -211,6 +212,7 @@ if($_POST){
                             $_SESSION["NOMBRE_USUARIO"] = $ARRAYINICIOSESSION[0]['NOMBRE_USUARIO'];
                             $_SESSION["TIPO_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_TUSUARIO'];
                             $_SESSION["ID_TEMPORADA"] = $_REQUEST['TEMPORADA'];   
+                            $AUSUARIO_ADO->agregarAusuario2('NULL',4,0,"".$ARRAYINICIOSESSION[0]['NOMBRE_USUARIO'].", Inicio Sesion","usuario_usuario",$ARRAYINICIOSESSION[0]['ID_USUARIO'],$ARRAYINICIOSESSION[0]['ID_USUARIO'],'NULL','NULL',$_REQUEST['TEMPORADA'] );
                             echo
                             '<script>
                                 const Toast = Swal.mixin({
@@ -227,7 +229,7 @@ if($_POST){
                                 Toast.fire({
                                     icon: "success",
                                     title: "Credenciales correctas",
-                                    text:"cargando modulo selector"
+                                    text:"cargando pagina principal"
                                 }).then((result)=>{
                                         location.href = "index.php";
                                 })
