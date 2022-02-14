@@ -3,20 +3,22 @@ require_once '../../api/vendor/autoload.php';
 $detect = new Mobile_Detect;
 
 session_start();
-if (isset($_SESSION["ID_EMPRESA"])  && isset($_SESSION["ID_TEMPORADA"])  ) {
+if (isset($_SESSION["ID_USUARIO"]) && isset($_SESSION["NOMBRE_USUARIO"]) && isset($_SESSION["ID_EMPRESA"])  && isset($_SESSION["ID_TEMPORADA"])  ) {
     if($_SESSION["ID_EMPRESA"]!=""&& $_SESSION["ID_TEMPORADA"]!=""){
-        header('Location: index.php');
+       // header('Location: index.php');
     }
 }
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 include_once '../../assest/controlador/EMPRESA_ADO.php';
 include_once '../../assest/controlador/TEMPORADA_ADO.php';
+include_once "../../assest/controlador/AUSUARIO_ADO.php";
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 $EMPRESA_ADO = new EMPRESA_ADO();
 $TEMPORADA_ADO =  new TEMPORADA_ADO();
+$AUSUARIO_ADO =  NEW AUSUARIO_ADO;
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
@@ -225,6 +227,7 @@ if (isset($_SESSION["ID_TEMPORADA"])) {
         if (isset($_REQUEST['ENTRAR'])) {
             $_SESSION["ID_EMPRESA"] = $_REQUEST['EMPRESA'];
             $_SESSION["ID_TEMPORADA"] = $_REQUEST['TEMPORADA'];
+            $AUSUARIO_ADO->agregarAusuario2('NULL',3,0,"".$_SESSION["NOMBRE_USUARIO"].", Inicio Sesion, Selecion","usuario_usuario",$_SESSION["ID_USUARIO"],$_SESSION["ID_USUARIO"],$_REQUEST["EMPRESA"],'NULL',$_REQUEST['TEMPORADA'] );            
             echo "<script> location.href = 'index.php';</script>";
         }
         if (isset($_REQUEST['SALIR'])) {
