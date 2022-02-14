@@ -778,6 +778,7 @@ if (isset($_POST)) {
 
 
                 //REDIRECCIONAR A PAGINA registroRecepcion.php 
+                $AUSUARIO_ADO->agregarAusuario2($NUMERO,3,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de ficha","material_ficha",$ARRYAOBTENERID[0]['ID_FICHA'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
 
                 $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_FICHA'];
                 $_SESSION["parametro1"] = "crear";
@@ -805,7 +806,7 @@ if (isset($_POST)) {
                 $FICHA->__SET('ID_FICHA', $_REQUEST['IDP']);
                 $FICHA_ADO->actualizarFicha($FICHA);
 
-
+                $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,3,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de ficha","material_ficha",$_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
                 if ($_SESSION['parametro1'] == "crear") {
                     $_SESSION["parametro"] = $_REQUEST['IDP'];
                     $_SESSION["parametro1"] = "crear";
@@ -873,13 +874,8 @@ if (isset($_POST)) {
                     $FICHA->__SET('ID_FICHA', $_REQUEST['IDP']);
                     $FICHA_ADO->cerrado($FICHA);
 
-                    $ARRAYDFICHA2 = $DFICHA_ADO->listarDfichaPorFichaCBX($_REQUEST['IDP']);
-                    foreach ($ARRAYDFICHA2 as $r) :
-                        $DFICHA->__SET('ID_DFICHA', $r['ID_DFICHA']);
-                        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                        $DFICHA_ADO->cerrado($DFICHA);
-                    endforeach;
-
+                    $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,3,3,"".$_SESSION["NOMBRE_USUARIO"].", Cerrar ficha","material_ficha",$_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
+           
 
                     //REDIRECCIONAR A PAGINA registroRecepcion.php 
                     //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL        

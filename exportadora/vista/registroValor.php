@@ -1234,12 +1234,13 @@ if (isset($_POST)) {
                     $_REQUEST['TEMPORADA'],
 
                 );
-
                 
                 $ICARGA->__SET('ID_ICARGA', $_REQUEST['ICARGAD']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $ICARGA_ADO->liquidacion($ICARGA);
             
+
+                $AUSUARIO_ADO->agregarAusuario2($NUMERO,3,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Valor de Liquidacion","liquidacion_valor",$ARRYAOBTENERID[0]['ID_VALOR'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
 
                 //REDIRECCIONAR A PAGINA registroValor.php
 
@@ -1268,11 +1269,13 @@ if (isset($_POST)) {
                 $VALOR->__SET('ID_VALOR', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $VALOR_ADO->actualizarValor($VALOR);             
-                
+
                 $ICARGA->__SET('ID_ICARGA', $_REQUEST['ICARGADE']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $ICARGA_ADO->liquidacion($ICARGA);
-              
+                
+                $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,3,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Valor de Liquidacion","liquidacion_valor",$_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
+                            
                          
                  if ($_SESSION['parametro1'] == "crear") {
                     $_SESSION["parametro"] = $_REQUEST['IDP'];
@@ -1364,12 +1367,13 @@ if (isset($_POST)) {
                     $VALOR->__SET('ID_VALOR', $_REQUEST['IDP']);
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                     $VALOR_ADO->cerrado($VALOR);
-
-                   
+                    
                     $ICARGA->__SET('ID_ICARGA', $_REQUEST['ICARGADE']);
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                     $ICARGA_ADO->liquidacion($ICARGA);
             
+                    $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,3,3,"".$_SESSION["NOMBRE_USUARIO"].", Cerrar  Valor de Liquidacion","liquidacion_valor",$_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
+                   
                     
                     //REDIRECCIONAR A PAGINA registroValor.php 
                     //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL

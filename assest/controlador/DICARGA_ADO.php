@@ -858,6 +858,31 @@ class DICARGA_ADO
         }
     }
 
+
+
+    public function conteoPorIcarga($IDICARGA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT IFNULL(COUNT(ID_DICARGA),0) AS 'CONTEO'
+            
+                                                 FROM fruta_dicarga 
+                                                WHERE ID_ICARGA = '" . $IDICARGA . "'  
+                                                AND ESTADO_REGISTRO = 1;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
     //OTRAS FUNCIONES
     //CAMBIO DE ESTADO DE LA FILA
     //CAMBIO A DESACTIVADO
