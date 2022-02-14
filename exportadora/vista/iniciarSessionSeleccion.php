@@ -5,7 +5,7 @@ $detect = new Mobile_Detect;
 session_start();
 if (isset($_SESSION["ID_USUARIO"]) && isset($_SESSION["NOMBRE_USUARIO"]) && isset($_SESSION["ID_EMPRESA"])  && isset($_SESSION["ID_TEMPORADA"])  ) {
     if($_SESSION["ID_EMPRESA"]!=""&& $_SESSION["ID_TEMPORADA"]!=""){
-       // header('Location: index.php');
+        header('Location: index.php');
     }
 }
 
