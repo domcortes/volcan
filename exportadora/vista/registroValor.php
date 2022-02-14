@@ -14,6 +14,7 @@ include_once '../../assest/controlador/CVENTA_ADO.php';
 include_once '../../assest/controlador/SEGURO_ADO.php';
 
 include_once '../../assest/controlador/TMONEDA_ADO.php';
+include_once '../../assest/controlador/ECOMERCIAL_ADO.php';
 
 include_once '../../assest/controlador/TRANSPORTE_ADO.php';
 include_once '../../assest/controlador/LCARGA_ADO.php';
@@ -30,6 +31,7 @@ include_once '../../assest/controlador/PDESTINO_ADO.php';
 include_once '../../assest/controlador/VALOR_ADO.php';
 include_once '../../assest/controlador/DVALOR_ADO.php';
 include_once '../../assest/controlador/TITEM_ADO.php';
+
 
 
 include_once '../../assest/modelo/ICARGA.php';
@@ -65,6 +67,7 @@ $CVENTA_ADO =  new CVENTA_ADO();
 $SEGURO_ADO =  new SEGURO_ADO();
 
 $TMONEDA_ADO = new TMONEDA_ADO();
+$ECOMERCIAL_ADO = new ECOMERCIAL_ADO();
 
 
 $VALOR_ADO =  new VALOR_ADO();
@@ -112,7 +115,7 @@ $NAVIERA = "";
 $PCARGA = "";
 $PDESTINO = "";
 $ESTADO = "";
-$CONTADOR=2;
+$CONTADOR=1;
 $VALORITEM=0;
 $FDA="";
 
@@ -168,6 +171,7 @@ $ARRAYVERPLANTA = "";
 $ARRAYNUMERO = "";
 $ARRAYDVALORCONTEO="";
 $ARRAYITEMCONTEO="";
+$ARRAYECOMERCIAL="";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 /**/
@@ -1103,7 +1107,8 @@ if (isset($_POST)) {
                                                             <th class="text-center">Operaciónes</th>
                                                             <th>Item </th>     
                                                             <th>Valor  </th>
-                                                            <th>Tipo Moneda </th>     
+                                                            <th>Tipo Moneda </th>  
+                                                            <th>Comercial </th>    
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -1121,16 +1126,10 @@ if (isset($_POST)) {
                                                         <tr class="center">
                                                             <td>1</td>
                                                             <td>No Aplica</td>
-                                                            <td><?php echo "Costo Flete"; ?></td>
-                                                            <td><?php echo $COSTOFLETE; ?></td>
-                                                            <td><?php echo $TMONEDA; ?></td>
-                                                        </tr>
-                                                        <tr class="center">
-                                                            <td>2</td>
-                                                            <td>No Aplica</td>
                                                             <td><?php echo $NOMBRESEGURO; ?></td>
                                                             <td><?php echo $VALORSEGURO; ?></td>
                                                             <td><?php echo $TMONEDA; ?></td>
+                                                            <td>No Aplica</td>
                                                         </tr>
                                                         <?php if ($ARRAYITEM) { ?>
                                                             <?php foreach ($ARRAYITEM as $s) : ?>
@@ -1138,10 +1137,19 @@ if (isset($_POST)) {
                                                                     $CONTADOR+=1;
                                                                     $ARRAYDVALOR=$DVALOR_ADO->buscarPorValorItem($IDOP,$s["ID_TITEM"]);
                                                                     if($ARRAYDVALOR){
-                                                                       $VALORDVALOR= $ARRAYDVALOR[0]["VALOR_DVALOR"];
+                                                                       $VALORDVALOR= $ARRAYDVALOR[0]["VALOR_DVALOR"];   
+                                                                       $ARRAYECOMERCIAL=$ECOMERCIAL_ADO->verEcomercial($ARRAYDVALOR[0]["ID_ECOMERCIAL"]);
+                                                                       if($ARRAYECOMERCIAL){
+                                                                          $NOMBREECOMERCIAL= $ARRAYECOMERCIAL[0]["NOMBRE_ECOMERCIAL"];
+                                                                       }else{
+                                                                           $NOMBREECOMERCIAL="No Aplica";
+                                                                       }
                                                                     }else{
                                                                        $VALORDVALOR=0;
+                                                                       $NOMBREECOMERCIAL="No Aplica";
                                                                     }
+                                                                 
+                                                                    
                                                                 ?>
                                                                 <tr class="center">
                                                                     <td><?php echo $CONTADOR; ?></td>
@@ -1178,6 +1186,7 @@ if (isset($_POST)) {
                                                                     <td><?php echo $s["NOMBRE_TITEM"]; ?></td>
                                                                     <td><?php echo number_format( $VALORDVALOR,2,',','.' ); ?></td>
                                                                     <td><?php echo $TMONEDA; ?></td>
+                                                                    <td><?php echo $NOMBREECOMERCIAL; ?></td>
                                                                 </tr>
                                                             <?php endforeach; ?>
                                                         <?php } ?>

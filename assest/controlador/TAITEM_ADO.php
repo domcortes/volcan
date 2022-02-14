@@ -2,7 +2,7 @@
 
 //LLAMADA DE LOS ARCHIVOS NECESAROP PARA LA OPERACION DEL CONTROLADOR
 //LLAMADA AL MODELO DE CLASE
-include_once '../../assest/modelo/TITEM.php';
+include_once '../../assest/modelo/TAITEM.php';
 //LLAMADA AL CONFIGURACION DE LA BASE DE DATOS
 include_once '../../assest/config/BDCONFIG.php';
 
@@ -13,7 +13,7 @@ $USER = "";
 $PASS = "";
 
 //ESTRUCTURA DEL CONTROLADOR
-class TITEM_ADO
+class TAITEM_ADO
 {
 
     //ATRIBUTO
@@ -41,11 +41,11 @@ class TITEM_ADO
 
     //FUNCIONES BASICAS 
     //LISTAR TODO CON LIMITE DE 6 FILAS   
-    public function listarTitem()
+    public function listarTaitem()
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM  liquidacion_titem  limit 8;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  liquidacion_taitem  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -61,11 +61,11 @@ class TITEM_ADO
     }
 
     //LISTAR TODO
-    public function listarTitemCBX()
+    public function listarTaitemCBX()
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM  liquidacion_titem  WHERE  ESTADO_REGISTRO = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  liquidacion_taitem  WHERE  ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -80,11 +80,11 @@ class TITEM_ADO
         }
     }
 
-    public function listarTitem2CBX()
+    public function listarTaitem2CBX()
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM  liquidacion_titem  WHERE  ESTADO_REGISTRO = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  liquidacion_taitem  WHERE  ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -101,11 +101,11 @@ class TITEM_ADO
 
 
     //VER LA INFORMACION RELACIONADA EN BASE AL ID INGRESADO A LA FUNCION
-    public function verTitem($ID)
+    public function verTaitem($ID)
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM  liquidacion_titem  WHERE  ID_TITEM = '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM  liquidacion_taitem  WHERE  ID_TAITEM = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -123,11 +123,11 @@ class TITEM_ADO
 
 
     //BUSCAR CONSIDENCIA DE ACUERDO AL CARACTER INGRESADO EN LA FUNCION
-    public function buscarNombreTitem($NOMBRE)
+    public function buscarNombreTaitem($NOMBRE)
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM  liquidacion_titem  WHERE  NOMBRE_TITEM  LIKE '%" . $NOMBRE . "%';");
+            $datos = $this->conexion->prepare("SELECT * FROM  liquidacion_taitem  WHERE  NOMBRE_TAITEM  LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -143,16 +143,15 @@ class TITEM_ADO
     }
 
     //REGISTRO DE UNA NUEVA FILA    
-    public function agregarTitem(TITEM $TITEM)
+    public function agregarTaitem(TAITEM $TAITEM)
     {
         try {
 
 
             $query =
-                "INSERT INTO  liquidacion_titem  (
-                                                 NUMERO_TITEM , 
-                                                 NOMBRE_TITEM , 
-                                                 ID_TAITEM,
+                "INSERT INTO  liquidacion_taitem  (
+                                                 NUMERO_TAITEM , 
+                                                 NOMBRE_TAITEM , 
                                                  ID_EMPRESA , 
                                                  ID_USUARIOI , 
                                                  ID_USUARIOM ,
@@ -165,12 +164,11 @@ class TITEM_ADO
                 ->execute(
                     array(
 
-                        $TITEM->__GET('NUMERO_TITEM'),
-                        $TITEM->__GET('NOMBRE_TITEM'),
-                        $TITEM->__GET('ID_TAITEM'),
-                        $TITEM->__GET('ID_EMPRESA'),
-                        $TITEM->__GET('ID_USUARIOI'),
-                        $TITEM->__GET('ID_USUARIOM')
+                        $TAITEM->__GET('NUMERO_TAITEM'),
+                        $TAITEM->__GET('NOMBRE_TAITEM'),
+                        $TAITEM->__GET('ID_EMPRESA'),
+                        $TAITEM->__GET('ID_USUARIOI'),
+                        $TAITEM->__GET('ID_USUARIOM')
 
                     )
 
@@ -181,10 +179,10 @@ class TITEM_ADO
     }
 
     //ELIMINAR FILA, NO SE UTILIZA
-    public function eliminarTitem($id)
+    public function eliminarTaitem($id)
     {
         try {
-            $sql = "DELETE FROM  liquidacion_titem  WHERE  ID_TITEM =" . $id . ";";
+            $sql = "DELETE FROM  liquidacion_taitem  WHERE  ID_TAITEM =" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -196,23 +194,21 @@ class TITEM_ADO
 
 
     //ACTUALIZAR INFORMACION DE LA FILA
-    public function actualizarTitem(TITEM $TITEM)
+    public function actualizarTaitem(TAITEM $TAITEM)
     {
         try {
             $query = "
-		UPDATE  liquidacion_titem  SET
+		UPDATE  liquidacion_taitem  SET
              MODIFICACION= SYSDATE(),
-             NOMBRE_TITEM = ?,
-             ID_TAITEM = ?,
+             NOMBRE_TAITEM = ?,
              ID_USUARIOM = ?            
-		WHERE  ID_TITEM = ?;";
+		WHERE  ID_TAITEM = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $TITEM->__GET('NOMBRE_TITEM'),
-                        $TITEM->__GET('ID_TAITEM'),
-                        $TITEM->__GET('ID_USUARIOM'),
-                        $TITEM->__GET('ID_TITEM')
+                        $TAITEM->__GET('NOMBRE_TAITEM'),
+                        $TAITEM->__GET('ID_USUARIOM'),
+                        $TAITEM->__GET('ID_TAITEM')
 
                     )
 
@@ -225,18 +221,18 @@ class TITEM_ADO
     //FUNCIONES ESPECIALIZADAS
     //CAMBIO DE ESTADO DE REGISTRO DEL REGISTRO
     //CAMBIO A DESACTIVADO
-    public function deshabilitar(TITEM $TITEM)
+    public function deshabilitar(TAITEM $TAITEM)
     {
 
         try {
             $query = "
-                UPDATE  liquidacion_titem  SET			
+                UPDATE  liquidacion_taitem  SET			
                         ESTADO_REGISTRO  = 0
-                WHERE  ID_TITEM = ?;";
+                WHERE  ID_TAITEM = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $TITEM->__GET('ID_TITEM')
+                        $TAITEM->__GET('ID_TAITEM')
                     )
 
                 );
@@ -245,17 +241,17 @@ class TITEM_ADO
         }
     }
     //CAMBIO A ACTIVADO
-    public function habilitar(TITEM $TITEM)
+    public function habilitar(TAITEM $TAITEM)
     {
         try {
             $query = "
-            UPDATE  liquidacion_titem  SET			
+            UPDATE  liquidacion_taitem  SET			
                     ESTADO_REGISTRO  = 1
-            WHERE  ID_TITEM = ?;";
+            WHERE  ID_TAITEM = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $TITEM->__GET('ID_TITEM')
+                        $TAITEM->__GET('ID_TAITEM')
                     )
 
                 );
@@ -264,11 +260,11 @@ class TITEM_ADO
         }
     }
 
-    public function listarTitemPorEmpresaCBX($IDEMPRESA)
+    public function listarTaitemPorEmpresaCBX($IDEMPRESA)
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM  liquidacion_titem  
+            $datos = $this->conexion->prepare("SELECT * FROM  liquidacion_taitem  
                                                 WHERE  ESTADO_REGISTRO = 1
                                                 AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
             $datos->execute();
@@ -285,12 +281,12 @@ class TITEM_ADO
         }
     }
     
-    public function contarTitemPorEmpresaCBX($IDEMPRESA)
+    public function contarTaitemPorEmpresaCBX($IDEMPRESA)
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT IFNULL(COUNT(ID_TITEM),0) AS 'CONTEO'
-                                                FROM  liquidacion_titem  
+            $datos = $this->conexion->prepare("SELECT IFNULL(COUNT(ID_TAITEM),0) AS 'CONTEO'
+                                                FROM  liquidacion_taitem  
                                                 WHERE  ESTADO_REGISTRO = 1
                                                 AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
             $datos->execute();
@@ -311,8 +307,8 @@ class TITEM_ADO
     {
         try {
             $datos = $this->conexion->prepare(" SELECT  
-                                                    IFNULL(COUNT(NUMERO_TITEM),0) AS 'NUMERO'
-                                                FROM  liquidacion_titem 
+                                                    IFNULL(COUNT(NUMERO_TAITEM),0) AS 'NUMERO'
+                                                FROM  liquidacion_taitem 
                                                 WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

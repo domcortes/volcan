@@ -679,6 +679,17 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               </ul>
             </li> 
             <li class="treeview">
+              <a href="#">Liquidación
+                <span class="pull-left-container">
+                  <i class=" fa fa-angle-right pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">    
+                <li><a href="registroTaitem.php"></i>Agrupado Item Liqui</a></li>
+                <li><a href="registroTitem.php"></i>Item Liqui.</a></li>
+              </ul>
+            </li> 
+            <li class="treeview">
               <a href="#">Tipo
                 <span class="pull-left-container">
                 <i class=" fa fa-angle-right pull-right"></i>
@@ -711,7 +722,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                 <li><a href="registroContraparte.php"></i>Contraparte</a></li>
                 <li><a href="registroInpector.php"></i>Inpector</a></li>
                 <li><a href="registroComprador.php"></i>Comprador</a></li>
-                <li><a href="registroTitem.php"></i>Item Liqui.</a></li>
               </ul>
             </li>      
           </ul>

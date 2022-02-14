@@ -4,17 +4,15 @@ include_once "../../assest/config/validarUsuarioExpo.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../../assest/controlador/TITEM_ADO.php';
 include_once '../../assest/controlador/TAITEM_ADO.php';
-include_once '../../assest/modelo/TITEM.php';
+include_once '../../assest/modelo/TAITEM.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 
-$TITEM_ADO =  new TITEM_ADO();
 $TAITEM_ADO =  new TAITEM_ADO();
 //INIICIALIZAR MODELO
-$TITEM =  new TITEM();
+$TAITEM =  new TAITEM();
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
@@ -23,9 +21,7 @@ $OP = "";
 $DISABLED = "";
 
 
-$NOMBRETITEM = "";
-$TAITEM="";
-$NOMBRETAITEM="";
+$NOMBRETAITEM = "";
 $NUMERO = "";
 
 
@@ -38,16 +34,13 @@ $FOCUS2 = "";
 $BORDER = "";
 
 //INICIALIZAR ARREGLOS
-$ARRAYTITEM = "";
-$ARRAYTITEMID = "";
-$ARRAYTAITEM="";
-$ARRAYVERTAITEM="";
+$ARRAYTAITEM = "";
+$ARRAYTAITEMID = "";
 $ARRAYNUMERO = "";
 
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-$ARRAYTITEM = $TITEM_ADO->listarTitemPorEmpresaCBX($EMPRESAS);
 $ARRAYTAITEM = $TAITEM_ADO->listarTaitemPorEmpresaCBX($EMPRESAS);
 include_once "../../assest/config/validarDatosUrl.php";
 include_once "../../assest/config/datosUrl.php";
@@ -66,17 +59,17 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     //0 = DESACTIVAR
     if ($OP == "0") {
 
-        $TITEM->__SET('ID_TITEM', $IDOP);
-        $TITEM_ADO->deshabilitar($TITEM);
+        $TAITEM->__SET('ID_TAITEM', $IDOP);
+        $TAITEM_ADO->deshabilitar($TAITEM);
 
-        echo "<script type='text/javascript'> location.href ='registroTitem.php';</script>";
+        echo "<script type='text/javascript'> location.href ='registroTaitem.php';</script>";
     }
     //1 = ACTIVAR
     if ($OP == "1") {
 
-        $TITEM->__SET('ID_TITEM', $IDOP);
-        $TITEM_ADO->habilitar($TITEM);
-        echo "<script type='text/javascript'> location.href ='registroTitem.php';</script>";
+        $TAITEM->__SET('ID_TAITEM', $IDOP);
+        $TAITEM_ADO->habilitar($TAITEM);
+        echo "<script type='text/javascript'> location.href ='registroTaitem.php';</script>";
     }
 
     //IDENTIFICACIONES DE OPERACIONES
@@ -87,13 +80,12 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         //ALMACENAR INFORMACION EN ARREGLO
         //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
         //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
-        $ARRAYTITEMID = $TITEM_ADO->verTitem($IDOP);
+        $ARRAYTAITEMID = $TAITEM_ADO->verTaitem($IDOP);
         //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
         //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
 
-        foreach ($ARRAYTITEMID as $r) :
-            $NOMBRETITEM = "" . $r['NOMBRE_TITEM'];
-            $TAITEM = "" . $r['ID_TAITEM'];
+        foreach ($ARRAYTAITEMID as $r) :
+            $NOMBRETAITEM = "" . $r['NOMBRE_TAITEM'];
         endforeach;
     }
 
@@ -106,13 +98,12 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         //ALMACENAR INFORMACION EN ARREGLO
         //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
         //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
-        $ARRAYTITEMID = $TITEM_ADO->verTitem($IDOP);
+        $ARRAYTAITEMID = $TAITEM_ADO->verTaitem($IDOP);
         //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
         //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
 
-        foreach ($ARRAYTITEMID as $r) :
-            $NOMBRETITEM = "" . $r['NOMBRE_TITEM'];
-            $TAITEM = "" . $r['ID_TAITEM'];
+        foreach ($ARRAYTAITEMID as $r) :
+            $NOMBRETAITEM = "" . $r['NOMBRE_TAITEM'];
         endforeach;
     }
 }
@@ -126,7 +117,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 <html lang="es">
 
 <head>
-    <title>Registro Item Liquidación</title>
+    <title>Registro Agrupado Item Liquidación</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -138,27 +129,18 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 //VALIDACION DE FORMULARIO
                 function validacion() {
 
-                    NOMBRETITEM = document.getElementById("NOMBRETITEM").value;
-                    TAITEM = document.getElementById("TAITEM").selectedIndex;
-
+                    NOMBRETAITEM = document.getElementById("NOMBRETAITEM").value;
                     document.getElementById('val_nombre').innerHTML = "";
-                    document.getElementById('val_taitem').innerHTML = "";
 
-                    if (NOMBRETITEM == null || NOMBRETITEM.length == 0 || /^\s+$/.test(NOMBRETITEM)) {
-                        document.form_reg_dato.NOMBRETITEM.focus();
-                        document.form_reg_dato.NOMBRETITEM.style.borderColor = "#FF0000";
+                    if (NOMBRETAITEM == null || NOMBRETAITEM.length == 0 || /^\s+$/.test(NOMBRETAITEM)) {
+                        document.form_reg_dato.NOMBRETAITEM.focus();
+                        document.form_reg_dato.NOMBRETAITEM.style.borderColor = "#FF0000";
                         document.getElementById('val_nombre').innerHTML = "NO A INGRESADO DATO";
                         return false;
                     }
-                    document.form_reg_dato.NOMBRETITEM.style.borderColor = "#4AF575";
+                    document.form_reg_dato.NOMBRETAITEM.style.borderColor = "#4AF575";
 
-                    if (TAITEM == null || TAITEM == 0) {
-                        document.form_reg_dato.TAITEM.focus();
-                        document.form_reg_dato.TAITEM.style.borderColor = "#FF0000";
-                        document.getElementById('val_taitem').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
-                        return false;
-                    }
-                    document.form_reg_dato.TAITEM.style.borderColor = "#4AF575";
+
 
 
                 }
@@ -190,7 +172,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Mantenedores</li>
                                             <li class="breadcrumb-item" aria-current="page">Liquidación</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Item Liquidación </a> </li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Agrupado Item Liquidación </a> </li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -216,27 +198,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label>Nombre </label>
                                                         <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
                                                         <input type="hidden" class="form-control" placeholder="EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
-                                                        <input type="text" class="form-control" placeholder="Nombre Etiqueta" id="NOMBRETITEM" name="NOMBRETITEM" value="<?php echo $NOMBRETITEM; ?>" <?php echo $DISABLED; ?> />
+                                                        <input type="text" class="form-control" placeholder="Nombre Etiqueta" id="NOMBRETAITEM" name="NOMBRETAITEM" value="<?php echo $NOMBRETAITEM; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_nombre" class="validacion"> </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
-                                                    <div class="form-group">
-                                                        <label>Tipo Productor</label>
-                                                        <select class="form-control select2" id="TAITEM" name="TAITEM" style="width: 100%;" value="<?php echo $TAITEM; ?>" <?php echo $DISABLED; ?>>
-                                                            <option></option>
-                                                            <?php foreach ($ARRAYTAITEM as $r) : ?>
-                                                                <?php if ($ARRAYTAITEM) {    ?>
-                                                                    <option value="<?php echo $r['ID_TAITEM']; ?>" 
-                                                                    <?php if ($TAITEM == $r['ID_TAITEM']) { echo "selected";} ?>>
-                                                                        <?php echo $r['NOMBRE_TAITEM'] ?>
-                                                                    </option>
-                                                                <?php } else { ?>
-                                                                    <option>No Hay Datos Registrados </option>
-                                                                <?php } ?>
-                                                            <?php endforeach; ?>
-                                                        </select>
-                                                        <label id="val_taitem" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -244,7 +207,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                         <!-- /.box-body -->                                                                                              
                                         <div class="box-footer">
                                             <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
-                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroTitem.php');">
+                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroTaitem.php');">
                                                 <i class="ti-trash"></i>Cancelar
                                                 </button>
                                                 <?php if ($OP != "editar") { ?>
@@ -272,30 +235,20 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             <table id="listar" class=" table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="center">
-                                                        <th>Numero Item</th>
-                                                        <th>Nombre Item</th>
-                                                        <th>Agrupado Item</th>
+                                                        <th>Numero </th>
+                                                        <th>Nombre </th>
                                                         <th>Operaciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php foreach ($ARRAYTITEM as $r) : ?>
-                                                        <?php 
-                                                           $ARRAYTAITEM=$TAITEM_ADO->verTaitem($r['ID_TAITEM']);
-                                                           if($ARRAYTAITEM){
-                                                                $NOMBRETAITEM=  $ARRAYTAITEM[0]["NOMBRE_TAITEM"];
-                                                           }else{
-                                                                $NOMBRETAITEM="Sin Datos";
-                                                           }
-                                                        ?>
+                                                    <?php foreach ($ARRAYTAITEM as $r) : ?>
                                                         <tr class="center">
                                                             <td>
                                                                 <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['NUMERO_TITEM']; ?>
+                                                                    <?php echo $r['NUMERO_TAITEM']; ?>
                                                                 </a>
                                                             </td>
-                                                            <td><?php echo $r['NOMBRE_TITEM']; ?></td>     
-                                                            <td><?php echo $NOMBRETAITEM; ?></td>                                                                                                                                                                                                                                                             
+                                                            <td><?php echo $r['NOMBRE_TAITEM']; ?></td>                                                                                                                                                                                                                                                           
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -304,8 +257,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                                 <span class="icon-copy ti-settings"></span>
                                                                             </button>
                                                                             <div class="dropdown-menu dropdown-menu-right">
-                                                                                <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_TITEM']; ?>" />
-                                                                                <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroTitem" />
+                                                                                <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_TAITEM']; ?>" />
+                                                                                <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroTaitem" />
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
                                                                                     <button type="submit" class="btn btn-info btn-block  btn-sm" id="VERURL" name="VERURL">
                                                                                         <i class="ti-eye"></i> Ver
@@ -366,23 +319,21 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             if (isset($_REQUEST['GUARDAR'])) {
 
 
-                $ARRAYNUMERO = $TITEM_ADO->obtenerNumero($_REQUEST['EMPRESA']);
+                $ARRAYNUMERO = $TAITEM_ADO->obtenerNumero($_REQUEST['EMPRESA']);
                 $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
 
 
                 //UTILIZACION METODOS SET DEL MODELO
                 //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-                $TITEM->__SET('NUMERO_TITEM', $NUMERO);
-                $TITEM->__SET('NOMBRE_TITEM', $_REQUEST['NOMBRETITEM']);
-                $TITEM->__SET('ID_TAITEM', $_REQUEST['TAITEM']);                
-                $TITEM->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-                $TITEM->__SET('ID_USUARIOI', $IDUSUARIOS);
-                $TITEM->__SET('ID_USUARIOM', $IDUSUARIOS);
+                $TAITEM->__SET('NUMERO_TAITEM', $NUMERO);
+                $TAITEM->__SET('NOMBRE_TAITEM', $_REQUEST['NOMBRETAITEM']);
+                $TAITEM->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $TAITEM->__SET('ID_USUARIOI', $IDUSUARIOS);
+                $TAITEM->__SET('ID_USUARIOM', $IDUSUARIOS);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                $TITEM_ADO->agregarTitem($TITEM);
+                $TAITEM_ADO->agregarTaitem($TAITEM);
 
-                //REDIRECCIONAR A PAGINA registroTitem.php
-                
+                //REDIRECCIONAR A PAGINA registroTaitem.php
                     echo '<script>
                         Swal.fire({
                             icon:"success",
@@ -392,22 +343,19 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                             confirmButtonText:"Cerrar",
                             closeOnConfirm:false
                         }).then((result)=>{
-                            location.href = "registroTitem.php";                            
+                            location.href = "registroTaitem.php";                            
                         })
                     </script>';
-                    
             }
             if (isset($_REQUEST['EDITAR'])) {
                 //UTILIZACION METODOS SET DEL MODELO
                 //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-                $TITEM->__SET('NOMBRE_TITEM', $_REQUEST['NOMBRETITEM']);
-                $TITEM->__SET('ID_TAITEM', $_REQUEST['TAITEM']);      
-                $TITEM->__SET('ID_USUARIOM', $IDUSUARIOS);
-                $TITEM->__SET('ID_TITEM', $_REQUEST['ID']);
+                $TAITEM->__SET('NOMBRE_TAITEM', $_REQUEST['NOMBRETAITEM']);
+                $TAITEM->__SET('ID_USUARIOM', $IDUSUARIOS);
+                $TAITEM->__SET('ID_TAITEM', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
-                $TITEM_ADO->actualizarTitem($TITEM);
-
-                //REDIRECCIONAR A PAGINA registroTitem.php                
+                $TAITEM_ADO->actualizarTaitem($TAITEM);
+                //REDIRECCIONAR A PAGINA registroTaitem.php
                     echo '<script>
                         Swal.fire({
                             icon:"success",
@@ -417,10 +365,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                             confirmButtonText:"Cerrar",
                             closeOnConfirm:false
                         }).then((result)=>{
-                            location.href = "registroTitem.php";                            
+                            location.href = "registroTaitem.php";                            
                         })
                     </script>';
-                    
             }
 
         ?>

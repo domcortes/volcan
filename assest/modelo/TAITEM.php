@@ -5,16 +5,15 @@
  */
 
  //ESTRUCTURA DE LA CLASE
-class TITEM {
+class TAITEM {
 
     //ATRIBUTOS DE LA CLASE    
-    private	  $ID_TITEM; 
-    private	  $NUMERO_TITEM;
-    private	  $NOMBRE_TITEM;
+    private	  $ID_TAITEM; 
+    private	  $NUMERO_TAITEM;
+    private	  $NOMBRE_TAITEM;
     private   $ESTADO_REGISTRO; 
     private   $INGRESO; 
     private   $MODIFICACION; 
-    private   $ID_TAITEM; 
     private   $ID_EMPRESA; 
     private   $ID_USUARIOI; 
     private   $ID_USUARIOM; 
