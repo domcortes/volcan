@@ -138,7 +138,8 @@ $ARRAYVERPTUSUARIO="";
                 $NOMBRE = $_REQUEST['NOMBRE'];
                 $CONTRASENA = $_REQUEST['CONTRASENA'];
                 $ARRAYINICIOSESSION = $USUARIO_ADO->iniciarSession($NOMBRE, $CONTRASENA);
-                if (empty($ARRAYINICIOSESSION) ||  sizeof($ARRAYINICIOSESSION) == 0) {$AUSUARIO_ADO->agregarAusuario2('NULL',3,0, "".$_REQUEST['NOMBRE'].", los datos ingresados no coinciden con el usuario." , "usuario_usuario" , 'NULL' ,'NULL','NULL','NULL','NULL' );                    
+                if (empty($ARRAYINICIOSESSION) ||  sizeof($ARRAYINICIOSESSION) == 0) {
+                    $AUSUARIO_ADO->agregarAusuario2('NULL',3,0, "".$_REQUEST['NOMBRE'].", los datos ingresados no coinciden con el usuario." , "usuario_usuario" , 'NULL' ,'NULL','NULL','NULL','NULL' );                    
                     echo
                     '<script>
                             Swal.fire({
