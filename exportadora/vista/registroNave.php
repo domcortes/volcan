@@ -411,7 +411,7 @@ if ($_POST) {
                                                                                 <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
                                                                                     <button type="submit" class="btn btn-rounded btn-outline-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
                                                                                         <i class="ti-na "></i>
-                                                                                    </button>Desahabilitar
+                                                                                    </button>Deshabilitar
                                                                                     <br>
                                                                                 <?php } ?>
                                                                                 <?php if ($r['ESTADO_REGISTRO'] == 0) { ?>

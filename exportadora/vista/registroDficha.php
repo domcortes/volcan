@@ -697,7 +697,7 @@ if (isset($_POST)) {
                 $DFICHA->__SET('ID_DFICHA', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $DFICHA_ADO->deshabilitar($DFICHA);
-                $AUSUARIO_ADO->agregarAusuario2("NULL",3, 3,"".$_SESSION["NOMBRE_USUARIO"].", Desahabilitar de detalle de ficha","material_dficha",$_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3, 3,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar de detalle de ficha","material_dficha",$_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
                 $_SESSION["parametro1"] =  $_REQUEST['OPP'];
                 echo '<script>

@@ -529,7 +529,7 @@ if ($_POST) {
                     $DVALOR->__SET('ID_DVALOR', $ARRAYDVALOR[0]["ID_DVALOR"]);   
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                     $DVALOR_ADO->deshabilitar($DVALOR);
-                    $AUSUARIO_ADO->agregarAusuario2("NULL",3, 3,"".$_SESSION["NOMBRE_USUARIO"].", Desahabilitar de Detalle de Valor Liquidación","liquidacion_dvalor",$ARRAYDVALOR[0]["ID_DVALOR"],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",3, 3,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar de Detalle de Valor Liquidación","liquidacion_dvalor",$ARRAYDVALOR[0]["ID_DVALOR"],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
                     
                     $_SESSION["parametro"] =  $_REQUEST['IDP'];
                     $_SESSION["parametro1"] =  $_REQUEST['OPP'];                    

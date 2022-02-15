@@ -699,7 +699,7 @@ if ($_POST) {
                     $DNOTADC->__SET('ID_DNOTA', $ARRAYDNOTA[0]["ID_DNOTA"]);   
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                     $DNOTADC_ADO->deshabilitar($DNOTADC);
-                    $AUSUARIO_ADO->agregarAusuario2("NULL",3, 2,"".$_SESSION["NOMBRE_USUARIO"].", Desahabilitar de Detalle de Nota D/C","fruta_dnotadc",$ARRAYDNOTA[0]["ID_DNOTA"],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",3, 2,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar de Detalle de Nota D/C","fruta_dnotadc",$ARRAYDNOTA[0]["ID_DNOTA"],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
                     
                     $_SESSION["parametro"] =  $_REQUEST['IDP'];
                     $_SESSION["parametro1"] =  $_REQUEST['OPP'];
