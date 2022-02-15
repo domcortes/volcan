@@ -94,7 +94,7 @@ if (isset($_REQUEST['GUARDAR'])) {
 <html lang="es">
 
 <head>
-    <title>Registro Broker</title>
+    <title>Registro Cliente</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -311,7 +311,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                         <div class="row">
                                 <div class="box">
                                     <div class="box-header with-border bg-primary">                                
-                                        <h4 class="box-title">Registro Broker</h4>                                
+                                        <h4 class="box-title">Registro Cliente</h4>                                
                                     </div>
                                     <!-- /.box-header -->
                                     <form class="form" role="form" method="post" name="form_reg_dato" name="form_reg_dato" enctype="multipart/form-data">
@@ -323,21 +323,21 @@ if (isset($_REQUEST['GUARDAR'])) {
                                                         <label>Nombre </label>
                                                         <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
                                                         <input type="hidden" class="form-control" placeholder="EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
-                                                        <input type="text" class="form-control" placeholder="Nombre Broker" id="NOMBREBROKER" name="NOMBREBROKER" value="<?php echo $NOMBREBROKER; ?>" <?php echo $DISABLED; ?> />
+                                                        <input type="text" class="form-control" placeholder="Nombre Cliente" id="NOMBREBROKER" name="NOMBREBROKER" value="<?php echo $NOMBREBROKER; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_nombre" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>EORI </label>
-                                                        <input type="text" class="form-control" placeholder="EORI Broker" id="EORIBROKER" name="EORIBROKER" value="<?php echo $EORIBROKER; ?>" <?php echo $DISABLED; ?> />
+                                                        <input type="text" class="form-control" placeholder="EORI Cliente" id="EORIBROKER" name="EORIBROKER" value="<?php echo $EORIBROKER; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_eori" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Direccion </label>
-                                                        <input type="text" class="form-control" placeholder="Direccion Broker" id="DIRECCIONBROKER" name="DIRECCIONBROKER" value="<?php echo $DIRECCIONBROKER; ?>" <?php echo $DISABLED; ?> />
+                                                        <input type="text" class="form-control" placeholder="Direccion Cliente" id="DIRECCIONBROKER" name="DIRECCIONBROKER" value="<?php echo $DIRECCIONBROKER; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_direccion" class="validacion"> </label>
                                                     </div>
                                                 </div>
@@ -348,63 +348,63 @@ if (isset($_REQUEST['GUARDAR'])) {
                                                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Contacto 1</label>
-                                                        <input type="text" class="form-control" placeholder="Nombre Contacto 1 Broker" id="CONTACTOBROKER1" name="CONTACTOBROKER1" value="<?php echo $CONTACTOBROKER1; ?>" <?php echo $DISABLED; ?> />
+                                                        <input type="text" class="form-control" placeholder="Nombre Contacto 1 Cliente" id="CONTACTOBROKER1" name="CONTACTOBROKER1" value="<?php echo $CONTACTOBROKER1; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_contacto1" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Cargo 1</label>
-                                                        <input type="text" class="form-control" placeholder="Cargo Contacto 1 Broker" id="CARGOBROKER1" name="CARGOBROKER1" value="<?php echo $CARGOBROKER1; ?>" <?php echo $DISABLED; ?> />
+                                                        <input type="text" class="form-control" placeholder="Cargo Contacto 1 Cliente" id="CARGOBROKER1" name="CARGOBROKER1" value="<?php echo $CARGOBROKER1; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_cargo1" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Email 1</label>
-                                                        <input type="text" class="form-control" placeholder="Email Contacto 1 Broker" id="EMAILBROKER1" name="EMAILBROKER1" value="<?php echo $EMAILBROKER1; ?>" <?php echo $DISABLED; ?> />
+                                                        <input type="text" class="form-control" placeholder="Email Contacto 1 Cliente" id="EMAILBROKER1" name="EMAILBROKER1" value="<?php echo $EMAILBROKER1; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_email1" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Contacto 2</label>
-                                                        <input type="text" class="form-control" placeholder="Nombre Contacto 2 Broker" id="CONTACTOBROKER2" name="CONTACTOBROKER2" value="<?php echo $CONTACTOBROKER2; ?>" <?php echo $DISABLED; ?> />
+                                                        <input type="text" class="form-control" placeholder="Nombre Contacto 2 Cliente" id="CONTACTOBROKER2" name="CONTACTOBROKER2" value="<?php echo $CONTACTOBROKER2; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_contacto2" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Cargo 2</label>
-                                                        <input type="text" class="form-control" placeholder="Cargo Contacto 2 Broker" id="CARGOBROKER2" name="CARGOBROKER2" value="<?php echo $CARGOBROKER2; ?>" <?php echo $DISABLED; ?> />
+                                                        <input type="text" class="form-control" placeholder="Cargo Contacto 2 Cliente" id="CARGOBROKER2" name="CARGOBROKER2" value="<?php echo $CARGOBROKER2; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_cargo2" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Email 2</label>
-                                                        <input type="text" class="form-control" placeholder="Email Contacto 2 Broker" id="EMAILBROKER2" name="EMAILBROKER2" value="<?php echo $EMAILBROKER2; ?>" <?php echo $DISABLED; ?> />
+                                                        <input type="text" class="form-control" placeholder="Email Contacto 2 Cliente" id="EMAILBROKER2" name="EMAILBROKER2" value="<?php echo $EMAILBROKER2; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_email2" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Contacto 3</label>
-                                                        <input type="text" class="form-control" placeholder="Nombre Contacto 3 Broker" id="CONTACTOBROKER3" name="CONTACTOBROKER3" value="<?php echo $CONTACTOBROKER3; ?>" <?php echo $DISABLED; ?> />
+                                                        <input type="text" class="form-control" placeholder="Nombre Contacto 3 Cliente" id="CONTACTOBROKER3" name="CONTACTOBROKER3" value="<?php echo $CONTACTOBROKER3; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_contacto3" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Cargo 3</label>
-                                                        <input type="text" class="form-control" placeholder="Cargo Contacto 3 Broker" id="CARGOBROKER3" name="CARGOBROKER3" value="<?php echo $CARGOBROKER3; ?>" <?php echo $DISABLED; ?> />
+                                                        <input type="text" class="form-control" placeholder="Cargo Contacto 3 Cliente" id="CARGOBROKER3" name="CARGOBROKER3" value="<?php echo $CARGOBROKER3; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_cargo3" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
                                                     <div class="form-group">
                                                         <label>Email 3</label>
-                                                        <input type="text" class="form-control" placeholder="Email Contacto 3 Broker" id="EMAILBROKER3" name="EMAILBROKER3" value="<?php echo $EMAILBROKER3; ?>" <?php echo $DISABLED; ?> />
+                                                        <input type="text" class="form-control" placeholder="Email Contacto 3 Cliente" id="EMAILBROKER3" name="EMAILBROKER3" value="<?php echo $EMAILBROKER3; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_email3" class="validacion"> </label>
                                                     </div>
                                                 </div>

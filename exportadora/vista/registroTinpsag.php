@@ -64,18 +64,39 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     //OPERACION DE CAMBIO DE ESTADO
     //0 = DESACTIVAR
     if ($OP == "0") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYTINPSAGID = $TINPSAG_ADO->verTinpsag($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
 
-        $TINPSAG->__SET('ID_TINPSAG', $IDOP);
-        $TINPSAG_ADO->deshabilitar($TINPSAG);
+        foreach ($ARRAYTINPSAGID as $r) :
+            $NOMBRETINPSAG = "" . $r['NOMBRE_TINPSAG'];
+        endforeach;
 
-        echo "<script type='text/javascript'> location.href ='registroTinpsag.php';</script>";
     }
     //1 = ACTIVAR
     if ($OP == "1") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYTINPSAGID = $TINPSAG_ADO->verTinpsag($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
 
-        $BODEGA->__SET('ID_TINPSAG', $IDOP);
-        $TINPSAG_ADO->habilitar($TINPSAG);
-        echo "<script type='text/javascript'> location.href ='registroTinpsag.php';</script>";
+        foreach ($ARRAYTINPSAGID as $r) :
+            $NOMBRETINPSAG = "" . $r['NOMBRE_TINPSAG'];
+        endforeach;
+
     }
     //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
 
@@ -124,7 +145,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 <html lang="es">
 
 <head>
-    <title>Registro Tipo Inpeccion Sag </title>
+    <title>Registro Tipo Inspección Sag </title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -177,7 +198,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page"> Mantenedores </li>
                                             <li class="breadcrumb-item" aria-current="page"> Tipo </li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Registro Tipo Inpeccion SAG </a> </li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Registro Tipo Inspección SAG </a> </li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -192,7 +213,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                             <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
                                     <div class="box-header with-border bg-primary">                               
-                                        <h4 class="box-title">Registro Tipo Inpeccion SAG</h4>                                     
+                                        <h4 class="box-title">Registro Tipo Inspección SAG</h4>                                     
                                     </div>
                                     <!-- /.box-header -->
                                     <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato" >
@@ -203,7 +224,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                     <div class="form-group">
                                                         <label>Nombre </label>
                                                         <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
-                                                        <input type="text" class="form-control" placeholder="Nombre Tipo Inpeccion SAG " id="NOMBRETINPSAG" name="NOMBRETINPSAG" value="<?php echo $NOMBRETINPSAG; ?>" <?php echo $DISABLED; ?> />
+                                                        <input type="text" class="form-control" placeholder="Nombre Tipo Inspección SAG " id="NOMBRETINPSAG" name="NOMBRETINPSAG" value="<?php echo $NOMBRETINPSAG; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_nombre" class="validacion"> <?php echo $MENSAJE; ?> </label>
                                                     </div>
                                                  </div>
@@ -213,14 +234,22 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                         <div class="box-footer">
                                             <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
                                                 <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroTinpsag.php');">
-                                                <i class="ti-trash"></i>Cancelar
+                                                    <i class="ti-trash"></i>Cancelar
                                                 </button>
-                                                <?php if ($OP != "editar") { ?>
-                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                <?php if ($OP == "editar") { ?>
+                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
+                                                <?php } else if($OP == "0") { ?>
+                                                    <button type="submit" class="btn btn-danger" name="ELIMINAR" value="ELIMINAR"  data-toggle="tooltip" title="Deshabilitar"  >
+                                                        <i class="ti-save-alt"></i> Deshabilitar
+                                                    </button>
+                                                <?php } else if($OP == "1"){ ?>                                                    
+                                                    <button type="submit" class="btn btn-success" name="HABILITAR" value="HABILITAR"  data-toggle="tooltip" title="Habilitar"  >
+                                                        <i class="ti-save-alt"></i> Habilitar
+                                                    </button>
                                                 <?php } else { ?>
-                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
                                                 <?php } ?>
@@ -233,7 +262,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                             <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
                                     <div class="box-header with-border bg-info">
-                                        <h4 class="box-title">Agrupados Tipo Inpeccion SAG</h4>
+                                        <h4 class="box-title">Agrupados Tipo Inspección SAG</h4>
                                     </div>
                                     <div class="box-body">
                                         <div class="table-responsive">
@@ -332,6 +361,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $TINPSAG->__SET('ID_USUARIOM', $IDUSUARIOS);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $TINPSAG_ADO->agregarTinpsag($TINPSAG);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Tipo Inspección SAG.","fruta_tinpsag","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
                 //REDIRECCIONAR A PAGINA registroTinpsag.php
                     echo '<script>
                     Swal.fire({
@@ -356,12 +388,61 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $TINPSAG->__SET('ID_TINPSAG', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
                 $TINPSAG_ADO->actualizarTinpsag($TINPSAG);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Tipo Inspección SAG.","fruta_tinpsag", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );     
+                
                 //REDIRECCIONAR A PAGINA registroTinpsag.php
                 echo '<script>
                     Swal.fire({
                         icon:"success",
                         title:"Registro Modificado",
                         text:"El registro del mantenedor se ha Modificado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroTinpsag.php";                            
+                    })
+                </script>';
+            }
+            
+            if (isset($_REQUEST['ELIMINAR'])) {         
+
+      
+
+                $TINPSAG->__SET('ID_TINPSAG', $_REQUEST['ID']);
+                $TINPSAG_ADO->deshabilitar($TINPSAG);            
+
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar Tipo Inspección SAG.","fruta_tinpsag", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );                
+                
+                echo '<script>
+                    Swal.fire({
+                        icon:"error",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Deshabilitado correctamente", 
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroTinpsag.php";                            
+                    })
+                </script>';
+            }
+            
+            if (isset($_REQUEST['HABILITAR'])) {       
+
+                $TINPSAG->__SET('ID_TINPSAG', $_REQUEST['ID']);
+                $TINPSAG_ADO->habilitar($TINPSAG);
+
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,5,"".$_SESSION["NOMBRE_USUARIO"].", Habilitar Tipo Inspección SAG.","fruta_tinpsag", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );                               
+
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Habilitado correctamente", 
                         showConfirmButton: true,
                         confirmButtonText:"Cerrar",
                         closeOnConfirm:false

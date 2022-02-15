@@ -61,16 +61,40 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     $OP = $_SESSION['parametro1'];
 
     if ($OP == "0") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        $DISABLED2 = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verUsuario(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYEMPRESAPRODUCTORID = $EMPRESAPRODUCTOR_ADO->verEmpresaProductor($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
+        foreach ($ARRAYEMPRESAPRODUCTORID as $r) :
+            $USUARIOEP = "" . $r['ID_USUARIO'];
+            $PRODUCTOREP = "" . $r['ID_PRODUCTOR'];
+        endforeach;
 
-        $EMPRESAPRODUCTOR->__SET('ID_EMPRESAPRODUCTOR', $IDOP);
-        $EMPRESAPRODUCTOR_ADO->deshabilitar($EMPRESAPRODUCTOR);
-        echo "<script type='text/javascript'> location.href ='registroUsuarioEmpPro.php';</script>";
     }
     if ($OP == "1") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        $DISABLED2 = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verUsuario(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYEMPRESAPRODUCTORID = $EMPRESAPRODUCTOR_ADO->verEmpresaProductor($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
+        foreach ($ARRAYEMPRESAPRODUCTORID as $r) :
+            $USUARIOEP = "" . $r['ID_USUARIO'];
+            $PRODUCTOREP = "" . $r['ID_PRODUCTOR'];
+        endforeach;
 
-        $EMPRESAPRODUCTOR->__SET('ID_EMPRESAPRODUCTOR', $IDOP);
-        $EMPRESAPRODUCTOR_ADO->habilitar($EMPRESAPRODUCTOR);
-        echo "<script type='text/javascript'> location.href ='registroUsuarioEmpPro.php';</script>";
     }
     //IDENTIFICACIONES DE OPERACIONES
     //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
@@ -96,6 +120,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         //DESABILITAR INPUT DEL FORMULARIO
         //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
         $DISABLED = "disabled";
+        $DISABLED2 = "disabled";
         //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
         //ALMACENAR INFORMACION EN ARREGLO
         //LLAMADA A LA FUNCION DE CONTROLADOR verUsuario(ID), 
@@ -243,23 +268,31 @@ if ($_POST) {
                                         </div>
 
                                     </div>
-                                    <!-- /.box-body -->                                           
+                                    <!-- /.box-body -->                                              
                                     <div class="box-footer">
-                                            <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
-                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroUsuarioEmpPro.php');">
-                                                <i class="ti-trash"></i>Cancelar
+                                        <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
+                                            <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroUsuarioEmpPro.php');">
+                                                <i class="ti-trash"></i> Cancelar
+                                            </button>
+                                            <?php if ($OP == "editar") { ?>
+                                                <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Guardar
                                                 </button>
-                                                <?php if ($OP != "editar") { ?>
-                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
-                                                        <i class="ti-save-alt"></i> Guardar
-                                                    </button>
-                                                <?php } else { ?>
-                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
-                                                        <i class="ti-save-alt"></i> Guardar
-                                                    </button>
-                                                <?php } ?>
-                                            </div>
+                                            <?php } else if($OP == "0") { ?>
+                                                <button type="submit" class="btn btn-danger" name="ELIMINAR" value="ELIMINAR"  data-toggle="tooltip" title="Deshabilitar"  >
+                                                    <i class="ti-save-alt"></i> Deshabilitar
+                                                </button>
+                                            <?php } else if($OP == "1"){ ?>                                                    
+                                                <button type="submit" class="btn btn-success" name="HABILITAR" value="HABILITAR"  data-toggle="tooltip" title="Habilitar"  >
+                                                    <i class="ti-save-alt"></i> Habilitar
+                                                </button>
+                                            <?php } else { ?>
+                                                <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Guardar
+                                                </button>
+                                            <?php } ?>
                                         </div>
+                                    </div>
                                 </form>
                             </div>
                             <!-- /.box -->
@@ -380,7 +413,10 @@ if ($_POST) {
                     $EMPRESAPRODUCTOR->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOREP']);
                     $EMPRESAPRODUCTOR->__SET('ID_USUARIOI', $IDUSUARIOS);
                     $EMPRESAPRODUCTOR->__SET('ID_USUARIOM', $IDUSUARIOS);
-                    $EMPRESAPRODUCTOR_ADO->agregarEmpresaProductor($EMPRESAPRODUCTOR);                    
+                    $EMPRESAPRODUCTOR_ADO->agregarEmpresaProductor($EMPRESAPRODUCTOR);         
+
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",3,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro  Usu. Asoc.Empre. Prod","usuario_empresaproductor","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );           
+
                     echo '<script>
                         Swal.fire({
                             icon:"success",
@@ -425,6 +461,8 @@ if ($_POST) {
                     $EMPRESAPRODUCTOR->__SET('ID_EMPRESAPRODUCTOR', $_REQUEST['ID']);
                     $EMPRESAPRODUCTOR_ADO->actualizarEmpresaProductor($EMPRESAPRODUCTOR);
                     
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",3,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Usu. Asoc.Empre. Prod","usuario_empresaproductor", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );     
+                    
                     echo '<script>
                     Swal.fire({
                         icon:"info",
@@ -438,6 +476,48 @@ if ($_POST) {
                     })
                     </script>';
                 }
+            }
+            
+            if (isset($_REQUEST['ELIMINAR'])) {
+
+                $EMPRESAPRODUCTOR->__SET('ID_EMPRESAPRODUCTOR', $_REQUEST['ID']);
+                $EMPRESAPRODUCTOR_ADO->deshabilitar($EMPRESAPRODUCTOR);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar  Usu. Asoc.Empre. Prod.","usuario_empresaproductor", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );                
+                
+                echo '<script>
+                    Swal.fire({
+                        icon:"error",
+                        title:"Registro Modificado",
+                        text:"El registro de Usu. Asoc.Empre. Prod. se ha Deshabilitado correctamente", 
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroUsuarioEmpPro.php";                            
+                    })
+                </script>';
+            }
+            
+            if (isset($_REQUEST['HABILITAR'])) {
+
+                $EMPRESAPRODUCTOR->__SET('ID_EMPRESAPRODUCTOR', $_REQUEST['ID']);
+                $EMPRESAPRODUCTOR_ADO->habilitar($EMPRESAPRODUCTOR);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,5,"".$_SESSION["NOMBRE_USUARIO"].", Habilitar Usu. Asoc.Empre. Prod.","usuario_empresaproductor", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );                               
+
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Modificado",
+                        text:"El registro de Usu. Asoc.Empre. Prod. se ha Habilitado correctamente", 
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroUsuarioEmpPro.php";                            
+                    })
+                </script>';
             }
     
     ?>

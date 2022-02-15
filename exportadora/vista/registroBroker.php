@@ -66,18 +66,61 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     //IDENTIFICACIONES DE OPERACIONES    //OPERACION DE CAMBIO DE ESTADO
     //0 = DESACTIVAR
     if ($OP == "0") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYBROKERID = $BROKER_ADO->verBroker($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
 
-        $BROKER->__SET('ID_BROKER', $IDOP);
-        $BROKER_ADO->deshabilitar($BROKER);
+        foreach ($ARRAYBROKERID as $r) :
+            $NOMBREBROKER = "" . $r['NOMBRE_BROKER'];
+            $EORIBROKER = "" . $r['EORI_BROKER'];
+            $DIRECCIONBROKER = "" . $r['DIRECCION_BROKER'];
+            $CONTACTOBROKER1 = "" . $r['CONTACTO1_BROKER'];
+            $CARGOBROKER1 = "" . $r['CARGO1_BROKER'];
+            $EMAILBROKER1 = "" . $r['EMAIL1_BROKER'];
+            $CONTACTOBROKER2 = "" . $r['CONTACTO2_BROKER'];
+            $CARGOBROKER2 = "" . $r['CARGO2_BROKER'];
+            $EMAILBROKER2 = "" . $r['EMAIL2_BROKER'];
+            $CONTACTOBROKER3 = "" . $r['CONTACTO3_BROKER'];
+            $CARGOBROKER3 = "" . $r['CARGO3_BROKER'];
+            $EMAILBROKER3 = "" . $r['EMAIL3_BROKER'];
+        endforeach;
 
-        echo "<script type='text/javascript'> location.href ='registroBroker.php';</script>";
     }
     //1 = ACTIVAR
     if ($OP == "1") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYBROKERID = $BROKER_ADO->verBroker($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
 
-        $BROKER->__SET('ID_BROKER', $IDOP);
-        $BROKER_ADO->habilitar($BROKER);
-        echo "<script type='text/javascript'> location.href ='registroBroker.php';</script>";
+        foreach ($ARRAYBROKERID as $r) :
+            $NOMBREBROKER = "" . $r['NOMBRE_BROKER'];
+            $EORIBROKER = "" . $r['EORI_BROKER'];
+            $DIRECCIONBROKER = "" . $r['DIRECCION_BROKER'];
+            $CONTACTOBROKER1 = "" . $r['CONTACTO1_BROKER'];
+            $CARGOBROKER1 = "" . $r['CARGO1_BROKER'];
+            $EMAILBROKER1 = "" . $r['EMAIL1_BROKER'];
+            $CONTACTOBROKER2 = "" . $r['CONTACTO2_BROKER'];
+            $CARGOBROKER2 = "" . $r['CARGO2_BROKER'];
+            $EMAILBROKER2 = "" . $r['EMAIL2_BROKER'];
+            $CONTACTOBROKER3 = "" . $r['CONTACTO3_BROKER'];
+            $CARGOBROKER3 = "" . $r['CARGO3_BROKER'];
+            $EMAILBROKER3 = "" . $r['EMAIL3_BROKER'];
+        endforeach;
+
     }
 
     //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
@@ -488,14 +531,22 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                         <div class="box-footer">
                                             <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
                                                 <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroBroker.php');">
-                                                <i class="ti-trash"></i>Cancelar
+                                                    <i class="ti-trash"></i>Cancelar
                                                 </button>
-                                                <?php if ($OP != "editar") { ?>
-                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                <?php if ($OP == "editar") { ?>
+                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
+                                                <?php } else if($OP == "0") { ?>
+                                                    <button type="submit" class="btn btn-danger" name="ELIMINAR" value="ELIMINAR"  data-toggle="tooltip" title="Deshabilitar"  >
+                                                        <i class="ti-save-alt"></i> Deshabilitar
+                                                    </button>
+                                                <?php } else if($OP == "1"){ ?>                                                    
+                                                    <button type="submit" class="btn btn-success" name="HABILITAR" value="HABILITAR"  data-toggle="tooltip" title="Habilitar"  >
+                                                        <i class="ti-save-alt"></i> Habilitar
+                                                    </button>
                                                 <?php } else { ?>
-                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
                                                 <?php } ?>
@@ -622,6 +673,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $BROKER->__SET('ID_USUARIOM', $IDUSUARIOS);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $BROKER_ADO->agregarBroker($BROKER);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Cliente.","fruta_broker","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
                 //REDIRECCIONAR A PAGINA registroBroker.php
                         echo '<script>
                             Swal.fire({
@@ -657,6 +711,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $BROKER->__SET('ID_BROKER', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
                 $BROKER_ADO->actualizarBroker($BROKER);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Cliente.","fruta_broker", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );     
+
                 //REDIRECCIONAR A PAGINA registroBroker.php
                     echo '<script>
                         Swal.fire({
@@ -670,6 +727,48 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                             location.href = "registroBroker.php";                            
                         })
                     </script>';
+            }
+            if (isset($_REQUEST['ELIMINAR'])) {     
+                
+                
+                $BROKER->__SET('ID_BROKER', $_REQUEST['ID']);
+                $BROKER_ADO->deshabilitar($BROKER);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar Cliente.","fruta_broker", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );                
+                
+                echo '<script>
+                    Swal.fire({
+                        icon:"error",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Deshabilitado correctamente", 
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroBroker.php";                            
+                    })
+                </script>';
+            }
+            
+            if (isset($_REQUEST['HABILITAR'])) {   
+
+                $BROKER->__SET('ID_BROKER', $_REQUEST['ID']);
+                $BROKER_ADO->habilitar($BROKER);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,5,"".$_SESSION["NOMBRE_USUARIO"].", Habilitar Cliente.","fruta_broker", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );                               
+
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Habilitado correctamente", 
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroBroker.php";                            
+                    })
+                </script>';
             }
 
         ?>

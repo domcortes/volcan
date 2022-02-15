@@ -88,19 +88,65 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     //OPERACION DE CAMBIO DE ESTADO
     //0 = DESACTIVAR
     if ($OP == "0") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYEXPORTADORASID = $EXPORTADORA_ADO->verExportadora($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
+        foreach ($ARRAYEXPORTADORASID as $r) :
+            $RUTEXPORTADORA = "" . $r['RUT_EXPORTADORA'];
+            $DVEXPORTADORA = "" . $r['DV_EXPORTADORA'];
+            $NOMBREXPORTADORA = "" . $r['NOMBRE_EXPORTADORA'];
+            $RAZONSOCIALEXPORTADORA = "" . $r['RAZON_SOCIAL_EXPORTADORA'];
+            $GIROEXPORTADORA = "" . $r['GIRO_EXPORTADORA'];
+            $DIRECCIONEXPORTADORA = "" . $r['DIRECCION_EXPORTADORA'];      
+            $EMPRESA = "" . $r['ID_EMPRESA'];
+            $COMUNA = "" . $r['ID_COMUNA'];
+            $CONTACTOEXPORTADORA1 = "" . $r['CONTACTO1_EXPORTADORA'];
+            $TELEFONOEXPORTADORA1 = "" . $r['TELEFONO1_EXPORTADORA'];
+            $EMAILEXPORTADORA1 = "" . $r['EMAIL1_EXPORTADORA'];
+            $CONTACTOEXPORTADORA2 = "" . $r['CONTACTO2_EXPORTADORA'];
+            $TELEFONOEXPORTADORA2 = "" . $r['TELEFONO2_EXPORTADORA'];
+            $EMAILEXPORTADORA2 = "" . $r['EMAIL2_EXPORTADORA'];
+            $URL_IMG = "" . $r['LOGO_EXPORTADORA'];
+        endforeach;
 
-        $EXPORTADORA->__SET('ID_EXPORTADORA', $IDOP);
-        $EXPORTADORA_ADO->deshabilitar($EXPORTADORA);
-
-        echo "<script type='text/javascript'> location.href ='registroExportadora.php';</script>";
     }
     //1 = ACTIVAR
     if ($OP == "1") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYEXPORTADORASID = $EXPORTADORA_ADO->verExportadora($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
+        foreach ($ARRAYEXPORTADORASID as $r) :
+            $RUTEXPORTADORA = "" . $r['RUT_EXPORTADORA'];
+            $DVEXPORTADORA = "" . $r['DV_EXPORTADORA'];
+            $NOMBREXPORTADORA = "" . $r['NOMBRE_EXPORTADORA'];
+            $RAZONSOCIALEXPORTADORA = "" . $r['RAZON_SOCIAL_EXPORTADORA'];
+            $GIROEXPORTADORA = "" . $r['GIRO_EXPORTADORA'];
+            $DIRECCIONEXPORTADORA = "" . $r['DIRECCION_EXPORTADORA'];      
+            $EMPRESA = "" . $r['ID_EMPRESA'];
+            $COMUNA = "" . $r['ID_COMUNA'];
+            $CONTACTOEXPORTADORA1 = "" . $r['CONTACTO1_EXPORTADORA'];
+            $TELEFONOEXPORTADORA1 = "" . $r['TELEFONO1_EXPORTADORA'];
+            $EMAILEXPORTADORA1 = "" . $r['EMAIL1_EXPORTADORA'];
+            $CONTACTOEXPORTADORA2 = "" . $r['CONTACTO2_EXPORTADORA'];
+            $TELEFONOEXPORTADORA2 = "" . $r['TELEFONO2_EXPORTADORA'];
+            $EMAILEXPORTADORA2 = "" . $r['EMAIL2_EXPORTADORA'];
+            $URL_IMG = "" . $r['LOGO_EXPORTADORA'];
+        endforeach;
 
-        $EXPORTADORA->__SET('ID_EXPORTADORA', $IDOP);
-        $EXPORTADORA_ADO->habilitar($EXPORTADORA);
-
-        echo "<script type='text/javascript'> location.href ='registroExportadora.php';</script>";
     }
     //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
     if ($OP == "editar") {
@@ -167,19 +213,19 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
 if ($_POST) {
 
-    $RUTEXPORTADORA = $_POST['RUTEXPORTADORA'];
-    $NOMBREXPORTADORA  = $_POST['NOMBREXPORTADORA'];
-    $RAZONSOCIALEXPORTADORA  = $_POST['RAZONSOCIALEXPORTADORA'];
-    $GIROEXPORTADORA  = $_POST['GIROEXPORTADORA'];
-    $DIRECCIONEXPORTADORA  = $_POST['DIRECCIONEXPORTADORA'];
-    $COMUNA  = $_POST['COMUNA'];
-    $CONTACTOEXPORTADORA1 = $_POST['CONTACTOEXPORTADORA1'];
-    $TELEFONOEXPORTADORA1 = $_POST['TELEFONOEXPORTADORA1'];
-    $EMAILEXPORTADORA1  = $_POST['EMAILEXPORTADORA1'];
-    $CONTACTOEXPORTADORA2 = $_POST['CONTACTOEXPORTADORA2'];
-    $TELEFONOEXPORTADORA2 = $_POST['TELEFONOEXPORTADORA2'];
-    $EMAILEXPORTADORA2  = $_POST['EMAILEXPORTADORA2'];
-    $URL_IMG  = $_POST['URL'];
+    $RUTEXPORTADORA = isset($_POST['RUTEXPORTADORA']);
+    $NOMBREXPORTADORA  = isset($_POST['NOMBREXPORTADORA']);
+    $RAZONSOCIALEXPORTADORA  = isset($_POST['RAZONSOCIALEXPORTADORA']);
+    $GIROEXPORTADORA  = isset($_POST['GIROEXPORTADORA']);
+    $DIRECCIONEXPORTADORA  = isset($_POST['DIRECCIONEXPORTADORA']);
+    $COMUNA  = isset($_POST['COMUNA']);
+    $CONTACTOEXPORTADORA1 = isset($_POST['CONTACTOEXPORTADORA1']);
+    $TELEFONOEXPORTADORA1 =isset( $_POST['TELEFONOEXPORTADORA1']);
+    $EMAILEXPORTADORA1  =isset( $_POST['EMAILEXPORTADORA1']);
+    $CONTACTOEXPORTADORA2 = isset($_POST['CONTACTOEXPORTADORA2']);
+    $TELEFONOEXPORTADORA2 = isset($_POST['TELEFONOEXPORTADORA2']);
+    $EMAILEXPORTADORA2  = isset($_POST['EMAILEXPORTADORA2']);
+    $URL_IMG  = isset($_POST['URL']);
 }
 
 ?>
@@ -554,14 +600,22 @@ if ($_POST) {
                                         <div class="box-footer">
                                             <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
                                                 <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroExportadora.php');">
-                                                <i class="ti-trash"></i>Cancelar
+                                                    <i class="ti-trash"></i>Cancelar
                                                 </button>
-                                                <?php if ($OP != "editar") { ?>
-                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                <?php if ($OP == "editar") { ?>
+                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
+                                                <?php } else if($OP == "0") { ?>
+                                                    <button type="submit" class="btn btn-danger" name="ELIMINAR" value="ELIMINAR"  data-toggle="tooltip" title="Deshabilitar"  >
+                                                        <i class="ti-save-alt"></i> Deshabilitar
+                                                    </button>
+                                                <?php } else if($OP == "1"){ ?>                                                    
+                                                    <button type="submit" class="btn btn-success" name="HABILITAR" value="HABILITAR"  data-toggle="tooltip" title="Habilitar"   >
+                                                        <i class="ti-save-alt"></i> Habilitar
+                                                    </button>
                                                 <?php } else { ?>
-                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
                                                 <?php } ?>
@@ -700,6 +754,10 @@ if ($_POST) {
                 $EXPORTADORA->__SET('ID_USUARIOM', $IDUSUARIOS);
                 //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
                 $EXPORTADORA_ADO->agregarExportadora($EXPORTADORA);
+
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Exportadora.","fruta_exportadora","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
                 //REDIRECCIONAR A PAGINA registroExportadora.php
                 echo '<script>
                     Swal.fire({
@@ -751,12 +809,60 @@ if ($_POST) {
                 $EXPORTADORA->__SET('ID_EXPORTADORA', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
                 $EXPORTADORA_ADO->actualizarExportadora($EXPORTADORA);
+
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Exportadora.","fruta_exportadora", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );     
+
                 //REDIRECCIONAR A PAGINA registroExportadora.php
                 echo '<script>
                     Swal.fire({
                         icon:"success",
                         title:"Registro Modificado",
                         text:"El registro del mantenedor se ha Modificado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroExportadora.php";                            
+                    })
+                </script>';
+            }
+            
+            if (isset($_REQUEST['ELIMINAR'])) {     
+                
+                
+                $EXPORTADORA->__SET('ID_EXPORTADORA',  $_REQUEST['ID']);
+                $EXPORTADORA_ADO->deshabilitar($EXPORTADORA);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar Exportadora.","fruta_exportadora", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );                
+                
+                echo '<script>
+                    Swal.fire({
+                        icon:"error",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Deshabilitado correctamente", 
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroExportadora.php";                            
+                    })
+                </script>';
+            }
+            
+            if (isset($_REQUEST['HABILITAR'])) {   
+
+                $EXPORTADORA->__SET('ID_EXPORTADORA', $_REQUEST['ID']);
+                $EXPORTADORA_ADO->habilitar($EXPORTADORA);
+        
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,5,"".$_SESSION["NOMBRE_USUARIO"].", Habilitar Exportadora.","fruta_exportadora", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );                               
+
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Habilitado correctamente", 
                         showConfirmButton: true,
                         confirmButtonText:"Cerrar",
                         closeOnConfirm:false

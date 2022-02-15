@@ -63,18 +63,35 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     //IDENTIFICACIONES DE OPERACIONES    //OPERACION DE CAMBIO DE ESTADO
     //0 = DESACTIVAR
     if ($OP == "0") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
 
-        $SEGURO->__SET('ID_SEGURO', $IDOP);
-        $SEGURO_ADO->deshabilitar($SEGURO);
+        foreach ($ARRAYSEGUROID as $r) :
+            $NOMBRESEGURO = "" . $r['NOMBRE_SEGURO'];
+            $ESTIMADOSEGURO = "" . $r['ESTIMADO_SEGURO'];
+            $REALSEGURO = "" . $r['REAL_SEGURO'];
+            $SUMASEGURO = "" . $r['SUMA_SEGURO'];
+        endforeach;
 
-        echo "<script type='text/javascript'> location.href ='registroSeguro.php';</script>";
     }
     //1 = ACTIVAR
     if ($OP == "1") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
 
-        $SEGURO->__SET('ID_SEGURO', $IDOP);
-        $SEGURO_ADO->habilitar($SEGURO);
-        echo "<script type='text/javascript'> location.href ='registroSeguro.php';</script>";
+        foreach ($ARRAYSEGUROID as $r) :
+            $NOMBRESEGURO = "" . $r['NOMBRE_SEGURO'];
+            $ESTIMADOSEGURO = "" . $r['ESTIMADO_SEGURO'];
+            $REALSEGURO = "" . $r['REAL_SEGURO'];
+            $SUMASEGURO = "" . $r['SUMA_SEGURO'];
+        endforeach;
+
     }
     //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
     if ($OP == "editar") {
@@ -286,14 +303,22 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                         <div class="box-footer">
                                             <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
                                                 <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroSeguro.php');">
-                                                <i class="ti-trash"></i>Cancelar
+                                                    <i class="ti-trash"></i>Cancelar
                                                 </button>
-                                                <?php if ($OP != "editar") { ?>
-                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                <?php if ($OP == "editar") { ?>
+                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
+                                                <?php } else if($OP == "0") { ?>
+                                                    <button type="submit" class="btn btn-danger" name="ELIMINAR" value="ELIMINAR"  data-toggle="tooltip" title="Deshabilitar"  >
+                                                        <i class="ti-save-alt"></i> Deshabilitar
+                                                    </button>
+                                                <?php } else if($OP == "1"){ ?>                                                    
+                                                    <button type="submit" class="btn btn-success" name="HABILITAR" value="HABILITAR"  data-toggle="tooltip" title="Habilitar"  >
+                                                        <i class="ti-save-alt"></i> Habilitar
+                                                    </button>
                                                 <?php } else { ?>
-                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
                                                 <?php } ?>
@@ -411,6 +436,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     $SEGURO->__SET('ID_USUARIOM', $IDUSUARIOS);
                     //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
                     $SEGURO_ADO->agregarSeguro($SEGURO);
+
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",3,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Seguro.","fruta_seguro","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
                     //REDIRECCIONAR A PAGINA registroTfruta.php
                                     echo '<script>
                                     Swal.fire({
@@ -438,6 +466,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     $SEGURO->__SET('ID_SEGURO', $_REQUEST['ID']);
                     //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
                     $SEGURO_ADO->actualizarSeguro($SEGURO);
+
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",3,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Seguro.","fruta_seguro", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );     
+
                     //REDIRECCIONAR A PAGINA registroTfruta.php
                                 echo '<script>
                                 Swal.fire({
@@ -451,6 +482,49 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                     location.href = "registroSeguro.php";                            
                                 })
                             </script>';
+                }
+                if (isset($_REQUEST['ELIMINAR'])) {
+                    
+    
+                    $SEGURO->__SET('ID_SEGURO',  $_REQUEST['ID']);
+                    $SEGURO_ADO->deshabilitar($SEGURO);
+            
+    
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",3,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar Seguro.","fruta_seguro", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );                
+                    
+                    echo '<script>
+                        Swal.fire({
+                            icon:"error",
+                            title:"Registro Modificado",
+                            text:"El registro del mantenedor se ha Deshabilitado correctamente", 
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href = "registroSeguro.php";                            
+                        })
+                    </script>';
+                }
+                
+                if (isset($_REQUEST['HABILITAR'])) {       
+                    
+                    $SEGURO->__SET('ID_SEGURO', $_REQUEST['ID']);
+                    $SEGURO_ADO->habilitar($SEGURO);                    
+    
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",3,5,"".$_SESSION["NOMBRE_USUARIO"].", Habilitar Seguro.","fruta_seguro", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );                               
+    
+                    echo '<script>
+                        Swal.fire({
+                            icon:"success",
+                            title:"Registro Modificado",
+                            text:"El registro del mantenedor se ha Habilitado correctamente", 
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href = "registroSeguro.php";                            
+                        })
+                    </script>';
                 }
         ?>
 </body>
