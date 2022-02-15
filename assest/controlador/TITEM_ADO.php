@@ -160,7 +160,7 @@ class TITEM_ADO
                                                  MODIFICACION,
                                                  ESTADO_REGISTRO 
                                             ) VALUES
-	       	( ?, ?, ?, ?, ?,  SYSDATE() , SYSDATE(), 1);";
+	       	( ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
