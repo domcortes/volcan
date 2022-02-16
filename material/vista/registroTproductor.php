@@ -1,6 +1,6 @@
 <?php
 
-include_once "../../assest/config/validarUsuarioExpo.php";
+include_once "../../assest/config/validarUsuarioMaterial.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
@@ -185,7 +185,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../../assest/config/menuExpo.php"; ?>
+            <?php include_once "../../assest/config/menuMaterial.php"; ?>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <div class="container-full">
@@ -345,7 +345,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
                 <?php include_once "../../assest/config/footer.php"; ?>
-                <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
+                <?php include_once "../../assest/config/menuExtraMaterial.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../../assest/config/urlBase.php"; ?>
