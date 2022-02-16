@@ -384,10 +384,28 @@ if($_POST){
             }
 
 
-            //REDIRECCIONAR A LA PAGINA SELECIONADA
-            function irPagina(url) {
-                location.href = "" + url;
-            }
+           
+                //FUNCION PARA REALIZAR UNA ACTUALIZACION DEL FORMULARIO DE REGISTRO DE RECEPCIONMP
+                function refrescar() {
+                    document.getElementById("form_reg_dato").submit();
+                }
+
+                //FUNCION PARA ABRIR VENTANA QUE SE ENCUENTRA LA OPERACIONES DE DETALLE DE RECEPCIONMP
+                function abrirVentana(url) {
+                    var opciones =
+                        "'directories=no, location=no, menubar=no, scrollbars=yes, statusbar=no, tittlebar=no, width=1600, height=1000'";
+                    window.open(url, 'window', opciones);
+                }
+
+                //REDIRECCIONAR A LA PAGINA SELECIONADA
+                function irPagina(url) {
+                    location.href = "" + url;
+                }
+
+                function abrirPestana(url) {
+                    var win = window.open(url, '_blank');
+                    win.focus();
+                }
 
         </script>
 </head>
