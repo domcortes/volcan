@@ -145,6 +145,31 @@ class REGION_ADO {
         
     }
 
+    public function verRegion2($ID){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT 
+                                                region.ID_REGION,
+                                                region.NOMBRE_REGION  AS 'REGION',
+                                                pais.NOMBRE_PAIS  AS 'PAIS'
+                                            FROM    ubicacion_region region, ubicacion_pais pais
+                                            WHERE  region.ID_PAIS = pais.ID_PAIS
+                                            AND region.ID_REGION= '".$ID."'
+                                            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
   
     
     //BUSCAR CONSIDENCIA DE ACUERDO AL CARACTER INGRESADO EN LA FUNCION
