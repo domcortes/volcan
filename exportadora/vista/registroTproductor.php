@@ -443,7 +443,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $TPRODUCTOR->__SET('ID_TPRODUCTOR',$_REQUEST['ID']);
                 $TPRODUCTOR_ADO->habilitar($TPRODUCTOR);
 
-                $AUSUARIO_ADO->agregarAusuario2("NULL",3,5,"".$_SESSION["NOMBRE_USUARIO"].", Habilitar Tipo Proceso.","fruta_tproductor", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );                               
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,5,"".$_SESSION["NOMBRE_USUARIO"].", Habilitar Tipo Productor.","fruta_tproductor", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );                               
 
                 echo '<script>
                     Swal.fire({
