@@ -59,18 +59,40 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     //OPERACION DE CAMBIO DE ESTADO
     //0 = DESACTIVAR
     if ($OP == "0") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYESPECIESID = $ESPECIES_ADO->verEspecies($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
 
-        $ESPECIES->__SET('ID_ESPECIES', $IDOP);
-        $ESPECIES_ADO->deshabilitar($ESPECIES);
+        foreach ($ARRAYESPECIESID as $r) :
+            $NOMBREESPECIES = "" . $r['NOMBRE_ESPECIES'];
+            $CODIGOSAGESPECIES = "" . $r['CODIGO_SAG_ESPECIES'];
+        endforeach;
 
-        echo "<script type='text/javascript'> location.href ='registroEspecies.php';</script>";
     }
     //1 = ACTIVAR
     if ($OP == "1") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYESPECIESID = $ESPECIES_ADO->verEspecies($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
 
-        $ESPECIES->__SET('ID_ESPECIES', $IDOP);
-        $ESPECIES_ADO->habilitar($ESPECIES);
-        echo "<script type='text/javascript'> location.href ='registroEspecies.php';</script>";
+        foreach ($ARRAYESPECIESID as $r) :
+            $NOMBREESPECIES = "" . $r['NOMBRE_ESPECIES'];
+            $CODIGOSAGESPECIES = "" . $r['CODIGO_SAG_ESPECIES'];
+        endforeach;
     }
     //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
     if ($OP == "editar") {
@@ -217,7 +239,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                  <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
                                                         <label>Codigo SAG </label>
-                                                        <input type="text" class="form-control" placeholder="Codigo SAG Especies" id="CODIGOSAGESPECIES" name="CODIGOSAGESPECIES" value="<?php echo $CODIGOSAGESPECIES; ?>" <?php echo $DISABLED; ?> />
+                                                        <input type="number" class="form-control" placeholder="Codigo SAG Especies" id="CODIGOSAGESPECIES" name="CODIGOSAGESPECIES" value="<?php echo $CODIGOSAGESPECIES; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_codigo" class="validacion"> </label>
                                                     </div>
                                                 </div>
@@ -227,14 +249,22 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                         <div class="box-footer">
                                             <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
                                                 <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroEspecies.php');">
-                                                <i class="ti-trash"></i>Cancelar
+                                                    <i class="ti-trash"></i>Cancelar
                                                 </button>
-                                                <?php if ($OP != "editar") { ?>
-                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                <?php if ($OP == "editar") { ?>
+                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
+                                                <?php } else if($OP == "0") { ?>
+                                                    <button type="submit" class="btn btn-danger" name="ELIMINAR" value="ELIMINAR"  data-toggle="tooltip" title="Deshabilitar"  >
+                                                        <i class="ti-save-alt"></i> Deshabilitar
+                                                    </button>
+                                                <?php } else if($OP == "1"){ ?>                                                    
+                                                    <button type="submit" class="btn btn-success" name="HABILITAR" value="HABILITAR"  data-toggle="tooltip" title="Habilitar"   >
+                                                        <i class="ti-save-alt"></i> Habilitar
+                                                    </button>
                                                 <?php } else { ?>
-                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
                                                 <?php } ?>
@@ -344,6 +374,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $ESPECIES->__SET('ID_USUARIOM', $IDUSUARIOS);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $ESPECIES_ADO->agregarEspecies($ESPECIES);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Especies.","fruta_especies","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
                 //REDIRECCIONAR A PAGINA registroEspecies.php
                     echo '<script>
                     Swal.fire({
@@ -369,6 +402,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $ESPECIES->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $ESPECIES->__SET('ID_ESPECIES', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Especies.","fruta_especies", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );     
+
                 $ESPECIES_ADO->actualizarEspecies($ESPECIES);
                 //REDIRECCIONAR A PAGINA registroEspecies.php
                     echo '<script>
@@ -376,6 +412,49 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         icon:"success",
                         title:"Registro Modificado",
                         text:"El registro del mantenedor se ha Modificado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroEspecies.php";                            
+                    })
+                </script>';
+            }
+            if (isset($_REQUEST['ELIMINAR'])) {         
+
+                $ESPECIES->__SET('ID_ESPECIES', $_REQUEST['ID']);
+                $ESPECIES_ADO->deshabilitar($ESPECIES);
+                        
+        
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar  Especies.","fruta_especies", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );                
+                
+                echo '<script>
+                    Swal.fire({
+                        icon:"error",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Deshabilitado correctamente", 
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroEspecies.php";                            
+                    })
+                </script>';
+            }
+            
+            if (isset($_REQUEST['HABILITAR'])) {   
+
+
+                $ESPECIES->__SET('ID_ESPECIES', $_REQUEST['ID']);
+                $ESPECIES_ADO->habilitar($ESPECIES);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,5,"".$_SESSION["NOMBRE_USUARIO"].", Habilitar  Especies.","fruta_especies", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );                               
+
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Habilitado correctamente", 
                         showConfirmButton: true,
                         confirmButtonText:"Cerrar",
                         closeOnConfirm:false

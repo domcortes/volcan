@@ -81,18 +81,58 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     //IDENTIFICACIONES DE OPERACIONES    //OPERACION DE CAMBIO DE ESTADO
     //0 = DESACTIVAR
     if ($OP == "0") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYESTANDARID = $EINDUSTRIAL_ADO->verEstandar($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
+        foreach ($ARRAYESTANDARID as $r) :
 
-        $EINDUSTRIAL->__SET('ID_ESTANDAR', $IDOP);
-        $EINDUSTRIAL_ADO->deshabilitar($EINDUSTRIAL);
+            $CODIGOESTANDAR = "" . $r['CODIGO_ESTANDAR'];
+            $NOMBRESTANDAR = "" . $r['NOMBRE_ESTANDAR'];
+            $ENVASEESTANDAR = "" . $r['CANTIDAD_ENVASE_ESTANDAR'];
+            $PESOENVASESTANDAR = "" . $r['PESO_ENVASE_ESTANDAR'];
+            $PESOPALLETESTANDAR = "" . $r['PESO_PALLET_ESTANDAR'];
+            $TESTANDAR = "" . $r['TESTANDAR'];
+            $COBRO = "" . $r['COBRO'];
+            $ESPECIES = "" . $r['ID_ESPECIES'];
+            $PRODUCTO = "" . $r['ID_PRODUCTO'];
 
-        echo "<script type='text/javascript'> location.href ='registroEindustrial.php';</script>";
+
+        endforeach;
     }
     //1 = ACTIVAR
     if ($OP == "1") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYESTANDARID = $EINDUSTRIAL_ADO->verEstandar($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
+        foreach ($ARRAYESTANDARID as $r) :
 
-        $EINDUSTRIAL->__SET('ID_ESTANDAR', $IDOP);
-        $EINDUSTRIAL_ADO->habilitar($EINDUSTRIAL);
-        echo "<script type='text/javascript'> location.href ='registroEindustrial.php';</script>";
+            $CODIGOESTANDAR = "" . $r['CODIGO_ESTANDAR'];
+            $NOMBRESTANDAR = "" . $r['NOMBRE_ESTANDAR'];
+            $ENVASEESTANDAR = "" . $r['CANTIDAD_ENVASE_ESTANDAR'];
+            $PESOENVASESTANDAR = "" . $r['PESO_ENVASE_ESTANDAR'];
+            $PESOPALLETESTANDAR = "" . $r['PESO_PALLET_ESTANDAR'];
+            $TESTANDAR = "" . $r['TESTANDAR'];
+            $COBRO = "" . $r['COBRO'];
+            $ESPECIES = "" . $r['ID_ESPECIES'];
+            $PRODUCTO = "" . $r['ID_PRODUCTO'];
+
+
+        endforeach;
+
     }
     //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
     if ($OP == "editar") {
@@ -470,14 +510,22 @@ if (isset($_POST)) {
                                         <div class="box-footer">
                                             <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
                                                 <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroEindustrial.php');">
-                                                <i class="ti-trash"></i>Cancelar
+                                                    <i class="ti-trash"></i>Cancelar
                                                 </button>
-                                                <?php if ($OP != "editar") { ?>
-                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                <?php if ($OP == "editar") { ?>
+                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
+                                                <?php } else if($OP == "0") { ?>
+                                                    <button type="submit" class="btn btn-danger" name="ELIMINAR" value="ELIMINAR"  data-toggle="tooltip" title="Deshabilitar"  >
+                                                        <i class="ti-save-alt"></i> Deshabilitar
+                                                    </button>
+                                                <?php } else if($OP == "1"){ ?>                                                    
+                                                    <button type="submit" class="btn btn-success" name="HABILITAR" value="HABILITAR"  data-toggle="tooltip" title="Habilitar"   >
+                                                        <i class="ti-save-alt"></i> Habilitar
+                                                    </button>
                                                 <?php } else { ?>
-                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
                                                 <?php } ?>
@@ -519,8 +567,8 @@ if (isset($_POST)) {
                                                                                 <span class="icon-copy ti-settings"></span>
                                                                             </button>
                                                                             <div class="dropdown-menu dropdown-menu-right">
-                                                                                <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_ECOMERCIAL']; ?>" />
-                                                                                <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroEcomercial" />
+                                                                                <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_ESTANDAR']; ?>" />
+                                                                                <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroEindustrial" />
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
                                                                                     <button type="submit" class="btn btn-info btn-block  btn-sm" id="VERURL" name="VERURL">
                                                                                         <i class="ti-eye"></i> Ver
@@ -599,6 +647,9 @@ if (isset($_POST)) {
                 $EINDUSTRIAL->__SET('ID_USUARIOM', $IDUSUARIOS);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $EINDUSTRIAL_ADO->agregarEstandar($EINDUSTRIAL);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Estandar industrial.","estandar_eindustrial","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
                 //REDIRECCIONAR A PAGINA registroEexportacion.php
                 echo '<script>
                     Swal.fire({
@@ -638,12 +689,58 @@ if (isset($_POST)) {
                 $EINDUSTRIAL->__SET('ID_ESTANDAR', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
                 $EINDUSTRIAL_ADO->actualizarEstandar($EINDUSTRIAL);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Estandar industrial.","estandar_eindustrial", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );     
+
                 //REDIRECCIONAR A PAGINA registroEexportacion.php
                 echo '<script>
                     Swal.fire({
                         icon:"success",
                         title:"Registro Modificado",
                         text:"El registro del mantenedor se ha Modificado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroEindustrial.php";                            
+                    })
+                </script>';
+            }
+            if (isset($_REQUEST['ELIMINAR'])) {         
+
+
+                $EINDUSTRIAL->__SET('ID_ESTANDAR', $_REQUEST['ID']);
+                $EINDUSTRIAL_ADO->deshabilitar($EINDUSTRIAL);
+        
+        
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar  Estandar industrial.","estandar_eindustrial", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );                
+                
+                echo '<script>
+                    Swal.fire({
+                        icon:"error",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Deshabilitado correctamente", 
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroEindustrial.php";                            
+                    })
+                </script>';
+            }
+            
+            if (isset($_REQUEST['HABILITAR'])) {   
+
+                $EINDUSTRIAL->__SET('ID_ESTANDAR',  $_REQUEST['ID']);
+                $EINDUSTRIAL_ADO->habilitar($EINDUSTRIAL);
+                
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,5,"".$_SESSION["NOMBRE_USUARIO"].", Habilitar  Estandar industrial.","estandar_eindustrial", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );                               
+
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Habilitado correctamente", 
                         showConfirmButton: true,
                         confirmButtonText:"Cerrar",
                         closeOnConfirm:false

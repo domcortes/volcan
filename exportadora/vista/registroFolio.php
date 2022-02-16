@@ -100,18 +100,51 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     //OPERACION DE CAMBIO DE ESTADO
     //0 = DESACTIVAR
     if ($OP == "0") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";   //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYFOLIOID = $FOLIO_ADO->verFolio($IDOP);
 
-        $FOLIO->__SET('ID_FOLIO', $IDOP);
-        $FOLIO_ADO->deshabilitar($FOLIO);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
 
-        echo "<script type='text/javascript'> location.href ='registroFolio.php';</script>";
+        foreach ($ARRAYFOLIOID as $r) :
+
+            $NUMEROFOLIO = "" . $r['NUMERO_FOLIO'];
+            $EMPRESA = "" . $r['ID_EMPRESA'];
+            $PLANTA = "" . $r['ID_PLANTA'];
+            $TFOLIO = "" . $r['TFOLIO'];
+            $TEMPORADA = "" . $r['ID_TEMPORADA'];
+
+        endforeach;
+
     }
     //1 = ACTIVAR
     if ($OP == "1") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";   //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYFOLIOID = $FOLIO_ADO->verFolio($IDOP);
 
-        $FOLIO->__SET('ID_FOLIO', $IDOP);
-        $FOLIO_ADO->habilitar($FOLIO);
-        echo "<script type='text/javascript'> location.href ='registroFolio.php';</script>";
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
+
+        foreach ($ARRAYFOLIOID as $r) :
+
+            $NUMEROFOLIO = "" . $r['NUMERO_FOLIO'];
+            $EMPRESA = "" . $r['ID_EMPRESA'];
+            $PLANTA = "" . $r['ID_PLANTA'];
+            $TFOLIO = "" . $r['TFOLIO'];
+            $TEMPORADA = "" . $r['ID_TEMPORADA'];
+
+        endforeach;
+
     }
     //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
     if ($OP == "editar") {
@@ -373,12 +406,20 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroFolio.php');">
                                                     <i class="ti-trash"></i>Cancelar
                                                 </button>
-                                                <?php if ($OP != "editar") { ?>
-                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()" >
+                                                <?php if ($OP == "editar") { ?>
+                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
+                                                <?php } else if($OP == "0") { ?>
+                                                    <button type="submit" class="btn btn-danger" name="ELIMINAR" value="ELIMINAR"  data-toggle="tooltip" title="Deshabilitar"  >
+                                                        <i class="ti-save-alt"></i> Deshabilitar
+                                                    </button>
+                                                <?php } else if($OP == "1"){ ?>                                                    
+                                                    <button type="submit" class="btn btn-success" name="HABILITAR" value="HABILITAR"  data-toggle="tooltip" title="Habilitar"   >
+                                                        <i class="ti-save-alt"></i> Habilitar
+                                                    </button>
                                                 <?php } else { ?>
-                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
                                                 <?php } ?>
@@ -399,11 +440,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Numero </th>
-                                                        <th>Empresa</th>
-                                                        <th>Planta</th>
-                                                        <th>Tipo Folio</th>
-                                                        <th>Temporada</th>
                                                         <th>Operaciones</th>
+                                                        <th>Nombre Empresa</th>
+                                                        <th>Nombre Planta</th>
+                                                        <th>Tipo Folio</th>
+                                                        <th>Nombre Temporada</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -442,13 +483,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                 <a href="#" class="text-warning hover-warning">
                                                                     <?php echo $r['NUMERO_FOLIO']; ?>
                                                                 </a>
-                                                            </td>
-
-                                                            <td><?php echo $NOMBRE_EMPRESA; ?></td>
-                                                            <td><?php echo $NOMBRE_PLANTA; ?></td>
-                                                            <td><?php echo $NOMBRETFOLIO; ?></td>
-                                                            <td><?php echo $NOMBRE_TEMPORADA; ?></td>
-                                                                                                                                                                                                                                                             
+                                                            </td>                                                                                                                                                      
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -488,6 +523,10 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     </div>
                                                                 </form>
                                                             </td>
+                                                            <td><?php echo $NOMBRE_EMPRESA; ?></td>
+                                                            <td><?php echo $NOMBRE_PLANTA; ?></td>
+                                                            <td><?php echo $NOMBRETFOLIO; ?></td>
+                                                            <td><?php echo $NOMBRE_TEMPORADA; ?></td>                                                                                                       
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>
@@ -586,6 +625,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     $FOLIO->__SET('ID_USUARIOM', $IDUSUARIOS);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                     $FOLIO_ADO->agregarFolio($FOLIO);
+
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",3,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Folio Fruta.","fruta_folio","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
                     //REDIRECCIONAR A PAGINA registroFolio.php
                     
                     echo '<script>
@@ -652,12 +694,57 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $FOLIO->__SET('ID_FOLIO', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
                 $FOLIO_ADO->actualizarFolio($FOLIO);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Folio Fruta.","fruta_folio", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );     
+
                 //REDIRECCIONAR A PAGINA registroFolio.php 
                     echo '<script>
                     Swal.fire({
                         icon:"success",
                         title:"Registro Modificado",
                         text:"El registro del mantenedor se ha Modificado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroFolio.php";                            
+                    })
+                </script>';
+            }
+            if (isset($_REQUEST['ELIMINAR'])) {         
+
+                $FOLIO->__SET('ID_FOLIO', $_REQUEST['ID']);
+                $FOLIO_ADO->deshabilitar($FOLIO);       
+        
+        
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar  Folio Fruta.","fruta_folio", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );                
+                
+                echo '<script>
+                    Swal.fire({
+                        icon:"error",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Deshabilitado correctamente", 
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroFolio.php";                            
+                    })
+                </script>';
+            }
+            
+            if (isset($_REQUEST['HABILITAR'])) {   
+
+                $FOLIO->__SET('ID_FOLIO', $_REQUEST['ID']);
+                $FOLIO_ADO->habilitar($FOLIO);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,5,"".$_SESSION["NOMBRE_USUARIO"].", Habilitar  Folio Fruta.","fruta_folio", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );                               
+
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Habilitado correctamente", 
                         showConfirmButton: true,
                         confirmButtonText:"Cerrar",
                         closeOnConfirm:false
