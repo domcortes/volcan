@@ -56,7 +56,9 @@ if (isset($_REQUEST['GUARDAR'])) {
     $TFLETE->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
     $TFLETE_ADO->agregarTflete($TFLETE);
-    //REDIRECCIONAR A PAGINA registroTfruta.php
+
+    $AUSUARIO_ADO->agregarAusuario2("NULL",3,1,"".$_SESSION["NOMBRE_USUARIO"].",Pop, Registro de Tipo Flete.","fruta_tflete","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
     //REDIRECCIONAR A PAGINA registroTfruta.php
     echo "
     <script type='text/javascript'>

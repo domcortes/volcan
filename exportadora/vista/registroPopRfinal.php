@@ -76,6 +76,9 @@ if (isset($_REQUEST['GUARDAR'])) {
     $RFINAL->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
     $RFINAL_ADO->agregarRfinal($RFINAL);
+
+    $AUSUARIO_ADO->agregarAusuario2("NULL",3,1,"".$_SESSION["NOMBRE_USUARIO"].",Pop, Registro de Recibidor Final.","fruta_rfinal","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
     //REDIRECCIONAR A PAGINA registroRfinal.php
     echo "
         <script type='text/javascript'>
