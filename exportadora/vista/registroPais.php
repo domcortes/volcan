@@ -286,9 +286,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Id </th>
+                                                        <th class="text-center">Operaciónes</th>
                                                         <th>Nombre </th>
                                                         <th>Codigo Sag </th>
-                                                        <th class="text-center">Operaciónes</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -298,9 +298,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                 <a href="#" class="text-warning hover-warning">
                                                                     <?php echo $r['ID_PAIS']; ?>
                                                                 </a>
-                                                            </td>
-                                                            <td><?php echo $r['NOMBRE_PAIS']; ?></td>
-                                                            <td><?php echo $r['CODIGO_SAG_PAIS']; ?></td>                                                                                                                                        
+                                                            </td>                                                                                                                                  
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -339,7 +337,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                         </div>
                                                                     </div>
                                                                 </form>
-                                                            </td>                                                            
+                                                            </td>       
+                                                            <td><?php echo $r['NOMBRE_PAIS']; ?></td>
+                                                            <td><?php echo $r['CODIGO_SAG_PAIS']; ?></td>                                                           
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>
