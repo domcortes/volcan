@@ -533,10 +533,8 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="registroEmpresa.php">Empresa </a></li>
                 <li><a href="registroPlanta.php">Planta </a></li>
                 <li><a href="registroBodega.php">Bodega </a></li>
-                <li><a href="registroTemporada.php">Temporada </a></li>
                 <li><a href="registroFolio.php">Folio </a></li>
               </ul>
             </li>
