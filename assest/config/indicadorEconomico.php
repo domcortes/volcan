@@ -34,7 +34,7 @@ $VALOREURO = '$' . $dailyIndicators->euro->valor;
 $_SESSION["TMONEDA1"] = $VALORDOLARO;
 $_SESSION["TMONEDA2"] = $VALOREURO;
 
-$_SESSION["TTMONEDA1"] = "Euro";
-$_SESSION["TTMONEDA2"] = "Dolar";
+$_SESSION["TTMONEDA1"] = "Dolar";
+$_SESSION["TTMONEDA2"] = "Euro";
 
 
