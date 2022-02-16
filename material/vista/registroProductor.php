@@ -98,18 +98,73 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     //IDENTIFICACIONES DE OPERACIONES    //OPERACION DE CAMBIO DE ESTADO
     //0 = DESACTIVAR
     if ($OP == "0") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYPRODUCTORID = $PRODUCTOR_ADO->verProductor($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
 
-        $PRODUCTOR->__SET('ID_PRODUCTOR', $IDOP);
-        $PRODUCTOR_ADO->deshabilitar($PRODUCTOR);
+        foreach ($ARRAYPRODUCTORID as $r) :
+            $RUTPRODUCTOR = "" . $r['RUT_PRODUCTOR'];
+            $DVPRODUCTOR = "" . $r['DV_PRODUCTOR'];
+            $NOMBREPRODUCTOR = "" . $r['NOMBRE_PRODUCTOR'];
+            $DIRECCIONPRODUCTOR = "" . $r['DIRECCION_PRODUCTOR'];
+            $TELEFONOPRODUCTOR = "" . $r['TELEFONO_PRODUCTOR'];
+            $EMAILPRODUCTOR = "" . $r['EMAIL_PRODUCTOR'];
+            $GIROPRODUCTOR = "" . $r['GIRO_PRODUCTOR'];
+            $CSGPRODUCTOR = "" . $r['CSG_PRODUCTOR'];
+            $SDPPRODUCTOR = "" . $r['SDP_PRODUCTOR'];
+            $PRBPRODUCTOR = "" . $r['PRB_PRODUCTOR'];
+            $GGNPRODUCTOR = "" . $r['GGN_PRODUCTOR'];  
+            $CODIGOASOCIADOPRODUCTOR = "" . $r['CODIGO_ASOCIADO_PRODUCTOR'];
+            $NOMBREASOCIADOPRODUCTOR = "" . $r['NOMBRE_ASOCIADO_PRODUCTOR'];
+            $EMPRESA = "" . $r['ID_EMPRESA'];
+            $COMUNA = "" . $r['ID_COMUNA'];
+            $PROVINCIA = "" . $r['ID_PROVINCIA'];
+            $REGION = "" . $r['ID_REGION'];
+            $TPRODUCTOR = "" . $r['ID_TPRODUCTOR'];
+        endforeach;
 
-        echo "<script type='text/javascript'> location.href ='registroProductor.php';</script>";
     }
     //1 = ACTIVAR
     if ($OP == "1") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYPRODUCTORID = $PRODUCTOR_ADO->verProductor($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
 
-        $PRODUCTOR->__SET('ID_PRODUCTOR', $IDOP);
-        $PRODUCTOR_ADO->habilitar($PRODUCTOR);
-        echo "<script type='text/javascript'> location.href ='registroProductor.php';</script>";
+        foreach ($ARRAYPRODUCTORID as $r) :
+            $RUTPRODUCTOR = "" . $r['RUT_PRODUCTOR'];
+            $DVPRODUCTOR = "" . $r['DV_PRODUCTOR'];
+            $NOMBREPRODUCTOR = "" . $r['NOMBRE_PRODUCTOR'];
+            $DIRECCIONPRODUCTOR = "" . $r['DIRECCION_PRODUCTOR'];
+            $TELEFONOPRODUCTOR = "" . $r['TELEFONO_PRODUCTOR'];
+            $EMAILPRODUCTOR = "" . $r['EMAIL_PRODUCTOR'];
+            $GIROPRODUCTOR = "" . $r['GIRO_PRODUCTOR'];
+            $CSGPRODUCTOR = "" . $r['CSG_PRODUCTOR'];
+            $SDPPRODUCTOR = "" . $r['SDP_PRODUCTOR'];
+            $PRBPRODUCTOR = "" . $r['PRB_PRODUCTOR'];
+            $GGNPRODUCTOR = "" . $r['GGN_PRODUCTOR'];  
+            $CODIGOASOCIADOPRODUCTOR = "" . $r['CODIGO_ASOCIADO_PRODUCTOR'];
+            $NOMBREASOCIADOPRODUCTOR = "" . $r['NOMBRE_ASOCIADO_PRODUCTOR'];
+            $EMPRESA = "" . $r['ID_EMPRESA'];
+            $COMUNA = "" . $r['ID_COMUNA'];
+            $PROVINCIA = "" . $r['ID_PROVINCIA'];
+            $REGION = "" . $r['ID_REGION'];
+            $TPRODUCTOR = "" . $r['ID_TPRODUCTOR'];
+        endforeach;
+
     }
 
     //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
@@ -747,14 +802,22 @@ if($_POST){
                                         <div class="box-footer">
                                             <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
                                                 <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroProductor.php');">
-                                                <i class="ti-trash"></i>Cancelar
+                                                    <i class="ti-trash"></i>Cancelar
                                                 </button>
-                                                <?php if ($OP != "editar") { ?>
-                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                <?php if ($OP == "editar") { ?>
+                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
+                                                <?php } else if($OP == "0") { ?>
+                                                    <button type="submit" class="btn btn-danger" name="ELIMINAR" value="ELIMINAR"  data-toggle="tooltip" title="Deshabilitar"  >
+                                                        <i class="ti-save-alt"></i> Deshabilitar
+                                                    </button>
+                                                <?php } else if($OP == "1"){ ?>                                                    
+                                                    <button type="submit" class="btn btn-success" name="HABILITAR" value="HABILITAR"  data-toggle="tooltip" title="Habilitar"   >
+                                                        <i class="ti-save-alt"></i> Habilitar
+                                                    </button>
                                                 <?php } else { ?>
-                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
                                                 <?php } ?>
@@ -889,6 +952,9 @@ if($_POST){
                 $PRODUCTOR->__SET('ID_USUARIOM', $IDUSUARIOS);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $PRODUCTOR_ADO->agregarProductor($PRODUCTOR);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Productor.","fruta_productor","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 //REDIRECCIONAR A PAGINA registroProductor.php
                     echo '<script>
                     Swal.fire({
@@ -930,6 +996,8 @@ if($_POST){
                 $PRODUCTOR->__SET('ID_PRODUCTOR', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
                 $PRODUCTOR_ADO->actualizarProductor($PRODUCTOR);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Productor.","fruta_productor", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );     
                 
                 //REDIRECCIONAR A PAGINA registroProductor.php
                     echo '<script>
@@ -945,6 +1013,49 @@ if($_POST){
                     })
                 </script>';
                 
+            }
+            if (isset($_REQUEST['ELIMINAR'])) {         
+
+                $PRODUCTOR->__SET('ID_PRODUCTOR', $_REQUEST['ID']);
+                $PRODUCTOR_ADO->deshabilitar($PRODUCTOR);
+        
+                        
+        
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar  Productor.","fruta_productor", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );                
+                
+                echo '<script>
+                    Swal.fire({
+                        icon:"error",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Deshabilitado correctamente", 
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroProductor.php";                            
+                    })
+                </script>';
+            }
+            
+            if (isset($_REQUEST['HABILITAR'])) {   
+
+                $PRODUCTOR->__SET('ID_PRODUCTOR', $_REQUEST['ID']);
+                $PRODUCTOR_ADO->habilitar($PRODUCTOR);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,5,"".$_SESSION["NOMBRE_USUARIO"].", Habilitar  Productor.","fruta_productor", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );                               
+
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Habilitado correctamente", 
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroProductor.php";                            
+                    })
+                </script>';
             }
 
         

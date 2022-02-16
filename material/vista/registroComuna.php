@@ -40,7 +40,7 @@ $BORDER = "";
 $ARRAYCOMUNA = "";
 $ARRAYCOMUNAID = "";
 $ARRAYPROVINCIA = "";
-
+$ARRAYVERPROVINCIA="";
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
@@ -64,15 +64,39 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     //OPERACION DE CAMBIO DE ESTADO
     //0 = DESACTIVAR
     if ($OP == "0") {
-        $COMUNA->__SET('ID_COMUNA', $IDOP);
-        $COMUNA_ADO->deshabilitar($COMUNA);
-        echo "<script type='text/javascript'> location.href ='registroComuna.php';</script>";
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYCOMUNAID = $COMUNA_ADO->verComuna($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
+
+        foreach ($ARRAYCOMUNAID as $r) :
+            $NOMBRECOMUNA = "" . $r['NOMBRE_COMUNA'];
+            $PROVINCIA = "" . $r['ID_PROVINCIA'];
+        endforeach;
     }
     //1 = ACTIVAR
     if ($OP == "1") {
-        $COMUNA->__SET('ID_COMUNA', $IDOP);
-        $COMUNA_ADO->habilitar($COMUNA);
-        echo "<script type='text/javascript'> location.href ='registroComuna.php';</script>";
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYCOMUNAID = $COMUNA_ADO->verComuna($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
+
+        foreach ($ARRAYCOMUNAID as $r) :
+            $NOMBRECOMUNA = "" . $r['NOMBRE_COMUNA'];
+            $PROVINCIA = "" . $r['ID_PROVINCIA'];
+        endforeach;
     }
     //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
     if ($OP == "editar") {
@@ -239,14 +263,22 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                         <div class="box-footer">
                                             <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
                                                 <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroComuna.php');">
-                                                <i class="ti-trash"></i>Cancelar
+                                                    <i class="ti-trash"></i>Cancelar
                                                 </button>
-                                                <?php if ($OP != "editar") { ?>
-                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                <?php if ($OP == "editar") { ?>
+                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
+                                                <?php } else if($OP == "0") { ?>
+                                                    <button type="submit" class="btn btn-danger" name="ELIMINAR" value="ELIMINAR"  data-toggle="tooltip" title="Deshabilitar"  >
+                                                        <i class="ti-save-alt"></i> Deshabilitar
+                                                    </button>
+                                                <?php } else if($OP == "1"){ ?>                                                    
+                                                    <button type="submit" class="btn btn-success" name="HABILITAR" value="HABILITAR"  data-toggle="tooltip" title="Habilitar"   >
+                                                        <i class="ti-save-alt"></i> Habilitar
+                                                    </button>
                                                 <?php } else { ?>
-                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
                                                 <?php } ?>
@@ -267,19 +299,34 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <thead>
                                                     <tr>
                                                         <th>Id </th>
-                                                        <th>Nombre </th>
                                                         <th class="text-center">Operaciónes</th>
+                                                        <th>Nombre </th>
+                                                        <th>Nombre Provincia</th>
+                                                        <th>Nombre Region</th>
+                                                        <th>Nombre Pais</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYCOMUNA as $r) : ?>
+                                                        <?php 
+                                                            $ARRAYVERPROVINCIA=$PROVINCIA_ADO->verProvincia2($r["ID_PROVINCIA"]);
+                                                            if($ARRAYVERPROVINCIA){
+                                                                $NOMBREPROVINCIA = $ARRAYVERPROVINCIA[0]["PROVINCIA"];
+                                                                $NOMBREREGION =$ARRAYVERPROVINCIA[0]["REGION"];
+                                                                $NOMBREPAIS = $ARRAYVERPROVINCIA[0]["PAIS"];
+                                                            }else{
+                                                                $NOMBREPROVINCIA="Sin Datos";
+                                                                $NOMBREREGION="Sin Datos";
+                                                                $NOMBREPAIS="Sin Datos";
+                                                            }
+
+                                                        ?>
                                                         <tr class="center">
                                                             <td>
                                                                 <a href="#" class="text-warning hover-warning">
                                                                     <?php echo $r['ID_COMUNA']; ?>
                                                                 </a>
-                                                            </td>
-                                                            <td><?php echo $r['NOMBRE_COMUNA']; ?></td>                                                                                                                                                                                   
+                                                            </td>                                                                                                                                                                                  
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -318,7 +365,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                         </div>
                                                                     </div>
                                                                 </form>
-                                                            </td>   
+                                                            </td>  
+                                                            <td><?php echo $r['NOMBRE_COMUNA']; ?></td> 
+                                                            <td><?php echo $NOMBREPROVINCIA; ?></td>   
+                                                            <td><?php echo $NOMBREREGION; ?></td>   
+                                                            <td><?php echo $NOMBREPAIS; ?></td>    
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>
@@ -353,6 +404,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     $COMUNA->__SET('ID_PROVINCIA', $_REQUEST['PROVINCIA']);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                     $COMUNA_ADO->agregarComuna($COMUNA);
+
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",2,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Comuna.","ubicacion_comuna","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                     //REDIRECCIONAR A PAGINA registroComuna.php
                         echo '<script>
                         Swal.fire({
@@ -378,12 +432,57 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     $COMUNA->__SET('ID_COMUNA', $_REQUEST['ID']);
                     //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
                     $COMUNA_ADO->actualizarComuna($COMUNA);
+
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",2,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Comuna.","ubicacion_comuna", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );     
+
                     //REDIRECCIONAR A PAGINA registroComuna.php
                     echo '<script>
                         Swal.fire({
                             icon:"success",
                             title:"Registro Modificado",
                             text:"El registro del mantenedor se ha Modificado correctamente",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href = "registroComuna.php";                            
+                        })
+                    </script>';
+                }
+                if (isset($_REQUEST['ELIMINAR'])) {         
+    
+                    $COMUNA->__SET('ID_COMUNA', $_REQUEST['ID']);
+                    $COMUNA_ADO->deshabilitar($COMUNA); 
+                    
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",2,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar  Comuna.","ubicacion_comuna", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );                
+                    
+                    echo '<script>
+                        Swal.fire({
+                            icon:"error",
+                            title:"Registro Modificado",
+                            text:"El registro del mantenedor se ha Deshabilitado correctamente", 
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href = "registroComuna.php";                            
+                        })
+                    </script>';
+                }
+                
+                if (isset($_REQUEST['HABILITAR'])) {   
+    
+    
+                    $COMUNA->__SET('ID_COMUNA',  $_REQUEST['ID']);
+                    $COMUNA_ADO->habilitar($COMUNA);    
+                    
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",2,5,"".$_SESSION["NOMBRE_USUARIO"].", Habilitar  Comuna.","ubicacion_comuna", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );                               
+    
+                    echo '<script>
+                        Swal.fire({
+                            icon:"success",
+                            title:"Registro Modificado",
+                            text:"El registro del mantenedor se ha Habilitado correctamente", 
                             showConfirmButton: true,
                             confirmButtonText:"Cerrar",
                             closeOnConfirm:false

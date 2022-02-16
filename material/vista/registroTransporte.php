@@ -62,18 +62,57 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     //IDENTIFICACIONES DE OPERACIONES    //OPERACION DE CAMBIO DE ESTADO
     //0 = DESACTIVAR
     if ($OP == "0") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYTRANSPORTEID = $TRANSPORTE_ADO->verTransporte($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA        
+        foreach ($ARRAYTRANSPORTEID as $r) :
+            $RUTTRANSPORTE = "" . $r['RUT_TRANSPORTE'];
+            $DVTRANSPORTE = "" . $r['RUT_TRANSPORTE'];
+            $NOMBRETRANSPORTE = "" . $r['NOMBRE_TRANSPORTE'];
+            $GIROTRANSPORTE = "" . $r['GIRO_TRANSPORTE'];
+            $RAZONSOCIALTRANSPORTE = "" . $r['RAZON_SOCIAL_TRANSPORTE'];
+            $DIRRECIONTRANSPORTE = "" . $r['DIRECCION_TRANSPORTE'];
+            $NOTATRANSPORTE = "" . $r['NOTA_TRANSPORTE'];
+            $CONTACTOTRANSPORTE = "" . $r['CONTACTO_TRANSPORTE'];
+            $TELEFONOTRANSPORTE = "" . $r['TELEFONO_TRANSPORTE'];
+            $EMAILTRANSPORTE = "" . $r['EMAIL_TRANSPORTE'];
+            $EMPRESA = "" . $r['ID_EMPRESA'];
+        endforeach;
 
-        $TRANSPORTE->__SET('ID_TRANSPORTE', $IDOP);
-        $TRANSPORTE_ADO->deshabilitar($TRANSPORTE);
-
-        echo "<script type='text/javascript'> location.href ='registroTransporte.php';</script>";
     }
     //1 = ACTIVAR
     if ($OP == "1") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYTRANSPORTEID = $TRANSPORTE_ADO->verTransporte($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA        
+        foreach ($ARRAYTRANSPORTEID as $r) :
+            $RUTTRANSPORTE = "" . $r['RUT_TRANSPORTE'];
+            $DVTRANSPORTE = "" . $r['RUT_TRANSPORTE'];
+            $NOMBRETRANSPORTE = "" . $r['NOMBRE_TRANSPORTE'];
+            $GIROTRANSPORTE = "" . $r['GIRO_TRANSPORTE'];
+            $RAZONSOCIALTRANSPORTE = "" . $r['RAZON_SOCIAL_TRANSPORTE'];
+            $DIRRECIONTRANSPORTE = "" . $r['DIRECCION_TRANSPORTE'];
+            $NOTATRANSPORTE = "" . $r['NOTA_TRANSPORTE'];
+            $CONTACTOTRANSPORTE = "" . $r['CONTACTO_TRANSPORTE'];
+            $TELEFONOTRANSPORTE = "" . $r['TELEFONO_TRANSPORTE'];
+            $EMAILTRANSPORTE = "" . $r['EMAIL_TRANSPORTE'];
+            $EMPRESA = "" . $r['ID_EMPRESA'];
+        endforeach;
 
-        $TRANSPORTE->__SET('ID_TRANSPORTE', $IDOP);
-        $TRANSPORTE_ADO->habilitar($TRANSPORTE);
-        echo "<script type='text/javascript'> location.href ='registroTransporte.php';</script>";
     }
     //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
     if ($OP == "editar") {
@@ -217,7 +256,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         return false;
                     }
                     document.form_reg_dato.DIRRECIONTRANSPORTE.style.borderColor = "#4AF575";
-             
+        
                     /*
 
                     if (CONTACTOTRANSPORTE == null || CONTACTOTRANSPORTE.length == 0 || /^\s+$/.test(CONTACTOTRANSPORTE)) {
@@ -351,6 +390,13 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_dirrecion" class="validacion"> </label>
                                                     </div>
                                                 </div>
+                                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
+                                                    <div class="form-group">
+                                                        <label>Nota </label>
+                                                        <textarea class="form-control" rows="1" placeholder="Nota Transporte " id="NOTATRANSPORTE" name="NOTATRANSPORTE" <?php echo $DISABLED; ?>><?php echo $NOTATRANSPORTE; ?></textarea>
+                                                        <label id="val_nota" class="validacion"> </label>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <labe>Contacto</labe>
                                             <hr class="my-15">
@@ -382,14 +428,22 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                         <div class="box-footer">
                                             <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
                                                 <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroTransporte.php');">
-                                                <i class="ti-trash"></i>Cancelar
+                                                    <i class="ti-trash"></i>Cancelar
                                                 </button>
-                                                <?php if ($OP != "editar") { ?>
-                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                <?php if ($OP == "editar") { ?>
+                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
+                                                <?php } else if($OP == "0") { ?>
+                                                    <button type="submit" class="btn btn-danger" name="ELIMINAR" value="ELIMINAR"  data-toggle="tooltip" title="Deshabilitar"  >
+                                                        <i class="ti-save-alt"></i> Deshabilitar
+                                                    </button>
+                                                <?php } else if($OP == "1"){ ?>                                                    
+                                                    <button type="submit" class="btn btn-success" name="HABILITAR" value="HABILITAR"  data-toggle="tooltip" title="Habilitar"   >
+                                                        <i class="ti-save-alt"></i> Habilitar
+                                                    </button>
                                                 <?php } else { ?>
-                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
                                                 <?php } ?>
@@ -508,11 +562,16 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $TRANSPORTE->__SET('TELEFONO_TRANSPORTE', $_REQUEST['TELEFONOTRANSPORTE']);
                 $TRANSPORTE->__SET('EMAIL_TRANSPORTE', $_REQUEST['EMAILTRANSPORTE']);
                 $TRANSPORTE->__SET('NOTA_TRANSPORTE', $_REQUEST['NOTATRANSPORTE']);
+                $TRANSPORTE->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
                 $TRANSPORTE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                 $TRANSPORTE->__SET('ID_USUARIOI', $IDUSUARIOS);
                 $TRANSPORTE->__SET('ID_USUARIOM', $IDUSUARIOS);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $TRANSPORTE_ADO->agregarTransporte($TRANSPORTE);
+
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Transporte.","transporte_transporte","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 //REDIRECCIONAR A PAGINA registroTransporte.php
                 echo '<script>
                     Swal.fire({
@@ -542,17 +601,64 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $TRANSPORTE->__SET('TELEFONO_TRANSPORTE', $_REQUEST['TELEFONOTRANSPORTE']);
                 $TRANSPORTE->__SET('EMAIL_TRANSPORTE', $_REQUEST['EMAILTRANSPORTE']);
                 $TRANSPORTE->__SET('NOTA_TRANSPORTE', $_REQUEST['NOTATRANSPORTE']);
+                $TRANSPORTE->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
                 $TRANSPORTE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                 $TRANSPORTE->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $TRANSPORTE->__SET('ID_TRANSPORTE', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
                 $TRANSPORTE_ADO->actualizarTransporte($TRANSPORTE);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Transporte.","transporte_transporte", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );     
+
                 //REDIRECCIONAR A PAGINA registroTransporte.php
                 echo '<script>
                     Swal.fire({
                         icon:"success",
                         title:"Registro Modificado",
                         text:"El registro del mantenedor se ha Modificado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroTransporte.php";                            
+                    })
+                </script>';
+            }
+            if (isset($_REQUEST['ELIMINAR'])) {         
+    
+                $TRANSPORTE->__SET('ID_TRANSPORTE',  $_REQUEST['ID']);
+                $TRANSPORTE_ADO->deshabilitar($TRANSPORTE);
+        
+        
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar Transporte.","transporte_transporte", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );                
+                
+                echo '<script>
+                    Swal.fire({
+                        icon:"error",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Deshabilitado correctamente", 
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroTransporte.php";                            
+                    })
+                </script>';
+            }
+            
+            if (isset($_REQUEST['HABILITAR'])) {   
+
+                $TRANSPORTE->__SET('ID_TRANSPORTE', $_REQUEST['ID']);
+                $TRANSPORTE_ADO->habilitar($TRANSPORTE);
+                
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,5,"".$_SESSION["NOMBRE_USUARIO"].", Habilitar Transporte.","transporte_transporte", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );                               
+
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Habilitado correctamente", 
                         showConfirmButton: true,
                         confirmButtonText:"Cerrar",
                         closeOnConfirm:false

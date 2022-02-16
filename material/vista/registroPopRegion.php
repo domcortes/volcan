@@ -62,7 +62,10 @@ if (isset($_REQUEST['GUARDAR'])) {
     $REGION->__SET('ID_PAIS', $_REQUEST['PAIS']);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
     $REGION_ADO->agregarRegion($REGION);
-    echo "<script type='text/javascript'> location.href ='registroPopProvincia.php';</script>";
+
+
+    $AUSUARIO_ADO->agregarAusuario2("NULL",2,1,"".$_SESSION["NOMBRE_USUARIO"].",Pop, Registro de Region.","ubicacion_region","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
     //REDIRECCIONAR A PAGINA registroRegion.php
     echo "
     <script type='text/javascript'>

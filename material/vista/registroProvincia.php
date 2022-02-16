@@ -66,18 +66,41 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     //OPERACION DE CAMBIO DE ESTADO
     //0 = DESACTIVAR
     if ($OP == "0") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYPROVINCIAID = $PROVINCIA_ADO->verProvincia($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
 
-        $PROVINCIA->__SET('ID_PROVINCIA', $IDOP);
-        $PROVINCIA_ADO->deshabilitar($PROVINCIA);
+        foreach ($ARRAYPROVINCIAID as $r) :
+            $NOMBREPROVINCIA = "" . $r['NOMBRE_PROVINCIA'];
+            $REGION = "" . $r['ID_REGION'];
+        endforeach;
 
-        echo "<script type='text/javascript'> location.href ='registroProvincia.php';</script>";
     }
     //1 = ACTIVAR
     if ($OP == "1") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYPROVINCIAID = $PROVINCIA_ADO->verProvincia($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
 
-        $BODEGA->__SET('ID_PROVINCIA', $IDOP);
-        $PROVINCIA_ADO->habilitar($PROVINCIA);
-        echo "<script type='text/javascript'> location.href ='registroProvincia.php';</script>";
+        foreach ($ARRAYPROVINCIAID as $r) :
+            $NOMBREPROVINCIA = "" . $r['NOMBRE_PROVINCIA'];
+            $REGION = "" . $r['ID_REGION'];
+        endforeach;
+
     }
     //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
     if ($OP == "editar") {
@@ -245,14 +268,22 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                         <div class="box-footer">
                                             <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
                                                 <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroProvincia.php');">
-                                                <i class="ti-trash"></i>Cancelar
+                                                    <i class="ti-trash"></i>Cancelar
                                                 </button>
-                                                <?php if ($OP != "editar") { ?>
-                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                <?php if ($OP == "editar") { ?>
+                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
+                                                <?php } else if($OP == "0") { ?>
+                                                    <button type="submit" class="btn btn-danger" name="ELIMINAR" value="ELIMINAR"  data-toggle="tooltip" title="Deshabilitar"  >
+                                                        <i class="ti-save-alt"></i> Deshabilitar
+                                                    </button>
+                                                <?php } else if($OP == "1"){ ?>                                                    
+                                                    <button type="submit" class="btn btn-success" name="HABILITAR" value="HABILITAR"  data-toggle="tooltip" title="Habilitar"   >
+                                                        <i class="ti-save-alt"></i> Habilitar
+                                                    </button>
                                                 <?php } else { ?>
-                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
                                                 <?php } ?>
@@ -273,19 +304,30 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <thead>
                                                     <tr>
                                                         <th>Id </th>
-                                                        <th>Nombre </th>
                                                         <th class="text-center">Operaciónes</th>
+                                                        <th>Nombre </th>
+                                                        <th>Nombre Region</th>
+                                                        <th>Nombre Pais</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYPROVINCIA as $r) : ?>
+                                                        <?php 
+                                                            $ARRAYVERREGION=$REGION_ADO->verRegion2($r["ID_REGION"]);    
+                                                            if($ARRAYVERREGION){
+                                                                $NOMBREREGION=$ARRAYVERREGION[0]["REGION"];
+                                                                $NOMBREPAIS=$ARRAYVERREGION[0]["PAIS"];
+                                                            }else{
+                                                                $NOMBREREGION="Sin Datos";
+                                                                $NOMBREPAIS="Sin Datos";
+                                                            }
+                                                        ?>
                                                         <tr class="center">
                                                             <td>
                                                                 <a href="#" class="text-warning hover-warning">
                                                                     <?php echo $r['ID_PROVINCIA']; ?>
                                                                 </a>
-                                                            </td>
-                                                            <td><?php echo $r['NOMBRE_PROVINCIA']; ?></td>                                                                                                                              
+                                                            </td>                                                                                                                            
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -325,6 +367,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     </div>
                                                                 </form>
                                                             </td>   
+                                                            <td><?php echo $r['NOMBRE_PROVINCIA']; ?></td>  
+                                                            <td><?php echo $NOMBREREGION; ?></td> 
+                                                            <td><?php echo $NOMBREPAIS; ?></td> 
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>
@@ -358,6 +403,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $PROVINCIA->__SET('ID_REGION', $_REQUEST['REGION']);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $PROVINCIA_ADO->agregarProvincia($PROVINCIA);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Provincia.","ubicacion_provincia","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 //REDIRECCIONAR A PAGINA registroProvincia.php
                 echo '<script>
                     Swal.fire({
@@ -383,12 +431,59 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $PROVINCIA->__SET('ID_PROVINCIA', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
                 $PROVINCIA_ADO->actualizarProvincia($PROVINCIA);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Provincia.","ubicacion_provincia", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );     
+
                 //REDIRECCIONAR A PAGINA registroRegion.php
                 echo '<script>
                     Swal.fire({
                         icon:"success",
                         title:"Registro Modificado",
                         text:"El registro del mantenedor se ha Modificado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroProvincia.php";                            
+                    })
+                </script>';
+            }
+            
+            if (isset($_REQUEST['ELIMINAR'])) {         
+
+                $PROVINCIA->__SET('ID_PROVINCIA', $_REQUEST['ID']);
+                $PROVINCIA_ADO->deshabilitar($PROVINCIA);     
+                
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar  Provincia.","ubicacion_provincia", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );                
+                
+                echo '<script>
+                    Swal.fire({
+                        icon:"error",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Deshabilitado correctamente", 
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroProvincia.php";                            
+                    })
+                </script>';
+            }
+            
+            if (isset($_REQUEST['HABILITAR'])) {   
+
+
+                $PROVINCIA->__SET('ID_PROVINCIA', $_REQUEST['ID']);
+                $PROVINCIA_ADO->habilitar($PROVINCIA);
+
+                
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,5,"".$_SESSION["NOMBRE_USUARIO"].", Habilitar  Provincia.","ubicacion_provincia", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );                               
+
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Habilitado correctamente", 
                         showConfirmButton: true,
                         confirmButtonText:"Cerrar",
                         closeOnConfirm:false
