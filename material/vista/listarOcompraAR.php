@@ -329,6 +329,8 @@ include_once "../../assest/config/datosUrLP.php";
             $OCOMPRA->__SET('ID_USUARIOM', $IDUSUARIOS);
             $OCOMPRA_ADO->aprobado($OCOMPRA);
 
+            $AUSUARIO_ADO->agregarAusuario2("NULL",2,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Orden Compra, se aprobo.","material_ocompra", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
             echo '<script>
                 Swal.fire({
                     icon:"success",
@@ -353,6 +355,9 @@ include_once "../../assest/config/datosUrLP.php";
             $OCOMPRA->__SET('ID_OCOMPRA', $_REQUEST['ID']);
             $OCOMPRA->__SET('ID_USUARIOM', $IDUSUARIOS);
             $OCOMPRA_ADO->completatado($OCOMPRA);            
+
+            $AUSUARIO_ADO->agregarAusuario2("NULL",2,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Orden Compra, se completo.","material_ocompra", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
             echo '<script>
                 Swal.fire({
                     icon:"success",
