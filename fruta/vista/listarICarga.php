@@ -394,26 +394,22 @@ include_once "../../assest/config/datosUrLP.php";
                     <!-- /.content -->
                 </div>
             </div>
-
-
-
-
-
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
                 <?php include_once "../../assest/config/footer.php"; ?>
                 <?php include_once "../../assest/config/menuExtraFruta.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../../assest/config/urlBase.php"; ?>
-
         <?php         
         if (isset($_REQUEST['CARGADO'])) {
-
 
             $ICARGA->__SET('ID_USUARIOM', $IDUSUARIOS);
             $ICARGA->__SET('ID_ICARGA', $_REQUEST['ID']);
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-            $ICARGA_ADO->CargadoCerrado($ICARGA);            
+            $ICARGA_ADO->CargadoCerrado($ICARGA);   
+
+            $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación Instructivo Carga, se cambia estado a cargado","fruta_icarga",$_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
             echo '<script>
                 Swal.fire({
                     icon:"info",
@@ -426,11 +422,7 @@ include_once "../../assest/config/datosUrLP.php";
                     location.href = "listarICarga.php";                        
                 })
             </script>';
-
-
-
         }   
         ?>
 </body>
-
 </html>

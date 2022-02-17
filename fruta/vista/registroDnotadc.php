@@ -610,7 +610,7 @@ if ($_POST) {
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
                 <?php include_once "../../assest/config/footer.php";   ?>
-                <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
+                <?php include_once "../../assest/config/menuExtraFruta.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../../assest/config/urlBase.php"; ?>
@@ -642,11 +642,11 @@ if ($_POST) {
                 $DNOTADC->__SET('NOTA', $_REQUEST['NOTA']);
                 $DNOTADC->__SET('ID_NOTA', $_REQUEST['IDP']);
                 $DNOTADC->__SET('ID_DICARGA', $_REQUEST['ID']);
-                $DNOTADC_ADO->agregarDnota($DNOTADC);
-                
-                //REDIRECCIONAR A PAGINA registroICarga.php 
-                $_SESSION["parametro"] =  $_REQUEST['IDP'];
-                $_SESSION["parametro1"] =  $_REQUEST['OPP'];    
+                $DNOTADC_ADO->agregarDnota($DNOTADC);               
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Detalle de Nota D/C","fruta_dnotadc","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
+
+                //REDIRECCIONAR A PAGINA registroICarga.php   
                 
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
                 $_SESSION["parametro1"] =  $_REQUEST['OPP'];
@@ -676,8 +676,8 @@ if ($_POST) {
                     $DNOTADC->__SET('ID_DICARGA', $_REQUEST['ID']);
                     $DNOTADC->__SET('ID_DNOTA', $ARRAYDNOTA[0]["ID_DNOTA"]);               
                     $DNOTADC_ADO->actualizarDnota($DNOTADC);
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",1, 2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Detalle de Nota D/C","fruta_dnotadc",$ARRAYDNOTA[0]["ID_DNOTA"],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
 
-                    
                     $_SESSION["parametro"] =  $_REQUEST['IDP'];
                     $_SESSION["parametro1"] =  $_REQUEST['OPP'];                
                     echo '<script>
@@ -702,6 +702,7 @@ if ($_POST) {
                     $DNOTADC->__SET('ID_DNOTA', $ARRAYDNOTA[0]["ID_DNOTA"]);   
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                     $DNOTADC_ADO->deshabilitar($DNOTADC);
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",1, 2,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar de Detalle de Nota D/C","fruta_dnotadc",$ARRAYDNOTA[0]["ID_DNOTA"],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
                     
                     $_SESSION["parametro"] =  $_REQUEST['IDP'];
                     $_SESSION["parametro1"] =  $_REQUEST['OPP'];
