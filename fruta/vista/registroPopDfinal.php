@@ -53,6 +53,9 @@ if (isset($_REQUEST['GUARDAR'])) {
     $DFINAL->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
     $DFINAL_ADO->agregarDfinal($DFINAL);
+
+    $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].",Pop, Registro de Destino Final.","fruta_dfinal","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
     //REDIRECCIONAR A PAGINA registroTfruta.php
     echo "
         <script type='text/javascript'>

@@ -37,7 +37,6 @@ $CARGOBROKER3 = "";
 $EMAILBROKER3 = "";
 
 
-
 $SINO = "";
 
 
@@ -78,6 +77,9 @@ if (isset($_REQUEST['GUARDAR'])) {
     $BROKER->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
     $BROKER_ADO->agregarBroker($BROKER);
+
+    $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].",Pop Registro de Cliente.","fruta_broker","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
     //REDIRECCIONAR A PAGINA registroBroker.php   
     echo "
         <script type='text/javascript'>
@@ -112,6 +114,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                     NOMBREBROKER = document.getElementById("NOMBREBROKER").value;
                     EORIBROKER = document.getElementById("EORIBROKER").value;
                     DIRECCIONBROKER = document.getElementById("DIRECCIONBROKER").value;
+                    /*
                     CONTACTOBROKER1 = document.getElementById("CONTACTOBROKER1").value;
                     CARGOBROKER1 = document.getElementById("CARGOBROKER1").value;
                     EMAILBROKER1 = document.getElementById("EMAILBROKER1").value;
@@ -120,12 +123,14 @@ if (isset($_REQUEST['GUARDAR'])) {
                     EMAILBROKER2 = document.getElementById("EMAILBROKER2").value;
                     CONTACTOBROKER3 = document.getElementById("CONTACTOBROKER3").value;
                     CARGOBROKER3 = document.getElementById("CARGOBROKER3").value;
-                    EMAILBROKER3 = document.getElementById("EMAILBROKER3").value;
+                    EMAILBROKER3 = document.getElementById("EMAILBROKER3").value;*/
 
 
                     document.getElementById('val_nombre').innerHTML = "";
                     document.getElementById('val_eori').innerHTML = "";
                     document.getElementById('val_direccion').innerHTML = "";
+
+                    /*
                     document.getElementById('val_contacto1').innerHTML = "";
                     document.getElementById('val_cargo1').innerHTML = "";
                     document.getElementById('val_email1').innerHTML = "";
@@ -135,6 +140,8 @@ if (isset($_REQUEST['GUARDAR'])) {
                     document.getElementById('val_contacto3').innerHTML = "";
                     document.getElementById('val_cargo3').innerHTML = "";
                     document.getElementById('val_email3').innerHTML = "";
+                    document.getElementById('val_ciudad').innerHTML = "";
+                    */
 
 
 
@@ -165,7 +172,9 @@ if (isset($_REQUEST['GUARDAR'])) {
                     document.form_reg_dato.DIRECCIONBROKER.style.borderColor = "#4AF575";
 
                     /*
-                  
+                        
+
+
 
 
                         if (CONTACTOBROKER1 == null || CONTACTOBROKER1.length == 0 || /^\s+$/.test(CONTACTOBROKER1)) {

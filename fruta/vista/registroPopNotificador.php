@@ -78,6 +78,9 @@ if (isset($_REQUEST['GUARDAR'])) {
     $NOTIFICADOR->__SET('ID_USUARIOI', $IDUSUARIOS);
     $NOTIFICADOR->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+
+    $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].",Pop, Registro de Notificador.","fruta_notificador","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
     $NOTIFICADOR_ADO->agregarNotificador($NOTIFICADOR);
     //REDIRECCIONAR A PAGINA registroNotificador.php
     echo "
@@ -168,7 +171,6 @@ if (isset($_REQUEST['GUARDAR'])) {
 
                     /*
                                        
-
 
 
                                         if (CONTACTONOTIFICADOR1 == null || CONTACTONOTIFICADOR1.length == 0 || /^\s+$/.test(CONTACTONOTIFICADOR1)) {

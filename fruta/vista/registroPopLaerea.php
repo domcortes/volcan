@@ -29,19 +29,17 @@ $NOTALAEREA = "";
 $CONTACTOLAEREA = "";
 $TELEFONOLAEREA = "";
 $EMAILLAEREA = "";
-$CIUDAD = "";
-
 
 
 //INICIALIZAR ARREGLOS
 $ARRAYLAEREA = "";
 $ARRAYLAEREAID = "";
-$ARRAYCIUDAD = "";
 
 
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
+
 //OPERACIONES
 //OPERACION DE REGISTRO DE FILA
 if (isset($_REQUEST['GUARDAR'])) {
@@ -69,6 +67,9 @@ if (isset($_REQUEST['GUARDAR'])) {
     $LAEREA->__SET('ID_USUARIOI', $IDUSUARIOS);
     $LAEREA->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+
+    $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].",Pop, Registro de Linea Aerea.","transporte_laerea","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
     $LAEREA_ADO->agregarLaerea($LAEREA);
     //REDIRECCIONAR A PAGINA registroLaerea.php
     echo "
@@ -169,7 +170,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                     }
                     document.form_reg_dato.DIRRECIONLAEREA.style.borderColor = "#4AF575";
                     /*
-                                     
+                                    
 
                                         if (CONTACTOLAEREA == null || CONTACTOLAEREA.length == 0 || /^\s+$/.test(CONTACTOLAEREA)) {
                                             document.form_reg_dato.CONTACTOLAEREA.focus();

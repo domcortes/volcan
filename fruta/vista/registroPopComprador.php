@@ -85,6 +85,9 @@ if (isset($_REQUEST['GUARDAR'])) {
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
     $COMPRADOR_ADO->agregarComprador($COMPRADOR);
     //REDIRECCIONAR A PAGINA registroComprador.php
+
+    $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].",Pop, Registro de Comprador.","fruta_comprador","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
     echo "
         <script type='text/javascript'>
             window.opener.refrescar()
