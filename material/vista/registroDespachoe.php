@@ -1384,6 +1384,8 @@ if (isset($_POST)) {
                     $_REQUEST['PLANTA'],
                     $_REQUEST['TEMPORADA'],
                 );
+                
+                $AUSUARIO_ADO->agregarAusuario2($NUMERO,2,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Despacho Envases.","material_despachoe", $ARRYAOBTENERID[0]['ID_DESPACHO'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                 //REDIRECCIONAR A PAGINA registroDESPACHOE.php
 
@@ -1447,6 +1449,7 @@ if (isset($_POST)) {
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $DESPACHOE_ADO->actualizarDespachoe($DESPACHOE);
 
+                $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,2,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Despacho Envases.","material_despachoe", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
                 
                 if ($_SESSION['parametro1'] == "crear") {
                     $_SESSION["parametro"] = $_REQUEST['IDP'];
@@ -1587,6 +1590,8 @@ if (isset($_POST)) {
                             }
                         endforeach;
                     }
+
+                    $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,2,3,"".$_SESSION["NOMBRE_USUARIO"].", Cerrar  Despacho Envases.","material_despachoe", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                     //REDIRECCIONAR A PAGINA registroDespachoe.php 
                     //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL

@@ -464,7 +464,7 @@ include_once "../../assest/config/datosUrLP.php";
                 $INVENTARIOM->__SET('ID_TEMPORADA', $TEMPORADAS);
                 $INVENTARIOM_ADO->agregarInventarioGuia($INVENTARIOM);
                 
-                $AUSUARIO_ADO->agregarAusuario2("NULL",2,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Inventario de materiales, por una aprobación de una guia interplanta.","material_despachom", "NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Inventario de materiales, por una aprobación de una guia interplanta.","material_inventariom", "NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
             endforeach;
 
             echo '<script>

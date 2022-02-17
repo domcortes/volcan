@@ -672,7 +672,7 @@ if (isset($_POST)) {
                     $_REQUEST['IDP'],
                 );
 
-                $AUSUARIO_ADO->agregarAusuario2("NULL",2,2,"".$_SESSION["NOMBRE_USUARIO"].", Registro de detalle de Recepción Materiales.","material_drecepcionm", $ARRYAOBTENERID[0]['ID_DRECEPCION'] ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de detalle de Recepción Materiales.","material_drecepcionm", $ARRYAOBTENERID[0]['ID_DRECEPCION'] ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                 //REDIRECCIONAR A PAGINA registroDrecepcionm.php 
                 $_SESSION["dparametro"] = $ARRYAOBTENERID[0]['ID_DRECEPCION'];

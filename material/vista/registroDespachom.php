@@ -1470,7 +1470,7 @@ if (isset($_POST)) {
                         }
                     endforeach;
 
-                    $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,2,2,"".$_SESSION["NOMBRE_USUARIO"].", Cerrar  Despacho Materiales.","material_despachom", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+                    $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,2,3,"".$_SESSION["NOMBRE_USUARIO"].", Cerrar  Despacho Materiales.","material_despachom", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                     //REDIRECCIONAR A PAGINA registroDespachom.php 
                     //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL        

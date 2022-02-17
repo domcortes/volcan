@@ -301,7 +301,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                             //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                             $DRECEPCIONM_ADO->agregarDrecepcionDocompra($DRECEPCIONM);
 
-                            $AUSUARIO_ADO->agregarAusuario2("NULL",2,2,"".$_SESSION["NOMBRE_USUARIO"].", Se agrego el detalle de la orden de compra a la Recepción Materiales.","material_drecepcionm", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+                            $AUSUARIO_ADO->agregarAusuario2("NULL",2,1,"".$_SESSION["NOMBRE_USUARIO"].", Se agrego el detalle de la orden de compra a la Recepción Materiales.","material_drecepcionm", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
                         endforeach;
                     endforeach;
 

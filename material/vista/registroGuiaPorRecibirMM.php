@@ -274,7 +274,7 @@ include_once "../../assest/config/validarDatosUrlD.php";
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $MGUIAM_ADO->agregarMguia($MGUIAM);
 
-                $AUSUARIO_ADO->agregarAusuario2("NULL",2,2,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Motivo Rechazo Guia Despacho Materiales.","material_mguiam","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Motivo Rechazo Guia Despacho Materiales.","material_mguiam","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                 $DESPACHOM->__SET('ID_DESPACHO', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR

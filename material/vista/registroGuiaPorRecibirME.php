@@ -273,6 +273,8 @@ include_once "../../assest/config/validarDatosUrlD.php";
             //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
             $MGUIAE_ADO->agregarMguia($MGUIAE);
 
+            $AUSUARIO_ADO->agregarAusuario2("NULL",2,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Motivo Rechazo Guia Despacho Envases.","material_mguiae","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
             $DESPACHOE->__SET('ID_DESPACHO', $_REQUEST['IDP']);
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
             $DESPACHOE_ADO->abierto($DESPACHOE);
@@ -281,6 +283,7 @@ include_once "../../assest/config/validarDatosUrlD.php";
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
             $DESPACHOE_ADO->Rechazado($DESPACHOE);
 
+            $AUSUARIO_ADO->agregarAusuario2("NULL",2,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Despacho Envases, se rechazo la guia.","material_despachoe", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
         
             //REDIRECCIONAR A PAGINA registroAerolinia.php
                 echo '<script>
