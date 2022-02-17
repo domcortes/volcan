@@ -1093,6 +1093,8 @@ if ($_POST) {
                 $DRECEPCIONMP->__SET('ID_RECEPCION', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $DRECEPCIONMP_ADO->agregarDrecepcion($DRECEPCIONMP);
+                
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Detalle de recepcion materia prima","fruta_drecepcionmp","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
 
                 //OPERACIOENS SOBRE LA TABLA EXIMATERIPRIMA
                 //UTILIZACION METODOS SET DEL MODELO
@@ -1127,6 +1129,8 @@ if ($_POST) {
                 $EXIMATERIAPRIMA->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $EXIMATERIAPRIMA_ADO->agregarEximateriaprimaRecepcion($EXIMATERIAPRIMA);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Existencia de materia prima","fruta_eximateriaprima","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
 
                 //REDIRECCIONAR A PAGINA registroRecepcionmp.php
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
@@ -1188,6 +1192,7 @@ if ($_POST) {
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
             $DRECEPCIONMP_ADO->actualizarDrecepcion($DRECEPCIONMP);
 
+            $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de detalle de Recepción materia prima.","fruta_drecepcionmp", $_REQUEST['ID'] ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
             $ARRAYVERFOLIOEXISTENCIA = $EXIMATERIAPRIMA_ADO->buscarPorRecepcionNumeroFolio($_REQUEST['IDP'], $_REQUEST['NUMEROFOLIODRECEPCIONE']);
             if ($ARRAYVERFOLIOEXISTENCIA) {
@@ -1218,6 +1223,9 @@ if ($_POST) {
                 $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $ARRAYVERFOLIOEXISTENCIA[0]["ID_EXIMATERIAPRIMA"]);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $EXIMATERIAPRIMA_ADO->actualizarEximateriaprimaRecepcion($EXIMATERIAPRIMA);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1, 2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Existencia de materia prima","fruta_eximateriaprima",$ARRAYVERFOLIOEXISTENCIA[0]["ID_EXIMATERIAPRIMA"],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
+
             } else {
                 $NUMEROFOLIODRECEPCION = $_REQUEST["NUMEROFOLIODRECEPCIONE"];
                 $FOLIOALIASESTACTICO = $NUMEROFOLIODRECEPCION;
@@ -1259,6 +1267,10 @@ if ($_POST) {
                 $EXIMATERIAPRIMA->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $EXIMATERIAPRIMA_ADO->agregarEximateriaprimaRecepcion($EXIMATERIAPRIMA);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Existencia de materia prima","fruta_eximateriaprima","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
+
+                
             }
             
             //REDIRECCIONAR A PAGINA registroRecepcionmp.php 
@@ -1282,6 +1294,7 @@ if ($_POST) {
             $DRECEPCIONMP->__SET('ID_DRECEPCION', $_REQUEST['ID']);
             $DRECEPCIONMP_ADO->deshabilitar($DRECEPCIONMP);
 
+            $AUSUARIO_ADO->agregarAusuario2("NULL",1,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar  detalle de Recepción Materia Prima.","fruta_drecepcionmp", $_REQUEST['ID'] ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
             $EXIMATERIAPRIMA->__SET('ID_RECEPCION', $_REQUEST['IDP']);
             $EXIMATERIAPRIMA->__SET('FOLIO_AUXILIAR_EXIMATERIAPRIMA', $FOLIOELIMINAR);
@@ -1290,6 +1303,8 @@ if ($_POST) {
             $EXIMATERIAPRIMA->__SET('ID_RECEPCION', $_REQUEST['IDP']);
             $EXIMATERIAPRIMA->__SET('FOLIO_AUXILIAR_EXIMATERIAPRIMA', $FOLIOELIMINAR);
             $EXIMATERIAPRIMA_ADO->eliminadoRecepcion($EXIMATERIAPRIMA);
+
+            $AUSUARIO_ADO->agregarAusuario2("NULL",1,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar  Existencia de Materia Prima.","fruta_drecepcionmp", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
             $_SESSION["parametro"] =  $_REQUEST['IDP'];
             $_SESSION["parametro1"] =  $_REQUEST['OPP'];
@@ -1304,7 +1319,6 @@ if ($_POST) {
                         location.href ="' . $_REQUEST['URLO'] . '.php?op";                        
                     })
                 </script>';
-            //echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
         }
 
         ?>
