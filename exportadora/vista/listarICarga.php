@@ -406,7 +406,7 @@ include_once "../../assest/config/datosUrLP.php";
             $ICARGA->__SET('ID_ICARGA', $_REQUEST['ID']);
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
             $ICARGA_ADO->CargadoCerrado($ICARGA);          
-            $AUSUARIO_ADO->agregarAusuario2("NULL",3,3,"".$_SESSION["NOMBRE_USUARIO"].", Modificación Instructivo Carga, se cambia estado a cargado","fruta_icarga",$_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+            $AUSUARIO_ADO->agregarAusuario2("NULL",3,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación Instructivo Carga, se cambia estado a cargado","fruta_icarga",$_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
             echo '<script>
                 Swal.fire({
                     icon:"info",
