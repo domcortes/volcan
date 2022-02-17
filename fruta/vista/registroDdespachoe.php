@@ -332,10 +332,8 @@ if (isset($_POST)) {
 
                         <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                             <div class="box">
-                                <div class="box-header with-border">
-                                    <!--
-                                        <h4 class="box-title">Different Width</h4>
-                                        -->
+                                <div class="box-header with-border bg-info" >                                    
+                                    <h4 class="box-title">Registro Detalle</h4>                                    
                                 </div>
                                 <div class="box-body ">
                                     <div class="row">
@@ -448,6 +446,9 @@ if (isset($_POST)) {
                 $INVENTARIOE->__SET('ID_DESPACHO', $_REQUEST['IDP']);
                 $INVENTARIOE_ADO->agregarInventarioDespacho($INVENTARIOE);
 
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de detalle de Despacho Envases.","material_inventarioe", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 //REDIRECCIONAR A PAGINA registroRecepcion.php     
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
                 $_SESSION["parametro1"] =  $_REQUEST['OPP'];
@@ -477,6 +478,9 @@ if (isset($_POST)) {
                 $INVENTARIOE->__SET('ID_INVENTARIO', $_REQUEST['IDD']);
                 $INVENTARIOE_ADO->actualizarInventarioDespacho($INVENTARIOE);
 
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de detalle de Despacho Envases.","material_inventarioe", $_REQUEST['IDD'] ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
                 $_SESSION["parametro1"] =  $_REQUEST['OPP'];
                 echo '<script>
@@ -495,8 +499,11 @@ if (isset($_POST)) {
 
                 $INVENTARIOE->__SET('ID_INVENTARIO', $_REQUEST['IDD']);
                 $INVENTARIOE_ADO->eliminado($INVENTARIOE);
+
                 $INVENTARIOE->__SET('ID_INVENTARIO', $_REQUEST['IDD']);
                 $INVENTARIOE_ADO->deshabilitar($INVENTARIOE);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar  detalle de Despacho Envases.","material_inventarioe", $_REQUEST['IDD'] ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                 if ($_REQUEST["TDESPACHO"] == "1") {
                     $ARRAYVALIDARINGRESO = $INVENTARIOE_ADO->verInventario($_REQUEST['IDD']);

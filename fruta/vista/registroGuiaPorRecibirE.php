@@ -177,7 +177,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                     <th>Despacho Materia Prima </th>
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificación</th>
-                                                    <th>Semana Despacho</th>
+                                                    <th>Semana Despacho </th>
                                                     <th>Empresa</th>
                                                     <th>Planta</th>
                                                     <th>Temporada</th>
@@ -436,6 +436,8 @@ include_once "../../assest/config/datosUrLP.php";
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
             $DESPACHOE_ADO->Aprobado($DESPACHOE);
 
+            $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Despacho Envases, se aprobo la guia.","material_despachoe", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
             $ARRAYVERDESPACHOE=$DESPACHOE_ADO->verDespachoe($_REQUEST['ID']);
 
             $ARRAYEXISENCIADESPACHOEP = $INVENTARIOE_ADO->buscarPorDespacho($_REQUEST['ID']);
@@ -452,6 +454,9 @@ include_once "../../assest/config/datosUrLP.php";
                 $INVENTARIOE->__SET('ID_PLANTA', $PLANTAS);
                 $INVENTARIOE->__SET('ID_TEMPORADA', $TEMPORADAS);
                 $INVENTARIOE_ADO->agregarInventarioGuia($INVENTARIOE);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Inventario de envases, por una aprobación de una guia interplanta.","material_inventarioe", "NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+                
             endforeach;
             echo '<script>
                 Swal.fire({
