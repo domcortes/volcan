@@ -578,6 +578,9 @@ if (isset($_POST)) {
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                     $TARJAM_ADO->agregarTarjaDrecepcion($TARJAM);
 
+
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",2,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de tarja del detalle de Recepción Materiales.","material_tarjam", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                     $ARRAYRECEPCION = $RECEPCIONM_ADO->verRecepcion($_REQUEST['IDP']);
                     $ARRAYDRECEPCION = $DRECEPCIONM_ADO->verDrecepcion($_REQUEST['IDD']);
                     $ARRAYVERFOLIOVALIDAR = $INVENTARIOM_ADO->buscarPorRecepcionFolio($_REQUEST['IDP'],  $NUMEROFOLIO);
@@ -605,6 +608,9 @@ if (isset($_POST)) {
                         $INVENTARIOM->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
                         $INVENTARIOM->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
                         $INVENTARIOM_ADO->agregarInventarioRecepcion($INVENTARIOM);
+
+                        $AUSUARIO_ADO->agregarAusuario2("NULL",2,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Inventario Materiales.","material_inventariom", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                     } else {
                         $INVENTARIOM->__SET('TRECEPCION', $ARRAYRECEPCION[0]['TRECEPCION']);
                         $INVENTARIOM->__SET('CANTIDAD_INVENTARIO', $_REQUEST['CANTIDAD']);
@@ -624,6 +630,9 @@ if (isset($_POST)) {
                         $INVENTARIOM->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
                         $INVENTARIOM->__SET('ID_INVENTARIO', $ARRAYVERFOLIOVALIDAR[0]['ID_INVENTARIO']);
                         $INVENTARIOM_ADO->actualizarInventarioRecepcion($INVENTARIOM);
+
+                        $AUSUARIO_ADO->agregarAusuario2("NULL",2,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Inventario Materiales.","material_inventariom", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                     }
                 }
 
@@ -670,6 +679,7 @@ if (isset($_POST)) {
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $TARJAM_ADO->actualizarTarjaDrecepcion($TARJAM);
 
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,1,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de tarja del detalle de Recepción Materiales.","material_tarjam", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                 $ARRAYRECEPCION = $RECEPCIONM_ADO->verRecepcion($_REQUEST['IDP']);
                 $ARRAYDRECEPCION = $DRECEPCIONM_ADO->verDrecepcion($_REQUEST['IDD']);
@@ -697,6 +707,9 @@ if (isset($_POST)) {
                     $INVENTARIOM->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
                     $INVENTARIOM->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
                     $INVENTARIOM_ADO->agregarInventarioRecepcion($INVENTARIOM);
+
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",2,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Inventario Materiales.","material_inventariom", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 } else {
                     $INVENTARIOM->__SET('TRECEPCION', $ARRAYRECEPCION[0]['TRECEPCION']);
                     $INVENTARIOM->__SET('CANTIDAD_INVENTARIO', $_REQUEST['CANTIDAD']);
@@ -716,6 +729,8 @@ if (isset($_POST)) {
                     $INVENTARIOM->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
                     $INVENTARIOM->__SET('ID_INVENTARIO', $ARRAYVERFOLIOVALIDAR[0]['ID_INVENTARIO']);
                     $INVENTARIOM_ADO->actualizarInventarioRecepcion($INVENTARIOM);
+
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",2,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Inventario Materiales.","material_inventariom", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
                 }
                 //REDIRECCIONAR A PAGINA registroRecepcion.php 
                 $_SESSION["dparametro"] =  $_REQUEST['IDD'];
@@ -737,10 +752,18 @@ if (isset($_POST)) {
                 $TARJAM->__SET('ID_TARJA', $_REQUEST['IDT']);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $TARJAM_ADO->deshabilitar($TARJAM);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar tarja del detalle de Recepción Materiales.","material_tarjam", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 $INVENTARIOM->__SET('FOLIO_INVENTARIO', $_REQUEST['NUMEROFOLIO']);
                 $INVENTARIOM_ADO->eliminado2($INVENTARIOM);
+                
                 $INVENTARIOM->__SET('FOLIO_INVENTARIO', $_REQUEST['NUMEROFOLIO']);
                 $INVENTARIOM_ADO->deshabilitar2($INVENTARIOM);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar Inventario  Materiales.","material_inventariom", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
+
                 //REDIRECCIONAR A PAGINA registroRecepcion.php 
                 $_SESSION["dparametro"] =  $_REQUEST['IDD'];
                 $_SESSION["dparametro1"] =  $_REQUEST['OPD'];

@@ -1211,7 +1211,7 @@ if (isset($_POST)) {
                                                                                     <i class="ti-close"></i><br> Eliminar
                                                                                 </button>
                                                                             <?php } ?>
-                                                                            <button type="button" class="btn  btn-primary  btn-sm  " data-toggle="tooltip" title="Tarjas" id="defecto" name="tarjas" Onclick="abrirPestana('../../assest/documento/informeTarjasDrecepcion.php?parametro=<?php echo $IDOP; ?>&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                            <button type="button" class="btn  btn-primary  btn-sm  " data-toggle="tooltip" title="Tarjas" id="defecto" name="tarjas" Onclick="abrirPestana('../../assest/documento/informeTarjasDrecepcion.php?parametro=<?php echo $s['ID_DRECEPCION']; ?>&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                 <i class="fa fa-file-pdf-o"></i><br> Tarja
                                                                             </button>
                                                                         </div>
@@ -1271,7 +1271,7 @@ if (isset($_POST)) {
                                                                                     <i class="ti-close"></i><br> Eliminar
                                                                                 </button>
                                                                             <?php } ?>
-                                                                            <button type="button" class="btn  btn-primary  btn-sm  " data-toggle="tooltip" title="Tarjas" id="defecto" name="tarjas" Onclick="abrirPestana('../../assest/documento/informeTarjasDrecepcion.php?parametro=<?php echo $IDOP; ?>&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                            <button type="button" class="btn  btn-primary  btn-sm  " data-toggle="tooltip" title="Tarjas" id="defecto" name="tarjas" Onclick="abrirPestana('../../assest/documento/informeTarjasDrecepcion.php?parametro=<?php echo $s['ID_DRECEPCION']; ?>&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                 <i class="fa fa-file-pdf-o"></i><br> Tarja
                                                                             </button>
                                                                         </div>
@@ -1358,6 +1358,8 @@ if (isset($_POST)) {
                     $_REQUEST['TEMPORADA'],
                 );
 
+                $AUSUARIO_ADO->agregarAusuario2($NUMERO,2,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Recepción Materiales.","material_recepcionm", $ARRYAOBTENERID[0]['ID_RECEPCION'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 //REDIRECCIONAR A PAGINA registroRecepcion.php 
                 $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_RECEPCION'];
                 $_SESSION["parametro1"] = "crear";
@@ -1426,6 +1428,9 @@ if (isset($_POST)) {
                 $RECEPCIONM->__SET('ID_RECEPCION', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $RECEPCIONM_ADO->actualizarRecepcion($RECEPCIONM);
+
+                $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,2,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Recepción Materiales.","material_recepcionm", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+                
                 
                 if ($_SESSION['parametro1'] == "crear") {
                     $_SESSION["parametro"] = $_REQUEST['IDP'];
@@ -1571,6 +1576,8 @@ if (isset($_POST)) {
                         $INVENTARIOM_ADO->disponible($INVENTARIOM);
                     endforeach;
 
+
+                    $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,3,2,"".$_SESSION["NOMBRE_USUARIO"].", Cerrar  Recepción Materiales.","material_recepcionm", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                     //REDIRECCIONAR A PAGINA registroRecepcion.php 
                     //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL                    
