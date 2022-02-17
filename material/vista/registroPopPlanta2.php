@@ -85,6 +85,8 @@ if (isset($_REQUEST['GUARDAR'])) {
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
     $PLANTA_ADO->agregarPlanta($PLANTA);
 
+    $AUSUARIO_ADO->agregarAusuario2("NULL",2,1,"".$_SESSION["NOMBRE_USUARIO"].",Pop, Registro de Planta Externa.","principal_planta","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
     //REDIRECCIONAR A PAGINA registroPlanta.php
 
     echo "

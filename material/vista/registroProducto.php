@@ -91,19 +91,58 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     //OPERACION DE CAMBIO DE ESTADO
     //0 = DESACTIVAR
     if ($OP == "0") {
-
-        $PRODUCTOS->__SET('ID_PRODUCTO', $IDOP);
-        $PRODUCTO_ADO->deshabilitar($PRODUCTOS);
-
-        echo "<script type='text/javascript'> location.href ='registroProducto.php';</script>";
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYPRODUCTOID = $PRODUCTO_ADO->verProducto($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
+        foreach ($ARRAYPRODUCTOID as $r) :
+            $CODIGOPRODUCTO = "" . $r['CODIGO_PRODUCTO'];
+            $NUMEROVER = "" . $r['NUMERO_PRODUCTO'];
+            $NOMBREPRODUCTO = "" . $r['NOMBRE_PRODUCTO'];
+            $OPTIMO = "" . $r['OPTIMO'];
+            $BAJO = "" . $r['BAJO'];
+            $CRITICO = "" . $r['CRITICO'];
+            $EMPRESA = "" . $r['ID_EMPRESA'];
+            $FAMILIA = "" . $r['ID_FAMILIA'];
+            $ARRAYSUBFAMILIA = $SUBFAMILIA_ADO->listarSubfamiliaPorEmpresaFamiliaCBX($EMPRESAS, $FAMILIA);
+            $SUBFAMILIA = "" . $r['ID_SUBFAMILIA'];
+            $TUMEDIDA = "" . $r['ID_TUMEDIDA'];
+            $ESPECIES = "" . $r['ID_ESPECIES'];
+        endforeach;
     }
     //1 = ACTIVAR
     if ($OP == "1") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYPRODUCTOID = $PRODUCTO_ADO->verProducto($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
+        foreach ($ARRAYPRODUCTOID as $r) :
+            $CODIGOPRODUCTO = "" . $r['CODIGO_PRODUCTO'];
+            $NUMEROVER = "" . $r['NUMERO_PRODUCTO'];
+            $NOMBREPRODUCTO = "" . $r['NOMBRE_PRODUCTO'];
+            $OPTIMO = "" . $r['OPTIMO'];
+            $BAJO = "" . $r['BAJO'];
+            $CRITICO = "" . $r['CRITICO'];
+            $EMPRESA = "" . $r['ID_EMPRESA'];
+            $FAMILIA = "" . $r['ID_FAMILIA'];
+            $ARRAYSUBFAMILIA = $SUBFAMILIA_ADO->listarSubfamiliaPorEmpresaFamiliaCBX($EMPRESAS, $FAMILIA);
+            $SUBFAMILIA = "" . $r['ID_SUBFAMILIA'];
+            $TUMEDIDA = "" . $r['ID_TUMEDIDA'];
+            $ESPECIES = "" . $r['ID_ESPECIES'];
+        endforeach;
 
-        $PRODUCTOS->__SET('ID_PRODUCTO', $IDOP);
-        $PRODUCTO_ADO->habilitar($PRODUCTOS);
-
-        echo "<script type='text/javascript'> location.href ='registroProducto.php';</script>";
     }
 
     //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
@@ -472,14 +511,22 @@ if (isset($_POST)) {
                                         <div class="box-footer">
                                             <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
                                                 <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroProducto.php');">
-                                                <i class="ti-trash"></i>Cancelar
+                                                    <i class="ti-trash"></i>Cancelar
                                                 </button>
-                                                <?php if ($OP != "editar") { ?>
-                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                <?php if ($OP == "editar") { ?>
+                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
+                                                <?php } else if($OP == "0") { ?>
+                                                    <button type="submit" class="btn btn-danger" name="ELIMINAR" value="ELIMINAR"  data-toggle="tooltip" title="Deshabilitar"  >
+                                                        <i class="ti-save-alt"></i> Deshabilitar
+                                                    </button>
+                                                <?php } else if($OP == "1"){ ?>                                                    
+                                                    <button type="submit" class="btn btn-success" name="HABILITAR" value="HABILITAR"  data-toggle="tooltip" title="Habilitar"  >
+                                                        <i class="ti-save-alt"></i> Habilitar
+                                                    </button>
                                                 <?php } else { ?>
-                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
                                                 <?php } ?>
@@ -647,6 +694,9 @@ if (isset($_POST)) {
                 $PRODUCTOS->__SET('ID_USUARIOM', $IDUSUARIOS);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $PRODUCTO_ADO->agregarProducto($PRODUCTOS);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Producto.","material_producto","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 //REDIRECCIONAR A PAGINA registroEcomercial.php
                     echo '<script>
                     Swal.fire({
@@ -686,12 +736,61 @@ if (isset($_POST)) {
                 $PRODUCTOS->__SET('ID_PRODUCTO', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE EDICION DEL CONTROLADOR   
                 $PRODUCTO_ADO->actualizarProducto($PRODUCTOS);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Producto.","material_producto", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );     
+
                 //REDIRECCIONAR A PAGINA registroEcomercial.php
                     echo '<script>
                     Swal.fire({
                         icon:"success",
                         title:"Registro Modificado",
                         text:"El registro del mantenedor se ha Modificado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroProducto.php";                            
+                    })
+                </script>';
+            }
+            
+            if (isset($_REQUEST['ELIMINAR'])) {
+
+
+                $PRODUCTOS->__SET('ID_PRODUCTO', $_REQUEST['ID']);
+                $PRODUCTO_ADO->deshabilitar($PRODUCTOS);
+                
+       
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar Producto.","material_producto", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );                
+                
+                echo '<script>
+                    Swal.fire({
+                        icon:"error",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Deshabilitado correctamente", 
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroProducto.php";                            
+                    })
+                </script>';
+            }
+            
+            if (isset($_REQUEST['HABILITAR'])) {  
+
+                $PRODUCTOS->__SET('ID_PRODUCTO', $_REQUEST['ID']);
+                $PRODUCTO_ADO->habilitar($PRODUCTOS);
+        
+          
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,5,"".$_SESSION["NOMBRE_USUARIO"].", Habilitar Producto.","material_producto", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );                               
+
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Habilitado correctamente", 
                         showConfirmButton: true,
                         confirmButtonText:"Cerrar",
                         closeOnConfirm:false
