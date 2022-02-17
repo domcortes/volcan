@@ -611,83 +611,87 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                 <li><a href="registroConductor.php"></i>Conductor</a></li>
               </ul>
             </li>
-            <li class="treeview">
-              <a href="#">Instructivo
-                <span class="pull-left-container">
-                  <i class=" fa fa-angle-right pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">              
-                <li class="treeview">
-                  <a href="#">Destino
-                    <span class="pull-left-container">
-                      <i class=" fa fa-angle-right pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="registroLdestino.php"></i>Lugar Destino</a></li>
-                    <li><a href="registroPdestino.php"></i>Puerto Destino </a></li>
-                    <li><a href="registroAdestino.php"></i>Aeropuerto Destino </a></li>
-                  </ul>
-                </li>
-                <li class="treeview">
-                  <a href="#">Carga
-                    <span class="pull-left-container">
-                      <i class=" fa fa-angle-right pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="registroLcarga.php"></i>Lugar Carga</a></li>
-                    <li><a href="registroPcarga.php"></i>Puerto Carga </a></li>
-                    <li><a href="registroAcarga.php"></i>Aeropuerto Carga </a></li>
-                  </ul>
-                </li>
-                <li class="treeview">
-                  <a href="#">Pago
-                    <span class="pull-left-container">
-                      <i class=" fa fa-angle-right pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="registroFpago.php"></i>Formato Pago</a></li>
-                    <li><a href="registroCventa.php"></i>Clausaula Venta </a></li>
-                    <li><a href="registroMventa.php"></i>Modalidad Venta </a></li>
-                  </ul>
-                </li>
-                <li class="treeview">
-                  <a href="#">Mercado
-                    <span class="pull-left-container">
-                      <i class=" fa fa-angle-right pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="registroMercado.php"></i>Mercado</a></li>
-                    <li><a href="registroRmercado.php"></i>Restrinccion Mercado</a></li>
-                  </ul>
-                </li>
-                <li><a href="registroExportadora.php"></i>Exportadora</a></li>
-                <li><a href="registroAtmosfera.php"></i>Atmosfera</a></li>
-                <li><a href="registroConsignatorio.php"></i>Consignatorio</a></li>
-                <li><a href="registroNotificador.php"></i>Notificador </a></li>
-                <li><a href="registroBroker.php"></i>Cliente </a></li>
-                <li><a href="registroRfinal.php"></i>Recibidor Final </a></li>
-                <li><a href="registroAaduana.php"></i>Agente Aduana </a></li>
-                <li><a href="registroAgcarga.php"></i>Agente Carga </a></li>
-                <li><a href="registroDfinal.php"></i>Destino Final </a></li>
-                <li><a href="registroSeguro.php"></i>Seguro </a></li>
-              </ul>
-            </li> 
-            <li class="treeview">
-              <a href="#">Liquidación
-                <span class="pull-left-container">
-                  <i class=" fa fa-angle-right pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">    
-                <li><a href="registroTaitem.php"></i>Agrupado Item Liqui</a></li>
-                <li><a href="registroTitem.php"></i>Item Liqui.</a></li>
-              </ul>
-            </li> 
+            <?php if($PEEXPORTACION=="1"){ ?>
+              <li class="treeview">
+                <a href="#">Instructivo
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">              
+                  <li class="treeview">
+                    <a href="#">Destino
+                      <span class="pull-left-container">
+                        <i class=" fa fa-angle-right pull-right"></i>
+                      </span>
+                    </a>
+                    <ul class="treeview-menu">
+                      <li><a href="registroLdestino.php"></i>Lugar Destino</a></li>
+                      <li><a href="registroPdestino.php"></i>Puerto Destino </a></li>
+                      <li><a href="registroAdestino.php"></i>Aeropuerto Destino </a></li>
+                    </ul>
+                  </li>
+                  <li class="treeview">
+                    <a href="#">Carga
+                      <span class="pull-left-container">
+                        <i class=" fa fa-angle-right pull-right"></i>
+                      </span>
+                    </a>
+                    <ul class="treeview-menu">
+                      <li><a href="registroLcarga.php"></i>Lugar Carga</a></li>
+                      <li><a href="registroPcarga.php"></i>Puerto Carga </a></li>
+                      <li><a href="registroAcarga.php"></i>Aeropuerto Carga </a></li>
+                    </ul>
+                  </li>
+                  <li class="treeview">
+                    <a href="#">Pago
+                      <span class="pull-left-container">
+                        <i class=" fa fa-angle-right pull-right"></i>
+                      </span>
+                    </a>
+                    <ul class="treeview-menu">
+                      <li><a href="registroFpago.php"></i>Formato Pago</a></li>
+                      <li><a href="registroCventa.php"></i>Clausaula Venta </a></li>
+                      <li><a href="registroMventa.php"></i>Modalidad Venta </a></li>
+                    </ul>
+                  </li>
+                  <li class="treeview">
+                    <a href="#">Mercado
+                      <span class="pull-left-container">
+                        <i class=" fa fa-angle-right pull-right"></i>
+                      </span>
+                    </a>
+                    <ul class="treeview-menu">
+                      <li><a href="registroMercado.php"></i>Mercado</a></li>
+                      <li><a href="registroRmercado.php"></i>Restrinccion Mercado</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="registroExportadora.php"></i>Exportadora</a></li>
+                  <li><a href="registroAtmosfera.php"></i>Atmosfera</a></li>
+                  <li><a href="registroConsignatorio.php"></i>Consignatorio</a></li>
+                  <li><a href="registroNotificador.php"></i>Notificador </a></li>
+                  <li><a href="registroBroker.php"></i>Cliente </a></li>
+                  <li><a href="registroRfinal.php"></i>Recibidor Final </a></li>
+                  <li><a href="registroAaduana.php"></i>Agente Aduana </a></li>
+                  <li><a href="registroAgcarga.php"></i>Agente Carga </a></li>
+                  <li><a href="registroDfinal.php"></i>Destino Final </a></li>
+                  <li><a href="registroSeguro.php"></i>Seguro </a></li>
+                </ul>
+              </li>  
+            <?php  } ?>           
+            <?php if($PELIQUIDACION=="1"){ ?>
+              <li class="treeview">
+                <a href="#">Liquidación
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">    
+                  <li><a href="registroTaitem.php"></i>Agrupado Item Liqui</a></li>
+                  <li><a href="registroTitem.php"></i>Item Liqui.</a></li>
+                </ul>
+              </li> 
+            <?php  } ?>
             <li class="treeview">
               <a href="#">Tipo
                 <span class="pull-left-container">
