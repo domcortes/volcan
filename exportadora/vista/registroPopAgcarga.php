@@ -82,6 +82,9 @@ if (isset($_REQUEST['GUARDAR'])) {
     $AGCARGA->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
     $AGCARGA_ADO->agregarAgcarga($AGCARGA);
+
+    $AUSUARIO_ADO->agregarAusuario2("NULL",3,1,"".$_SESSION["NOMBRE_USUARIO"].",Pop, Registro de Agente Carga.","fruta_agcarga","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
     //REDIRECCIONAR A PAGINA registroAgcarga.php
     echo "
         <script type='text/javascript'>

@@ -81,7 +81,7 @@ if (isset($_REQUEST['GUARDAR'])) {
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
     $CONSIGNATARIO_ADO->agregarConsignatorio($CONSIGNATARIO);
 
-    $AUSUARIO_ADO->agregarAusuario2("NULL",3,1,"".$_SESSION["NOMBRE_USUARIO"]."Popm Registro de Consignatorio.","fruta_consignatario","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+    $AUSUARIO_ADO->agregarAusuario2("NULL",3,1,"".$_SESSION["NOMBRE_USUARIO"]."Pop, Registro de Consignatorio.","fruta_consignatario","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
 
     //REDIRECCIONAR A PAGINA registroConsignatorio.php
     echo "

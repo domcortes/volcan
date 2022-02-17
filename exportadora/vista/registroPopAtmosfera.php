@@ -52,6 +52,9 @@ if (isset($_REQUEST['GUARDAR'])) {
     $ATMOSFERA->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
     $ATMOSFERA_ADO->agregarAtmosfera($ATMOSFERA);
+
+    $AUSUARIO_ADO->agregarAusuario2("NULL",3,1,"".$_SESSION["NOMBRE_USUARIO"].",Pop, Registro de Atmosfera.","fruta_atmosfera","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
     //REDIRECCIONAR A PAGINA registroTfruta.php
     echo "
     <script type='text/javascript'>
