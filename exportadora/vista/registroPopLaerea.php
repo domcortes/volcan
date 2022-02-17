@@ -116,7 +116,6 @@ if (isset($_REQUEST['GUARDAR'])) {
                     document.getElementById('val_giro').innerHTML = "";
                     document.getElementById('val_rsocial').innerHTML = "";
                     document.getElementById('val_dirrecion').innerHTML = "";
-                    document.getElementById('val_ciudad').innerHTML = "";
                     document.getElementById('val_contacto').innerHTML = "";
                     document.getElementById('val_telefono').innerHTML = "";
                     document.getElementById('val_email').innerHTML = "";
