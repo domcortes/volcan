@@ -321,14 +321,20 @@ include_once "../../assest/config/validarDatosUrlD.php";
                     $INVENTARIOM->__SET('ID_INVENTARIO', $IDEXISMATERIAPRIMA);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                     $INVENTARIOM_ADO->actualizarSelecionarDespachoCambiarEstado($INVENTARIOM);
+
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",2,2,"".$_SESSION["NOMBRE_USUARIO"].", Se agregado el Inventario de materiales al despacho.","material_despachom", "NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 endforeach;        
+
+
+
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
                 $_SESSION["parametro1"] =  $_REQUEST['OPP'];
                 echo '<script>
                     Swal.fire({
                         icon:"success",
                         title:"Accion realizada",
-                        text:"Se agregado la existencia al despacho.",
+                        text:"Se agregado el Inventario al despacho.",
                         showConfirmButton: true,
                         confirmButtonText:"Volver a Despacho",
                         closeOnConfirm:false
@@ -394,7 +400,8 @@ include_once "../../assest/config/validarDatosUrlD.php";
                         $INVENTARIOM->__SET('CANTIDAD_INVENTARIO', $CANTIDADNUEVO);
                         // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                         $INVENTARIOM_ADO->actualizarSelecionarDespachoCambiarCantidadEstado($INVENTARIOM);
-  
+                        
+                        $AUSUARIO_ADO->agregarAusuario2("NULL",2,2,"".$_SESSION["NOMBRE_USUARIO"].", Se agregado el Inventario de materiales al despachos.","material_despachom", "NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
     
 
                         $FOLIOALIASESTACTICO = $FOLIOORIGINAL;
@@ -427,6 +434,8 @@ include_once "../../assest/config/validarDatosUrlD.php";
                             $INVENTARIOM->__SET('ID_TEMPORADA', $TEMPORADAS);
                         // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                            $INVENTARIOM_ADO->agregarInventarioDespacho($INVENTARIOM);
+
+                           $AUSUARIO_ADO->agregarAusuario2("NULL",2,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Inventario de materiales, por una seleción de cantidad.","material_despachom", "NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
                         endforeach;
                             
                         $SINO = 0;

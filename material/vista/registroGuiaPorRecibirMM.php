@@ -274,6 +274,8 @@ include_once "../../assest/config/validarDatosUrlD.php";
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $MGUIAM_ADO->agregarMguia($MGUIAM);
 
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,2,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Motivo Rechazo Guia Despacho Materiales.","material_mguiam","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 $DESPACHOM->__SET('ID_DESPACHO', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $DESPACHOM_ADO->abierto($DESPACHOM);
@@ -281,7 +283,8 @@ include_once "../../assest/config/validarDatosUrlD.php";
                 $DESPACHOM->__SET('ID_DESPACHO', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $DESPACHOM_ADO->Rechazado($DESPACHOM);
-
+                
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Despacho Materiales, se rechazo la guia.","material_despachom", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                 $ARRAYEXISENCIADESPACHOMP = $INVENTARIOM_ADO->buscarPorDespacho($_REQUEST['IDP']);
                 foreach ($ARRAYEXISENCIADESPACHOMP as $r) :

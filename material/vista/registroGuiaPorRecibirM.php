@@ -432,6 +432,9 @@ include_once "../../assest/config/datosUrLP.php";
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
             $DESPACHOM_ADO->Aprobado($DESPACHOM);
 
+
+            $AUSUARIO_ADO->agregarAusuario2("NULL",2,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Despacho Materiales, se aprobo la guia.","material_despachom", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
             $ARRAYEXISENCIADESPACHOMP = $INVENTARIOM_ADO->buscarPorDespachoEnTransito($_REQUEST['ID']);
             foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
                 $INVENTARIOM->__SET('ID_INVENTARIO', $r['ID_INVENTARIO']);
@@ -460,6 +463,8 @@ include_once "../../assest/config/datosUrLP.php";
                 $INVENTARIOM->__SET('ID_PLANTA', $PLANTAS);
                 $INVENTARIOM->__SET('ID_TEMPORADA', $TEMPORADAS);
                 $INVENTARIOM_ADO->agregarInventarioGuia($INVENTARIOM);
+                
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Inventario de materiales, por una aprobación de una guia interplanta.","material_despachom", "NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
             endforeach;
 
             echo '<script>
