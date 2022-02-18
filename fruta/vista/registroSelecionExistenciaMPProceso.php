@@ -145,7 +145,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php //include_once "../../assest/config/menuFruta.php";  ?>
+            <?php include_once "../../assest/config/menuFruta.php";  ?>
             <div class="content-wrapper">
                 <div class="container-full">
                     <!-- Content Header (Page header) -->
