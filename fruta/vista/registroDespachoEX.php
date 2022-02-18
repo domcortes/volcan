@@ -2523,6 +2523,8 @@ if (isset($_POST)) {
                 $_REQUEST['TEMPORADA'],
             );
             
+            $AUSUARIO_ADO->agregarAusuario2($NUMERO,1,1,"".$_SESSION["NOMBRE_USUARIO"].", Regustro de Despacho Exportación","fruta_despachoex",$ARRYAOBTENERID[0]['ID_DESPACHOEX'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
+
             //REDIRECCIONAR A PAGINA registroDespachoEX.php
             $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_DESPACHOEX'];
             $_SESSION["parametro1"] = "crear";
@@ -2603,7 +2605,7 @@ if (isset($_POST)) {
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
             $DESPACHOEX_ADO->actualizarDespachoex($DESPACHOEX);
 
-     
+            $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Despacho Exportación","fruta_despachoex",$_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
             
             if ($_SESSION['parametro1'] == "crear") {
                 $_SESSION["parametro"] = $_REQUEST['IDP'];
@@ -2722,6 +2724,7 @@ if (isset($_POST)) {
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $DESPACHOEX_ADO->cerrado($DESPACHOEX);
 
+                $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,1,3,"".$_SESSION["NOMBRE_USUARIO"].", Cerrar Despacho Exportación","fruta_despachoex",$_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
            
                 $ARRAYEXISENCIADESPACHOEX = $EXIEXPORTACION_ADO->verExistenciaPorDespachoEX2($_REQUEST['IDP']);
                 $ARRAYPCDESPACHO = $PCDESPACHO_ADO->buscarPorDespacho2($_REQUEST['IDP']);
@@ -2782,6 +2785,9 @@ if (isset($_POST)) {
             $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $IDQUITAR);
             // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
             $EXIEXPORTACION_ADO->actualizarDeselecionarDespachoExCambiarEstado($EXIEXPORTACION);            
+
+            $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Se Quito la Existencia de despacho exportación.","fruta_exiexportacion", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
             echo '<script>
                 Swal.fire({
                     icon:"error",
