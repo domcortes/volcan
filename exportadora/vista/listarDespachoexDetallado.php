@@ -270,6 +270,11 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                     <th>Planta</th>
                                                     <th>Temporada</th>
                                                     <th>Bl/AWB</th>
+                                                    <th>Número Recepción </th>
+                                                    <th>Fecha Recepción </th>
+                                                    <th>Tipo Recepción </th>
+                                                    <th>Número Guía Recepción </th>
+                                                    <th>Fecha Guía Recepción
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -528,6 +533,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                         } 
 
                                                         $ARRAYRECEPCION = $RECEPCIONPT_ADO->verRecepcion2($s['ID_RECEPCION']);
+                                                        $ARRAYDESPACHO2 = $DESPACHOPT_ADO->verDespachopt($s['ID_DESPACHO2']);
                                                         if ($ARRAYRECEPCION) {
                                                             $NUMERORECEPCION = $ARRAYRECEPCION[0]["NUMERO_RECEPCION"];
                                                             $FECHARECEPCION = $ARRAYRECEPCION[0]["FECHA"];
@@ -539,6 +545,21 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             if ($ARRAYRECEPCION[0]["TRECEPCION"] == 2) {
                                                                 $TIPORECEPCION = "Planta Externa";
                                                             }
+                                                        }else if($ARRAYDESPACHO2){
+                                                                
+                                                            $NUMERORECEPCION = $ARRAYDESPACHO2[0]["NUMERO_DESPACHO"];
+                                                            $FECHARECEPCION = $ARRAYDESPACHO2[0]["FECHA"];                                                                
+                                                            $NUMEROGUIARECEPCION = $ARRAYDESPACHO2[0]["NUMERO_GUIA_DESPACHO"];
+                                                            $TIPORECEPCION = "Interplanta";
+                                                            $FECHAGUIARECEPCION = "";                                                                
+                                                            $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYDESPACHO2[0]['ID_PLANTA']);
+                                                            if ($ARRAYPLANTA2) {
+                                                                $ORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+                                                                $CSGCSPORIGEN=$ARRAYPLANTA2[0]['CODIGO_SAG_PLANTA'];
+                                                            } else {
+                                                                $ORIGEN = "Sin Datos";
+                                                                $CSGCSPORIGEN="Sin Datos";
+                                                            }                                                        
                                                         } else {
                                                             $NUMERORECEPCION = "Sin Datos";
                                                             $FECHARECEPCION = "";
@@ -647,6 +668,11 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>   
                                                             <td><?php echo $BOLAWBCRTICARGA; ?></td> 
+                                                            <td><?php echo $NUMERORECEPCION; ?></td>
+                                                            <td><?php echo $FECHARECEPCION; ?></td>                                                            
+                                                            <td><?php echo $TIPORECEPCION; ?></td>
+                                                            <td><?php echo $NUMEROGUIARECEPCION; ?></td>
+                                                            <td><?php echo $FECHAGUIARECEPCION; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php endforeach; ?>

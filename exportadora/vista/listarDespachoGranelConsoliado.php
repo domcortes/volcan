@@ -388,6 +388,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             $GASIFICADO = "Sin Datos";
                                                         }
                                                         $ARRAYRECEPCION = $RECEPCIONMP_ADO->verRecepcion2($s['ID_RECEPCION']);
+                                                        $ARRAYDESPACHO2=$DESPACHOMP_ADO->verDespachomp2($s['ID_DESPACHO2']);
                                                         if ($ARRAYRECEPCION) {
                                                             $NUMERORECEPCION = $ARRAYRECEPCION[0]["NUMERO_RECEPCION"];
                                                             $FECHARECEPCION = $ARRAYRECEPCION[0]["FECHA"];
@@ -402,6 +403,20 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             if ($ARRAYRECEPCION[0]["TRECEPCION"] == 3) {
                                                                 $TIPORECEPCION = "Desde Productor BDH";
                                                             }
+                                                        }else if($ARRAYDESPACHO2){                                                                
+                                                            $NUMERORECEPCION = $ARRAYDESPACHO2[0]["NUMERO_DESPACHO"];
+                                                            $FECHARECEPCION = $ARRAYDESPACHO2[0]["FECHA"];                                                                
+                                                            $NUMEROGUIARECEPCION = $ARRAYDESPACHO2[0]["NUMERO_GUIA_DESPACHO"];
+                                                            $TIPORECEPCION = "Interplanta";
+                                                            $FECHAGUIARECEPCION = "";                                                                
+                                                            $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYDESPACHO2[0]['ID_PLANTA']);
+                                                            if ($ARRAYPLANTA2) {
+                                                                $ORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+                                                                $CSGCSPORIGEN=$ARRAYPLANTA2[0]['CODIGO_SAG_PLANTA'];
+                                                            } else {
+                                                                $ORIGEN = "Sin Datos";
+                                                                $CSGCSPORIGEN="Sin Datos";
+                                                            }  
                                                         } else {
                                                             $FECHARECEPCION = "";
                                                             $NUMERORECEPCION = "Sin Datos";
@@ -631,6 +646,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             $TREEMBALAJE = "Sin datos";
                                                         }
                                                         $ARRAYRECEPCION = $RECEPCIONIND_ADO->verRecepcion2($s['ID_RECEPCION']);
+                                                        $ARRAYDESPACHO2=$DESPACHOIND_ADO->verDespachomp2($s['ID_DESPACHO2']);
                                                         if ($ARRAYRECEPCION) {
                                                             $NUMERORECEPCION = $ARRAYRECEPCION[0]["NUMERO_RECEPCION"];
                                                             $FECHARECEPCION = $ARRAYRECEPCION[0]["FECHA"];
@@ -642,6 +658,20 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             if ($ARRAYRECEPCION[0]["TRECEPCION"] == 2) {
                                                                 $TIPORECEPCION = "Planta Externa";
                                                             }
+                                                        }else if($ARRAYDESPACHO2){                                                                
+                                                            $NUMERORECEPCION = $ARRAYDESPACHO2[0]["NUMERO_DESPACHO"];
+                                                            $FECHARECEPCION = $ARRAYDESPACHO2[0]["FECHA"];                                                                
+                                                            $NUMEROGUIARECEPCION = $ARRAYDESPACHO2[0]["NUMERO_GUIA_DESPACHO"];
+                                                            $TIPORECEPCION = "Interplanta";
+                                                            $FECHAGUIARECEPCION = "";                                                                
+                                                            $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYDESPACHO2[0]['ID_PLANTA']);
+                                                            if ($ARRAYPLANTA2) {
+                                                                $ORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+                                                                $CSGCSPORIGEN=$ARRAYPLANTA2[0]['CODIGO_SAG_PLANTA'];
+                                                            } else {
+                                                                $ORIGEN = "Sin Datos";
+                                                                $CSGCSPORIGEN="Sin Datos";
+                                                            }                                                        
                                                         } else {
                                                             $FECHARECEPCION = "";
                                                             $NUMERORECEPCION = "Sin Datos";
