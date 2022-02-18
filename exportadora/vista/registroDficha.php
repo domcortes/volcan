@@ -634,6 +634,7 @@ if (isset($_POST)) {
                 $DFICHA->__SET('ID_FICHA', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $DFICHA_ADO->agregarDFicha($DFICHA);
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de detalle de ficha","material_dficha","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
 
                 //REDIRECCIONAR A PAGINA registroRecepcion.php 
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
@@ -671,6 +672,7 @@ if (isset($_POST)) {
                 $DFICHA->__SET('ID_DFICHA', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $DFICHA_ADO->actualizarDFicha($DFICHA);
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3, 2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de detalle de ficha","material_dficha",$_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
 
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
                 $_SESSION["parametro1"] =  $_REQUEST['OPP'];
@@ -695,6 +697,7 @@ if (isset($_POST)) {
                 $DFICHA->__SET('ID_DFICHA', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $DFICHA_ADO->deshabilitar($DFICHA);
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3, 3,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar de detalle de ficha","material_dficha",$_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
                 $_SESSION["parametro1"] =  $_REQUEST['OPP'];
                 echo '<script>

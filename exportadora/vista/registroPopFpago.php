@@ -53,9 +53,11 @@ if (isset($_REQUEST['GUARDAR'])) {
     $FPAGO->__SET('ID_USUARIOI', $IDUSUARIOS);
     $FPAGO->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
+
+    $AUSUARIO_ADO->agregarAusuario2("NULL",3,1,"".$_SESSION["NOMBRE_USUARIO"].",Pop, Registro de Formato Pago.","fruta_fpago","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
     $FPAGO_ADO->agregarFpago($FPAGO);
-    //REDIRECCIONAR A PAGINA registroTfruta.php
-    //REDIRECCIONAR A PAGINA registroTfruta.php
+    //REDIRECCIONAR A PAGINA registroTfruta.php    
     echo "
     <script type='text/javascript'>
         window.opener.refrescar()

@@ -122,10 +122,16 @@ class DVALOR_ADO
     {
         try {
 
+            if ($DVALOR->__GET('ID_ECOMERCIAL') == NULL) {
+                $DVALOR->__SET('ID_ECOMERCIAL', NULL);
+            }
             $query =
                 "INSERT INTO liquidacion_dvalor 
                                         (
                                             VALOR_DVALOR,  
+                                            COMERCIAL,  
+
+                                            ID_ECOMERCIAL,  
                                             ID_TITEM,  
                                             
                                             ID_USUARIOI,  
@@ -138,11 +144,13 @@ class DVALOR_ADO
                                             ESTADO_REGISTRO
                                         ) 
             VALUES
-	       	(?, ?,  ?, ?, ?, SYSDATE(),SYSDATE(), 1, 1);";
+	       	(?, ?, ?, ?,  ?, ?, ?, SYSDATE(),SYSDATE(), 1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
                         $DVALOR->__GET('VALOR_DVALOR'),
+                        $DVALOR->__GET('COMERCIAL'),
+                        $DVALOR->__GET('ID_ECOMERCIAL'),
                         $DVALOR->__GET('ID_TITEM'),
                         $DVALOR->__GET('ID_USUARIOI'),
                         $DVALOR->__GET('ID_USUARIOM'),
@@ -174,11 +182,18 @@ class DVALOR_ADO
     {
 
         try {
+            if ($DVALOR->__GET('ID_ECOMERCIAL') == NULL) {
+                $DVALOR->__SET('ID_ECOMERCIAL', NULL);
+            }
+            echo $DVALOR->__GET('COMERCIAL');
             $query = "
                     UPDATE liquidacion_dvalor SET
                         MODIFICACION = SYSDATE(),
 
-                        VALOR_DVALOR = ?,                        
+                        VALOR_DVALOR = ?,    
+                        COMERCIAL= ?,   
+
+                        ID_ECOMERCIAL= ?,                       
                         ID_TITEM= ?,
                         ID_USUARIOM= ?,
                         ID_VALOR= ?
@@ -189,6 +204,9 @@ class DVALOR_ADO
                     array(
 
                         $DVALOR->__GET('VALOR_DVALOR'),
+                        $DVALOR->__GET('COMERCIAL'),
+
+                        $DVALOR->__GET('ID_ECOMERCIAL'),
                         $DVALOR->__GET('ID_TITEM'),
                         $DVALOR->__GET('ID_USUARIOM'),
                         $DVALOR->__GET('ID_VALOR'),

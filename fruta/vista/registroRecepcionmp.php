@@ -1430,6 +1430,8 @@ if (isset($_POST)) {
                         $_REQUEST['PLANTA'],
                         $_REQUEST['TEMPORADA'],
                     );
+                    $AUSUARIO_ADO->agregarAusuario2($NUMERO,1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Recepción Materia Prima.","fruta_recepcionmp", $ARRYAOBTENERID[0]['ID_RECEPCION'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                     $ARRAYRECEPCIONE=$RECEPCIONE_ADO->listarRecepcionPorRecepcionMpCBX($_REQUEST['IDP']);
                     if(empty($ARRAYRECEPCIONE)){
                         $ARRAYNUMERO = $RECEPCIONE_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
@@ -1480,6 +1482,8 @@ if (isset($_POST)) {
                         $RECEPCIONE->__SET('ID_RECEPCION', $ARRYAOBTENERIDE[0]["ID_RECEPCION"]);
                         //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                         $RECEPCIONE_ADO->cerrado($RECEPCIONE);
+                        $AUSUARIO_ADO->agregarAusuario2($NUMERO,1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Recepción Envases,Origen recepción materia prima .","material_recepcione", $ARRYAOBTENERIDE[0]['ID_RECEPCION'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                     }
 
 
@@ -1534,6 +1538,8 @@ if (isset($_POST)) {
                 $RECEPCIONMP->__SET('ID_RECEPCION', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $RECEPCIONMP_ADO->actualizarRecepcion($RECEPCIONMP);
+
+                $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Recepción Materia Prima.","fruta_recepcionmp", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
                 
                 $ARRAYRECEPCIONE=$RECEPCIONE_ADO->listarRecepcionPorRecepcionMpCBX($_REQUEST['IDP']);
                 if(empty($ARRAYRECEPCIONE)){
@@ -1585,6 +1591,8 @@ if (isset($_POST)) {
                     $RECEPCIONE->__SET('ID_RECEPCION', $ARRYAOBTENERID[0]["ID_RECEPCION"]);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                     $RECEPCIONE_ADO->cerrado($RECEPCIONE);
+
+                    $AUSUARIO_ADO->agregarAusuario2($NUMERO,1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Recepción Envases, Origen recepción materia prima.","material_recepcione", $ARRYAOBTENERIDE[0]['ID_RECEPCION'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
                 }else{
                     $RECEPCIONE->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
                     $RECEPCIONE->__SET('NUMERO_DOCUMENTO_RECEPCION', $_REQUEST['NUMEROGUIA']);
@@ -1614,7 +1622,9 @@ if (isset($_POST)) {
                     $RECEPCIONE->__SET('ID_USUARIOM', $IDUSUARIOS);
                     $RECEPCIONE->__SET('ID_RECEPCION', $ARRAYRECEPCIONE[0]["ID_RECEPCION"]);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                    $RECEPCIONE_ADO->actualizarRecepcionMateriaPrima($RECEPCIONE);
+                    $RECEPCIONE_ADO->actualizarRecepcionMateriaPrima($RECEPCIONE); 
+
+                    $AUSUARIO_ADO->agregarAusuario2($ARRAYRECEPCIONE[0]["NUMERO_RECEPCION"],1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Recepción Envases, Origen recepción materia prima.","material_recepcione", $ARRAYRECEPCIONE[0]["ID_RECEPCION"],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
                 }
                 if ($_SESSION['parametro1'] == "crear") {
                     $_SESSION["parametro"] = $_REQUEST['IDP'];
@@ -1708,6 +1718,7 @@ if (isset($_POST)) {
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                     $RECEPCIONMP_ADO->cerrado($RECEPCIONMP);
 
+                    $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,1,3,"".$_SESSION["NOMBRE_USUARIO"].", Cerrar  Recepción Materia Prima.","fruta_recepcionmp", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                     $ARRAYEXISENCIARECEPCION = $EXIMATERIAPRIMA_ADO->buscarPorRecepcionIngresado($_REQUEST['IDP']);
                     foreach ($ARRAYEXISENCIARECEPCION as $r) :
@@ -1763,6 +1774,9 @@ if (isset($_POST)) {
                             $_REQUEST['PLANTA'],
                             $_REQUEST['TEMPORADA'],
                         );                            
+
+                        $AUSUARIO_ADO->agregarAusuario2($NUMERO,1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Recepción Envases, Origen recepción materia prima.","material_recepcione", $ARRYAOBTENERIDE[0]['ID_RECEPCION'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                         $ARRAYDRECEPCIONAGRUPADO = $DRECEPCIONMP_ADO->buscarPorRecepcionAgrupadoEstandarproducto($_REQUEST['IDP']);
                         foreach ($ARRAYDRECEPCIONAGRUPADO as $r ) {                            
                             $INVENTARIOE->__SET('TRECEPCION',  $_REQUEST['TRECEPCIONE']);
@@ -1777,6 +1791,9 @@ if (isset($_POST)) {
                             $INVENTARIOE->__SET('ID_RECEPCION', $ARRYAOBTENERID[0]["ID_RECEPCION"]);
                             $INVENTARIOE_ADO->agregarInventarioRecepcion($INVENTARIOE);
                         }                        
+
+                        $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de detalle de Recepción Envases, Origen recepción materia prima..","material_inventarioe", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                         $ARRAYDRECEPCIONETOTALES = $INVENTARIOE_ADO->obtenerTotalesInventarioPorRecepcionCBX($ARRYAOBTENERID[0]["ID_RECEPCION"]);   
                         $RECEPCIONE->__SET('TOTAL_CANTIDAD_RECEPCION', $ARRAYDRECEPCIONETOTALES[0]["CANTIDAD"]);
                         $RECEPCIONE->__SET('ID_RECEPCION', $ARRYAOBTENERID[0]["ID_RECEPCION"]);
@@ -1812,7 +1829,10 @@ if (isset($_POST)) {
                         $RECEPCIONE->__SET('ID_USUARIOM', $IDUSUARIOS);
                         $RECEPCIONE->__SET('ID_RECEPCION', $ARRAYRECEPCIONE[0]["ID_RECEPCION"]);
                         //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                        $RECEPCIONE_ADO->actualizarRecepcionMateriaPrima($RECEPCIONE);                        
+                        $RECEPCIONE_ADO->actualizarRecepcionMateriaPrima($RECEPCIONE);    
+                        
+                        $AUSUARIO_ADO->agregarAusuario2($ARRAYRECEPCIONE[0]["NUMERO_RECEPCION"],1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Recepción Envases, Origen recepción materia prima.","material_recepcione", $ARRAYRECEPCIONE[0]["ID_RECEPCION"],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+                        
                         $ARRAYINVENTARIOE=$INVENTARIOE_ADO->buscarPorRecepcion($ARRAYRECEPCIONE[0]["ID_RECEPCION"]);
                         if(empty($ARRAYINVENTARIOE)){
                             $ARRAYDRECEPCIONAGRUPADO = $DRECEPCIONMP_ADO->buscarPorRecepcionAgrupadoEstandarproducto($_REQUEST['IDP']);
@@ -1830,6 +1850,9 @@ if (isset($_POST)) {
                                 $INVENTARIOE_ADO->agregarInventarioRecepcion($INVENTARIOE);
                             }  
                         }                        
+                        
+                        $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de detalle de Recepción Envases, Origen recepción materia prima..","material_inventarioe", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                         $ARRAYDRECEPCIONETOTALES = $INVENTARIOE_ADO->obtenerTotalesInventarioPorRecepcionCBX($ARRAYRECEPCIONE[0]["ID_RECEPCION"]);   
                         $RECEPCIONE->__SET('TOTAL_CANTIDAD_RECEPCION', $ARRAYDRECEPCIONETOTALES[0]["CANTIDAD"]);
                         $RECEPCIONE->__SET('ID_RECEPCION', $ARRAYRECEPCIONE[0]["ID_RECEPCION"]);

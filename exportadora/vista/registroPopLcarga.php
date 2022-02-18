@@ -49,6 +49,9 @@ if (isset($_REQUEST['GUARDAR'])) {
     $LCARGA->__SET('ID_USUARIOI', $IDUSUARIOS);
     $LCARGA->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
+
+    $AUSUARIO_ADO->agregarAusuario2("NULL",3,1,"".$_SESSION["NOMBRE_USUARIO"].",Pop, Registro de Lugar Carga.","fruta_lcarga","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
     $LCARGA_ADO->agregarLcarga($LCARGA);
     //REDIRECCIONAR A PAGINA registroTfruta.php
     echo "

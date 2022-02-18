@@ -46,7 +46,7 @@ class TARJAM_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `material_tarjam` limit 8 WHERE ESTADO_REGISTRO = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  material_tarjam  limit 8 WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -64,7 +64,7 @@ class TARJAM_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `material_tarjam` WHERE ESTADO_REGISTRO = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  material_tarjam  WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -82,7 +82,7 @@ class TARJAM_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `material_tarjam` WHERE ESTADO_REGISTRO = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  material_tarjam  WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -102,7 +102,7 @@ class TARJAM_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `material_tarjam` WHERE `ID_TARJA`= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM  material_tarjam  WHERE  ID_TARJA = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -123,8 +123,8 @@ class TARJAM_ADO
             $datos = $this->conexion->prepare("SELECT * , 
                                                 DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                 DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' 
-                                            FROM `material_tarjam` 
-                                                WHERE `ID_TARJA`= '" . $ID . "';");
+                                            FROM  material_tarjam  
+                                                WHERE  ID_TARJA = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -152,23 +152,23 @@ class TARJAM_ADO
                 $TARJAM->__SET('ID_DOCOMPRA', NULL);
             }
             $query =
-                "INSERT INTO `material_tarjam` (   
-                                                    `FOLIO_TARJA`,
-                                                    `ALIAS_DINAMICO_TARJA`,
-                                                    `ALIAS_ESTATICO_TARJA`,
-                                                    `CANITDAD_CONTENEDOR`,
-                                                    `VALOR_UNITARIO`,      
-                                                    `CANTIDAD_TARJA`,                                     
-                                                    `ID_RECEPCION`,         
-                                                    `ID_PRODUCTO`,
-                                                    `ID_TCONTENEDOR`,
-                                                    `ID_TUMEDIDA`,
-                                                    `ID_FOLIO`,                        
-                                                    `ID_DRECEPCION`,
-                                                    `INGRESO`,
-                                                    `MODIFICACION`,     
-                                                    `ESTADO`,
-                                                    `ESTADO_REGISTRO`
+                "INSERT INTO  material_tarjam  (   
+                                                     FOLIO_TARJA ,
+                                                     ALIAS_DINAMICO_TARJA ,
+                                                     ALIAS_ESTATICO_TARJA ,
+                                                     CANITDAD_CONTENEDOR ,
+                                                     VALOR_UNITARIO ,      
+                                                     CANTIDAD_TARJA ,                                     
+                                                     ID_RECEPCION ,         
+                                                     ID_PRODUCTO ,
+                                                     ID_TCONTENEDOR ,
+                                                     ID_TUMEDIDA ,
+                                                     ID_FOLIO ,                        
+                                                     ID_DRECEPCION ,
+                                                     INGRESO ,
+                                                     MODIFICACION ,     
+                                                     ESTADO ,
+                                                     ESTADO_REGISTRO 
                                                 ) VALUES
 	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  SYSDATE() , SYSDATE(),  1, 1);";
             $this->conexion->prepare($query)
@@ -199,7 +199,7 @@ class TARJAM_ADO
     public function eliminarTarja($id)
     {
         try {
-            $sql = "DELETE FROM `material_tarjam` WHERE `ID_TARJA`=" . $id . ";";
+            $sql = "DELETE FROM  material_tarjam  WHERE  ID_TARJA =" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -217,18 +217,18 @@ class TARJAM_ADO
                 $TARJAM->__SET('ID_DOCOMPRA', NULL);
             }
             $query = "
-		UPDATE `material_tarjam` SET
-            `MODIFICACION`= SYSDATE(),
-            `CANITDAD_CONTENEDOR`= ?,
-            `VALOR_UNITARIO`= ?,
-            `CANTIDAD_TARJA`= ?,
-            `ID_RECEPCION`= ?,
-            `ID_PRODUCTO`= ?,
-            `ID_TCONTENEDOR`= ?,
-            `ID_TUMEDIDA`= ?  ,
-            `ID_FOLIO`= ?  ,
-            `ID_DRECEPCION`= ?
-		WHERE `ID_TARJA`= ?;";
+		UPDATE  material_tarjam  SET
+             MODIFICACION = SYSDATE(),
+             CANITDAD_CONTENEDOR = ?,
+             VALOR_UNITARIO = ?,
+             CANTIDAD_TARJA = ?,
+             ID_RECEPCION = ?,
+             ID_PRODUCTO = ?,
+             ID_TCONTENEDOR = ?,
+             ID_TUMEDIDA = ?  ,
+             ID_FOLIO = ?  ,
+             ID_DRECEPCION = ?
+		WHERE  ID_TARJA = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -260,10 +260,10 @@ class TARJAM_ADO
 
         try {
             $query = "
-    UPDATE `material_tarjam` SET			
-            `MODIFICACION`= SYSDATE(),		
-            `ESTADO` = 0
-    WHERE `ID_TARJA`= ?;";
+    UPDATE  material_tarjam  SET			
+             MODIFICACION = SYSDATE(),		
+             ESTADO  = 0
+    WHERE  ID_TARJA = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -280,10 +280,10 @@ class TARJAM_ADO
     {
         try {
             $query = "
-    UPDATE `material_tarjam` SET				
-            `MODIFICACION`= SYSDATE(),	
-            `ESTADO` = 1
-    WHERE `ID_TARJA`= ?;";
+    UPDATE  material_tarjam  SET				
+             MODIFICACION = SYSDATE(),	
+             ESTADO  = 1
+    WHERE  ID_TARJA = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -303,10 +303,10 @@ class TARJAM_ADO
 
         try {
             $query = "
-    UPDATE `material_tarjam` SET			
-            `MODIFICACION`= SYSDATE(),		
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_TARJA`= ?;";
+    UPDATE  material_tarjam  SET			
+             MODIFICACION = SYSDATE(),		
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_TARJA = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -323,10 +323,10 @@ class TARJAM_ADO
 
         try {
             $query = "
-    UPDATE `material_tarjam` SET			
-            `MODIFICACION`= SYSDATE(),		
-            `ESTADO_REGISTRO` = 0
-    WHERE `FOLIO_TARJA`= ?;";
+    UPDATE  material_tarjam  SET			
+             MODIFICACION = SYSDATE(),		
+             ESTADO_REGISTRO  = 0
+    WHERE  FOLIO_TARJA = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -343,10 +343,10 @@ class TARJAM_ADO
     {
         try {
             $query = "
-    UPDATE `material_tarjam` SET				
-            `MODIFICACION`= SYSDATE(),	
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_TARJA`= ?;";
+    UPDATE  material_tarjam  SET				
+             MODIFICACION = SYSDATE(),	
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_TARJA = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -371,8 +371,8 @@ class TARJAM_ADO
             $datos = $this->conexion->prepare("SELECT * ,
                                             DATE_FORMAT(INGRESO, '%d-%m-%Y %H:%i') AS 'INGRESO',
                                             DATE_FORMAT(MODIFICACION, '%d-%m-%Y %H:%i') AS 'MODIFICACION',
-                                            IFNULL(`CANTIDAD_TARJA`,0) AS 'CANTIDAD'
-                                            FROM `material_tarjam`
+                                            IFNULL( CANTIDAD_TARJA ,0) AS 'CANTIDAD'
+                                            FROM  material_tarjam 
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_RECEPCION = '" . $ID_RECEPCION . "'  ;
                                         	");
@@ -395,8 +395,8 @@ class TARJAM_ADO
             $datos = $this->conexion->prepare("SELECT * ,
                                                 DATE_FORMAT(INGRESO, '%d-%m-%Y %H:%i') AS 'INGRESO',
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y %H:%i') AS 'MODIFICACION',
-                                                FORMAT(IFNULL(`CANTIDAD_TARJA`,0),0,'de_DE') AS 'CANTIDAD' 
-                                            FROM `material_tarjam`
+                                                FORMAT(IFNULL( CANTIDAD_TARJA ,0),0,'de_DE') AS 'CANTIDAD' 
+                                            FROM  material_tarjam 
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_RECEPCION = '" . $ID_RECEPCION . "'  ;
                                         	");
@@ -419,7 +419,7 @@ class TARJAM_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT * 
-                                            FROM `material_tarjam`
+                                            FROM  material_tarjam 
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_DRECEPCION = '" . $IDDRECEPCION . "'  ;
                                         	");
@@ -442,9 +442,9 @@ class TARJAM_ADO
             $datos = $this->conexion->prepare("SELECT * ,
                                                 DATE_FORMAT(INGRESO, '%d-%m-%Y %H:%i') AS 'INGRESO',
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y %H:%i') AS 'MODIFICACION',
-                                                FORMAT(IFNULL(`CANITDAD_CONTENEDOR`,0),0,'de_DE') AS 'CANTIDADC', 
-                                                FORMAT(IFNULL(`CANTIDAD_TARJA`,0),0,'de_DE') AS 'CANTIDAD' 
-                                             FROM `material_tarjam`
+                                                FORMAT(IFNULL( CANITDAD_CONTENEDOR ,0),0,'de_DE') AS 'CANTIDADC', 
+                                                FORMAT(IFNULL( CANTIDAD_TARJA ,0),0,'de_DE') AS 'CANTIDAD' 
+                                             FROM  material_tarjam 
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_DRECEPCION = '" . $IDDRECEPCION . "'  ;	");
             $datos->execute();
@@ -468,9 +468,9 @@ class TARJAM_ADO
             $datos = $this->conexion->prepare("SELECT *  ,
                                                     DATE_FORMAT(INGRESO, '%d-%m-%Y %H:%i') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%d-%m-%Y %H:%i') AS 'MODIFICACION',
-                                                    IFNULL(`CANITDAD_CONTENEDOR`,0) AS 'CANTIDADC', 
-                                                    IFNULL(`CANTIDAD_TARJA`,0) AS 'CANTIDAD' 
-                                            FROM `material_tarjam`
+                                                    IFNULL( CANITDAD_CONTENEDOR ,0) AS 'CANTIDADC', 
+                                                    IFNULL( CANTIDAD_TARJA ,0) AS 'CANTIDAD' 
+                                            FROM  material_tarjam 
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_DOCOMPRA = '" . $IDDOCOMPRA . "'  ;
                                         	");
@@ -493,9 +493,9 @@ class TARJAM_ADO
             $datos = $this->conexion->prepare("SELECT * ,
                                                 DATE_FORMAT(INGRESO, '%d-%m-%Y %H:%i') AS 'INGRESO',
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y %H:%i') AS 'MODIFICACION',
-                                                FORMAT(IFNULL(`CANITDAD_CONTENEDOR`,0),0,'de_DE') AS 'CANTIDADC', 
-                                                FORMAT(IFNULL(`CANTIDAD_TARJA`,0),0,'de_DE') AS 'CANTIDAD' 
-                                             FROM `material_tarjam`
+                                                FORMAT(IFNULL( CANITDAD_CONTENEDOR ,0),0,'de_DE') AS 'CANTIDADC', 
+                                                FORMAT(IFNULL( CANTIDAD_TARJA ,0),0,'de_DE') AS 'CANTIDAD' 
+                                             FROM  material_tarjam 
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_DOCOMPRA = '" . $IDDOCOMPRA . "'  ;	");
             $datos->execute();
@@ -518,8 +518,8 @@ class TARJAM_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                            IFNULL(SUM(`CANTIDAD_TARJA`),0) AS 'CANTIDAD'
-                                            FROM `material_tarjam`
+                                            IFNULL(SUM( CANTIDAD_TARJA ),0) AS 'CANTIDAD'
+                                            FROM  material_tarjam 
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_RECEPCION = '" . $ID_RECEPCION . "'  ;
                                         	");
@@ -540,8 +540,8 @@ class TARJAM_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                FORMAT(IFNULL(SUM(`CANTIDAD_TARJA`),0),0,'de_DE') AS 'CANTIDAD' 
-                                            FROM `material_tarjam`
+                                                FORMAT(IFNULL(SUM( CANTIDAD_TARJA ),0),0,'de_DE') AS 'CANTIDAD' 
+                                            FROM  material_tarjam 
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_RECEPCION = '" . $ID_RECEPCION . "'  ;
                                         	");
@@ -566,9 +566,9 @@ class TARJAM_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                IFNULL(SUM(`CANITDAD_CONTENEDOR`),0) AS 'CANTIDADC', 
-                                                IFNULL(SUM(`CANTIDAD_TARJA`),0) AS 'CANTIDAD'      
-                                            FROM `material_tarjam`
+                                                IFNULL(SUM( CANITDAD_CONTENEDOR ),0) AS 'CANTIDADC', 
+                                                IFNULL(SUM( CANTIDAD_TARJA ),0) AS 'CANTIDAD'      
+                                            FROM  material_tarjam 
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_DRECEPCION = '" . $IDDRECEPCION . "'  ;	");
             $datos->execute();
@@ -588,9 +588,9 @@ class TARJAM_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                FORMAT(IFNULL(SUM(`CANITDAD_CONTENEDOR`),0),0,'de_DE') AS 'CANTIDADC', 
-                                                FORMAT(IFNULL(SUM(`CANTIDAD_TARJA`),0),0,'de_DE') AS 'CANTIDAD'       
-                                             FROM `material_tarjam`
+                                                FORMAT(IFNULL(SUM( CANITDAD_CONTENEDOR ),0),0,'de_DE') AS 'CANTIDADC', 
+                                                FORMAT(IFNULL(SUM( CANTIDAD_TARJA ),0),0,'de_DE') AS 'CANTIDAD'       
+                                             FROM  material_tarjam 
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_DRECEPCION = '" . $IDDRECEPCION . "'  ;	");
             $datos->execute();
@@ -612,9 +612,9 @@ class TARJAM_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                IFNULL(SUM(`CANITDAD_CONTENEDOR`),0) AS 'CANTIDADC', 
-                                                IFNULL(SUM(`CANTIDAD_TARJA`),0) AS 'CANTIDAD'      
-                                            FROM `material_tarjam`
+                                                IFNULL(SUM( CANITDAD_CONTENEDOR ),0) AS 'CANTIDADC', 
+                                                IFNULL(SUM( CANTIDAD_TARJA ),0) AS 'CANTIDAD'      
+                                            FROM  material_tarjam 
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_DOCOMPRA = '" . $IDDOCOMPRA . "'  ;	");
             $datos->execute();
@@ -634,9 +634,9 @@ class TARJAM_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                FORMAT(IFNULL(SUM(`CANITDAD_CONTENEDOR`),0),0,'de_DE') AS 'CANTIDADC', 
-                                                FORMAT(IFNULL(SUM(`CANTIDAD_TARJA`),0),0,'de_DE') AS 'CANTIDAD'       
-                                             FROM `material_tarjam`
+                                                FORMAT(IFNULL(SUM( CANITDAD_CONTENEDOR ),0),0,'de_DE') AS 'CANTIDADC', 
+                                                FORMAT(IFNULL(SUM( CANTIDAD_TARJA ),0),0,'de_DE') AS 'CANTIDAD'       
+                                             FROM  material_tarjam 
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_DOCOMPRA = '" . $IDDOCOMPRA . "'  ;	");
             $datos->execute();

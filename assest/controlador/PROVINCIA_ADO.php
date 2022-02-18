@@ -46,7 +46,7 @@ class PROVINCIA_ADO {
     public function listarProvincia(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_provincia` limit 6;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  ubicacion_provincia  limit 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -66,7 +66,7 @@ class PROVINCIA_ADO {
     public function listarProvinciaCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_provincia` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  ubicacion_provincia  WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -84,7 +84,7 @@ class PROVINCIA_ADO {
     public function listarProvincia2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_provincia` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  ubicacion_provincia  WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -128,7 +128,34 @@ class PROVINCIA_ADO {
     public function verProvincia($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_provincia` WHERE `ID_PROVINCIA`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  ubicacion_provincia  WHERE  ID_PROVINCIA = '".$ID."';");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+    
+    public function verProvincia2($ID){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT 
+                                                provincia.ID_PROVINCIA,
+                                                provincia.NOMBRE_PROVINCIA  AS 'PROVINCIA',
+                                                region.NOMBRE_REGION  AS 'REGION',
+                                                pais.NOMBRE_PAIS  AS 'PAIS'
+                                            FROM   ubicacion_provincia provincia, ubicacion_region region, ubicacion_pais pais
+                                            WHERE provincia.ID_REGION = region.ID_REGION 
+                                                AND region.ID_PAIS = pais.ID_PAIS
+                                                AND  ID_PROVINCIA = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -150,7 +177,7 @@ class PROVINCIA_ADO {
     public function buscarNombreProvincia($NOMBRE){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_provincia` WHERE `NOMBRE_PROVINCIA` LIKE '%".$NOMBRE."%';");
+            $datos=$this->conexion->prepare("SELECT * FROM  ubicacion_provincia  WHERE  NOMBRE_PROVINCIA  LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -172,7 +199,7 @@ class PROVINCIA_ADO {
             
             
             $query=
-            "INSERT INTO `ubicacion_provincia` (`NOMBRE_PROVINCIA`,`ID_REGION`, `INGRESO`,`MODIFICACION`,`ESTADO_REGISTRO`) VALUES
+            "INSERT INTO  ubicacion_provincia  ( NOMBRE_PROVINCIA , ID_REGION ,  INGRESO , MODIFICACION , ESTADO_REGISTRO ) VALUES
 	       	( ?, ?, SYSDATE() , SYSDATE(),1);";
             $this->conexion->prepare($query)
             ->execute(
@@ -192,7 +219,7 @@ class PROVINCIA_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarProvincia($id){
-        try{$sql="DELETE FROM `ubicacion_provincia` WHERE `ID_PROVINCIA`=".$id.";";
+        try{$sql="DELETE FROM  ubicacion_provincia  WHERE  ID_PROVINCIA =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -208,11 +235,11 @@ class PROVINCIA_ADO {
     public function actualizarProvincia(PROVINCIA $PROVINCIA){
         try{
             $query = "
-		UPDATE `ubicacion_provincia` SET
-            `MODIFICACION`= SYSDATE(),
-            `NOMBRE_PROVINCIA`= ?,
-            `ID_REGION`= ?
-		WHERE `ID_PROVINCIA`= ?;";
+		UPDATE  ubicacion_provincia  SET
+             MODIFICACION = SYSDATE(),
+             NOMBRE_PROVINCIA = ?,
+             ID_REGION = ?
+		WHERE  ID_PROVINCIA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -236,10 +263,10 @@ class PROVINCIA_ADO {
 
         try{
             $query = "
-    UPDATE `ubicacion_provincia` SET				
-    `MODIFICACION`= SYSDATE(),	
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_PROVINCIA`= ?;";
+    UPDATE  ubicacion_provincia  SET				
+     MODIFICACION = SYSDATE(),	
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_PROVINCIA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -257,10 +284,10 @@ class PROVINCIA_ADO {
     public function habilitar(PROVINCIA $PROVINCIA){
         try{
             $query = "
-    UPDATE `ubicacion_provincia` SET				
-    `MODIFICACION`= SYSDATE(),	
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_PROVINCIA`= ?;";
+    UPDATE  ubicacion_provincia  SET				
+     MODIFICACION = SYSDATE(),	
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_PROVINCIA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 

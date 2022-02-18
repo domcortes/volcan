@@ -281,7 +281,9 @@ class FOLIO_ADO {
     public function buscarFoliPorEmpresa($IDEMPRESA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM fruta_folio WHERE ID_EMPRESA= '".$IDEMPRESA."';");
+            $datos=$this->conexion->prepare("SELECT * FROM fruta_folio 
+                                             WHERE ID_EMPRESA= '".$IDEMPRESA."'
+                                             AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -304,7 +306,8 @@ class FOLIO_ADO {
                                             WHERE ID_EMPRESA = ".$EMPRESA." 
                                             AND ID_PLANTA = ".$PLANTA." 
                                             AND TFOLIO =".$TFOLIO."  
-                                            AND ID_TEMPORADA = ".$TEMPORADA."  ;");
+                                            AND ID_TEMPORADA = ".$TEMPORADA." 
+                                            AND ESTADO_REGISTRO = 1 ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -324,7 +327,12 @@ class FOLIO_ADO {
     public function verFolioPorEmpresaPlantaTemporadaTmateriaprima($EMPRESA, $PLANTA, $TEMPORADA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM fruta_folio WHERE ID_EMPRESA= '".$EMPRESA."' AND ID_PLANTA= '".$PLANTA."' AND ID_TEMPORADA= '".$TEMPORADA."' AND  TFOLIO= 1 ;");
+            $datos=$this->conexion->prepare("SELECT * FROM fruta_folio 
+                                              WHERE ID_EMPRESA= '".$EMPRESA."' 
+                                              AND ID_PLANTA= '".$PLANTA."' 
+                                              AND ID_TEMPORADA= '".$TEMPORADA."' 
+                                              AND  TFOLIO= 1 
+                                              AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -344,7 +352,12 @@ class FOLIO_ADO {
     public function verFolioPorEmpresaPlantaTemporadaTexportacion($EMPRESA, $PLANTA, $TEMPORADA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM fruta_folio WHERE ID_EMPRESA= '".$EMPRESA."' AND ID_PLANTA= '".$PLANTA."' AND ID_TEMPORADA= '".$TEMPORADA."' AND  TFOLIO= 2 ;");
+            $datos=$this->conexion->prepare("SELECT * FROM fruta_folio 
+                                            WHERE ID_EMPRESA= '".$EMPRESA."' 
+                                            AND ID_PLANTA= '".$PLANTA."' 
+                                            AND ID_TEMPORADA= '".$TEMPORADA."' 
+                                            AND  TFOLIO= 2 
+                                            AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -363,7 +376,12 @@ class FOLIO_ADO {
     public function verFolioPorEmpresaPlantaTemporadaTindustrial($EMPRESA, $PLANTA, $TEMPORADA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM fruta_folio WHERE ID_EMPRESA= '".$EMPRESA."' AND ID_PLANTA= '".$PLANTA."' AND ID_TEMPORADA= '".$TEMPORADA."' AND  TFOLIO= 3;");
+            $datos=$this->conexion->prepare("SELECT * FROM fruta_folio 
+                                            WHERE ID_EMPRESA= '".$EMPRESA."' 
+                                            AND ID_PLANTA= '".$PLANTA."' 
+                                            AND ID_TEMPORADA= '".$TEMPORADA."'
+                                            AND  TFOLIO= 3
+                                            AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -385,7 +403,8 @@ class FOLIO_ADO {
                                             WHERE ID_EMPRESA= '".$EMPRESA."' 
                                             AND ID_PLANTA= '".$PLANTA."'
                                             AND ID_TEMPORADA= '".$TEMPORADA."' 
-                                            AND  TFOLIO BETWEEN 2 AND 3;");
+                                            AND  TFOLIO BETWEEN 2 AND 3
+                                            AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;

@@ -82,6 +82,9 @@ if (isset($_REQUEST['GUARDAR'])) {
     $AGCARGA->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
     $AGCARGA_ADO->agregarAgcarga($AGCARGA);
+
+    $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].",Pop, Registro de Agente Carga.","fruta_agcarga","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
     //REDIRECCIONAR A PAGINA registroAgcarga.php
     echo "
         <script type='text/javascript'>
@@ -200,7 +203,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                     }
                     document.form_reg_dato.DIRECCIONAGCARGA.style.borderColor = "#4AF575";
 
-                
+                 
                         if (COMUNA == null || COMUNA == 0) {
                             document.form_reg_dato.COMUNA.focus();
                             document.form_reg_dato.COMUNA.style.borderColor = "#FF0000";
@@ -208,7 +211,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                             return false;
                         }
                         document.form_reg_dato.COMUNA.style.borderColor = "#4AF575";
-    /*
+   /*
 
 
                         if (CONTACTOAGCARGA == null || CONTACTOAGCARGA.length == 0 || /^\s+$/.test(CONTACTOAGCARGA)) {

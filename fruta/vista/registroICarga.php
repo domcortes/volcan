@@ -2310,7 +2310,7 @@ if (isset($_POST)) {
                                             <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                 <div class="form-group">
                                                     <br>
-                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Broker" <?php echo $DISABLED; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopBroker.php' ); ">
+                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Cliente" <?php echo $DISABLED; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopBroker.php' ); ">
                                                         <i class="glyphicon glyphicon-plus"></i>
                                                     </button>
                                                 </div>
@@ -3569,7 +3569,7 @@ if (isset($_POST)) {
                     $_REQUEST['TEMPORADA'],
 
                 );
-
+                $AUSUARIO_ADO->agregarAusuario2($NUMERO,1,1,"".$_SESSION["NOMBRE_USUARIO"].", Regustro de Instructivo Carga","fruta_icarga",$ARRYAOBTENERID[0]['ID_ICARGA'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
                 //REDIRECCIONAR A PAGINA registroICarga.php
                 $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_ICARGA'];
                 $_SESSION["parametro1"] = "crear";                
@@ -3666,10 +3666,13 @@ if (isset($_POST)) {
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $ICARGA_ADO->actualizarIcarga($ICARGA);
 
+                
                 $ICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $ICARGA_ADO->PorCargar($ICARGA);
-                
+
+                $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Instructivo Carga","fruta_icarga",$_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
+
                 if ($_SESSION['parametro1'] == "crear") {
                     $_SESSION["parametro"] = $_REQUEST['IDP'];
                     $_SESSION["parametro1"] = "crear";
@@ -3803,11 +3806,13 @@ if (isset($_POST)) {
                     $ICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                     $ICARGA_ADO->PorCargar($ICARGA);
+                
 
                     $ICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                     $ICARGA_ADO->cerrrado($ICARGA);
-                
+
+                    $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,1,3,"".$_SESSION["NOMBRE_USUARIO"].", Cerrar Instructivo Carga","fruta_icarga",$_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
 
                     //REDIRECCIONAR A PAGINA registroICarga.php 
                     //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL

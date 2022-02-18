@@ -75,6 +75,8 @@ if (isset($_REQUEST['GUARDAR'])) {
     $AADUANA->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
     $AADUANA_ADO->agregarAaduana($AADUANA);
+
+    $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].",Pop, Registro de Agente Aduana.","fruta_aaduana","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
     //REDIRECCIONAR A PAGINA registroAaduana.php
     echo "
     <script type='text/javascript'>
@@ -191,8 +193,8 @@ if (isset($_REQUEST['GUARDAR'])) {
                             return false;
                         }
                         document.form_reg_dato.COMUNA.style.borderColor = "#4AF575";
-
  /*
+
 
                         if (CONTACTOAADUANA == null || CONTACTOAADUANA.length == 0 || /^\s+$/.test(CONTACTOAADUANA)) {
                             document.form_reg_dato.CONTACTOAADUANA.focus();

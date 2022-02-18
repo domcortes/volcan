@@ -261,6 +261,28 @@ class DNOTADC_ADO
         }
     }
 
+    public function contarPorValor($IDVALOR)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT IFNULL(COUNT(ID_DNOTA),0) AS 'CONTEO'
+                                                FROM fruta_dnotadc 
+                                                WHERE ID_NOTA = '" . $IDVALOR . "'  
+                                                AND ESTADO_REGISTRO = 1;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
 
     //OTRAS FUNCIONES
     //CAMBIO DE ESTADO DE LA FILA

@@ -73,6 +73,9 @@ if (isset($_REQUEST['GUARDAR'])) {
     $CONDUCTOR->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
     $CONDUCTOR_ADO->agregarConductor($CONDUCTOR);
+
+    $AUSUARIO_ADO->agregarAusuario2("NULL",2,1,"".$_SESSION["NOMBRE_USUARIO"].",Pop, Registro de Conductor.","transporte_conductor","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
     //REDIRECCIONAR A PAGINA registroPlanta.php
     echo "
     <script type='text/javascript'>

@@ -1261,6 +1261,8 @@ if (isset($_POST)) {
                     $_REQUEST['TEMPORADA'],
                 );
 
+                $AUSUARIO_ADO->agregarAusuario2($NUMERO,2,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Despacho Materiales.","material_despachom", $ARRYAOBTENERID[0]['ID_DESPACHO'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 //REDIRECCIONAR A PAGINA registroDESPACHOM.php
 
                 $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_DESPACHO'];
@@ -1318,7 +1320,10 @@ if (isset($_POST)) {
                 $DESPACHOM->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $DESPACHOM->__SET('ID_DESPACHO', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                $DESPACHOM_ADO->actualizarDespachom($DESPACHOM);                
+                $DESPACHOM_ADO->actualizarDespachom($DESPACHOM);          
+                
+                $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,2,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Despacho Materiales.","material_despachom", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 if ($_SESSION['parametro1'] == "crear") {
                     $_SESSION["parametro"] = $_REQUEST['IDP'];
                     $_SESSION["parametro1"] = "crear";
@@ -1464,6 +1469,9 @@ if (isset($_POST)) {
                             $INVENTARIOM_ADO->despachado($INVENTARIOM);
                         }
                     endforeach;
+
+                    $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,2,3,"".$_SESSION["NOMBRE_USUARIO"].", Cerrar  Despacho Materiales.","material_despachom", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                     //REDIRECCIONAR A PAGINA registroDespachom.php 
                     //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL        
 
@@ -1508,6 +1516,9 @@ if (isset($_POST)) {
                 $IDTDESPACHO = $_REQUEST['TDESPACHO'];
                 $INVENTARIOM->__SET('ID_INVENTARIO', $IDQUITAR);
                 $INVENTARIOM_ADO->actualizarDeselecionarDespachoCambiarEstado($INVENTARIOM);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,2,"".$_SESSION["NOMBRE_USUARIO"].", Se quitado el Inventario de materiales del despachos.","material_despachom", "NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 if ($IDTDESPACHO == "1") {
                     $ARRAYVALIDAREXISTENICA = $INVENTARIOM_ADO->buscarPorDespachoFolio($_REQUEST['IDP'], $IDFOLIO);
@@ -1526,7 +1537,7 @@ if (isset($_POST)) {
                     Swal.fire({
                         icon:"error",
                         title:"Accion realizada",
-                        text:"Se ha quitado la existencia del despacho.",
+                        text:"Se ha quitado la Inventario del despacho.",
                         showConfirmButton: true,
                         confirmButtonText:"Cerrar",
                         closeOnConfirm:false

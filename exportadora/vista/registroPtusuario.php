@@ -146,18 +146,173 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     //OPERACION DE CAMBIO DE ESTADO
     //0 = DESACTIVAR
     if ($OP == "0") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYPTUSUARIOID = $PTUSUARIO_ADO->verPtusuario($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
 
-        $PTUSUARIO->__SET('ID_PTUSUARIO', $IDOP);
-        $PTUSUARIO_ADO->deshabilitar($PTUSUARIO);
 
-        echo "<script type='text/javascript'> location.href ='registroPtusuario.php';</script>";
+        foreach ($ARRAYPTUSUARIOID as $r) :
+            
+            $FRUTA= "" . $r['FRUTA'];
+            $FAVISO= "" . $r['FAVISO'];
+            $FRABIERTO= "" . $r['FRABIERTO'];
+            $FGRANEL= "" . $r['FGRANEL'];
+            $FGRECEPCION= "" . $r['FGRECEPCION'];
+            $FGDESPACHO= "" . $r['FGDESPACHO'];
+            $FGGUIA= "" . $r['FGGUIA'];
+            $FPACKING= "" . $r['FPACKING'];
+            $FPPROCESO= "" . $r['FPPROCESO'];
+            $FPREEMBALEJE= "" . $r['FPREEMBALEJE'];
+            $FSAG= "" . $r['FSAG'];
+            $FSAGINSPECCION= "" . $r['FSAGINSPECCION'];
+            $FFRIGORIFICO= "" . $r['FFRIGORIFICO'];
+            $FFRECEPCION= "" . $r['FFRECEPCION'];
+            $FFRDESPACHO= "" . $r['FFRDESPACHO'];
+            $FFRGUIA= "" . $r['FFRGUIA'];
+            $FFRREPALETIZAJE= "" . $r['FFRREPALETIZAJE'];
+            $FFRPC= "" . $r['FFRPC'];
+            $FFRCFOLIO= "" . $r['FFRCFOLIO'];
+            $FCFRUTA= "" . $r['FCFRUTA'];
+            $FCFRECHAZO= "" . $r['FCFRECHAZO'];
+            $FCFLEVANTAMIENTO= "" . $r['FCFLEVANTAMIENTO'];
+            $FEXISTENCIA= "" . $r['FEXISTENCIA'];
+
+            $MATERIALES = "" . $r['MATERIALES'];
+            $MRABIERTO = "" . $r['MRABIERTO'];
+            $MMATERIALES = "" . $r['MMATERIALES'];
+            $MMRECEPION = "" . $r['MMRECEPION'];
+            $MMDEAPCHO = "" . $r['MMDEAPCHO'];
+            $MMGUIA = "" . $r['MMGUIA'];
+            $MENVASE = "" . $r['MENVASE'];
+            $MERECEPCION = "" . $r['MERECEPCION'];
+            $MEDESPACHO = "" . $r['MEDESPACHO'];
+            $MEGUIA = "" . $r['MEGUIA'];
+            $MADMINISTRACION = "" . $r['MADMINISTRACION'];
+            $MAOC = "" . $r['MAOC'];
+            $MAOCAR = "" . $r['MAOCAR'];
+            $MKARDEX = "" . $r['MKARDEX'];
+            $MKMATERIAL= "" . $r['MKMATERIAL'];
+            $MKENVASE= "" . $r['MKENVASE'];
+
+            $EXPORTADORA= "" . $r['EXPORTADORA'];          
+            $EMATERIALES= "" . $r['EMATERIALES'];
+            $EEXPORTACION= "" . $r['EEXPORTACION'];
+            $ELIQUIDACION= "" . $r['ELIQUIDACION'];
+            $EINFORMES= "" . $r['EINFORMES'];
+            
+            $ESTADISTICA= "" . $r['ESTADISTICA'];          
+            $ESTARVSP= "" . $r['ESTARVSP'];
+            $ESTASTOPMP= "" . $r['ESTASTOPMP'];
+            $ESTAINFORME= "" . $r['ESTAINFORME'];
+            $ESTAEXISTENCIA= "" . $r['ESTAEXISTENCIA'];
+            $ESTAPRODUCTOR= "" . $r['ESTAPRODUCTOR'];
+
+            $MANTENEDORES = "" . $r['MANTENEDORES'];
+            $MREGISTRO = "" . $r['MREGISTRO'];
+            $MEDITAR = "" . $r['MEDITAR'];
+            $MVER = "" . $r['MVER'];
+            $MAGRUPADO = "" . $r['MAGRUPADO'];
+            
+            $ADMINISTRADOR = "" . $r['ADMINISTRADOR'];
+            $ADUSUARIO = "" . $r['ADUSUARIO'];
+            $ADAPERTURA = "" . $r['ADAPERTURA'];
+            $ADAVISO = "" . $r['ADAVISO'];
+
+            $TUSUARIO = "" . $r['ID_TUSUARIO'];
+        endforeach;
+
     }
     //1 = ACTIVAR
     if ($OP == "1") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYPTUSUARIOID = $PTUSUARIO_ADO->verPtusuario($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
 
-        $PTUSUARIO->__SET('ID_PTUSUARIO', $IDOP);
-        $PTUSUARIO_ADO->habilitar($PTUSUARIO);
-        echo "<script type='text/javascript'> location.href ='registroPtusuario.php';</script>";
+
+        foreach ($ARRAYPTUSUARIOID as $r) :
+            
+            $FRUTA= "" . $r['FRUTA'];
+            $FAVISO= "" . $r['FAVISO'];
+            $FRABIERTO= "" . $r['FRABIERTO'];
+            $FGRANEL= "" . $r['FGRANEL'];
+            $FGRECEPCION= "" . $r['FGRECEPCION'];
+            $FGDESPACHO= "" . $r['FGDESPACHO'];
+            $FGGUIA= "" . $r['FGGUIA'];
+            $FPACKING= "" . $r['FPACKING'];
+            $FPPROCESO= "" . $r['FPPROCESO'];
+            $FPREEMBALEJE= "" . $r['FPREEMBALEJE'];
+            $FSAG= "" . $r['FSAG'];
+            $FSAGINSPECCION= "" . $r['FSAGINSPECCION'];
+            $FFRIGORIFICO= "" . $r['FFRIGORIFICO'];
+            $FFRECEPCION= "" . $r['FFRECEPCION'];
+            $FFRDESPACHO= "" . $r['FFRDESPACHO'];
+            $FFRGUIA= "" . $r['FFRGUIA'];
+            $FFRREPALETIZAJE= "" . $r['FFRREPALETIZAJE'];
+            $FFRPC= "" . $r['FFRPC'];
+            $FFRCFOLIO= "" . $r['FFRCFOLIO'];
+            $FCFRUTA= "" . $r['FCFRUTA'];
+            $FCFRECHAZO= "" . $r['FCFRECHAZO'];
+            $FCFLEVANTAMIENTO= "" . $r['FCFLEVANTAMIENTO'];
+            $FEXISTENCIA= "" . $r['FEXISTENCIA'];
+
+            $MATERIALES = "" . $r['MATERIALES'];
+            $MRABIERTO = "" . $r['MRABIERTO'];
+            $MMATERIALES = "" . $r['MMATERIALES'];
+            $MMRECEPION = "" . $r['MMRECEPION'];
+            $MMDEAPCHO = "" . $r['MMDEAPCHO'];
+            $MMGUIA = "" . $r['MMGUIA'];
+            $MENVASE = "" . $r['MENVASE'];
+            $MERECEPCION = "" . $r['MERECEPCION'];
+            $MEDESPACHO = "" . $r['MEDESPACHO'];
+            $MEGUIA = "" . $r['MEGUIA'];
+            $MADMINISTRACION = "" . $r['MADMINISTRACION'];
+            $MAOC = "" . $r['MAOC'];
+            $MAOCAR = "" . $r['MAOCAR'];
+            $MKARDEX = "" . $r['MKARDEX'];
+            $MKMATERIAL= "" . $r['MKMATERIAL'];
+            $MKENVASE= "" . $r['MKENVASE'];
+
+            $EXPORTADORA= "" . $r['EXPORTADORA'];          
+            $EMATERIALES= "" . $r['EMATERIALES'];
+            $EEXPORTACION= "" . $r['EEXPORTACION'];
+            $ELIQUIDACION= "" . $r['ELIQUIDACION'];
+            $EINFORMES= "" . $r['EINFORMES'];
+            
+            $ESTADISTICA= "" . $r['ESTADISTICA'];          
+            $ESTARVSP= "" . $r['ESTARVSP'];
+            $ESTASTOPMP= "" . $r['ESTASTOPMP'];
+            $ESTAINFORME= "" . $r['ESTAINFORME'];
+            $ESTAEXISTENCIA= "" . $r['ESTAEXISTENCIA'];
+            $ESTAPRODUCTOR= "" . $r['ESTAPRODUCTOR'];
+
+            $MANTENEDORES = "" . $r['MANTENEDORES'];
+            $MREGISTRO = "" . $r['MREGISTRO'];
+            $MEDITAR = "" . $r['MEDITAR'];
+            $MVER = "" . $r['MVER'];
+            $MAGRUPADO = "" . $r['MAGRUPADO'];
+            
+            $ADMINISTRADOR = "" . $r['ADMINISTRADOR'];
+            $ADUSUARIO = "" . $r['ADUSUARIO'];
+            $ADAPERTURA = "" . $r['ADAPERTURA'];
+            $ADAVISO = "" . $r['ADAVISO'];
+
+            $TUSUARIO = "" . $r['ID_TUSUARIO'];
+        endforeach;
+
     }
     //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
     if ($OP == "editar") {
@@ -1474,22 +1629,30 @@ if (isset($_POST)) {
                                         </fieldset>
                                     </div>
                                     <!-- /.box-body -->
-                                        <div class="box-footer">
-                                            <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
-                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroPtusuario.php');">
+                                    <div class="box-footer">
+                                        <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
+                                            <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroPtusuario.php');">
                                                 <i class="ti-trash"></i>Cancelar
+                                            </button>
+                                            <?php if ($OP == "editar") { ?>
+                                                <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Guardar
                                                 </button>
-                                                <?php if ($OP != "editar") { ?>
-                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
-                                                        <i class="ti-save-alt"></i> Guardar
-                                                    </button>
-                                                <?php } else { ?>
-                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
-                                                        <i class="ti-save-alt"></i> Guardar
-                                                    </button>
-                                                <?php } ?>
-                                            </div>
+                                            <?php } else if($OP == "0") { ?>
+                                                <button type="submit" class="btn btn-danger" name="ELIMINAR" value="ELIMINAR"  data-toggle="tooltip" title="Deshabilitar"  >
+                                                    <i class="ti-save-alt"></i> Deshabilitar
+                                                </button>
+                                            <?php } else if($OP == "1"){ ?>                                                    
+                                                <button type="submit" class="btn btn-success" name="HABILITAR" value="HABILITAR"  data-toggle="tooltip" title="Habilitar"  >
+                                                    <i class="ti-save-alt"></i> Habilitar
+                                                </button>
+                                            <?php } else { ?>
+                                                <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Guardar
+                                                </button>
+                                            <?php } ?>
                                         </div>
+                                    </div>
                                 </form>
                             </div>
                             <!-- /.box -->
@@ -1548,9 +1711,9 @@ if (isset($_POST)) {
                                                                                     </button>
                                                                                 </span>
                                                                                 <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
-                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Desahabilitar">
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Deshabilitar">
                                                                                         <button type="submit" class="btn btn-block btn-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
-                                                                                            <i class="ti-na "></i> Desahabilitar
+                                                                                            <i class="ti-na "></i> Deshabilitar
                                                                                         </button>
                                                                                     </span>                                                                                
                                                                                 <?php } ?>
@@ -1673,7 +1836,10 @@ if (isset($_POST)) {
                     $PTUSUARIO->__SET('ID_USUARIOM', $IDUSUARIOS); 
                     $PTUSUARIO->__SET('ID_TUSUARIO', $_REQUEST['TUSUARIO']); 
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                   $PTUSUARIO_ADO->agregarPtusuario($PTUSUARIO);
+                    $PTUSUARIO_ADO->agregarPtusuario($PTUSUARIO);
+                   
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",3,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Privilegio.","usuario_ptusuario","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );           
+                   
 
                     //REDIRECCIONAR A PAGINA registroPtusuario.php                    
                     echo '<script>
@@ -1758,6 +1924,8 @@ if (isset($_POST)) {
                 //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
                 $PTUSUARIO_ADO->actualizarPtusuario($PTUSUARIO);
                 
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Privilegio.","usuario_ptusuario", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );     
+
                 //REDIRECCIONAR A PAGINA registroPtusuario.php                              
                 echo '<script>
                     Swal.fire({
@@ -1771,6 +1939,51 @@ if (isset($_POST)) {
                         location.href = "registroPtusuario.php";                            
                     })
                     </script>';
+            }
+            
+            
+            if (isset($_REQUEST['ELIMINAR'])) {
+
+                
+
+                $PTUSUARIO->__SET('ID_PTUSUARIO', $_REQUEST['ID']);
+                $PTUSUARIO_ADO->deshabilitar($PTUSUARIO);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar  Privilegio.","usuario_ptusuario", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );                
+                
+                echo '<script>
+                    Swal.fire({
+                        icon:"error",
+                        title:"Registro Modificado",
+                        text:"El registro de Privilegio se ha Deshabilitado correctamente", 
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroPtusuario.php";                            
+                    })
+                </script>';
+            }
+            
+            if (isset($_REQUEST['HABILITAR'])) {
+
+                $PTUSUARIO->__SET('ID_PTUSUARIO', $_REQUEST['ID']);
+                $PTUSUARIO_ADO->habilitar($PTUSUARIO);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,5,"".$_SESSION["NOMBRE_USUARIO"].", Habilitar Privilegio.","usuario_ptusuario", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );                               
+
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Modificado",
+                        text:"El registro de Privilegio se ha Habilitado correctamente", 
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroPtusuario.php";                            
+                    })
+                </script>';
             }
     
     ?>

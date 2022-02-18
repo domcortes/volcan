@@ -70,6 +70,9 @@ if (isset($_REQUEST['GUARDAR'])) {
     $NAVIERA->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
     $NAVIERA_ADO->agregarNaviera($NAVIERA);
+
+    $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].",Pop, Registro de Naviera.","transporte_naviera","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
     //REDIRECCIONAR A PAGINA registroNaviera.php
     echo "
         <script type='text/javascript'>
@@ -170,7 +173,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                     document.form_reg_dato.DIRRECIONNAVIERA.style.borderColor = "#4AF575";
 
                     /*
-           
+                
 
                     if (CONTACTONAVIERA == null || CONTACTONAVIERA.length == 0 || /^\s+$/.test(CONTACTONAVIERA)) {
                         document.form_reg_dato.CONTACTONAVIERA.focus();

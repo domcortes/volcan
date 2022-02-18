@@ -70,6 +70,9 @@ if (isset($_REQUEST['GUARDAR'])) {
     $NAVIERA->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
     $NAVIERA_ADO->agregarNaviera($NAVIERA);
+
+    $AUSUARIO_ADO->agregarAusuario2("NULL",3,1,"".$_SESSION["NOMBRE_USUARIO"].",Pop, Registro de Naviera.","transporte_naviera","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
     //REDIRECCIONAR A PAGINA registroNaviera.php
     echo "
         <script type='text/javascript'>

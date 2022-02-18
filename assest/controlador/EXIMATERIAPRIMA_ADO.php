@@ -305,16 +305,38 @@ class EXIMATERIAPRIMA_ADO
     }
 
 
-    public function agregarEximateriaprimaProceso(EXIMATERIAPRIMA $EXIMATERIAPRIMA)
+    
+    public function agregarEximateriaprimaProcesoNuevo(EXIMATERIAPRIMA $EXIMATERIAPRIMA)
     {
-        try {
-
+        try {       
+            
 
             if ($EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO1') == NULL) {
                 $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO1', NULL);
             }
             if ($EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO2') == NULL) {
                 $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO2', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_DESPACHO2') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_DESPACHO2', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_DESPACHO3') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_DESPACHO3', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_PROCESO2') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_PROCESO2', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_RECHAZADO') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_RECHAZADO', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_LEVANTAMIENTO') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_LEVANTAMIENTO', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_LEVANTAMIENTO') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_LEVANTAMIENTO', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_PLANTA3') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_PLANTA3', NULL);
             }
             $query =
                 "INSERT INTO fruta_eximateriaprima ( 
@@ -324,133 +346,53 @@ class EXIMATERIAPRIMA_ADO
                                                            FOLIO_AUXILIAR_EXIMATERIAPRIMA,
                                                            FOLIO_MANUAL,
                                                            FECHA_COSECHA_EXIMATERIAPRIMA,
-                                                           CANTIDAD_ENVASE_EXIMATERIAPRIMA,
 
+
+                                                           CANTIDAD_ENVASE_EXIMATERIAPRIMA,
                                                            KILOS_NETO_EXIMATERIAPRIMA,
                                                            KILOS_BRUTO_EXIMATERIAPRIMA,
                                                            KILOS_PROMEDIO_EXIMATERIAPRIMA,
                                                            PESO_PALLET_EXIMATERIAPRIMA,
-                                                           ALIAS_DINAMICO_FOLIO_EXIMATERIAPRIMA,
 
+                                                           ALIAS_DINAMICO_FOLIO_EXIMATERIAPRIMA,
                                                            ALIAS_ESTATICO_FOLIO_EXIMATERIAPRIMA,
                                                            GASIFICADO,
+                                                           COLOR,
+                                                           
+                                                           FECHA_RECEPCION,
                                                            INGRESO,
+
                                                            ID_TMANEJO,
                                                            ID_FOLIO,
-                                                           ID_TTRATAMIENTO1,
-                                                           ID_TTRATAMIENTO2,
-                                                           
                                                            ID_ESTANDAR,
                                                            ID_PRODUCTOR,
                                                            ID_VESPECIES,
-
-                                                           ID_RECEPCION,
-                                                           ID_DESPACHO2,
 
                                                            ID_EMPRESA, 
                                                            ID_PLANTA, 
                                                            ID_TEMPORADA,
-
-                                                           MODIFICACION,
-                                                           ESTADO,  
-                                                           ESTADO_REGISTRO
-                                                   ) VALUES
-              ( ?, ?, ?, ?, ?,     ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?, ?, ?,     ?, ?, ?,  ?, ?,   ?, ?, ?, SYSDATE(), 2, 1);";
-            $this->conexion->prepare($query)
-                ->execute(
-                    array(
-
-                        $EXIMATERIAPRIMA->__GET('FOLIO_EXIMATERIAPRIMA'),
-                        $EXIMATERIAPRIMA->__GET('FOLIO_AUXILIAR_EXIMATERIAPRIMA'),
-                        $EXIMATERIAPRIMA->__GET('FOLIO_MANUAL'),
-                        $EXIMATERIAPRIMA->__GET('FECHA_COSECHA_EXIMATERIAPRIMA'),
-                        $EXIMATERIAPRIMA->__GET('CANTIDAD_ENVASE_EXIMATERIAPRIMA'),
-
-                        $EXIMATERIAPRIMA->__GET('KILOS_NETO_EXIMATERIAPRIMA'),
-                        $EXIMATERIAPRIMA->__GET('KILOS_BRUTO_EXIMATERIAPRIMA'),
-                        $EXIMATERIAPRIMA->__GET('KILOS_PROMEDIO_EXIMATERIAPRIMA'),
-                        $EXIMATERIAPRIMA->__GET('PESO_PALLET_EXIMATERIAPRIMA'),
-                        $EXIMATERIAPRIMA->__GET('ALIAS_DINAMICO_FOLIO_EXIMATERIAPRIMA'),
-
-                        $EXIMATERIAPRIMA->__GET('ALIAS_ESTATICO_FOLIO_EXIMATERIAPRIMA'),
-                        $EXIMATERIAPRIMA->__GET('GASIFICADO'),
-                        $EXIMATERIAPRIMA->__GET('INGRESO'),
-                        $EXIMATERIAPRIMA->__GET('ID_TMANEJO'),
-                        $EXIMATERIAPRIMA->__GET('ID_FOLIO'),
-                        $EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO1'),
-                        $EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO2'),
-
-                        $EXIMATERIAPRIMA->__GET('ID_ESTANDAR'),
-                        $EXIMATERIAPRIMA->__GET('ID_PRODUCTOR'),
-                        $EXIMATERIAPRIMA->__GET('ID_VESPECIES'),
-
-                        $EXIMATERIAPRIMA->__GET('ID_RECEPCION'),
-                        $EXIMATERIAPRIMA->__GET('ID_DESPACHO2'),
-
-                        $EXIMATERIAPRIMA->__GET('ID_EMPRESA'),
-                        $EXIMATERIAPRIMA->__GET('ID_PLANTA'),
-                        $EXIMATERIAPRIMA->__GET('ID_TEMPORADA')
-
-                    )
-
-                );
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
-
-    public function agregarEximateriaprimaDespacho(EXIMATERIAPRIMA $EXIMATERIAPRIMA)
-    {
-        try {
-
-
-            if ($EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO1') == NULL) {
-                $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO1', NULL);
-            }
-            if ($EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO2') == NULL) {
-                $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO2', NULL);
-            }
-            $query =
-                "INSERT INTO fruta_eximateriaprima ( 
-
-
-                                                           FOLIO_EXIMATERIAPRIMA,
-                                                           FOLIO_AUXILIAR_EXIMATERIAPRIMA,
-                                                           FOLIO_MANUAL,
-                                                           FECHA_COSECHA_EXIMATERIAPRIMA,
-                                                           CANTIDAD_ENVASE_EXIMATERIAPRIMA,
-
-                                                           KILOS_NETO_EXIMATERIAPRIMA,
-                                                           KILOS_BRUTO_EXIMATERIAPRIMA,
-                                                           KILOS_PROMEDIO_EXIMATERIAPRIMA,
-                                                           PESO_PALLET_EXIMATERIAPRIMA,
-                                                           ALIAS_DINAMICO_FOLIO_EXIMATERIAPRIMA,
-
-                                                           ALIAS_ESTATICO_FOLIO_EXIMATERIAPRIMA,
-                                                           GASIFICADO,
-                                                           INGRESO,
-                                                           ID_TMANEJO,
-                                                           ID_FOLIO,
-                                                           ID_TTRATAMIENTO1,
-                                                           ID_TTRATAMIENTO2,
                                                            
-                                                           ID_ESTANDAR,
-                                                           ID_PRODUCTOR,
-                                                           ID_VESPECIES,
+                                                           ID_TTRATAMIENTO1,
+                                                           ID_TTRATAMIENTO2,                                                           
 
                                                            ID_RECEPCION,
+                                                           ID_PROCESO,
                                                            ID_DESPACHO2,
+                                                           ID_DESPACHO3,
+                                                           ID_PROCESO2,
+                                                           
+                                                           ID_RECHAZADO,
+                                                           ID_LEVANTAMIENTO,
                                                            ID_PLANTA2,
-
-                                                           ID_EMPRESA, 
-                                                           ID_PLANTA, 
-                                                           ID_TEMPORADA,
-
+                                                           ID_PLANTA3,
+                                                           ID_EXIMATERIAPRIMA2,
+                                                           
                                                            MODIFICACION,
                                                            ESTADO,  
                                                            ESTADO_REGISTRO
+
                                                    ) VALUES
-              ( ?, ?, ?, ?, ?,     ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,  ?, ?,    ?, ?, ?,   ?, ?, ?,   ?, ?, ?, SYSDATE(), 2, 1);";
+              ( ?, ?, ?, ?,    ?, ?, ?, ?, ?,  ?, ?, ?, ?,   ?, ?,    ?, ?, ?, ?, ?,  ?, ?, ?,   ?, ?,   ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,    SYSDATE(), 7, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -459,33 +401,47 @@ class EXIMATERIAPRIMA_ADO
                         $EXIMATERIAPRIMA->__GET('FOLIO_AUXILIAR_EXIMATERIAPRIMA'),
                         $EXIMATERIAPRIMA->__GET('FOLIO_MANUAL'),
                         $EXIMATERIAPRIMA->__GET('FECHA_COSECHA_EXIMATERIAPRIMA'),
-                        $EXIMATERIAPRIMA->__GET('CANTIDAD_ENVASE_EXIMATERIAPRIMA'),
 
+
+                        $EXIMATERIAPRIMA->__GET('CANTIDAD_ENVASE_EXIMATERIAPRIMA'),
                         $EXIMATERIAPRIMA->__GET('KILOS_NETO_EXIMATERIAPRIMA'),
                         $EXIMATERIAPRIMA->__GET('KILOS_BRUTO_EXIMATERIAPRIMA'),
                         $EXIMATERIAPRIMA->__GET('KILOS_PROMEDIO_EXIMATERIAPRIMA'),
                         $EXIMATERIAPRIMA->__GET('PESO_PALLET_EXIMATERIAPRIMA'),
-                        $EXIMATERIAPRIMA->__GET('ALIAS_DINAMICO_FOLIO_EXIMATERIAPRIMA'),
 
+                        $EXIMATERIAPRIMA->__GET('ALIAS_DINAMICO_FOLIO_EXIMATERIAPRIMA'),
                         $EXIMATERIAPRIMA->__GET('ALIAS_ESTATICO_FOLIO_EXIMATERIAPRIMA'),
                         $EXIMATERIAPRIMA->__GET('GASIFICADO'),
+                        $EXIMATERIAPRIMA->__GET('COLOR'),
+
+                        $EXIMATERIAPRIMA->__GET('FECHA_RECEPCION'),
                         $EXIMATERIAPRIMA->__GET('INGRESO'),
+
                         $EXIMATERIAPRIMA->__GET('ID_TMANEJO'),
                         $EXIMATERIAPRIMA->__GET('ID_FOLIO'),
-                        $EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO1'),
-                        $EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO2'),
-
                         $EXIMATERIAPRIMA->__GET('ID_ESTANDAR'),
                         $EXIMATERIAPRIMA->__GET('ID_PRODUCTOR'),
                         $EXIMATERIAPRIMA->__GET('ID_VESPECIES'),
 
-                        $EXIMATERIAPRIMA->__GET('ID_RECEPCION'),
-                        $EXIMATERIAPRIMA->__GET('ID_DESPACHO2'),
-                        $EXIMATERIAPRIMA->__GET('ID_PLANTA2'),
-
                         $EXIMATERIAPRIMA->__GET('ID_EMPRESA'),
                         $EXIMATERIAPRIMA->__GET('ID_PLANTA'),
-                        $EXIMATERIAPRIMA->__GET('ID_TEMPORADA')
+                        $EXIMATERIAPRIMA->__GET('ID_TEMPORADA'),
+
+                        $EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO1'),
+                        $EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO2'),
+
+                        $EXIMATERIAPRIMA->__GET('ID_RECEPCION'),
+                        $EXIMATERIAPRIMA->__GET('ID_PROCESO'),
+                        $EXIMATERIAPRIMA->__GET('ID_DESPACHO2'),
+                        $EXIMATERIAPRIMA->__GET('ID_DESPACHO3'),
+                        $EXIMATERIAPRIMA->__GET('ID_PROCESO2'),
+              
+                        $EXIMATERIAPRIMA->__GET('ID_RECHAZADO'),
+                        $EXIMATERIAPRIMA->__GET('ID_LEVANTAMIENTO'),
+                        $EXIMATERIAPRIMA->__GET('ID_PLANTA2'),
+                        $EXIMATERIAPRIMA->__GET('ID_PLANTA3'),
+                        $EXIMATERIAPRIMA->__GET('ID_EXIMATERIAPRIMA2')
+
 
                     )
 
@@ -494,6 +450,433 @@ class EXIMATERIAPRIMA_ADO
             die($e->getMessage());
         }
     }
+
+    public function agregarEximateriaprimaProcesoResto(EXIMATERIAPRIMA $EXIMATERIAPRIMA)
+    {
+        try {       
+            
+
+            if ($EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO1') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO1', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO2') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO2', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_DESPACHO2') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_DESPACHO2', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_DESPACHO3') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_DESPACHO3', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_PROCESO2') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_PROCESO2', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_RECHAZADO') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_RECHAZADO', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_LEVANTAMIENTO') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_LEVANTAMIENTO', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_LEVANTAMIENTO') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_LEVANTAMIENTO', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_PLANTA3') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_PLANTA3', NULL);
+            }
+            $query =
+                "INSERT INTO fruta_eximateriaprima ( 
+
+
+                                                           FOLIO_EXIMATERIAPRIMA,
+                                                           FOLIO_AUXILIAR_EXIMATERIAPRIMA,
+                                                           FOLIO_MANUAL,
+                                                           FECHA_COSECHA_EXIMATERIAPRIMA,
+
+
+                                                           CANTIDAD_ENVASE_EXIMATERIAPRIMA,
+                                                           KILOS_NETO_EXIMATERIAPRIMA,
+                                                           KILOS_BRUTO_EXIMATERIAPRIMA,
+                                                           KILOS_PROMEDIO_EXIMATERIAPRIMA,
+                                                           PESO_PALLET_EXIMATERIAPRIMA,
+
+                                                           ALIAS_DINAMICO_FOLIO_EXIMATERIAPRIMA,
+                                                           ALIAS_ESTATICO_FOLIO_EXIMATERIAPRIMA,
+                                                           GASIFICADO,
+                                                           COLOR,
+                                                           
+                                                           FECHA_RECEPCION,
+                                                           INGRESO,
+
+                                                           ID_TMANEJO,
+                                                           ID_FOLIO,
+                                                           ID_ESTANDAR,
+                                                           ID_PRODUCTOR,
+                                                           ID_VESPECIES,
+
+                                                           ID_EMPRESA, 
+                                                           ID_PLANTA, 
+                                                           ID_TEMPORADA,
+                                                           
+                                                           ID_TTRATAMIENTO1,
+                                                           ID_TTRATAMIENTO2,                                                           
+
+                                                           ID_RECEPCION,
+                                                           ID_DESPACHO2,
+                                                           ID_DESPACHO3,
+                                                           ID_PROCESO2,
+                                                           
+                                                           ID_RECHAZADO,
+                                                           ID_LEVANTAMIENTO,
+                                                           ID_PLANTA2,
+                                                           ID_PLANTA3,
+                                                           ID_EXIMATERIAPRIMA2,
+                                                           
+                                                           MODIFICACION,
+                                                           ESTADO,  
+                                                           ESTADO_REGISTRO
+
+                                                   ) VALUES
+              ( ?, ?, ?, ?,    ?, ?, ?, ?, ?,  ?, ?, ?, ?,   ?, ?,    ?, ?, ?, ?, ?,  ?, ?, ?,   ?, ?,   ?, ?, ?, ?,     ?, ?, ?, ?, ?,    SYSDATE(), 7, 1);";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+
+                        $EXIMATERIAPRIMA->__GET('FOLIO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('FOLIO_AUXILIAR_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('FOLIO_MANUAL'),
+                        $EXIMATERIAPRIMA->__GET('FECHA_COSECHA_EXIMATERIAPRIMA'),
+
+
+                        $EXIMATERIAPRIMA->__GET('CANTIDAD_ENVASE_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('KILOS_NETO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('KILOS_BRUTO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('KILOS_PROMEDIO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('PESO_PALLET_EXIMATERIAPRIMA'),
+
+                        $EXIMATERIAPRIMA->__GET('ALIAS_DINAMICO_FOLIO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('ALIAS_ESTATICO_FOLIO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('GASIFICADO'),
+                        $EXIMATERIAPRIMA->__GET('COLOR'),
+
+                        $EXIMATERIAPRIMA->__GET('FECHA_RECEPCION'),
+                        $EXIMATERIAPRIMA->__GET('INGRESO'),
+
+                        $EXIMATERIAPRIMA->__GET('ID_TMANEJO'),
+                        $EXIMATERIAPRIMA->__GET('ID_FOLIO'),
+                        $EXIMATERIAPRIMA->__GET('ID_ESTANDAR'),
+                        $EXIMATERIAPRIMA->__GET('ID_PRODUCTOR'),
+                        $EXIMATERIAPRIMA->__GET('ID_VESPECIES'),
+
+                        $EXIMATERIAPRIMA->__GET('ID_EMPRESA'),
+                        $EXIMATERIAPRIMA->__GET('ID_PLANTA'),
+                        $EXIMATERIAPRIMA->__GET('ID_TEMPORADA'),
+
+                        $EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO1'),
+                        $EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO2'),
+
+                        $EXIMATERIAPRIMA->__GET('ID_RECEPCION'),
+                        $EXIMATERIAPRIMA->__GET('ID_DESPACHO2'),
+                        $EXIMATERIAPRIMA->__GET('ID_DESPACHO3'),
+                        $EXIMATERIAPRIMA->__GET('ID_PROCESO2'),
+              
+                        $EXIMATERIAPRIMA->__GET('ID_RECHAZADO'),
+                        $EXIMATERIAPRIMA->__GET('ID_LEVANTAMIENTO'),
+                        $EXIMATERIAPRIMA->__GET('ID_PLANTA2'),
+                        $EXIMATERIAPRIMA->__GET('ID_PLANTA3'),
+                        $EXIMATERIAPRIMA->__GET('ID_EXIMATERIAPRIMA2')
+
+
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function agregarEximateriaprimaDespachoNuevo(EXIMATERIAPRIMA $EXIMATERIAPRIMA)
+    {
+        try {       
+            
+
+            if ($EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO1') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO1', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO2') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO2', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_DESPACHO2') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_DESPACHO2', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_PROCESO2') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_PROCESO2', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_RECHAZADO') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_RECHAZADO', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_LEVANTAMIENTO') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_LEVANTAMIENTO', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_LEVANTAMIENTO') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_LEVANTAMIENTO', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_PLANTA3') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_PLANTA3', NULL);
+            }
+            $query =
+                "INSERT INTO fruta_eximateriaprima ( 
+
+
+                                                           FOLIO_EXIMATERIAPRIMA,
+                                                           FOLIO_AUXILIAR_EXIMATERIAPRIMA,
+                                                           FOLIO_MANUAL,
+                                                           FECHA_COSECHA_EXIMATERIAPRIMA,
+
+
+                                                           CANTIDAD_ENVASE_EXIMATERIAPRIMA,
+                                                           KILOS_NETO_EXIMATERIAPRIMA,
+                                                           KILOS_BRUTO_EXIMATERIAPRIMA,
+                                                           KILOS_PROMEDIO_EXIMATERIAPRIMA,
+                                                           PESO_PALLET_EXIMATERIAPRIMA,
+
+                                                           ALIAS_DINAMICO_FOLIO_EXIMATERIAPRIMA,
+                                                           ALIAS_ESTATICO_FOLIO_EXIMATERIAPRIMA,
+                                                           GASIFICADO,
+                                                           COLOR,
+                                                           
+                                                           FECHA_RECEPCION,
+                                                           INGRESO,
+
+                                                           ID_TMANEJO,
+                                                           ID_FOLIO,
+                                                           ID_ESTANDAR,
+                                                           ID_PRODUCTOR,
+                                                           ID_VESPECIES,
+
+                                                           ID_EMPRESA, 
+                                                           ID_PLANTA, 
+                                                           ID_TEMPORADA,
+                                                           
+                                                           ID_TTRATAMIENTO1,
+                                                           ID_TTRATAMIENTO2,                                                           
+
+                                                           ID_RECEPCION,
+                                                           ID_DESPACHO,
+                                                           ID_DESPACHO2,
+                                                           ID_PROCESO2,
+                                                           
+                                                           ID_RECHAZADO,
+                                                           ID_LEVANTAMIENTO,
+                                                           ID_PLANTA2,
+                                                           ID_PLANTA3,
+                                                           ID_EXIMATERIAPRIMA2,
+                                                           
+                                                           MODIFICACION,
+                                                           ESTADO,  
+                                                           ESTADO_REGISTRO
+
+                                                   ) VALUES
+              ( ?, ?, ?, ?,    ?, ?, ?, ?, ?,  ?, ?, ?, ?,   ?, ?,    ?, ?, ?, ?, ?,  ?, ?, ?,   ?, ?,   ?, ?, ?, ?,    ?, ?, ?, ?, ?,    SYSDATE(), 7, 1);";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+
+                        $EXIMATERIAPRIMA->__GET('FOLIO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('FOLIO_AUXILIAR_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('FOLIO_MANUAL'),
+                        $EXIMATERIAPRIMA->__GET('FECHA_COSECHA_EXIMATERIAPRIMA'),
+
+
+                        $EXIMATERIAPRIMA->__GET('CANTIDAD_ENVASE_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('KILOS_NETO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('KILOS_BRUTO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('KILOS_PROMEDIO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('PESO_PALLET_EXIMATERIAPRIMA'),
+
+                        $EXIMATERIAPRIMA->__GET('ALIAS_DINAMICO_FOLIO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('ALIAS_ESTATICO_FOLIO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('GASIFICADO'),
+                        $EXIMATERIAPRIMA->__GET('COLOR'),
+
+                        $EXIMATERIAPRIMA->__GET('FECHA_RECEPCION'),
+                        $EXIMATERIAPRIMA->__GET('INGRESO'),
+
+                        $EXIMATERIAPRIMA->__GET('ID_TMANEJO'),
+                        $EXIMATERIAPRIMA->__GET('ID_FOLIO'),
+                        $EXIMATERIAPRIMA->__GET('ID_ESTANDAR'),
+                        $EXIMATERIAPRIMA->__GET('ID_PRODUCTOR'),
+                        $EXIMATERIAPRIMA->__GET('ID_VESPECIES'),
+
+                        $EXIMATERIAPRIMA->__GET('ID_EMPRESA'),
+                        $EXIMATERIAPRIMA->__GET('ID_PLANTA'),
+                        $EXIMATERIAPRIMA->__GET('ID_TEMPORADA'),
+
+                        $EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO1'),
+                        $EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO2'),
+
+                        $EXIMATERIAPRIMA->__GET('ID_RECEPCION'),
+                        $EXIMATERIAPRIMA->__GET('ID_DESPACHO'),
+                        $EXIMATERIAPRIMA->__GET('ID_DESPACHO2'),
+                        $EXIMATERIAPRIMA->__GET('ID_PROCESO2'),
+              
+                        $EXIMATERIAPRIMA->__GET('ID_RECHAZADO'),
+                        $EXIMATERIAPRIMA->__GET('ID_LEVANTAMIENTO'),
+                        $EXIMATERIAPRIMA->__GET('ID_PLANTA2'),
+                        $EXIMATERIAPRIMA->__GET('ID_PLANTA3'),
+                        $EXIMATERIAPRIMA->__GET('ID_EXIMATERIAPRIMA2')
+
+
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
+    public function agregarEximateriaprimaDespachoResto(EXIMATERIAPRIMA $EXIMATERIAPRIMA)
+    {
+        try {       
+            
+
+            if ($EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO1') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO1', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO2') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO2', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_DESPACHO2') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_DESPACHO2', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_PROCESO2') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_PROCESO2', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_RECHAZADO') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_RECHAZADO', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_LEVANTAMIENTO') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_LEVANTAMIENTO', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_LEVANTAMIENTO') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_LEVANTAMIENTO', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_PLANTA3') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_PLANTA3', NULL);
+            }
+            $query =
+                "INSERT INTO fruta_eximateriaprima ( 
+
+
+                                                           FOLIO_EXIMATERIAPRIMA,
+                                                           FOLIO_AUXILIAR_EXIMATERIAPRIMA,
+                                                           FOLIO_MANUAL,
+                                                           FECHA_COSECHA_EXIMATERIAPRIMA,
+
+
+                                                           CANTIDAD_ENVASE_EXIMATERIAPRIMA,
+                                                           KILOS_NETO_EXIMATERIAPRIMA,
+                                                           KILOS_BRUTO_EXIMATERIAPRIMA,
+                                                           KILOS_PROMEDIO_EXIMATERIAPRIMA,
+                                                           PESO_PALLET_EXIMATERIAPRIMA,
+
+                                                           ALIAS_DINAMICO_FOLIO_EXIMATERIAPRIMA,
+                                                           ALIAS_ESTATICO_FOLIO_EXIMATERIAPRIMA,
+                                                           GASIFICADO,
+                                                           COLOR,
+                                                           
+                                                           FECHA_RECEPCION,
+                                                           INGRESO,
+
+                                                           ID_TMANEJO,
+                                                           ID_FOLIO,
+                                                           ID_ESTANDAR,
+                                                           ID_PRODUCTOR,
+                                                           ID_VESPECIES,
+
+                                                           ID_EMPRESA, 
+                                                           ID_PLANTA, 
+                                                           ID_TEMPORADA,
+                                                           
+                                                           ID_TTRATAMIENTO1,
+                                                           ID_TTRATAMIENTO2,                                                           
+
+                                                           ID_RECEPCION,
+                                                           ID_DESPACHO2,
+                                                           ID_DESPACHO3,
+                                                           ID_PROCESO2,
+                                                           
+                                                           ID_RECHAZADO,
+                                                           ID_LEVANTAMIENTO,
+                                                           ID_PLANTA2,
+                                                           ID_PLANTA3,
+                                                           ID_EXIMATERIAPRIMA2,
+                                                           
+                                                           MODIFICACION,
+                                                           ESTADO,  
+                                                           ESTADO_REGISTRO
+
+                                                   ) VALUES
+              ( ?, ?, ?, ?,    ?, ?, ?, ?, ?,  ?, ?, ?, ?,   ?, ?,    ?, ?, ?, ?, ?,  ?, ?, ?,   ?, ?,   ?, ?, ?, ?,    ?, ?, ?, ?, ?,    SYSDATE(), 2, 1);";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+
+                        $EXIMATERIAPRIMA->__GET('FOLIO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('FOLIO_AUXILIAR_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('FOLIO_MANUAL'),
+                        $EXIMATERIAPRIMA->__GET('FECHA_COSECHA_EXIMATERIAPRIMA'),
+
+
+                        $EXIMATERIAPRIMA->__GET('CANTIDAD_ENVASE_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('KILOS_NETO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('KILOS_BRUTO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('KILOS_PROMEDIO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('PESO_PALLET_EXIMATERIAPRIMA'),
+
+                        $EXIMATERIAPRIMA->__GET('ALIAS_DINAMICO_FOLIO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('ALIAS_ESTATICO_FOLIO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('GASIFICADO'),
+                        $EXIMATERIAPRIMA->__GET('COLOR'),
+
+                        $EXIMATERIAPRIMA->__GET('FECHA_RECEPCION'),
+                        $EXIMATERIAPRIMA->__GET('INGRESO'),
+
+                        $EXIMATERIAPRIMA->__GET('ID_TMANEJO'),
+                        $EXIMATERIAPRIMA->__GET('ID_FOLIO'),
+                        $EXIMATERIAPRIMA->__GET('ID_ESTANDAR'),
+                        $EXIMATERIAPRIMA->__GET('ID_PRODUCTOR'),
+                        $EXIMATERIAPRIMA->__GET('ID_VESPECIES'),
+
+                        $EXIMATERIAPRIMA->__GET('ID_EMPRESA'),
+                        $EXIMATERIAPRIMA->__GET('ID_PLANTA'),
+                        $EXIMATERIAPRIMA->__GET('ID_TEMPORADA'),
+
+                        $EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO1'),
+                        $EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO2'),
+
+                        $EXIMATERIAPRIMA->__GET('ID_RECEPCION'),
+                        $EXIMATERIAPRIMA->__GET('ID_DESPACHO2'),
+                        $EXIMATERIAPRIMA->__GET('ID_DESPACHO3'),
+                        $EXIMATERIAPRIMA->__GET('ID_PROCESO2'),
+              
+                        $EXIMATERIAPRIMA->__GET('ID_RECHAZADO'),
+                        $EXIMATERIAPRIMA->__GET('ID_LEVANTAMIENTO'),
+                        $EXIMATERIAPRIMA->__GET('ID_PLANTA2'),
+                        $EXIMATERIAPRIMA->__GET('ID_PLANTA3'),
+                        $EXIMATERIAPRIMA->__GET('ID_EXIMATERIAPRIMA2')
+
+
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
+
     //REGISTRO DE UNA NUEVA FILA    
 
 
@@ -1916,63 +2299,9 @@ class EXIMATERIAPRIMA_ADO
         }
     }
 
-    public function actualizareEnvasesProcesoKilos(EXIMATERIAPRIMA $EXIMATERIAPRIMA)
-    {
-        try {
-            $query = "
-            UPDATE fruta_eximateriaprima SET
-                MODIFICACION = SYSDATE(),
-                ESTADO = 3,  
-                CANTIDAD_ENVASE_EXIMATERIAPRIMA = ? ,   
-                KILOS_NETO_EXIMATERIAPRIMA = ? ,   
-                KILOS_BRUTO_EXIMATERIAPRIMA = ? ,      
-                ID_PROCESO = ?          
-            WHERE ID_EXIMATERIAPRIMA= ?;";
-            $this->conexion->prepare($query)
-                ->execute(
-                    array(
-                        $EXIMATERIAPRIMA->__GET('CANTIDAD_ENVASE_EXIMATERIAPRIMA'),
-                        $EXIMATERIAPRIMA->__GET('KILOS_NETO_EXIMATERIAPRIMA'),
-                        $EXIMATERIAPRIMA->__GET('KILOS_BRUTO_EXIMATERIAPRIMA'),
-                        $EXIMATERIAPRIMA->__GET('ID_PROCESO'),
-                        $EXIMATERIAPRIMA->__GET('ID_EXIMATERIAPRIMA')
 
-                    )
 
-                );
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
 
-    public function actualizareEnvasesDespachoKilos(EXIMATERIAPRIMA $EXIMATERIAPRIMA)
-    {
-        try {
-            $query = "
-            UPDATE fruta_eximateriaprima SET
-                MODIFICACION = SYSDATE(),
-                ESTADO = 3,  
-                CANTIDAD_ENVASE_EXIMATERIAPRIMA = ? ,   
-                KILOS_NETO_EXIMATERIAPRIMA = ? ,   
-                KILOS_BRUTO_EXIMATERIAPRIMA = ? ,      
-                ID_DESPACHO = ?          
-            WHERE ID_EXIMATERIAPRIMA= ?;";
-            $this->conexion->prepare($query)
-                ->execute(
-                    array(
-                        $EXIMATERIAPRIMA->__GET('CANTIDAD_ENVASE_EXIMATERIAPRIMA'),
-                        $EXIMATERIAPRIMA->__GET('KILOS_NETO_EXIMATERIAPRIMA'),
-                        $EXIMATERIAPRIMA->__GET('KILOS_BRUTO_EXIMATERIAPRIMA'),
-                        $EXIMATERIAPRIMA->__GET('ID_DESPACHO'),
-                        $EXIMATERIAPRIMA->__GET('ID_EXIMATERIAPRIMA')
-
-                    )
-
-                );
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
     //CAMBIO A DESACTIVADO
     public function deshabilitarRecepcion(EXIMATERIAPRIMA $EXIMATERIAPRIMA)
     {
@@ -2354,6 +2683,52 @@ class EXIMATERIAPRIMA_ADO
         }
     }
 
+    public function repaletizadoDespacho(EXIMATERIAPRIMA $EXIMATERIAPRIMA)
+    {
+        try {
+            $query = "
+            UPDATE fruta_eximateriaprima SET
+                MODIFICACION = SYSDATE(),    		
+                ESTADO = 6,
+                ID_DESPACHO3 = ?          
+            WHERE ID_EXIMATERIAPRIMA= ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $EXIMATERIAPRIMA->__GET('ID_DESPACHO3'),
+                        $EXIMATERIAPRIMA->__GET('ID_EXIMATERIAPRIMA')
+
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    
+    public function repaletizadoProceso(EXIMATERIAPRIMA $EXIMATERIAPRIMA)
+    {
+        try {
+            $query = "
+            UPDATE fruta_eximateriaprima SET
+                MODIFICACION = SYSDATE(),    		
+                ESTADO = 6,
+                ID_PROCESO2 = ?          
+            WHERE ID_EXIMATERIAPRIMA= ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $EXIMATERIAPRIMA->__GET('ID_PROCESO2'),
+                        $EXIMATERIAPRIMA->__GET('ID_EXIMATERIAPRIMA')
+
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
     //OTRAS FUNCIONALIDADES
 
     //OBTENER EL ULTIMO FOLIO OCUPADO DEL DETALLE DE  RECEPCIONS
@@ -2367,7 +2742,9 @@ class EXIMATERIAPRIMA_ADO
                                                 FROM fruta_eximateriaprima  
                                                 WHERE  ID_FOLIO= '" . $IDFOLIO . "' 
                                                 AND FOLIO_MANUAL = 0
-                                                AND ID_DESPACHO2 IS NULL                                                                              
+                                                AND ID_DESPACHO2 IS NULL   
+                                                AND ID_DESPACHO3 IS NULL   
+                                                AND ID_PROCESO2 IS NULL                                                                             
                                                 AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_PLANTA = '" . $PLANTA . "'
                                                 AND ID_TEMPORADA = '" . $TEMPORADA . "' 

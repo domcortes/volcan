@@ -237,6 +237,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $MOCOMPRA_ADO->agregarMcompra($MOCOMPRA);
 
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Motivo Rechazo Orden compra.","material_mocompra","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 $OCOMPRA->__SET('ID_OCOMPRA', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $OCOMPRA_ADO->abierto($OCOMPRA);
@@ -245,6 +247,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 $OCOMPRA->__SET('ID_USUARIOM', $IDUSUARIOS);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $OCOMPRA_ADO->rechazado($OCOMPRA);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Orden Compra, se Rechazo.","material_ocompra", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                 //REDIRECCIONAR A PAGINA registroAerolinia.php
                 

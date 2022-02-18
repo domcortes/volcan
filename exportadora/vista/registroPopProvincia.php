@@ -63,6 +63,10 @@ if (isset($_REQUEST['GUARDAR'])) {
     $PROVINCIA->__SET('ID_REGION', $_REQUEST['REGION']);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
     $PROVINCIA_ADO->agregarProvincia($PROVINCIA);
+
+
+    $AUSUARIO_ADO->agregarAusuario2("NULL",3,1,"".$_SESSION["NOMBRE_USUARIO"].",Pop, Registro de Provincia.","ubicacion_provincia","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
     //REDIRECCIONAR A PAGINA registroProvincia.php 
     echo "
     <script type='text/javascript'>
@@ -162,7 +166,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                                                         <label id="val_nombre" class="validacion"> </label>
                                                     </div>         
                                                 </div>     
-                                                <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-9 col-9 col-xs-9">
+                                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
                                                         <label> Region</label>
                                                         <select class="form-control select2" id="REGION" name="REGION" style="width: 100%;" value="<?php echo $REGION; ?>" <?php echo $DISABLED; ?>>

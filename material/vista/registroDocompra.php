@@ -510,6 +510,7 @@ if (isset($_POST)) {
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $DOCOMPRA_ADO->agregarDocompra($DOCOMPRA);
 
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de detalle de Orden Compra.","material_docompra", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                 //REDIRECCIONAR A PAGINA registroRecepcion.php 
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
@@ -539,6 +540,8 @@ if (isset($_POST)) {
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $DOCOMPRA_ADO->actualizarDocompra($DOCOMPRA);
 
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de detalle de Orden Compra.","material_docompra", $_REQUEST['ID'] ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
                 $_SESSION["parametro1"] =  $_REQUEST['OPP'];
                 echo '<script>
@@ -557,6 +560,9 @@ if (isset($_POST)) {
                 $DOCOMPRA->__SET('ID_DOCOMPRA', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $DOCOMPRA_ADO->deshabilitar($DOCOMPRA);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar  detalle de Orden Compra.","material_docompra", $_REQUEST['ID'] ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
                 $_SESSION["parametro1"] =  $_REQUEST['OPP'];
                 echo '<script>

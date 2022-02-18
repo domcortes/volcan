@@ -322,10 +322,8 @@ if (isset($_POST)) {
 
                         <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                             <div class="box">
-                                <div class="box-header with-border">
-                                    <!--
-                                        <h4 class="box-title">Different Width</h4>
-                                        -->
+                                <div class="box-header with-border bg-success">                                   
+                                    <h4 class="box-title">Registro Detalle</h4>                                        
                                 </div>
                                 <div class="box-body ">
                                     <div class="row">
@@ -368,7 +366,7 @@ if (isset($_POST)) {
                                                 <label id="val_tumedida" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Valor Unitario </label>
                                                 <input type="hidden" class="form-control" placeholder="VALORUNITARIO" id="VALORUNITARIO" name="VALORUNITARIO" value="<?php echo $VALORUNITARIO; ?>" />
@@ -376,7 +374,7 @@ if (isset($_POST)) {
                                                 <label id="val_vu" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Cantidad Producto</label>
                                                 <input type="hidden" class="form-control" placeholder="CANTIDADE" id="CANTIDADE" name="CANTIDADE" value="<?php echo $CANTIDAD; ?>" />
@@ -451,6 +449,8 @@ if (isset($_POST)) {
                 $INVENTARIOE->__SET('ID_RECEPCION', $_REQUEST['IDP']);
                 $INVENTARIOE->__SET('ID_INVENTARIO', $_REQUEST['IDD']);
                 $INVENTARIOE_ADO->actualizarInventarioRecepcion($INVENTARIOE);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de detalle de Recepción Envases.","material_inventarioe", $_REQUEST['IDD'] ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
                 
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
                 $_SESSION["parametro1"] =  $_REQUEST['OPP'];
@@ -471,6 +471,10 @@ if (isset($_POST)) {
                 $INVENTARIOE_ADO->eliminado($INVENTARIOE);
                 $INVENTARIOE->__SET('ID_INVENTARIO', $_REQUEST['IDD']);
                 $INVENTARIOE_ADO->deshabilitar($INVENTARIOE);
+
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar  detalle de Recepción Envases.","material_inventarioe", $_REQUEST['IDD'] ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
                 $_SESSION["parametro1"] =  $_REQUEST['OPP'];
                 echo '<script>

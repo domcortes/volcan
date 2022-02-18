@@ -543,7 +543,7 @@ if (isset($_POST)) {
                                                 <label id="val_fecha" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Responsable</label>
                                                 <input type="hidden" class="form-control" placeholder="RESPONSABLEE" id="RESPONSABLEE" name="RESPONSABLEE" value="<?php echo $RESPONSABLE; ?>" />
@@ -562,7 +562,7 @@ if (isset($_POST)) {
                                                 <label id="val_resposable" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Proveedor</label>
                                                 <input type="hidden" class="form-control" placeholder="PROVEEDORE" id="PROVEEDORE" name="PROVEEDORE" value="<?php echo $PROVEEDOR; ?>" />
@@ -581,7 +581,7 @@ if (isset($_POST)) {
                                                 <label id="val_proveedor" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Formato Pago</label>
                                                 <input type="hidden" class="form-control" placeholder="FPAGOE" id="FPAGOE" name="FPAGOE" value="<?php echo $FPAGO; ?>" />
@@ -600,7 +600,7 @@ if (isset($_POST)) {
                                                 <label id="val_fpago" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Tipo Moneda</label>
                                                 <input type="hidden" class="form-control" placeholder="TMONEDA" id="TMONEDAE" name="TMONEDAE" value="<?php echo $TMONEDA; ?>" />
@@ -619,7 +619,7 @@ if (isset($_POST)) {
                                                 <label id="val_tmoneda" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Tipo Cambio</label>
                                                 <input type="hidden" class="form-control" placeholder="TCAMBIOE" id="TCAMBIOE" name="TCAMBIOE" value="<?php echo $TCAMBIO; ?>" />
@@ -841,6 +841,7 @@ if (isset($_POST)) {
                     $_REQUEST['TEMPORADA'],
                 );
 
+                $AUSUARIO_ADO->agregarAusuario2($NUMERO,2,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Orden Compra.","material_ocompra", $ARRYAOBTENERID[0]['ID_OCOMPRA'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                 //REDIRECCIONAR A PAGINA registroRecepcion.php 
                 $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_OCOMPRA'];
@@ -878,6 +879,8 @@ if (isset($_POST)) {
                     $OCOMPRA->__SET('ID_OCOMPRA', $_REQUEST['IDP']);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                     $OCOMPRA_ADO->actualizarOcompra($OCOMPRA);
+
+                    $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,2,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Orden Compra.","material_ocompra", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
                     
                 if ($_SESSION['parametro1'] == "crear") {
                     $_SESSION["parametro"] = $_REQUEST['IDP'];
@@ -963,7 +966,7 @@ if (isset($_POST)) {
                     $OCOMPRA->__SET('ID_USUARIOM', $IDUSUARIOS);
                     $OCOMPRA_ADO->confirmado($OCOMPRA);
 
-
+                    $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,2,3,"".$_SESSION["NOMBRE_USUARIO"].", Cerrar  Orden Compra.","material_ocompra", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                     //REDIRECCIONAR A PAGINA registroRecepcion.php 
                     //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL     

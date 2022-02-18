@@ -760,6 +760,52 @@ class DICARGA_ADO
             die($e->getMessage());
         }
     }
+
+
+    
+    public function buscarEcomercialenInvoicePorIcarga($IDICARGA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT 	
+                                                    estandar.ID_ECOMERCIAL,
+                                                    (select CODIGO_ECOMERCIAL
+                                                    FROM estandar_ecomercial
+                                                    WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                    ) AS 'CODIGO',
+                                                    (select NOMBRE_ECOMERCIAL
+                                                    FROM estandar_ecomercial
+                                                    WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                    ) AS 'NOMBRE',                                                    
+                                                    (select PESO_NETO_ECOMERCIAL
+                                                    FROM estandar_ecomercial
+                                                    WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                    ) AS 'PESONETOC',
+                                                    (select PESO_BRUTO_ECOMERCIAL
+                                                    FROM estandar_ecomercial
+                                                    WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                    ) AS 'PESOBRUTOC'    
+                                            FROM  fruta_icarga icarga,   fruta_despachoex despacho, fruta_exiexportacion existencia, estandar_eexportacion estandar, estandar_ecomercial comercial
+                                            WHERE icarga.ID_ICARGA = despacho.ID_ICARGA 
+                                                AND despacho.ID_DESPACHOEX = existencia.ID_DESPACHOEX
+                                                AND existencia.ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                AND estandar.ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                AND icarga.ID_ICARGA = '".$IDICARGA."'
+                                            GROUP by comercial.ID_ECOMERCIAL
+                                                ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function totalesPorIcarga($IDICARGA)
     {
         try {
@@ -798,6 +844,31 @@ class DICARGA_ADO
                                          FROM fruta_dicarga 
                                          WHERE ID_ICARGA = '" . $IDICARGA . "'   
                                                AND ESTADO_REGISTRO = 1;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
+
+    public function conteoPorIcarga($IDICARGA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT IFNULL(COUNT(ID_DICARGA),0) AS 'CONTEO'
+            
+                                                 FROM fruta_dicarga 
+                                                WHERE ID_ICARGA = '" . $IDICARGA . "'  
+                                                AND ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;

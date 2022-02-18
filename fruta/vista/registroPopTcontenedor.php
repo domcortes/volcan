@@ -56,6 +56,9 @@ if (isset($_REQUEST['GUARDAR'])) {
     $TCONTENEDOR->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
     $TCONTENEDOR_ADO->agregarTcontenedor($TCONTENEDOR);
+
+    $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].",Pop, Registro de Tipo Contenedor.","fruta_tcontenedor","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
     //REDIRECCIONAR A PAGINA registroTfruta.php
     echo "
         <script type='text/javascript'>
@@ -159,7 +162,7 @@ if (isset($_REQUEST['GUARDAR'])) {
             <!-- /.content -->
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php //include_once "../../assest/config/menuExtraFruta.php"; ?>
+                <?php //include_once "../../assest/config/menuExtraExpo.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../../assest/config/urlBase.php"; ?>

@@ -34,6 +34,7 @@ $TELEFONOTRANSPORTE = "";
 $EMAILTRANSPORTE = "";
 
 
+
 //INICIALIZAR ARREGLOS
 $ARRAYTRANSPORTE = "";
 $ARRAYTRANSPORTEID = "";
@@ -70,6 +71,10 @@ if (isset($_REQUEST['GUARDAR'])) {
     $TRANSPORTE->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
     $TRANSPORTE_ADO->agregarTransporte($TRANSPORTE);
+
+
+    $AUSUARIO_ADO->agregarAusuario2("NULL",2,1,"".$_SESSION["NOMBRE_USUARIO"].",Pop, Registro de Transporte.","transporte_transporte","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
     //REDIRECCIONAR A PAGINA registroTransporte.php
     echo "
     <script type='text/javascript'>
@@ -170,7 +175,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                         return false;
                     }
                     document.form_reg_dato.DIRRECIONTRANSPORTE.style.borderColor = "#4AF575";
-              
+               
                     /*
 
                     if (CONTACTOTRANSPORTE == null || CONTACTOTRANSPORTE.length == 0 || /^\s+$/.test(CONTACTOTRANSPORTE)) {

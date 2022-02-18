@@ -21,17 +21,15 @@ class EXIMATERIAPRIMA {
     private	  $ALIAS_DINAMICO_FOLIO_EXIMATERIAPRIMA;
     private	  $ALIAS_ESTATICO_FOLIO_EXIMATERIAPRIMA; 
     private   $GASIFICADO;
-    private   $PRECIO_PALLET;
+    private   $COLOR;
     private   $FECHA_RECEPCION;
-    private   $FECHA_REPALETIZAJE;
+    private   $FECHA_PROCESO;
     private   $FECHA_DESPACHO;
     private	  $ESTADO;
     private   $ESTADO_REGISTRO;
     private	  $INGRESO;
     private	  $MODIFICACION;   
     private   $ID_TMANEJO;
-    private   $ID_TTRATAMIENTO1;
-    private   $ID_TTRATAMIENTO2;
     private	  $ID_FOLIO;
     private	  $ID_ESTANDAR;
     private	  $ID_PRODUCTOR;
@@ -39,13 +37,18 @@ class EXIMATERIAPRIMA {
     private   $ID_EMPRESA;
     private   $ID_PLANTA;
     private   $ID_TEMPORADA;
+    private   $ID_TTRATAMIENTO1;
+    private   $ID_TTRATAMIENTO2;
     private	  $ID_RECEPCION;
-    private   $ID_PLANTA2;
-    private   $ID_PLANTA3;
     private	  $ID_PROCESO;
-    private   $ID_REPALETIZAJE;
     private   $ID_DESPACHO;
     private   $ID_DESPACHO2;
+    private   $ID_DESPACHO3;
+    private   $ID_RECHAZADO;
+    private   $ID_LEVANTAMIENTO;
+    private   $ID_PLANTA2;
+    private   $ID_PLANTA3;
+    private	  $ID_EXIMATERIAPRIMA2; 
     
     //FUNCIONES GET Y SET
     public function __GET($k){ return $this->$k; }

@@ -672,6 +672,8 @@ if (isset($_POST)) {
                     $_REQUEST['IDP'],
                 );
 
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de detalle de Recepción Materiales.","material_drecepcionm", $ARRYAOBTENERID[0]['ID_DRECEPCION'] ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 //REDIRECCIONAR A PAGINA registroDrecepcionm.php 
                 $_SESSION["dparametro"] = $ARRYAOBTENERID[0]['ID_DRECEPCION'];
                 $_SESSION["dparametro1"] = "editar";
@@ -700,6 +702,9 @@ if (isset($_POST)) {
                 $DRECEPCIONM->__SET('ID_DRECEPCION', $_REQUEST['IDD']);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $DRECEPCIONM_ADO->actualizarDrecepcion($DRECEPCIONM);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de detalle de Recepción Materiales.","material_drecepcionm", $_REQUEST['IDD'] ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 echo '<script>
                     Swal.fire({
                         icon:"info",
@@ -719,18 +724,7 @@ if (isset($_POST)) {
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $DRECEPCIONM_ADO->deshabilitar($DRECEPCIONM);
 
-                $ARRAYDTRECEPCION = $TARJAM_ADO->listarTarjaPorDrecepcion2CBX($_REQUEST['IDD']);
-                foreach ($ARRAYDTRECEPCION as $r) :
-                    $TARJAM->__SET('FOLIO_TARJA', $r['FOLIO_TARJA']);
-                    $TARJAM_ADO->deshabilitar2($TARJAM);
-
-
-                    $INVENTARIOM->__SET('FOLIO_INVENTARIO', $r['FOLIO_TARJA']);
-                    $INVENTARIOM_ADO->eliminado2($INVENTARIOM);
-
-                    $INVENTARIOM->__SET('FOLIO_INVENTARIO', $r['FOLIO_TARJA']);
-                    $INVENTARIOM_ADO->deshabilitar2($INVENTARIOM);
-                endforeach;
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar  detalle de Recepción Materiales.","material_drecepcionm", $_REQUEST['IDD'] ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
                 $_SESSION["parametro1"] =  $_REQUEST['OPP'];

@@ -80,6 +80,9 @@ if (isset($_REQUEST['GUARDAR'])) {
     $CONSIGNATARIO->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
     $CONSIGNATARIO_ADO->agregarConsignatorio($CONSIGNATARIO);
+
+    $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"]."Pop, Registro de Consignatorio.","fruta_consignatario","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
     //REDIRECCIONAR A PAGINA registroConsignatorio.php
     echo "
     <script type='text/javascript'>
@@ -113,6 +116,7 @@ if (isset($_REQUEST['GUARDAR'])) {
 
                     NOMBRECONSIGNATARIO = document.getElementById("NOMBRECONSIGNATARIO").value;
                     DIRECCIONCONSIGNATARIO = document.getElementById("DIRECCIONCONSIGNATARIO").value;
+                    /*
                     CONTACTOCONSIGNATARIO1 = document.getElementById("CONTACTOCONSIGNATARIO1").value;
                     CARGOCONSIGNATARIO1 = document.getElementById("CARGOCONSIGNATARIO1").value;
                     EMAILCONSIGNATARIO1 = document.getElementById("EMAILCONSIGNATARIO1").value;
@@ -122,10 +126,12 @@ if (isset($_REQUEST['GUARDAR'])) {
                     CONTACTOCONSIGNATARIO3 = document.getElementById("CONTACTOCONSIGNATARIO3").value;
                     CARGOCONSIGNATARIO3 = document.getElementById("CARGOCONSIGNATARIO3").value;
                     EMAILCONSIGNATARIO3 = document.getElementById("EMAILCONSIGNATARIO3").value;
+                    */
 
 
                     document.getElementById('val_nombre').innerHTML = "";
                     document.getElementById('val_direccion').innerHTML = "";
+                /*
                     document.getElementById('val_contacto1').innerHTML = "";
                     document.getElementById('val_cargo1').innerHTML = "";
                     document.getElementById('val_email1').innerHTML = "";
@@ -135,7 +141,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                     document.getElementById('val_contacto3').innerHTML = "";
                     document.getElementById('val_cargo3').innerHTML = "";
                     document.getElementById('val_email3').innerHTML = "";
-
+                */
 
 
                     if (NOMBRECONSIGNATARIO == null || NOMBRECONSIGNATARIO.length == 0 || /^\s+$/.test(NOMBRECONSIGNATARIO)) {
@@ -157,7 +163,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                     document.form_reg_dato.DIRECCIONCONSIGNATARIO.style.borderColor = "#4AF575";
 
                     /*
-                
+                 
 
                     if (CONTACTOCONSIGNATARIO1 == null || CONTACTOCONSIGNATARIO1.length == 0 || /^\s+$/.test(CONTACTOCONSIGNATARIO1)) {
                         document.form_reg_dato.CONTACTOCONSIGNATARIO1.focus();

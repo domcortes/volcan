@@ -32,7 +32,7 @@ $PLANTABODEGA = "";
 $FNOMBRE = "";
 $NOMBREPLANTA = "";
 $ESTADO = "";
-$SINO="";
+$SINO=0;
 
 
 $NOMBRE = "";
@@ -73,18 +73,48 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     //OPERACION DE CAMBIO DE ESTADO
     //0 = DESACTIVAR
     if ($OP == "0") {
-
-        $BODEGA->__SET('ID_BODEGA', $IDOP);
-        $BODEGA_ADO->deshabilitar($BODEGA);
-
-        echo "<script type='text/javascript'> location.href ='registroBodega.php';</script>";
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYBODEGAID = $BODEGA_ADO->verBodega($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
+        foreach ($ARRAYBODEGAID as $r) :
+            $NOMBREBODEGA = "" . $r['NOMBRE_BODEGA'];
+            $NOMBRECONTACTO = "" . $r['NOMBRE_CONTACTO_BODEGA'];
+            $PRINCIPAL = "" . $r['PRINCIPAL'];
+            $ENVASES = "" . $r['ENVASES'];
+            $EMPRESA = "" . $r['ID_EMPRESA'];
+            $PLANTABODEGA = "" . $r['ID_PLANTA'];
+            $ESTADO = "" . $r['ESTADO_REGISTRO'];
+        endforeach;
     }
     //1 = ACTIVAR
     if ($OP == "1") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYBODEGAID = $BODEGA_ADO->verBodega($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
+        foreach ($ARRAYBODEGAID as $r) :
+            $NOMBREBODEGA = "" . $r['NOMBRE_BODEGA'];
+            $NOMBRECONTACTO = "" . $r['NOMBRE_CONTACTO_BODEGA'];
+            $PRINCIPAL = "" . $r['PRINCIPAL'];
+            $ENVASES = "" . $r['ENVASES'];
+            $EMPRESA = "" . $r['ID_EMPRESA'];
+            $PLANTABODEGA = "" . $r['ID_PLANTA'];
+            $ESTADO = "" . $r['ESTADO_REGISTRO'];
+        endforeach;
 
-        $BODEGA->__SET('ID_BODEGA', $IDOP);
-        $BODEGA_ADO->habilitar($BODEGA);
-        echo "<script type='text/javascript'> location.href ='registroBodega.php';</script>";
     }
     //IDENTIFICACIONES DE OPERACIONES
     //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
@@ -325,14 +355,22 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                         <div class="box-footer">
                                             <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
                                                 <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroBodega.php');">
-                                                <i class="ti-trash"></i>Cancelar
+                                                    <i class="ti-trash"></i>Cancelar
                                                 </button>
-                                                <?php if ($OP != "editar") { ?>
-                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                <?php if ($OP == "editar") { ?>
+                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
+                                                <?php } else if($OP == "0") { ?>
+                                                    <button type="submit" class="btn btn-danger" name="ELIMINAR" value="ELIMINAR"  data-toggle="tooltip" title="Deshabilitar"  >
+                                                        <i class="ti-save-alt"></i> Deshabilitar
+                                                    </button>
+                                                <?php } else if($OP == "1"){ ?>                                                    
+                                                    <button type="submit" class="btn btn-success" name="HABILITAR" value="HABILITAR"  data-toggle="tooltip" title="Habilitar"   >
+                                                        <i class="ti-save-alt"></i> Habilitar
+                                                    </button>
                                                 <?php } else { ?>
-                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
                                                 <?php } ?>
@@ -392,9 +430,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                                     </button>
                                                                                 </span>
                                                                                 <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
-                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Desahabilitar">
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Deshabilitar">
                                                                                         <button type="submit" class="btn btn-block btn-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
-                                                                                            <i class="ti-na "></i> Desahabilitar
+                                                                                            <i class="ti-na "></i> Deshabilitar
                                                                                         </button>
                                                                                     </span>
                                                                                 <?php } ?>
@@ -477,6 +515,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     }
                 }
 
+
                 if ($SINO == 0) {
                     //UTILIZACION METODOS SET DEL MODELO
                     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
@@ -490,6 +529,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     $BODEGA->__SET('ID_USUARIOM', $IDUSUARIOS);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                     $BODEGA_ADO->agregarBodega($BODEGA);
+
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",2,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Bodega.","principal_bodega","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
                     //REDIRECCIONAR A PAGINA registroBodega.php
                     echo '<script>
                         Swal.fire({
@@ -507,9 +549,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             }
 
             //OPERACION DE EDICION DE FILA
-            if (isset($_REQUEST['EDITAR'])) {
-
-            
+            if (isset($_REQUEST['EDITAR'])) {            
 
                 if ($_REQUEST['PRINCIPAL'] == 1) {
                     $ARRAYVALIDARBODEGA = $BODEGA_ADO->listarBodegaPorEmpresaPlantaPrincipalDistinoActualCBX($_REQUEST['EMPRESA'], $_REQUEST['PLANTABODEGA'], $_REQUEST['ID']);
@@ -562,6 +602,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     $BODEGA->__SET('ID_BODEGA', $_REQUEST['ID']);
                     //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
                     $BODEGA_ADO->actualizarBodega($BODEGA);
+
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",2,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Bodega.","principal_bodega", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );     
+
                     //REDIRECCIONAR A PAGINA registroBodega.php   
                     echo '<script>
                         Swal.fire({
@@ -576,6 +619,52 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         })
                     </script>';
                 }
+            }
+            if (isset($_REQUEST['ELIMINAR'])) {         
+
+
+                $BODEGA->__SET('ID_BODEGA', $_REQUEST['ID']);
+                $BODEGA_ADO->deshabilitar($BODEGA);
+          
+        
+        
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar  Bodega.","principal_bodega", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );                
+                
+                echo '<script>
+                    Swal.fire({
+                        icon:"error",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Deshabilitado correctamente", 
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroBodega.php";                            
+                    })
+                </script>';
+            }
+            
+            if (isset($_REQUEST['HABILITAR'])) {   
+
+
+
+                $BODEGA->__SET('ID_BODEGA',  $_REQUEST['ID']);
+                $BODEGA_ADO->habilitar($BODEGA);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,5,"".$_SESSION["NOMBRE_USUARIO"].", Habilitar  Bodega.","principal_bodega", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );                               
+
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Habilitado correctamente", 
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroBodega.php";                            
+                    })
+                </script>';
             }
 
         ?>

@@ -48,6 +48,9 @@ if (isset($_REQUEST['GUARDAR'])) {
     $PCARGA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
     $PCARGA->__SET('ID_USUARIOI', $IDUSUARIOS);
     $PCARGA->__SET('ID_USUARIOM', $IDUSUARIOS);
+
+    $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].",Pop, Registro de Puerto Carga.","fruta_pcarga","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
     //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
     $PCARGA_ADO->agregarPcarga($PCARGA);
     //REDIRECCIONAR A PAGINA registroTfruta.php

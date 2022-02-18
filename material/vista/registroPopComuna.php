@@ -61,6 +61,9 @@ if (isset($_REQUEST['GUARDAR'])) {
     $COMUNA->__SET('ID_PROVINCIA', $_REQUEST['PROVINCIA']);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
     $COMUNA_ADO->agregarComuna($COMUNA);
+
+    $AUSUARIO_ADO->agregarAusuario2("NULL",2,1,"".$_SESSION["NOMBRE_USUARIO"].",Pop, Registro de Comuna.","ubicacion_comuna","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
     //REDIRECCIONAR A PAGINA registroComuna.php
  
     echo "
@@ -142,14 +145,18 @@ if (isset($_REQUEST['GUARDAR'])) {
                                     <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                                         <div class="box-body">                                         
                                             <hr class="my-15">
-                                            <div class="form-group">
-                                                <label>Nombre </label>
-                                                <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
-                                                <input type="text" class="form-control" placeholder="Nombre Comuna" id="NOMBRECOMUNA" name="NOMBRECOMUNA" value="<?php echo $NOMBRECOMUNA; ?>" <?php echo $DISABLED; ?> />
-                                                <label id="val_nombre" class="validacion"> </label>
-                                            </div>                                            
                                             <div class="row">
-                                                <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-9 col-9 col-xs-9">
+                                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
+                                                    <div class="form-group">
+                                                        <label>Nombre </label>
+                                                        <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
+                                                        <input type="text" class="form-control" placeholder="Nombre Comuna" id="NOMBRECOMUNA" name="NOMBRECOMUNA" value="<?php echo $NOMBRECOMUNA; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_nombre" class="validacion"> </label>
+                                                    </div>        
+                                                </div>
+                                            </div>                                    
+                                            <div class="row">
+                                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
                                                         <label> Provincia</label>
                                                         <select class="form-control select2" id="PROVINCIA" name="PROVINCIA" style="width: 100%;" value="<?php echo $PROVINCIA; ?>" <?php echo $DISABLED; ?>>

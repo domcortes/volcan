@@ -80,6 +80,9 @@ $ARRAYCOMUNA = $COMUNA_ADO->listarComuna3CBX();
                 $CLIENTE->__SET('ID_USUARIOM', $IDUSUARIOS);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $CLIENTE_ADO->agregarCliente($CLIENTE);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,1,"".$_SESSION["NOMBRE_USUARIO"].",Pop, Registro de Cliente.","material_cliente","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 //REDIRECCIONAR A PAGINA registroEcomercial.php
                 echo "
                 <script type='text/javascript'>

@@ -856,7 +856,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Fecha Despacho </label>
                                                 <input type="hidden" class="Despachoform-control" placeholder="Fecha Despacho" id="FECHADESPACHOE" name="FECHADESPACHOE" value="<?php echo $FECHADESPACHO; ?>" />
-                                                <input type="date" class="form-control" placeholder="Fecha Despacho" id="FECHADESPACHO" name="FECHADESPACHO" value="<?php echo $FECHADESPACHO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="date" class="form-control" placeholder="Fecha Despacho" id="FECHADESPACHO" name="FECHADESPACHO" value="<?php echo $FECHADESPACHO; ?>" <?php echo $DISABLED2; ?>  />
                                                 <label id="val_fecha" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -883,7 +883,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Número Documento </label>
                                                 <input type="hidden" class="form-control" placeholder="Numero Documento" id="NUMERODOCUMENTOE" name="NUMERODOCUMENTOE" value="<?php echo $NUMERODOCUMENTO; ?>" />
-                                                <input type="text" class="form-control" placeholder="Número Documento" id="NUMERODOCUMENTO" name="NUMERODOCUMENTO" value="<?php echo $NUMERODOCUMENTO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="text" class="form-control" placeholder="Número Documento" id="NUMERODOCUMENTO" name="NUMERODOCUMENTO" value="<?php echo $NUMERODOCUMENTO; ?>" <?php echo $DISABLED2; ?>  />
                                                 <label id="val_numerodocumento" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -1155,7 +1155,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Observaciónes </label>
                                                 <input type="hidden" class="form-control" placeholder="OBSERVACIONE" id="OBSERVACIONE" name="OBSERVACIONE" value="<?php echo $OBSERVACION; ?>" />
-                                                <textarea class="form-control" rows="1" placeholder="Ingrese Nota, Observaciónes u Otro" id="OBSERVACION" name="OBSERVACION" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>><?php echo $OBSERVACION; ?></textarea>
+                                                <textarea class="form-control" rows="1" placeholder="Ingrese Nota, Observaciónes u Otro" id="OBSERVACION" name="OBSERVACION" <?php echo $DISABLED2; ?> ><?php echo $OBSERVACION; ?></textarea>
                                                 <label id="val_observacion" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -1384,6 +1384,8 @@ if (isset($_POST)) {
                     $_REQUEST['PLANTA'],
                     $_REQUEST['TEMPORADA'],
                 );
+                
+                $AUSUARIO_ADO->agregarAusuario2($NUMERO,1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Despacho Envases.","material_despachoe", $ARRYAOBTENERID[0]['ID_DESPACHO'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                 //REDIRECCIONAR A PAGINA registroDESPACHOE.php
 
@@ -1404,12 +1406,12 @@ if (isset($_POST)) {
                 </script>';
             }
             if (isset($_REQUEST['GUARDAR'])) {
-                $DESPACHOE->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
-                $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMERODOCUMENTOE']);
+                $DESPACHOE->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
+                $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMERODOCUMENTO']);
                 $DESPACHOE->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
                 $DESPACHOE->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
                 $DESPACHOE->__SET('TDESPACHO', $_REQUEST['TDESPACHOE']);
-                $DESPACHOE->__SET('OBSERVACIONES', $_REQUEST['OBSERVACIONE']);
+                $DESPACHOE->__SET('OBSERVACIONES', $_REQUEST['OBSERVACION']);
                 $DESPACHOE->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTOE']);
                 $DESPACHOE->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
                 $DESPACHOE->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
@@ -1447,6 +1449,7 @@ if (isset($_POST)) {
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $DESPACHOE_ADO->actualizarDespachoe($DESPACHOE);
 
+                $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Despacho Envases.","material_despachoe", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
                 
                 if ($_SESSION['parametro1'] == "crear") {
                     $_SESSION["parametro"] = $_REQUEST['IDP'];
@@ -1505,12 +1508,12 @@ if (isset($_POST)) {
                 }
                 if ($SINO == "0") {
                     $DESPACHOE->__SET('CANTIDAD_DESPACHO', $_REQUEST['TOTALCANTIDAD']);
-                    $DESPACHOE->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
-                    $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMERODOCUMENTOE']);
+                    $DESPACHOE->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
+                    $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMERODOCUMENTO']);
                     $DESPACHOE->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
                     $DESPACHOE->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
                     $DESPACHOE->__SET('TDESPACHO', $_REQUEST['TDESPACHOE']);
-                    $DESPACHOE->__SET('OBSERVACIONES', $_REQUEST['OBSERVACIONE']);
+                    $DESPACHOE->__SET('OBSERVACIONES', $_REQUEST['OBSERVACION']);
                     $DESPACHOE->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTOE']);
                     $DESPACHOE->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
                     $DESPACHOE->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
@@ -1553,10 +1556,10 @@ if (isset($_POST)) {
 
                     $DESPACHOE->__SET('ID_DESPACHO', $_REQUEST['IDP']);
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                   $DESPACHOE_ADO->Confirmado($DESPACHOE);
+                    $DESPACHOE_ADO->Confirmado($DESPACHOE);
 
                     if ($_REQUEST['TDESPACHOE'] == "1") {
-                        $ARRAYEXISENCIADESPACHOM = $INVENTARIOE_ADO->buscarPorDespacho($_REQUEST['IDP']);
+                        $ARRAYEXISENCIADESPACHOM = $INVENTARIOE_ADO->buscarPorEnDespacho($_REQUEST['IDP']);
                         foreach ($ARRAYEXISENCIADESPACHOM as $r) :
                             $ARRAYVALIDARINGRESO = $INVENTARIOE_ADO->buscarPorDespachoIngresoBodega($_REQUEST['IDP'], $r['INGRESO'], $r['ID_BODEGA']);
                             if (empty($ARRAYVALIDARINGRESO)) {
@@ -1587,6 +1590,8 @@ if (isset($_POST)) {
                             }
                         endforeach;
                     }
+
+                    $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,1,3,"".$_SESSION["NOMBRE_USUARIO"].", Cerrar  Despacho Envases.","material_despachoe", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                     //REDIRECCIONAR A PAGINA registroDespachoe.php 
                     //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL

@@ -63,6 +63,9 @@ if (isset($_REQUEST['GUARDAR'])) {
     $TPRODUCTOR->__SET('ID_USUARIOM', $IDUSUARIOS);
     $TPRODUCTOR->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+
+    $AUSUARIO_ADO->agregarAusuario2("NULL",3,1,"".$_SESSION["NOMBRE_USUARIO"].",Pop, Registro de Tipo Productor.","fruta_tproductor","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
     $TPRODUCTOR_ADO->agregarTproductor($TPRODUCTOR);
     //REDIRECCIONAR A PAGINA registroTproductor.php
     echo "

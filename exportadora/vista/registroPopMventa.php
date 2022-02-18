@@ -53,6 +53,8 @@ if (isset($_REQUEST['GUARDAR'])) {
     $MVENTA->__SET('ID_USUARIOI', $IDUSUARIOS);
     $MVENTA->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
+    $AUSUARIO_ADO->agregarAusuario2("NULL",3,1,"".$_SESSION["NOMBRE_USUARIO"].",Pop, Registro de Modalidad Venta.","fruta_mventa","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
     $MVENTA_ADO->agregarMventa($MVENTA);
     //REDIRECCIONAR A PAGINA registroTfruta.php
     //REDIRECCIONAR A PAGINA registroTfruta.php

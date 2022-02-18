@@ -268,7 +268,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                                 $ESTADO = "En Transito";
                                                             }
                                                             if ($r['ESTADO'] == "10") {
-                                                                $ESTADO = "En Inpeccion Sag";
+                                                                $ESTADO = "En Inspección Sag";
                                                             }
                                                             if ($r['ESTADO'] == "11") {
                                                                 $ESTADO = "Rechazado";

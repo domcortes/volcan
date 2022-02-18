@@ -452,6 +452,8 @@ if (isset($_POST)) {
                 $INVENTARIOE->__SET('ID_RECEPCION', $_REQUEST['IDP']);
                 $INVENTARIOE_ADO->agregarInventarioRecepcion($INVENTARIOE);
 
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de detalle de Recepción Envases.","material_inventarioe", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
                 //REDIRECCIONAR A PAGINA registroRecepcion.php 
                 
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
@@ -484,6 +486,7 @@ if (isset($_POST)) {
                 $INVENTARIOE->__SET('ID_INVENTARIO', $_REQUEST['IDD']);
                 $INVENTARIOE_ADO->actualizarInventarioRecepcion($INVENTARIOE);
 
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de detalle de Recepción Envases.","material_inventarioe", $_REQUEST['IDD'] ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
                 
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
                 $_SESSION["parametro1"] =  $_REQUEST['OPP'];
@@ -500,10 +503,16 @@ if (isset($_POST)) {
                 </script>';
             }
             if (isset($_REQUEST['ELIMINAR'])) {
+
                 $INVENTARIOE->__SET('ID_INVENTARIO', $_REQUEST['IDD']);
                 $INVENTARIOE_ADO->eliminado($INVENTARIOE);
+                
                 $INVENTARIOE->__SET('ID_INVENTARIO', $_REQUEST['IDD']);
                 $INVENTARIOE_ADO->deshabilitar($INVENTARIOE);
+
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",2,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar  detalle de Recepción Envases.","material_inventarioe", $_REQUEST['IDD'] ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
                 $_SESSION["parametro1"] =  $_REQUEST['OPP'];
                 echo '<script>

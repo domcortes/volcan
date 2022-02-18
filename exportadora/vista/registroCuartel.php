@@ -56,7 +56,7 @@ $ARRAYNUMERO = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYCUARTEL = $CUARTEL_ADO->listarCuartelPorEmpresaCBX($EMPRESAS);
-$ARRAYVESPECIES = $VESPECIES_ADO->listarVespeciesPorEmpresaCBX($EMPRESAS);
+//$ARRAYVESPECIES = $VESPECIES_ADO->listarVespeciesPorEmpresaCBX($EMPRESAS);
 $ARRAYESPECIES = $ESPECIES_ADO->listarEspeciesCBX();
 include_once "../../assest/config/validarDatosUrl.php";
 include_once "../../assest/config/datosUrl.php";
@@ -76,18 +76,59 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     //OPERACION DE CAMBIO DE ESTADO
     //0 = DESACTIVAR
     if ($OP == "0") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYCUARTELID = $CUARTEL_ADO->verCuartel($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
 
-        $CUARTEL->__SET('ID_CUARTEL', $IDOP);
-        $CUARTEL_ADO->deshabilitar($CUARTEL);
+        foreach ($ARRAYCUARTELID as $r) :
+            $NOMBRECUARTEL = "" . $r['NOMBRE_CUARTEL'];
+            $TIEMPOPRODUCCIONANOCUARTEL = "" . $r['TIEMPO_PRODUCCION_ANO_CUARTEL'];
+            $ANOPLANTACIONCUARTEL = "" . $r['ANO_PLANTACION_CUARTEL'];
+            $HECTAREASCUARTEL = "" . $r['HECTAREAS_CUARTEL'];
+            $PLANTASENHECATAREAS = "" . $r['PLANTAS_EN_HECTAREAS'];
+            $DISTANCIAPLANTACUARTEL = "" . $r['DISTANCIA_PLANTA_CUARTEL'];
+            $VESPECIES = "" . $r['ID_VESPECIES'];
+            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+            $ESPECIES = $ARRAYVERVESPECIESID[0]['ID_ESPECIES'];
+            $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspecies($ESPECIES);
 
-        echo "<script type='text/javascript'> location.href ='registroCuartel.php';</script>";
+        endforeach;
+
     }
     //1 = ACTIVAR
     if ($OP == "1") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYCUARTELID = $CUARTEL_ADO->verCuartel($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
 
-        $CUARTEL->__SET('ID_CUARTEL', $IDOP);
-        $CUARTEL_ADO->habilitar($CUARTEL);
-        echo "<script type='text/javascript'> location.href ='registroCuartel.php';</script>";
+        foreach ($ARRAYCUARTELID as $r) :
+            $NOMBRECUARTEL = "" . $r['NOMBRE_CUARTEL'];
+            $TIEMPOPRODUCCIONANOCUARTEL = "" . $r['TIEMPO_PRODUCCION_ANO_CUARTEL'];
+            $ANOPLANTACIONCUARTEL = "" . $r['ANO_PLANTACION_CUARTEL'];
+            $HECTAREASCUARTEL = "" . $r['HECTAREAS_CUARTEL'];
+            $PLANTASENHECATAREAS = "" . $r['PLANTAS_EN_HECTAREAS'];
+            $DISTANCIAPLANTACUARTEL = "" . $r['DISTANCIA_PLANTA_CUARTEL'];
+            $VESPECIES = "" . $r['ID_VESPECIES'];
+            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+            $ESPECIES = $ARRAYVERVESPECIESID[0]['ID_ESPECIES'];
+            $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspecies($ESPECIES);
+
+        endforeach;
+
     }
     //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
     if ($OP == "editar") {
@@ -111,6 +152,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $VESPECIES = "" . $r['ID_VESPECIES'];
             $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
             $ESPECIES = $ARRAYVERVESPECIESID[0]['ID_ESPECIES'];
+            $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspecies($ESPECIES);
 
         endforeach;
     }
@@ -138,34 +180,37 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $VESPECIES = "" . $r['ID_VESPECIES'];
             $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
             $ESPECIES = $ARRAYVERVESPECIESID[0]['ID_ESPECIES'];
+            $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspecies($ESPECIES);
 
         endforeach;
     }
 }
 
 if ($_POST) {
-    $ESPECIES = "" . $_REQUEST['ESPECIES'];
-    $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspecies($_REQUEST['ESPECIES']);
-    $VESPECIES = "" . $_REQUEST['VESPECIES'];
 
-    if ($_REQUEST['NOMBRECUARTEL']) {
+    if (isset($_REQUEST['ESPECIES'])) {
+        $ESPECIES = $_REQUEST['ESPECIES'];
+        $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspecies($_REQUEST['ESPECIES']);
+    }
+    if (isset($_REQUEST['VESPECIES'])) {
+        $VESPECIES = $_REQUEST['VESPECIES'];    
+    }
+    if (isset($_REQUEST['NOMBRECUARTEL'])) {
         $NOMBRECUARTEL = $_REQUEST['NOMBRECUARTEL'];
     }
-    if ($_REQUEST['TIEMPOPRODUCCIONANOCUARTEL']) {
+    if (isset($_REQUEST['TIEMPOPRODUCCIONANOCUARTEL'])) {
         $TIEMPOPRODUCCIONANOCUARTEL = $_REQUEST['TIEMPOPRODUCCIONANOCUARTEL'];
     }
-    if ($_REQUEST['ANOPLANTACIONCUARTEL']) {
+    if (isset($_REQUEST['ANOPLANTACIONCUARTEL'])) {
         $ANOPLANTACIONCUARTEL = $_REQUEST['ANOPLANTACIONCUARTEL'];
     }
-    if ($_REQUEST['HECTAREASCUARTEL']) {
+    if (isset($_REQUEST['HECTAREASCUARTEL'])) {
         $HECTAREASCUARTEL = $_REQUEST['HECTAREASCUARTEL'];
     }
-
-    if ($_REQUEST['PLANTASENHECATAREAS']) {
+    if (isset($_REQUEST['PLANTASENHECATAREAS'])) {
         $PLANTASENHECATAREAS = $_REQUEST['PLANTASENHECATAREAS'];
     }
-
-    if ($_REQUEST['DISTANCIAPLANTACUARTEL']) {
+    if (isset($_REQUEST['DISTANCIAPLANTACUARTEL'])) {
         $DISTANCIAPLANTACUARTEL = $_REQUEST['DISTANCIAPLANTACUARTEL'];
     }
 }
@@ -382,7 +427,7 @@ if ($_POST) {
                                                         <label id="val_distanciaplanta" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
                                                         <label> Especies</label>
                                                         <select class="form-control select2" id="ESPECIES" name="ESPECIES" style="width: 100%;" onchange="this.form.submit()" value="<?php echo $ESPECIES; ?>" <?php echo $DISABLED; ?>>
@@ -401,7 +446,7 @@ if ($_POST) {
                                                         <label id="val_especies" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
                                                         <label> Variedad  </label>
                                                         <select class="form-control select2" id="VESPECIES" name="VESPECIES" style="width: 100%;" value="<?php echo $VESPECIES; ?>" <?php echo $DISABLED; ?>>
@@ -426,14 +471,22 @@ if ($_POST) {
                                         <div class="box-footer">
                                             <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
                                                 <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroCuartel.php');">
-                                                <i class="ti-trash"></i>Cancelar
+                                                    <i class="ti-trash"></i>Cancelar
                                                 </button>
-                                                <?php if ($OP != "editar") { ?>
-                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                <?php if ($OP == "editar") { ?>
+                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
+                                                <?php } else if($OP == "0") { ?>
+                                                    <button type="submit" class="btn btn-danger" name="ELIMINAR" value="ELIMINAR"  data-toggle="tooltip" title="Deshabilitar"  >
+                                                        <i class="ti-save-alt"></i> Deshabilitar
+                                                    </button>
+                                                <?php } else if($OP == "1"){ ?>                                                    
+                                                    <button type="submit" class="btn btn-success" name="HABILITAR" value="HABILITAR"  data-toggle="tooltip" title="Habilitar"   >
+                                                        <i class="ti-save-alt"></i> Habilitar
+                                                    </button>
                                                 <?php } else { ?>
-                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
                                                 <?php } ?>
@@ -488,9 +541,9 @@ if ($_POST) {
                                                                                     </button>
                                                                                 </span>
                                                                                 <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
-                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Desahabilitar">
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Deshabilitar">
                                                                                         <button type="submit" class="btn btn-block btn-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
-                                                                                            <i class="ti-na "></i> Desahabilitar
+                                                                                            <i class="ti-na "></i> Deshabilitar
                                                                                         </button>
                                                                                     </span>
                                                                                 <?php } ?>
@@ -556,6 +609,9 @@ if ($_POST) {
                 $CUARTEL->__SET('ID_USUARIOM', $IDUSUARIOS);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $CUARTEL_ADO->agregarCuartel($CUARTEL);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Cuartel.","fruta_cuartel","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
                 //REDIRECCIONAR A PAGINA registroCuartel.php
                     echo '<script>
                     Swal.fire({
@@ -586,12 +642,58 @@ if ($_POST) {
                 $CUARTEL->__SET('ID_CUARTEL', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
                 $CUARTEL_ADO->actualizarCuartel($CUARTEL);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Cuartel.","fruta_cuartel", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );     
+
                 //REDIRECCIONAR A PAGINA registroCuartel.php
                     echo '<script>
                     Swal.fire({
                         icon:"success",
                         title:"Registro Modificado",
                         text:"El registro del mantenedor se ha Modificado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroCuartel.php";                            
+                    })
+                </script>';
+            }
+            if (isset($_REQUEST['ELIMINAR'])) {         
+
+                $CUARTEL->__SET('ID_CUARTEL',$_REQUEST['ID']);
+                $CUARTEL_ADO->deshabilitar($CUARTEL);
+        
+                
+        
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar  Cuartel.","fruta_cuartel", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );                
+                
+                echo '<script>
+                    Swal.fire({
+                        icon:"error",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Deshabilitado correctamente", 
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroCuartel.php";                            
+                    })
+                </script>';
+            }
+            
+            if (isset($_REQUEST['HABILITAR'])) {   
+
+                $CUARTEL->__SET('ID_CUARTEL', $_REQUEST['ID']);
+                $CUARTEL_ADO->habilitar($CUARTEL);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,5,"".$_SESSION["NOMBRE_USUARIO"].", Habilitar  Cuartel.","fruta_cuartel", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );                               
+
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Habilitado correctamente", 
                         showConfirmButton: true,
                         confirmButtonText:"Cerrar",
                         closeOnConfirm:false

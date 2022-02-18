@@ -47,7 +47,7 @@ class CIUDAD_ADO {
     public function listarCiudad(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_ciudad` limit 8;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  ubicacion_ciudad  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -66,7 +66,7 @@ class CIUDAD_ADO {
     public function listarCiudadCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_ciudad` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  ubicacion_ciudad  WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -84,7 +84,7 @@ class CIUDAD_ADO {
     public function listarCiudad2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_ciudad` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  ubicacion_ciudad  WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -133,7 +133,7 @@ class CIUDAD_ADO {
     public function verCiudad($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_ciudad` WHERE `ID_CIUDAD`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  ubicacion_ciudad  WHERE  ID_CIUDAD = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -156,7 +156,7 @@ class CIUDAD_ADO {
     public function buscarNombreCiudad($NOMBRE){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_ciudad` WHERE `NOMBRE_CIUDAD` LIKE '%".$NOMBRE."%';");
+            $datos=$this->conexion->prepare("SELECT * FROM  ubicacion_ciudad  WHERE  NOMBRE_CIUDAD  LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -178,7 +178,7 @@ class CIUDAD_ADO {
             
             
             $query=
-            "INSERT INTO `ubicacion_ciudad` (`NOMBRE_CIUDAD`,`ID_COMUNA`, `INGRESO`,`MODIFICACION`,`ESTADO_REGISTRO`) VALUES
+            "INSERT INTO  ubicacion_ciudad  ( NOMBRE_CIUDAD , ID_COMUNA ,  INGRESO , MODIFICACION , ESTADO_REGISTRO ) VALUES
 	       	( ?, ?, SYSDATE() , SYSDATE(),1);";
             $this->conexion->prepare($query)
             ->execute(
@@ -198,7 +198,7 @@ class CIUDAD_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarCiudad($id){
-        try{$sql="DELETE FROM `ubicacion_ciudad` WHERE `ID_CIUDAD`=".$id.";";
+        try{$sql="DELETE FROM  ubicacion_ciudad  WHERE  ID_CIUDAD =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -273,12 +273,12 @@ class CIUDAD_ADO {
     public function actualizarCiudad(CIUDAD $CIUDAD){
         try{
             $query = "
-		UPDATE `ubicacion_ciudad` SET
-            `MODIFICACION`= SYSDATE(),
-            `NOMBRE_CIUDAD`= ?,
-            `ID_COMUNA`= ?
+		UPDATE  ubicacion_ciudad  SET
+             MODIFICACION = SYSDATE(),
+             NOMBRE_CIUDAD = ?,
+             ID_COMUNA = ?
             
-		WHERE `ID_CIUDAD`= ?;";
+		WHERE  ID_CIUDAD = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -303,10 +303,10 @@ class CIUDAD_ADO {
 
         try{
             $query = "
-    UPDATE `ubicacion_ciudad` SET				
-    `MODIFICACION`= SYSDATE(),	
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_CIUDAD`= ?;";
+    UPDATE  ubicacion_ciudad  SET				
+     MODIFICACION = SYSDATE(),	
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_CIUDAD = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -324,10 +324,10 @@ class CIUDAD_ADO {
     public function habilitar(CIUDAD $CIUDAD){
         try{
             $query = "
-    UPDATE `ubicacion_ciudad` SET					
-    `MODIFICACION`= SYSDATE(),
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_CIUDAD`= ?;";
+    UPDATE  ubicacion_ciudad  SET					
+     MODIFICACION = SYSDATE(),
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_CIUDAD = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 

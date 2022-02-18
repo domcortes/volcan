@@ -67,6 +67,9 @@ if (isset($_REQUEST['GUARDAR'])) {
     $LAEREA->__SET('ID_USUARIOI', $IDUSUARIOS);
     $LAEREA->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+
+    $AUSUARIO_ADO->agregarAusuario2("NULL",3,1,"".$_SESSION["NOMBRE_USUARIO"].",Pop, Registro de Linea Aerea.","transporte_laerea","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
     $LAEREA_ADO->agregarLaerea($LAEREA);
     //REDIRECCIONAR A PAGINA registroLaerea.php
     echo "
@@ -113,7 +116,6 @@ if (isset($_REQUEST['GUARDAR'])) {
                     document.getElementById('val_giro').innerHTML = "";
                     document.getElementById('val_rsocial').innerHTML = "";
                     document.getElementById('val_dirrecion').innerHTML = "";
-                    document.getElementById('val_ciudad').innerHTML = "";
                     document.getElementById('val_contacto').innerHTML = "";
                     document.getElementById('val_telefono').innerHTML = "";
                     document.getElementById('val_email').innerHTML = "";

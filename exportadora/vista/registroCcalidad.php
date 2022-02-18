@@ -63,18 +63,39 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     //OPERACION DE CAMBIO DE ESTADO
     //0 = DESACTIVAR
     if ($OP == "0") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYCCALIDADID = $CCALIDAD_ADO->verCcalidad($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
 
-        $CCALIDAD->__SET('ID_CCALIDAD', $IDOP);
-        $CCALIDAD_ADO->deshabilitar($CCALIDAD);
-
-        echo "<script type='text/javascript'> location.href ='registroCcalidad.php';</script>";
+        foreach ($ARRAYCCALIDADID as $r) :
+            $NOMBRECCALIDAD = "" . $r['NOMBRE_CCALIDAD'];
+            $RGBCCALIDAD = "" . $r['RGB_CCALIDAD'];
+        endforeach;
     }
     //1 = ACTIVAR
     if ($OP == "1") {
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYCCALIDADID = $CCALIDAD_ADO->verCcalidad($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
 
-        $CCALIDAD->__SET('ID_CCALIDAD', $IDOP);
-        $CCALIDAD_ADO->habilitar($CCALIDAD);
-        echo "<script type='text/javascript'> location.href ='registroCcalidad.php';</script>";
+        foreach ($ARRAYCCALIDADID as $r) :
+            $NOMBRECCALIDAD = "" . $r['NOMBRE_CCALIDAD'];
+            $RGBCCALIDAD = "" . $r['RGB_CCALIDAD'];
+        endforeach;
     }
 
     //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
@@ -228,14 +249,22 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                         <div class="box-footer">
                                             <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
                                                 <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroCcalidad.php');">
-                                                <i class="ti-trash"></i>Cancelar
+                                                    <i class="ti-trash"></i>Cancelar
                                                 </button>
-                                                <?php if ($OP != "editar") { ?>
-                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                <?php if ($OP == "editar") { ?>
+                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
+                                                <?php } else if($OP == "0") { ?>
+                                                    <button type="submit" class="btn btn-danger" name="ELIMINAR" value="ELIMINAR"  data-toggle="tooltip" title="Deshabilitar"  >
+                                                        <i class="ti-save-alt"></i> Deshabilitar
+                                                    </button>
+                                                <?php } else if($OP == "1"){ ?>                                                    
+                                                    <button type="submit" class="btn btn-success" name="HABILITAR" value="HABILITAR"  data-toggle="tooltip" title="Habilitar"  >
+                                                        <i class="ti-save-alt"></i> Habilitar
+                                                    </button>
                                                 <?php } else { ?>
-                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
                                                         <i class="ti-save-alt"></i> Guardar
                                                     </button>
                                                 <?php } ?>
@@ -292,9 +321,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                                     </button>
                                                                                 </span>
                                                                                 <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
-                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Desahabilitar">
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Deshabilitar">
                                                                                         <button type="submit" class="btn btn-block btn-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
-                                                                                            <i class="ti-na "></i> Desahabilitar
+                                                                                            <i class="ti-na "></i> Deshabilitar
                                                                                         </button>
                                                                                     </span>
                                                                                 <?php } ?>
@@ -349,6 +378,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     $CCALIDAD->__SET('ID_USUARIOM', $IDUSUARIOS);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                     $CCALIDAD_ADO->agregarCcalidad($CCALIDAD);
+
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",3,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Color Calidad.","fruta_ccalidad","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
                     //REDIRECCIONAR A PAGINA registroCcalidad.php
                     echo '<script>
                         Swal.fire({
@@ -373,6 +405,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     $CCALIDAD->__SET('ID_CCALIDAD', $_REQUEST['ID']);
                     //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
                     $CCALIDAD_ADO->actualizarCcalidad($CCALIDAD);
+
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",3,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Color Calidad.","fruta_ccalidad", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );     
+
                     //REDIRECCIONAR A PAGINA registroCcalidad.php
                     echo '<script>
                         Swal.fire({
@@ -387,6 +422,50 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         })
                     </script>';
                 }
+
+                
+            if (isset($_REQUEST['ELIMINAR'])) {                
+
+                $CCALIDAD->__SET('ID_CCALIDAD', $_REQUEST['ID']);
+                $CCALIDAD_ADO->deshabilitar($CCALIDAD);
+        
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar Color Calidad.","fruta_ccalidad", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );                
+                
+                echo '<script>
+                    Swal.fire({
+                        icon:"error",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Deshabilitado correctamente", 
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroCcalidad.php";                            
+                    })
+                </script>';
+            }
+            
+            if (isset($_REQUEST['HABILITAR'])) {         
+                
+                $CCALIDAD->__SET('ID_CCALIDAD', $_REQUEST['ID']);
+                $CCALIDAD_ADO->habilitar($CCALIDAD);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,5,"".$_SESSION["NOMBRE_USUARIO"].", Habilitar Color Calidad.","fruta_ccalidad", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );                               
+
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Habilitado correctamente", 
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroCcalidad.php";                            
+                    })
+                </script>';
+            }
         ?>
 </body>
 </html>

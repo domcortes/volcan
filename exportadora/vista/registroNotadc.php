@@ -173,6 +173,8 @@ $ARRAYPRODUCTOR = "";
 $ARRAYDCARGA = "";
 $ARRAYCALIBRE = "";
 $ARRAYNUMERO = "";
+$ARRAYDNOTACONTEO="";
+$ARRAYDICARGACONTEO="";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
@@ -214,6 +216,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     $IDOP = $_SESSION['parametro'];
     $OP = $_SESSION['parametro1'];
 
+    $ARRAYICARGA = $ICARGA_ADO->listarIcargaEmpresaTemporadaCBX($EMPRESAS, $TEMPORADAS);
 
     //IDENTIFICACIONES DE OPERACIONES
     //crear =  OBTENCION DE DATOS INICIALES PARA PODER CREAR LA RECEPCION
@@ -1141,7 +1144,7 @@ if (isset($_POST)) {
                     $_REQUEST['TEMPORADA'],
 
                 );
-
+                $AUSUARIO_ADO->agregarAusuario2($NUMERO,3,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Nota D/C","fruta_notadc",$ARRYAOBTENERID[0]['ID_NOTA'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
                 //REDIRECCIONAR A PAGINA registroNotadc.php
                 
                 $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_NOTA'];
@@ -1169,7 +1172,9 @@ if (isset($_POST)) {
                 $NOTADC->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $NOTADC->__SET('ID_NOTA', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                $NOTADC_ADO->actualizarNota($NOTADC);                    
+                $NOTADC_ADO->actualizarNota($NOTADC);                   
+                $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,3,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Nota D/C","fruta_notadc",$_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
+                
                  if ($_SESSION['parametro1'] == "crear") {
                     $_SESSION["parametro"] = $_REQUEST['IDP'];
                     $_SESSION["parametro1"] = "crear";
@@ -1210,13 +1215,34 @@ if (isset($_POST)) {
                 $ARRAYDNOTA=$DNOTADC_ADO->buscarPorNota($_REQUEST['IDP']);
                 if ($ARRAYDNOTA) {
                     $SINO = "0";
+
+                    $ARRAYDNOTACONTEO=$DNOTADC_ADO->contarPorValor($_REQUEST['IDP']);
+                    $ARRAYDICARGACONTEO=$DICARGA_ADO->conteoPorIcarga($_REQUEST['ICARGADE']);
+                    if($ARRAYDNOTACONTEO[0]["CONTEO"]>0 && $ARRAYDICARGACONTEO[0]["CONTEO"]>0){
+                        if($ARRAYDNOTACONTEO[0]["CONTEO"]!=$ARRAYDICARGACONTEO[0]["CONTEO"]){
+                            $SINO = "1";            
+                             echo '<script>
+                                    Swal.fire({
+                                        icon:"warning",
+                                        title:"Accion restringida",
+                                        text:"Todos los item del detalle debe contener un valor.",
+                                        showConfirmButton: true,
+                                        confirmButtonText:"Cerrar",
+                                        closeOnConfirm:false
+                                    })
+                                </script>';   
+
+                        }else{                            
+                            $SINO = "0";
+                        }
+                    }
                 } else {
                     $SINO = "1";       
                     echo '<script>
                             Swal.fire({
                                 icon:"warning",
                                 title:"Accion restringida",
-                                text:"En el detalle tiene haber al menos uno con cantidad"
+                                text:"En el detalle tiene haber al menos uno con cantidad",
                                 showConfirmButton: true,
                                 confirmButtonText:"Cerrar",
                                 closeOnConfirm:false
@@ -1239,9 +1265,11 @@ if (isset($_POST)) {
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                     $NOTADC_ADO->cerrado($NOTADC);
 
+                   $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,3,3,"".$_SESSION["NOMBRE_USUARIO"].", Cerrar  Nota D/C","fruta_notadc",$_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
                 
                     //REDIRECCIONAR A PAGINA registroNotadc.php 
                     //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
+                    
                     if ($_SESSION['parametro1'] == "crear") {
                         $_SESSION["parametro"] = $_REQUEST['IDP'];
                         $_SESSION["parametro1"] = "ver";

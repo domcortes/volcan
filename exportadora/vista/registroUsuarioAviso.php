@@ -58,16 +58,44 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     $OP = $_SESSION['parametro1'];
 
     if ($OP == "0") {
-
-        $AVISO->__SET('ID_USUARIO', $IDOP);
-        $AVISO_ADO->deshabilitar($AVISO);
-        echo "<script type='text/javascript'> location.href ='registroUsuarioAviso.php';</script>";
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verUsuario(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYAVISOID = $AVISO_ADO->verAviso($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
+        foreach ($ARRAYAVISOID as $r) :
+            $DIA_INICIO = "" . $r['DIA_INICIO'];
+            $DIA_TERMINO = "" . $r['DIA_TERMINO'];
+            $MENSAJE = "" . $r['MENSAJE'];
+            $TAVISO = "" . $r['TAVISO'];
+            $TPRIORIDAD = "" . $r['TPRIORIDAD'];
+            $FECHA_TERMINO = "" . $r['FECHA_TERMINO'];
+        endforeach;
     }
     if ($OP == "1") {
-
-        $AVISO->__SET('ID_USUARIO', $IDOP);
-        $AVISO_ADO->habilitar($AVISO);
-        echo "<script type='text/javascript'> location.href ='registroUsuarioAviso.php';</script>";
+        //DESABILITAR INPUT DEL FORMULARIO
+        //PARA QUE NO MODIFIQUE NIGUNA INFORMACION, OBJETIVO ES VISUALIZAR INFORMACION
+        $DISABLED = "disabled";
+        //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
+        //ALMACENAR INFORMACION EN ARREGLO
+        //LLAMADA A LA FUNCION DE CONTROLADOR verUsuario(ID), 
+        //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
+        $ARRAYAVISOID = $AVISO_ADO->verAviso($IDOP);
+        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
+        //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
+        foreach ($ARRAYAVISOID as $r) :
+            $DIA_INICIO = "" . $r['DIA_INICIO'];
+            $DIA_TERMINO = "" . $r['DIA_TERMINO'];
+            $MENSAJE = "" . $r['MENSAJE'];
+            $TAVISO = "" . $r['TAVISO'];
+            $TPRIORIDAD = "" . $r['TPRIORIDAD'];
+            $FECHA_TERMINO = "" . $r['FECHA_TERMINO'];
+        endforeach;
     }
     //IDENTIFICACIONES DE OPERACIONES
     //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
@@ -290,7 +318,7 @@ if ($_POST) {
                                             <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Tipo Prioridad</label>
-                                                    <select class="form-control select2" name="TPRIORIDAD" id="TPRIORIDAD" value="<?php echo $TPRIORIDAD; ?>"<?php echo $DISABLED; ?>>
+                                                    <select class="form-control select2" name="TPRIORIDAD" id="TPRIORIDAD" width="100%" value="<?php echo $TPRIORIDAD; ?>"<?php echo $DISABLED; ?>>
                                                         <option></option>
                                                         <option value="1" <?php if ($TPRIORIDAD == "1") { echo "selected";  } ?>> Crítico </option>
                                                         <option value="2" <?php if ($TPRIORIDAD == "2") { echo "selected";  } ?>> Advertencia </option>
@@ -302,7 +330,7 @@ if ($_POST) {
                                             <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Tipo Aviso</label>
-                                                    <select class="form-control select2" name="TAVISO" id="TAVISO" onchange="this.form.submit()" value="<?php echo $TAVISO; ?>" <?php echo $DISABLED; ?>>
+                                                    <select class="form-control select2" name="TAVISO" id="TAVISO"  width="100%" onchange="this.form.submit()" value="<?php echo $TAVISO; ?>" <?php echo $DISABLED; ?>>
                                                         <option></option>
                                                         <option value="1" <?php if ($TAVISO == "1") { echo "selected";  } ?>> Siempre </option>
                                                         <option value="2" <?php if ($TAVISO == "2") { echo "selected";  } ?>> Fijo </option>
@@ -330,21 +358,29 @@ if ($_POST) {
                                     </div>
                                     <!-- /.box-body -->                                           
                                     <div class="box-footer">
-                                            <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
-                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroUsuarioAviso.php');">
-                                                <i class="ti-trash"></i>Cancelar
+                                        <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
+                                            <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroUsuarioAviso.php');">
+                                             <i class="ti-trash"></i> Cancelar
+                                            </button>
+                                            <?php if ($OP == "editar") { ?>
+                                                <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Guardar
                                                 </button>
-                                                <?php if ($OP != "editar") { ?>
-                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
-                                                        <i class="ti-save-alt"></i> Guardar
-                                                    </button>
-                                                <?php } else { ?>
-                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
-                                                        <i class="ti-save-alt"></i> Guardar
-                                                    </button>
-                                                <?php } ?>
-                                            </div>
+                                            <?php } else if($OP == "0") { ?>
+                                                <button type="submit" class="btn btn-danger" name="ELIMINAR" value="ELIMINAR"  data-toggle="tooltip" title="Deshabilitar"  >
+                                                    <i class="ti-save-alt"></i> Deshabilitar
+                                                </button>
+                                            <?php } else if($OP == "1"){ ?>                                                    
+                                                <button type="submit" class="btn btn-success" name="HABILITAR" value="HABILITAR"  data-toggle="tooltip" title="Habilitar"  >
+                                                    <i class="ti-save-alt"></i> Habilitar
+                                                </button>
+                                            <?php } else { ?>
+                                                <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Guardar
+                                                </button>
+                                            <?php } ?>
                                         </div>
+                                    </div>
                                 </form>
                             </div>
                             <!-- /.box -->
@@ -409,9 +445,9 @@ if ($_POST) {
                                                                             </button>
                                                                         </span>
                                                                         <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
-                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Desahabilitar">
+                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Deshabilitar">
                                                                                 <button type="submit" class="btn btn-block btn-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
-                                                                                    <i class="ti-na "></i> Desahabilitar
+                                                                                    <i class="ti-na "></i> Deshabilitar
                                                                                 </button>
                                                                             </span>                                                                                
                                                                         <?php } ?>
@@ -467,6 +503,8 @@ if ($_POST) {
                     $AVISO->__SET('ID_USUARIOI',$IDUSUARIOS);
                     $AVISO->__SET('ID_USUARIOM',$IDUSUARIOS);
                     $AVISO_ADO->agregarAviso($AVISO);
+
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",3,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro  Aviso","usuario_aviso","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
                     
                     echo '<script>
                         Swal.fire({
@@ -495,12 +533,57 @@ if ($_POST) {
                 $AVISO->__SET('ID_USUARIOM',$IDUSUARIOS);
                 $AVISO->__SET('ID_AVISO', $_REQUEST['ID']);
                 $AVISO_ADO->actualizarAviso($AVISO);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación  Aviso","usuario_aviso", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
                 
                 echo '<script>
                     Swal.fire({
                         icon:"info",
                         title:"Registro Modificado",
                         text:"El registro de Aviso se ha modificado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroUsuarioAviso.php";                            
+                    })
+                </script>';
+            }
+
+            
+            if (isset($_REQUEST['ELIMINAR'])) {
+
+                $AVISO->__SET('ID_AVISO', $_REQUEST['ID']);
+                $AVISO_ADO->deshabilitar($AVISO);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar  Aviso","usuario_aviso", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );                
+                
+                echo '<script>
+                    Swal.fire({
+                        icon:"error",
+                        title:"Registro Modificado",
+                        text:"El registro de Aviso se ha Deshabilitado correctamente", 
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroUsuarioAviso.php";                            
+                    })
+                </script>';
+            }
+            
+            if (isset($_REQUEST['HABILITAR'])) {
+
+                $AVISO->__SET('ID_AVISO', $_REQUEST['ID']);
+                $AVISO_ADO->habilitar($AVISO);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3,5,"".$_SESSION["NOMBRE_USUARIO"].", Habilitar Aviso","usuario_aviso", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );                               
+
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Modificado",
+                        text:"El registro de Aviso se ha Habilitado correctamente", 
                         showConfirmButton: true,
                         confirmButtonText:"Cerrar",
                         closeOnConfirm:false

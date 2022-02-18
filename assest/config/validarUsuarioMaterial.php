@@ -56,6 +56,7 @@ $TTMONEDA2="";
 include_once '../../assest/controlador/USUARIO_ADO.php';
 include_once '../../assest/controlador/TUSUARIO_ADO.php';
 include_once '../../assest/controlador/PTUSUARIO_ADO.php';
+include_once "../../assest/controlador/AUSUARIO_ADO.php";
 include_once '../../assest/controlador/AVISO_ADO.php';
 
 include_once '../../assest/controlador/EMPRESA_ADO.php';
@@ -66,6 +67,7 @@ include_once '../../assest/controlador/TEMPORADA_ADO.php';
 $USUARIO_ADO = new USUARIO_ADO();
 $TUSUARIO_ADO = new TUSUARIO_ADO();
 $PTUSUARIO_ADO = new PTUSUARIO_ADO();
+$AUSUARIO_ADO = new AUSUARIO_ADO();
 $AVISO_ADO = new AVISO_ADO();
 
 $EMPRESA_ADO =  new EMPRESA_ADO();
@@ -75,6 +77,7 @@ $TEMPORADA_ADO =  new TEMPORADA_ADO();
 
 
 if (isset($_REQUEST['CERRARS'])) {
+    $AUSUARIO_ADO->agregarAusuario2('NULL',2,0,"".$_SESSION["NOMBRE_USUARIO"].", Cierre Sesion","usuario_usuario",$_SESSION["ID_USUARIO"],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
     session_destroy();
     header('Location: iniciarSession.php');
 }

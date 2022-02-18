@@ -442,7 +442,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                     $NETOORIGINAL = $ARRAYNETOORIGINAL[$IDNETO];
 
                     if ($NETO != "") {
-                        $SINONETO = 0;
+                        $SINNO = 0;
                         $MENSAJEPRECIO = $MENSAJE;
                         if ($NETO <= 0) {
                             $SINNO = 1;

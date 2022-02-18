@@ -56,6 +56,9 @@ if (isset($_REQUEST['GUARDAR'])) {
     $LDESTINO->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
     $LDESTINO_ADO->agregarLdestino($LDESTINO);
+
+    $AUSUARIO_ADO->agregarAusuario2("NULL",3,1,"".$_SESSION["NOMBRE_USUARIO"].",Pop, Registro de Lugar Destino.","fruta_pdestino","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+
     //REDIRECCIONAR A PAGINA registroTfruta.php
     echo "
         <script type='text/javascript'>

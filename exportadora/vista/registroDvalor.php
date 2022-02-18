@@ -6,6 +6,7 @@ include_once "../../assest/config/validarUsuarioExpo.php";
 include_once '../../assest/controlador/ICARGA_ADO.php';
 include_once '../../assest/controlador/DICARGA_ADO.php';
 include_once '../../assest/controlador/TMONEDA_ADO.php';
+include_once '../../assest/controlador/ECOMERCIAL_ADO.php';
 
 include_once '../../assest/controlador/VALOR_ADO.php';
 include_once '../../assest/controlador/DVALOR_ADO.php';
@@ -23,6 +24,7 @@ include_once '../../assest/modelo/DVALOR.php';
 $ICARGA_ADO = new ICARGA_ADO();
 $DICARGA_ADO = new DICARGA_ADO();
 $TMONEDA_ADO = new TMONEDA_ADO();
+$ECOMERCIAL_ADO = new ECOMERCIAL_ADO();
 
 
 $VALOR_ADO =  new VALOR_ADO();
@@ -41,6 +43,8 @@ $IDDICARGA = "";
 $IDICARGA = "";
 $TMONEDA="";
 $NOMBRETMONEDA="";
+$ECOMERCIAL="";
+$COMERCIAL="";
 
 
 
@@ -68,18 +72,44 @@ $NODATOURL = "";
 $ARRAYESTANDAR = "";
 $ARRAYCALIBRE = "";
 $ARRAYESTANDARDETALLE = "";
+$ARRAYECOMERCIAL="";
+$ARRAYDICARGATM="";
+$ARRAYDICARGAEC="";
 
 
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
-$ARRAYTMONEDA = $TMONEDA_ADO->listarTmonedaPorEmpresaCBX($EMPRESAS);
 include_once "../../assest/config/validarDatosUrlD.php";
 
 
 
 //OBTENCION DE DATOS ENVIADOR A LA URL
+
+if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_SESSION['urlO'])){    
+    $IDP = $_SESSION['parametro'];
+    $OPP = $_SESSION['parametro1'];
+    $URLO = $_SESSION['urlO'];    
+    $ARRAYVERVALOR = $VALOR_ADO->verValor($IDP);
+    if($ARRAYVERVALOR){
+        $ICARGA= $ARRAYVERVALOR[0]['ID_ICARGA'];
+        $ARRAYVERICARGA = $ICARGA_ADO->verIcarga($ICARGA);
+        if($ARRAYVERICARGA){
+            $ARRAYDICARGAEC=$DICARGA_ADO->buscarEcomercialenInvoicePorIcarga($ARRAYVERICARGA[0]["ID_ICARGA"]);
+            $ARRAYDICARGATM=$DICARGA_ADO->buscarPorIcargaLimitado1($ARRAYVERICARGA[0]["ID_ICARGA"]);
+            if($ARRAYDICARGATM){
+                $TMONEDA=$ARRAYDICARGATM[0]["ID_TMONEDA"];
+                $NOMBRETMONEDA=$ARRAYDICARGATM[0]["TMONEDA"];
+            }else{
+                $NOMBRETMONEDA="Sin Datos";
+            }
+        }
+    }
+}
+
+
+
 //PARA OPERACIONES DE EDICION , VISUALIZACION Y CREACION
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_SESSION['urlO']) && isset($_SESSION['dparametro']) && isset($_SESSION['dparametro1'])) {
     //ALMACENAR DATOS DE VARIABLES DE LA URL
@@ -88,6 +118,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     $IDP = $_SESSION['parametro'];
     $OPP = $_SESSION['parametro1'];
     $URLO = $_SESSION['urlO'];
+
 
 
 
@@ -103,24 +134,12 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
         $ARRAYITEM = $TITEM_ADO->verTitem($IDOP);
         foreach ($ARRAYITEM as $r) :            
             $ITEM= "" . $r['ID_TITEM'];
-            $NOMBREITEM = "" . $r['NOMBRE_TITEM'];   
-            $ARRAYVERVALOR = $VALOR_ADO->verValor($IDP);
-            if($ARRAYVERVALOR){
-                $ICARGA= $ARRAYVERVALOR[0]['ID_ICARGA'];
-                $ARRAYVERICARGA = $ICARGA_ADO->verIcarga($ICARGA);
-                if($ARRAYVERICARGA){
-                    $ARRAYDICARGA=$DICARGA_ADO->buscarPorIcargaLimitado1($ARRAYVERICARGA[0]["ID_ICARGA"]);
-                    if($ARRAYDICARGA){
-                        $TMONEDA=$ARRAYDICARGA[0]["ID_TMONEDA"];
-                        $NOMBRETMONEDA=$ARRAYDICARGA[0]["TMONEDA"];
-                    }else{
-                        $NOMBRETMONEDA="Sin Datos";
-                    }
-                }
-            }
+            $NOMBREITEM = "" . $r['NOMBRE_TITEM'];    
             $ARRAYDVALOR=$DVALOR_ADO->buscarPorValorItem($IDP,$r["ID_TITEM"]);
             if($ARRAYDVALOR){
-               $VALORITEM= $ARRAYDVALOR[0]["VALOR_DVALOR"];               
+               $VALORITEM= $ARRAYDVALOR[0]["VALOR_DVALOR"];   
+               $COMERCIAL = $ARRAYDVALOR[0]['COMERCIAL'];   
+               $ECOMERCIAL = $ARRAYDVALOR[0]['ID_ECOMERCIAL'];              
             }else{
                $VALORITEM=0;
             }         
@@ -137,23 +156,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
         foreach ($ARRAYITEM as $r) :            
             $ITEM= "" . $r['ID_TITEM'];
             $NOMBREITEM = "" . $r['NOMBRE_TITEM'];   
-            $ARRAYVERVALOR = $VALOR_ADO->verValor($IDP);
-            if($ARRAYVERVALOR){
-                $ICARGA= $ARRAYVERVALOR[0]['ID_ICARGA'];
-                $ARRAYVERICARGA = $ICARGA_ADO->verIcarga($ICARGA);
-                if($ARRAYVERICARGA){
-                    $ARRAYDICARGA=$DICARGA_ADO->buscarPorIcargaLimitado1($ARRAYVERICARGA[0]["ID_ICARGA"]);
-                    if($ARRAYDICARGA){
-                        $TMONEDA=$ARRAYDICARGA[0]["ID_TMONEDA"];
-                        $NOMBRETMONEDA=$ARRAYDICARGA[0]["TMONEDA"];
-                    }else{
-                        $NOMBRETMONEDA="Sin Datos";
-                    }
-                }
-            }
             $ARRAYDVALOR=$DVALOR_ADO->buscarPorValorItem($IDP,$r["ID_TITEM"]);
             if($ARRAYDVALOR){
-               $VALORITEM= $ARRAYDVALOR[0]["VALOR_DVALOR"];               
+               $VALORITEM= $ARRAYDVALOR[0]["VALOR_DVALOR"];    
+               $COMERCIAL = $ARRAYDVALOR[0]['COMERCIAL'];   
+               $ECOMERCIAL = $ARRAYDVALOR[0]['ID_ECOMERCIAL'];               
             }else{
                $VALORITEM=0;
             }         
@@ -168,24 +175,12 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
         $ARRAYITEM = $TITEM_ADO->verTitem($IDOP);
         foreach ($ARRAYITEM as $r) :            
             $ITEM= "" . $r['ID_TITEM'];
-            $NOMBREITEM = "" . $r['NOMBRE_TITEM'];   
-            $ARRAYVERVALOR = $VALOR_ADO->verValor($IDP);
-            if($ARRAYVERVALOR){
-                $ICARGA= $ARRAYVERVALOR[0]['ID_ICARGA'];
-                $ARRAYVERICARGA = $ICARGA_ADO->verIcarga($ICARGA);
-                if($ARRAYVERICARGA){
-                    $ARRAYDICARGA=$DICARGA_ADO->buscarPorIcargaLimitado1($ARRAYVERICARGA[0]["ID_ICARGA"]);
-                    if($ARRAYDICARGA){
-                        $TMONEDA=$ARRAYDICARGA[0]["ID_TMONEDA"];
-                        $NOMBRETMONEDA=$ARRAYDICARGA[0]["TMONEDA"];
-                    }else{
-                        $NOMBRETMONEDA="Sin Datos";
-                    }
-                }
-            }
+            $NOMBREITEM = "" . $r['NOMBRE_TITEM'];    
             $ARRAYDVALOR=$DVALOR_ADO->buscarPorValorItem($IDP,$r["ID_TITEM"]);
             if($ARRAYDVALOR){
-               $VALORITEM= $ARRAYDVALOR[0]["VALOR_DVALOR"];               
+               $VALORITEM= $ARRAYDVALOR[0]["VALOR_DVALOR"];  
+               $COMERCIAL = $ARRAYDVALOR[0]['COMERCIAL'];   
+               $ECOMERCIAL = $ARRAYDVALOR[0]['ID_ECOMERCIAL'];                 
             }else{
                $VALORITEM=0;
             }         
@@ -203,24 +198,12 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
         $ARRAYITEM = $TITEM_ADO->verTitem($IDOP);
         foreach ($ARRAYITEM as $r) :            
             $ITEM= "" . $r['ID_TITEM'];
-            $NOMBREITEM = "" . $r['NOMBRE_TITEM'];   
-            $ARRAYVERVALOR = $VALOR_ADO->verValor($IDP);
-            if($ARRAYVERVALOR){
-                $ICARGA= $ARRAYVERVALOR[0]['ID_ICARGA'];
-                $ARRAYVERICARGA = $ICARGA_ADO->verIcarga($ICARGA);
-                if($ARRAYVERICARGA){
-                    $ARRAYDICARGA=$DICARGA_ADO->buscarPorIcargaLimitado1($ARRAYVERICARGA[0]["ID_ICARGA"]);
-                    if($ARRAYDICARGA){
-                        $TMONEDA=$ARRAYDICARGA[0]["ID_TMONEDA"];
-                        $NOMBRETMONEDA=$ARRAYDICARGA[0]["TMONEDA"];
-                    }else{
-                        $NOMBRETMONEDA="Sin Datos";
-                    }
-                }
-            }
+            $NOMBREITEM = "" . $r['NOMBRE_TITEM'];     
             $ARRAYDVALOR=$DVALOR_ADO->buscarPorValorItem($IDP,$r["ID_TITEM"]);
             if($ARRAYDVALOR){
-               $VALORITEM= $ARRAYDVALOR[0]["VALOR_DVALOR"];               
+               $VALORITEM= $ARRAYDVALOR[0]["VALOR_DVALOR"];      
+               $COMERCIAL = $ARRAYDVALOR[0]['COMERCIAL'];   
+               $ECOMERCIAL = $ARRAYDVALOR[0]['ID_ECOMERCIAL'];             
             }else{
                $VALORITEM=0;
             }         
@@ -231,6 +214,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 if ($_POST) {
     if (isset($_REQUEST['VALORITEM'])) {
         $VALORITEM = $_REQUEST['VALORITEM'];
+    }
+    if (isset($_REQUEST['COMERCIAL'])) {
+        $COMERCIAL = $_REQUEST['COMERCIAL'];
+        if($COMERCIAL==1){
+            if (isset($_REQUEST['ECOMERCIAL'])) {
+                $ECOMERCIAL = $_REQUEST['ECOMERCIAL'];
+            }
+        }
     }
 }
 ?>
@@ -251,8 +242,12 @@ if ($_POST) {
             <script type="text/javascript">
                 function validacion() {
                     VALORITEM = document.getElementById("VALORITEM").value;
+                    COMERCIAL = document.getElementById("COMERCIAL").selectedIndex;    
+
+                    console.log(COMERCIAL); 
                     document.getElementById('val_valor').innerHTML = "";
-                    console.log(VALORITEM);
+                    document.getElementById('val_comercial').innerHTML = "";
+
 
                     if (VALORITEM == null || VALORITEM.length == 0 || /^\s+$/.test(VALORITEM)) {
                         document.form_reg_dato.VALORITEM.focus();
@@ -269,7 +264,30 @@ if ($_POST) {
                         return false;
                     } 
                     document.form_reg_dato.VALORITEM.style.borderColor = "#4AF575";
-           
+
+
+                    if (COMERCIAL == null || COMERCIAL == 0) {
+                        document.form_reg_dato.COMERCIAL.focus();
+                        document.form_reg_dato.COMERCIAL.style.borderColor = "#FF0000";
+                        document.getElementById('val_comercial').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                        return false;
+                    }
+                    document.form_reg_dato.COMERCIAL.style.borderColor = "#4AF575";
+
+                    if(COMERCIAL == 1 ){
+
+                        ECOMERCIAL = document.getElementById("ECOMERCIAL").selectedIndex;    
+                        document.getElementById('val_ecomercial').innerHTML = "";
+
+                        if (ECOMERCIAL == null || ECOMERCIAL == 0) {
+                            document.form_reg_dato.ECOMERCIAL.focus();
+                            document.form_reg_dato.ECOMERCIAL.style.borderColor = "#FF0000";
+                            document.getElementById('val_ecomercial').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                            return false;
+                        }
+                        document.form_reg_dato.ECOMERCIAL.style.borderColor = "#4AF575";                      
+                        
+                    } 
                    
                     
                 }
@@ -347,14 +365,46 @@ if ($_POST) {
                                                 <label id="val_valor" class="validacion"> </label>
                                             </div>
                                         </div>                                           
-                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Tipo Moneda</label>
                                                 <input type="hidden" class="form-control" placeholder="TMONEDA" id="TMONEDA" name="TMONEDA" value="<?php echo $TMONEDA; ?>" />
                                                 <input type="text" class="form-control" placeholder="Tipo Moneda" id="NOMBRETMONEDA" name="NOMBRETMONEDA" value="<?php echo $NOMBRETMONEDA; ?>" disabled style="background-color: #eeeeee;" />                                            
                                                 <label id="val_tmoneda" class="validacion"> </label>   
                                             </div>
-                                        </div>
+                                        </div>  
+                                        <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="form-group">
+                                                <label>Comercial</label>
+                                                <select class="form-control select2" id="COMERCIAL" name="COMERCIAL" style="width: 100%;" onchange="this.form.submit()" <?php echo $COMERCIAL; ?>>
+                                                    <option></option>
+                                                    <option value="1" <?php if ($COMERCIAL == "1") { echo "selected"; } ?>> Si </option>
+                                                    <option value="0" <?php if ($COMERCIAL == "0") { echo "selected"; } ?>>No</option>
+                                                </select>
+                                                <label id="val_comercial" class="validacion"> </label>
+                                            </div>
+                                        </div>  
+                                        <?php if($COMERCIAL==1){  ?>
+                                            <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
+                                                <div class="form-group">
+                                                    <label>Estandar Comercial</label>
+                                                    <select class="form-control select2" id="ECOMERCIAL" name="ECOMERCIAL" style="width: 100%;" value="<?php echo $ECOMERCIAL; ?>" <?php echo $DISABLED; ?>>
+                                                        <option></option>
+                                                        <?php foreach ($ARRAYDICARGAEC as $r) : ?>
+                                                            <?php if ($ARRAYDICARGAEC) {    ?>
+                                                                <option value="<?php echo $r['ID_ECOMERCIAL']; ?>"
+                                                                    <?php if ($ECOMERCIAL == $r['ID_ECOMERCIAL']) {  echo "selected";  } ?>>
+                                                                    <?php echo $r['NOMBRE'] ?>
+                                                                </option>
+                                                            <?php } else { ?>
+                                                                <option>No Hay Datos Registrados </option>
+                                                            <?php } ?>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                    <label id="val_ecomercial" class="validacion"> </label>
+                                                </div>
+                                            </div>
+                                        <?php  } ?>
                                     </div>
                                     <!-- /.row -->
                                     <!-- /.box-body -->
@@ -409,13 +459,19 @@ if ($_POST) {
             if (isset($_REQUEST['CREAR'])) { 
 
                 $DVALOR->__SET('VALOR_DVALOR', $_REQUEST['VALORITEM']);
+                $DVALOR->__SET('COMERCIAL', $_REQUEST['COMERCIAL']);
+                if($_REQUEST['COMERCIAL']==1){
+                    $DVALOR->__SET('ID_ECOMERCIAL', $_REQUEST['ECOMERCIAL']);
+                }
                 $DVALOR->__SET('ID_USUARIOI', $IDUSUARIOS);
                 $DVALOR->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $DVALOR->__SET('ID_VALOR', $_REQUEST['IDP']);
                 $DVALOR->__SET('ID_TITEM', $_REQUEST['ID']);
                 $DVALOR_ADO->agregarDvalor($DVALOR);
                 
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Detalle de Valor Liquidación","liquidacion_dvalor","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
                 //REDIRECCIONAR A PAGINA registroICarga.php 
+                
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
                 $_SESSION["parametro1"] =  $_REQUEST['OPP'];               
                 
@@ -430,15 +486,23 @@ if ($_POST) {
                             location.href ="' . $_REQUEST['URLO'] . '.php?op";                            
                         })
                     </script>';
+                    
             }
             if (isset($_REQUEST['EDITAR'])) {    
                 $ARRAYDVALOR=$DVALOR_ADO->buscarPorValorItem($_REQUEST['IDP'],$_REQUEST['ID']);
                 if($ARRAYDVALOR){     
                     $DVALOR->__SET('VALOR_DVALOR', $_REQUEST['VALORITEM']);
+                    $DVALOR->__SET('COMERCIAL', $_REQUEST['COMERCIAL']);
+                    echo $COMERCIAL;
+                    if($_REQUEST['COMERCIAL']==1){
+                        $DVALOR->__SET('ID_ECOMERCIAL', $_REQUEST['ECOMERCIAL']);
+                    }
                     $DVALOR->__SET('ID_USUARIOM', $IDUSUARIOS);
                     $DVALOR->__SET('ID_VALOR', $_REQUEST['IDP']);
                     $DVALOR->__SET('ID_TITEM', $_REQUEST['ID']);
+                    $DVALOR->__SET('ID_DVALOR', $ARRAYDVALOR[0]["ID_DVALOR"]);
                     $DVALOR_ADO->actualizarDvalor($DVALOR);
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",3, 2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Detalle de Valor Liquidación","liquidacion_dvalor",$ARRAYDVALOR[0]["ID_DVALOR"],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
                     
                     $_SESSION["parametro"] =  $_REQUEST['IDP'];
                     $_SESSION["parametro1"] =  $_REQUEST['OPP'];                
@@ -455,6 +519,7 @@ if ($_POST) {
                                 }
                             })
                         </script>';
+                        
                     
                 }         
             } 
@@ -464,6 +529,7 @@ if ($_POST) {
                     $DVALOR->__SET('ID_DVALOR', $ARRAYDVALOR[0]["ID_DVALOR"]);   
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                     $DVALOR_ADO->deshabilitar($DVALOR);
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",3, 3,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar de Detalle de Valor Liquidación","liquidacion_dvalor",$ARRAYDVALOR[0]["ID_DVALOR"],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
                     
                     $_SESSION["parametro"] =  $_REQUEST['IDP'];
                     $_SESSION["parametro1"] =  $_REQUEST['OPP'];                    
