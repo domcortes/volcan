@@ -836,7 +836,7 @@ if ($_POST) {
                     $DRECEPCIONIND->__SET('ID_RECEPCION', $_REQUEST['IDP']);
                     $DRECEPCIONIND_ADO->agregarDrecepcion($DRECEPCIONIND);
 
-                    $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Detalle de recepcion Producto Industrial","fruta_drecepcionind","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Detalle de recepcion Producto Industrial","fruta_drecepcionind","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
 
                     //UTILIZACION METODOS SET DEL MODELO
                     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
@@ -864,7 +864,7 @@ if ($_POST) {
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                     $EXIINDUSTRIAL_ADO->agregarExiindustrialRecepcion($EXIINDUSTRIAL);
 
-                    $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Existencia de Producto Industrial","fruta_exiindustrial","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Existencia de Producto Industrial","fruta_exiindustrial","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
                     
                     //REDIRECCIONAR A PAGINA registroProceso.php
                     $_SESSION["parametro"] =  $_REQUEST['IDP'];
@@ -947,7 +947,7 @@ if ($_POST) {
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                     $EXIINDUSTRIAL_ADO->actualizarExiindustrialRecepcion($EXIINDUSTRIAL);
 
-                    $AUSUARIO_ADO->agregarAusuario2("NULL",1, 2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Existencia de Producto Industrial","fruta_exiindustrial",$ARRAYVERFOLIOEXISTENCIA[0]["ID_EXIINDUSTRIAL"],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",1, 2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Existencia de Producto Industrial","fruta_exiindustrial",$ARRAYVERFOLIOEXISTENCIA[0]["ID_EXIINDUSTRIAL"],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
 
                 } else {
                     $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTindustrial($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
@@ -982,7 +982,7 @@ if ($_POST) {
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                     $EXIINDUSTRIAL_ADO->agregarExiindustrialRecepcion($EXIINDUSTRIAL);
 
-                    $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Existencia de Producto Industrial","fruta_exiindustrial","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Existencia de Producto Industrial","fruta_exiindustrial","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
                 }
                 
                 //REDIRECCIONAR A PAGINA registroProceso.php 

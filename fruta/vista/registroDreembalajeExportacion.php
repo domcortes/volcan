@@ -975,6 +975,8 @@ if ($_POST) {
                     $DREXPORTACION->__SET('ID_REEMBALAJE', $_REQUEST['IDP']);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                     $DREXPORTACION_ADO->agregarDrexportacion($DREXPORTACION);
+                    
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Detalle de exportacion de reembalaje","fruta_drexportacion","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
 
                     $EXIEXPORTACION->__SET('FOLIO_EXIEXPORTACION', $NUMEROFOLIODEXPORTACION);
                     $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $NUMEROFOLIODEXPORTACION);
@@ -1008,6 +1010,8 @@ if ($_POST) {
                     $EXIEXPORTACION->__SET('ID_REEMBALAJE', $_REQUEST['IDP']);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                     $EXIEXPORTACION_ADO->agregarExiexportacionReembalaje($EXIEXPORTACION);
+
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Existencia de Producto Terminado","fruta_exiexportacion","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
 
                     //REDIRECCIONAR A PAGINA registroProceso.php
                     $_SESSION["parametro"] =  $_REQUEST['IDP'];
@@ -1063,6 +1067,8 @@ if ($_POST) {
                 $DREXPORTACION->__SET('ID_DREXPORTACION', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $DREXPORTACION_ADO->actualizarDrexportacion($DREXPORTACION);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1, 2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Detalle de exportacion de proceso","fruta_drexportacion",$_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
             
                 $ARRAYVERFOLIOEXISTENCIA = $EXIEXPORTACION_ADO->buscarPorReembalajeNumeroFolio($_REQUEST['IDP'], $_REQUEST['NUMEROFOLIODEXPORTACIONE']);
             
@@ -1091,6 +1097,9 @@ if ($_POST) {
                     $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $ARRAYVERFOLIOEXISTENCIA[0]["ID_EXIEXPORTACION"]);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                     $EXIEXPORTACION_ADO->actualizarExiexportacionReenbalaje($EXIEXPORTACION);
+
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",1, 2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Existencia de Producto Terminado","fruta_exiexportacion","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
+
                 } else {
             
                     $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTexportacion($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
@@ -1135,6 +1144,8 @@ if ($_POST) {
                     $EXIEXPORTACION->__SET('ID_REEMBALAJE', $_REQUEST['IDP']);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                     $EXIEXPORTACION_ADO->agregarExiexportacionReembalaje($EXIEXPORTACION);
+
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Existencia de Producto Terminado","fruta_exiexportacion","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
                 }
             
                 //REDIRECCIONAR A PAGINA registroProceso.php 
@@ -1159,6 +1170,8 @@ if ($_POST) {
             
                 $DREXPORTACION->__SET('ID_DREXPORTACION', $IDELIMININAR);
                 $DREXPORTACION_ADO->deshabilitar($DREXPORTACION);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar  detalle de exportacion reembalaje.","fruta_drexportacion", $_REQUEST['ID'] ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
             
                 $EXIEXPORTACION->__SET('ID_REEMBALAJE',  $_REQUEST['IDP']);
                 $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $FOLIOELIMINAR);
@@ -1167,6 +1180,8 @@ if ($_POST) {
                 $EXIEXPORTACION->__SET('ID_REEMBALAJE',  $_REQUEST['IDP']);
                 $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $FOLIOELIMINAR);
                 $EXIEXPORTACION_ADO->eliminadoReenmbalaje($EXIEXPORTACION);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar  Existencia de Producto Terminado.","fruta_exiexportacion", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
             
                 //REDIRECCIONAR A PAGINA registroProceso.php 
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];

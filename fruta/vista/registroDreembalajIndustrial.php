@@ -579,6 +579,8 @@ if ($_POST) {
                 $DRINDUSTRIAL->__SET('ID_REEMBALAJE', $_REQUEST['IDP']);
                 $DRINDUSTRIAL_ADO->agregarDrindustrial($DRINDUSTRIAL);
 
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Detalle de industrial de reembalaje","fruta_drindustrial","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
+
                 //UTILIZACION METODOS SET DEL MODELO
                 //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
                 $EXIINDUSTRIAL->__SET('FOLIO_EXIINDUSTRIAL', $NUMEROFOLIODINDUSTRIAL);
@@ -600,6 +602,8 @@ if ($_POST) {
                 $EXIINDUSTRIAL->__SET('ID_REEMBALAJE', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $EXIINDUSTRIAL_ADO->agregarExiindustrialReembalaje($EXIINDUSTRIAL);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Existencia de Producto Industrial","fruta_exiindustrial","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
 
                 //REDIRECCIONAR A PAGINA registroReembalaje.php
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
@@ -637,6 +641,7 @@ if ($_POST) {
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $DRINDUSTRIAL_ADO->actualizarDrindustrial($DRINDUSTRIAL);
 
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1, 2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Detalle de industrial de proceso","fruta_drindustrial",$_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
 
                 $ARRAYVERFOLIOEXISTENCIA = $EXIINDUSTRIAL_ADO->buscarPorReembalajeNumeroFolio($_REQUEST['IDP'],  $_REQUEST["NUMEROFOLIODINDUSTRIALE"]);
 
@@ -682,6 +687,8 @@ if ($_POST) {
                     $EXIINDUSTRIAL->__SET('ID_REEMBALAJE', $_REQUEST['IDP']);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                     $EXIINDUSTRIAL_ADO->agregarExiindustrialReembalaje($EXIINDUSTRIAL);
+
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Existencia de Producto Industrial","fruta_exiindustrial","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
                 }
 
 
@@ -706,6 +713,8 @@ if ($_POST) {
                 $FOLIOELIMINAR = $_REQUEST['NUMEROFOLIODINDUSTRIALE'];
                 $DRINDUSTRIAL->__SET('ID_DRINDUSTRIAL', $IDELIMINAR);
                 $DRINDUSTRIAL_ADO->deshabilitar($DRINDUSTRIAL);
+                
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar  detalle de industrial reembalaje.","fruta_drindustrial", $_REQUEST['ID'] ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                 $EXIINDUSTRIAL->__SET('ID_REEMBALAJE', $_REQUEST['IDP']);
                 $EXIINDUSTRIAL->__SET('FOLIO_AUXILIAR_EXIINDUSTRIAL', $FOLIOELIMINAR);
@@ -714,6 +723,9 @@ if ($_POST) {
                 $EXIINDUSTRIAL->__SET('ID_REEMBALAJE', $_REQUEST['IDP']);
                 $EXIINDUSTRIAL->__SET('FOLIO_AUXILIAR_EXIINDUSTRIAL', $FOLIOELIMINAR);
                 $EXIINDUSTRIAL_ADO->eliminadoReembaleaje($EXIINDUSTRIAL);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar  Existencia de Producto Industrial.","fruta_exiindustrial", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 //REDIRECCIONAR A PAGINA registroProceso.php 
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
                 $_SESSION["parametro1"] =  $_REQUEST['OPP'];
