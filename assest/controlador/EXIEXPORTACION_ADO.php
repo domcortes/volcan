@@ -3248,6 +3248,7 @@ class EXIEXPORTACION_ADO
                                                 AND ID_PLANTA = '" . $PLANTA . "'
                                                 AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                                 AND ID_INPSAG  IS  NULL 
+                                                AND TESTADOSAG IS  NULL 
                                                         ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
