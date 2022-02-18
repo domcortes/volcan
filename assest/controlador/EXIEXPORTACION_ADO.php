@@ -631,7 +631,6 @@ class EXIEXPORTACION_ADO
                                                     ID_RECHAZADO,
                                                     ID_LEVANTAMIENTO,
 
-                                                    ID_DESPACHO2,
                                                     ID_INPSAG2,
                                                     ID_REPALETIZAJE2,  
                                                     ID_EXIEXPORTACION2,
@@ -644,7 +643,7 @@ class EXIEXPORTACION_ADO
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                  ) VALUES
-	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?,   ?, ?, ?, ?,   ?,   ?, ?,    ?, ?, ?, ?, ?,   ?, ?,  ?,    ?, ?,   ?, ?, ?, ?,   ?, ?,   ?, ?, ?, ?,     ?, ?,     SYSDATE(), 1, 1);";
+	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?,   ?, ?, ?, ?,   ?,   ?, ?,    ?, ?, ?, ?, ?,   ?, ?,  ?,    ?, ?,   ?, ?, ?, ?,   ?, ?,    ?, ?, ?,     ?, ?,     SYSDATE(), 1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -703,7 +702,6 @@ class EXIEXPORTACION_ADO
                         $EXIEXPORTACION->__GET('ID_RECHAZADO'),
                         $EXIEXPORTACION->__GET('ID_LEVANTAMIENTO'),
 
-                        $EXIEXPORTACION->__GET('ID_DESPACHO2'),
                         $EXIEXPORTACION->__GET('ID_INPSAG2'),
                         $EXIEXPORTACION->__GET('ID_REPALETIZAJE2'),
                         $EXIEXPORTACION->__GET('ID_EXIEXPORTACION2'),

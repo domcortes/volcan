@@ -671,7 +671,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                 $EXIEXPORTACION->__SET('ID_LEVANTAMIENTO', $r["ID_LEVANTAMIENTO"]);   
                                 $EXIEXPORTACION->__SET('ID_PLANTA2', $r["ID_PLANTA2"]);
                                 $EXIEXPORTACION->__SET('ID_PLANTA3', $r["ID_PLANTA3"]);
-                                $EXIEXPORTACION->__SET('ID_DESPACHO2', $r["ID_DESPACHO2"]); 
                                 $EXIEXPORTACION->__SET('ID_INPSAG2', $r["ID_INPSAG2"]); 
                                 $EXIEXPORTACION->__SET('ID_REPALETIZAJE2', $REPALETIZAJE);      
                                 $EXIEXPORTACION->__SET('ID_EXIEXPORTACION2', $r["ID_EXIEXPORTACION"]);                                                    
@@ -866,7 +865,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                             $EXIEXPORTACION->__SET('ID_LEVANTAMIENTO', $r["ID_LEVANTAMIENTO"]);   
                             $EXIEXPORTACION->__SET('ID_PLANTA2', $r["ID_PLANTA2"]);
                             $EXIEXPORTACION->__SET('ID_PLANTA3', $r["ID_PLANTA3"]);
-                            $EXIEXPORTACION->__SET('ID_DESPACHO2', $r["ID_DESPACHO2"]); 
                             $EXIEXPORTACION->__SET('ID_INPSAG2', $r["ID_INPSAG2"]); 
                             $EXIEXPORTACION->__SET('ID_REPALETIZAJE2', $REPALETIZAJE);    
                             $EXIEXPORTACION->__SET('ID_EXIEXPORTACION2', $r["ID_EXIEXPORTACION"]);   
