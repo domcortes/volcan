@@ -1473,7 +1473,7 @@ if (isset($_POST)) {
     
                         //OBTENER EL ID DE LA RECEPCIONE CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
                         $ARRYAOBTENERIDE = $RECEPCIONE_ADO->buscarID(
-                            $_REQUEST['FECHARECEPCIONE'],
+                            $_REQUEST['FECHARECEPCION'],
                             $_REQUEST['OBSERVACION'],
                             $_REQUEST['EMPRESA'],
                             $_REQUEST['PLANTA'],
@@ -1582,7 +1582,7 @@ if (isset($_POST)) {
 
                     //OBTENER EL ID DE LA RECEPCIONE CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
                     $ARRYAOBTENERID = $RECEPCIONE_ADO->buscarID(
-                        $_REQUEST['FECHARECEPCIONE'],
+                        $_REQUEST['FECHARECEPCION'],
                         $_REQUEST['OBSERVACION'],
                         $_REQUEST['EMPRESA'],
                         $_REQUEST['PLANTA'],
@@ -1768,7 +1768,7 @@ if (isset($_POST)) {
     
                         //OBTENER EL ID DE LA RECEPCIONE CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
                         $ARRYAOBTENERID = $RECEPCIONE_ADO->buscarID(
-                            $_REQUEST['FECHARECEPCIONE'],
+                            $_REQUEST['FECHARECEPCION'],
                             $_REQUEST['OBSERVACION'],
                             $_REQUEST['EMPRESA'],
                             $_REQUEST['PLANTA'],

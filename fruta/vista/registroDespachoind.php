@@ -1295,6 +1295,7 @@ if (isset($_POST)) {
                 );
 
                 //REDIRECCIONAR A PAGINA registroDespachoind.php
+                $AUSUARIO_ADO->agregarAusuario2($NUMERO,1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Despacho Producto Industrial.","fruta_despachoind", $ARRYAOBTENERID[0]['ID_DESPACHO'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                 $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_DESPACHO'];
                 $_SESSION["parametro1"] = "crear";
@@ -1349,6 +1350,8 @@ if (isset($_POST)) {
                 $DESPACHOIND->__SET('ID_DESPACHO', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $DESPACHOIND_ADO->actualizarDespachomp($DESPACHOIND);
+
+                $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Despacho Producto Industrial.","fruta_despachoind", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                 if ($_SESSION['parametro1'] == "crear") {
                     $_SESSION["parametro"] = $_REQUEST['IDP'];
@@ -1470,6 +1473,8 @@ if (isset($_POST)) {
                     $DESPACHOIND->__SET('ID_DESPACHO', $_REQUEST['IDP']);
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                     $DESPACHOIND_ADO->Confirmado($DESPACHOIND);
+
+                    $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,1,3,"".$_SESSION["NOMBRE_USUARIO"].", Cerrar  Despacho Producto Industrial.","fruta_despachoind", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                     $ARRAYEXISENCIADESPACHOMP = $EXIINDUSTRIAL_ADO->verExistenciaPorDespacho2($_REQUEST['IDP']);
                     foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
@@ -1593,6 +1598,9 @@ if (isset($_POST)) {
                 $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL', $IDQUITAR);
                 // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $EXIINDUSTRIAL_ADO->actualizarDeselecionarDespachoCambiarEstado($EXIINDUSTRIAL);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Se Quito la Existencia al despacho de producto industrial.","fruta_exiindustrial", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 echo '<script>
                     Swal.fire({
                         icon:"error",

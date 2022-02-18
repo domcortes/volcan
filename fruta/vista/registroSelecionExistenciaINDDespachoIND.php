@@ -404,6 +404,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                     $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL', $IDEXISMATERIAPRIMA);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                     $EXIINDUSTRIAL_ADO->actualizarSelecionarDespachoCambiarEstado($EXIINDUSTRIAL);
+
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Se agrego la Existencia al despacho de Producto Industrial.","fruta_exiindustrial", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
                 endforeach;
 
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
@@ -466,6 +468,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                         // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                         $EXIINDUSTRIAL_ADO->repaletizado($EXIINDUSTRIAL);
 
+                        $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Existencia de Producto Industrial, Origen división de kilos neto en despacho de Producto Industrial..","fruta_exiindustrial", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
 
                         $NETONUEVO = $NETOORIGINAL - $NETO;                 
 
@@ -516,6 +520,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                             //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                             $EXIINDUSTRIAL_ADO->agregarExiindustrialDespachoNuevo($EXIINDUSTRIAL);
 
+                            $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Existencia y se agrego al despacho, Origen división de kilos neto en despacho de Producto Industrial..","fruta_exiindustrial", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                             
                             $EXIINDUSTRIAL->__SET('FOLIO_EXIINDUSTRIAL', $r['FOLIO_EXIINDUSTRIAL']);
                             $EXIINDUSTRIAL->__SET('FOLIO_AUXILIAR_EXIINDUSTRIAL', $r['FOLIO_AUXILIAR_EXIINDUSTRIAL']);
@@ -556,6 +562,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                             $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL2', $r['ID_EXIINDUSTRIAL']); 
                             //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                             $EXIINDUSTRIAL_ADO->agregarExiindustrialDespachoResto($EXIINDUSTRIAL);
+
+                            $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Existencia producto industrial, Origen división de kilos neto en despacho de Producto Industrial..","fruta_exiindustrial", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                         endforeach;                 
                     }

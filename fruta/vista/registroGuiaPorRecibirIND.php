@@ -397,6 +397,8 @@ include_once "../../assest/config/datosUrLP.php";
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
             $DESPACHOIND_ADO->Aprobado($DESPACHOIND);
 
+            $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Despacho Producto Industrial, se aprobo la guia.","fruta_despachoind", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
             $ARRAYEXISENCIADESPACHOMP = $EXIINDUSTRIAL_ADO->verExistenciaPorDespachoEnTransito($_REQUEST['ID']);
             foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
                 $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL', $r['ID_EXIINDUSTRIAL']);
@@ -445,6 +447,9 @@ include_once "../../assest/config/datosUrLP.php";
                 $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL2', $r['ID_EXIINDUSTRIAL']);                
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $EXIINDUSTRIAL_ADO->agregarExiindustrialGuia($EXIINDUSTRIAL);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Existencia de Producto Industrial, por una aprobación de una guia interplanta.","fruta_exiindustrial", "NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
             endforeach;
 
             echo '<script>
