@@ -2523,7 +2523,7 @@ if (isset($_POST)) {
                 $_REQUEST['TEMPORADA'],
             );
             
-            $AUSUARIO_ADO->agregarAusuario2($NUMERO,1,1,"".$_SESSION["NOMBRE_USUARIO"].", Regustro de Despacho Exportación","fruta_despachoex",$ARRYAOBTENERID[0]['ID_DESPACHOEX'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
+            $AUSUARIO_ADO->agregarAusuario2($NUMERO,1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Despacho Exportación","fruta_despachoex",$ARRYAOBTENERID[0]['ID_DESPACHOEX'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
 
             //REDIRECCIONAR A PAGINA registroDespachoEX.php
             $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_DESPACHOEX'];

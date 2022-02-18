@@ -3569,7 +3569,7 @@ if (isset($_POST)) {
                     $_REQUEST['TEMPORADA'],
 
                 );
-                $AUSUARIO_ADO->agregarAusuario2($NUMERO,1,1,"".$_SESSION["NOMBRE_USUARIO"].", Regustro de Instructivo Carga","fruta_icarga",$ARRYAOBTENERID[0]['ID_ICARGA'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
+                $AUSUARIO_ADO->agregarAusuario2($NUMERO,1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Instructivo Carga","fruta_icarga",$ARRYAOBTENERID[0]['ID_ICARGA'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
                 //REDIRECCIONAR A PAGINA registroICarga.php
                 $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_ICARGA'];
                 $_SESSION["parametro1"] = "crear";                

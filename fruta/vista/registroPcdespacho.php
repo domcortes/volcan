@@ -685,7 +685,7 @@ if ($_POST) {
                     $_REQUEST['TEMPORADA']
                 );
 
-                $AUSUARIO_ADO->agregarAusuario2($NUMERO,1,1,"".$_SESSION["NOMBRE_USUARIO"].", Regustro de PC","fruta_pcdespacho",$ARRYAOBTENERID[0]['ID_PCDESPACHO'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
+                $AUSUARIO_ADO->agregarAusuario2($NUMERO,1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de PC","fruta_pcdespacho",$ARRYAOBTENERID[0]['ID_PCDESPACHO'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
 
                 //REDIRECCIONAR A PAGINA registroPcdespacho.php
                 $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_PCDESPACHO'];
