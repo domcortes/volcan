@@ -82,6 +82,75 @@ class AUSUARIO_ADO {
         }
         
     }
+    
+    public function listarAusuarioTodo(){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT
+                                                    IF(NUMERO_REGISTRO IS NOT NULL,NUMERO_REGISTRO,
+                                                        'No Aplica'
+                                                        ) AS 'NUMERO_REGISTRO',
+                                                    IF(TMODULO = 1,'Fruta',
+                                                        IF(TMODULO = 2,'Material',
+                                                            IF(TMODULO = 3,'Exportadora',
+                                                                IF(TMODULO = 4,'Estadistica',
+                                                                    'Sin Datos')
+                                                                )
+                                                            )
+                                                        ) AS 'TMODULO',
+                                                        IF(TOPERACION = 0,'Inicio Session',
+                                                            IF(TOPERACION = 1,'Registro',
+                                                                IF(TOPERACION = 2,'Modificación',
+                                                                    IF(TOPERACION = 3,'Cerrar',
+                                                                        IF(TOPERACION = 4, 'Deshabilitar',
+                                                                            IF(TOPERACION = 5,'Habilitar',
+                                                                                'Sin Datos')
+                                                                            )
+                                                                        )
+                                                                    )
+                                                                )
+                                                            ) AS 'TOPERACION',
+                                                        MENSAJE,
+                                                        INGRESO,
+                                                        IF(ID_EMPRESA IS NOT NULL,
+                                                            (
+                                                            SELECT NOMBRE_EMPRESA
+                                                            FROM principal_empresa
+                                                            WHERE ID_EMPRESA = usuario_ausuario.ID_EMPRESA
+                                                            ),'No Aplica'
+                                                        ) AS 'EMPRESA',                                            
+                                                        IF(ID_PLANTA IS NOT NULL,
+                                                            (
+                                                            SELECT NOMBRE_PLANTA
+                                                            FROM principal_planta
+                                                            WHERE ID_PLANTA = usuario_ausuario.ID_PLANTA
+                                                            ),'No Aplica'
+                                                        ) AS 'PLANTA',
+                                                        IF(ID_TEMPORADA IS NOT NULL,
+                                                            (
+                                                            SELECT NOMBRE_TEMPORADA
+                                                            FROM principal_temporada
+                                                            WHERE ID_TEMPORADA = usuario_ausuario.ID_TEMPORADA
+                                                            ),'No Aplica'
+                                                        ) AS 'TEMPORADA'
+                                            FROM usuario_ausuario
+                                            ORDER BY ID_AUSUARIO DESC;
+                                            
+                                            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
 
 
 
@@ -104,6 +173,146 @@ class AUSUARIO_ADO {
         }
         
     }
+    
+    public function verAusuarioTodo($IDUSUARIO){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT
+                                                    IF(NUMERO_REGISTRO IS NOT NULL,NUMERO_REGISTRO,
+                                                        'No Aplica'
+                                                        ) AS 'NUMERO_REGISTRO',
+                                                    IF(TMODULO = 1,'Fruta',
+                                                        IF(TMODULO = 2,'Material',
+                                                            IF(TMODULO = 3,'Exportadora',
+                                                                IF(TMODULO = 4,'Estadistica',
+                                                                    'Sin Datos')
+                                                                )
+                                                            )
+                                                        ) AS 'TMODULO',
+                                                        IF(TOPERACION = 0,'Inicio Session',
+                                                            IF(TOPERACION = 1,'Registro',
+                                                                IF(TOPERACION = 2,'Modificación',
+                                                                    IF(TOPERACION = 3,'Cerrar',
+                                                                        IF(TOPERACION = 4, 'Deshabilitar',
+                                                                            IF(TOPERACION = 5,'Habilitar',
+                                                                                'Sin Datos')
+                                                                            )
+                                                                        )
+                                                                    )
+                                                                )
+                                                            ) AS 'TOPERACION',
+                                                        MENSAJE,
+                                                        INGRESO,
+                                                        IF(ID_EMPRESA IS NOT NULL,
+                                                            (
+                                                            SELECT NOMBRE_EMPRESA
+                                                            FROM principal_empresa
+                                                            WHERE ID_EMPRESA = usuario_ausuario.ID_EMPRESA
+                                                            ),'No Aplica'
+                                                        ) AS 'EMPRESA',                                            
+                                                        IF(ID_PLANTA IS NOT NULL,
+                                                            (
+                                                            SELECT NOMBRE_PLANTA
+                                                            FROM principal_planta
+                                                            WHERE ID_PLANTA = usuario_ausuario.ID_PLANTA
+                                                            ),'No Aplica'
+                                                        ) AS 'PLANTA',
+                                                        IF(ID_TEMPORADA IS NOT NULL,
+                                                            (
+                                                            SELECT NOMBRE_TEMPORADA
+                                                            FROM principal_temporada
+                                                            WHERE ID_TEMPORADA = usuario_ausuario.ID_TEMPORADA
+                                                            ),'No Aplica'
+                                                        ) AS 'TEMPORADA'
+                                            FROM usuario_ausuario
+                                            WHERE ID_USUARIO = '".$IDUSUARIO."' 
+                                            ORDER BY ID_AUSUARIO DESC
+                                            
+                                            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+    
+    public function verAusuarioLimit5($IDUSUARIO){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT
+                                                    IF(NUMERO_REGISTRO IS NOT NULL,NUMERO_REGISTRO,
+                                                        'No Aplica'
+                                                        ) AS 'NUMERO_REGISTRO',
+                                                    IF(TMODULO = 1,'Fruta',
+                                                        IF(TMODULO = 2,'Material',
+                                                            IF(TMODULO = 3,'Exportadora',
+                                                                IF(TMODULO = 4,'Estadistica',
+                                                                    'Sin Datos')
+                                                                )
+                                                            )
+                                                        ) AS 'TMODULO',
+                                                        IF(TOPERACION = 0,'Inicio Session',
+                                                            IF(TOPERACION = 1,'Registro',
+                                                                IF(TOPERACION = 2,'Modificación',
+                                                                    IF(TOPERACION = 3,'Cerrar',
+                                                                        IF(TOPERACION = 4, 'Deshabilitar',
+                                                                            IF(TOPERACION = 5,'Habilitar',
+                                                                                'Sin Datos')
+                                                                            )
+                                                                        )
+                                                                    )
+                                                                )
+                                                            ) AS 'TOPERACION',
+                                                        MENSAJE,
+                                                        INGRESO,
+                                                        IF(ID_EMPRESA IS NOT NULL,
+                                                            (
+                                                            SELECT NOMBRE_EMPRESA
+                                                            FROM principal_empresa
+                                                            WHERE ID_EMPRESA = usuario_ausuario.ID_EMPRESA
+                                                            ),'No Aplica'
+                                                        ) AS 'EMPRESA',                                            
+                                                        IF(ID_PLANTA IS NOT NULL,
+                                                            (
+                                                            SELECT NOMBRE_PLANTA
+                                                            FROM principal_planta
+                                                            WHERE ID_PLANTA = usuario_ausuario.ID_PLANTA
+                                                            ),'No Aplica'
+                                                        ) AS 'PLANTA',
+                                                        IF(ID_TEMPORADA IS NOT NULL,
+                                                            (
+                                                            SELECT NOMBRE_TEMPORADA
+                                                            FROM principal_temporada
+                                                            WHERE ID_TEMPORADA = usuario_ausuario.ID_TEMPORADA
+                                                            ),'No Aplica'
+                                                        ) AS 'TEMPORADA'
+                                            FROM usuario_ausuario
+                                            WHERE ID_USUARIO = '".$IDUSUARIO."' 
+                                            ORDER BY ID_AUSUARIO DESC
+                                            LIMIT 5                                            
+                                            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
 
   
     
@@ -112,13 +321,13 @@ class AUSUARIO_ADO {
     public function agregarAusuario(AUSUARIO $AUSUARIO){
         try{
             
-            if ($AUSUARIO->__GET('ID_EMPRESA') == NULL) {
+            IF ($AUSUARIO->__GET('ID_EMPRESA') == NULL) {
                 $AUSUARIO->__SET('ID_EMPRESA', NULL);
             }
-            if ($AUSUARIO->__GET('ID_PLANTA') == NULL) {
+            IF ($AUSUARIO->__GET('ID_PLANTA') == NULL) {
                 $AUSUARIO->__SET('ID_PLANTA', NULL);
             }
-            if ($AUSUARIO->__GET('ID_TEMPORADA') == NULL) {
+            IF ($AUSUARIO->__GET('ID_TEMPORADA') == NULL) {
                 $AUSUARIO->__SET('ID_TEMPORADA', NULL);
             }
 
