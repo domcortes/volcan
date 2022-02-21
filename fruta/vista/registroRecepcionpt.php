@@ -1292,6 +1292,8 @@ if (isset($_POST)) {
                         $_REQUEST['TEMPORADA'],
                     );
 
+                    $AUSUARIO_ADO->agregarAusuario2($NUMERO,1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Recepción Producto Terminado.","fruta_recepcionpt", $ARRYAOBTENERID[0]['ID_RECEPCION'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                     //REDIRECCIONAR A PAGINA registroRecepcionpt.php
                     $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_RECEPCION'];
                     $_SESSION["parametro1"] = "crear";
@@ -1341,6 +1343,8 @@ if (isset($_POST)) {
                 $RECEPCIONPT->__SET('ID_RECEPCION', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $RECEPCIONPT_ADO->actualizarRecepcion($RECEPCIONPT);
+
+                $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Recepción Producto Terminado.","fruta_recepcionpt", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
 
                 if ($_SESSION['parametro1'] == "crear") {
@@ -1431,6 +1435,7 @@ if (isset($_POST)) {
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                     $RECEPCIONPT_ADO->cerrado($RECEPCIONPT);
 
+                    $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,1,3,"".$_SESSION["NOMBRE_USUARIO"].", Cerrar  Recepción Producto Terminado.","fruta_recepcionpt", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                     $ARRAYEXISENCIARECEPCION = $EXIEXPORTACION_ADO->buscarPorRecepcion($_REQUEST['IDP']);
 

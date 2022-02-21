@@ -583,6 +583,8 @@ if ($_POST) {
                 $DPINDUSTRIAL->__SET('ID_PROCESO', $_REQUEST['IDP']);
                 $DPINDUSTRIAL_ADO->agregarDpindustrial($DPINDUSTRIAL);
 
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Detalle de industrial de proceso","fruta_dpindustrial","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
+
                 //UTILIZACION METODOS SET DEL MODELO
                 //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
                 $EXIINDUSTRIAL->__SET('FOLIO_EXIINDUSTRIAL', $NUMEROFOLIODINDUSTRIAL);
@@ -604,6 +606,8 @@ if ($_POST) {
                 $EXIINDUSTRIAL->__SET('ID_PROCESO', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $EXIINDUSTRIAL_ADO->agregarExiindustrialProceso($EXIINDUSTRIAL);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Existencia de Producto Industrial","fruta_exiindustrial","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
 
 
                 //REDIRECCIONAR A PAGINA registroProceso.php 
@@ -640,6 +644,9 @@ if ($_POST) {
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $DPINDUSTRIAL_ADO->actualizarDpindustrial($DPINDUSTRIAL);
 
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Detalle de industrial de proceso","fruta_drindustrial",$_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
+                
+
                 $ARRAYVERFOLIOEXISTENCIA = $EXIINDUSTRIAL_ADO->buscarPorProcesoNumeroFolio($_REQUEST['IDP'],  $_REQUEST["NUMEROFOLIODINDUSTRIALE"]);
 
                 if ($ARRAYVERFOLIOEXISTENCIA) {
@@ -658,6 +665,9 @@ if ($_POST) {
                     $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL', $ARRAYVERFOLIOEXISTENCIA[0]['ID_EXIINDUSTRIAL']);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                     $EXIINDUSTRIAL_ADO->actualizarExiindustrialProceso($EXIINDUSTRIAL);
+
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",1, 2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Existencia de Producto Industrial","fruta_exiindustrial","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
+
                 } else {
                     $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTindustrial($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
                     $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
@@ -685,6 +695,8 @@ if ($_POST) {
                     $EXIINDUSTRIAL->__SET('ID_PROCESO', $_REQUEST['IDP']);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                     $EXIINDUSTRIAL_ADO->agregarExiindustrialProceso($EXIINDUSTRIAL);
+                    
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Existencia de Producto Industrial","fruta_exiindustrial","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
                 }
                 
                 //REDIRECCIONAR A PAGINA registroProceso.php 
@@ -711,6 +723,9 @@ if ($_POST) {
                 $DPINDUSTRIAL->__SET('ID_DPINDUSTRIAL', $IDELIMINAR);
                 $DPINDUSTRIAL_ADO->deshabilitar($DPINDUSTRIAL);
 
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar  detalle de industrial proceso.","fruta_dpindustrial", $_REQUEST['ID'] ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
+
                 $EXIINDUSTRIAL->__SET('ID_PROCESO', $_REQUEST['IDP']);
                 $EXIINDUSTRIAL->__SET('FOLIO_EXIINDUSTRIAL', $FOLIOELIMINAR);
                 $EXIINDUSTRIAL->__SET('FOLIO_AUXILIAR_EXIINDUSTRIAL', $FOLIOELIMINAR);
@@ -720,6 +735,8 @@ if ($_POST) {
                 $EXIINDUSTRIAL->__SET('FOLIO_EXIINDUSTRIAL', $FOLIOELIMINAR);
                 $EXIINDUSTRIAL->__SET('FOLIO_AUXILIAR_EXIINDUSTRIAL', $FOLIOELIMINAR);
                 $EXIINDUSTRIAL_ADO->eliminadoProceso($EXIINDUSTRIAL);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar  Existencia de Producto Industrial.","fruta_exiindustrial", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
 
                 //REDIRECCIONAR A PAGINA registroProceso.php 

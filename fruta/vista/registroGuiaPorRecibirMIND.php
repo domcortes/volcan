@@ -274,6 +274,8 @@ include_once "../../assest/config/validarDatosUrlD.php";
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $MGUIAIND_ADO->agregarMguia($MGUIAIND);
 
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Motivo Rechazo Guia Despacho Producto Industrial.","fruta_mguiaind","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 $DESPACHOIND->__SET('ID_DESPACHO', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $DESPACHOIND_ADO->abierto($DESPACHOIND);
@@ -281,6 +283,8 @@ include_once "../../assest/config/validarDatosUrlD.php";
                 $DESPACHOIND->__SET('ID_DESPACHO', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $DESPACHOIND_ADO->Rechazado($DESPACHOIND);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Despacho Producto Industrial, se rechazo la guia.","fruta_despachoind", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
 
                 $ARRAYEXISENCIADESPACHOIND = $EXIINDUSTRIAL_ADO->verExistenciaPorDespacho($_REQUEST['IDP']);

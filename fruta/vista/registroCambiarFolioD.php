@@ -236,9 +236,15 @@ if ($_POST) {
                             $CFOLIO->__SET('ID_USUARIO',$IDUSUARIOS);
                             $CFOLIO_ADO->agregarCfolio($CFOLIO);
 
+                            $AUSUARIO_ADO->agregarAusuario2("NULL",1, 2,"".$_SESSION["NOMBRE_USUARIO"].", Registro de motivo de cambio de folio de producto terminado","fruta_cfolio","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
+
+
                             $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $_REQUEST['FOLION']);
                             $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $_REQUEST['ID']);
                             $EXIEXPORTACION_ADO->cambioFolio($EXIEXPORTACION);
+                            
+                            $AUSUARIO_ADO->agregarAusuario2("NULL",1, 2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de existencia producto terminado, cambio de folio","fruta_exiexportacion",$_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
+
                             
                             echo '<script>
                                     Swal.fire({

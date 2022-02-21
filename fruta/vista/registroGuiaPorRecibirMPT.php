@@ -274,6 +274,8 @@ include_once "../../assest/config/validarDatosUrlD.php";
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $MGUIAPT_ADO->agregarMguia($MGUIAPT);
 
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Motivo Rechazo Guia Despacho Producto Terminado.","fruta_mguiapt","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 $DESPACHOPT->__SET('ID_DESPACHO', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $DESPACHOPT_ADO->abierto($DESPACHOPT);
@@ -281,6 +283,8 @@ include_once "../../assest/config/validarDatosUrlD.php";
                 $DESPACHOPT->__SET('ID_DESPACHO', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $DESPACHOPT_ADO->Rechazado($DESPACHOPT);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Despacho Producto Terminado, se rechazo la guia.","fruta_despachopt", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
 
                 $ARRAYEXISENCIADESPACHOMP = $EXIEXPORTACION_ADO->verExistenciaPorDespacho($_REQUEST['IDP']);

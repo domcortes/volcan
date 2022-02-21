@@ -950,11 +950,15 @@ if ($_POST) {
             $REPALETIZAJEEX->__SET('ID_USUARIOM', $IDUSUARIOS);
             //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
             $REPALETIZAJEEX_ADO->agregarRepaletizaje($REPALETIZAJEEX);
+
             $ARRYAOBTENERID = $REPALETIZAJEEX_ADO->obtenerId(
                 $_REQUEST['EMPRESA'],
                 $_REQUEST['PLANTA'],
                 $_REQUEST['TEMPORADA']
             );
+
+            $AUSUARIO_ADO->agregarAusuario2($NUMERO,1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de repaletizaje.","fruta_repaletizajeex", $ARRYAOBTENERID[0]['ID_REPALETIZAJE'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
             //REDIRECCIONAR A PAGINA registroRecepcion.php
             $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_REPALETIZAJE'];
             $_SESSION["parametro1"] = "crear";
@@ -988,6 +992,8 @@ if ($_POST) {
             $REPALETIZAJEEX->__SET('ID_REPALETIZAJE', $_REQUEST['IDP']);
             //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
             $REPALETIZAJEEX_ADO->actualizarRepaletizaje($REPALETIZAJEEX);
+
+            $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de repaletizaje.","fruta_repaletizajeex", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
             if ($_SESSION['parametro1'] == "crear") {
                 $_SESSION["parametro"] = $_REQUEST['IDP'];
@@ -1083,6 +1089,8 @@ if ($_POST) {
                 // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $REPALETIZAJEEX_ADO->cerrado($REPALETIZAJEEX);
 
+                $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,1,3,"".$_SESSION["NOMBRE_USUARIO"].", Cerrar  repaletizaje.","fruta_repaletizajeex", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 $ARRAYEXIEXPORTACIONTOMADO = $EXIEXPORTACION_ADO->buscarPorRepaletizaje($_REQUEST['IDP']);
                 foreach ($ARRAYEXIEXPORTACIONTOMADO as $s) :
                     $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $s['ID_EXIEXPORTACION']);
@@ -1140,7 +1148,10 @@ if ($_POST) {
             $IDQUITAR = $_REQUEST['IDQUITAR'];
             $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $IDQUITAR);
             // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-            $EXIEXPORTACION_ADO->actualizarDeselecionarRepaletizajeCambiarEstado($EXIEXPORTACION);            
+            $EXIEXPORTACION_ADO->actualizarDeselecionarRepaletizajeCambiarEstado($EXIEXPORTACION);         
+            
+            $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Se Quito la Existencia al repaletizaje.","fruta_exiexportacion", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
             echo '<script>
                 Swal.fire({
                     icon:"error",
@@ -1174,6 +1185,8 @@ if ($_POST) {
             $DREPALETIZAJEEX->__SET('ID_DREPALETIZAJE', $IDDREPALETIZAJE);
             $DREPALETIZAJEEX_ADO->deshabilitar($DREPALETIZAJEEX);
 
+            $AUSUARIO_ADO->agregarAusuario2("NULL",1,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar  detalle de repaletizaje producto terminado.","fruta_drepaletizajeex", $_REQUEST['IDDREPALETIZAJE'] ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
             $ARRAYDESAHABILITAR = $EXIEXPORTACION_ADO->buscarExiexportacionEliminar(
                 $FOLIOELIMINAR,
                 $CAJAS,
@@ -1196,6 +1209,8 @@ if ($_POST) {
                 $EXIEXPORTACION->__SET('ID_REPALETIZAJE', $REPALETIZAJE);
                 $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $r["ID_EXIEXPORTACION"]);
                 $EXIEXPORTACION_ADO->eliminadoRepaletizaje($EXIEXPORTACION);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar  Existencia de Producto Terminado.","fruta_exiexportacion", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
             endforeach;
        
             echo '<script>

@@ -685,6 +685,8 @@ if ($_POST) {
                     $_REQUEST['TEMPORADA']
                 );
 
+                $AUSUARIO_ADO->agregarAusuario2($NUMERO,1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de PC","fruta_pcdespacho",$ARRYAOBTENERID[0]['ID_PCDESPACHO'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
+
                 //REDIRECCIONAR A PAGINA registroPcdespacho.php
                 $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_PCDESPACHO'];
                 $_SESSION["parametro1"] = "crear";
@@ -717,6 +719,8 @@ if ($_POST) {
                 $PCDESPACHO->__SET('ID_PCDESPACHO', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $PCDESPACHO_ADO->actualizarPcdespacho($PCDESPACHO);
+
+                $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de PC","fruta_pcdespacho",$_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
 
                 
                 if ($_SESSION['parametro1'] == "crear") {
@@ -795,6 +799,8 @@ if ($_POST) {
                     // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                     $PCDESPACHO_ADO->cerrado($PCDESPACHO);
 
+                    $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,1,3,"".$_SESSION["NOMBRE_USUARIO"].", Cerrar PC ","fruta_pcdespacho",$_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
+
                     //REDIRECCIONAR A PAGINA registroPcdespacho.php 
                     //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
 
@@ -837,6 +843,8 @@ if ($_POST) {
                 $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $IDQUITAR);
                 // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $EXIEXPORTACION_ADO->actualizarDeselecionarPCCambiarEstado($EXIEXPORTACION);
+                
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Se Quito la Existencia de PC.","fruta_exiexportacion", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
                 
                 echo '<script>
                     Swal.fire({

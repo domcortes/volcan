@@ -381,6 +381,8 @@ include_once "../../assest/config/validarDatosUrlD.php";
                         $EXIEXPORTACION->__SET('FECHA_REPALETIZAJE', $FECHAREPALETIZAJE);
                         //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                         $EXIEXPORTACION_ADO->actualizarSelecionarRepaletizajeCambiarEstado($EXIEXPORTACION);
+
+                        $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Se agrego la Existencia de producto terminado al repaletizaje.","fruta_exiexportacion", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
                     endforeach;
                     
                     $_SESSION["parametro"] =  $_REQUEST['IDP'];

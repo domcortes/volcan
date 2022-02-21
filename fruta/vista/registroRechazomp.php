@@ -814,6 +814,8 @@ if (isset($_POST)) {
                 $_REQUEST['PLANTA'],
                 $_REQUEST['TEMPORADA'],
             );
+
+            $AUSUARIO_ADO->agregarAusuario2($NUMERO,1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de rechazo Materia Prima.","fruta_rechazomp", $ARRYAOBTENERID[0]['ID_RECHAZO'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
             //REDIRECCIONAR A PAGINA registroRecepcion.php
             
             $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_RECHAZO'];
@@ -849,7 +851,9 @@ if (isset($_POST)) {
             $RECHAZOMP->__SET('ID_USUARIOM', $IDUSUARIOS);
             $RECHAZOMP->__SET('ID_RECHAZO', $_REQUEST['IDP']);
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-            $RECHAZOMP_ADO->actualizarRechazo($RECHAZOMP);                      
+            $RECHAZOMP_ADO->actualizarRechazo($RECHAZOMP);        
+            
+            $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de rechazo Materia Prima.","fruta_rechazomp", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
             
             if ($_SESSION['parametro1'] == "crear") {
@@ -933,6 +937,8 @@ if (isset($_POST)) {
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $RECHAZOMP_ADO->cerrado($RECHAZOMP);
 
+                $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,1,3,"".$_SESSION["NOMBRE_USUARIO"].", Cerrar  rechazo Materia Prima.","fruta_rechazomp", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 $ARRAYEXIMATERIAPRIMA = $EXIMATERIAPRIMA_ADO->buscarPorRechazo2($_REQUEST['IDP']);
             
                 foreach ($ARRAYEXIMATERIAPRIMA as $r) :
@@ -962,6 +968,7 @@ if (isset($_POST)) {
                             $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL',$ARRAYEXISTENICAINDUSTRIAL[0]['ID_EXIINDUSTRIAL']);
                             //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                             $EXIINDUSTRIAL_ADO->actualizarExiindustrialRechazoMP($EXIINDUSTRIAL);
+                            $AUSUARIO_ADO->agregarAusuario2("NULL",1, 2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Existencia de Producto Industrial, origen rechazo materia prima","fruta_exiindustrial","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
 
                         }else{
 
@@ -986,6 +993,8 @@ if (isset($_POST)) {
                             $EXIINDUSTRIAL->__SET('ID_RECHAZADOMP', $_REQUEST['IDP']);
                             //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                            $EXIINDUSTRIAL_ADO->agregarExiindustrialRechazoMP($EXIINDUSTRIAL);
+
+                           $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Existencia de Producto Industrial, origen rechazo materia prima","fruta_exiindustrial","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
                         }
 
                     }
@@ -994,6 +1003,8 @@ if (isset($_POST)) {
                         $EXIMATERIAPRIMA->__SET('COLOR', $_REQUEST['TRECHAZOE']);
                         //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                         $EXIMATERIAPRIMA_ADO->objetadoColor($EXIMATERIAPRIMA);
+                        
+                        $AUSUARIO_ADO->agregarAusuario2("NULL",1, 2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Existencia de Materia Prima, origen rechazo materia prima","fruta_eximateriaprima","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
                     }
                 endforeach;
                     
@@ -1042,6 +1053,8 @@ if (isset($_POST)) {
             $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $_REQUEST['IDQUITAR']);
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
             $EXIMATERIAPRIMA_ADO->actualizarDeselecionarRechazoCambiarEstado($EXIMATERIAPRIMA);     
+
+            $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Se Quito la Existencia al rechazo materia prima.","fruta_eximateriaprima", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
             
             
             if($TRECHAZOQUITAR==1){
@@ -1051,6 +1064,8 @@ if (isset($_POST)) {
                     $EXIINDUSTRIAL->__SET('FOLIO_EXIINDUSTRIAL', $FOLIOQUITAR);
                     $EXIINDUSTRIAL->__SET('FOLIO_AUXILIAR_EXIINDUSTRIAL', $FOLIOAUXILIARQUITAR);
                     $EXIINDUSTRIAL_ADO->deshabilitarEliminarRechazomp($EXIINDUSTRIAL);
+
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].", Desahabilitar de existencia de producto industrial.","fruta_exiindustrial", "NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
                 }
             }
 

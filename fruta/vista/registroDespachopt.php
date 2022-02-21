@@ -1437,6 +1437,8 @@ if (isset($_POST)) {
                     $_REQUEST['TEMPORADA'],
                 );
 
+                $AUSUARIO_ADO->agregarAusuario2($NUMERO,1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Despacho Producto Terminado.","fruta_despachopt", $ARRYAOBTENERID[0]['ID_DESPACHO'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 //REDIRECCIONAR A PAGINA registroDespachoPT.php
 
                 $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_DESPACHO'];
@@ -1500,6 +1502,8 @@ if (isset($_POST)) {
                 $DESPACHOPT->__SET('ID_DESPACHO', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $DESPACHOPT_ADO->actualizarDespachopt($DESPACHOPT);
+
+                $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Despacho Producto Terminado.","fruta_despachopt", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
 
                 if ($_SESSION['parametro1'] == "crear") {
@@ -1629,6 +1633,9 @@ if (isset($_POST)) {
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                     $DESPACHOPT_ADO->Confirmado($DESPACHOPT);
 
+
+                    $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,1,3,"".$_SESSION["NOMBRE_USUARIO"].", Cerrar  Despacho Producto Terminado.","fruta_despachopt", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                     $ARRAYEXISENCIADESPACHOMP = $EXIEXPORTACION_ADO->verExistenciaPorDespacho2($_REQUEST['IDP']);
                     foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
                         if ($_REQUEST['TDESPACHOE'] == "1") {
@@ -1698,6 +1705,9 @@ if (isset($_POST)) {
                 $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $IDQUITAR);
                 // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $EXIEXPORTACION_ADO->actualizarDeselecionarDespachoCambiarEstado($EXIEXPORTACION);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Se Quito la Existencia al despacho de producto terminado.","fruta_exiexportacion", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 echo '<script>
                     Swal.fire({
                         icon:"error",
@@ -1756,6 +1766,8 @@ if (isset($_POST)) {
                             $EXIEXPORTACION->__SET('PRECIO_PALLET', $PRECIO);
                             // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                             $EXIEXPORTACION_ADO->actualizarDespachoAgregarPrecio($EXIEXPORTACION);
+
+                            $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Se agrego el precio a la Existencia en el despacho de producto terminado.","fruta_exiexportacion", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
                         }
                     endforeach;
                     

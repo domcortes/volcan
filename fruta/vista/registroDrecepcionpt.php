@@ -1366,6 +1366,8 @@ if ($_POST) {
                         //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                         $DRECEPCIONPT_ADO->agregarDrecepcion($DRECEPCIONPT);
 
+                        $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Detalle de recepcion Producto Terminado","fruta_drecepcionpt","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
+
                         $EXIEXPORTACION->__SET('FOLIO_EXIEXPORTACION', $NUMEROFOLIODRECEPCION);
                         $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $NUMEROFOLIODRECEPCION);
                         $EXIEXPORTACION->__SET('FOLIO_MANUAL', $FOLIOMANUALR);
@@ -1412,6 +1414,8 @@ if ($_POST) {
                         }
                         //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                         $EXIEXPORTACION_ADO->agregarExiexportacionRecepcion($EXIEXPORTACION);
+
+                        $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Existencia de Producto Terminado","fruta_exiexportacion","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
                         
                         //REDIRECCIONAR A PAGINA registroRecepcionmp.php
                         $_SESSION["parametro"] =  $_REQUEST['IDP'];
@@ -1508,6 +1512,7 @@ if ($_POST) {
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                     $DRECEPCIONPT_ADO->actualizarDrecepcion($DRECEPCIONPT);
 
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de detalle de Recepción Producto Terminado.","fruta_drecepcionpt", $_REQUEST['ID'] ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                     $ARRAYVERFOLIOEXISTENCIA = $EXIEXPORTACION_ADO->buscarPorRecepcionNumeroFolio($_REQUEST['IDP'], $_REQUEST['NUMEROFOLIODRECEPCIONE']);
 
@@ -1547,6 +1552,8 @@ if ($_POST) {
                         $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $ARRAYVERFOLIOEXISTENCIA[0]["ID_EXIEXPORTACION"]);
                         //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                         $EXIEXPORTACION_ADO->actualizarExiexportacionRecepcion($EXIEXPORTACION);
+
+                        $AUSUARIO_ADO->agregarAusuario2("NULL",1, 2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Existencia de Producto Terminado","fruta_exiexportacion",$ARRAYVERFOLIOEXISTENCIA[0]["ID_EXIEXPORTACION"],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
                     } else {
                         $NUMEROFOLIODRECEPCION = $_REQUEST["NUMEROFOLIODRECEPCIONE"];
                         $FOLIOALIASESTACTICO = $NUMEROFOLIODRECEPCION;
@@ -1603,7 +1610,9 @@ if ($_POST) {
                             $EXIEXPORTACION->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
                         }
                         //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                       $EXIEXPORTACION_ADO->agregarExiexportacionRecepcion($EXIEXPORTACION);
+                        $EXIEXPORTACION_ADO->agregarExiexportacionRecepcion($EXIEXPORTACION);
+
+                        $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Existencia de Producto Terminado","fruta_exiexportacion","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
                     }
 
                     //REDIRECCIONAR A PAGINA registroRecepcionmp.php
@@ -1627,6 +1636,8 @@ if ($_POST) {
                 $DRECEPCIONPT->__SET('ID_DRECEPCION', $_REQUEST['ID']);
                 $DRECEPCIONPT_ADO->deshabilitar($DRECEPCIONPT);
 
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar  detalle de recepcion producto terminado.","fruta_drecepcionpt", $_REQUEST['ID'] ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $FOLIOELIMINAR);
                 $EXIEXPORTACION->__SET('ID_RECEPCION', $_REQUEST['IDP']);
                 $EXIEXPORTACION_ADO->deshabilitarRecepcion($EXIEXPORTACION);
@@ -1634,6 +1645,9 @@ if ($_POST) {
                 $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $FOLIOELIMINAR);
                 $EXIEXPORTACION->__SET('ID_RECEPCION', $_REQUEST['IDP']);
                 $EXIEXPORTACION_ADO->eliminadoRecepcion($EXIEXPORTACION);
+
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,4,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar  Existencia de Producto Terminado.","fruta_exiexportacion", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
                 $_SESSION["parametro1"] =  $_REQUEST['OPP'];

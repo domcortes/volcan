@@ -420,6 +420,8 @@ include_once "../../assest/config/datosUrLP.php";
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
             $DESPACHOPT_ADO->Aprobado($DESPACHOPT);
 
+            $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Despacho Producto Terminado, se aprobo la guia.","fruta_despachopt", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
             $ARRAYEXISENCIADESPACHOMP = $EXIEXPORTACION_ADO->verExistenciaPorDespachoEnTransito($_REQUEST['ID']);
             foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
                 $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $r['ID_EXIEXPORTACION']);
@@ -481,6 +483,9 @@ include_once "../../assest/config/datosUrLP.php";
                 $EXIEXPORTACION->__SET('ID_EXIEXPORTACION2', $r["ID_EXIEXPORTACION2"]);  
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $EXIEXPORTACION_ADO->agregarExiexportacionGuia($EXIEXPORTACION);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Existencia de Producto Terminado, por una aprobación de una guia interplanta.","fruta_exiexportacion", "NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
             endforeach;
             echo '<script>
                 Swal.fire({

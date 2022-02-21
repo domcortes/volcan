@@ -379,10 +379,14 @@ include_once "../../assest/config/validarDatosUrlD.php";
                         //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                         $EXIEXPORTACION_ADO->actualizarSelecionarRechazoCambiarEstado($EXIEXPORTACION);
 
+                        $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].", se agrega existencia al rechazo Producto Terminado.","fruta_exiexportacion", "NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                         $REAPT->__SET('ID_RECHAZO', $IDRECHAZO);
                         $REAPT->__SET('ID_EXIEXPORTACION', $IDEXIEXPORTACION);
                         //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                         $REAPT_ADO->agregarReapt($REAPT);
+
+                        $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de detalle rechazo Producto Terminado.","fruta_reapt", "NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                     endforeach;                           
                     $_SESSION["parametro"] =  $_REQUEST['IDP'];

@@ -712,7 +712,7 @@ if (isset($_REQUEST['CREAR'])) {
     $DICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
     $DICARGA_ADO->agregarDicarga($DICARGA);
 
-    $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Detalle de Instructivo Carga","fruta_dicarga","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
+    $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Detalle de Instructivo Carga","fruta_dicarga","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
 
     //REDIRECCIONAR A PAGINA registroICarga.php
     $_SESSION["parametro"] =  $_REQUEST['IDP'];
@@ -765,7 +765,7 @@ if (isset($_REQUEST['EDITAR'])) {
     $DICARGA->__SET('ID_DICARGA', $_REQUEST['ID']);
     $DICARGA_ADO->actualizarDicarga($DICARGA);
 
-    $AUSUARIO_ADO->agregarAusuario2("NULL",1, 2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Detalle de Instructivo Carga","fruta_dicarga",$_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
+    $AUSUARIO_ADO->agregarAusuario2("NULL",1, 2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Detalle de Instructivo Carga","fruta_dicarga",$_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
 
     //REDIRECCIONAR A PAGINA registroICarga.php
     $_SESSION["parametro"] =  $_REQUEST['IDP'];
@@ -794,7 +794,7 @@ if (isset($_REQUEST['ELIMINAR'])) {
     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
     $DICARGA_ADO->deshabilitar($DICARGA);
 
-    $AUSUARIO_ADO->agregarAusuario2("NULL",1, 3,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar de Detalle Instructivo Carga","fruta_dicarga",$_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
+    $AUSUARIO_ADO->agregarAusuario2("NULL",1, 3,"".$_SESSION["NOMBRE_USUARIO"].", Deshabilitar de Detalle Instructivo Carga","fruta_dicarga",$_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
 
     //REDIRECCIONAR A PAGINA registroICarga.php
     $_SESSION["parametro"] =  $_REQUEST['IDP'];

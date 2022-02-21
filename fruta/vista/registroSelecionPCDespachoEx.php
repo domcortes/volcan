@@ -292,6 +292,8 @@ if (isset($_REQUEST['AGREGAR'])) {
                 $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $s['ID_EXIEXPORTACION']);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $EXIEXPORTACION_ADO->actualizarSelecionarDespachoExCambiarEstado($EXIEXPORTACION);
+                
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Se agrego la Existencia de producto terminado al despacho exportación.","fruta_exiexportacion", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
             endforeach;
             $PCDESPACHO->__SET('ID_PCDESPACHO', $IDPCDESPACHO);
@@ -299,9 +301,13 @@ if (isset($_REQUEST['AGREGAR'])) {
             // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
             $PCDESPACHO_ADO->actualizarPcdespachoADespacho($PCDESPACHO);
 
+            
+
             $PCDESPACHO->__SET('ID_PCDESPACHO', $IDPCDESPACHO);
             // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
             $PCDESPACHO_ADO->enDespacho($PCDESPACHO);
+
+            $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Se agrego la PC al despacho exportación.","fruta_pcdespacho", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
         endforeach;
         if ($SINO == "0") {

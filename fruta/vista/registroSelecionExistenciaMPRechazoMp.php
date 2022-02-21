@@ -352,6 +352,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                     $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $IDEXISMATERIAPRIMA);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                     $EXIMATERIAPRIMA_ADO->actualizarSelecionarRechazoCambiarEstado($EXIMATERIAPRIMA);
+
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].", se agrega existencia al rechazo Materia Prima.","fruta_eximateriaprima", "NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
                 endforeach;
 
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];

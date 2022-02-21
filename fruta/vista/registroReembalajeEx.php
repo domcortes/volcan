@@ -1266,6 +1266,7 @@ if (isset($_POST)) {
                     $_REQUEST['PLANTA'],
                     $_REQUEST['TEMPORADA']
                 );
+                $AUSUARIO_ADO->agregarAusuario2($NUMERO,1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de reembalaje.","fruta_reembalaje", $ARRYAOBTENERID[0]['ID_REEMBALAJE'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                 $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_REEMBALAJE'];
                 $_SESSION["parametro1"] = "crear";
@@ -1313,6 +1314,8 @@ if (isset($_POST)) {
                 $REEMBALAJE->__SET('ID_USUARIOM', $IDUSUARIOS);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $REEMBALAJE_ADO->actualizarReembalaje($REEMBALAJE);
+
+                $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de reembalaje.","fruta_reembalaje", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
                 
                 if ($_SESSION['parametro1'] == "crear") {
                     $_SESSION["parametro"] = $_REQUEST['IDP'];
@@ -1416,7 +1419,7 @@ if (isset($_POST)) {
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                     $REEMBALAJE_ADO->cerrado($REEMBALAJE);
 
-
+                    $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,1,3,"".$_SESSION["NOMBRE_USUARIO"].", Cerrar  reembalaje.","fruta_reembalaje", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                     $ARRAYEXIPRODUCTOTERMINADOTOMADO = $EXIEXPORTACION_ADO->buscarPorReembalaje($_REQUEST['IDP']);
                     $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorReembalajeIngresando($_REQUEST['IDP']);
@@ -1481,6 +1484,8 @@ if (isset($_POST)) {
                 $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $_REQUEST['IDQUITAR']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $EXIEXPORTACION_ADO->actualizarDeselecionarReembalajeeCambiarEstado($EXIEXPORTACION);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Se Quito la Existencia al reembalaje.","fruta_exiexportacion", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
                 
             echo '<script>
                 Swal.fire({

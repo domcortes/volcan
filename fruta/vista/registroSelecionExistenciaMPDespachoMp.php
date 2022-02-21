@@ -361,7 +361,10 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                     $EXIMATERIAPRIMA->__SET('ID_DESPACHO', $IDDESPACHO);
                     $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $IDEXISMATERIAPRIMA);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                    $EXIMATERIAPRIMA_ADO->actualizarSelecionarDespachoCambiarEstado($EXIMATERIAPRIMA);
+                    $EXIMATERIAPRIMA_ADO->actualizarSelecionarDespachoCambiarEstado($EXIMATERIAPRIMA); 
+
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Se agrego la Existencia al despacho de materia prima.","fruta_eximateriaprima", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 endforeach;
 
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
@@ -380,7 +383,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 </script>';
          
                 // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-            }
+            } 
         }
 
         if (isset($_REQUEST['DIVIDIR'])) {
@@ -450,6 +453,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                         // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                         $EXIMATERIAPRIMA_ADO->repaletizadoDespacho($EXIMATERIAPRIMA);
 
+                        $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Existencia de materia prima, Origen división de envases en despacho de materia prima.","fruta_eximateriaprima", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                         $FOLIOALIASESTACTICO = $FOLIOORIGINAL;
                         $FOLIOALIASDIANAMICO = "EMPRESA:" . $_REQUEST['EMPRESA'] . "_PLANTA:" . $_REQUEST['PLANTA'] . "_TEMPORADA:" . $_REQUEST['TEMPORADA'] .
                             "_TIPO_FOLIO:MATERIA PRIMA_DESPACHO:" . $_REQUEST['IDP'] . "_FOLIO:" . $FOLIOORIGINAL;
@@ -495,6 +500,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                             // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                             $EXIMATERIAPRIMA_ADO->agregarEximateriaprimaDespachoNuevo($EXIMATERIAPRIMA);
 
+                            $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Existencia y se agrego la Existencia al despacho de materia prima, Origen división de envases en despacho de materia prima..","fruta_eximateriaprima", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                             
                             $EXIMATERIAPRIMA->__SET('FOLIO_EXIMATERIAPRIMA', $r['FOLIO_EXIMATERIAPRIMA']);
                             $EXIMATERIAPRIMA->__SET('FOLIO_AUXILIAR_EXIMATERIAPRIMA', $r['FOLIO_AUXILIAR_EXIMATERIAPRIMA']);
@@ -532,6 +539,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                             $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA2', $r['ID_EXIMATERIAPRIMA']);
                             // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                             $EXIMATERIAPRIMA_ADO->agregarEximateriaprimaDespachoResto($EXIMATERIAPRIMA);
+
+                            $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Existencia de materia prima, Origen división de envases en despacho de materia prima.","fruta_eximateriaprima","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
 
                         endforeach;
                     }

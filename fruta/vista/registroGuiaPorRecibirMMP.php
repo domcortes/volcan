@@ -294,6 +294,8 @@ include_once "../../assest/config/validarDatosUrlD.php";
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $MGUIAMP_ADO->agregarMguia($MGUIAMP);
 
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Motivo Rechazo Guia Despacho Materia Prima.","fruta_mguiamp","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 $DESPACHOMP->__SET('ID_DESPACHO', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $DESPACHOMP_ADO->abierto($DESPACHOMP);
@@ -301,6 +303,8 @@ include_once "../../assest/config/validarDatosUrlD.php";
                 $DESPACHOMP->__SET('ID_DESPACHO', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $DESPACHOMP_ADO->Rechazado($DESPACHOMP);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Despacho Materia Prima, se rechazo la guia.","fruta_despachomp", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
 
                 $ARRAYEXISENCIADESPACHOMP = $EXIMATERIAPRIMA_ADO->verExistenciaPorDespacho($_REQUEST['IDP']);
@@ -332,6 +336,8 @@ include_once "../../assest/config/validarDatosUrlD.php";
                     $MGUIAE->__SET('ID_USUARIOM', $IDUSUARIOS);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                     $MGUIAE_ADO->agregarMguia($MGUIAE);
+                    
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Motivo Rechazo Guia Despacho Envases, origen despacho de materia prima.","material_mguiae","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
                     $DESPACHOE->__SET('ID_DESPACHO', $ARRAYDESPACHOE[0]['ID_DESPACHO']);
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
@@ -340,6 +346,8 @@ include_once "../../assest/config/validarDatosUrlD.php";
                     $DESPACHOE->__SET('ID_DESPACHO', $ARRAYDESPACHOE[0]['ID_DESPACHO']);
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                     $DESPACHOE_ADO->Rechazado($DESPACHOE);
+
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Despacho Envases, se rechazo la guia, origen despacho de materia prima.","material_despachoe", "NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
                     
             
                 }

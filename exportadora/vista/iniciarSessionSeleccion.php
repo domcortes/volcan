@@ -227,7 +227,7 @@ if (isset($_SESSION["ID_TEMPORADA"])) {
         if (isset($_REQUEST['ENTRAR'])) {
             $_SESSION["ID_EMPRESA"] = $_REQUEST['EMPRESA'];
             $_SESSION["ID_TEMPORADA"] = $_REQUEST['TEMPORADA'];
-            $AUSUARIO_ADO->agregarAusuario2('NULL',3,0,"".$_SESSION["NOMBRE_USUARIO"].", Inicio Sesion, Selecion","usuario_usuario",$_SESSION["ID_USUARIO"],$_SESSION["ID_USUARIO"],$_REQUEST["EMPRESA"],'NULL',$_REQUEST['TEMPORADA'] );            
+            $AUSUARIO_ADO->agregarAusuario2('NULL',3,0,"".$_SESSION["NOMBRE_USUARIO"].", Inicio Sesion, Seleccion","usuario_usuario",$_SESSION["ID_USUARIO"],$_SESSION["ID_USUARIO"],$_REQUEST["EMPRESA"],'NULL',$_REQUEST['TEMPORADA'] );            
             echo "<script> location.href = 'index.php';</script>";
         }
         if (isset($_REQUEST['SALIR'])) {

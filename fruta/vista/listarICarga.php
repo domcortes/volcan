@@ -408,7 +408,7 @@ include_once "../../assest/config/datosUrLP.php";
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
             $ICARGA_ADO->CargadoCerrado($ICARGA);   
 
-            $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación Instructivo Carga, se cambia estado a cargado","fruta_icarga",$_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
+            $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación Instructivo Carga, se cambia estado a cargado","fruta_icarga",$_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
             echo '<script>
                 Swal.fire({

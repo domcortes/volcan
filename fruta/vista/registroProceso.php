@@ -1277,6 +1277,7 @@ if (isset($_POST)) {
                 $_REQUEST['TEMPORADA'],
             );
             //REDIRECCIONAR A PAGINA registroRecepcion.php
+            $AUSUARIO_ADO->agregarAusuario2($NUMERO,1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Proceso.","fruta_proceso", $ARRYAOBTENERID[0]['ID_PROCESO'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
             $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_PROCESO'];
             $_SESSION["parametro1"] = "crear";
@@ -1325,6 +1326,8 @@ if (isset($_POST)) {
             $PROCESO->__SET('ID_PROCESO', $_REQUEST['IDP']);
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
             $PROCESO_ADO->actualizarProceso($PROCESO);
+
+            $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Proceso.","fruta_proceso", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
             
             if ($_SESSION['parametro1'] == "crear") {
                 $_SESSION["parametro"] = $_REQUEST['IDP'];
@@ -1434,6 +1437,8 @@ if (isset($_POST)) {
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $PROCESO_ADO->cerrado($PROCESO);
 
+                $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,1,3,"".$_SESSION["NOMBRE_USUARIO"].", Cerrar  Proceso.","fruta_proceso", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 $ARRAYEXIMATERIAPRIMA = $EXIMATERIAPRIMA_ADO->buscarPorProceso($_REQUEST['IDP']);
 
                 $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorProcesoIngresando($_REQUEST['IDP']);
@@ -1495,6 +1500,8 @@ if (isset($_POST)) {
             $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $_REQUEST['IDQUITAR']);
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
             $EXIMATERIAPRIMA_ADO->actualizarDeselecionarProcesoCambiarEstado($EXIMATERIAPRIMA);
+
+            $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Se Quito la Existencia al proceso.","fruta_eximateriaprima", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
             
             echo '<script>
                 Swal.fire({

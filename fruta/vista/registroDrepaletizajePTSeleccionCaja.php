@@ -625,6 +625,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                 $DREPALETIZAJEEX->__SET('ID_EXIEXPORTACION', $r["ID_EXIEXPORTACION"]);
                                 $DREPALETIZAJEEX->__SET('ID_REPALETIZAJE', $REPALETIZAJE);
                                 $DREPALETIZAJEEX_ADO->agregarDrepaletizaje($DREPALETIZAJEEX);       
+                                
+                                $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Detalle de repaletizaje Producto Terminado, por envases","fruta_drepaletizajeex","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );           
 
 
                                 $EXIEXPORTACION->__SET('FOLIO_EXIEXPORTACION', $r["FOLIO_EXIEXPORTACION"]);
@@ -675,6 +677,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                 $EXIEXPORTACION->__SET('ID_REPALETIZAJE2', $REPALETIZAJE);      
                                 $EXIEXPORTACION->__SET('ID_EXIEXPORTACION2', $r["ID_EXIEXPORTACION"]);                                                    
                                 $EXIEXPORTACION_ADO->agregarExiexportacionRepaletizaje($EXIEXPORTACION);
+
+                                $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de existencia de Producto Terminado, por envases","fruta_exiexportacion","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );           
+
                             endforeach;      
                         }
 
@@ -819,7 +824,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                             $DREPALETIZAJEEX->__SET('ID_VESPECIES', $r["ID_VESPECIES"]);
                             $DREPALETIZAJEEX->__SET('ID_EXIEXPORTACION', $r["ID_EXIEXPORTACION"]);
                             $DREPALETIZAJEEX->__SET('ID_REPALETIZAJE', $REPALETIZAJE);
-                            $DREPALETIZAJEEX_ADO->agregarDrepaletizaje($DREPALETIZAJEEX);                            
+                            $DREPALETIZAJEEX_ADO->agregarDrepaletizaje($DREPALETIZAJEEX);                 
+                            
+                            $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Detalle de repaletizaje Producto Terminado, mantener folio","fruta_drepaletizajeex","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );           
 
                             $EXIEXPORTACION->__SET('FOLIO_EXIEXPORTACION', $r["FOLIO_EXIEXPORTACION"]);
                             $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $r["FOLIO_AUXILIAR_EXIEXPORTACION"]);
@@ -869,6 +876,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                             $EXIEXPORTACION->__SET('ID_REPALETIZAJE2', $REPALETIZAJE);    
                             $EXIEXPORTACION->__SET('ID_EXIEXPORTACION2', $r["ID_EXIEXPORTACION"]);   
                             $EXIEXPORTACION_ADO->agregarExiexportacionRepaletizaje($EXIEXPORTACION);
+
+                            $AUSUARIO_ADO->agregarAusuario2("NULL",1, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de existencia de Producto Terminado, mantener folio","fruta_exiexportacion","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );           
                             
                         
                     endforeach;

@@ -451,6 +451,8 @@ if (empty($ARRAYFOLIO3)) {
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
             $DESPACHOMP_ADO->Aprobado($DESPACHOMP);
 
+            $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Despacho Materia Prima, se aprobo la guia.","fruta_despachomp", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
 
             $ARRAYEXISENCIADESPACHOMP = $EXIMATERIAPRIMA_ADO->verExistenciaPorDespachoEnTransito($_REQUEST['ID']);
             foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
@@ -489,6 +491,9 @@ if (empty($ARRAYFOLIO3)) {
                 $EXIMATERIAPRIMA->__SET('ID_TEMPORADA', $TEMPORADAS);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $EXIMATERIAPRIMA_ADO->agregarEximateriaprimaGuia($EXIMATERIAPRIMA);
+                
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Existencia de Materia Prima, por una aprobación de una guia interplanta.","fruta_eximateriaprima", "NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
             endforeach;
 
             $ARRAYDESPACHOE=$DESPACHOE_ADO->listarDespachoePorDespachoMPCBX($_REQUEST['ID']);
@@ -500,6 +505,8 @@ if (empty($ARRAYFOLIO3)) {
                 $DESPACHOE->__SET('ID_DESPACHO', $ARRAYDESPACHOE[0]['ID_DESPACHO']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $DESPACHOE_ADO->Aprobado($DESPACHOE);
+
+                $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Despacho Envases, se aprobo la guia, origen despacho materia prima..","material_despachoe", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
                 
                 $ARRAYEXISENCIADESPACHOEP = $INVENTARIOE_ADO->buscarPorDespacho($ARRAYDESPACHOE[0]['ID_DESPACHO']);
                 foreach ($ARRAYEXISENCIADESPACHOEP as $r) :
@@ -515,6 +522,8 @@ if (empty($ARRAYFOLIO3)) {
                     $INVENTARIOE->__SET('ID_PLANTA', $PLANTAS);
                     $INVENTARIOE->__SET('ID_TEMPORADA', $TEMPORADAS);
                     $INVENTARIOE_ADO->agregarInventarioGuia($INVENTARIOE);
+                    
+                    $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Inventario de envases, por una aprobación de una guia interplanta, origen despacho materia prima.","material_inventarioe", "NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
                 endforeach;
             }
             echo '<script>

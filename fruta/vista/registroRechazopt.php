@@ -806,6 +806,8 @@ if (isset($_POST)) {
                 $_REQUEST['TEMPORADA'],
             );
             //REDIRECCIONAR A PAGINA registroRecepcion.php
+
+            $AUSUARIO_ADO->agregarAusuario2($NUMERO,1,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de rechazo Producto Terminado.","fruta_rechazopt", $ARRYAOBTENERID[0]['ID_RECHAZO'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
             
             $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_RECHAZO'];
             $_SESSION["parametro1"] = "crear";
@@ -840,7 +842,9 @@ if (isset($_POST)) {
             $RECHAZOPT->__SET('ID_USUARIOM', $IDUSUARIOS);
             $RECHAZOPT->__SET('ID_RECHAZO', $_REQUEST['IDP']);
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-            $RECHAZOPT_ADO->actualizarRechazo($RECHAZOPT);                      
+            $RECHAZOPT_ADO->actualizarRechazo($RECHAZOPT);           
+            
+            $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de rechazo Producto Terminado.","fruta_rechazopt", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
 
             
             if ($_SESSION['parametro1'] == "crear") {
@@ -923,6 +927,8 @@ if (isset($_POST)) {
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $RECHAZOPT_ADO->cerrado($RECHAZOPT);
 
+                $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,1,3,"".$_SESSION["NOMBRE_USUARIO"].", Cerrar  rechazo Producto Terminado.","fruta_rechazopt", $_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
                 $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorRechazo($_REQUEST['IDP']);   
                 foreach ($ARRAYEXIEXPORTACION as $r) :
                     if( $_REQUEST['TRECHAZOE']==1){
@@ -985,7 +991,13 @@ if (isset($_POST)) {
             $EXIEXPORTACION->__SET('ID_EXIEXPORTACION',  $_REQUEST['IDQUITAR']);
             //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
             $EXIEXPORTACION_ADO->actualizarDeselecionarRechazoCambiarEstado($EXIEXPORTACION);   
-            $REAPT_ADO->eliminarReapt($_REQUEST['IDP'],$_REQUEST['IDQUITAR']);             
+
+            $AUSUARIO_ADO->agregarAusuario2("NULL",1,2,"".$_SESSION["NOMBRE_USUARIO"].", Se Quito la Existencia al rechazo producto terminado.","fruta_exiexportacion", "NULL" ,$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+
+            $REAPT_ADO->eliminarReapt($_REQUEST['IDP'],$_REQUEST['IDQUITAR']);         
+            
+            $AUSUARIO_ADO->agregarAusuario2("NULL",1,1,"".$_SESSION["NOMBRE_USUARIO"].", Desahabilitar de detalle rechazo Producto Terminado.","fruta_reapt", "NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'], $_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );  
+            
             
             echo '<script>
                 Swal.fire({
