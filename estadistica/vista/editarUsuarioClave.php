@@ -277,6 +277,9 @@ if (isset($NOMBREUSUARIOS)) {
                 $USUARIO->__SET('CONTRASENA_USUARIO', $_REQUEST['CONTRASENA']);
                 $USUARIO->__SET('ID_USUARIO', $NOMBREUSUARIOS);
                 $USUARIO_ADO->actualizarContrasena($USUARIO);
+
+                $AUSUARIO_ADO->agregarAusuario2('NULL',4,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de contraseña, perfil usuario","usuario_usuario",$_SESSION["ID_USUARIO"],$_SESSION["ID_USUARIO"],'NULL','NULL',$_SESSION['ID_TEMPORADA'] );            
+
                 echo '<script>
                     Swal.fire({
                         icon:"info",

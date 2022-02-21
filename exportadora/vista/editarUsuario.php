@@ -384,6 +384,9 @@ if (isset($NOMBREUSUARIOS)) {
                 $USUARIO->__SET('TELEFONO_USUARIO', $_REQUEST['TELEFONO']);
                 $USUARIO->__SET('ID_USUARIO', $IDUSUARIOS);
                 $USUARIO_ADO->actualizarPerfil($USUARIO);
+
+                $AUSUARIO_ADO->agregarAusuario2('NULL',3,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de datos, perfil usuario","usuario_usuario",$_SESSION["ID_USUARIO"],$_SESSION["ID_USUARIO"],$_SESSION["ID_EMPRESA"],'NULL',$_SESSION['ID_TEMPORADA'] );            
+
                 echo '<script>
                     Swal.fire({
                         icon:"info",
