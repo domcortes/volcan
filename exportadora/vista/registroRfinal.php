@@ -33,6 +33,7 @@ $EMAILRFINAL2 = "";
 $CONTACTORFINAL3 = "";
 $CARGORFINAL3 = "";
 $EMAILRFINAL3 = "";
+$CONTADOR=0;
 
 
 
@@ -538,19 +539,27 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Numero </th>
-                                                        <th>Nombre </th>
                                                         <th>Operaciones</th>
+                                                        <th>Nombre </th>
+                                                        <th>Direccion </th>
+                                                        <th>Contacto 1</th>
+                                                        <th>Cargo 1</th>
+                                                        <th>Email 1</th>
+                                                        <th>Contacto 2</th>
+                                                        <th>Cargo 2</th>
+                                                        <th>Email 2</th>
+                                                        <th>Contacto 3</th>
+                                                        <th>Cargo 3</th>
+                                                        <th>Email 3</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php foreach ($ARRAYRFINAL as $r) : ?>
+                                                    <?php foreach ($ARRAYRFINAL as $r) : ?>                 
+                                                        <?php   
+                                                            $CONTADOR+=1; 
+                                                        ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['NUMERO_RFINAL']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td><?php echo $r['NOMBRE_RFINAL']; ?></td>                                                                        
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                                      
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -590,6 +599,17 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     </div>
                                                                 </form>
                                                             </td>
+                                                            <td><?php echo $r['NOMBRE_RFINAL']; ?></td>   
+                                                            <td><?php echo $r['DIRECCION_RFINAL']; ?></td>  
+                                                            <td><?php echo $r['CONTACTO1_RFINAL']; ?></td>  
+                                                            <td><?php echo $r['CARGO1_RFINAL']; ?></td>  
+                                                            <td><?php echo $r['EMAIL1_RFINAL']; ?></td>  
+                                                            <td><?php echo $r['CONTACTO2_RFINAL']; ?></td>  
+                                                            <td><?php echo $r['CARGO2_RFINAL']; ?></td>  
+                                                            <td><?php echo $r['EMAIL2_RFINAL']; ?></td>  
+                                                            <td><?php echo $r['CONTACTO3_RFINAL']; ?></td>  
+                                                            <td><?php echo $r['CARGO3_RFINAL']; ?></td>  
+                                                            <td><?php echo $r['EMAIL3_RFINAL']; ?></td>  
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

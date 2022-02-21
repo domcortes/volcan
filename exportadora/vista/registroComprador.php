@@ -454,9 +454,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                     <tr class="center">
                                                         <th>Numero </th>
                                                         <th>Operaciones</th>
-                                                        <th>Nombre </th>
                                                         <th>Rut </th>
                                                         <th>DV </th>
+                                                        <th>Nombre </th>
                                                         <th>Email </th>
                                                         <th>Telefono </th>
                                                         <th>Direccion </th>
@@ -515,9 +515,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     </div>
                                                                 </form>
                                                             </td>  
-                                                            <td><?php echo $r['NOMBRE_COMPRADOR']; ?></td>  
                                                             <td><?php echo $r['RUT_COMPRADOR']; ?></td>  
                                                             <td><?php echo $r['DV_COMPRADOR']; ?></td>  
+                                                            <td><?php echo $r['NOMBRE_COMPRADOR']; ?></td>  
                                                             <td><?php echo $r['TELEFONO_COMPRADOR']; ?></td>  
                                                             <td><?php echo $r['EMAIL_COMPRADOR']; ?></td>  
                                                             <td><?php echo $r['DIRECCION_COMPRADOR']; ?></td> 

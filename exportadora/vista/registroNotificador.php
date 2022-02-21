@@ -35,6 +35,7 @@ $EMAILNOTIFICADOR2 = "";
 $CONTACTONOTIFICADOR3 = "";
 $CARGONOTIFICADOR3 = "";
 $EMAILNOTIFICADOR3 = "";
+$CONTADOR=0;
 
 
 
@@ -582,19 +583,29 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Numero </th>
-                                                        <th>Nombre </th>
                                                         <th>Operaciones</th>
+                                                        <th>Nombre </th>
+                                                        <th>Eori </th>
+                                                        <th>Direccion </th>
+                                                        <th>Telefono / Fax </th>
+                                                        <th>Contacto 1</th>
+                                                        <th>Cargo 1</th>
+                                                        <th>Email 1</th>
+                                                        <th>Contacto 2</th>
+                                                        <th>Cargo 2</th>
+                                                        <th>Email 2</th>
+                                                        <th>Contacto 3</th>
+                                                        <th>Cargo 3</th>
+                                                        <th>Email 3</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYNOTIFICADOR as $r) : ?>
+                                                        <?php   
+                                                            $CONTADOR+=1; 
+                                                        ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['NUMERO_NOTIFICADOR']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td><?php echo $r['NOMBRE_NOTIFICADOR']; ?></td>                                                                                
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                                   
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -634,6 +645,19 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     </div>
                                                                 </form>
                                                             </td>
+                                                            <td><?php echo $r['NOMBRE_NOTIFICADOR']; ?></td> 
+                                                            <td><?php echo $r['EORI_NOTIFICADOR']; ?></td> 
+                                                            <td><?php echo $r['DIRECCION_NOTIFICADOR']; ?></td> 
+                                                            <td><?php echo $r['TELEFONO_NOTIFICADOR']; ?></td>   
+                                                            <td><?php echo $r['CONTACTO1_NOTIFICADOR']; ?></td> 
+                                                            <td><?php echo $r['CARGO1_NOTIFICADOR']; ?></td> 
+                                                            <td><?php echo $r['EMAIL1_NOTIFICADOR']; ?></td>   
+                                                            <td><?php echo $r['CONTACTO2_NOTIFICADOR']; ?></td> 
+                                                            <td><?php echo $r['CARGO2_NOTIFICADOR']; ?></td> 
+                                                            <td><?php echo $r['EMAIL2_NOTIFICADOR']; ?></td>   
+                                                            <td><?php echo $r['CONTACTO3_NOTIFICADOR']; ?></td> 
+                                                            <td><?php echo $r['CARGO3_NOTIFICADOR']; ?></td> 
+                                                            <td><?php echo $r['EMAIL3_NOTIFICADOR']; ?></td>   
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

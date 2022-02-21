@@ -33,6 +33,7 @@ $CONTACTOAADUANA = "";
 $TELEFONOAADUANA = "";
 $EMAILAADUANA = "";
 $COMUNA = "";
+$CONTADOR=0;
 
 
 
@@ -510,19 +511,31 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Numero </th>
-                                                        <th>Nombre </th>
                                                         <th>Operaciones</th>
+                                                        <th>Rut </th>
+                                                        <th>DV </th>
+                                                        <th>Nombre </th>
+                                                        <th>Razon Social </th>
+                                                        <th>Giro </th>
+                                                        <th>Direccion </th>
+                                                        <th>Comuna </th>
+                                                        <th>Contacto </th>
+                                                        <th>Email </th>
+                                                        <th>Telefono </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php foreach ($ARRAYAADUANA as $r) : ?>
+                                                    <?php foreach ($ARRAYAADUANA as $r) : ?>                              
+                                                        <?php   $CONTADOR+=1;
+                                                            $ARRAYVERCOMUNA=$COMUNA_ADO->verComuna($r["ID_COMUNA"]);
+                                                            if($ARRAYVERCOMUNA){
+                                                                $NOMBRECOMUNA = $ARRAYVERCOMUNA[0]["NOMBRE_COMUNA"];
+                                                            }else{
+                                                                $NOMBRECOMUNA="Sin Datos";
+                                                            }   
+                                                        ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['NUMERO_AADUANA']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td><?php echo $r['NOMBRE_AADUANA']; ?></td>                                                                     
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                                    
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -562,6 +575,16 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     </div>
                                                                 </form>
                                                             </td>
+                                                            <td><?php echo $r['RUT_AADUANA']; ?></td>  
+                                                            <td><?php echo $r['DV_AADUANA']; ?></td>  
+                                                            <td><?php echo $r['NOMBRE_AADUANA']; ?></td>    
+                                                            <td><?php echo $r['RAZON_SOCIAL_AADUANA']; ?></td>   
+                                                            <td><?php echo $r['GIRO_AADUANA']; ?></td>   
+                                                            <td><?php echo $r['DIRECCION_AADUANA']; ?></td>        
+                                                            <td><?php echo $NOMBRECOMUNA; ?></td>                                                                 
+                                                            <td><?php echo $r['CONTACTO_AADUANA']; ?></td>   
+                                                            <td><?php echo $r['EMAIL_AADUANA']; ?></td>      
+                                                            <td><?php echo $r['TELEFONO_AADUANA']; ?></td>     
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>
