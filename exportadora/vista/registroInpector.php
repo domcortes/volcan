@@ -33,6 +33,7 @@ $COMUNA = "";
 
 $FNOMBRE = "";
 
+$CONTADOR=0;
 $SINO = "";
 
 $NOMBRE = "";
@@ -316,8 +317,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 </div>
                                                  <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
-                                                        <label>Dirreccion </label>
-                                                        <input type="text" class="form-control" placeholder="Dirreccion Inpector" id="DIRECCIONINPECTOR" name="DIRECCIONINPECTOR" value="<?php echo $DIRECCIONINPECTOR; ?>" <?php echo $DISABLED; ?> />
+                                                        <label>Direccion </label>
+                                                        <input type="text" class="form-control" placeholder="Direccion Inpector" id="DIRECCIONINPECTOR" name="DIRECCIONINPECTOR" value="<?php echo $DIRECCIONINPECTOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_direccion" class="validacion"> </label>
                                                     </div>
                                                 </div>
@@ -397,19 +398,26 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Numero </th>
-                                                        <th>Nombre </th>
                                                         <th>Operaciones</th>
+                                                        <th>Nombre </th>
+                                                        <th>Email </th>
+                                                        <th>Telefono </th>
+                                                        <th>Direccion </th>
+                                                        <th>Comuna </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYINPECTOR as $r) : ?>
+                                                        <?php   $CONTADOR+=1;
+                                                            $ARRAYVERCOMUNA=$COMUNA_ADO->verComuna($r["ID_COMUNA"]);
+                                                            if($ARRAYVERCOMUNA){
+                                                                $NOMBRECOMUNA = $ARRAYVERCOMUNA[0]["NOMBRE_COMUNA"];
+                                                            }else{
+                                                                $NOMBRECOMUNA="Sin Datos";
+                                                            }   
+                                                        ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['ID_INPECTOR']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td><?php echo $r['NOMBRE_INPECTOR']; ?></td>                                                                                                                                                                                  
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                                                                                                                                           
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -449,6 +457,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     </div>
                                                                 </form>
                                                             </td>
+                                                            <td><?php echo $r['NOMBRE_INPECTOR']; ?></td>     
+                                                            <td><?php echo $r['EMAIL_INPECTOR']; ?></td>      
+                                                            <td><?php echo $r['TELEFONO_INPECTOR']; ?></td>      
+                                                            <td><?php echo $r['DIRECCION_INPECTOR']; ?></td>        
+                                                            <td><?php echo $NOMBRECOMUNA; ?></td>  
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

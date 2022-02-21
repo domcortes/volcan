@@ -508,8 +508,8 @@ if ($_POST) {
                                                 </div>
                                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
-                                                        <label>Dirreccion</label>
-                                                        <input type="text" class="form-control" placeholder="Dirreccion  Exportadora" id="DIRECCIONEXPORTADORA" name="DIRECCIONEXPORTADORA" value="<?php echo $DIRECCIONEXPORTADORA; ?>" <?php echo $DISABLED; ?> />
+                                                        <label>Direccion</label>
+                                                        <input type="text" class="form-control" placeholder="Direccion  Exportadora" id="DIRECCIONEXPORTADORA" name="DIRECCIONEXPORTADORA" value="<?php echo $DIRECCIONEXPORTADORA; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_dirrecion" class="validacion"> </label>
                                                     </div>
                                                 </div>
