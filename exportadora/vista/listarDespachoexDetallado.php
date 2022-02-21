@@ -117,6 +117,7 @@ $ARRAYVERPRODUCTOR = "";
 $ARRAYVERTRANSPORTE = "";
 $ARRAYVERCONDUCTOR = "";
 $ARRAYMGUIAPT = "";
+$ARRAYRECEPCIONMPORIGEN="";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
@@ -275,6 +276,12 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                     <th>Tipo Recepción </th>
                                                     <th>Número Guía Recepción </th>
                                                     <th>Fecha Guía Recepción
+                                                    <th>Número Recepción MP</th>
+                                                    <th>Fecha Recepción MP</th>
+                                                    <th>Tipo Recepción MP</th>
+                                                    <th>Número Guía Recepción MP</th>
+                                                    <th>Fecha Guía Recepción MP </th>
+                                                    <th>Planta Recepción MP</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -577,14 +584,42 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             $ARRAYTPROCESO = $TPROCESO_ADO->verTproceso($ARRAYPROCESO[0]["ID_TPROCESO"]);
                                                             if ($ARRAYTPROCESO) {
                                                                 $TPROCESO = $ARRAYTPROCESO[0]["NOMBRE_TPROCESO"];
+                                                            }                                                            
+                                                            $ARRAYRECEPCIONMPORIGEN=$PROCESO_ADO->buscarRecepcionMpExistenciaEnProceso($s['ID_PROCESO']);
+                                                            if($ARRAYRECEPCIONMPORIGEN){                                                                
+                                                                $NUMERORECEPCIONMP = $ARRAYRECEPCIONMPORIGEN[0]["NUMERO"];
+                                                                $FECHARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN[0]["FECHA"];
+                                                                $NUMEROGUIARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN[0]["NUMEROGUIA"];
+                                                                $FECHAGUIARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN[0]["FECHAGUIA"];
+                                                                $TIPORECEPCIONMP = $ARRAYRECEPCIONMPORIGEN[0]["TRECEPCION"];
+                                                                $ORIGENRECEPCIONMP = $ARRAYRECEPCIONMPORIGEN[0]["ORIGEN"];
+                                                                $PLANTARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN[0]["PLANTA"];
+
+                                                            }else{
+                                                                $NUMERORECEPCIONMP = "Sin Datos";
+                                                                $FECHARECEPCIONMP = "";
+                                                                $NUMEROGUIARECEPCIONMP = "Sin Datos"; 
+                                                                $FECHAGUIARECEPCIONMP = "";
+                                                                $TIPORECEPCIONMP = "Sin Datos";
+                                                                $ORIGENRECEPCIONMP = "Sin Datos";
+                                                                $PLANTARECEPCIONMP = "Sin Datos";
                                                             }
+
                                                         } else {
                                                             $NUMEROPROCESO = "Sin datos";
-                                                            $FECHAPROCESO = "";
                                                             $PORCENTAJEEXPO = "Sin datos";
                                                             $PORCENTAJEINDUSTRIAL = "Sin datos";
                                                             $PORCENTAJETOTAL = "Sin datos";
+                                                            $FECHAPROCESO = "";
                                                             $TPROCESO = "Sin datos";
+
+                                                            $NUMERORECEPCIONMP = "Sin Datos";
+                                                            $FECHARECEPCIONMP = "";
+                                                            $NUMEROGUIARECEPCIONMP = "Sin Datos";
+                                                            $FECHAGUIARECEPCIONMP = "";
+                                                            $TIPORECEPCIONMP = "Sin Datos";
+                                                            $ORIGENRECEPCIONMP = "Sin Datos";
+                                                            $PLANTARECEPCIONMP = "Sin Datos";
                                                         }
                                                         $ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje2($s['ID_REEMBALAJE']);
                                                         if ($ARRAYREEMBALAJE) {
@@ -672,7 +707,13 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $FECHARECEPCION; ?></td>                                                            
                                                             <td><?php echo $TIPORECEPCION; ?></td>
                                                             <td><?php echo $NUMEROGUIARECEPCION; ?></td>
-                                                            <td><?php echo $FECHAGUIARECEPCION; ?></td>
+                                                            <td><?php echo $FECHAGUIARECEPCION; ?></td>                                             
+                                                            <td><?php echo $NUMERORECEPCIONMP; ?></td>
+                                                            <td><?php echo $FECHARECEPCIONMP; ?></td>
+                                                            <td><?php echo $TIPORECEPCIONMP; ?></td>
+                                                            <td><?php echo $NUMEROGUIARECEPCIONMP; ?></td>
+                                                            <td><?php echo $FECHAGUIARECEPCIONMP; ?></td>
+                                                            <td><?php echo $PLANTARECEPCIONMP; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php endforeach; ?>
