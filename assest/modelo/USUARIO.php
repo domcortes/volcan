@@ -15,7 +15,8 @@ class USUARIO {
     private	  $SAPELLIDO_USUARIO;
     private	  $CONTRASENA_USUARIO; 
     private	  $EMAIL_USUARIO; 
-    private	  $TELEFONO_USUARIO;    
+    private	  $TELEFONO_USUARIO;   
+    private	  $NINTENTO;     
     private   $ESTADO_REGISTRO;
     private   $INGRESO;
     private   $MODIFICACION;
