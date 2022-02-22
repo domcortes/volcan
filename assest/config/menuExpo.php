@@ -578,36 +578,9 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li class="treeview">
-                  <a href="#">Aereo
-                    <span class="pull-left-container">
-                      <i class=" fa fa-angle-right pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="registroLaerea.php"></i>Linea Area</a></li>
-                  </ul>
-                </li>
-                <li class="treeview">
-                  <a href="#">Maritimo
-                    <span class="pull-left-container">
-                      <i class=" fa fa-angle-right pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="registroNaviera.php"></i>Naviera</a></li>
-                  </ul>
-                </li>
-                <li class="treeview">
-                  <a href="#">Terrestre
-                    <span class="pull-left-container">
-                      <i class=" fa fa-angle-right pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="registroTransporte.php"></i>Transporte</a></li>
-                  </ul>
-                </li>
+                <li><a href="registroLaerea.php"></i>Linea Area</a></li>
+                <li><a href="registroNaviera.php"></i>Naviera</a></li>
+                <li><a href="registroTransporte.php"></i>Transporte</a></li>
                 <li><a href="registroConductor.php"></i>Conductor</a></li>
               </ul>
             </li>

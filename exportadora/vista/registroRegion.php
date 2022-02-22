@@ -27,6 +27,7 @@ $DISABLED = "";
 $NOMBREREGION = "";
 $PAIS = "";
 $FNOMBRE = "";
+$CONTADOR=0;
 
 $NOMBRE = "";
 $MENSAJE = "";
@@ -303,7 +304,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             <table id="listar" class=" table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="center">
-                                                        <th>Id </th>
+                                                        <th>Numero </th>
                                                         <th class="text-center">Operaciónes</th>
                                                         <th>Nombre </th>
                                                         <th>Nombre Pais</th>
@@ -312,6 +313,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <tbody>
                                                     <?php foreach ($ARRAYREGION as $r) : ?>
                                                         <?php 
+                                                            $CONTADOR+=1; 
                                                             $ARRAYVERPAIS =$PAIS_ADO->verPais($r["ID_PAIS"]);
                                                             if($ARRAYVERPAIS){
                                                                 $NOMBREPAIS = $ARRAYVERPAIS[0]["NOMBRE_PAIS"];
@@ -320,11 +322,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                             }
                                                         ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['ID_REGION']; ?>
-                                                                </a>
-                                                            </td>                                                                                                                            
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                                                                                               
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">

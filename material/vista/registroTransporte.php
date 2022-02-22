@@ -464,7 +464,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Número </th>
-                                                        <th>Nombe </th>
+                                                        <th>Nombre </th>
                                                         <th class="text-center">Operaciónes</th>
                                                     </tr>
                                                 </thead>

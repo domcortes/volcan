@@ -26,6 +26,7 @@ $DISABLED = "";
 $NOMBRECOMUNA = "";
 $PROVINCIA = "";
 $FNOMBRE = "";
+$CONTADOR=0;
 
 
 
@@ -298,7 +299,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             <table id="listar" class="table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr>
-                                                        <th>Id </th>
+                                                        <th>Numero </th>
                                                         <th class="text-center">Operaciónes</th>
                                                         <th>Nombre </th>
                                                         <th>Nombre Provincia</th>
@@ -309,6 +310,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <tbody>
                                                     <?php foreach ($ARRAYCOMUNA as $r) : ?>
                                                         <?php 
+                                                            $CONTADOR+=1; 
                                                             $ARRAYVERPROVINCIA=$PROVINCIA_ADO->verProvincia2($r["ID_PROVINCIA"]);
                                                             if($ARRAYVERPROVINCIA){
                                                                 $NOMBREPROVINCIA = $ARRAYVERPROVINCIA[0]["PROVINCIA"];
@@ -322,11 +324,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
                                                         ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['ID_COMUNA']; ?>
-                                                                </a>
-                                                            </td>                                                                                                                                                                                  
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                                                                                                                                                  
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">

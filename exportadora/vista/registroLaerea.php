@@ -41,6 +41,7 @@ $CONTACTOLAEREA = "";
 $TELEFONOLAEREA = "";
 $EMAILLAEREA = "";
 $NUMERO = "";
+$CONTADOR=0;
 
 
 
@@ -473,19 +474,26 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Numero </th>
-                                                        <th>Nombe </th>
                                                         <th>Operaciones</th>
+                                                        <th>Rut </th>
+                                                        <th>DV </th>
+                                                        <th>Nombre </th>
+                                                        <th>Giro </th>
+                                                        <th>Razon Social </th>
+                                                        <th>Dirrecion </th>
+                                                        <th>Contacto </th>
+                                                        <th>Telefono </th>
+                                                        <th>Email </th>
+                                                        <th>Nota </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYLAEREA as $r) : ?>
+                                                        <?php       
+                                                            $CONTADOR+=1; 
+                                                        ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['NUMERO_LAEREA']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td><?php echo $r['NOMBRE_LAEREA']; ?></td>                                                                                                                                        
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                                                                                                      
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -525,6 +533,16 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     </div>
                                                                 </form>
                                                             </td>
+                                                            <td><?php echo $r['RUT_LAEREA']; ?></td>     
+                                                            <td><?php echo $r['DV_LAEREA']; ?></td>     
+                                                            <td><?php echo $r['NOMBRE_LAEREA']; ?></td>     
+                                                            <td><?php echo $r['GIRO_LAEREA']; ?></td>     
+                                                            <td><?php echo $r['RAZON_SOCIAL_LAEREA']; ?></td>     
+                                                            <td><?php echo $r['DIRECCION_LAEREA']; ?></td>     
+                                                            <td><?php echo $r['CONTACTO_LAEREA']; ?></td>     
+                                                            <td><?php echo $r['TELEFONO_LAEREA']; ?></td>     
+                                                            <td><?php echo $r['EMAIL_LAEREA']; ?></td>     
+                                                            <td><?php echo $r['NOTA_LAEREA']; ?></td>     
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

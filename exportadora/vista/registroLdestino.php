@@ -21,6 +21,7 @@ $LDESTINO =  new LDESTINO();
 $NOMBRELDESTINO = "";
 $NOTALDESTINO = "";
 $NUMERO = "";
+$CONTADOR=0;
 
 $IDOP = "";
 $OP = "";
@@ -244,19 +245,17 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Numero </th>
-                                                        <th>Nombre </th>
                                                         <th>Operaciones</th>
+                                                        <th>Nombre </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYLDESTINO as $r) : ?>
+                                                        <?php       
+                                                            $CONTADOR+=1; 
+                                                        ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['NUMERO_LDESTINO']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td><?php echo $r['NOMBRE_LDESTINO']; ?></td>                                                                                                                                                                                                                                                   
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                                                                                                                                                                                                                   
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -296,6 +295,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     </div>
                                                                 </form>
                                                             </td>  
+                                                            <td><?php echo $r['NOMBRE_LDESTINO']; ?></td>  
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

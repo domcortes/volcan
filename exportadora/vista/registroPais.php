@@ -24,6 +24,7 @@ $DISABLED = "";
 $NOMBREPAIS = "";
 $CODIGOSAGPAIS = "";
 $FNOMBRE = "";
+$CONTADOR=0;
 
 
 
@@ -285,7 +286,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             <table id="listar" class="table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="center">
-                                                        <th>Id </th>
+                                                        <th>Numero </th>
                                                         <th class="text-center">Operaciónes</th>
                                                         <th>Nombre </th>
                                                         <th>Codigo Sag </th>
@@ -293,12 +294,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYPAIS as $r) : ?>
+                                                        <?php       
+                                                            $CONTADOR+=1; 
+                                                        ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['ID_PAIS']; ?>
-                                                                </a>
-                                                            </td>                                                                                                                                  
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                                                                                         
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
