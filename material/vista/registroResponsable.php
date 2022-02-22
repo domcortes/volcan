@@ -37,6 +37,7 @@ $COMUNA = "";
 $EMPRESA = "";
 $USUARIO = "";
 $NUMERO = "";
+$CONTADOR=0;
 
 
 $DISABLED = "";
@@ -490,19 +491,36 @@ if (isset($_POST)) {
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Número</th>
-                                                        <th>Nombre</th>
                                                         <th class="text-center">Operaciónes</th>
+                                                        <th>Rut </th>
+                                                        <th>DV </th>
+                                                        <th>Nombre</th>
+                                                        <th>Direccion </th>
+                                                        <th>Comuna </th>
+                                                        <th>Telefono </th>
+                                                        <th>Email </th>
+                                                        <th>Usuario </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYRESPONSABLE as $r) : ?>
+                                                        <?php 
+                                                            $CONTADOR+=1;
+                                                            $ARRAYVERCOMUNA=$COMUNA_ADO->verComuna($r["ID_COMUNA"]);
+                                                            if($ARRAYVERCOMUNA){
+                                                                $NOMBRECOMUNA = $ARRAYVERCOMUNA[0]["NOMBRE_COMUNA"];
+                                                            }else{
+                                                                $NOMBRECOMUNA="Sin Datos";
+                                                            }                                                            
+                                                            $ARRAYVERUSUARIO=$USUARIO_ADO->verUsuario($r["ID_USUARIO"]);
+                                                            if($ARRAYVERUSUARIO){
+                                                                $NOMBREUSUARIO = $ARRAYVERUSUARIO[0]["NOMBRE_USUARIO"];
+                                                            }else{
+                                                                $NOMBREUSUARIO="Sin Datos";
+                                                            }
+                                                        ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['NUMERO_RESPONSABLE']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td> <?php echo $r['NOMBRE_RESPONSABLE']; ?></td>                                                                                                                                           
+                                                            <td> <?php echo $CONTADOR; ?> </td> 
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -541,7 +559,15 @@ if (isset($_POST)) {
                                                                         </div>
                                                                     </div>
                                                                 </form>
-                                                            </td>
+                                                            </td>                                                            
+                                                            <td> <?php echo $r['RUT_RESPONSABLE']; ?></td>
+                                                            <td> <?php echo $r['DV_RESPONSABLE']; ?></td>
+                                                            <td> <?php echo $r['NOMBRE_RESPONSABLE']; ?></td>
+                                                            <td> <?php echo $r['DIRECCION_RESPONSABLE']; ?></td>                                                             
+                                                            <td> <?php echo $NOMBRECOMUNA; ?></td>  
+                                                            <td> <?php echo $r['TELEFONO_RESPONSABLE']; ?></td>  
+                                                            <td> <?php echo $r['EMAIL_RESPONSABLE']; ?></td>                                                             
+                                                            <td> <?php echo $NOMBREUSUARIO; ?></td>   
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

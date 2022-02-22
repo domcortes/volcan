@@ -45,6 +45,8 @@ $FOCUS2 = "";
 $BORDER = "";
 $BORDER2 = "";
 
+$CONTADOR=0;
+
 //INICIALIZAR ARREGLOS
 $ARRAYCOMPRADOR = "";
 $ARRAYCOMPRADORID = "";
@@ -451,19 +453,29 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Numero </th>
-                                                        <th>Nombre </th>
                                                         <th>Operaciones</th>
+                                                        <th>Rut </th>
+                                                        <th>DV </th>
+                                                        <th>Nombre </th>
+                                                        <th>Email </th>
+                                                        <th>Telefono </th>
+                                                        <th>Direccion </th>
+                                                        <th>Comuna </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYCOMPRADOR as $r) : ?>
+                                                        <?php 
+                                                            $CONTADOR+=1;
+                                                            $ARRAYVERCOMUNA=$COMUNA_ADO->verComuna($r["ID_COMUNA"]);
+                                                            if($ARRAYVERCOMUNA){
+                                                                $NOMBRECOMUNA = $ARRAYVERCOMUNA[0]["NOMBRE_COMUNA"];
+                                                            }else{
+                                                                $NOMBRECOMUNA="Sin Datos";
+                                                            }
+                                                        ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['NUMERO_COMPRADOR']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td><?php echo $r['NOMBRE_COMPRADOR']; ?></td>                                                                                                                                                                                                                                    
+                                                            <td> <?php echo $CONTADOR; ?> </td>                                                                                                                                                                                                                                  
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -503,6 +515,13 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     </div>
                                                                 </form>
                                                             </td>  
+                                                            <td><?php echo $r['RUT_COMPRADOR']; ?></td>  
+                                                            <td><?php echo $r['DV_COMPRADOR']; ?></td>  
+                                                            <td><?php echo $r['NOMBRE_COMPRADOR']; ?></td>  
+                                                            <td><?php echo $r['TELEFONO_COMPRADOR']; ?></td>  
+                                                            <td><?php echo $r['EMAIL_COMPRADOR']; ?></td>  
+                                                            <td><?php echo $r['DIRECCION_COMPRADOR']; ?></td> 
+                                                            <td><?php echo $NOMBRECOMUNA; ?></td>  
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

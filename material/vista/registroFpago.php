@@ -24,6 +24,7 @@ $FPAGO =  new FPAGO();
 $NOMBREFPAGO = "";
 $FECHAFPAGO = "";
 $NUMERO = "";
+$CONTADOR=0;
 
 
 $FOCUS = "";
@@ -272,19 +273,17 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Número</th>
-                                                        <th>Nombre</th>
                                                         <th class="text-center">Operaciónes</th>
+                                                        <th>Nombre</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYFPAGOS as $r) : ?>
+                                                        <?php   
+                                                        $CONTADOR+=1;                                                             
+                                                        ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['NUMERO_FPAGO']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td> <?php echo $r['NOMBRE_FPAGO']; ?></td>                                                                                                                                         
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                                                                                               
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -324,6 +323,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     </div>
                                                                 </form>
                                                             </td>
+                                                            <td> <?php echo $r['NOMBRE_FPAGO']; ?></td>      
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>
