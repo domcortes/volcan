@@ -50,7 +50,7 @@ class EEXPORTACION_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -70,7 +70,7 @@ class EEXPORTACION_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -89,7 +89,7 @@ class EEXPORTACION_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -111,7 +111,7 @@ class EEXPORTACION_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -132,7 +132,7 @@ class EEXPORTACION_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -329,7 +329,7 @@ class EEXPORTACION_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -351,7 +351,7 @@ class EEXPORTACION_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;

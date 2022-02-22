@@ -51,7 +51,7 @@ class TARJAM_ADO
             $resultado = $datos->fetchAll();
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -69,7 +69,7 @@ class TARJAM_ADO
             $resultado = $datos->fetchAll();
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -87,7 +87,7 @@ class TARJAM_ADO
             $resultado = $datos->fetchAll();
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -107,7 +107,7 @@ class TARJAM_ADO
             $resultado = $datos->fetchAll();
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -129,7 +129,7 @@ class TARJAM_ADO
             $resultado = $datos->fetchAll();
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -380,7 +380,7 @@ class TARJAM_ADO
             $resultado = $datos->fetchAll();
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -404,7 +404,7 @@ class TARJAM_ADO
             $resultado = $datos->fetchAll();
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -427,7 +427,7 @@ class TARJAM_ADO
             $resultado = $datos->fetchAll();
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -451,7 +451,7 @@ class TARJAM_ADO
             $resultado = $datos->fetchAll();
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -478,7 +478,7 @@ class TARJAM_ADO
             $resultado = $datos->fetchAll();
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -502,7 +502,7 @@ class TARJAM_ADO
             $resultado = $datos->fetchAll();
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -527,7 +527,7 @@ class TARJAM_ADO
             $resultado = $datos->fetchAll();
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -549,7 +549,7 @@ class TARJAM_ADO
             $resultado = $datos->fetchAll();
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -575,7 +575,7 @@ class TARJAM_ADO
             $resultado = $datos->fetchAll();
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -597,7 +597,7 @@ class TARJAM_ADO
             $resultado = $datos->fetchAll();
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -621,7 +621,7 @@ class TARJAM_ADO
             $resultado = $datos->fetchAll();
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -643,7 +643,7 @@ class TARJAM_ADO
             $resultado = $datos->fetchAll();
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;

@@ -55,7 +55,7 @@ class CONDUCTOR_ADO {
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -74,7 +74,7 @@ class CONDUCTOR_ADO {
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -92,7 +92,7 @@ class CONDUCTOR_ADO {
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -110,7 +110,7 @@ class CONDUCTOR_ADO {
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -282,7 +282,7 @@ class CONDUCTOR_ADO {
             $datos=null;
         
         //	print_r($resultado);
-        //	VAR_DUMP($resultado);
+        //	var_dump($resultado);
         
         
         return $resultado;
@@ -300,7 +300,7 @@ public function listarConductorPorEmpresaCBX($IDEMPRESA){
             $datos=null;
         
         //	print_r($resultado);
-        //	VAR_DUMP($resultado);
+        //	var_dump($resultado);
         
         
         return $resultado;
@@ -322,7 +322,7 @@ public function obtenerNumero($IDEMPRESA)
             $datos=null;
 
         //	print_r($resultado);
-        //	VAR_DUMP($resultado);
+        //	var_dump($resultado);
 
 
         return $resultado;

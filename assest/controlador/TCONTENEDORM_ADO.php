@@ -54,7 +54,7 @@ class TCONTENEDORM_ADO {
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -73,7 +73,7 @@ class TCONTENEDORM_ADO {
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -92,7 +92,7 @@ class TCONTENEDORM_ADO {
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -113,7 +113,7 @@ class TCONTENEDORM_ADO {
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -260,7 +260,7 @@ class TCONTENEDORM_ADO {
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -281,7 +281,7 @@ public function obtenerNumero()
             $datos=null;
 
         //	print_r($resultado);
-        //	VAR_DUMP($resultado);
+        //	var_dump($resultado);
 
 
         return $resultado;
