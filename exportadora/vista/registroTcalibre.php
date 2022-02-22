@@ -31,6 +31,8 @@ $FOCUS = "";
 $MENSAJE2 = "";
 $FOCUS2 = "";
 $BORDER = "";
+$CONTADOR=0;
+
 
 //INICIALIZAR ARREGLOS
 $ARRAYTCALIBRE = "";
@@ -265,58 +267,57 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             <thead>
                                                 <tr class="center">
                                                     <th>Numero </th>
-                                                    <th>Nombre </th>
                                                     <th>Operaciones</th>
+                                                    <th>Nombre </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php foreach ($ARRAYTCALIBRE as $r) : ?>
+                                                    <?php 
+                                                        $CONTADOR+=1;  
+                                                    ?>
                                                     <tr class="center">
-                                                        <td>
-                                                            <a href="#" class="text-warning hover-warning">
-                                                                <?php echo $r['NUMERO_TCALIBRE']; ?>
-                                                            </a>
-                                                        </td>
-                                                        <td><?php echo $r['NOMBRE_TCALIBRE']; ?></td>                                                                                                                                                                                                                                                                                                                 
-                                                            <td class="text-center">
-                                                                <form method="post" id="form1">
-                                                                    <div class="list-icons d-inline-flex">
-                                                                        <div class="list-icons-item dropdown">
-                                                                            <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                                <span class="icon-copy ti-settings"></span>
-                                                                            </button>
-                                                                            <div class="dropdown-menu dropdown-menu-right">
-                                                                                <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_TCALIBRE']; ?>" />
-                                                                                <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroTcalibre" />
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
-                                                                                    <button type="submit" class="btn btn-info btn-block  btn-sm" id="VERURL" name="VERURL">
-                                                                                        <i class="ti-eye"></i> Ver
-                                                                                    </button>
-                                                                                </span> 
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
-                                                                                    <button type="submit" class="btn  btn-warning btn-block   btn-sm" id="EDITARURL" name="EDITARURL">
-                                                                                        <i class="ti-pencil-alt"></i> Editar
+                                                        <td><?php echo $CONTADOR; ?> </td>                                                                                                                                                                                                                                                                                                                  
+                                                        <td class="text-center">
+                                                            <form method="post" id="form1">
+                                                                <div class="list-icons d-inline-flex">
+                                                                    <div class="list-icons-item dropdown">
+                                                                        <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                            <span class="icon-copy ti-settings"></span>
+                                                                        </button>
+                                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                                            <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_TCALIBRE']; ?>" />
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroTcalibre" />
+                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
+                                                                                <button type="submit" class="btn btn-info btn-block  btn-sm" id="VERURL" name="VERURL">
+                                                                                    <i class="ti-eye"></i> Ver
+                                                                                </button>
+                                                                            </span> 
+                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
+                                                                                <button type="submit" class="btn  btn-warning btn-block   btn-sm" id="EDITARURL" name="EDITARURL">
+                                                                                    <i class="ti-pencil-alt"></i> Editar
+                                                                                </button>
+                                                                            </span>
+                                                                            <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Deshabilitar">
+                                                                                    <button type="submit" class="btn btn-block btn-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
+                                                                                        <i class="ti-na "></i> Deshabilitar
                                                                                     </button>
                                                                                 </span>
-                                                                                <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
-                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Deshabilitar">
-                                                                                        <button type="submit" class="btn btn-block btn-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
-                                                                                            <i class="ti-na "></i> Deshabilitar
-                                                                                        </button>
-                                                                                    </span>
-                                                                                <?php } ?>
-                                                                                <?php if ($r['ESTADO_REGISTRO'] == 0) { ?>
-                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Habilitar">
-                                                                                        <button type="submit" class="btn btn-block btn-success btn-sm" id="HABILITARURL" name="HABILITARURL">
-                                                                                            <i class="ti-check "></i> Habilitar
-                                                                                        </button>
-                                                                                    </span>
-                                                                                <?php } ?>                                                               
-                                                                            </div>
+                                                                            <?php } ?>
+                                                                            <?php if ($r['ESTADO_REGISTRO'] == 0) { ?>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Habilitar">
+                                                                                    <button type="submit" class="btn btn-block btn-success btn-sm" id="HABILITARURL" name="HABILITARURL">
+                                                                                        <i class="ti-check "></i> Habilitar
+                                                                                    </button>
+                                                                                </span>
+                                                                            <?php } ?>                                                               
                                                                         </div>
                                                                     </div>
-                                                                </form>
-                                                            </td>
+                                                                </div>
+                                                            </form>
+                                                        </td>
+                                                        <td><?php echo $r['NOMBRE_TCALIBRE']; ?></td>    
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
