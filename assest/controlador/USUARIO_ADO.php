@@ -186,7 +186,7 @@ class USUARIO_ADO {
                                               MODIFICACION ,  
                                               ESTADO_REGISTRO 
                                             ) VALUES
-	       	( ?,   ?, ?, ?, ?,   ?, ?, ?, ?, SYSDATE(), SYSDATE(), 1);";
+	       	( ?,   ?, ?, ?, ?,   SHA2(?, 512), ?, ?, ?, SYSDATE(), SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -236,7 +236,7 @@ class USUARIO_ADO {
              SNOMBRE_USUARIO  = ?, 
              PAPELLIDO_USUARIO  = ?, 
              SAPELLIDO_USUARIO  = ?, 
-             CONTRASENA_USUARIO  = ?, 
+             CONTRASENA_USUARIO  = SHA2(?, 512), 
              EMAIL_USUARIO  = ?, 
              TELEFONO_USUARIO  = ? , 
              ID_TUSUARIO  = ? 
@@ -309,7 +309,7 @@ class USUARIO_ADO {
             UPDATE  usuario_usuario  
             SET 
              MODIFICACION = SYSDATE(),	
-             CONTRASENA_USUARIO  = ?
+             CONTRASENA_USUARIO  = SHA2(?,512)
             WHERE 
                ID_USUARIO  = ? ;";
             $this->conexion->prepare($query)
@@ -383,9 +383,11 @@ class USUARIO_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT * FROM  usuario_usuario  
-                                            WHERE  NOMBRE_USUARIO = '".$NOMBRE."' 
-                                            AND  CONTRASENA_USUARIO  = '".$CONTRASENA."'
-                                            AND ESTADO_REGISTRO  = 1;");
+                                            WHERE ESTADO_REGISTRO  = 1
+                                            AND  NOMBRE_USUARIO = '".$NOMBRE."' 
+                                            AND  CONTRASENA_USUARIO  = SHA2('".$CONTRASENA."',512)
+                                            OR  CONTRASENA_USUARIO  = '".$CONTRASENA."'
+                                            ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;

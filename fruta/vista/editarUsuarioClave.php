@@ -44,10 +44,7 @@ if (isset($NOMBREUSUARIOS)) {
     //$DISABLED="disabled";
     $ARRAYYVERUSUARIOID = $USUARIO_ADO->verUsuario($IDUSUARIOS);
     foreach ($ARRAYYVERUSUARIOID as $r) :
-
         $NOMBREUSUARIO = "" . $r['NOMBRE_USUARIO'];
-        $CONTRASENA = "" . $r['CONTRASENA_USUARIO'];
-        $CCONTRASENA = "" . $r['CONTRASENA_USUARIO'];
     endforeach;
 }
 

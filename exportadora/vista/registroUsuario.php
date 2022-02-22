@@ -82,8 +82,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $PAPELLIDOUSUARIO = "" . $r['PAPELLIDO_USUARIO'];
             $SAPELLIDOUSUARIO = "" . $r['SAPELLIDO_USUARIO'];
 
-            $CONTRASENA = "" . $r['CONTRASENA_USUARIO'];
-            $CCONTRASENA = "" . $r['CONTRASENA_USUARIO'];
             $CORREO = "" . $r['EMAIL_USUARIO'];
             $TELEFONO = "" . $r['TELEFONO_USUARIO'];
             $TUSUARIO = "" . $r['ID_TUSUARIO'];
@@ -110,8 +108,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $PAPELLIDOUSUARIO = "" . $r['PAPELLIDO_USUARIO'];
             $SAPELLIDOUSUARIO = "" . $r['SAPELLIDO_USUARIO'];
 
-            $CONTRASENA = "" . $r['CONTRASENA_USUARIO'];
-            $CCONTRASENA = "" . $r['CONTRASENA_USUARIO'];
             $CORREO = "" . $r['EMAIL_USUARIO'];
             $TELEFONO = "" . $r['TELEFONO_USUARIO'];
             $TUSUARIO = "" . $r['ID_TUSUARIO'];
@@ -140,8 +136,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $PAPELLIDOUSUARIO = "" . $r['PAPELLIDO_USUARIO'];
             $SAPELLIDOUSUARIO = "" . $r['SAPELLIDO_USUARIO'];
 
-            $CONTRASENA = "" . $r['CONTRASENA_USUARIO'];
-            $CCONTRASENA = "" . $r['CONTRASENA_USUARIO'];
             $CORREO = "" . $r['EMAIL_USUARIO'];
             $TELEFONO = "" . $r['TELEFONO_USUARIO'];
             $TUSUARIO = "" . $r['ID_TUSUARIO'];
@@ -168,8 +162,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $PAPELLIDOUSUARIO = "" . $r['PAPELLIDO_USUARIO'];
             $SAPELLIDOUSUARIO = "" . $r['SAPELLIDO_USUARIO'];
 
-            $CONTRASENA = "" . $r['CONTRASENA_USUARIO'];
-            $CCONTRASENA = "" . $r['CONTRASENA_USUARIO'];
             $CORREO = "" . $r['EMAIL_USUARIO'];
             $TELEFONO = "" . $r['TELEFONO_USUARIO'];
             $TUSUARIO = "" . $r['ID_TUSUARIO'];
