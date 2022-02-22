@@ -33,6 +33,7 @@ $FNOMBRE = "";
 $NOMBREPLANTA = "";
 $ESTADO = "";
 $SINO=0;
+$CONTADOR=0;
 
 
 $NOMBRE = "";
@@ -390,25 +391,42 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             <table id="listar" class="table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="center">
+                                                        <th>Número</th>
+                                                        <th class="text-center">Operaciónes</th>
                                                         <th>Nombre Bodega</th>
                                                         <th>Nombre Planta</th>
-                                                        <th class="text-center">Operaciónes</th>
+                                                        <th>Bodega Material</th>
+                                                        <th>Bodega Envase</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYBODEGA as $r) : ?>
                                                         <?php 
+                                                            $CONTADOR+=1;  
                                                             $ARRAYVERPLANTA=$PLANTA_ADO->verPlanta($r["ID_PLANTA"]);
                                                             if($ARRAYVERPLANTA){
                                                                 $NOMBREPLANTABODEGA=$ARRAYVERPLANTA[0]["NOMBRE_PLANTA"];
                                                             }else{
                                                                 $NOMBREPLANTABODEGA="Sin Datos";
-                                                            }
+                                                            }                                                                                                                     
+                                                            if($r["PRINCIPAL"]==0){
+                                                                $NOMBREPRINCIPAL="No Aplica";
+                                                            }else if($r["PRINCIPAL"]==1){
+                                                                $NOMBREPRINCIPAL="Si Aplica";
+                                                            }else{                                                                
+                                                                $NOMBREPRINCIPAL="Sin Datos";
+                                                            }                                                                                                                      
+                                                            if($r["ENVASES"]==0){
+                                                                $NOMBREENVASES="No Aplica";
+                                                            }else if($r["ENVASES"]==1){
+                                                                $NOMBREENVASES="Si Aplica";
+                                                            }else{                                                                
+                                                                $NOMBREENVASES="Sin Datos";
+                                                            } 
 
                                                             ?>
-                                                        <tr class="center">
-                                                            <td><?php echo $r['NOMBRE_BODEGA']; ?></td>
-                                                            <td><?php echo $NOMBREPLANTABODEGA; ?></td>                                                                                                                                                                                                       
+                                                        <tr class="center">   
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                                                                                                                                                                     
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -448,6 +466,10 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     </div>
                                                                 </form>
                                                             </td>
+                                                            <td><?php echo $r['NOMBRE_BODEGA']; ?></td>
+                                                            <td><?php echo $NOMBREPLANTABODEGA; ?></td>   
+                                                            <td><?php echo $NOMBREPRINCIPAL; ?></td>   
+                                                            <td><?php echo $NOMBREENVASES; ?></td>   
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

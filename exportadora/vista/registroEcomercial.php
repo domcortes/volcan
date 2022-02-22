@@ -373,8 +373,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                             $CONTADOR+=1;   
                                                             ?>
                                                             <tr class="center">
-                                                                <td><?php echo $CONTADOR; ?> </td>    
-                                                            </td>                                                                                     
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                      
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">

@@ -26,6 +26,7 @@ $DISABLED = "";
 $NOMBRECIUDAD = "";
 $COMUNA = "";
 $FNOMBRECIUDAD = "";
+$CONTADOR=0;
 
 $NOMBRE = "";
 $MENSAJE = "";
@@ -301,7 +302,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             <table id="listar" class="table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="center">
-                                                        <th>Id</th>
+                                                        <th>Numero</th>
                                                         <th class="text-center">Operaciónes</th>
                                                         <th>Nombre </th>
                                                         <th>Nombre Comuna</th>
@@ -313,6 +314,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <tbody>
                                                     <?php foreach ($ARRAYCIUDAD as $r) : ?>
                                                         <?php 
+                                                            $CONTADOR+=1;   
                                                             $ARRAYVERCOMUNA=$COMUNA_ADO->verComuna2($r["ID_COMUNA"]);
                                                             if($ARRAYVERCOMUNA){
                                                                 $NOMBRECOMUNA = $ARRAYVERCOMUNA[0]["COMUNA"];
@@ -328,11 +330,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                             }
                                                         ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['ID_CIUDAD']; ?>
-                                                                </a>
-                                                            </td>                                                                                                                                                                                                                                
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                                                                                                                                                                                                   
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
