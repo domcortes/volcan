@@ -121,7 +121,8 @@ $ARRAYVERPRODUCTOR = "";
 $ARRAYVERTRANSPORTE = "";
 $ARRAYVERCONDUCTOR = "";
 $ARRAYMGUIAPT = "";
-$ARRAYRECEPCIONMPORIGEN="";
+$ARRAYRECEPCIONMPORIGEN1="";
+$ARRAYRECEPCIONMPORIGEN2="";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
@@ -531,42 +532,14 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             $ARRAYTPROCESO = $TPROCESO_ADO->verTproceso($ARRAYPROCESO[0]["ID_TPROCESO"]);
                                                             if ($ARRAYTPROCESO) {
                                                                 $TPROCESO = $ARRAYTPROCESO[0]["NOMBRE_TPROCESO"];
-                                                            }                                                            
-                                                            $ARRAYRECEPCIONMPORIGEN=$PROCESO_ADO->buscarRecepcionMpExistenciaEnProceso($s['ID_PROCESO']);
-                                                            if($ARRAYRECEPCIONMPORIGEN){                                                                
-                                                                $NUMERORECEPCIONMP = $ARRAYRECEPCIONMPORIGEN[0]["NUMERO"];
-                                                                $FECHARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN[0]["FECHA"];
-                                                                $NUMEROGUIARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN[0]["NUMEROGUIA"];
-                                                                $FECHAGUIARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN[0]["FECHAGUIA"];
-                                                                $TIPORECEPCIONMP = $ARRAYRECEPCIONMPORIGEN[0]["TRECEPCION"];
-                                                                $ORIGENRECEPCIONMP = $ARRAYRECEPCIONMPORIGEN[0]["ORIGEN"];
-                                                                $PLANTARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN[0]["PLANTA"];
-
-                                                            }else{
-                                                                $NUMERORECEPCIONMP = "Sin Datos";
-                                                                $FECHARECEPCIONMP = "";
-                                                                $NUMEROGUIARECEPCIONMP = "Sin Datos"; 
-                                                                $FECHAGUIARECEPCIONMP = "";
-                                                                $TIPORECEPCIONMP = "Sin Datos";
-                                                                $ORIGENRECEPCIONMP = "Sin Datos";
-                                                                $PLANTARECEPCIONMP = "Sin Datos";
-                                                            }
-
+                                                            }  
                                                         } else {
                                                             $NUMEROPROCESO = "Sin datos";
                                                             $PORCENTAJEEXPO = "Sin datos";
                                                             $PORCENTAJEINDUSTRIAL = "Sin datos";
                                                             $PORCENTAJETOTAL = "Sin datos";
                                                             $FECHAPROCESO = "";
-                                                            $TPROCESO = "Sin datos";
-
-                                                            $NUMERORECEPCIONMP = "Sin Datos";
-                                                            $FECHARECEPCIONMP = "";
-                                                            $NUMEROGUIARECEPCIONMP = "Sin Datos";
-                                                            $FECHAGUIARECEPCIONMP = "";
-                                                            $TIPORECEPCIONMP = "Sin Datos";
-                                                            $ORIGENRECEPCIONMP = "Sin Datos";
-                                                            $PLANTARECEPCIONMP = "Sin Datos";
+                                                            $TPROCESO = "Sin datos";                                                            
                                                         }
                                                         $ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje2($s['ID_REEMBALAJE']);
                                                         if ($ARRAYREEMBALAJE) {
@@ -580,6 +553,35 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             $NUMEROREEMBALEJE = "Sin datos";
                                                             $FECHAREEMBALEJE = "";
                                                             $TREEMBALAJE = "Sin datos";
+                                                        }
+                                                        $ARRAYRECEPCIONMPORIGEN1=$PROCESO_ADO->buscarRecepcionMpExistenciaEnProceso($s['ID_PROCESO']);
+                                                        $ARRAYRECEPCIONMPORIGEN2=$REEMBALAJE_ADO->buscarProcesoRecepcionMpExistenciaEnReembalaje($s['ID_REEMBALAJE']);
+                                                        if($ARRAYRECEPCIONMPORIGEN1){                                                                
+                                                            $NUMERORECEPCIONMP = $ARRAYRECEPCIONMPORIGEN1[0]["NUMERO"];
+                                                            $FECHARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN1[0]["FECHA"];
+                                                            $NUMEROGUIARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN1[0]["NUMEROGUIA"];
+                                                            $FECHAGUIARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN1[0]["FECHAGUIA"];
+                                                            $TIPORECEPCIONMP = $ARRAYRECEPCIONMPORIGEN1[0]["TRECEPCION"];
+                                                            $ORIGENRECEPCIONMP = $ARRAYRECEPCIONMPORIGEN1[0]["ORIGEN"];
+                                                            $PLANTARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN1[0]["PLANTA"];
+
+                                                        }else if($ARRAYRECEPCIONMPORIGEN2){                                                                
+                                                            $NUMERORECEPCIONMP = $ARRAYRECEPCIONMPORIGEN2[0]["NUMERO"];
+                                                            $FECHARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN2[0]["FECHA"];
+                                                            $NUMEROGUIARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN2[0]["NUMEROGUIA"];
+                                                            $FECHAGUIARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN2[0]["FECHAGUIA"];
+                                                            $TIPORECEPCIONMP = $ARRAYRECEPCIONMPORIGEN2[0]["TRECEPCION"];
+                                                            $ORIGENRECEPCIONMP = $ARRAYRECEPCIONMPORIGEN2[0]["ORIGEN"];
+                                                            $PLANTARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN2[0]["PLANTA"];
+
+                                                        }else{
+                                                            $NUMERORECEPCIONMP = "Sin Datos";
+                                                            $FECHARECEPCIONMP = "";
+                                                            $NUMEROGUIARECEPCIONMP = "Sin Datos"; 
+                                                            $FECHAGUIARECEPCIONMP = "";
+                                                            $TIPORECEPCIONMP = "Sin Datos";
+                                                            $ORIGENRECEPCIONMP = "Sin Datos";
+                                                            $PLANTARECEPCIONMP = "Sin Datos";
                                                         }
 
                                                         $ARRATREPALETIZAJE = $REPALETIZAJEEX_ADO->verRepaletizaje2($s['ID_REPALETIZAJE']);
@@ -971,42 +973,14 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             $ARRAYTPROCESO = $TPROCESO_ADO->verTproceso($ARRAYPROCESO[0]["ID_TPROCESO"]);
                                                             if ($ARRAYTPROCESO) {
                                                                 $TPROCESO = $ARRAYTPROCESO[0]["NOMBRE_TPROCESO"];
-                                                            }                                                            
-                                                            $ARRAYRECEPCIONMPORIGEN=$PROCESO_ADO->buscarRecepcionMpExistenciaEnProceso($s['ID_PROCESO']);
-                                                            if($ARRAYRECEPCIONMPORIGEN){                                                                
-                                                                $NUMERORECEPCIONMP = $ARRAYRECEPCIONMPORIGEN[0]["NUMERO"];
-                                                                $FECHARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN[0]["FECHA"];
-                                                                $NUMEROGUIARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN[0]["NUMEROGUIA"];
-                                                                $FECHAGUIARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN[0]["FECHAGUIA"];
-                                                                $TIPORECEPCIONMP = $ARRAYRECEPCIONMPORIGEN[0]["TRECEPCION"];
-                                                                $ORIGENRECEPCIONMP = $ARRAYRECEPCIONMPORIGEN[0]["ORIGEN"];
-                                                                $PLANTARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN[0]["PLANTA"];
-
-                                                            }else{
-                                                                $NUMERORECEPCIONMP = "Sin Datos";
-                                                                $FECHARECEPCIONMP = "";
-                                                                $NUMEROGUIARECEPCIONMP = "Sin Datos"; 
-                                                                $FECHAGUIARECEPCIONMP = "";
-                                                                $TIPORECEPCIONMP = "Sin Datos";
-                                                                $ORIGENRECEPCIONMP = "Sin Datos";
-                                                                $PLANTARECEPCIONMP = "Sin Datos";
-                                                            }
-
+                                                            }  
                                                         } else {
                                                             $NUMEROPROCESO = "Sin datos";
                                                             $PORCENTAJEEXPO = "Sin datos";
                                                             $PORCENTAJEINDUSTRIAL = "Sin datos";
                                                             $PORCENTAJETOTAL = "Sin datos";
                                                             $FECHAPROCESO = "";
-                                                            $TPROCESO = "Sin datos";
-
-                                                            $NUMERORECEPCIONMP = "Sin Datos";
-                                                            $FECHARECEPCIONMP = "";
-                                                            $NUMEROGUIARECEPCIONMP = "Sin Datos";
-                                                            $FECHAGUIARECEPCIONMP = "";
-                                                            $TIPORECEPCIONMP = "Sin Datos";
-                                                            $ORIGENRECEPCIONMP = "Sin Datos";
-                                                            $PLANTARECEPCIONMP = "Sin Datos";
+                                                            $TPROCESO = "Sin datos";                                                            
                                                         }
                                                         $ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje2($s['ID_REEMBALAJE']);
                                                         if ($ARRAYREEMBALAJE) {
@@ -1020,6 +994,35 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             $NUMEROREEMBALEJE = "Sin datos";
                                                             $FECHAREEMBALEJE = "";
                                                             $TREEMBALAJE = "Sin datos";
+                                                        }
+                                                        $ARRAYRECEPCIONMPORIGEN1=$PROCESO_ADO->buscarRecepcionMpExistenciaEnProceso($s['ID_PROCESO']);
+                                                        $ARRAYRECEPCIONMPORIGEN2=$REEMBALAJE_ADO->buscarProcesoRecepcionMpExistenciaEnReembalaje($s['ID_REEMBALAJE']);
+                                                        if($ARRAYRECEPCIONMPORIGEN1){                                                                
+                                                            $NUMERORECEPCIONMP = $ARRAYRECEPCIONMPORIGEN1[0]["NUMERO"];
+                                                            $FECHARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN1[0]["FECHA"];
+                                                            $NUMEROGUIARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN1[0]["NUMEROGUIA"];
+                                                            $FECHAGUIARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN1[0]["FECHAGUIA"];
+                                                            $TIPORECEPCIONMP = $ARRAYRECEPCIONMPORIGEN1[0]["TRECEPCION"];
+                                                            $ORIGENRECEPCIONMP = $ARRAYRECEPCIONMPORIGEN1[0]["ORIGEN"];
+                                                            $PLANTARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN1[0]["PLANTA"];
+
+                                                        }else if($ARRAYRECEPCIONMPORIGEN2){                                                                
+                                                            $NUMERORECEPCIONMP = $ARRAYRECEPCIONMPORIGEN2[0]["NUMERO"];
+                                                            $FECHARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN2[0]["FECHA"];
+                                                            $NUMEROGUIARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN2[0]["NUMEROGUIA"];
+                                                            $FECHAGUIARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN2[0]["FECHAGUIA"];
+                                                            $TIPORECEPCIONMP = $ARRAYRECEPCIONMPORIGEN2[0]["TRECEPCION"];
+                                                            $ORIGENRECEPCIONMP = $ARRAYRECEPCIONMPORIGEN2[0]["ORIGEN"];
+                                                            $PLANTARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN2[0]["PLANTA"];
+
+                                                        }else{
+                                                            $NUMERORECEPCIONMP = "Sin Datos";
+                                                            $FECHARECEPCIONMP = "";
+                                                            $NUMEROGUIARECEPCIONMP = "Sin Datos"; 
+                                                            $FECHAGUIARECEPCIONMP = "";
+                                                            $TIPORECEPCIONMP = "Sin Datos";
+                                                            $ORIGENRECEPCIONMP = "Sin Datos";
+                                                            $PLANTARECEPCIONMP = "Sin Datos";
                                                         }
 
                                                         $ARRATREPALETIZAJE = $REPALETIZAJEEX_ADO->verRepaletizaje2($s['ID_REPALETIZAJE']);
