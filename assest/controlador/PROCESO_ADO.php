@@ -736,7 +736,8 @@ class PROCESO_ADO
                                                         existencia.ID_RECEPCION ,
                                                         existencia.ID_DESPACHO2 ,
                                                         MIN(IF(existencia.ID_RECEPCION IS NOT NULL,
-                                                            (   SELECT FECHA_RECEPCION
+                                                            (   SELECT 
+                                                                    FECHA_RECEPCION
                                                                 FROM fruta_recepcionmp
                                                                 WHERE ID_RECEPCION = existencia.ID_RECEPCION
                                                                 ),
@@ -756,7 +757,8 @@ class PROCESO_ADO
                                                                 'Sin Datos')
                                                         ))AS 'FECHA',
                                                         IF(existencia.ID_RECEPCION IS NOT NULL,
-                                                            (   SELECT NUMERO_RECEPCION
+                                                            (   SELECT 
+                                                                    NUMERO_RECEPCION
                                                                 FROM fruta_recepcionmp
                                                                 WHERE ID_RECEPCION = existencia.ID_RECEPCION
                                                                 ),
@@ -776,7 +778,8 @@ class PROCESO_ADO
                                                                 'Sin Datos')
                                                         )AS 'NUMERO',
                                                         IF(existencia.ID_RECEPCION IS NOT NULL,
-                                                            (   SELECT FECHA_GUIA_RECEPCION
+                                                            (   SELECT 
+                                                                    FECHA_GUIA_RECEPCION
                                                                 FROM fruta_recepcionmp
                                                                 WHERE ID_RECEPCION = existencia.ID_RECEPCION
                                                                 ),
@@ -796,7 +799,8 @@ class PROCESO_ADO
                                                                 'Sin Datos')
                                                         )AS 'FECHAGUIA',
                                                         IF(existencia.ID_RECEPCION IS NOT NULL,
-                                                            (   SELECT NUMERO_GUIA_RECEPCION
+                                                            (   SELECT 
+                                                                    NUMERO_GUIA_RECEPCION
                                                                 FROM fruta_recepcionmp
                                                                 WHERE ID_RECEPCION = existencia.ID_RECEPCION
                                                                 ),
