@@ -309,7 +309,7 @@ class USUARIO_ADO {
             UPDATE  usuario_usuario  
             SET 
              MODIFICACION = SYSDATE(),	
-             CONTRASENA_USUARIO  = SHA2(?,512)
+             CONTRASENA_USUARIO  = SHA2(?, 512) 
             WHERE 
                ID_USUARIO  = ? ;";
             $this->conexion->prepare($query)
@@ -451,6 +451,34 @@ class USUARIO_ADO {
 
     //OPERACION DE INCIIO SESION
     public function iniciarSession($NOMBRE,$CONTRASENA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT * FROM  usuario_usuario
+                                                            WHERE ESTADO_REGISTRO  = 1
+                                                            AND  NOMBRE_USUARIO = '".$NOMBRE."' 
+                                                            AND  CONTRASENA_USUARIO  = SHA2('".$CONTRASENA."',512)
+                                                UNION
+                                            SELECT * FROM  usuario_usuario
+                                                            WHERE ESTADO_REGISTRO  = 1
+                                                            AND  NOMBRE_USUARIO = '".$NOMBRE."' 
+                                                            AND  CONTRASENA_USUARIO  = '".$CONTRASENA."';
+                                            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	var_dump($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+    
+    public function iniciarSession2($NOMBRE,$CONTRASENA){
         try{
             
             $datos=$this->conexion->prepare("SELECT * FROM  usuario_usuario  
