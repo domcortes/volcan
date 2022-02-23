@@ -49,7 +49,7 @@ class USUARIO_ADO {
     public function listarUsuario(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM  usuario_usuario  limit 8;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  usuario_usuario  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
