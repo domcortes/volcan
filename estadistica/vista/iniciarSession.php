@@ -195,7 +195,7 @@ if($_POST){
                 if (empty($ARRAYINICIOSESSION) ||  sizeof($ARRAYINICIOSESSION) == 0) {
                     $ARRAYINICIOSESSIONINTENTOS=$USUARIO_ADO->iniciarSessionNIntentos($NOMBRE);
                     if($ARRAYINICIOSESSIONINTENTOS){
-                        if($ARRAYINICIOSESSIONINTENTOS[0]["NINTENTO"] > 3){                                      
+                        if($ARRAYINICIOSESSIONINTENTOS[0]["NINTENTO"] >= 3){                                      
                             $USUARIO->__SET('NOMBRE_USUARIO', $NOMBRE);
                             $USUARIO_ADO->deshabilitar2($USUARIO);        
                             
