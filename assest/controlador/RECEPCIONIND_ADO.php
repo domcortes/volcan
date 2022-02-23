@@ -512,6 +512,44 @@ class RECEPCIONIND_ADO
         }
     }
 
+    public function listarRecepcionTemporadaCBX(   $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *  ,
+                                                    FECHA_GUIA_RECEPCION AS 'FECHA_GUIA',
+                                                    FECHA_RECEPCION AS 'FECHA',
+                                                    
+                                                    WEEK(FECHA_RECEPCION,3) AS 'SEMANA', 
+                                                    WEEK(FECHA_GUIA_RECEPCION,3) AS 'SEMANAGUIA', 
+
+                                                    
+                                                    WEEKOFYEAR(FECHA_RECEPCION) AS 'SEMANAISO', 
+                                                    WEEKOFYEAR(FECHA_GUIA_RECEPCION) AS 'SEMANAGUIAISO', 
+                                                    
+                                                    DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
+                                                    IFNULL(CANTIDAD_ENVASE_RECEPCION,0)  AS 'ENVASE',
+                                                    IFNULL(KILOS_NETO_RECEPCION,0) AS 'NETO',
+                                                    IFNULL(KILOS_BRUTO_RECEPCION,0)  AS 'BRUTO',
+                                                    IFNULL(TOTAL_KILOS_GUIA_RECEPCION,0)  AS 'GUIA'
+                                            FROM fruta_recepcionind 
+                                            WHERE  ESTADO_REGISTRO = 1 
+                                            AND ID_TEMPORADA = '" . $TEMPORADA . "'   
+                                            ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function listarRecepcionEmpresaTemporadaCBX($EMPRESA,   $TEMPORADA)
     {
         try {

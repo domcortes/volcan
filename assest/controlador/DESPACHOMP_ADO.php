@@ -508,6 +508,35 @@ class DESPACHOMP_ADO
     }
 
     //LISTAR
+    public function listarDespachompTemporadaCBX( $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *,
+                                                    FECHA_DESPACHO AS 'FECHA',
+                                                    WEEK(FECHA_DESPACHO,3) AS 'SEMANA',
+                                                    WEEKOFYEAR(FECHA_DESPACHO) AS 'SEMANAISO',    
+                                                    DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
+                                                    IFNULL(CANTIDAD_ENVASE_DESPACHO,0) AS 'ENVASE',
+                                                    IFNULL(KILOS_NETO_DESPACHO,0)  AS 'NETO',
+                                                    IFNULL(KILOS_BRUTO_DESPACHO,0) AS 'BRUTO'
+                                        FROM fruta_despachomp                                                                           
+                                        WHERE  ESTADO_REGISTRO = 1 
+                                        AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function listarDespachompEmpresaTemporadaCBX($EMPRESA, $TEMPORADA)
     {
         try {

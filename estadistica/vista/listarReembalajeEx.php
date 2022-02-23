@@ -2,64 +2,58 @@
 
 include_once "../../assest/config/validarUsuarioOpera.php";
 
+
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../../assest/controlador/TPROCESO_ADO.php';
+include_once '../../assest/controlador/TREEMBALAJE_ADO.php';
 include_once '../../assest/controlador/PRODUCTOR_ADO.php';
-include_once '../../assest/controlador/VESPECIES_ADO.php';
 include_once '../../assest/controlador/ESPECIES_ADO.php';
-include_once '../../assest/controlador/PROCESO_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/REEMBALAJE_ADO.php';
 
-include_once '../../assest/controlador/EXIMATERIAPRIMA_ADO.php';
-include_once '../../assest/controlador/PROCESO_ADO.php';
+include_once '../../assest/controlador/DREXPORTACION_ADO.php';
+include_once '../../assest/controlador/DRINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/REEMBALAJE_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 
-$TPROCESO_ADO =  new TPROCESO_ADO();
+$TREEMBALAJE_ADO =  new TREEMBALAJE_ADO();
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
-$VESPECIES_ADO =  new VESPECIES_ADO();
 $ESPECIES_ADO =  new ESPECIES_ADO();
-
-$EXIMATERIAPRIMA_ADO =  new EXIMATERIAPRIMA_ADO();
-$PROCESO_ADO =  new PROCESO_ADO();
+$VESPECIES_ADO =  new VESPECIES_ADO();
+$REEMBALAJE_ADO =  new REEMBALAJE_ADO();
 
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
-$TOTALENVASE = "";
 $TOTALNETO = "";
-$TOTALNETOENTRADA = "";
-$TOTALINDUSTRIAL = "";
+$TOTALENVASE = "";
 $TOTALEXPORTACION = "";
-$TURNO = "";
-$NETOENTRADA="";
+$TOTALINDUSTRIAL = "";
+
 
 
 //INICIALIZAR ARREGLOS
 $ARRAYEMPRESA = "";
 $ARRAYFOLIO2 = "";
 $ARRAYPVESPECIES = "";
-$ARRAYTPROCESO = "";
+$ARRAYTREEMBALAJE = "";
 $ARRAYPRODUCTOR = "";
 $ARRAYVESPECIES = "";
 
-$ARRAYPROCESO = "";
-$ARRAYTOTALPROCESO = "";
-$ARRAYTOTALPROCESOENTRADA = "";
-$ARRAYEXISMATERIPRIMAPROCESO = "";
+$ARRAYREEMBALAJE = "";
+$ARRAYTOTALREEMBALAJE = "";
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
-
 if ( $TEMPORADAS) {
-    $ARRAYPROCESO = $PROCESO_ADO->listarProcesoTemporadaCBX( $TEMPORADAS);
+    $ARRAYREEMBALAJE = $REEMBALAJE_ADO->listarReembalajeTemporadaCBX( $TEMPORADAS);
 }
-//include_once "../../assest/config/validarDatosUrl.php";
-//include_once "../../assest/config/datosUrLP.php";
-
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrLP.php";
 
 ?>
 
@@ -68,7 +62,7 @@ if ( $TEMPORADAS) {
 <html lang="es">
 
 <head>
-    <title>Agrupado Proceso</title>
+    <title>Agrupado Reembalaje</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -82,18 +76,19 @@ if ( $TEMPORADAS) {
                     location.href = "" + url;
                 }
 
-              
+             
+
+
+                function abrirPestana(url) {
+                    var win = window.open(url, '_blank');
+                    win.focus();
+                }
 
                 //FUNCION PARA ABRIR VENTANA QUE SE ENCUENTRA LA OPERACIONES DE DETALLE DE RECEPCION
                 function abrirVentana(url) {
                     var opciones =
                         "'directories=no, location=no, menubar=no, scrollbars=yes, statusbar=no, tittlebar=no, width=1000, height=800'";
                     window.open(url, 'window', opciones);
-                }
-
-                function abrirPestana(url) {
-                    var win = window.open(url, '_blank');
-                    win.focus();
                 }
             </script>
 </head>
@@ -104,20 +99,18 @@ if ( $TEMPORADAS) {
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="container-full">
-
                 <!-- Content Header (Page header) -->
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                            <h3 class="page-title">Informes</h3>
+                            <h3 class="page-title">Informe</h3>
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                         <li class="breadcrumb-item" aria-current="page">Modulo</li>
-                                        <li class="breadcrumb-item" aria-current="page">Informes</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Proceso </a>
-                                        </li>
+                                        <li class="breadcrumb-item" aria-current="page">Informe</li>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Reembalaje </a>  </li>
                                     </ol>
                                 </nav>
                             </div>
@@ -125,7 +118,6 @@ if ( $TEMPORADAS) {
                         <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                     </div>
                 </div>
-
                 <!-- Main content -->
                 <section class="content">
                     <div class="box">
@@ -133,20 +125,20 @@ if ( $TEMPORADAS) {
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="proceso" class="table-hover " style="width: 100%;">
+                                        <table id="reembalaje" class="table-hover " style="width: 100%;">
                                             <thead>
-                                                <tr class="text-left">
+                                                <tr>
                                                     <th>Numero</th>
                                                     <th>Estado</th>
                                                     <th class="text-center">Operaciónes</th>
-                                                    <th>Fecha Proceso</th>
-                                                    <th>Tipo Proceso</th>
+                                                    <th>Fecha Reembalaje</th>
+                                                    <th>Tipo Reembalaje</th>
                                                     <th>Turno </th>
                                                     <th>CSG Productor</th>
                                                     <th>Nombre Productor</th>
                                                     <th>Especie</th>
                                                     <th>Variedad</th>
-                                                    <th>Kg. Neto Entrada</th>
+                                                    <th>Kg. Con Desh. Entrada</th>
                                                     <th>Kg. Neto Expo.</th>
                                                     <th>Kg. Deshi. </th>
                                                     <th>Kg. Con Deshi. </th>
@@ -157,25 +149,23 @@ if ( $TEMPORADAS) {
                                                     <th>% Exportación</th>
                                                     <th>% Deshitación</th>
                                                     <th>% Industrial</th>
-                                                    <th>% Total</th>     
-                                                    <th>PT Embolsado</th>                                                     
+                                                    <th>% Total</th>
+                                                    <th>PT Embolsado</th>       
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificacion</th>
+                                                    <th>Semana Reembalaje</th>
                                                     <th>Empresa</th>
                                                     <th>Planta</th>
                                                     <th>Temporada</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach ($ARRAYPROCESO as $r) : ?>
+                                                <?php foreach ($ARRAYREEMBALAJE as $r) : ?>
 
                                                     <?php
-                                                    $ARRAYTOTALENVASESEMBOLSADO=$PROCESO_ADO->obtenerTotalEnvasesEmbolsado($r['ID_PROCESO']);
+
+                                                    $ARRAYTOTALENVASESEMBOLSADO=$REEMBALAJE_ADO->obtenerTotalEnvasesEmbolsado($r['ID_REEMBALAJE']);
                                                     $ENVASESEMBOLSADO=$ARRAYTOTALENVASESEMBOLSADO[0]["ENVASE"];
-                                                    $ARRAYEXISMATERIPRIMAPROCESO = $EXIMATERIAPRIMA_ADO->obtenerTotalesProceso2($r['ID_PROCESO']);
-                                                    if ($ARRAYEXISMATERIPRIMAPROCESO) {
-                                                        $NETOENTRADA = $ARRAYEXISMATERIPRIMAPROCESO[0]['NETOSF'];
-                                                    }
 
                                                     $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
                                                     if ($ARRAYVERVESPECIESID) {
@@ -199,12 +189,11 @@ if ( $TEMPORADAS) {
                                                         $CSGPRODUCTOR = "Sin Datos";
                                                         $NOMBREPRODUCTOR = "Sin Datos";
                                                     }
-
-                                                    $ARRAYTPROCESO = $TPROCESO_ADO->verTproceso($r['ID_TPROCESO']);
-                                                    if ($ARRAYTPROCESO) {
-                                                        $TPROCESO = $ARRAYTPROCESO[0]['NOMBRE_TPROCESO'];
+                                                    $ARRAYTREEMBALAJE = $TREEMBALAJE_ADO->verTreembalaje($r['ID_TREEMBALAJE']);
+                                                    if ($ARRAYTREEMBALAJE) {
+                                                        $TREEMBALAJE = $ARRAYTREEMBALAJE[0]['NOMBRE_TREEMBALAJE'];
                                                     } else {
-                                                        $TPROCESO = "Sin Datos";
+                                                        $TREEMBALAJE = "Sin Datos";
                                                     }
                                                     if ($r['TURNO']) {
                                                         if ($r['TURNO'] == "1") {
@@ -235,9 +224,11 @@ if ( $TEMPORADAS) {
                                                         $NOMBRETEMPORADA = "Sin Datos";
                                                     }
 
+
                                                     ?>
-                                                    <tr class="text-left">
-                                                        <td> <?php echo $r['NUMERO_PROCESO']; ?> </td>
+
+                                                    <tr class="center">
+                                                        <td> <?php echo $r['NUMERO_REEMBALAJE']; ?> </td>
                                                         <td>
                                                             <?php if ($r['ESTADO'] == "0") { ?>
                                                                 <button type="button" class="btn btn-block btn-danger">Cerrado</button>
@@ -245,18 +236,18 @@ if ( $TEMPORADAS) {
                                                             <?php if ($r['ESTADO'] == "1") { ?>
                                                                 <button type="button" class="btn btn-block btn-success">Abierto</button>
                                                             <?php  }  ?>
-                                                        </td>                                                        
+                                                        </td>                                                
                                                         <td class="text-center">
                                                             <form method="post" id="form1" name="form1">
                                                                 <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">                                                                    
-                                                                    <button type="button" class="btn  btn-danger   btn-sm" id="defecto" <?php if ($r['ESTADO'] == "1") { echo "disabled"; } ?> name="informe" title="Informe" Onclick="abrirPestana('../../assest/documento/informeProceso.php?parametro=<?php echo $r['ID_PROCESO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                    <button type="button" class="btn  btn-danger   btn-sm" id="defecto" <?php if ($r['ESTADO'] == "1") { echo "disabled"; } ?> name="informe" title="Informe" Onclick="abrirPestana('../../assest/documento/informeReembalajeEx.php?parametro=<?php echo $r['ID_REEMBALAJE']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                         <i class="fa fa-file-pdf-o"></i><br> Informe
                                                                     </button>
                                                                 </div>
                                                             </form>
                                                         </td>
                                                         <td><?php echo $r['FECHA']; ?></td>
-                                                        <td><?php echo $TPROCESO; ?></td>
+                                                        <td><?php echo $TREEMBALAJE; ?> </td>
                                                         <td><?php echo $TURNO; ?> </td>
                                                         <td><?php echo $CSGPRODUCTOR; ?></td>
                                                         <td><?php echo $NOMBREPRODUCTOR; ?></td>
@@ -270,15 +261,14 @@ if ( $TEMPORADAS) {
                                                         <td><?php echo $r['INDUSTRIALNC']; ?></td>
                                                         <td><?php echo $r['INDUSTRIAL']; ?></td>
                                                         <td><?php echo number_format( $r['ENTRADA']-$r['EXPORTACION']-$r['INDUSTRIAL'],2,".",""); ?></td>
-                                                        
-                                                        <td><?php echo $r['PDEXPORTACION_PROCESO']; ?></td>
-                                                        <td><?php echo $r['PDEXPORTACIONCD_PROCESO']-$r['PDEXPORTACION_PROCESO']; ?></td>
-                                                        <td><?php echo $r['PDINDUSTRIAL_PROCESO']; ?></td>
-                                                        <td><?php echo number_format($r['PORCENTAJE_PROCESO'], 2, ",", ".");  ?></td>
-
+                                                        <td><?php echo $r['PDEXPORTACION_REEMBALAJE']; ?></td>
+                                                        <td><?php echo $r['PDEXPORTACIONCD_REEMBALAJE']-$r['PDEXPORTACION_REEMBALAJE']; ?></td>
+                                                        <td><?php echo $r['PDINDUSTRIAL_REEMBALAJE']; ?></td>
+                                                        <td><?php echo number_format($r['PORCENTAJE_REEMBALAJE'], 2, ",", ".");  ?></td>
                                                         <td><?php echo $ENVASESEMBOLSADO; ?></td>
                                                         <td><?php echo $r['INGRESO']; ?></td>
                                                         <td><?php echo $r['MODIFICACION']; ?></td>
+                                                        <td><?php echo $r['SEMANA']; ?></td>
                                                         <td><?php echo $NOMBREEMPRESA; ?></td>
                                                         <td><?php echo $NOMBREPLANTA; ?></td>
                                                         <td><?php echo $NOMBRETEMPORADA; ?></td>
@@ -289,7 +279,7 @@ if ( $TEMPORADAS) {
                                     </div>
                                 </div>
                             </div>
-                        </div>                                               
+                        </div>                                              
                         <div class="box-footer">
                                 <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
                                     <div class="form-row align-items-center" role="group" aria-label="Datos">
@@ -331,17 +321,17 @@ if ( $TEMPORADAS) {
                                         </div>
                                     </div>
                                 </div>
-                        </div>
+                        </div>    
                     </div>
                     <!-- /.box -->
                 </section>
                 <!-- /.content -->
             </div>
         </div>
-
         <?php include_once "../../assest/config/footer.php"; ?>
         <?php include_once "../../assest/config/menuExtraOpera.php"; ?>
     </div>
     <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
+
 </html>

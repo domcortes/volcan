@@ -460,6 +460,40 @@ class REEMBALAJE_ADO
             die($e->getMessage());
         }
     }
+    public function listarReembalajeTemporadaCBX( $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * ,  
+                                                        IFNULL(KILOS_EXPORTACION_REEMBALAJE,0) AS 'EXPORTACION'   ,                                                 
+                                                        IFNULL(KILOS_INDUSTRIAL_REEMBALAJE,0) AS 'INDUSTRIAL'    ,                                                
+                                                        IFNULL(KILOS_INDUSTRIALSC_REEMBALAJE,0) AS 'INDUSTRIALSC'    ,                                               
+                                                        IFNULL(KILOS_INDUSTRIALNC_REEMBALAJE,0) AS 'INDUSTRIALNC'    ,                                                
+                                                        IFNULL(KILOS_NETO_REEMBALAJE,0) AS 'NETO',                                        
+                                                        IFNULL(KILOS_NETO_ENTRADA,0) AS 'ENTRADA',   
+                                                        FECHA_REEMBALAJE AS 'FECHA',
+                                                        WEEK(FECHA_REEMBALAJE,3) AS 'SEMANA',                                                     
+                                                        WEEKOFYEAR(FECHA_REEMBALAJE) AS 'SEMANAISO',
+                                                        DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                        DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' 
+                                                    
+                                        FROM fruta_reembalaje                                                                               
+                                        WHERE   ESTADO_REGISTRO = 1 
+                                        AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                        ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     public function listarReembalajeEmpresaPlantaTemporadaCBX($EMPRESA, $PLANTA, $TEMPORADA)
     {

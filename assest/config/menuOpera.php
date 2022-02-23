@@ -229,10 +229,28 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="listarRecepcionmpDetallado.php">Detallado Recepcion MP</i></a></li>
               <li><a href="listarProceso.php">Proceso</i></a></li>
+              <li><a href="listarReembalajeEx.php">Reembalaje</i></a></li>
             </ul>
-          </li>    
+          </li>              
+          <li class="treeview">
+            <a href="#">
+              <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/reports.svg" class="svg-icon" alt="">
+              <span>Detallado</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="listarRecepcionmpDetallado.php">Detallado Recepcion MP</i></a></li>
+              <li><a href="listarRecepcionindDetallado.php">Detallado Recepcion IND</i></a></li>
+              <li><a href="listarRecepcionptDetallado.php">Detallado Recepcion PT</i></a></li>              
+              <li><a href="listarDespachompDetallado.php">Detallado Despacho MP</i></a></li>
+              <li><a href="listarDespachoindDetallado.php">Detallado Despacho IND</i></a></li>
+              <li><a href="listarDespachoptDetallado.php">Detallado Despacho PT</i></a></li>
+              <li><a href="listarDespachoexDetallado.php">Detallado Despacho Expo</i></a></li>
+            </ul>
+          </li>   
         <?php  } ?>
         <?php if($PESTAEXISTENCIA=="1"){ ?>
           <li class="treeview">
