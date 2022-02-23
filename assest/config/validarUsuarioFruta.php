@@ -89,11 +89,7 @@
 
 
 
-    if (isset($_REQUEST['CERRARS'])) {
-        session_destroy();
-        $AUSUARIO_ADO->agregarAusuario2('NULL',1,0,"".$_SESSION["NOMBRE_USUARIO"].", Cierre Sesion","usuario_usuario",$_SESSION["ID_USUARIO"],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
-        header('Location: iniciarSession.php');
-    }    
+
     if (isset($_SESSION["NOMBRE_USUARIO"])) {
         $IDUSUARIOS = $_SESSION["ID_USUARIO"];
         $NOMBREUSUARIOS = $_SESSION["NOMBRE_USUARIO"];
@@ -225,6 +221,11 @@
         session_destroy();
         header('Location: iniciarSession.php');
     }
+    if (isset($_REQUEST['CERRARS'])) {
+        session_destroy();
+        $AUSUARIO_ADO->agregarAusuario2('NULL',1,0,"".$_SESSION["NOMBRE_USUARIO"].", Cierre Sesion","usuario_usuario",$_SESSION["ID_USUARIO"],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
+        header('Location: iniciarSession.php');
+    }    
     if (isset($_REQUEST['CAMBIARE'])) {
         $_SESSION["ID_EMPRESA"] = $_REQUEST['EMPRESACAMBIAR'];
         echo "<script type='text/javascript'> 
