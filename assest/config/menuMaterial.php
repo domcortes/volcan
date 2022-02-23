@@ -194,7 +194,7 @@
               <div class="dropdown-divider"></div>
               <div class="p-10">
                 <center>
-                  <form>
+                  <form method="post">
                     <button type="submit" class="btn btn-rounded btn-danger " name="CERRARS" value="CERRARS">
                       <i class="ion-log-out"></i>
                       Cerrar Sesion
