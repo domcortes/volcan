@@ -269,13 +269,11 @@ if ( $TEMPORADAS) {
                                                         <td><?php echo $r['INDUSTRIALSC']; ?></td>
                                                         <td><?php echo $r['INDUSTRIALNC']; ?></td>
                                                         <td><?php echo $r['INDUSTRIAL']; ?></td>
-                                                        <td><?php echo number_format( $r['ENTRADA']-$r['EXPORTACION']-$r['INDUSTRIAL'],2,".",""); ?></td>
-                                                        
+                                                        <td><?php echo number_format( $r['ENTRADA']-$r['EXPORTACION']-$r['INDUSTRIAL'],2,".",""); ?></td>                                                        
                                                         <td><?php echo $r['PDEXPORTACION_PROCESO']; ?></td>
                                                         <td><?php echo $r['PDEXPORTACIONCD_PROCESO']-$r['PDEXPORTACION_PROCESO']; ?></td>
                                                         <td><?php echo $r['PDINDUSTRIAL_PROCESO']; ?></td>
-                                                        <td><?php echo number_format($r['PORCENTAJE_PROCESO'], 2, ",", ".");  ?></td>
-
+                                                        <td><?php echo number_format($r['PORCENTAJE_PROCESO'], 2, ".", "");  ?></td>
                                                         <td><?php echo $ENVASESEMBOLSADO; ?></td>
                                                         <td><?php echo $r['INGRESO']; ?></td>
                                                         <td><?php echo $r['MODIFICACION']; ?></td>
