@@ -21,6 +21,7 @@ $CVENTA =  new CVENTA();
 $NOMBRECVENTA = "";
 $NOTACVENTA = "";
 $NUMERO = "";
+$CONTADOR=0;
 
 $IDOP = "";
 $OP = "";
@@ -258,19 +259,18 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Numero </th>
-                                                        <th>Nombre </th>
                                                         <th>Operaciones</th>
+                                                        <th>Nombre </th>
+                                                        <th>Nota </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYCVENTA as $r) : ?>
+                                                        <?php       
+                                                            $CONTADOR+=1; 
+                                                        ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['NUMERO_CVENTA']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td><?php echo $r['NOMBRE_CVENTA']; ?></td>                                                                                                                                                                                                                    
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                                                                                                                                                                              
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -310,6 +310,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     </div>
                                                                 </form>
                                                             </td> 
+                                                            <td><?php echo $r['NOMBRE_CVENTA']; ?></td>     
+                                                            <td><?php echo $r['NOTA_CVENTA']; ?></td>      
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

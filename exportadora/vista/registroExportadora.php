@@ -49,6 +49,7 @@ $EMAILEXPORTADORA2 = "";
 $TELEFONOEXPORTADORA2 = "";
 $LOGOEXPORTADORA = "";
 $DVEXPORTADORA = "";
+$CONTADOR=0;
 
 
 $URL_IMG = "";
@@ -508,8 +509,8 @@ if ($_POST) {
                                                 </div>
                                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
-                                                        <label>Dirreccion</label>
-                                                        <input type="text" class="form-control" placeholder="Dirreccion  Exportadora" id="DIRECCIONEXPORTADORA" name="DIRECCIONEXPORTADORA" value="<?php echo $DIRECCIONEXPORTADORA; ?>" <?php echo $DISABLED; ?> />
+                                                        <label>Direccion</label>
+                                                        <input type="text" class="form-control" placeholder="Direccion  Exportadora" id="DIRECCIONEXPORTADORA" name="DIRECCIONEXPORTADORA" value="<?php echo $DIRECCIONEXPORTADORA; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_dirrecion" class="validacion"> </label>
                                                     </div>
                                                 </div>
@@ -636,19 +637,36 @@ if ($_POST) {
                                                 <thead>
                                                     <tr>
                                                         <th>Número </th>
-                                                        <th>Nombre </th>
                                                         <th>Operaciones</th>
+                                                        <th>Rut </th>
+                                                        <th>DV </th>
+                                                        <th>Nombre </th>
+                                                        <th>Giro </th>
+                                                        <th>Razon Social </th>
+                                                        <th>Direccion </th>
+                                                        <th>Comuna </th>
+                                                        <th>Contacto 1 </th>
+                                                        <th>Telefono 1 </th>
+                                                        <th>Email 1 </th>
+                                                        <th>Contacto 2 </th>
+                                                        <th>Telefono 2 </th>
+                                                        <th>Email 2 </th>
+                                                        
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYEXPORTADORA as $r) : ?>
+                                                        <?php   
+                                                            $CONTADOR+=1; 
+                                                            $ARRAYVERCOMUNA=$COMUNA_ADO->verComuna($r["ID_COMUNA"]);
+                                                            if($ARRAYVERCOMUNA){
+                                                                $NOMBRECOMUNA = $ARRAYVERCOMUNA[0]["NOMBRE_COMUNA"];
+                                                            }else{
+                                                                $NOMBRECOMUNA="Sin Datos";
+                                                            }
+                                                        ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['NUMERO_EXPORTADORA']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td><?php echo $r['NOMBRE_EXPORTADORA']; ?></td>                                                                                     
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                 
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -688,6 +706,19 @@ if ($_POST) {
                                                                     </div>
                                                                 </form>
                                                             </td>
+                                                            <td><?php echo $r['RUT_EXPORTADORA']; ?></td>   
+                                                            <td><?php echo $r['DV_EXPORTADORA']; ?></td>   
+                                                            <td><?php echo $r['NOMBRE_EXPORTADORA']; ?></td>  
+                                                            <td><?php echo $r['RAZON_SOCIAL_EXPORTADORA']; ?></td>  
+                                                            <td><?php echo $r['GIRO_EXPORTADORA']; ?></td>     
+                                                            <td><?php echo $r['DIRECCION_EXPORTADORA']; ?></td>     
+                                                            <td><?php echo $NOMBRECOMUNA; ?></td>  
+                                                            <td><?php echo $r['CONTACTO1_EXPORTADORA']; ?></td>  
+                                                            <td><?php echo $r['TELEFONO1_EXPORTADORA']; ?></td>     
+                                                            <td><?php echo $r['EMAIL1_EXPORTADORA']; ?></td>    
+                                                            <td><?php echo $r['CONTACTO2_EXPORTADORA']; ?></td>  
+                                                            <td><?php echo $r['TELEFONO2_EXPORTADORA']; ?></td>     
+                                                            <td><?php echo $r['EMAIL2_EXPORTADORA']; ?></td>   
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

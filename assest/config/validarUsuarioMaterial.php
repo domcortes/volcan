@@ -76,11 +76,7 @@ $TEMPORADA_ADO =  new TEMPORADA_ADO();
 
 
 
-if (isset($_REQUEST['CERRARS'])) {
-    $AUSUARIO_ADO->agregarAusuario2('NULL',2,0,"".$_SESSION["NOMBRE_USUARIO"].", Cierre Sesion","usuario_usuario",$_SESSION["ID_USUARIO"],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
-    session_destroy();
-    header('Location: iniciarSession.php');
-}
+
 if (isset($_SESSION["NOMBRE_USUARIO"])) {
     $IDUSUARIOS = $_SESSION["ID_USUARIO"];
     $NOMBREUSUARIOS = $_SESSION["NOMBRE_USUARIO"];
@@ -188,6 +184,11 @@ if (isset($_SESSION["NOMBRE_USUARIO"])) {
     }
     
 } else {
+    session_destroy();
+    header('Location: iniciarSession.php');
+}
+if (isset($_REQUEST['CERRARS'])) {
+    $AUSUARIO_ADO->agregarAusuario2('NULL',2,0,"".$_SESSION["NOMBRE_USUARIO"].", Cierre Sesion","usuario_usuario",$_SESSION["ID_USUARIO"],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],$_SESSION['ID_PLANTA'],$_SESSION['ID_TEMPORADA'] );
     session_destroy();
     header('Location: iniciarSession.php');
 }

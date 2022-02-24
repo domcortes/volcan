@@ -245,47 +245,13 @@ if ( $TEMPORADAS) {
                                                             <?php if ($r['ESTADO'] == "1") { ?>
                                                                 <button type="button" class="btn btn-block btn-success">Abierto</button>
                                                             <?php  }  ?>
-                                                        </td>
+                                                        </td>                                                        
                                                         <td class="text-center">
-                                                            <form method="post" id="form1">
-                                                                <div class="list-icons d-inline-flex">
-                                                                    <div class="list-icons-item dropdown">
-                                                                        <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                            <i class="glyphicon glyphicon-cog"></i>
-                                                                        </button>
-                                                                        <div class="dropdown-menu dropdown-menu-right">
-                                                                            <button class="dropdown-menu" aria-labelledby="dropdownMenuButton"></button>
-                                                                            <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_PROCESO']; ?>" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroProceso" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarProceso" />                                                                      
-                                                                            <?php if ($r['ESTADO'] == "0") { ?>
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
-                                                                                    <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
-                                                                                        <i class="ti-eye"></i> Ver
-                                                                                    </button>
-                                                                                </span>
-                                                                            <?php } ?>
-                                                                            <?php if ($r['ESTADO'] == "1") { ?>
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
-                                                                                    <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
-                                                                                        <i class="ti-pencil-alt"></i> Editar
-                                                                                    </button>
-                                                                                </span>
-                                                                            <?php } ?>
-                                                                            <hr>
-
-                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" <?php if ($r['ESTADO'] == "1") { echo "disabled"; } ?> name="informe" title="Informe" Onclick="abrirPestana('../../assest/documento/informeProceso.php?parametro=<?php echo $r['ID_PROCESO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                    <i class="fa fa-file-pdf-o"></i> Informe
-                                                                                </button>
-                                                                            </span>
-                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Tarjas">
-                                                                                <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Tarjas" Onclick="abrirPestana('../../assest/documento/informeTarjasProceso.php?parametro=<?php echo $r['ID_PROCESO']; ?>'); ">
-                                                                                    <i class="fa fa-file-pdf-o"></i> Tarjas
-                                                                                </button>
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
+                                                            <form method="post" id="form1" name="form1">
+                                                                <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">                                                                    
+                                                                    <button type="button" class="btn  btn-danger   btn-sm" id="defecto" <?php if ($r['ESTADO'] == "1") { echo "disabled"; } ?> name="informe" title="Informe" Onclick="abrirPestana('../../assest/documento/informeProceso.php?parametro=<?php echo $r['ID_PROCESO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                        <i class="fa fa-file-pdf-o"></i><br> Informe
+                                                                    </button>
                                                                 </div>
                                                             </form>
                                                         </td>
@@ -303,13 +269,11 @@ if ( $TEMPORADAS) {
                                                         <td><?php echo $r['INDUSTRIALSC']; ?></td>
                                                         <td><?php echo $r['INDUSTRIALNC']; ?></td>
                                                         <td><?php echo $r['INDUSTRIAL']; ?></td>
-                                                        <td><?php echo number_format( $r['ENTRADA']-$r['EXPORTACION']-$r['INDUSTRIAL'],2,".",""); ?></td>
-                                                        
+                                                        <td><?php echo number_format( $r['ENTRADA']-$r['EXPORTACION']-$r['INDUSTRIAL'],2,".",""); ?></td>                                                        
                                                         <td><?php echo $r['PDEXPORTACION_PROCESO']; ?></td>
                                                         <td><?php echo $r['PDEXPORTACIONCD_PROCESO']-$r['PDEXPORTACION_PROCESO']; ?></td>
                                                         <td><?php echo $r['PDINDUSTRIAL_PROCESO']; ?></td>
-                                                        <td><?php echo number_format($r['PORCENTAJE_PROCESO'], 2, ",", ".");  ?></td>
-
+                                                        <td><?php echo number_format($r['PORCENTAJE_PROCESO'], 2, ".", "");  ?></td>
                                                         <td><?php echo $ENVASESEMBOLSADO; ?></td>
                                                         <td><?php echo $r['INGRESO']; ?></td>
                                                         <td><?php echo $r['MODIFICACION']; ?></td>

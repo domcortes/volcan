@@ -51,7 +51,7 @@ class PROCESO_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -70,7 +70,7 @@ class PROCESO_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -95,7 +95,7 @@ class PROCESO_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -117,7 +117,7 @@ class PROCESO_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -140,7 +140,7 @@ class PROCESO_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -401,7 +401,7 @@ class PROCESO_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -434,7 +434,7 @@ class PROCESO_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -465,7 +465,7 @@ class PROCESO_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -503,7 +503,7 @@ class PROCESO_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -540,7 +540,7 @@ class PROCESO_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -571,7 +571,7 @@ class PROCESO_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -602,7 +602,7 @@ class PROCESO_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -630,7 +630,7 @@ class PROCESO_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -660,7 +660,7 @@ class PROCESO_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -688,7 +688,7 @@ class PROCESO_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -717,7 +717,7 @@ class PROCESO_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -727,6 +727,419 @@ class PROCESO_ADO
     }
 
     //OTRAS FUNCIONALIDADES
+
+    public function buscarRecepcionMpExistenciaEnProceso($IDPROCESO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT
+                                                        existencia.ID_RECEPCION ,
+                                                        existencia.ID_DESPACHO2 ,
+                                                        MIN(IF(existencia.ID_RECEPCION IS NOT NULL,
+                                                            (   SELECT 
+                                                                    FECHA_RECEPCION
+                                                                FROM fruta_recepcionmp
+                                                                WHERE ID_RECEPCION = existencia.ID_RECEPCION
+                                                                ),
+                                                            IF(existencia.ID_DESPACHO2 IS NOT NULL ,
+                                                                (   SELECT (
+                                                                                SELECT
+                                                                                        fruta_recepcionmp.FECHA_RECEPCION
+                                                                                FROM fruta_eximateriaprima, fruta_recepcionmp
+                                                                                WHERE fruta_eximateriaprima.ID_DESPACHO =existencia.ID_DESPACHO2
+                                                                                AND fruta_eximateriaprima.ID_RECEPCION = fruta_recepcionmp.ID_RECEPCION
+                                                                                ORDER BY fruta_recepcionmp.FECHA_RECEPCION asc
+                                                                                LIMIT 1
+                                                                                )
+                                                                    FROM fruta_despachomp
+                                                                    WHERE ID_DESPACHO = existencia.ID_DESPACHO2
+                                                                    ),
+                                                                'Sin Datos')
+                                                        ))AS 'FECHA',
+                                                        IF(existencia.ID_RECEPCION IS NOT NULL,
+                                                            (   SELECT 
+                                                                    NUMERO_RECEPCION
+                                                                FROM fruta_recepcionmp
+                                                                WHERE ID_RECEPCION = existencia.ID_RECEPCION
+                                                                ),
+                                                            IF(existencia.ID_DESPACHO2 IS NOT NULL ,
+                                                                (   SELECT (
+                                                                                SELECT
+                                                                                        fruta_recepcionmp.NUMERO_RECEPCION
+                                                                                FROM fruta_eximateriaprima, fruta_recepcionmp
+                                                                                WHERE fruta_eximateriaprima.ID_DESPACHO =existencia.ID_DESPACHO2
+                                                                                AND fruta_eximateriaprima.ID_RECEPCION = fruta_recepcionmp.ID_RECEPCION
+                                                                                ORDER BY fruta_recepcionmp.FECHA_RECEPCION asc
+                                                                                LIMIT 1
+                                                                                )
+                                                                    FROM fruta_despachomp
+                                                                    WHERE ID_DESPACHO = existencia.ID_DESPACHO2
+                                                                    ),
+                                                                'Sin Datos')
+                                                        )AS 'NUMERO',
+                                                        IF(existencia.ID_RECEPCION IS NOT NULL,
+                                                            (   SELECT 
+                                                                    FECHA_GUIA_RECEPCION
+                                                                FROM fruta_recepcionmp
+                                                                WHERE ID_RECEPCION = existencia.ID_RECEPCION
+                                                                ),
+                                                            IF(existencia.ID_DESPACHO2 IS NOT NULL ,
+                                                                (   SELECT (
+                                                                                SELECT
+                                                                                        fruta_recepcionmp.FECHA_GUIA_RECEPCION
+                                                                                FROM fruta_eximateriaprima, fruta_recepcionmp
+                                                                                WHERE fruta_eximateriaprima.ID_DESPACHO =existencia.ID_DESPACHO2
+                                                                                AND fruta_eximateriaprima.ID_RECEPCION = fruta_recepcionmp.ID_RECEPCION
+                                                                                ORDER BY fruta_recepcionmp.FECHA_RECEPCION asc
+                                                                                LIMIT 1
+                                                                                )
+                                                                    FROM fruta_despachomp
+                                                                    WHERE ID_DESPACHO = existencia.ID_DESPACHO2
+                                                                    ),
+                                                                'Sin Datos')
+                                                        )AS 'FECHAGUIA',
+                                                        IF(existencia.ID_RECEPCION IS NOT NULL,
+                                                            (   SELECT 
+                                                                    NUMERO_GUIA_RECEPCION
+                                                                FROM fruta_recepcionmp
+                                                                WHERE ID_RECEPCION = existencia.ID_RECEPCION
+                                                                ),
+                                                            IF(existencia.ID_DESPACHO2 IS NOT NULL ,
+                                                                (   SELECT (
+                                                                                SELECT
+                                                                                        fruta_recepcionmp.NUMERO_GUIA_RECEPCION
+                                                                                FROM fruta_eximateriaprima, fruta_recepcionmp
+                                                                                WHERE fruta_eximateriaprima.ID_DESPACHO =existencia.ID_DESPACHO2
+                                                                                AND fruta_eximateriaprima.ID_RECEPCION = fruta_recepcionmp.ID_RECEPCION
+                                                                                ORDER BY fruta_recepcionmp.FECHA_RECEPCION asc
+                                                                                LIMIT 1
+                                                                                )
+                                                                    FROM fruta_despachomp
+                                                                    WHERE ID_DESPACHO = existencia.ID_DESPACHO2
+                                                                    ),
+                                                                'Sin Datos')
+                                                        )AS 'NUMEROGUIA',
+                                                        IF(existencia.ID_RECEPCION IS NOT NULL,
+                                                            (   SELECT
+                                                                        IF(fruta_recepcionmp.TRECEPCION = 1,'Desde Productor',
+                                                                            IF(fruta_recepcionmp.TRECEPCION = 2,'Desde Planta Externa',
+                                                                                IF( fruta_recepcionmp.TRECEPCION=3 ,'Desde Productor BDH', 'Sin Datos'))
+                                                                        )
+                                                                FROM fruta_recepcionmp
+                                                                WHERE ID_RECEPCION = existencia.ID_RECEPCION
+                                                                ),
+                                                            IF(existencia.ID_DESPACHO2 IS NOT NULL ,
+                                                                (   SELECT (
+                                                                                SELECT
+                                                                                        IF(fruta_recepcionmp.TRECEPCION = 1,'Desde Productor',
+                                                                                            IF(fruta_recepcionmp.TRECEPCION = 2,'Desde Planta Externa',
+                                                                                                IF( fruta_recepcionmp.TRECEPCION=3 ,'Desde Productor BDH', 'Sin Datos'))
+                                                                                        )
+                                                                                FROM fruta_eximateriaprima, fruta_recepcionmp
+                                                                                WHERE fruta_eximateriaprima.ID_DESPACHO =existencia.ID_DESPACHO2
+                                                                                AND fruta_eximateriaprima.ID_RECEPCION = fruta_recepcionmp.ID_RECEPCION
+                                                                                ORDER BY fruta_recepcionmp.FECHA_RECEPCION asc
+                                                                                LIMIT 1
+                                                                                )
+                                                                    FROM fruta_despachomp
+                                                                    WHERE ID_DESPACHO = existencia.ID_DESPACHO2
+                                                                    ),
+                                                                'Sin Datos')
+                                                        )AS 'TRECEPCION',
+                                                        IF(existencia.ID_RECEPCION IS NOT NULL,
+                                                            (   SELECT
+                                                                        IF(fruta_recepcionmp.TRECEPCION = 1, (
+                                                                                    SELECT NOMBRE_PRODUCTOR
+                                                                                    FROM fruta_productor
+                                                                                    WHERE ID_PRODUCTOR = fruta_recepcionmp.ID_PRODUCTOR
+                                                                                ),
+                                                                                IF(fruta_recepcionmp.TRECEPCION = 2,(
+                                                                                        SELECT NOMBRE_PLANTA
+                                                                                        FROM principal_planta
+                                                                                        WHERE ID_PLANTA = fruta_recepcionmp.ID_PLANTA
+                                                                                    ),
+                                                                                        IF( fruta_recepcionmp.TRECEPCION=3 ,(
+                                                                                            SELECT NOMBRE_PRODUCTOR
+                                                                                            FROM fruta_productor
+                                                                                            WHERE ID_PRODUCTOR = fruta_recepcionmp.ID_PRODUCTOR
+                                                                                        ), 'Sin Datos')
+                                                                                    )
+                                                                            )
+                                                                FROM fruta_recepcionmp
+                                                                WHERE ID_RECEPCION = existencia.ID_RECEPCION
+                                                                ),
+                                                            IF(existencia.ID_DESPACHO2 IS NOT NULL ,
+                                                                (   SELECT (
+                                                                                SELECT
+                                                                                        IF(fruta_recepcionmp.TRECEPCION = 1, (
+                                                                                                SELECT NOMBRE_PRODUCTOR
+                                                                                                FROM fruta_productor
+                                                                                                WHERE ID_PRODUCTOR = fruta_recepcionmp.ID_PRODUCTOR
+                                                                                            ),
+                                                                                            IF(fruta_recepcionmp.TRECEPCION = 2,(
+                                                                                                    SELECT NOMBRE_PLANTA
+                                                                                                    FROM principal_planta
+                                                                                                    WHERE ID_PLANTA = fruta_recepcionmp.ID_PLANTA
+                                                                                                ),
+                                                                                                    IF( fruta_recepcionmp.TRECEPCION=3 ,(
+                                                                                                        SELECT NOMBRE_PRODUCTOR
+                                                                                                        FROM fruta_productor
+                                                                                                        WHERE ID_PRODUCTOR = fruta_recepcionmp.ID_PRODUCTOR
+                                                                                                    ), 'Sin Datos')
+                                                                                                )
+                                                                                        )
+                                                                                FROM fruta_eximateriaprima, fruta_recepcionmp
+                                                                                WHERE fruta_eximateriaprima.ID_DESPACHO =existencia.ID_DESPACHO2
+                                                                                AND fruta_eximateriaprima.ID_RECEPCION = fruta_recepcionmp.ID_RECEPCION
+                                                                                ORDER BY fruta_recepcionmp.FECHA_RECEPCION asc
+                                                                                LIMIT 1
+                                                                                )
+                                                                    FROM fruta_despachomp
+                                                                    WHERE ID_DESPACHO = existencia.ID_DESPACHO2
+                                                                    ),
+                                                                'Sin Datos')
+                                                        )AS 'ORIGEN',
+                                                        IF(existencia.ID_RECEPCION IS NOT NULL,
+                                                            (   SELECT
+                                                                        (SELECT NOMBRE_PLANTA
+                                                                            FROM principal_planta
+                                                                            WHERE ID_PLANTA = fruta_recepcionmp.ID_PLANTA
+                                                                        )
+                                                                FROM fruta_recepcionmp
+                                                                WHERE ID_RECEPCION = existencia.ID_RECEPCION
+                                                                ),
+                                                            IF(existencia.ID_DESPACHO2 IS NOT NULL ,
+                                                                (   SELECT (
+                                                                                SELECT
+                                                                                        (SELECT NOMBRE_PLANTA
+                                                                                            FROM principal_planta
+                                                                                            WHERE ID_PLANTA = fruta_recepcionmp.ID_PLANTA
+                                                                                        )
+                                                                                FROM fruta_eximateriaprima, fruta_recepcionmp
+                                                                                WHERE fruta_eximateriaprima.ID_DESPACHO =existencia.ID_DESPACHO2
+                                                                                AND fruta_eximateriaprima.ID_RECEPCION = fruta_recepcionmp.ID_RECEPCION
+                                                                                ORDER BY fruta_recepcionmp.FECHA_RECEPCION asc
+                                                                                LIMIT 1
+                                                                                )
+                                                                    FROM fruta_despachomp
+                                                                    WHERE ID_DESPACHO = existencia.ID_DESPACHO2
+                                                                    ),
+                                                                'Sin Datos')
+                                                        )AS 'PLANTA'
+                                                
+                                                FROM
+                                                    fruta_proceso proceso,
+                                                    fruta_eximateriaprima existencia
+                                                WHERE proceso.ID_PROCESO =  '" . $IDPROCESO . "'
+                                                AND  proceso.ID_PROCESO = existencia.ID_PROCESO;
+
+                                              ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function buscarRecepcionExistenciaMpEnProceso($IDPROCESO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT
+                                                        recepcion.ID_RECEPCION,
+                                                        MIN(recepcion.FECHA_RECEPCION) AS 'FECHA',
+                                                        recepcion.NUMERO_RECEPCION AS 'NUMERO',
+                                                        recepcion.FECHA_GUIA_RECEPCION AS 'FECHAGUIA',
+                                                        recepcion.NUMERO_GUIA_RECEPCION AS 'NUMEROGUIA',
+                                                        IF(recepcion.TRECEPCION = 1,'Desde Productor',
+                                                            IF(recepcion.TRECEPCION = 2,'Desde Planta Externa',
+                                                                IF( recepcion.TRECEPCION=3 ,'Desde Productor BDH', 'Sin Datos'))
+                                                            ) AS 'TRECEPCION',
+                                                        IF(recepcion.TRECEPCION = 1, (
+                                                                SELECT NOMBRE_PRODUCTOR
+                                                                FROM fruta_productor
+                                                                WHERE ID_PRODUCTOR = recepcion.ID_PRODUCTOR
+                                                            ),
+                                                            IF(recepcion.TRECEPCION = 2,(
+                                                                    SELECT NOMBRE_PLANTA
+                                                                    FROM principal_planta
+                                                                    WHERE ID_PLANTA = recepcion.ID_PLANTA
+                                                                ),
+                                                                    IF( recepcion.TRECEPCION=3 ,(
+                                                                        SELECT NOMBRE_PRODUCTOR
+                                                                        FROM fruta_productor
+                                                                        WHERE ID_PRODUCTOR = recepcion.ID_PRODUCTOR
+                                                                    ), 'Sin Datos')
+                                                                )
+                                                            ) AS 'ORIGEN',
+                                                        ( SELECT NOMBRE_PLANTA
+                                                        FROM principal_planta
+                                                        WHERE ID_PLANTA =  recepcion.ID_PLANTA
+                                                        ) AS 'PLANTA'
+                                                FROM
+                                                    fruta_proceso proceso,
+                                                    fruta_eximateriaprima existencia,
+                                                    fruta_recepcionmp recepcion
+                                                WHERE proceso.ID_PROCESO = '" . $IDPROCESO . "'
+                                                AND  proceso.ID_PROCESO= existencia.ID_PROCESO
+                                                AND existencia.ID_RECEPCION=recepcion.ID_RECEPCION 
+                                              ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function buscarDespachoExistenciaRecepcionMpEnProceso($IDPROCESO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT
+                                                    (
+                                                        SELECT
+                                                                fruta_recepcionmp.ID_RECEPCION
+                                                            FROM
+                                                                fruta_eximateriaprima ,
+                                                                fruta_recepcionmp
+                                                            WHERE  fruta_eximateriaprima.ID_DESPACHO =existencia.ID_DESPACHO2
+                                                            AND fruta_eximateriaprima.ID_RECEPCION = fruta_recepcionmp.ID_RECEPCION
+                                                            ORDER BY fruta_recepcionmp.FECHA_RECEPCION asc
+                                                            LIMIT 1
+                                                    )AS 'ID_RECEPCION',
+                                                        MIN((
+                                                        SELECT
+                                                                fruta_recepcionmp.FECHA_RECEPCION
+                                                            FROM
+                                                                fruta_eximateriaprima ,
+                                                                fruta_recepcionmp
+                                                            WHERE  fruta_eximateriaprima.ID_DESPACHO =existencia.ID_DESPACHO2
+                                                            AND fruta_eximateriaprima.ID_RECEPCION = fruta_recepcionmp.ID_RECEPCION
+                                                            ORDER BY fruta_recepcionmp.FECHA_RECEPCION asc
+                                                            LIMIT 1
+                                                    ))AS 'FECHA',
+                                                        (
+                                                        SELECT
+                                                                fruta_recepcionmp.NUMERO_RECEPCION
+                                                            FROM
+                                                                fruta_eximateriaprima ,
+                                                                fruta_recepcionmp
+                                                            WHERE  fruta_eximateriaprima.ID_DESPACHO =existencia.ID_DESPACHO2
+                                                            AND fruta_eximateriaprima.ID_RECEPCION = fruta_recepcionmp.ID_RECEPCION
+                                                            ORDER BY fruta_recepcionmp.FECHA_RECEPCION asc
+                                                            LIMIT 1
+                                                    )AS 'NUMERO',
+                                                        (
+                                                        SELECT
+                                                                fruta_recepcionmp.FECHA_GUIA_RECEPCION
+                                                            FROM
+                                                                fruta_eximateriaprima ,
+                                                                fruta_recepcionmp
+                                                            WHERE  fruta_eximateriaprima.ID_DESPACHO =existencia.ID_DESPACHO2
+                                                            AND fruta_eximateriaprima.ID_RECEPCION = fruta_recepcionmp.ID_RECEPCION
+                                                            ORDER BY fruta_recepcionmp.FECHA_RECEPCION asc
+                                                            LIMIT 1
+                                                    )AS 'FECHAGUIA',
+                                                        (
+                                                        SELECT
+                                                                fruta_recepcionmp.NUMERO_GUIA_RECEPCION
+                                                            FROM
+                                                                fruta_eximateriaprima ,
+                                                                fruta_recepcionmp
+                                                            WHERE  fruta_eximateriaprima.ID_DESPACHO =existencia.ID_DESPACHO2
+                                                            AND fruta_eximateriaprima.ID_RECEPCION = fruta_recepcionmp.ID_RECEPCION
+                                                            ORDER BY fruta_recepcionmp.FECHA_RECEPCION asc
+                                                            LIMIT 1
+                                                    )AS 'NUMEROGUIA',
+                                                        (
+                                                        SELECT
+                                                                IF(fruta_recepcionmp.TRECEPCION = 1,'Desde Productor',
+                                                                        IF(fruta_recepcionmp.TRECEPCION = 2,'Desde Planta Externa',
+                                                                            IF( fruta_recepcionmp.TRECEPCION=3 ,'Desde Productor BDH', 'Sin Datos'))
+                                                                    )
+                                                            FROM
+                                                                fruta_eximateriaprima ,
+                                                                fruta_recepcionmp
+                                                            WHERE  fruta_eximateriaprima.ID_DESPACHO =existencia.ID_DESPACHO2
+                                                            AND fruta_eximateriaprima.ID_RECEPCION = fruta_recepcionmp.ID_RECEPCION
+                                                            ORDER BY fruta_recepcionmp.FECHA_RECEPCION asc
+                                                            LIMIT 1
+                                                    )AS 'TRECEPCION',
+                                                        (
+                                                        SELECT
+                                                                        IF(fruta_recepcionmp.TRECEPCION = 1, (
+                                                                                SELECT NOMBRE_PRODUCTOR
+                                                                                FROM fruta_productor
+                                                                                WHERE ID_PRODUCTOR = fruta_recepcionmp.ID_PRODUCTOR
+                                                                            ),
+                                                                            IF(fruta_recepcionmp.TRECEPCION = 2,(
+                                                                                    SELECT NOMBRE_PLANTA
+                                                                                    FROM principal_planta
+                                                                                    WHERE ID_PLANTA = fruta_recepcionmp.ID_PLANTA
+                                                                                ),
+                                                                                    IF( fruta_recepcionmp.TRECEPCION=3 ,(
+                                                                                        SELECT NOMBRE_PRODUCTOR
+                                                                                        FROM fruta_productor
+                                                                                        WHERE ID_PRODUCTOR = fruta_recepcionmp.ID_PRODUCTOR
+                                                                                    ), 'Sin Datos')
+                                                                                )
+                                                                        )
+                                                            FROM
+                                                                fruta_eximateriaprima ,
+                                                                fruta_recepcionmp
+                                                            WHERE  fruta_eximateriaprima.ID_DESPACHO =existencia.ID_DESPACHO2
+                                                            AND fruta_eximateriaprima.ID_RECEPCION = fruta_recepcionmp.ID_RECEPCION
+                                                            ORDER BY fruta_recepcionmp.FECHA_RECEPCION asc
+                                                            LIMIT 1
+                                                    )AS 'ORIGEN',
+                                                        (
+                                                        SELECT (SELECT NOMBRE_PLANTA
+                                                                FROM principal_planta
+                                                                WHERE ID_PLANTA = fruta_recepcionmp.ID_PLANTA
+                                                                )
+                                                            FROM
+                                                                fruta_eximateriaprima ,
+                                                                fruta_recepcionmp
+                                                            WHERE  fruta_eximateriaprima.ID_DESPACHO =existencia.ID_DESPACHO2
+                                                            AND fruta_eximateriaprima.ID_RECEPCION = fruta_recepcionmp.ID_RECEPCION
+                                                            ORDER BY fruta_recepcionmp.FECHA_RECEPCION asc
+                                                            LIMIT 1
+                                                    )AS 'PLANTA'
+                                        FROM fruta_proceso proceso,
+                                            fruta_eximateriaprima existencia,
+                                            fruta_despachomp despacho
+                                        WHERE proceso.ID_PROCESO = '" . $IDPROCESO . "'
+                                        AND   proceso.ID_PROCESO= existencia.ID_PROCESO
+                                        AND   existencia.ID_DESPACHO2 = despacho.ID_DESPACHO;
+                                              ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
+
 
     //CONSULTA PARA OBTENER LA FILA EN EL MISMO MOMENTO DE REGISTRAR LA FILA
     public function obtenerId($FECHAPROCESO, $EMPRESA, $PLANTA, $TEMPORADA)
@@ -748,7 +1161,7 @@ class PROCESO_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -769,7 +1182,7 @@ class PROCESO_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -793,7 +1206,7 @@ class PROCESO_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;

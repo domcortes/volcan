@@ -17,6 +17,7 @@ $TPROCESO =  new TPROCESO();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 $NOMBRETPROCESO = "";
+$CONTADOR=0;
 
 $FOCUS = "";
 $BORDER = "";
@@ -255,20 +256,18 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             <table id="listar" class="table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="center">
-                                                        <th>Id </th>
-                                                        <th>Nombre </th>
+                                                        <th>Numero </th>
                                                         <th>Operaciones</th>
+                                                        <th>Nombre </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYTPROCESO as $r) : ?>
+                                                        <?php   
+                                                        $CONTADOR+=1;                                                             
+                                                        ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['ID_TPROCESO']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td><?php echo $r['NOMBRE_TPROCESO']; ?></td>                                                                                                                                                                                                                               
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                                                                                                                                                                                              
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -308,6 +307,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     </div>
                                                                 </form>
                                                             </td>  
+                                                            <td><?php echo $r['NOMBRE_TPROCESO']; ?></td>   
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

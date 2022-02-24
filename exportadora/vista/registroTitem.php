@@ -27,6 +27,7 @@ $NOMBRETITEM = "";
 $TAITEM="";
 $NOMBRETAITEM="";
 $NUMERO = "";
+$CONTADOR=0;
 
 
 
@@ -303,14 +304,15 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Numero Item</th>
+                                                        <th>Operaciones</th>
                                                         <th>Nombre Item</th>
                                                         <th>Agrupado Item</th>
-                                                        <th>Operaciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYTITEM as $r) : ?>
                                                         <?php 
+                                                            $CONTADOR+=1;     
                                                            $ARRAYTAITEM=$TAITEM_ADO->verTaitem($r['ID_TAITEM']);
                                                            if($ARRAYTAITEM){
                                                                 $NOMBRETAITEM=  $ARRAYTAITEM[0]["NOMBRE_TAITEM"];
@@ -319,13 +321,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                            }
                                                         ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['NUMERO_TITEM']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td><?php echo $r['NOMBRE_TITEM']; ?></td>     
-                                                            <td><?php echo $NOMBRETAITEM; ?></td>                                                                                                                                                                                                                                                             
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                                                                                                                                                                                                                        
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -365,6 +361,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     </div>
                                                                 </form>
                                                             </td>
+                                                            <td><?php echo $r['NOMBRE_TITEM']; ?></td>     
+                                                            <td><?php echo $NOMBRETAITEM; ?></td>       
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

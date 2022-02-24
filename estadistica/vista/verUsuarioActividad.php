@@ -21,6 +21,7 @@ $DISABLED = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
 
+$ARRAYAUSUARIOS = $AUSUARIO_ADO->verAusuarioTodo($IDUSUARIOS);
 
 
 ?>
@@ -124,17 +125,11 @@ $DISABLED = "";
                                                     <h4 class="media media-single p-15 bg-info">
                                                         <i class="fa fa-arrow-circle-o-right mr-10"></i>
                                                         <span class="title">
-                                                            <a href="v#">
+                                                            <a href="#">
                                                                 Mi Actividad
                                                             </a>
                                                         </span>
                                                     </h4>
-                                                </div>
-                                            </div>
-
-                                            <h3 class="title w-p100 mt-10 mb-0 p-20">ULTIMAS 5 OPERACIONES</h3>
-                                            <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12"">
-                                                <div class="media-list media-list-hover w-p100 mt-0">                                                 
                                                 </div>
                                             </div>
                                         </div>
@@ -150,23 +145,39 @@ $DISABLED = "";
                                         <h3 class="box-title">Mi Actividad </h3>
                                     </div>
                                     <!-- /.box-header -->
-
                                     <form class="form" role="form" method="post" name="form_reg_dato"  id="form_reg_dato">
                                         <div class="box-body">
                                             <div class="row">
-                                                <div class="col-12">
+                                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="box-body">
-                                                        <table id="listarActividad" class="table-hover " style="width: 100%;">
+                                                            <table id="listarAusuario" class="table-hover " style="width: 100%;">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>Id </th>
-                                                                    <th>Fecha </th>
-                                                                    <th>Registro Objetivo</th>
+                                                                    <th>Fecha Operacion</th>
+                                                                    <th>Numero Registro</th>
+                                                                    <th>Tipo Modulo</th>
                                                                     <th>Tipo Operacion</th>
-                                                                    <th>Detalle</th>
+                                                                    <th>Actividad</th>
+                                                                    <th>Empresa</th>
+                                                                    <th>Planta</th>
+                                                                    <th>Temporada</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
+                                                                <?php foreach ($ARRAYAUSUARIOS as $r) : ?>
+                                                                    <?php                 
+                                                                    ?>
+                                                                    <tr class="center">                                                                                                                                                                                                                  
+                                                                        <td><?php echo $r["INGRESO"];?></td>    
+                                                                        <td><?php echo $r["NUMERO_REGISTRO"];?></td>                                                                                                                                                                                                                    
+                                                                        <td><?php echo $r["TMODULO"];?></td>                                                                                                                                                                                                                     
+                                                                        <td><?php echo $r["TOPERACION"];?></td>                                                                                                                                                                                                                    
+                                                                        <td><?php echo $r["MENSAJE"];?></td>                                                                                                                                                                                                                    
+                                                                        <td><?php echo $r["EMPRESA"];?></td>                                                                                                                                                                                                                    
+                                                                        <td><?php echo $r["PLANTA"];?></td>                                                                                                                                                                                                                    
+                                                                        <td><?php echo $r["TEMPORADA"];?></td>                                                                                                                                                                                                                   
+                                                                    </tr>
+                                                                <?php endforeach; ?>
                                                             </tbody>
                                                         </table>
                                                     </div>

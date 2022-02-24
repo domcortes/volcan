@@ -29,6 +29,8 @@ $DISABLED = "";
 
 $MERCADO = "";
 $PRODUCTOR = "";
+$CONTADOR=0;
+
 
 
 
@@ -332,15 +334,16 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Numero</th>
+                                                        <th>Operaciones</th>
                                                         <th>Nombre Mercado</th>
                                                         <th>Nombre Productor</th>
-                                                        <th>Operaciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYRMERCADO as $r) : ?>
                                                         <?php                                                            
                                                             
+                                                            $CONTADOR+=1; 
                                                             $ARRAYVERMERCADO = $MERCADO_ADO->verMercado($r['ID_MERCADO']);
                                                             if($ARRAYVERMERCADO){
                                                                 $NOMBREMERCADO= $ARRAYVERMERCADO[0]['NOMBRE_MERCADO'];
@@ -355,13 +358,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                             }
                                                             ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['NUMERO_RMERCADO']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td> <?php echo $NOMBREMERCADO;  ?> </td>
-                                                            <td> <?php echo $NOMBREPRODUCTOR;  ?> </td>                                                                                                                                                                                                                                                                     
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                                                                                                                                                                                                                       
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -401,6 +398,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     </div>
                                                                 </form>
                                                             </td> 
+                                                            <td> <?php echo $NOMBREMERCADO;  ?> </td>
+                                                            <td> <?php echo $NOMBREPRODUCTOR;  ?> </td>    
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

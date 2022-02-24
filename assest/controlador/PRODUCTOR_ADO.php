@@ -53,7 +53,7 @@ class PRODUCTOR_ADO {
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -72,7 +72,7 @@ class PRODUCTOR_ADO {
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -91,7 +91,7 @@ class PRODUCTOR_ADO {
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -110,7 +110,7 @@ class PRODUCTOR_ADO {
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -132,7 +132,7 @@ class PRODUCTOR_ADO {
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -386,7 +386,7 @@ class PRODUCTOR_ADO {
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -406,7 +406,7 @@ public function obtenerNombreTarja($ID_PRODUCTOR){
             $datos=null;
         
         //	print_r($resultado);
-        //	VAR_DUMP($resultado);
+        //	var_dump($resultado);
         
         
         return $resultado;
@@ -429,7 +429,7 @@ public function obtenerNumero($IDEMPRESA)
             $datos=null;
 
         //	print_r($resultado);
-        //	VAR_DUMP($resultado);
+        //	var_dump($resultado);
 
 
         return $resultado;

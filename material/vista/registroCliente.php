@@ -42,6 +42,7 @@ $FOCUS = "";
 $BORDER = "";
 $DISABLED = "";
 $OP = "";
+$CONTADOR=0;
 
 //INICIALIZAR ARREGLOS
 $ARRAYCLIENTEID = "";
@@ -477,19 +478,31 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Número</th>
-                                                        <th>Nombre</th>
                                                         <th class="text-center">Operaciónes</th>
+                                                        <th>Rut </th>
+                                                        <th>DV </th>
+                                                        <th>Razon Social </th>
+                                                        <th>Nombre </th>
+                                                        <th>Giro </th>
+                                                        <th>Direccion </th>
+                                                        <th>Comuna </th>
+                                                        <th>Telefono </th>
+                                                        <th>Email </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYCLIENTES as $r) : ?>
+                                                        <?php 
+                                                            $CONTADOR+=1;
+                                                            $ARRAYVERCOMUNA=$COMUNA_ADO->verComuna($r["ID_COMUNA"]);
+                                                            if($ARRAYVERCOMUNA){
+                                                                $NOMBRECOMUNA = $ARRAYVERCOMUNA[0]["NOMBRE_COMUNA"];
+                                                            }else{
+                                                                $NOMBRECOMUNA="Sin Datos";
+                                                            }
+                                                        ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['NUMERO_CLIENTE']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td> <?php echo $r['NOMBRE_CLIENTE']; ?></td>                                                                                                                                               
+                                                            <td> <?php echo $CONTADOR; ?> </td>                                                                                                                                      
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -529,6 +542,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     </div>
                                                                 </form>
                                                             </td>
+                                                            <td> <?php echo $r['RUT_CLIENTE']; ?></td>   
+                                                            <td> <?php echo $r['DV_CLIENTE']; ?></td>   
+                                                            <td> <?php echo $r['RAZON_CLIENTE']; ?></td>      
+                                                            <td> <?php echo $r['NOMBRE_CLIENTE']; ?></td>      
+                                                            <td> <?php echo $r['GIRO_CLIENTE']; ?></td>       
+                                                            <td> <?php echo $NOMBRECOMUNA; ?></td>       
+                                                            <td> <?php echo $r['TELEFONO_CLIENTE']; ?></td>    
+                                                            <td> <?php echo $r['EMAIL_CLIENTE']; ?></td>   
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

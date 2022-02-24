@@ -268,11 +268,6 @@ if (isset($NOMBREUSUARIOS)) {
                                                     </h4>
                                                 </div>
                                             </div>
-                                            <h3 class="title w-p100 mt-10 mb-0 p-20">ULTIMAS 5 OPERACIONES</h3>
-                                            <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
-                                                <div class="media-list media-list-hover w-p100 mt-0">
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                     <!-- /.box-body -->
@@ -384,6 +379,9 @@ if (isset($NOMBREUSUARIOS)) {
                 $USUARIO->__SET('TELEFONO_USUARIO', $_REQUEST['TELEFONO']);
                 $USUARIO->__SET('ID_USUARIO', $IDUSUARIOS);
                 $USUARIO_ADO->actualizarPerfil($USUARIO);
+
+                $AUSUARIO_ADO->agregarAusuario2('NULL',1,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de datos, perfil usuario","usuario_usuario",$_SESSION["ID_USUARIO"],$_SESSION["ID_USUARIO"],$_SESSION["ID_EMPRESA"],$_SESSION["ID_PLANTA"],$_SESSION['ID_TEMPORADA'] );            
+
                 echo '<script>
                     Swal.fire({
                         icon:"info",

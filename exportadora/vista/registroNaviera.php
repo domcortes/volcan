@@ -31,6 +31,7 @@ $TELEFONONAVIERA = "";
 $EMAILNAVIERA = "";
 $COMUNA = "";
 $NUMERO="";
+$CONTADOR=0;
 
 
 //INICIALIZAR ARREGLOS
@@ -456,19 +457,26 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Numero </th>
-                                                        <th>Nombe </th>
                                                         <th>Operaciones</th>
+                                                        <th>Rut </th>
+                                                        <th>DV </th>
+                                                        <th>Nombre </th>
+                                                        <th>Giro </th>
+                                                        <th>Razon Social </th>
+                                                        <th>Dirrecion </th>
+                                                        <th>Contacto </th>
+                                                        <th>Telefono </th>
+                                                        <th>Email </th>
+                                                        <th>Nota </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYNAVIERA as $r) : ?>
+                                                        <?php       
+                                                            $CONTADOR+=1; 
+                                                        ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['NUMERO_NAVIERA']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td><?php echo $r['NOMBRE_NAVIERA']; ?></td>                                                                                                                                            
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                                                                                     
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -508,6 +516,16 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     </div>
                                                                 </form>
                                                             </td>
+                                                            <td><?php echo $r['RUT_NAVIERA']; ?></td>  
+                                                            <td><?php echo $r['DV_NAVIERA']; ?></td>  
+                                                            <td><?php echo $r['NOMBRE_NAVIERA']; ?></td>  
+                                                            <td><?php echo $r['GIRO_NAVIERA']; ?></td>  
+                                                            <td><?php echo $r['RAZON_SOCIAL_NAVIERA']; ?></td>  
+                                                            <td><?php echo $r['DIRECCION_NAVIERA']; ?></td>  
+                                                            <td><?php echo $r['CONTACTO_NAVIERA']; ?></td>  
+                                                            <td><?php echo $r['TELEFONO_NAVIERA']; ?></td>  
+                                                            <td><?php echo $r['EMAIL_NAVIERA']; ?></td>  
+                                                            <td><?php echo $r['NOTA_NAVIERA']; ?></td>  
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

@@ -24,6 +24,8 @@ $DISABLED = "";
 
 $NOMBRETCATEGORIA = "";
 $FNOMBRE = "";
+$CONTADOR=0;
+
 $SINO = "";
 
 
@@ -274,19 +276,17 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Número </th>
-                                                        <th>Nombre </th>
                                                         <th>Operaciones</th>
+                                                        <th>Nombre </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php foreach ($ARRAYTCATEGORIA as $r) : ?>
+                                                    <?php foreach ($ARRAYTCATEGORIA as $r) : ?>                                           
+                                                        <?php   
+                                                        $CONTADOR+=1;                                                             
+                                                        ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['NUMERO_TCATEGORIA']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td><?php echo $r['NOMBRE_TCATEGORIA']; ?></td>                                                                                                                                                                                              
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                                                                                                                                                     
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -326,6 +326,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     </div>
                                                                 </form>
                                                             </td>  
+                                                            <td><?php echo $r['NOMBRE_TCATEGORIA']; ?></td>   
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

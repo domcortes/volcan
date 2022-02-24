@@ -53,7 +53,7 @@ class REPALETIZAJEMP_ADO {
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -73,7 +73,7 @@ class REPALETIZAJEMP_ADO {
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -95,7 +95,7 @@ class REPALETIZAJEMP_ADO {
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -115,7 +115,7 @@ class REPALETIZAJEMP_ADO {
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -138,7 +138,7 @@ class REPALETIZAJEMP_ADO {
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -157,7 +157,7 @@ class REPALETIZAJEMP_ADO {
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -180,7 +180,7 @@ class REPALETIZAJEMP_ADO {
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -204,7 +204,7 @@ class REPALETIZAJEMP_ADO {
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -378,7 +378,7 @@ public function actualizarRepaletizajeQuitarExistenciaMateriaPrima(REPALETIZAJEM
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -490,7 +490,7 @@ public function filtro4RepaletizajeCBX($FECHADESDE, $FECHAHASTA){
             $datos=null;
         
         //	print_r($resultado);
-        //	VAR_DUMP($resultado);
+        //	var_dump($resultado);
         
         
         return $resultado;
@@ -511,7 +511,7 @@ public function filtro4TotalesRepaletizajeCBX($FECHADESDE, $FECHAHASTA){
             $datos=null;
         
         //	print_r($resultado);
-        //	VAR_DUMP($resultado);
+        //	var_dump($resultado);
         
         
         return $resultado;
@@ -535,7 +535,7 @@ public function obtenerNumero($EMPRESA,$PLANTA,$TEMPORADA){
             $datos=null;
         
         //	print_r($resultado);
-        //	VAR_DUMP($resultado);
+        //	var_dump($resultado);
         
         
         return $resultado;

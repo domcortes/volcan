@@ -24,6 +24,7 @@ $DISABLED = "";
 $NOMBRECCALIDAD = "";
 $RGBCCALIDAD = "";
 $FNOMBRE = "";
+$CONTADOR=0;
 
 
 
@@ -276,7 +277,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                             </div>
                             <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
-                                    <div class="box-header with-border">
+                                    <div class="box-header with-border bg-info">
                                         <h4 class="box-title"> Agrupado Color Calidad</h4>
                                     </div>
                                     <div class="box-body">
@@ -285,21 +286,18 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <thead>
                                                     <tr>
                                                         <th>Numero </th>
+                                                        <th>Operaciones </th>
                                                         <th>Nombre </th>
                                                         <th>Color </th>
-                                                        <th>Operaciones </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php foreach ($ARRAYCCALIDAD as $r) : ?>
+                                                    <?php foreach ($ARRAYCCALIDAD as $r) : ?>                                                     
+                                                        <?php   
+                                                        $CONTADOR+=1;                                                             
+                                                        ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['NUMERO_CCALIDAD']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td><?php echo $r['NOMBRE_CCALIDAD']; ?></td>
-                                                            <td style="background-color:<?php echo $r['RGB_CCALIDAD']; ?>"><?php echo $r['RGB_CCALIDAD']; ?></td>                                                                                                                            
+                                                            <td><?php echo $CONTADOR; ?> </td>   
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -339,6 +337,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     </div>
                                                                 </form>
                                                             </td>
+                                                            <td><?php echo $r['NOMBRE_CCALIDAD']; ?></td>
+                                                            <td style="background-color:<?php echo $r['RGB_CCALIDAD']; ?>"><?php echo $r['RGB_CCALIDAD']; ?></td>                                                                                                                                                                                 
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

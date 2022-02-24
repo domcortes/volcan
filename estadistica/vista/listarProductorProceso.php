@@ -276,7 +276,7 @@ $ARRAYEMPRESAPRODUCTOR=$EMPRESAPRODUCTOR_ADO->buscarEmpresaProductorPorUsuarioCB
                                                             <td><?php echo $r['PDEXPORTACION_PROCESO']; ?></td>
                                                             <td><?php echo $r['PDEXPORTACIONCD_PROCESO']-$r['PDEXPORTACION_PROCESO']; ?></td>
                                                             <td><?php echo $r['PDINDUSTRIAL_PROCESO']; ?></td>
-                                                            <td><?php echo number_format($r['PORCENTAJE_PROCESO'], 2, ",", ".");  ?></td>
+                                                            <td><?php echo number_format($r['PORCENTAJE_PROCESO'], 2, ".", ",");  ?></td>
                                                             <td><?php echo $ENVASESEMBOLSADO; ?></td>
                                                             <td><?php echo $r['INGRESO']; ?></td>
                                                             <td><?php echo $r['MODIFICACION']; ?></td>

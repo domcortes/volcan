@@ -24,6 +24,7 @@ $DISABLED = "";
 
 $NOMBRETINPSAG = "";
 $FNOMBRE = "";
+$CONTADOR=0;
 $SINO = "";
 
 
@@ -269,20 +270,18 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             <table id="listar" class="table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="center">
-                                                        <th>Id </th>
-                                                        <th>Nombre </th>
+                                                        <th>Número </th>
                                                         <th>Operaciones</th>
+                                                        <th>Nombre </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYTINPSAG as $r) : ?>
+                                                        <?php   
+                                                        $CONTADOR+=1;                                                             
+                                                        ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['ID_TINPSAG']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td><?php echo $r['NOMBRE_TINPSAG']; ?></td>                                                                                                                                                                                                                
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                                                                                                                                                                              
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -322,6 +321,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     </div>
                                                                 </form>
                                                             </td>  
+                                                            <td><?php echo $r['NOMBRE_TINPSAG']; ?></td>     
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

@@ -32,6 +32,8 @@ $CORREO = "";
 $TELEFONO = "";
 $TUSUARIO = "";
 
+$CONTADOR=0;
+
 $SINO = "";
 
 $MENSAJE = "";
@@ -44,7 +46,7 @@ $ARRAYUSUARIOBUSCARNOMBREUSUARIO = "";
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-$ARRAYUSUARIO = $USUARIO_ADO->listarUsuarioCBX();
+$ARRAYUSUARIO = $USUARIO_ADO->listarUsuario();
 $ARRAYTUSUARIOS = $TUSUARIO_ADO->listarTusuarioCBX();
 include_once "../../assest/config/validarDatosUrl.php";
 include_once "../../assest/config/datosUrl.php";
@@ -80,8 +82,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $PAPELLIDOUSUARIO = "" . $r['PAPELLIDO_USUARIO'];
             $SAPELLIDOUSUARIO = "" . $r['SAPELLIDO_USUARIO'];
 
-            $CONTRASENA = "" . $r['CONTRASENA_USUARIO'];
-            $CCONTRASENA = "" . $r['CONTRASENA_USUARIO'];
             $CORREO = "" . $r['EMAIL_USUARIO'];
             $TELEFONO = "" . $r['TELEFONO_USUARIO'];
             $TUSUARIO = "" . $r['ID_TUSUARIO'];
@@ -108,8 +108,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $PAPELLIDOUSUARIO = "" . $r['PAPELLIDO_USUARIO'];
             $SAPELLIDOUSUARIO = "" . $r['SAPELLIDO_USUARIO'];
 
-            $CONTRASENA = "" . $r['CONTRASENA_USUARIO'];
-            $CCONTRASENA = "" . $r['CONTRASENA_USUARIO'];
             $CORREO = "" . $r['EMAIL_USUARIO'];
             $TELEFONO = "" . $r['TELEFONO_USUARIO'];
             $TUSUARIO = "" . $r['ID_TUSUARIO'];
@@ -138,8 +136,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $PAPELLIDOUSUARIO = "" . $r['PAPELLIDO_USUARIO'];
             $SAPELLIDOUSUARIO = "" . $r['SAPELLIDO_USUARIO'];
 
-            $CONTRASENA = "" . $r['CONTRASENA_USUARIO'];
-            $CCONTRASENA = "" . $r['CONTRASENA_USUARIO'];
             $CORREO = "" . $r['EMAIL_USUARIO'];
             $TELEFONO = "" . $r['TELEFONO_USUARIO'];
             $TUSUARIO = "" . $r['ID_TUSUARIO'];
@@ -166,8 +162,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $PAPELLIDOUSUARIO = "" . $r['PAPELLIDO_USUARIO'];
             $SAPELLIDOUSUARIO = "" . $r['SAPELLIDO_USUARIO'];
 
-            $CONTRASENA = "" . $r['CONTRASENA_USUARIO'];
-            $CCONTRASENA = "" . $r['CONTRASENA_USUARIO'];
             $CORREO = "" . $r['EMAIL_USUARIO'];
             $TELEFONO = "" . $r['TELEFONO_USUARIO'];
             $TUSUARIO = "" . $r['ID_TUSUARIO'];
@@ -496,9 +490,12 @@ if ($_POST) {
                                         <thead>
                                             <tr>
                                                 <th>Nombre Usuario</th>
+                                                <th>Estado</th>
+                                                <th class="text-center">Operaciónes</th>
                                                 <th>Nombre Completo</th>
                                                 <th>Tipos Usuario</th>
-                                                <th class="text-center">Operaciónes</th>
+                                                <th>Correo Usuario</th>
+                                                <th>Telefono Usuario</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -510,6 +507,13 @@ if ($_POST) {
                                                     }else{
                                                         $NOMBRETUSUARIO="Sin Datos";
                                                     }
+                                                    if ($r['ESTADO_REGISTRO'] == 1) {
+                                                        $NOMBRESTADO="Habilitado";
+                                                    }
+                                                    if ($r['ESTADO_REGISTRO'] == 0) {
+                                                        $NOMBRESTADO="Desaabilitado";
+
+                                                    }
                                                 
                                                 ?>
                                                 <tr class="center">
@@ -517,48 +521,52 @@ if ($_POST) {
                                                         <a href="#" class="text-warning hover-warning">
                                                             <?php echo $r['NOMBRE_USUARIO']; ?>
                                                         </a>
+                                                    </td>                                                                                                                                                                         
+                                                    <td><?php echo $NOMBRESTADO;?></td>                                                                                                                                                                                                                                                                        
+                                                    <td class="text-center">
+                                                        <form method="post" id="form1">
+                                                            <div class="list-icons d-inline-flex">
+                                                                <div class="list-icons-item dropdown">
+                                                                    <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        <span class="icon-copy ti-settings"></span>
+                                                                    </button>
+                                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                                        <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_USUARIO']; ?>" />
+                                                                        <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroUsuario" />
+                                                                        
+                                                                        <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
+                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
+                                                                                <button type="submit" class="btn btn-info btn-block  btn-sm" id="VERURL" name="VERURL">
+                                                                                    <i class="ti-eye"></i> Ver
+                                                                                </button>
+                                                                            </span> 
+                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
+                                                                                <button type="submit" class="btn  btn-warning btn-block   btn-sm" id="EDITARURL" name="EDITARURL">
+                                                                                    <i class="ti-pencil-alt"></i> Editar
+                                                                                </button>
+                                                                            </span>
+                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Deshabilitar">
+                                                                                <button type="submit" class="btn btn-block btn-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
+                                                                                    <i class="ti-na "></i> Deshabilitar
+                                                                                </button>
+                                                                            </span>                                                                                
+                                                                        <?php } ?>
+                                                                        <?php if ($r['ESTADO_REGISTRO'] == 0) { ?>
+                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Habilitar">
+                                                                                <button type="submit" class="btn btn-block btn-success btn-sm" id="HABILITARURL" name="HABILITARURL">
+                                                                                    <i class="ti-check "></i> Habilitar
+                                                                                </button>
+                                                                            </span>    
+                                                                        <?php } ?>                                                       
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
                                                     </td>
                                                     <td><?php echo $r['PNOMBRE_USUARIO'] . " " . $r['SNOMBRE_USUARIO'] . " " . $r['PAPELLIDO_USUARIO'] . " " . $r['SAPELLIDO_USUARIO']; ?></td>                                                                                                                                                                        
-                                                    <td><?php echo $NOMBRETUSUARIO;?></td>                                                                                                                                                                        
-                                                    <td class="text-center">
-                                                                <form method="post" id="form1">
-                                                                    <div class="list-icons d-inline-flex">
-                                                                        <div class="list-icons-item dropdown">
-                                                                            <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                                <span class="icon-copy ti-settings"></span>
-                                                                            </button>
-                                                                            <div class="dropdown-menu dropdown-menu-right">
-                                                                                <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_USUARIO']; ?>" />
-                                                                                <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroUsuario" />
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
-                                                                                    <button type="submit" class="btn btn-info btn-block  btn-sm" id="VERURL" name="VERURL">
-                                                                                        <i class="ti-eye"></i> Ver
-                                                                                    </button>
-                                                                                </span> 
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
-                                                                                    <button type="submit" class="btn  btn-warning btn-block   btn-sm" id="EDITARURL" name="EDITARURL">
-                                                                                        <i class="ti-pencil-alt"></i> Editar
-                                                                                    </button>
-                                                                                </span>
-                                                                                <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
-                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Deshabilitar">
-                                                                                        <button type="submit" class="btn btn-block btn-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
-                                                                                            <i class="ti-na "></i> Deshabilitar
-                                                                                        </button>
-                                                                                    </span>                                                                                
-                                                                                <?php } ?>
-                                                                                <?php if ($r['ESTADO_REGISTRO'] == 0) { ?>
-                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Habilitar">
-                                                                                        <button type="submit" class="btn btn-block btn-success btn-sm" id="HABILITARURL" name="HABILITARURL">
-                                                                                            <i class="ti-check "></i> Habilitar
-                                                                                        </button>
-                                                                                    </span>    
-                                                                                <?php } ?>                                                       
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </form>
-                                                            </td>
+                                                    <td><?php echo $NOMBRETUSUARIO;?></td>                                                                                                                                                                      
+                                                    <td><?php echo $r['EMAIL_USUARIO'];?></td>                                                                                                                                                                      
+                                                    <td><?php echo $r['TELEFONO_USUARIO'];?></td> 
                                                 </tr>
                                             <?php endforeach; ?>
                                         </tbody>

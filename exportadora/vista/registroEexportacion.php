@@ -52,6 +52,7 @@ $CATEGORIA="";
 $COLOR="";
 $VARIEDAD="";
 $ESTADO = "";
+$CONTADOR=0;
 
 
 
@@ -743,20 +744,93 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             <table id="listar" class="table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="center">
+                                                        <th>Numero </th>
+                                                        <th>Operaciones</th>
                                                         <th>Codigo </th>
                                                         <th>Nombre </th>
-                                                        <th>Operaciones</th>
+                                                        <th>Peso Neto </th>
+                                                        <th>Peso Bruto</th>
+                                                        <th>Peso Envase</th>
+                                                        <th>%  Deshidratacion</th>
+                                                        <th>Peso Pallet </th>
+                                                        <th>Envases Pallet </th>
+                                                        <th>Especies </th>
+                                                        <th>Embalaje </th>
+                                                        <th>Etiqueta </th>
+                                                        <th>Embolsado </th>
+                                                        <th>Categoria </th>
+                                                        <th>Color </th>
+                                                        <th>Variedad </th>
+                                                        <th>Stock </th>
+                                                        <th>Estandar Comercial</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYESTANDAR as $r) : ?>
+                                                            <?php 
+                                                            $CONTADOR+=1;  
+                                                            $ARRAYVERESPECIES=$ESPECIES_ADO->verEspecies($r["ID_ESPECIES"]);
+                                                            if($ARRAYVERESPECIES){
+                                                                $NOMBREESPECIES = $ARRAYVERESPECIES[0]["NOMBRE_ESPECIES"];
+                                                            }else{
+                                                                $NOMBREESPECIES="Sin Datos";
+                                                            }  
+                                                            $ARRAYVERTETIQUETA=$TETIQUETA_ADO->verEtiqueta($r["ID_TETIQUETA"]);
+                                                            if($ARRAYVERTETIQUETA){
+                                                                $NOMBRETETIQUETA = $ARRAYVERTETIQUETA[0]["NOMBRE_TETIQUETA"];
+                                                            }else{
+                                                                $NOMBRETETIQUETA="Sin Datos";
+                                                            }  
+                                                            $ARRAYVERTEMBALAJE=$TEMBALAJE_ADO->verEmbalaje($r["ID_TEMBALAJE"]);
+                                                            if($ARRAYVERTEMBALAJE){
+                                                                $NOMBRETEMBALAJE = $ARRAYVERTEMBALAJE[0]["NOMBRE_TEMBALAJE"];
+                                                            }else{
+                                                                $NOMBRETEMBALAJE="Sin Datos";
+                                                            }     
+                                                            $ARRAYVERECOMERCIAL=$ECOMERCIAL_ADO->verEcomercial($r["ID_ECOMERCIAL"]);
+                                                            if($ARRAYVERECOMERCIAL){
+                                                                $NOMBREECOMERCIAL = $ARRAYVERECOMERCIAL[0]["NOMBRE_ECOMERCIAL"];
+                                                            }else{
+                                                                $NOMBREECOMERCIAL="Sin Datos";
+                                                            }   
+                                                            if($r["EMBOLSADO"]==0){
+                                                                $NOMBREEMBOLSADO="No Aplica";
+                                                            }else if($r["EMBOLSADO"]==1){
+                                                                $NOMBREEMBOLSADO="Si Aplica";
+                                                            }else{                                                                
+                                                                $NOMBREEMBOLSADO="Sin Datos";
+                                                            }                                                            
+                                                            if($r["TCATEGORIA"]==0){
+                                                                $NOMBRETCATEGORIA="No Aplica";
+                                                            }else if($r["TCATEGORIA"]==1){
+                                                                $NOMBRETCATEGORIA="Si Aplica";
+                                                            }else{                                                                
+                                                                $NOMBRETCATEGORIA="Sin Datos";
+                                                            }                                                       
+                                                            if($r["TCOLOR"]==0){
+                                                                $NOMBRETCOLOR="No Aplica";
+                                                            }else if($r["TCOLOR"]==1){
+                                                                $NOMBRETCOLOR="Si Aplica";
+                                                            }else{                                                                
+                                                                $NOMBRETCOLOR="Sin Datos";
+                                                            }                                                    
+                                                            if($r["TVARIEDAD"]==0){
+                                                                $NOMBRETVARIEDAD="No Aplica";
+                                                            }else if($r["TVARIEDAD"]==1){
+                                                                $NOMBRETVARIEDAD="Si Aplica";
+                                                            }else{                                                                
+                                                                $NOMBRETVARIEDAD="Sin Datos";
+                                                            }                                                
+                                                            if($r["STOCK"]==0){
+                                                                $NOMBRESTOCK="No Aplica";
+                                                            }else if($r["STOCK"]==1){
+                                                                $NOMBRESTOCK="Si Aplica";
+                                                            }else{                                                                
+                                                                $NOMBRESTOCK="Sin Datos";
+                                                            }
+                                                            ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['CODIGO_ESTANDAR']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td><?php echo $r['NOMBRE_ESTANDAR']; ?></td>                                                                                                   
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                                         
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -796,6 +870,23 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     </div>
                                                                 </form>
                                                             </td>
+                                                            <td><?php echo $r['CODIGO_ESTANDAR']; ?></td>  
+                                                            <td><?php echo $r['NOMBRE_ESTANDAR']; ?></td>  
+                                                            <td><?php echo $r['PESO_NETO_ESTANDAR']; ?></td>  
+                                                            <td><?php echo $r['PESO_BRUTO_ESTANDAR']; ?></td>  
+                                                            <td><?php echo $r['PESO_ENVASE_ESTANDAR']; ?></td>  
+                                                            <td><?php echo $r['PDESHIDRATACION_ESTANDAR']; ?></td>  
+                                                            <td><?php echo $r['PESO_ENVASE_ESTANDAR']; ?></td>  
+                                                            <td><?php echo $r['CANTIDAD_ENVASE_ESTANDAR']; ?></td>  
+                                                            <td><?php echo $NOMBREESPECIES; ?></td>  
+                                                            <td><?php echo $NOMBRETEMBALAJE; ?></td>  
+                                                            <td><?php echo $NOMBRETETIQUETA; ?></td>  
+                                                            <td><?php echo $NOMBREEMBOLSADO; ?></td>  
+                                                            <td><?php echo $NOMBRETCATEGORIA; ?></td>
+                                                            <td><?php echo $NOMBRETCOLOR; ?></td>
+                                                            <td><?php echo $NOMBRETVARIEDAD; ?></td>
+                                                            <td><?php echo $NOMBRESTOCK; ?></td>
+                                                            <td><?php echo $NOMBREECOMERCIAL; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

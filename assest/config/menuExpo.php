@@ -181,7 +181,7 @@
               <div class="dropdown-divider"></div>
               <div class="p-10">
                 <center>
-                  <form>
+                  <form method="post">
                     <button type="submit" class="btn btn-rounded btn-danger " name="CERRARS" value="CERRARS">
                       <i class="ion-log-out"></i>
                       Cerrar Sesion
@@ -578,36 +578,9 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li class="treeview">
-                  <a href="#">Aereo
-                    <span class="pull-left-container">
-                      <i class=" fa fa-angle-right pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="registroLaerea.php"></i>Linea Area</a></li>
-                  </ul>
-                </li>
-                <li class="treeview">
-                  <a href="#">Maritimo
-                    <span class="pull-left-container">
-                      <i class=" fa fa-angle-right pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="registroNaviera.php"></i>Naviera</a></li>
-                  </ul>
-                </li>
-                <li class="treeview">
-                  <a href="#">Terrestre
-                    <span class="pull-left-container">
-                      <i class=" fa fa-angle-right pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="registroTransporte.php"></i>Transporte</a></li>
-                  </ul>
-                </li>
+                <li><a href="registroLaerea.php"></i>Linea Area</a></li>
+                <li><a href="registroNaviera.php"></i>Naviera</a></li>
+                <li><a href="registroTransporte.php"></i>Transporte</a></li>
                 <li><a href="registroConductor.php"></i>Conductor</a></li>
               </ul>
             </li>
@@ -742,6 +715,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
             </a>
             <ul class="treeview-menu">
               <li><a href="registroUsuario.php">Usuario</i></a></li>
+              <li><a href="listarAusuario.php">Historial Usuario</i></a></li>
               <li><a href="registroTusuario.php">Tipo Usuario</i></a></li>
               <li><a href="registroPtusuario.php">Privilegio Tipo Usuario</i></a></li>
               <li><a href="registroUsuarioEmpPro.php">Usu. Asoc.Empre. Prod.</i></a></li>

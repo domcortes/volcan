@@ -43,6 +43,7 @@ $REGION = "";
 $TELEFONO = "";
 $ENCARGADODECOMPRA = "";
 $LOGOEMPRESA = "";
+$CONTADOR=0;
 
 
 $URL_IMG = "";
@@ -653,26 +654,47 @@ if($_POST){
                                             <table id="listar" class="table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr>
-                                                        <th>Rut Empresa</th>
-                                                        <th>DV Empresa</th>
-                                                        <th>Nombre Empresa</th>
+                                                        <th>Numero </th>
                                                         <th class="text-center">Operaciónes</th>
+                                                        <th>Rut </th>
+                                                        <th>DV </th>
+                                                        <th>Nombre</th>
+                                                        <th>Giro </th>
+                                                        <th>Razon Social </th>
+                                                        <th>Telefono </th>
+                                                        <th>Direccion </th>
+                                                        <th>Comuna </th>
+                                                        <th>Provincia </th>
+                                                        <th>Region </th>
+                                                        <th>Encargado Compra </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYEMPRESA as $r) : ?>
-                                                        <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['RUT_EMPRESA']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['DV_EMPRESA']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td><?php echo $r['NOMBRE_EMPRESA']; ?></td>                                                                                       
+                                                        <?php 
+                                                            $CONTADOR+=1;  
+
+                                                            $ARRAYVERCOMUNA=$COMUNA_ADO->verComuna($r["ID_COMUNA"]);
+                                                            if($ARRAYVERCOMUNA){
+                                                                $NOMBRECOMUNA = $ARRAYVERCOMUNA[0]["NOMBRE_COMUNA"];
+                                                            }else{
+                                                                $NOMBRECOMUNA="Sin Datos";
+                                                            }                                                            
+                                                            $ARRAYVERPROVINCIA=$PROVINCIA_ADO->verProvincia($r["ID_PROVINCIA"]);
+                                                            if($ARRAYVERPROVINCIA){
+                                                                $NOMBREPROVINCIA = $ARRAYVERPROVINCIA[0]["NOMBRE_PROVINCIA"];
+                                                            }else{
+                                                                $NOMBREPROVINCIA="Sin Datos";
+                                                            }                                                        
+                                                            $ARRAYVERREGION=$REGION_ADO->verRegion($r["ID_REGION"]);
+                                                            if($ARRAYVERREGION){
+                                                                $NOMBREREGION = $ARRAYVERREGION[0]["NOMBRE_REGION"];
+                                                            }else{
+                                                                $NOMBREREGION="Sin Datos";
+                                                            } 
+                                                            ?>
+                                                        <tr class="center">    
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                                                      
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -712,6 +734,17 @@ if($_POST){
                                                                     </div>
                                                                 </form>
                                                             </td>
+                                                            <td><?php echo $r['RUT_EMPRESA']; ?></td>    
+                                                            <td><?php echo $r['DV_EMPRESA']; ?></td>    
+                                                            <td><?php echo $r['NOMBRE_EMPRESA']; ?></td>    
+                                                            <td><?php echo $r['RAZON_SOCIAL_EMPRESA']; ?></td>    
+                                                            <td><?php echo $r['GIRO_EMPRESA']; ?></td>    
+                                                            <td><?php echo $r['TELEFONO_EMPRESA']; ?></td>  
+                                                            <td><?php echo $r['DIRECCION_EMPRESA']; ?></td> 
+                                                            <td><?php echo $NOMBRECOMUNA; ?></td>  
+                                                            <td><?php echo $NOMBREPROVINCIA; ?></td>  
+                                                            <td><?php echo $NOMBREREGION; ?></td>       
+                                                            <td><?php echo $r['ENCARGADO_COMPRA_EMPRESA']; ?></td>                                                            
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

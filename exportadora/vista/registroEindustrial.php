@@ -32,6 +32,7 @@ $ESPECIES = "";
 $TAINDUSTRIAL = "";
 $ESTADO = "";
 $PRODUCTO="";
+$CONTADOR=0;
 
 $COBRO="";
 $TESTANDAR="";
@@ -545,20 +546,62 @@ if (isset($_POST)) {
                                             <table id="listar" class="table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="center">
+                                                        <th>Numero </th>
+                                                        <th>Operaciones</th>
                                                         <th>Codigo </th>
                                                         <th>Nombre </th>
-                                                        <th>Operaciones</th>
+                                                        <th>Tipo Estandar </th>
+                                                        <th>Cantidad Envase </th>
+                                                        <th>Peso Envase </th>
+                                                        <th>Peso Envase </th>
+                                                        <th>Cobro </th>
+                                                        <th>Especies </th>
+                                                        <th>Producto </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYESTANDAR as $r) : ?>
+                                                        <?php 
+                                                            $CONTADOR+=1;   
+                                                            if($r["TESTANDAR"]==0){
+                                                                $NOMBRETESTANDAR="Proceso";
+                                                                $CANTIDADENVASE="No Aplica";
+                                                                $PESOENVASE="No Aplica";
+                                                                $PESOPALLET="No Aplica";
+
+                                                            }else if($r["TESTANDAR"]==1){
+                                                                $NOMBRETESTANDAR="Recepcion";
+                                                                $CANTIDADENVASE=$r["CANTIDAD_ENVASE_ESTANDAR"];
+                                                                $PESOENVASE=$r["PESO_ENVASE_ESTANDAR"];
+                                                                $PESOPALLET=$r["PESO_PALLET_ESTANDAR"];
+                                                            }else{                                                                
+                                                                $NOMBRETESTANDAR="Sin Datos";
+                                                                $CANTIDADENVASE="Sin Datos";
+                                                                $PESOENVASE="Sin Datos";
+                                                                $PESOPALLET="Sin Datos";
+                                                            } 
+                                                            if($r["COBRO"]==0){
+                                                                $NOMBRECOBRO="No Aplica";
+                                                            }else if($r["COBRO"]==1){
+                                                                $NOMBRECOBRO="Si Aplica";
+                                                            }else{                                                                
+                                                                $NOMBRECOBRO="Sin Datos";
+                                                            }
+                                                            $ARRAYVERESPECIES=$ESPECIES_ADO->verEspecies($r["ID_ESPECIES"]);
+                                                            if($ARRAYVERESPECIES){
+                                                                $NOMBREESPECIES = $ARRAYVERESPECIES[0]["NOMBRE_ESPECIES"];
+                                                            }else{
+                                                                $NOMBREESPECIES="Sin Datos";
+                                                            }
+                                                            $ARRAYVERPRODUCTO=$PRODUCTO_ADO->verProducto($r["ID_PRODUCTO"]);
+                                                            if($ARRAYVERPRODUCTO){
+                                                                $NOMBREPRODUCTO = $ARRAYVERPRODUCTO[0]["NOMBRE_PRODUCTO"];
+                                                            }else{
+                                                                $NOMBREPRODUCTO="Sin Datos";
+                                                            }
+                                                        ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['CODIGO_ESTANDAR']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td><?php echo $r['NOMBRE_ESTANDAR']; ?></td>                                                                                        
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                                                
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -598,6 +641,15 @@ if (isset($_POST)) {
                                                                     </div>
                                                                 </form>
                                                             </td>
+                                                            <td><?php echo $r['CODIGO_ESTANDAR']; ?></td>   
+                                                            <td><?php echo $r['NOMBRE_ESTANDAR']; ?></td>    
+                                                            <td><?php echo $NOMBRETESTANDAR; ?></td>   
+                                                            <td><?php echo $CANTIDADENVASE; ?></td>   
+                                                            <td><?php echo $PESOENVASE; ?></td>   
+                                                            <td><?php echo $PESOPALLET; ?></td>  
+                                                            <td><?php echo $NOMBRECOBRO; ?></td>    
+                                                            <td><?php echo $NOMBREESPECIES; ?></td>         
+                                                            <td><?php echo $NOMBREPRODUCTO; ?></td>      
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

@@ -80,6 +80,8 @@ $ARRAYVERPRODUCTOR = "";
 $ARRAYVERTRANSPORTE = "";
 $ARRAYVERCONDUCTOR = "";
 $ARRAYMGUIAPT = "";
+$ARRAYRECEPCIONMPORIGEN1="";
+$ARRAYRECEPCIONMPORIGEN2="";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
@@ -230,6 +232,12 @@ include_once "../../assest/config/datosUrLP.php";
                                                     <th>Empresa</th>
                                                     <th>Planta</th>
                                                     <th>Temporada</th>
+                                                    <th>Número Recepción MP</th>
+                                                    <th>Fecha Recepción MP</th>
+                                                    <th>Tipo Recepción MP</th>
+                                                    <th>Número Guía Recepción MP</th>
+                                                    <th>Fecha Guía Recepción MP </th>
+                                                    <th>Planta Recepción MP</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -517,6 +525,35 @@ include_once "../../assest/config/datosUrLP.php";
                                                             $FECHAREEMBALEJE = "";
                                                             $TREEMBALAJE = "Sin datos";
                                                         }
+                                                        $ARRAYRECEPCIONMPORIGEN1=$PROCESO_ADO->buscarRecepcionMpExistenciaEnProceso($s['ID_PROCESO']);
+                                                        $ARRAYRECEPCIONMPORIGEN2=$REEMBALAJE_ADO->buscarProcesoRecepcionMpExistenciaEnReembalaje($s['ID_REEMBALAJE']);
+                                                        if($ARRAYRECEPCIONMPORIGEN1){                                                                
+                                                            $NUMERORECEPCIONMP = $ARRAYRECEPCIONMPORIGEN1[0]["NUMERO"];
+                                                            $FECHARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN1[0]["FECHA"];
+                                                            $NUMEROGUIARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN1[0]["NUMEROGUIA"];
+                                                            $FECHAGUIARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN1[0]["FECHAGUIA"];
+                                                            $TIPORECEPCIONMP = $ARRAYRECEPCIONMPORIGEN1[0]["TRECEPCION"];
+                                                            $ORIGENRECEPCIONMP = $ARRAYRECEPCIONMPORIGEN1[0]["ORIGEN"];
+                                                            $PLANTARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN1[0]["PLANTA"];
+
+                                                        }else if($ARRAYRECEPCIONMPORIGEN2){                                                                
+                                                            $NUMERORECEPCIONMP = $ARRAYRECEPCIONMPORIGEN2[0]["NUMERO"];
+                                                            $FECHARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN2[0]["FECHA"];
+                                                            $NUMEROGUIARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN2[0]["NUMEROGUIA"];
+                                                            $FECHAGUIARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN2[0]["FECHAGUIA"];
+                                                            $TIPORECEPCIONMP = $ARRAYRECEPCIONMPORIGEN2[0]["TRECEPCION"];
+                                                            $ORIGENRECEPCIONMP = $ARRAYRECEPCIONMPORIGEN2[0]["ORIGEN"];
+                                                            $PLANTARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN2[0]["PLANTA"];
+
+                                                        }else{
+                                                            $NUMERORECEPCIONMP = "Sin Datos";
+                                                            $FECHARECEPCIONMP = "";
+                                                            $NUMEROGUIARECEPCIONMP = "Sin Datos"; 
+                                                            $FECHAGUIARECEPCIONMP = "";
+                                                            $TIPORECEPCIONMP = "Sin Datos";
+                                                            $ORIGENRECEPCIONMP = "Sin Datos";
+                                                            $PLANTARECEPCIONMP = "Sin Datos";
+                                                        }
 
                                                         $ARRATREPALETIZAJE = $REPALETIZAJEEX_ADO->verRepaletizaje2($s['ID_REPALETIZAJE']);
                                                         if ($ARRATREPALETIZAJE) {
@@ -578,7 +615,13 @@ include_once "../../assest/config/datosUrLP.php";
                                                             <td><?php echo ""; ?></td>
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
-                                                            <td><?php echo $NOMBRETEMPORADA; ?></td>
+                                                            <td><?php echo $NOMBRETEMPORADA; ?></td>   
+                                                            <td><?php echo $NUMERORECEPCIONMP; ?></td>
+                                                            <td><?php echo $FECHARECEPCIONMP; ?></td>
+                                                            <td><?php echo $TIPORECEPCIONMP; ?></td>
+                                                            <td><?php echo $NUMEROGUIARECEPCIONMP; ?></td>
+                                                            <td><?php echo $FECHAGUIARECEPCIONMP; ?></td>
+                                                            <td><?php echo $PLANTARECEPCIONMP; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
 
@@ -805,6 +848,35 @@ include_once "../../assest/config/datosUrLP.php";
                                                             $FECHAREEMBALEJE = "";
                                                             $TREEMBALAJE = "Sin datos";
                                                         }
+                                                        $ARRAYRECEPCIONMPORIGEN1=$PROCESO_ADO->buscarRecepcionMpExistenciaEnProceso($s['ID_PROCESO']);
+                                                        $ARRAYRECEPCIONMPORIGEN2=$REEMBALAJE_ADO->buscarProcesoRecepcionMpExistenciaEnReembalaje($s['ID_REEMBALAJE']);
+                                                        if($ARRAYRECEPCIONMPORIGEN1){                                                                
+                                                            $NUMERORECEPCIONMP = $ARRAYRECEPCIONMPORIGEN1[0]["NUMERO"];
+                                                            $FECHARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN1[0]["FECHA"];
+                                                            $NUMEROGUIARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN1[0]["NUMEROGUIA"];
+                                                            $FECHAGUIARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN1[0]["FECHAGUIA"];
+                                                            $TIPORECEPCIONMP = $ARRAYRECEPCIONMPORIGEN1[0]["TRECEPCION"];
+                                                            $ORIGENRECEPCIONMP = $ARRAYRECEPCIONMPORIGEN1[0]["ORIGEN"];
+                                                            $PLANTARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN1[0]["PLANTA"];
+
+                                                        }else if($ARRAYRECEPCIONMPORIGEN2){                                                                
+                                                            $NUMERORECEPCIONMP = $ARRAYRECEPCIONMPORIGEN2[0]["NUMERO"];
+                                                            $FECHARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN2[0]["FECHA"];
+                                                            $NUMEROGUIARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN2[0]["NUMEROGUIA"];
+                                                            $FECHAGUIARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN2[0]["FECHAGUIA"];
+                                                            $TIPORECEPCIONMP = $ARRAYRECEPCIONMPORIGEN2[0]["TRECEPCION"];
+                                                            $ORIGENRECEPCIONMP = $ARRAYRECEPCIONMPORIGEN2[0]["ORIGEN"];
+                                                            $PLANTARECEPCIONMP = $ARRAYRECEPCIONMPORIGEN2[0]["PLANTA"];
+
+                                                        }else{
+                                                            $NUMERORECEPCIONMP = "Sin Datos";
+                                                            $FECHARECEPCIONMP = "";
+                                                            $NUMEROGUIARECEPCIONMP = "Sin Datos"; 
+                                                            $FECHAGUIARECEPCIONMP = "";
+                                                            $TIPORECEPCIONMP = "Sin Datos";
+                                                            $ORIGENRECEPCIONMP = "Sin Datos";
+                                                            $PLANTARECEPCIONMP = "Sin Datos";
+                                                        }
 
                                                         $ARRATREPALETIZAJE = $REPALETIZAJEEX_ADO->verRepaletizaje2($s['ID_REPALETIZAJE']);
                                                         if ($ARRATREPALETIZAJE) {
@@ -866,7 +938,13 @@ include_once "../../assest/config/datosUrLP.php";
                                                             <td><?php echo $r['SEMANAGUIA']; ?></td>
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
-                                                            <td><?php echo $NOMBRETEMPORADA; ?></td>
+                                                            <td><?php echo $NOMBRETEMPORADA; ?></td>   
+                                                            <td><?php echo $NUMERORECEPCIONMP; ?></td>
+                                                            <td><?php echo $FECHARECEPCIONMP; ?></td>
+                                                            <td><?php echo $TIPORECEPCIONMP; ?></td>
+                                                            <td><?php echo $NUMEROGUIARECEPCIONMP; ?></td>
+                                                            <td><?php echo $FECHAGUIARECEPCIONMP; ?></td>
+                                                            <td><?php echo $PLANTARECEPCIONMP; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php endforeach; ?>

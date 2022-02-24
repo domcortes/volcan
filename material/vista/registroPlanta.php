@@ -37,6 +37,7 @@ $COMUNA = "";
 $PROVINCIA = "";
 $REGION = "";
 $EMPRESA = "";
+$CONTADOR=0;
 
 $NOMBRE = "";
 $MENSAJE = "";
@@ -398,8 +399,8 @@ if($_POST){
                                                 </div>
                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">    
                                                     <div class="form-group">
-                                                        <label>Dirreccion</label>
-                                                        <input type="text" class="form-control" placeholder="Dirreccion" id="DIRECCION" name="DIRECCION" value="<?php echo $DIRECCION; ?>" <?php echo $DISABLED; ?> />
+                                                        <label>Direccion</label>
+                                                        <input type="text" class="form-control" placeholder="Direccion" id="DIRECCION" name="DIRECCION" value="<?php echo $DIRECCION; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_direccion" class="validacion"> </label>
                                                     </div>
                                                 </div>
@@ -556,22 +557,52 @@ if($_POST){
                                             <table id="listar" class="table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr>
-                                                        <th>Id</th>
-                                                        <th>Nombre </th>
-                                                        <th>Codigo SAG </th>
+                                                        <th>Numero</th>
                                                         <th class="text-center">Operaciónes</th>
+                                                        <th>Codigo SAG </th>
+                                                        <th>Nombre </th>
+                                                        <th>Direccion </th>
+                                                        <th>Razon Social </th>
+                                                        <th>Tipo Planta </th>
+                                                        <th>FDA </th>
+                                                        <th>Comuna </th>
+                                                        <th>Provincia </th>
+                                                        <th>Region </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYPLANTA as $r) : ?>
+                                                        <?php 
+                                                            $CONTADOR+=1;  
+
+                                                            $ARRAYVERCOMUNA=$COMUNA_ADO->verComuna($r["ID_COMUNA"]);
+                                                            if($ARRAYVERCOMUNA){
+                                                                $NOMBRECOMUNA = $ARRAYVERCOMUNA[0]["NOMBRE_COMUNA"];
+                                                            }else{
+                                                                $NOMBRECOMUNA="Sin Datos";
+                                                            }                                                            
+                                                            $ARRAYVERPROVINCIA=$PROVINCIA_ADO->verProvincia($r["ID_PROVINCIA"]);
+                                                            if($ARRAYVERPROVINCIA){
+                                                                $NOMBREPROVINCIA = $ARRAYVERPROVINCIA[0]["NOMBRE_PROVINCIA"];
+                                                            }else{
+                                                                $NOMBREPROVINCIA="Sin Datos";
+                                                            }                                                        
+                                                            $ARRAYVERREGION=$REGION_ADO->verRegion($r["ID_REGION"]);
+                                                            if($ARRAYVERREGION){
+                                                                $NOMBREREGION = $ARRAYVERREGION[0]["NOMBRE_REGION"];
+                                                            }else{
+                                                                $NOMBREREGION="Sin Datos";
+                                                            }                                                 
+                                                            if($r["TPLANTA"]==1){
+                                                                $NOMBRETPLANTA="Propia";
+                                                            }else if($r["TPLANTA"]==2){
+                                                                $NOMBRETPLANTA="Externa";
+                                                            }else{                                                                
+                                                                $NOMBRETPLANTA="Sin Datos";
+                                                            }
+                                                            ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['ID_PLANTA']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td><?php echo $r['NOMBRE_PLANTA']; ?></td>
-                                                            <td><?php echo $r['CODIGO_SAG_PLANTA']; ?></td>                                                                              
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                                      
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -611,6 +642,15 @@ if($_POST){
                                                                     </div>
                                                                 </form>
                                                             </td>
+                                                            <td><?php echo $r['CODIGO_SAG_PLANTA']; ?></td>   
+                                                            <td><?php echo $r['NOMBRE_PLANTA']; ?></td>   
+                                                            <td><?php echo $r['DIRECCION_PLANTA']; ?></td>   
+                                                            <td><?php echo $r['RAZON_SOCIAL_PLANTA']; ?></td>  
+                                                            <td><?php echo $NOMBRETPLANTA; ?></td> 
+                                                            <td><?php echo $r['FDA_PLANTA']; ?></td>  
+                                                            <td><?php echo $NOMBRECOMUNA; ?></td>  
+                                                            <td><?php echo $NOMBREPROVINCIA; ?></td>  
+                                                            <td><?php echo $NOMBREREGION; ?></td>                                                                
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

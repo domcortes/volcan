@@ -16,11 +16,17 @@ include_once "../../assest/controlador/AUSUARIO_ADO.php";
 //include_once '../controlador/PLANTA_ADO.php';
 //include_once '../controlador/TEMPORADA_ADO.php';
 
+
+include_once '../../assest/modelo/USUARIO.php';
+
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 $USUARIO_ADO = new USUARIO_ADO();
 $PTUSUARIO_ADO = new PTUSUARIO_ADO();
 $AUSUARIO_ADO =  NEW AUSUARIO_ADO;
+
+
+$USUARIO =  NEW USUARIO;
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
@@ -36,13 +42,15 @@ $MENSAJE = "";
 $MENSAJE2 = "";
 
 $PEXPORTADORA="";
-
+$NINTENTONUEVO="";
+$NINTENTORESTANTE=0;
 
 
 //INICIALIZAR ARREGLOS
 
 
 $ARRAYINICIOSESSION = "";
+$ARRAYINICIOSESSIONINTENTOS = "";
 $ARRAYEMPRESA = "";
 $ARRAYPLANTA = "";
 $ARRAYTEMPORADA = "";
@@ -139,22 +147,67 @@ $ARRAYVERPTUSUARIO="";
                 $CONTRASENA = $_REQUEST['CONTRASENA'];
                 $ARRAYINICIOSESSION = $USUARIO_ADO->iniciarSession($NOMBRE, $CONTRASENA);
                 if (empty($ARRAYINICIOSESSION) ||  sizeof($ARRAYINICIOSESSION) == 0) {
-                    $AUSUARIO_ADO->agregarAusuario2('NULL',3,0, "".$_REQUEST['NOMBRE'].", los datos ingresados no coinciden con el usuario." , "usuario_usuario" , 'NULL' ,'NULL','NULL','NULL','NULL' );                    
-                    echo
-                    '<script>
-                            Swal.fire({
-                                icon:"warning",
-                                title:"Error de acceso",
-                                text:"Los datos ingresados no coinciden con nuestros registros, reintenta"
-                            }).then((result)=>{
-                                if(result.value){
-                                    location.href = "iniciarSession.php";
-                                }
-                            })
-                        </script>';
-                    // $MENSAJE2 = "NOMBRE USUARIO O CONTRASE&Ntilde;A INVALIDO";
-                    // $MENSAJE = "";
-                } else {
+                    $ARRAYINICIOSESSIONINTENTOS=$USUARIO_ADO->iniciarSessionNIntentos($NOMBRE);
+                    if($ARRAYINICIOSESSIONINTENTOS){
+                        if($ARRAYINICIOSESSIONINTENTOS[0]["NINTENTO"] >= 3){                                      
+                            $USUARIO->__SET('NOMBRE_USUARIO', $NOMBRE);
+                            $USUARIO_ADO->deshabilitar2($USUARIO);        
+                            
+                            $AUSUARIO_ADO->agregarAusuario2('NULL',3,0, "".$_REQUEST['NOMBRE'].", Usuario bloquiado, se supero los numeros de intentos permitidos." , "usuario_usuario" , 'NULL' ,'NULL','NULL','NULL','NULL' );                                        
+
+                            echo
+                                '<script>
+                                    Swal.fire({
+                                        icon:"error",
+                                        title:"Usuario bloquiado.",
+                                        text:"Se supero los numeros de intentos permitidos, contactarse con el administrador."
+                                    }).then((result)=>{
+                                        if(result.value){
+                                            location.href = "iniciarSession.php";
+                                        }
+                                    })
+                                </script>';    
+
+                        }else{
+                            $NINTENTONUEVO = $ARRAYINICIOSESSIONINTENTOS[0]["NINTENTO"]+1;  
+                            $NINTENTORESTANTE= 4 - $NINTENTONUEVO;
+                                                              
+                            $USUARIO->__SET('NINTENTO', $NINTENTONUEVO);
+                            $USUARIO->__SET('NOMBRE_USUARIO', $NOMBRE);
+                            $USUARIO_ADO->NintentoSuma($USUARIO);         
+                            
+                            $AUSUARIO_ADO->agregarAusuario2('NULL',3,0, "".$_REQUEST['NOMBRE'].", Los datos ingresados son erróneos, numero de intentos restante ".$NINTENTORESTANTE."." , "usuario_usuario" , 'NULL' ,'NULL','NULL','NULL','NULL' );                                        
+
+                            echo
+                                '<script>
+                                    Swal.fire({
+                                        icon:"warning",
+                                        title:"Error de acceso",
+                                        text:"Los datos ingresados erróneos, numero de intentos restante '.$NINTENTORESTANTE.'"
+                                    }).then((result)=>{
+                                        if(result.value){
+                                            location.href = "iniciarSession.php";
+                                        }
+                                    })
+                                </script>';   
+
+                        }
+                    }else{
+                        $AUSUARIO_ADO->agregarAusuario2('NULL',3,0, "".$_REQUEST['NOMBRE'].", los datos ingresados no coinciden con el usuario." , "usuario_usuario" , 'NULL' ,'NULL','NULL','NULL','NULL' );                                        
+                        echo
+                        '<script>
+                                Swal.fire({
+                                    icon:"warning",
+                                    title:"Error de acceso",
+                                    text:"Los datos ingresados no coinciden con nuestros registros, reintente"
+                                }).then((result)=>{
+                                    if(result.value){
+                                        location.href = "iniciarSession.php";
+                                    }
+                                })
+                            </script>';          
+                    }     
+                }  else {
                     $ARRAYVERPTUSUARIO  =$PTUSUARIO_ADO->listarPtusuarioPorTusuarioCBX($ARRAYINICIOSESSION[0]['ID_TUSUARIO']);
                     if($ARRAYVERPTUSUARIO){        
                         $PEXPORTADORA = $ARRAYVERPTUSUARIO[0]['EXPORTADORA'];
@@ -162,6 +215,10 @@ $ARRAYVERPTUSUARIO="";
                             $_SESSION["ID_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_USUARIO'];
                             $_SESSION["NOMBRE_USUARIO"] = $ARRAYINICIOSESSION[0]['NOMBRE_USUARIO'];
                             $_SESSION["TIPO_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_TUSUARIO'];
+
+                            $USUARIO->__SET('ID_USUARIO', $ARRAYINICIOSESSION[0]['ID_USUARIO']);
+                            $USUARIO_ADO->NintentoZero($USUARIO);   
+                            
                             $AUSUARIO_ADO->agregarAusuario2('NULL',3,0,"".$ARRAYINICIOSESSION[0]['NOMBRE_USUARIO'].", Inicio Sesion","usuario_usuario",$ARRAYINICIOSESSION[0]['ID_USUARIO'],$ARRAYINICIOSESSION[0]['ID_USUARIO'],'NULL','NULL','NULL' );
                             echo
                             '<script>

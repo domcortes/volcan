@@ -28,6 +28,7 @@ $PESONETOECOMERCIAL = "";
 $PESOBRUTOECOMERCIAL = "";
 
 $FNOMBRE = "";
+$CONTADOR=0;
 
 
 
@@ -357,20 +358,22 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             <table id="listar" class="table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="center">
+                                                        <th>Numero </th>
+                                                        <th>Operaciones</th>
                                                         <th>Codigo </th>
                                                         <th>Nombre </th>
-                                                        <th>Operaciones</th>
+                                                        <th>Peso Neto </th>
+                                                        <th>Peso Bruto</th>
+                                                        <th>Descripcion</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYECOMERCIAL as $r) : ?>
-                                                        <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['CODIGO_ECOMERCIAL']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td><?php echo $r['NOMBRE_ECOMERCIAL']; ?></td>                                                                                         
+                                                            <?php 
+                                                            $CONTADOR+=1;   
+                                                            ?>
+                                                            <tr class="center">
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                      
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -410,6 +413,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     </div>
                                                                 </form>
                                                             </td>
+                                                            <td><?php echo $r['CODIGO_ECOMERCIAL']; ?></td>    
+                                                            <td><?php echo $r['NOMBRE_ECOMERCIAL']; ?></td>   
+                                                            <td><?php echo $r['PESO_NETO_ECOMERCIAL']; ?></td>   
+                                                            <td><?php echo $r['PESO_BRUTO_ECOMERCIAL']; ?></td>   
+                                                            <td><?php echo $r['DESCRIPCION_ECOMERCIAL']; ?></td>    
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

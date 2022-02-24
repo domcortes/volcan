@@ -34,6 +34,7 @@ $ESPECIES = "";
 $VESPECIES = "";
 
 $NUMERO = "";
+$CONTADOR=0;
 
 
 
@@ -507,19 +508,36 @@ if ($_POST) {
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Numero </th>
-                                                        <th>Nombre </th>
                                                         <th>Operaciones</th>
+                                                        <th>Nombre </th>
+                                                        <th>Tiempo Produccion año </th>
+                                                        <th>Año Plantacion </th>
+                                                        <th>Hectareas </th>
+                                                        <th>Plantas en Hectareas </th>
+                                                        <th>Distancia Planta </th>
+                                                        <th>Especies </th>
+                                                        <th>Variedad </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYCUARTEL as $r) : ?>
+                                                        <?php 
+                                                            $CONTADOR+=1;  
+                                                            $ARRAYVERESPECIES=$ESPECIES_ADO->verEspecies($r["ID_ESPECIES"]);
+                                                            if($ARRAYVERESPECIES){
+                                                                $NOMBREESPECIES = $ARRAYVERESPECIES[0]["NOMBRE_ESPECIES"];
+                                                            }else{
+                                                                $NOMBREESPECIES="Sin Datos";
+                                                            }
+                                                            $ARRAYVERVESPECIES=$VESPECIES_ADO->verVespecies($r["ID_VESPECIES"]);
+                                                            if($ARRAYVERVESPECIES){
+                                                                $NOMBREVESPECIES = $ARRAYVERVESPECIES[0]["NOMBRE_VESPECIES"];
+                                                            }else{
+                                                                $NOMBREVESPECIES="Sin Datos";
+                                                            }
+                                                        ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['NUMERO_CUARTEL']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td><?php echo $r['NOMBRE_CUARTEL']; ?></td>                                                                                                                                                                                                                                                                       
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                                                                                                                                                                                                                         
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -559,6 +577,14 @@ if ($_POST) {
                                                                     </div>
                                                                 </form>
                                                             </td>
+                                                            <td><?php echo $r['NOMBRE_CUARTEL']; ?></td>    
+                                                            <td><?php echo $r['TIEMPO_PRODUCCION_ANO_CUARTEL']; ?></td>    
+                                                            <td><?php echo $r['ANO_PLANTACION_CUARTEL']; ?></td>       
+                                                            <td><?php echo $r['HECTAREAS_CUARTEL']; ?></td>       
+                                                            <td><?php echo $r['PLANTAS_EN_HECTAREAS']; ?></td>    
+                                                            <td><?php echo $r['DISTANCIA_PLANTA_CUARTEL']; ?></td>   
+                                                            <td><?php echo $NOMBREESPECIES; ?></td>   
+                                                            <td><?php echo $NOMBREVESPECIES; ?></td>                                                              
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

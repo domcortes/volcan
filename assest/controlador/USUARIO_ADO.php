@@ -49,13 +49,13 @@ class USUARIO_ADO {
     public function listarUsuario(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM  usuario_usuario  limit 8;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  usuario_usuario  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -73,7 +73,7 @@ class USUARIO_ADO {
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -91,7 +91,7 @@ class USUARIO_ADO {
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -111,7 +111,7 @@ class USUARIO_ADO {
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -132,7 +132,7 @@ class USUARIO_ADO {
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -152,7 +152,7 @@ class USUARIO_ADO {
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -186,7 +186,7 @@ class USUARIO_ADO {
                                               MODIFICACION ,  
                                               ESTADO_REGISTRO 
                                             ) VALUES
-	       	( ?,   ?, ?, ?, ?,   ?, ?, ?, ?, SYSDATE(), SYSDATE(), 1);";
+	       	( ?,   ?, ?, ?, ?,   SHA2(?, 512), ?, ?, ?, SYSDATE(), SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -236,7 +236,7 @@ class USUARIO_ADO {
              SNOMBRE_USUARIO  = ?, 
              PAPELLIDO_USUARIO  = ?, 
              SAPELLIDO_USUARIO  = ?, 
-             CONTRASENA_USUARIO  = ?, 
+             CONTRASENA_USUARIO  = SHA2(?, 512), 
              EMAIL_USUARIO  = ?, 
              TELEFONO_USUARIO  = ? , 
              ID_TUSUARIO  = ? 
@@ -309,7 +309,7 @@ class USUARIO_ADO {
             UPDATE  usuario_usuario  
             SET 
              MODIFICACION = SYSDATE(),	
-             CONTRASENA_USUARIO  = ?
+             CONTRASENA_USUARIO  = SHA2(?, 512) 
             WHERE 
                ID_USUARIO  = ? ;";
             $this->conexion->prepare($query)
@@ -354,6 +354,31 @@ class USUARIO_ADO {
         }
         
     }
+
+
+    public function deshabilitar2(USUARIO $USUARIO){
+
+        try{
+            $query = "
+		UPDATE  usuario_usuario  SET	
+             MODIFICACION = SYSDATE(),	
+             NINTENTO = 0,			
+             ESTADO_REGISTRO  = 0
+		WHERE  NOMBRE_USUARIO = ?;";
+            $this->conexion->prepare($query)
+            ->execute(
+                array(                 
+                    $USUARIO->__GET('NOMBRE_USUARIO')                    
+                )
+                
+                );
+            
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+
     //CAMBIO A ACTIVADO
     public function habilitar(USUARIO $USUARIO){
 
@@ -377,21 +402,73 @@ class USUARIO_ADO {
         
     }
 
+    
+    public function NintentoSuma(USUARIO $USUARIO){
+
+        try{
+            $query = "
+                UPDATE  usuario_usuario  SET	
+                    MODIFICACION = SYSDATE(),			
+                    NINTENTO  = ?
+                WHERE  NOMBRE_USUARIO = ?;";
+            $this->conexion->prepare($query)
+            ->execute(
+                array(                 
+                    $USUARIO->__GET('NINTENTO')   ,
+                    $USUARIO->__GET('NOMBRE_USUARIO')                   
+                )
+                
+                );
+            
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+    
+    public function NintentoZero(USUARIO $USUARIO){
+
+        try{
+            $query = "
+                UPDATE  usuario_usuario  SET	
+                    MODIFICACION = SYSDATE(),			
+                    NINTENTO  = 0
+                WHERE  ID_USUARIO = ?;";
+            $this->conexion->prepare($query)
+            ->execute(
+                array(                 
+                    $USUARIO->__GET('ID_USUARIO')                   
+                )
+                
+                );
+            
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+
 
     //OPERACION DE INCIIO SESION
     public function iniciarSession($NOMBRE,$CONTRASENA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM  usuario_usuario  
-                                            WHERE  NOMBRE_USUARIO = '".$NOMBRE."' 
-                                            AND  CONTRASENA_USUARIO  = '".$CONTRASENA."'
-                                            AND ESTADO_REGISTRO  = 1;");
+            $datos=$this->conexion->prepare("SELECT * FROM  usuario_usuario
+                                                            WHERE ESTADO_REGISTRO  = 1
+                                                            AND  NOMBRE_USUARIO = '".$NOMBRE."' 
+                                                            AND  CONTRASENA_USUARIO  = SHA2('".$CONTRASENA."',512)
+                                                UNION
+                                            SELECT * FROM  usuario_usuario
+                                                            WHERE ESTADO_REGISTRO  = 1
+                                                            AND  NOMBRE_USUARIO = '".$NOMBRE."' 
+                                                            AND  CONTRASENA_USUARIO  = '".$CONTRASENA."';
+                                            ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
             
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
             
             
             return $resultado;
@@ -400,6 +477,53 @@ class USUARIO_ADO {
         }
         
     }
+    
+    public function iniciarSession2($NOMBRE,$CONTRASENA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT * FROM  usuario_usuario  
+                                            WHERE ESTADO_REGISTRO  = 1
+                                            AND  NOMBRE_USUARIO = '".$NOMBRE."' 
+                                            AND  CONTRASENA_USUARIO  = SHA2('".$CONTRASENA."',512)
+                                            OR  CONTRASENA_USUARIO  = '".$CONTRASENA."'
+                                            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	var_dump($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+    
+    public function iniciarSessionNIntentos($NOMBRE){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT NINTENTO
+                                             FROM  usuario_usuario  
+                                             WHERE ESTADO_REGISTRO  = 1
+                                             AND  NOMBRE_USUARIO = '".$NOMBRE."' 
+                                            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	var_dump($resultado);
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+ 
  
     
     

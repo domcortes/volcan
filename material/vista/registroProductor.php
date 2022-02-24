@@ -40,6 +40,7 @@ $SDPPRODUCTOR = "";
 $PRBPRODUCTOR = "";
 $CODIGOASOCIADOPRODUCTOR = "";
 $NOMBREASOCIADOPRODUCTOR = "";
+$CONTADOR=0;
 
 
 
@@ -612,8 +613,8 @@ if($_POST){
                                                 </div>
                                                  <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
-                                                        <label>Dirreccion </label>
-                                                        <input type="text" class="form-control" placeholder="Dirreccion Productor" id="DIRECCIONPRODUCTOR" name="DIRECCIONPRODUCTOR" value="<?php echo $DIRECCIONPRODUCTOR; ?>" <?php echo $DISABLED; ?> />
+                                                        <label>Direccion </label>
+                                                        <input type="text" class="form-control" placeholder="Direccion Productor" id="DIRECCIONPRODUCTOR" name="DIRECCIONPRODUCTOR" value="<?php echo $DIRECCIONPRODUCTOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_direccion" class="validacion"> </label>
                                                     </div>
                                                 </div>
@@ -838,22 +839,58 @@ if($_POST){
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Número </th>
+                                                        <th class="text-center">Operaciónes</th>
                                                         <th>Rut </th>
+                                                        <th>DV </th>
                                                         <th>CSG </th>
                                                         <th>Nombre </th>
-                                                        <th class="text-center">Operaciónes</th>
+                                                        <th>Direccion </th>
+                                                        <th>Telefono </th>
+                                                        <th>Email </th>
+                                                        <th>Giro </th>
+                                                        <th>SDP </th>
+                                                        <th>PRB </th>
+                                                        <th>GGN </th>
+                                                        <th>Codigo Asociado </th>
+                                                        <th>Nombre Asociado </th>
+                                                        <th>Comuna </th>
+                                                        <th>Provincia </th>
+                                                        <th>Region </th>
+                                                        <th>Tipo Productor </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYPRODUCTOR as $r) : ?>
+                                                        <?php 
+                                                            $CONTADOR+=1;  
+
+                                                            $ARRAYVERCOMUNA=$COMUNA_ADO->verComuna($r["ID_COMUNA"]);
+                                                            if($ARRAYVERCOMUNA){
+                                                                $NOMBRECOMUNA = $ARRAYVERCOMUNA[0]["NOMBRE_COMUNA"];
+                                                            }else{
+                                                                $NOMBRECOMUNA="Sin Datos";
+                                                            }                                                            
+                                                            $ARRAYVERPROVINCIA=$PROVINCIA_ADO->verProvincia($r["ID_PROVINCIA"]);
+                                                            if($ARRAYVERPROVINCIA){
+                                                                $NOMBREPROVINCIA = $ARRAYVERPROVINCIA[0]["NOMBRE_PROVINCIA"];
+                                                            }else{
+                                                                $NOMBREPROVINCIA="Sin Datos";
+                                                            }                                                        
+                                                            $ARRAYVERREGION=$REGION_ADO->verRegion($r["ID_REGION"]);
+                                                            if($ARRAYVERREGION){
+                                                                $NOMBREREGION = $ARRAYVERREGION[0]["NOMBRE_REGION"];
+                                                            }else{
+                                                                $NOMBREREGION="Sin Datos";
+                                                            }                                                      
+                                                            $ARRAYVERTPRODUCTOR=$TPRODUCTOR_ADO->verTproductor($r["ID_TPRODUCTOR"]);
+                                                            if($ARRAYVERTPRODUCTOR){
+                                                                $NOMBRETPRODUCTOR = $ARRAYVERTPRODUCTOR[0]["NOMBRE_TPRODUCTOR"];
+                                                            }else{
+                                                                $NOMBRETPRODUCTOR="Sin Datos";
+                                                            }
+                                                            ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['NUMERO_PRODUCTOR']; ?>
-                                                                </a>
-                                                            </td>   <td> <?php echo $r['RUT_PRODUCTOR']; ?>-<?php echo $r['DV_PRODUCTOR']; ?> </td>                                             
-                                                            <td><?php echo $r['CSG_PRODUCTOR']; ?></td>
-                                                            <td><?php echo $r['NOMBRE_PRODUCTOR']; ?></td>                                                                                                        
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                                                                       
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -893,6 +930,23 @@ if($_POST){
                                                                     </div>
                                                                 </form>
                                                             </td>
+                                                            <td><?php echo $r['RUT_PRODUCTOR']; ?></td>
+                                                            <td><?php echo $r['DV_PRODUCTOR']; ?> </td>                                        
+                                                            <td><?php echo $r['CSG_PRODUCTOR']; ?></td>    
+                                                            <td><?php echo $r['NOMBRE_PRODUCTOR']; ?></td>      
+                                                            <td><?php echo $r['DIRECCION_PRODUCTOR']; ?></td>      
+                                                            <td><?php echo $r['TELEFONO_PRODUCTOR']; ?></td>     
+                                                            <td><?php echo $r['EMAIL_PRODUCTOR']; ?></td>     
+                                                            <td><?php echo $r['GIRO_PRODUCTOR']; ?></td>     
+                                                            <td><?php echo $r['SDP_PRODUCTOR']; ?></td>  
+                                                            <td><?php echo $r['PRB_PRODUCTOR']; ?></td>  
+                                                            <td><?php echo $r['GGN_PRODUCTOR']; ?></td>  
+                                                            <td><?php echo $r['CODIGO_ASOCIADO_PRODUCTOR']; ?></td>  
+                                                            <td><?php echo $r['NOMBRE_ASOCIADO_PRODUCTOR']; ?></td>  
+                                                            <td><?php echo $NOMBRECOMUNA; ?></td>  
+                                                            <td><?php echo $NOMBREPROVINCIA; ?></td>  
+                                                            <td><?php echo $NOMBREREGION; ?></td>  
+                                                            <td><?php echo $NOMBRETPRODUCTOR; ?></td>  
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

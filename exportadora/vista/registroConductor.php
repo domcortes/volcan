@@ -28,6 +28,7 @@ $NOTACONDUCTOR = "";
 $TELEFONOCONDUCTOR = "";
 $EMAILCONDUCTOR = "";
 $NUMERO = "";
+$CONTADOR=0;
 
 $FNOMBRE = "";
 $EMPRESA = "";
@@ -406,19 +407,22 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Numero </th>
-                                                        <th>Nombre </th>
                                                         <th class="text-center">Operaciónes</th>
+                                                        <th>Rut </th>
+                                                        <th>DV </th>
+                                                        <th>Nombre </th>
+                                                        <th>Telefono </th>
+                                                        <th>Email </th>
+                                                        <th>Nota </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYCONDUCTOR as $r) : ?>
+                                                        <?php       
+                                                            $CONTADOR+=1; 
+                                                        ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['NUMERO_CONDUCTOR']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td><?php echo $r['NOMBRE_CONDUCTOR']; ?></td>                                                                                                                                                                                                                                                                                              
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                                                                                                                                                                                                                                                             
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -458,6 +462,12 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     </div>
                                                                 </form>
                                                             </td>  
+                                                            <td><?php echo $r['RUT_CONDUCTOR']; ?></td>   
+                                                            <td><?php echo $r['DV_CONDUCTOR']; ?></td>   
+                                                            <td><?php echo $r['NOMBRE_CONDUCTOR']; ?></td>   
+                                                            <td><?php echo $r['TELEFONO_CONDUCTOR']; ?></td>  
+                                                            <td><?php echo $r['EMAIL_CONDUCTOR']; ?></td>  
+                                                            <td><?php echo $r['NOTA_CONDUCTOR']; ?></td>  
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

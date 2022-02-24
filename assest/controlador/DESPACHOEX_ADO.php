@@ -751,6 +751,43 @@ class DESPACHOEX_ADO
             die($e->getMessage());
         }
     }
+    
+    public function listarDespachoexTemporadaCBX( $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT * ,
+                                                    DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' , 
+                                                    FECHA_DESPACHOEX AS 'FECHA' ,
+                                                    FECHA_GUIA_DESPACHOEX AS 'GUIA',
+                                                    FECHAETA_DESPACHOEX AS 'ETA' ,
+                                                    FECHAETD_DESPACHOEX AS 'ETD',
+                                                    
+                                                    WEEK(FECHA_DESPACHOEX,3) AS 'SEMANA',
+                                                    WEEK(FECHA_GUIA_DESPACHOEX,3) AS 'SEMANAGUIA',
+                                                    WEEKOFYEAR(FECHA_DESPACHOEX) AS 'SEMANAISO',  
+                                                    WEEKOFYEAR(FECHA_GUIA_DESPACHOEX) AS 'SEMANAGUIAISO',  
+
+                                                    FORMAT(CANTIDAD_ENVASE_DESPACHOEX,0,'de_DE')  AS 'ENVASE',
+                                                    FORMAT(KILOS_NETO_DESPACHOEX,2,'de_DE')  AS 'NETO',
+                                                    FORMAT(KILOS_BRUTO_DESPACHOEX,2,'de_DE')  AS 'BRUTO'
+                                                FROM fruta_despachoex                                                                           
+                                                WHERE ESTADO_REGISTRO = 1            
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function listarDespachoexEmpresaTemporadaCBX($EMPRESA, $TEMPORADA)
     {
         try {
@@ -957,7 +994,7 @@ class DESPACHOEX_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -993,7 +1030,7 @@ class DESPACHOEX_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -1019,7 +1056,7 @@ class DESPACHOEX_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -1049,7 +1086,7 @@ class DESPACHOEX_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -1211,7 +1248,7 @@ class DESPACHOEX_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -1392,7 +1429,7 @@ class DESPACHOEX_ADO
             $datos=null;
 
             //	print_r($resultado);
-            //	VAR_DUMP($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;

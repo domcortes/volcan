@@ -44,10 +44,7 @@ if (isset($NOMBREUSUARIOS)) {
     //$DISABLED="disabled";
     $ARRAYYVERUSUARIOID = $USUARIO_ADO->verUsuario($IDUSUARIOS);
     foreach ($ARRAYYVERUSUARIOID as $r) :
-
         $NOMBREUSUARIO = "" . $r['NOMBRE_USUARIO'];
-        $CONTRASENA = "" . $r['CONTRASENA_USUARIO'];
-        $CCONTRASENA = "" . $r['CONTRASENA_USUARIO'];
     endforeach;
 }
 
@@ -194,11 +191,6 @@ if (isset($NOMBREUSUARIOS)) {
                                                     </h4>
                                                 </div>
                                             </div>
-                                            <h3 class="title w-p100 mt-10 mb-0 p-20">ULTIMAS 5 OPERACIONES</h3>
-                                            <div class="col-12">
-                                                <div class="media-list media-list-hover w-p100 mt-0">
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                     <!-- /.box-body -->
@@ -275,8 +267,10 @@ if (isset($NOMBREUSUARIOS)) {
             //OPERACION DE EDICION DE FILA
             if (isset($_REQUEST['EDITAR'])) {
                 $USUARIO->__SET('CONTRASENA_USUARIO', $_REQUEST['CONTRASENA']);
-                $USUARIO->__SET('ID_USUARIO', $NOMBREUSUARIOS);
+                $USUARIO->__SET('ID_USUARIO', $IDUSUARIOS);
                 $USUARIO_ADO->actualizarContrasena($USUARIO);
+
+                $AUSUARIO_ADO->agregarAusuario2('NULL',3,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de contraseña, perfil usuario","usuario_usuario",$_SESSION["ID_USUARIO"],$_SESSION["ID_USUARIO"],$_SESSION["ID_EMPRESA"],'NULL',$_SESSION['ID_TEMPORADA'] );            
                 echo '<script>
                     Swal.fire({
                         icon:"info",

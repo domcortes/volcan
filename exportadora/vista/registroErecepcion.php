@@ -37,6 +37,7 @@ $TRATAMIENTO2="";
 $IDOP = "";
 $OP = "";
 $DISABLED = "";
+$CONTADOR=0;
 
 //INICIALIZAR ARREGLOS
 $ARRAYESTANDAR = "";
@@ -465,20 +466,53 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             <table id="listar" class="table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="center">
+                                                        <th>Numero </th>
+                                                        <th>Operaciones</th>
                                                         <th>Codigo </th>
                                                         <th>Nombre </th>
-                                                        <th>Operaciones</th>
+                                                        <th>Cantidad Envase </th>
+                                                        <th>Peso Envase </th>
+                                                        <th>Peso Pallet </th>
+                                                        <th>Especies </th>
+                                                        <th>Tratamiento 1 </th>
+                                                        <th>Tratamiento 2 </th>
+                                                        <th>Producto </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYESTANDAR as $r) : ?>
+                                                            <?php 
+                                                            $CONTADOR+=1;  
+                                                            $ARRAYVERESPECIES=$ESPECIES_ADO->verEspecies($r["ID_ESPECIES"]);
+                                                            if($ARRAYVERESPECIES){
+                                                                $NOMBREESPECIES = $ARRAYVERESPECIES[0]["NOMBRE_ESPECIES"];
+                                                            }else{
+                                                                $NOMBREESPECIES="Sin Datos";
+                                                            }
+                                                            $ARRAYVERPRODUCTO=$PRODUCTO_ADO->verProducto($r["ID_PRODUCTO"]);
+                                                            if($ARRAYVERPRODUCTO){
+                                                                $NOMBREPRODUCTO = $ARRAYVERPRODUCTO[0]["NOMBRE_PRODUCTO"];
+                                                            }else{
+                                                                $NOMBREPRODUCTO="Sin Datos";
+                                                            }                                                            
+                                                            if($r["TRATAMIENTO1"]==0){
+                                                                $NOMBRETRATAMIENTO1="No Aplica";
+                                                            }else if($r["TRATAMIENTO1"]==1){
+                                                                $NOMBRETRATAMIENTO1="Si Aplica";
+                                                            }else{                                                                
+                                                                $NOMBRETRATAMIENTO1="Sin Datos";
+                                                            }                                                            
+                                                            if($r["TRATAMIENTO2"]==0){
+                                                                $NOMBRETRATAMIENTO2="No Aplica";
+                                                            }else if($r["TRATAMIENTO2"]==1){
+                                                                $NOMBRETRATAMIENTO2="Si Aplica";
+                                                            }else{                                                                
+                                                                $NOMBRETRATAMIENTO2="Sin Datos";
+                                                            }
+
+                                                            ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['CODIGO_ESTANDAR']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td><?php echo $r['NOMBRE_ESTANDAR']; ?></td>                                                                                                  
+                                                            <td><?php echo $CONTADOR; ?> </td>                                                                                                                                                                 
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -518,6 +552,15 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     </div>
                                                                 </form>
                                                             </td>
+                                                            <td><?php echo $r['CODIGO_ESTANDAR']; ?></td>      
+                                                            <td><?php echo $r['NOMBRE_ESTANDAR']; ?></td>     
+                                                            <td><?php echo $r['CANTIDAD_ENVASE_ESTANDAR']; ?></td>    
+                                                            <td><?php echo $r['PESO_ENVASE_ESTANDAR']; ?></td>    
+                                                            <td><?php echo $r['PESO_PALLET_ESTANDAR']; ?></td>  
+                                                            <td><?php echo $NOMBREESPECIES; ?></td>  
+                                                            <td><?php echo $NOMBRETRATAMIENTO1; ?></td>  
+                                                            <td><?php echo $NOMBRETRATAMIENTO2; ?></td> 
+                                                            <td><?php echo $NOMBREPRODUCTO; ?></td>                                                                  
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

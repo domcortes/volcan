@@ -360,11 +360,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Numero </th>
+                                                        <th class="text-center">Operaciónes</th>
                                                         <th>Tipo Folio</th>
                                                         <th>Empresa</th>
                                                         <th>Planta</th>
                                                         <th>Temporada</th>
-                                                        <th class="text-center">Operaciónes</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -402,11 +402,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                 <a href="#" class="text-warning hover-warning">
                                                                     <?php echo $r['NUMERO_FOLIO']; ?>
                                                                 </a>
-                                                            </td>
-                                                            <td><?php echo $TFOLIO; ?></td>
-                                                            <td><?php echo $NOMBRE_EMPRESA; ?></td>
-                                                            <td><?php echo $NOMBRE_PLANTA  ?></td>
-                                                            <td><?php echo $NOMBRE_TEMPORADA  ?></td>                                                                                                                                  
+                                                            </td>                                                                                                                             
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
@@ -446,6 +442,10 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     </div>
                                                                 </form>
                                                             </td>
+                                                            <td><?php echo $TFOLIO; ?></td>
+                                                            <td><?php echo $NOMBRE_EMPRESA; ?></td>
+                                                            <td><?php echo $NOMBRE_PLANTA  ?></td>
+                                                            <td><?php echo $NOMBRE_TEMPORADA  ?></td>     
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>
