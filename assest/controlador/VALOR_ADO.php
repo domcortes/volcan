@@ -205,9 +205,6 @@ class VALOR_ADO
                         FECHA_VALOR = ?,
                         OBSERVACION_VALOR= ?,
 
-                        ID_EMPRESA = ?,
-                        ID_TEMPORADA = ?, 
-
                         ID_USUARIOM = ? 
                 WHERE ID_VALOR= ?  ;";
             $this->conexion->prepare($query)
@@ -215,10 +212,6 @@ class VALOR_ADO
                     array(
                         $VALOR->__GET('FECHA_VALOR'),
                         $VALOR->__GET('OBSERVACION_VALOR'),
-
-                        $VALOR->__GET('ID_EMPRESA'),
-                        $VALOR->__GET('ID_TEMPORADA'),
-
                         $VALOR->__GET('ID_USUARIOM'),
                         $VALOR->__GET('ID_VALOR')
 

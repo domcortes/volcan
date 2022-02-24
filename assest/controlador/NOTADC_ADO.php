@@ -225,8 +225,6 @@ class NOTADC_ADO
                         OBSERVACIONES = ?,
                         ID_ICARGA = ?,
 
-                        ID_EMPRESA = ?,
-                        ID_TEMPORADA = ?, 
                         ID_USUARIOM = ? 
 
                 WHERE ID_NOTA= ?  ;";
@@ -238,8 +236,6 @@ class NOTADC_ADO
                         $NOTADC->__GET('OBSERVACIONES'),
                         $NOTADC->__GET('ID_ICARGA'),
 
-                        $NOTADC->__GET('ID_EMPRESA'),
-                        $NOTADC->__GET('ID_TEMPORADA'),
                         $NOTADC->__GET('ID_USUARIOM'),
 
                         $NOTADC->__GET('ID_NOTA')

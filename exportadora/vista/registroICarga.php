@@ -3659,8 +3659,6 @@ if (isset($_POST)) {
                 $ICARGA->__SET('ID_TFLETE', $_REQUEST['TFLETE']);
                 $ICARGA->__SET('ID_SEGURO', $_REQUEST['SEGURO']);
                 $ICARGA->__SET('ID_PAIS',  $_REQUEST['PAIS']);
-                $ICARGA->__SET('ID_EMPRESA',  $_REQUEST['EMPRESA']);
-                $ICARGA->__SET('ID_TEMPORADA',  $_REQUEST['TEMPORADA']);
                 $ICARGA->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $ICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
@@ -3796,8 +3794,6 @@ if (isset($_POST)) {
                     $ICARGA->__SET('ID_TFLETE', $_REQUEST['TFLETE']);
                     $ICARGA->__SET('ID_SEGURO', $_REQUEST['SEGURO']);
                     $ICARGA->__SET('ID_PAIS',  $_REQUEST['PAIS']);
-                    $ICARGA->__SET('ID_EMPRESA',  $_REQUEST['EMPRESA']);
-                    $ICARGA->__SET('ID_TEMPORADA',  $_REQUEST['TEMPORADA']);
                     $ICARGA->__SET('ID_USUARIOM', $IDUSUARIOS);
                     $ICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR

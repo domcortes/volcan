@@ -206,9 +206,6 @@ class RECHAZOPT_ADO
 
             ID_VESPECIES =?,
             ID_PRODUCTOR =?,
-            ID_EMPRESA =?, 
-            ID_PLANTA =?, 
-            ID_TEMPORADA =?, 
 
             ID_USUARIOM =?
 		WHERE ID_RECHAZO= ?;";
@@ -227,9 +224,6 @@ class RECHAZOPT_ADO
 
                         $RECHAZOPT->__GET('ID_VESPECIES'),
                         $RECHAZOPT->__GET('ID_PRODUCTOR'),
-                        $RECHAZOPT->__GET('ID_EMPRESA'),
-                        $RECHAZOPT->__GET('ID_PLANTA'),
-                        $RECHAZOPT->__GET('ID_TEMPORADA'),
                         
                         $RECHAZOPT->__GET('ID_USUARIOM'),
                         $RECHAZOPT->__GET('ID_RECHAZO')

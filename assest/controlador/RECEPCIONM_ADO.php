@@ -48,7 +48,7 @@ class RECEPCIONM_ADO {
     public function listarRecepcion(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_recepcionm` limit 8 WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_recepcionm  limit 8 WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -67,7 +67,7 @@ class RECEPCIONM_ADO {
     public function listarRecepcionCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_recepcionm` WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_recepcionm  WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -86,7 +86,7 @@ class RECEPCIONM_ADO {
     public function listarRecepcion2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_recepcionm` WHERE ESTADO_REGISTRO = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_recepcionm  WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -107,7 +107,7 @@ class RECEPCIONM_ADO {
     public function verRecepcion($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_recepcionm` WHERE `ID_RECEPCION`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  material_recepcionm  WHERE  ID_RECEPCION = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -130,8 +130,8 @@ class RECEPCIONM_ADO {
                                                 DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                 DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
                                                 FECHA_RECEPCION AS 'FECHA' 
-                                            FROM `material_recepcionm` 
-                                                WHERE `ID_RECEPCION`= '".$ID."';");
+                                            FROM  material_recepcionm  
+                                                WHERE  ID_RECEPCION = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -154,8 +154,8 @@ class RECEPCIONM_ADO {
                                                 DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                 DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
                                                 DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y') AS 'FECHA' 
-                                            FROM `material_recepcionm` 
-                                                WHERE `ID_RECEPCION`= '".$ID."';");
+                                            FROM  material_recepcionm  
+                                                WHERE  ID_RECEPCION = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -189,32 +189,32 @@ class RECEPCIONM_ADO {
                 $RECEPCIONM->__SET('ID_PRODUCTOR', NULL);
             }
             $query=
-            "INSERT INTO `material_recepcionm` (`NUMERO_RECEPCION`,
-                                                `FECHA_RECEPCION`,
-                                                `TRECEPCION`,
-                                                `SNOCOMPRA`,
-                                                `NUMERO_DOCUMENTO_RECEPCION`,
-                                                `PATENTE_CAMION`,
-                                                `PATENTE_CARRO`,
-                                                `OBSERVACIONES_RECEPCION`,                                                
-                                                `ID_EMPRESA`,
-                                                `ID_PLANTA`,
-                                                `ID_TEMPORADA`,
-                                                `ID_BODEGA`,
-                                                `ID_TDOCUMENTO`,
-                                                `ID_TRANSPORTE`,
-                                                `ID_CONDUCTOR`,
-                                                `ID_PROVEEDOR`,
-                                                `ID_OCOMPRA`,
-                                                `ID_PLANTA2`,
-                                                `ID_PRODUCTOR`,
-                                                `ID_USUARIOI`,
-                                                `ID_USUARIOM`,
-                                                `INGRESO`,
-                                                `MODIFICACION`,
-                                                `TOTAL_CANTIDAD_RECEPCION`,
-                                                `ESTADO`,
-                                                `ESTADO_REGISTRO`) VALUES
+            "INSERT INTO  material_recepcionm  ( NUMERO_RECEPCION ,
+                                                 FECHA_RECEPCION ,
+                                                 TRECEPCION ,
+                                                 SNOCOMPRA ,
+                                                 NUMERO_DOCUMENTO_RECEPCION ,
+                                                 PATENTE_CAMION ,
+                                                 PATENTE_CARRO ,
+                                                 OBSERVACIONES_RECEPCION ,                                                
+                                                 ID_EMPRESA ,
+                                                 ID_PLANTA ,
+                                                 ID_TEMPORADA ,
+                                                 ID_BODEGA ,
+                                                 ID_TDOCUMENTO ,
+                                                 ID_TRANSPORTE ,
+                                                 ID_CONDUCTOR ,
+                                                 ID_PROVEEDOR ,
+                                                 ID_OCOMPRA ,
+                                                 ID_PLANTA2 ,
+                                                 ID_PRODUCTOR ,
+                                                 ID_USUARIOI ,
+                                                 ID_USUARIOM ,
+                                                 INGRESO ,
+                                                 MODIFICACION ,
+                                                 TOTAL_CANTIDAD_RECEPCION ,
+                                                 ESTADO ,
+                                                 ESTADO_REGISTRO ) VALUES
 	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(), 0,  1, 1);";
             $this->conexion->prepare($query)
             ->execute(
@@ -251,7 +251,7 @@ class RECEPCIONM_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarRecepcion($id){
-        try{$sql="DELETE FROM `material_recepcionm` WHERE `ID_RECEPCION`=".$id.";";
+        try{$sql="DELETE FROM  material_recepcionm  WHERE  ID_RECEPCION =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -276,29 +276,26 @@ class RECEPCIONM_ADO {
                 $RECEPCIONM->__SET('ID_PRODUCTOR', NULL);
             }
             $query = "
-		UPDATE `material_recepcionm` SET
-            `MODIFICACION`= SYSDATE(),
-            `FECHA_RECEPCION`= ?,
-            `TRECEPCION`= ?,
-            `SNOCOMPRA`= ?,
-            `NUMERO_DOCUMENTO_RECEPCION`= ?,
-            `PATENTE_CAMION`= ?,
-            `PATENTE_CARRO`= ?,
-            `OBSERVACIONES_RECEPCION`= ?,
-            `TOTAL_CANTIDAD_RECEPCION`= ?,
-            `ID_EMPRESA`= ?,
-            `ID_PLANTA`= ?,
-            `ID_TEMPORADA`= ?,
-            `ID_BODEGA`= ?,
-            `ID_TDOCUMENTO`= ?,
-            `ID_TRANSPORTE`= ?,
-            `ID_CONDUCTOR`= ?,
-            `ID_PROVEEDOR`= ?,
-            `ID_OCOMPRA`= ?,
-            `ID_PLANTA2`= ?,
-            `ID_PRODUCTOR`= ?,
-            `ID_USUARIOM` = ?  
-		WHERE `ID_RECEPCION`= ?;";
+		UPDATE  material_recepcionm  SET
+             MODIFICACION = SYSDATE(),
+             FECHA_RECEPCION = ?,
+             TRECEPCION = ?,
+             SNOCOMPRA = ?,
+             NUMERO_DOCUMENTO_RECEPCION = ?,
+             PATENTE_CAMION = ?,
+             PATENTE_CARRO = ?,
+             OBSERVACIONES_RECEPCION = ?,
+             TOTAL_CANTIDAD_RECEPCION = ?,
+             ID_BODEGA = ?,
+             ID_TDOCUMENTO = ?,
+             ID_TRANSPORTE = ?,
+             ID_CONDUCTOR = ?,
+             ID_PROVEEDOR = ?,
+             ID_OCOMPRA = ?,
+             ID_PLANTA2 = ?,
+             ID_PRODUCTOR = ?,
+             ID_USUARIOM  = ?  
+		WHERE  ID_RECEPCION = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(    
@@ -309,10 +306,7 @@ class RECEPCIONM_ADO {
                     $RECEPCIONM->__GET('PATENTE_CAMION')  ,  
                     $RECEPCIONM->__GET('PATENTE_CARRO')  ,         
                     $RECEPCIONM->__GET('OBSERVACIONES_RECEPCION')  , 
-                    $RECEPCIONM->__GET('TOTAL_CANTIDAD_RECEPCION') ,
-                    $RECEPCIONM->__GET('ID_EMPRESA')  ,  
-                    $RECEPCIONM->__GET('ID_PLANTA')  ,  
-                    $RECEPCIONM->__GET('ID_TEMPORADA')  ,  
+                    $RECEPCIONM->__GET('TOTAL_CANTIDAD_RECEPCION') , 
                     $RECEPCIONM->__GET('ID_BODEGA')  ,     
                     $RECEPCIONM->__GET('ID_TDOCUMENTO')  ,       
                     $RECEPCIONM->__GET('ID_TRANSPORTE')  ,       
@@ -343,10 +337,10 @@ class RECEPCIONM_ADO {
 
         try{
             $query = "
-    UPDATE `material_recepcionm` SET			
-    `MODIFICACION`= SYSDATE(),		
-            `ESTADO` = 0
-    WHERE `ID_RECEPCION`= ?;";
+    UPDATE  material_recepcionm  SET			
+     MODIFICACION = SYSDATE(),		
+             ESTADO  = 0
+    WHERE  ID_RECEPCION = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -364,10 +358,10 @@ class RECEPCIONM_ADO {
     public function abierto(RECEPCIONM $RECEPCIONM){
         try{
             $query = "
-    UPDATE `material_recepcionm` SET				
-    `MODIFICACION`= SYSDATE(),	
-            `ESTADO` = 1
-    WHERE `ID_RECEPCION`= ?;";
+    UPDATE  material_recepcionm  SET				
+     MODIFICACION = SYSDATE(),	
+             ESTADO  = 1
+    WHERE  ID_RECEPCION = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -388,10 +382,10 @@ class RECEPCIONM_ADO {
 
         try{
             $query = "
-    UPDATE `material_recepcionm` SET			
-    `MODIFICACION`= SYSDATE(),		
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_RECEPCION`= ?;";
+    UPDATE  material_recepcionm  SET			
+     MODIFICACION = SYSDATE(),		
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_RECEPCION = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -409,10 +403,10 @@ class RECEPCIONM_ADO {
     public function habilitar(RECEPCIONM $RECEPCIONM){
         try{
             $query = "
-    UPDATE `material_recepcionm` SET				
-    `MODIFICACION`= SYSDATE(),	
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_RECEPCION`= ?;";
+    UPDATE  material_recepcionm  SET				
+     MODIFICACION = SYSDATE(),	
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_RECEPCION = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -435,7 +429,7 @@ class RECEPCIONM_ADO {
 
 
             $datos = $this->conexion->prepare(" SELECT *
-                                            FROM `material_recepcionm`
+                                            FROM  material_recepcionm 
                                             WHERE 
                                                  FECHA_RECEPCION LIKE '" . $FECHARECEPCION . "'
                                                  AND OBSERVACIONES_RECEPCION LIKE '" . $OBSERVACIONESRECEPCION . "'  
@@ -487,7 +481,7 @@ class RECEPCIONM_ADO {
     {
         try {
             $datos = $this->conexion->prepare(" SELECT  IFNULL(COUNT(NUMERO_RECEPCION),0) AS 'NUMERO'
-                                                FROM `material_recepcionm`
+                                                FROM  material_recepcionm 
                                                 WHERE  
                                                     ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_PLANTA = '" . $PLANTA . "'
@@ -518,8 +512,8 @@ class RECEPCIONM_ADO {
                                                         FECHA_RECEPCION AS 'FECHA',
                                                         WEEK(FECHA_RECEPCION,3) AS 'SEMANA',                                                     
                                                         WEEKOFYEAR(FECHA_RECEPCION) AS 'SEMANAISO',
-                                                        IFNULL(`TOTAL_CANTIDAD_RECEPCION`,0) AS 'CANTIDAD'
-                                             FROM `material_recepcionm`
+                                                        IFNULL( TOTAL_CANTIDAD_RECEPCION ,0) AS 'CANTIDAD'
+                                             FROM  material_recepcionm 
                                              WHERE ESTADO_REGISTRO = 1 
                                              AND ESTADO = 0
                                              AND ID_EMPRESA = '".$IDEMPRESA."' 
@@ -549,8 +543,8 @@ class RECEPCIONM_ADO {
                                                         FECHA_RECEPCION AS 'FECHA',
                                                         WEEK(FECHA_RECEPCION,3) AS 'SEMANA',                                                     
                                                         WEEKOFYEAR(FECHA_RECEPCION) AS 'SEMANAISO',
-                                                        IFNULL(`TOTAL_CANTIDAD_RECEPCION`,0) AS 'CANTIDAD'
-                                             FROM `material_recepcionm`
+                                                        IFNULL( TOTAL_CANTIDAD_RECEPCION ,0) AS 'CANTIDAD'
+                                             FROM  material_recepcionm 
                                              WHERE ESTADO_REGISTRO = 1 
                                              AND ID_EMPRESA = '".$IDEMPRESA."' 
                                              AND ID_PLANTA = '".$IDPLANTA."'
@@ -576,8 +570,8 @@ class RECEPCIONM_ADO {
                                                 DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',
                                                 DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y') AS 'FECHA',
-                                                FORMAT(IFNULL(`TOTAL_CANTIDAD_RECEPCION`,0),0,'de_DE') AS 'CANTIDAD'
-                                             FROM `material_recepcionm`
+                                                FORMAT(IFNULL( TOTAL_CANTIDAD_RECEPCION ,0),0,'de_DE') AS 'CANTIDAD'
+                                             FROM  material_recepcionm 
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_EMPRESA = '".$IDEMPRESA."' 
                                                 AND ID_PLANTA = '".$IDPLANTA."'
@@ -604,8 +598,8 @@ class RECEPCIONM_ADO {
                                                 DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',
                                                 DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y') AS 'FECHA',
-                                                IFNULL(`TOTAL_CANTIDAD_RECEPCION`,0) AS 'CANTIDAD'
-                                             FROM `material_recepcionm`
+                                                IFNULL( TOTAL_CANTIDAD_RECEPCION ,0) AS 'CANTIDAD'
+                                             FROM  material_recepcionm 
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_EMPRESA = '" . $IDEMPRESA . "' 
                                                 AND ID_TEMPORADA = '" . $IDTEMPORADA . "'  ;	");
@@ -630,8 +624,8 @@ class RECEPCIONM_ADO {
                                                 DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',
                                                 DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y') AS 'FECHA',
-                                                FORMAT(IFNULL(`TOTAL_CANTIDAD_RECEPCION`,0),0,'de_DE') AS 'CANTIDAD'
-                                             FROM `material_recepcionm`
+                                                FORMAT(IFNULL( TOTAL_CANTIDAD_RECEPCION ,0),0,'de_DE') AS 'CANTIDAD'
+                                             FROM  material_recepcionm 
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_EMPRESA = '" . $IDEMPRESA . "' 
                                                 AND ID_TEMPORADA = '" . $IDTEMPORADA . "'  ;	");
@@ -654,8 +648,8 @@ class RECEPCIONM_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT * 
-                                                IFNULL(SUM(`TOTAL_CANTIDAD_RECEPCION`),0) AS 'CANTIDAD'
-                                            FROM `material_recepcionm`
+                                                IFNULL(SUM( TOTAL_CANTIDAD_RECEPCION ),0) AS 'CANTIDAD'
+                                            FROM  material_recepcionm 
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_EMPRESA = '".$IDEMPRESA."' 
                                                 AND ID_PLANTA = '".$IDPLANTA."'
@@ -678,8 +672,8 @@ class RECEPCIONM_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT 
-                                                FORMAT(IFNULL(SUM(`TOTAL_CANTIDAD_RECEPCION`),0),0,'de_DE') AS 'CANTIDAD'
-                                             FROM `material_recepcionm`
+                                                FORMAT(IFNULL(SUM( TOTAL_CANTIDAD_RECEPCION ),0),0,'de_DE') AS 'CANTIDAD'
+                                             FROM  material_recepcionm 
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_EMPRESA = '".$IDEMPRESA."' 
                                                 AND ID_PLANTA = '".$IDPLANTA."'
@@ -703,8 +697,8 @@ class RECEPCIONM_ADO {
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                FORMAT(IFNULL(SUM(`TOTAL_CANTIDAD_RECEPCION`),0),0,'de_DE') AS 'CANTIDAD'
-                                             FROM `material_recepcionm`
+                                                FORMAT(IFNULL(SUM( TOTAL_CANTIDAD_RECEPCION ),0),0,'de_DE') AS 'CANTIDAD'
+                                             FROM  material_recepcionm 
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_EMPRESA = '" . $IDEMPRESA . "' 
                                                 AND ID_TEMPORADA = '" . $IDTEMPORADA . "'  ;	");

@@ -1438,9 +1438,6 @@ if (isset($_POST)) {
             }
             $RECEPCIONIND->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
             $RECEPCIONIND->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
-            $RECEPCIONIND->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-            $RECEPCIONIND->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-            $RECEPCIONIND->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
             $RECEPCIONIND->__SET('ID_USUARIOM', $IDUSUARIOS);
             $RECEPCIONIND->__SET('ID_RECEPCION', $_REQUEST['IDP']);
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
@@ -1512,9 +1509,6 @@ if (isset($_POST)) {
                     $TRECEPCIONE=3;
                 }
                 $RECEPCIONE->__SET('TRECEPCION', $TRECEPCIONE);
-                $RECEPCIONE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-                $RECEPCIONE->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-                $RECEPCIONE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
                 $RECEPCIONE->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
                 $RECEPCIONE->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);  
                 $RECEPCIONE->__SET('ID_BODEGA', $_REQUEST['BODEGA']);
@@ -1604,9 +1598,6 @@ if (isset($_POST)) {
                 }
                 $RECEPCIONIND->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
                 $RECEPCIONIND->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
-                $RECEPCIONIND->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-                $RECEPCIONIND->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-                $RECEPCIONIND->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
                 $RECEPCIONIND->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $RECEPCIONIND->__SET('ID_RECEPCION', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
@@ -1708,9 +1699,6 @@ if (isset($_POST)) {
                         $TRECEPCIONE=3;
                     }
                     $RECEPCIONE->__SET('TRECEPCION', $TRECEPCIONE);
-                    $RECEPCIONE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-                    $RECEPCIONE->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-                    $RECEPCIONE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
                     $RECEPCIONE->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
                     $RECEPCIONE->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);  
                     $RECEPCIONE->__SET('ID_BODEGA', $_REQUEST['BODEGA']);
@@ -1729,9 +1717,9 @@ if (isset($_POST)) {
                             $INVENTARIOE->__SET('TRECEPCION',  $_REQUEST['TRECEPCIONE']);
                             $INVENTARIOE->__SET('CANTIDAD_ENTRADA', $r["ENVASE"]);
                             $INVENTARIOE->__SET('VALOR_UNITARIO', 0);
-                            $INVENTARIOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-                            $INVENTARIOE->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-                            $INVENTARIOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
+                            $INVENTARIOE->__SET('ID_EMPRESA', $ARRAYRECEPCIONE[0]["ID_EMPRESA"]);
+                            $INVENTARIOE->__SET('ID_PLANTA', $ARRAYRECEPCIONE[0]["ID_PLANTA"]);
+                            $INVENTARIOE->__SET('ID_TEMPORADA', $ARRAYRECEPCIONE[0]["ID_TEMPORADA"]);
                             $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGA']);
                             $INVENTARIOE->__SET('ID_PRODUCTO', $r["ID_PRODUCTO"]);
                             $INVENTARIOE->__SET('ID_TUMEDIDA', $r["ID_TUMEDIDA"]);

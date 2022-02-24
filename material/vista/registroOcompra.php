@@ -868,9 +868,6 @@ if (isset($_POST)) {
                     $OCOMPRA->__SET('TOTAL_CANTIDAD_OCOMPRA', $_REQUEST['TOTALCANTIDAD']);
                     $OCOMPRA->__SET('TOTAL_VALOR_OCOMPRA', $_REQUEST['TOTALVALOR']);
                     $OCOMPRA->__SET('OBSERVACIONES_OCOMPRA', $_REQUEST['OBSERVACION']);
-                    $OCOMPRA->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-                    $OCOMPRA->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-                    $OCOMPRA->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
                     $OCOMPRA->__SET('ID_RESPONSABLE', $_REQUEST['RESPONSABLEE']);
                     $OCOMPRA->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDORE']);
                     $OCOMPRA->__SET('ID_TMONEDA', $_REQUEST['TMONEDAE']);
@@ -945,9 +942,6 @@ if (isset($_POST)) {
                     $OCOMPRA->__SET('TOTAL_CANTIDAD_OCOMPRA', $_REQUEST['TOTALCANTIDAD']);
                     $OCOMPRA->__SET('TOTAL_VALOR_OCOMPRA', $_REQUEST['TOTALVALOR']);
                     $OCOMPRA->__SET('OBSERVACIONES_OCOMPRA', $_REQUEST['OBSERVACION']);
-                    $OCOMPRA->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-                    $OCOMPRA->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-                    $OCOMPRA->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
                     $OCOMPRA->__SET('ID_RESPONSABLE', $_REQUEST['RESPONSABLEE']);
                     $OCOMPRA->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDORE']);
                     $OCOMPRA->__SET('ID_TMONEDA', $_REQUEST['TMONEDAE']);

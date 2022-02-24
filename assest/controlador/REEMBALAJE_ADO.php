@@ -252,9 +252,6 @@ class REEMBALAJE_ADO
                         ID_TREEMBALAJE =?,
                         ID_VESPECIES =?,
                         ID_PRODUCTOR =?,
-                        ID_EMPRESA =?, 
-                        ID_PLANTA =?, 
-                        ID_TEMPORADA =?, 
 
                         ID_USUARIOM =?
                     WHERE ID_REEMBALAJE= ?;";
@@ -283,9 +280,6 @@ class REEMBALAJE_ADO
                         $REEMBALAJE->__GET('ID_TREEMBALAJE'),
                         $REEMBALAJE->__GET('ID_VESPECIES'),
                         $REEMBALAJE->__GET('ID_PRODUCTOR'),
-                        $REEMBALAJE->__GET('ID_EMPRESA'),
-                        $REEMBALAJE->__GET('ID_PLANTA'),
-                        $REEMBALAJE->__GET('ID_TEMPORADA'),
 
                         $REEMBALAJE->__GET('ID_USUARIOM'),
 

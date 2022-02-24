@@ -213,8 +213,6 @@ class FICHA_ADO {
                       MODIFICACION  = SYSDATE(),
                       OBSERVACIONES_FICHA  = ?,
                       ID_ESTANDAR  = ?,
-                      ID_EMPRESA  = ?,
-                      ID_TEMPORADA  = ? ,
                       ID_USUARIOM  = ?   
                 WHERE   ID_FICHA  = ?;";
             $this->conexion->prepare($query)
@@ -222,8 +220,6 @@ class FICHA_ADO {
                 array(
                     $FICHA->__GET('OBSERVACIONES_FICHA') ,
                     $FICHA->__GET('ID_ESTANDAR') ,
-                    $FICHA->__GET('ID_EMPRESA'),
-                    $FICHA->__GET('ID_TEMPORADA')  ,
                     $FICHA->__GET('ID_USUARIOM'),
                     $FICHA->__GET('ID_FICHA')
                     

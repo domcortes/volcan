@@ -1167,8 +1167,6 @@ if (isset($_POST)) {
                 $NOTADC->__SET('TNOTA', $_REQUEST['TNOTAE']);
                 $NOTADC->__SET('OBSERVACIONES', $_REQUEST['OBSERVACIONINOTA']);
                 $NOTADC->__SET('ID_ICARGA', $_REQUEST['ICARGADE']);
-                $NOTADC->__SET('ID_EMPRESA',  $_REQUEST['EMPRESA']);
-                $NOTADC->__SET('ID_TEMPORADA',  $_REQUEST['TEMPORADA']);
                 $NOTADC->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $NOTADC->__SET('ID_NOTA', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
@@ -1254,8 +1252,6 @@ if (isset($_POST)) {
                     $NOTADC->__SET('TNOTA', $_REQUEST['TNOTAE']);
                     $NOTADC->__SET('OBSERVACIONES', $_REQUEST['OBSERVACIONINOTA']);
                     $NOTADC->__SET('ID_ICARGA', $_REQUEST['ICARGADE']);
-                    $NOTADC->__SET('ID_EMPRESA',  $_REQUEST['EMPRESA']);
-                    $NOTADC->__SET('ID_TEMPORADA',  $_REQUEST['TEMPORADA']);
                     $NOTADC->__SET('ID_USUARIOM', $IDUSUARIOS);
                     $NOTADC->__SET('ID_NOTA', $_REQUEST['IDP']);
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR

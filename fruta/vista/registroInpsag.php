@@ -1141,8 +1141,6 @@ if (isset($_POST)) {
                 $INPSAG->__SET('ID_PAIS2', $_REQUEST['PAIS2E']);
                 $INPSAG->__SET('ID_PAIS3', $_REQUEST['PAIS3E']);
                 $INPSAG->__SET('ID_PAIS4', $_REQUEST['PAIS4E']);
-                $INPSAG->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-                $INPSAG->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
                 $INPSAG->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $INPSAG->__SET('ID_INPSAG', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
@@ -1232,8 +1230,6 @@ if (isset($_POST)) {
                         $INPSAG->__SET('ID_PAIS2', $_REQUEST['PAIS2E']);
                         $INPSAG->__SET('ID_PAIS3', $_REQUEST['PAIS3E']);
                         $INPSAG->__SET('ID_PAIS4', $_REQUEST['PAIS4E']);
-                        $INPSAG->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-                        $INPSAG->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
                         $INPSAG->__SET('ID_USUARIOM', $IDUSUARIOS);
                         $INPSAG->__SET('ID_INPSAG', $_REQUEST['IDP']);
                         //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR

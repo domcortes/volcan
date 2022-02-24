@@ -1336,9 +1336,6 @@ if (isset($_POST)) {
                 }
                 $RECEPCIONPT->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
                 $RECEPCIONPT->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
-                $RECEPCIONPT->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-                $RECEPCIONPT->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-                $RECEPCIONPT->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
                 $RECEPCIONPT->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $RECEPCIONPT->__SET('ID_RECEPCION', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
@@ -1423,9 +1420,6 @@ if (isset($_POST)) {
                     }
                     $RECEPCIONPT->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
                     $RECEPCIONPT->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
-                    $RECEPCIONPT->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-                    $RECEPCIONPT->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-                    $RECEPCIONPT->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
                     $RECEPCIONPT->__SET('ID_USUARIOM', $IDUSUARIOS);
                     $RECEPCIONPT->__SET('ID_RECEPCION', $_REQUEST['IDP']);
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR

@@ -1417,9 +1417,6 @@ if (isset($_POST)) {
                 if ($_REQUEST['TRECEPCIONE'] == "3") {
                     $RECEPCIONM->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
                 }
-                $RECEPCIONM->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-                $RECEPCIONM->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-                $RECEPCIONM->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
                 $RECEPCIONM->__SET('ID_BODEGA', $_REQUEST['BODEGAE']);
                 $RECEPCIONM->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTOE']);
                 $RECEPCIONM->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
@@ -1537,9 +1534,6 @@ if (isset($_POST)) {
                     if ($_REQUEST['TRECEPCIONE'] == "3") {
                         $RECEPCIONM->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
                     }
-                    $RECEPCIONM->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-                    $RECEPCIONM->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-                    $RECEPCIONM->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
                     $RECEPCIONM->__SET('ID_BODEGA', $_REQUEST['BODEGAE']);
                     $RECEPCIONM->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTOE']);
                     $RECEPCIONM->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);

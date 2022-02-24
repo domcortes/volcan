@@ -800,8 +800,6 @@ if (isset($_POST)) {
             if (isset($_REQUEST['EDITAR'])) {
                 $FICHA->__SET('OBSERVACIONES_FICHA', $_REQUEST['OBSERVACION']);
                 $FICHA->__SET('ID_ESTANDAR', $_REQUEST['ESTANDARE']);
-                $FICHA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-                $FICHA->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
                 $FICHA->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $FICHA->__SET('ID_FICHA', $_REQUEST['IDP']);
                 $FICHA_ADO->actualizarFicha($FICHA);
@@ -865,8 +863,6 @@ if (isset($_POST)) {
                 if ($SINO == "0") {
                     $FICHA->__SET('OBSERVACIONES_FICHA', $_REQUEST['OBSERVACION']);
                     $FICHA->__SET('ID_ESTANDAR', $_REQUEST['ESTANDARE']);
-                    $FICHA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-                    $FICHA->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
                     $FICHA->__SET('ID_USUARIOM', $IDUSUARIOS);
                     $FICHA->__SET('ID_FICHA', $_REQUEST['IDP']);
                     $FICHA_ADO->actualizarFicha($FICHA);

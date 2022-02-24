@@ -590,8 +590,6 @@ class ICARGA_ADO
             ID_TFLETE = ?,
             ID_SEGURO = ?,
             ID_PAIS = ?, 
-            ID_EMPRESA = ?,
-            ID_TEMPORADA = ?,
             ID_USUARIOM = ?  
 		WHERE ID_ICARGA = ?  ;";
             $this->conexion->prepare($query)
@@ -655,8 +653,6 @@ class ICARGA_ADO
                         $ICARGA->__GET('ID_TFLETE'),
                         $ICARGA->__GET('ID_SEGURO'),
                         $ICARGA->__GET('ID_PAIS'),
-                        $ICARGA->__GET('ID_EMPRESA'),
-                        $ICARGA->__GET('ID_TEMPORADA'),
                         $ICARGA->__GET('ID_USUARIOM'),
                         $ICARGA->__GET('ID_ICARGA')
 
