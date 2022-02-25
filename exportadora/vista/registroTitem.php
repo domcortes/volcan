@@ -111,7 +111,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
         foreach ($ARRAYTITEMID as $r) :
             $NOMBRETITEM = "" . $r['NOMBRE_TITEM'];
-            $TAITEM = "" . $r['ITAITEM'];
+            $TAITEM = "" . $r['TAITEM'];
         endforeach;
     }
 
@@ -193,7 +193,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../../assest/config/menuExpo.php"; ?>
+            <?php  include_once "../../assest/config/menuExpo.php"; ?>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <div class="container-full">
@@ -240,7 +240,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 </div>
                                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                     <div class="form-group">
-                                                        <label>Tipo Productor</label>
+                                                        <label>Tipo Agrupado Liquidación</label>
                                                         <select class="form-control select2" id="TAITEM" name="TAITEM" style="width: 100%;" value="<?php echo $TAITEM; ?>" <?php echo $DISABLED; ?>>
                                                             <option></option>
                                                             <option value="1" <?php if ($TAITEM == "1") { echo "selected";} ?>>Agrupado 1</option>
@@ -301,11 +301,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                     <?php foreach ($ARRAYTITEM as $r) : ?>
                                                         <?php 
                                                             $CONTADOR+=1;     
-                                                           if($r['ID_TAITEM']==1){
+                                                           if($r['TAITEM']=="1"){
                                                                 $NOMBRETAITEM=  "Agrupado 1";
-                                                           }else    if($r['ID_TAITEM']==2){
+                                                           }else    if($r['TAITEM']=="2"){
                                                                 $NOMBRETAITEM=  "Agrupado 2";
-                                                           }else  if($r['ID_TAITEM']==3){
+                                                           }else  if($r['TAITEM']=="3"){
                                                                 $NOMBRETAITEM=  "Agrupado 3";
                                                            }else{
                                                                 $NOMBRETAITEM="Sin Datos";
