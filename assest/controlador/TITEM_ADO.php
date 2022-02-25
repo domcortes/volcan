@@ -152,7 +152,7 @@ class TITEM_ADO
                 "INSERT INTO  liquidacion_titem  (
                                                  NUMERO_TITEM , 
                                                  NOMBRE_TITEM , 
-                                                 ID_TAITEM,
+                                                 TAITEM,
                                                  ID_EMPRESA , 
                                                  ID_USUARIOI , 
                                                  ID_USUARIOM ,
@@ -167,7 +167,7 @@ class TITEM_ADO
 
                         $TITEM->__GET('NUMERO_TITEM'),
                         $TITEM->__GET('NOMBRE_TITEM'),
-                        $TITEM->__GET('ID_TAITEM'),
+                        $TITEM->__GET('TAITEM'),
                         $TITEM->__GET('ID_EMPRESA'),
                         $TITEM->__GET('ID_USUARIOI'),
                         $TITEM->__GET('ID_USUARIOM')
@@ -203,14 +203,14 @@ class TITEM_ADO
 		UPDATE  liquidacion_titem  SET
              MODIFICACION= SYSDATE(),
              NOMBRE_TITEM = ?,
-             ID_TAITEM = ?,
+             TAITEM = ?,
              ID_USUARIOM = ?            
 		WHERE  ID_TITEM = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
                         $TITEM->__GET('NOMBRE_TITEM'),
-                        $TITEM->__GET('ID_TAITEM'),
+                        $TITEM->__GET('TAITEM'),
                         $TITEM->__GET('ID_USUARIOM'),
                         $TITEM->__GET('ID_TITEM')
 

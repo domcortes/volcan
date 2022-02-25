@@ -11,10 +11,10 @@ class TITEM {
     private	  $ID_TITEM; 
     private	  $NUMERO_TITEM;
     private	  $NOMBRE_TITEM;
+    private   $TAITEM; 
     private   $ESTADO_REGISTRO; 
     private   $INGRESO; 
     private   $MODIFICACION; 
-    private   $ID_TAITEM; 
     private   $ID_EMPRESA; 
     private   $ID_USUARIOI; 
     private   $ID_USUARIOM; 
