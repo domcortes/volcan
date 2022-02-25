@@ -341,9 +341,6 @@ class DESPACHOM_ADO
                         ID_PLANTA3 = ?,
                         ID_CLIENTE = ?,
 
-                        ID_EMPRESA = ?,
-                        ID_PLANTA = ?, 
-                        ID_TEMPORADA = ?, 
                         ID_USUARIOM = ? 
                 WHERE ID_DESPACHO= ?  ;";
             $this->conexion->prepare($query)
@@ -371,9 +368,6 @@ class DESPACHOM_ADO
                         $DESPACHOM->__GET('ID_PLANTA3'),
                         $DESPACHOM->__GET('ID_CLIENTE'),
 
-                        $DESPACHOM->__GET('ID_EMPRESA'),
-                        $DESPACHOM->__GET('ID_PLANTA'),
-                        $DESPACHOM->__GET('ID_TEMPORADA'),
                         $DESPACHOM->__GET('ID_USUARIOM'),
                         $DESPACHOM->__GET('ID_DESPACHO')
 

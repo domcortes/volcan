@@ -206,7 +206,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                             <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
                                     <div class="box-header with-border bg-primary">                                        
-                                        <h4 class="box-title">Registro Etiqueta</h4>                                
+                                        <h4 class="box-title">Registro Agrupado Item Liquidación</h4>                                
                                     </div>
                                     <!-- /.box-header -->
                                     <form class="form" role="form" method="post" name="form_reg_dato"  id="form_reg_dato" >
@@ -256,7 +256,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                             <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                 <div class="box">
                                     <div class="box-header with-border bg-info">
-                                        <h4 class="box-title">Agrupado Etiqueta </h4>
+                                        <h4 class="box-title">Agrupado Agrupado Item Liquidación </h4>
                                     </div>
                                     <div class="box-body">
                                         <div class="table-responsive">

@@ -224,9 +224,6 @@ class PCDESPACHO_ADO
                     FECHA_PCDESPACHO = ?,
                     MOTIVO_PCDESPACHO= ?,
                     TINPUSDA= ?,
-                    ID_EMPRESA = ?,
-                    ID_PLANTA = ?, 
-                    ID_TEMPORADA = ?, 
                     ID_USUARIOM = ?             
 		WHERE ID_PCDESPACHO= ?;";
             $this->conexion->prepare($query)
@@ -237,9 +234,6 @@ class PCDESPACHO_ADO
                         $PCDESPACHO->__GET('FECHA_PCDESPACHO'),
                         $PCDESPACHO->__GET('MOTIVO_PCDESPACHO'),
                         $PCDESPACHO->__GET('TINPUSDA'),
-                        $PCDESPACHO->__GET('ID_EMPRESA'),
-                        $PCDESPACHO->__GET('ID_PLANTA'),
-                        $PCDESPACHO->__GET('ID_TEMPORADA'),
                         $PCDESPACHO->__GET('ID_USUARIOM'),
                         $PCDESPACHO->__GET('ID_PCDESPACHO')
 

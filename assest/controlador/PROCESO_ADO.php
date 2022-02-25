@@ -243,9 +243,7 @@ class PROCESO_ADO
             ID_VESPECIES =?,
             ID_PRODUCTOR =?,
             ID_TPROCESO =?,
-            ID_EMPRESA =?, 
-            ID_PLANTA =?, 
-            ID_TEMPORADA =?, 
+
             ID_USUARIOM =?
 
 		WHERE ID_PROCESO= ?;";
@@ -274,9 +272,7 @@ class PROCESO_ADO
                         $PROCESO->__GET('ID_VESPECIES'),
                         $PROCESO->__GET('ID_PRODUCTOR'),
                         $PROCESO->__GET('ID_TPROCESO'),
-                        $PROCESO->__GET('ID_EMPRESA'),
-                        $PROCESO->__GET('ID_PLANTA'),
-                        $PROCESO->__GET('ID_TEMPORADA'),
+                        
                         $PROCESO->__GET('ID_USUARIOM'),
 
                         $PROCESO->__GET('ID_PROCESO')

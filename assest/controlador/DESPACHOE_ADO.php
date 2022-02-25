@@ -453,9 +453,6 @@ class DESPACHOE_ADO
                         ID_DESPACHOMP = ?,
                         ID_BODEGAO = ?,
 
-                        ID_EMPRESA = ?,
-                        ID_PLANTA = ?, 
-                        ID_TEMPORADA = ?, 
                         ID_USUARIOM = ? 
                 WHERE ID_DESPACHO= ?  ;";
             $this->conexion->prepare($query)
@@ -485,9 +482,6 @@ class DESPACHOE_ADO
                         $DESPACHOE->__GET('ID_DESPACHOMP'),
                         $DESPACHOE->__GET('ID_BODEGAO'),
 
-                        $DESPACHOE->__GET('ID_EMPRESA'),
-                        $DESPACHOE->__GET('ID_PLANTA'),
-                        $DESPACHOE->__GET('ID_TEMPORADA'),
                         $DESPACHOE->__GET('ID_USUARIOM'),
                         $DESPACHOE->__GET('ID_DESPACHO')
 

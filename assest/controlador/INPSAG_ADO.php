@@ -347,8 +347,6 @@ class INPSAG_ADO
                 ID_PAIS2 = ?, 
                 ID_PAIS3 = ?, 
                 ID_PAIS4 = ?, 
-                ID_PLANTA = ?, 
-                ID_TEMPORADA = ?, 
                 ID_USUARIOM = ?
             WHERE ID_INPSAG= ?;";
             $this->conexion->prepare($query)
@@ -370,8 +368,6 @@ class INPSAG_ADO
                         $INPSAG->__GET('ID_PAIS2'),
                         $INPSAG->__GET('ID_PAIS3'),
                         $INPSAG->__GET('ID_PAIS4'),
-                        $INPSAG->__GET('ID_PLANTA'),
-                        $INPSAG->__GET('ID_TEMPORADA'),
                         $INPSAG->__GET('ID_USUARIOM'),
                         $INPSAG->__GET('ID_INPSAG')
 

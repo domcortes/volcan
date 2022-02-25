@@ -1263,8 +1263,6 @@ if (isset($_POST)) {
             if (isset($_REQUEST['EDITAR'])) {                
                 $VALOR->__SET('FECHA_VALOR', $_REQUEST['FECHAVALOR']);
                 $VALOR->__SET('OBSERVACION_VALOR', $_REQUEST['OBSERVACIONIVALOR']);
-                $VALOR->__SET('ID_EMPRESA',  $_REQUEST['EMPRESA']);
-                $VALOR->__SET('ID_TEMPORADA',  $_REQUEST['TEMPORADA']);
                 $VALOR->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $VALOR->__SET('ID_VALOR', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
@@ -1356,8 +1354,6 @@ if (isset($_POST)) {
                 if ($SINO == "0") {
                     $VALOR->__SET('FECHA_VALOR', $_REQUEST['FECHAVALOR']);
                     $VALOR->__SET('OBSERVACION_VALOR', $_REQUEST['OBSERVACIONIVALOR']);
-                    $VALOR->__SET('ID_EMPRESA',  $_REQUEST['EMPRESA']);
-                    $VALOR->__SET('ID_TEMPORADA',  $_REQUEST['TEMPORADA']);
                     $VALOR->__SET('ID_USUARIOM', $IDUSUARIOS);
                     $VALOR->__SET('ID_VALOR', $_REQUEST['IDP']);
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR

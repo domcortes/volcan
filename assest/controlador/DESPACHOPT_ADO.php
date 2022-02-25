@@ -317,9 +317,6 @@ class DESPACHOPT_ADO
                 ID_COMPRADOR = ?,
                 ID_CONDUCTOR = ?,
                 ID_TRANSPORTE = ?, 
-                ID_EMPRESA = ?,
-                ID_PLANTA = ?, 
-                ID_TEMPORADA = ?, 
                 ID_USUARIOM = ?
 		WHERE ID_DESPACHO= ?;";
             $this->conexion->prepare($query)
@@ -344,9 +341,6 @@ class DESPACHOPT_ADO
                         $DESPACHOPT->__GET('ID_COMPRADOR'),
                         $DESPACHOPT->__GET('ID_CONDUCTOR'),
                         $DESPACHOPT->__GET('ID_TRANSPORTE'),
-                        $DESPACHOPT->__GET('ID_EMPRESA'),
-                        $DESPACHOPT->__GET('ID_PLANTA'),
-                        $DESPACHOPT->__GET('ID_TEMPORADA'),
                         $DESPACHOPT->__GET('ID_USUARIOM'),
                         $DESPACHOPT->__GET('ID_DESPACHO')
 

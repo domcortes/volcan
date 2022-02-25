@@ -1398,9 +1398,6 @@ if (isset($_POST)) {
                     if ($_REQUEST['TRECEPCIONE'] == "5") {
                         $RECEPCIONE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
                     }
-                    $RECEPCIONE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-                    $RECEPCIONE->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-                    $RECEPCIONE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
                     $RECEPCIONE->__SET('ID_BODEGA', $_REQUEST['BODEGA']);
                     $RECEPCIONE->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTOE']);
                     $RECEPCIONE->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
@@ -1489,9 +1486,6 @@ if (isset($_POST)) {
                     if ($_REQUEST['TRECEPCIONE'] == "5") {
                         $RECEPCIONE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
                     }
-                    $RECEPCIONE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-                    $RECEPCIONE->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-                    $RECEPCIONE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
                     $RECEPCIONE->__SET('ID_BODEGA', $_REQUEST['BODEGA']);
                     $RECEPCIONE->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTOE']);
                     $RECEPCIONE->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);

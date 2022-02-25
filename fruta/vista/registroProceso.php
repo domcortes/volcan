@@ -1319,9 +1319,6 @@ if (isset($_POST)) {
             $PROCESO->__SET('ID_VESPECIES',  $_REQUEST['VESPECIESE']);
             $PROCESO->__SET('ID_PRODUCTOR',  $_REQUEST['PRODUCTORE']);
             $PROCESO->__SET('ID_TPROCESO', $_REQUEST['TPROCESOE']);
-            $PROCESO->__SET('ID_EMPRESA',  $_REQUEST['EMPRESAE']);
-            $PROCESO->__SET('ID_PLANTA',  $_REQUEST['PLANTAE']);
-            $PROCESO->__SET('ID_TEMPORADA',  $_REQUEST['TEMPORADAE']);
             $PROCESO->__SET('ID_USUARIOM', $IDUSUARIOS);
             $PROCESO->__SET('ID_PROCESO', $_REQUEST['IDP']);
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
@@ -1427,9 +1424,6 @@ if (isset($_POST)) {
                 $PROCESO->__SET('ID_VESPECIES',  $_REQUEST['VESPECIESE']);
                 $PROCESO->__SET('ID_PRODUCTOR',  $_REQUEST['PRODUCTORE']);
                 $PROCESO->__SET('ID_TPROCESO', $_REQUEST['TPROCESOE']);
-                $PROCESO->__SET('ID_EMPRESA',  $_REQUEST['EMPRESAE']);
-                $PROCESO->__SET('ID_PLANTA',  $_REQUEST['PLANTAE']);
-                $PROCESO->__SET('ID_TEMPORADA',  $_REQUEST['TEMPORADAE']);
                 $PROCESO->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $PROCESO->__SET('ID_PROCESO', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR

@@ -1307,9 +1307,6 @@ if (isset($_POST)) {
                 $REEMBALAJE->__SET('ID_VESPECIES', $_REQUEST['VESPECIESE']);
                 $REEMBALAJE->__SET('ID_PRODUCTOR',  $_REQUEST['PRODUCTORE']);
                 $REEMBALAJE->__SET('ID_TREEMBALAJE', $_REQUEST['TREEMBALAJEE']);
-                $REEMBALAJE->__SET('ID_EMPRESA',  $_REQUEST['EMPRESAE']);
-                $REEMBALAJE->__SET('ID_PLANTA',  $_REQUEST['PLANTAE']);
-                $REEMBALAJE->__SET('ID_TEMPORADA',  $_REQUEST['TEMPORADAE']);
                 $REEMBALAJE->__SET('ID_REEMBALAJE', $_REQUEST['IDP']);
                 $REEMBALAJE->__SET('ID_USUARIOM', $IDUSUARIOS);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
@@ -1407,9 +1404,6 @@ if (isset($_POST)) {
                     $REEMBALAJE->__SET('ID_VESPECIES', $_REQUEST['VESPECIESE']);
                     $REEMBALAJE->__SET('ID_PRODUCTOR',  $_REQUEST['PRODUCTORE']);
                     $REEMBALAJE->__SET('ID_TREEMBALAJE', $_REQUEST['TREEMBALAJEE']);
-                    $REEMBALAJE->__SET('ID_EMPRESA',  $_REQUEST['EMPRESAE']);
-                    $REEMBALAJE->__SET('ID_PLANTA',  $_REQUEST['PLANTAE']);
-                    $REEMBALAJE->__SET('ID_TEMPORADA',  $_REQUEST['TEMPORADAE']);
                     $REEMBALAJE->__SET('ID_REEMBALAJE', $_REQUEST['IDP']);
                     $REEMBALAJE->__SET('ID_USUARIOM', $IDUSUARIOS);
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR

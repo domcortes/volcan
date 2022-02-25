@@ -1314,9 +1314,6 @@ if (isset($_POST)) {
                 if ($_REQUEST['TDESPACHOE'] == "7") {
                     $DESPACHOM->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
                 }
-                $DESPACHOM->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-                $DESPACHOM->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-                $DESPACHOM->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
                 $DESPACHOM->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $DESPACHOM->__SET('ID_DESPACHO', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
@@ -1412,9 +1409,6 @@ if (isset($_POST)) {
                     if ($_REQUEST['TDESPACHOE'] == "7") {
                         $DESPACHOM->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
                     }
-                    $DESPACHOM->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-                    $DESPACHOM->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-                    $DESPACHOM->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
                     $DESPACHOM->__SET('ID_USUARIOM', $IDUSUARIOS);
                     $DESPACHOM->__SET('ID_DESPACHO', $_REQUEST['IDP']);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR

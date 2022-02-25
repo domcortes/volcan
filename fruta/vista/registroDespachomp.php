@@ -1560,9 +1560,6 @@ if (isset($_POST)) {
                     $DESPACHOMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
                     $DESPACHOMP->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
                 }
-                $DESPACHOMP->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-                $DESPACHOMP->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-                $DESPACHOMP->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
                 $DESPACHOMP->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $DESPACHOMP->__SET('ID_DESPACHO', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
@@ -1679,9 +1676,6 @@ if (isset($_POST)) {
                     $DESPACHOE->__SET('TDESPACHO', $TDESPACHOE);
                     $DESPACHOE->__SET('ID_BODEGAO', $_REQUEST['BODEGA']);
                     $DESPACHOE->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTOE']);
-                    $DESPACHOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-                    $DESPACHOE->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-                    $DESPACHOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
                     $DESPACHOE->__SET('ID_DESPACHOMP', $_REQUEST['IDP']);
                     $DESPACHOE->__SET('ID_USUARIOM', $IDUSUARIOS);
                     $DESPACHOE->__SET('ID_DESPACHO', $ARRAYDESPACHOE[0]["ID_DESPACHO"]);
@@ -1781,9 +1775,6 @@ if (isset($_POST)) {
                         $DESPACHOMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
                         $DESPACHOMP->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
                     }
-                    $DESPACHOMP->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-                    $DESPACHOMP->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-                    $DESPACHOMP->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
                     $DESPACHOMP->__SET('ID_USUARIOM', $IDUSUARIOS);
                     $DESPACHOMP->__SET('ID_DESPACHO', $_REQUEST['IDP']);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
@@ -1950,9 +1941,6 @@ if (isset($_POST)) {
                         $DESPACHOE->__SET('TDESPACHO', $TDESPACHOE);
                         $DESPACHOE->__SET('ID_BODEGAO', $_REQUEST['BODEGA']);
                         $DESPACHOE->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTOE']);
-                        $DESPACHOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-                        $DESPACHOE->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-                        $DESPACHOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
                         $DESPACHOE->__SET('ID_DESPACHOMP', $_REQUEST['IDP']);
                         $DESPACHOE->__SET('ID_USUARIOM', $IDUSUARIOS);
                         $DESPACHOE->__SET('ID_DESPACHO', $ARRAYDESPACHOE[0]["ID_DESPACHO"]);
@@ -1968,9 +1956,9 @@ if (isset($_POST)) {
                                 $INVENTARIOE->__SET('TDESPACHOE',  $_REQUEST['TDESPACHOE']);
                                 $INVENTARIOE->__SET('CANTIDAD_SALIDA', $r["ENVASE"]);
                                 $INVENTARIOE->__SET('VALOR_UNITARIO', 0);
-                                $INVENTARIOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-                                $INVENTARIOE->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-                                $INVENTARIOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
+                                $INVENTARIOE->__SET('ID_EMPRESA', $ARRAYDESPACHOE[0]["ID_EMPRESA"]);
+                                $INVENTARIOE->__SET('ID_PLANTA', $ARRAYDESPACHOE[0]["ID_PLANTA"]);
+                                $INVENTARIOE->__SET('ID_TEMPORADA', $ARRAYDESPACHOE[0]["ID_TEMPORADA"]);
                                 $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGA']);
                                 $INVENTARIOE->__SET('ID_PRODUCTO', $r["ID_PRODUCTO"]);
                                 $INVENTARIOE->__SET('ID_TUMEDIDA', $r["ID_TUMEDIDA"]);

@@ -1440,9 +1440,6 @@ if (isset($_POST)) {
                 if ($_REQUEST['TDESPACHOE'] == "8") {
                     $DESPACHOE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
                 }
-                $DESPACHOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-                $DESPACHOE->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-                $DESPACHOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
                 $DESPACHOE->__SET('CANTIDAD_DESPACHO', $_REQUEST['TOTALCANTIDAD']);
                 $DESPACHOE->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $DESPACHOE->__SET('ID_DESPACHO', $_REQUEST['IDP']);
@@ -1542,9 +1539,6 @@ if (isset($_POST)) {
                     if ($_REQUEST['TDESPACHOE'] == "8") {
                         $DESPACHOE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
                     }
-                    $DESPACHOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-                    $DESPACHOE->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-                    $DESPACHOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
                     $DESPACHOE->__SET('ID_USUARIOM', $IDUSUARIOS);
                     $DESPACHOE->__SET('ID_DESPACHO', $_REQUEST['IDP']);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR

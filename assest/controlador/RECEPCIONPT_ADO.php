@@ -290,9 +290,6 @@ class RECEPCIONPT_ADO
                         ID_PRODUCTOR = ?, 
                         ID_TRANSPORTE = ?, 
                         ID_CONDUCTOR = ?,
-                        ID_EMPRESA = ?,
-                        ID_PLANTA = ?, 
-                        ID_TEMPORADA = ?, 
                         ID_USUARIOM = ?
                     WHERE ID_RECEPCION= ?;";
             $this->conexion->prepare($query)
@@ -314,9 +311,6 @@ class RECEPCIONPT_ADO
                         $RECEPCIONPT->__GET('ID_PRODUCTOR'),
                         $RECEPCIONPT->__GET('ID_TRANSPORTE'),
                         $RECEPCIONPT->__GET('ID_CONDUCTOR'),
-                        $RECEPCIONPT->__GET('ID_EMPRESA'),
-                        $RECEPCIONPT->__GET('ID_PLANTA'),
-                        $RECEPCIONPT->__GET('ID_TEMPORADA'),
                         $RECEPCIONPT->__GET('ID_USUARIOM'),
                         $RECEPCIONPT->__GET('ID_RECEPCION')
 

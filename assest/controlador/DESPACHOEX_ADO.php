@@ -515,9 +515,6 @@ class DESPACHOEX_ADO
                         ID_TRANSPORTE = ?, 
                         ID_CONDUCTOR = ?,
                         ID_CONTRAPARTE = ?, 
-                        ID_EMPRESA = ?,
-                        ID_PLANTA = ?, 
-                        ID_TEMPORADA = ?, 
                         ID_USUARIOM = ?
                     WHERE ID_DESPACHOEX= ?;";
             $this->conexion->prepare($query)
@@ -566,9 +563,6 @@ class DESPACHOEX_ADO
                         $DESPACHOEX->__GET('ID_TRANSPORTE'),
                         $DESPACHOEX->__GET('ID_CONDUCTOR'),
                         $DESPACHOEX->__GET('ID_CONTRAPARTE'),
-                        $DESPACHOEX->__GET('ID_EMPRESA'),
-                        $DESPACHOEX->__GET('ID_PLANTA'),
-                        $DESPACHOEX->__GET('ID_TEMPORADA'),
                         $DESPACHOEX->__GET('ID_USUARIOM'),
                         $DESPACHOEX->__GET('ID_DESPACHOEX')
                     )

@@ -277,9 +277,6 @@ class REPALETIZAJEEX_ADO
             KILOS_NETO_ORIGINAL= ?,
             MOTIVO_REPALETIZAJE= ?,     
             SINPSAG= ?,        
-            ID_EMPRESA = ?,
-            ID_PLANTA = ?, 
-            ID_TEMPORADA = ?, 
             ID_USUARIOM = ?            
 		WHERE ID_REPALETIZAJE= ?;";
             $this->conexion->prepare($query)
@@ -291,9 +288,6 @@ class REPALETIZAJEEX_ADO
                         $REPALETIZAJEEX->__GET('KILOS_NETO_ORIGINAL'),
                         $REPALETIZAJEEX->__GET('MOTIVO_REPALETIZAJE'),
                         $REPALETIZAJEEX->__GET('SINPSAG'),
-                        $REPALETIZAJEEX->__GET('ID_EMPRESA'),
-                        $REPALETIZAJEEX->__GET('ID_PLANTA'),
-                        $REPALETIZAJEEX->__GET('ID_TEMPORADA'),
                         $REPALETIZAJEEX->__GET('ID_USUARIOM'),
                         $REPALETIZAJEEX->__GET('ID_REPALETIZAJE')
 

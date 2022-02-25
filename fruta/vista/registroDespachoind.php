@@ -1343,9 +1343,6 @@ if (isset($_POST)) {
                     $DESPACHOIND->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNAE']);
                     $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
                 }
-                $DESPACHOIND->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-                $DESPACHOIND->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-                $DESPACHOIND->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
                 $DESPACHOIND->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $DESPACHOIND->__SET('ID_DESPACHO', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
@@ -1458,9 +1455,6 @@ if (isset($_POST)) {
                         $DESPACHOIND->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNAE']);
                         $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
                     }
-                    $DESPACHOIND->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-                    $DESPACHOIND->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-                    $DESPACHOIND->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
                     $DESPACHOIND->__SET('ID_USUARIOM', $IDUSUARIOS);
                     $DESPACHOIND->__SET('ID_DESPACHO', $_REQUEST['IDP']);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
