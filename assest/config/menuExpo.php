@@ -336,7 +336,8 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
             </a>
             <ul class="treeview-menu">
                 <li><a href="registroValor.php">Registro Valor Liqui.</i></a></li>
-                <li><a href="listarValor.php">Agrupado Valor Liqui.</i></a></li>      
+                <li><a href="listarValor.php">Agrupado Valor Liqui.</i></a></li>   
+                <li><a href="registroTitem.php"></i>Item Liqui.</a></li>   
             </ul>
           </li>
         <?php  } ?>   
@@ -651,20 +652,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                   <li><a href="registroSeguro.php"></i>Seguro </a></li>
                 </ul>
               </li>  
-            <?php  } ?>           
-            <?php if($PELIQUIDACION=="1"){ ?>
-              <li class="treeview">
-                <a href="#">Liquidación
-                  <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">    
-                  <li><a href="registroTaitem.php"></i>Agrupado Item Liqui</a></li>
-                  <li><a href="registroTitem.php"></i>Item Liqui.</a></li>
-                </ul>
-              </li> 
-            <?php  } ?>
+            <?php  } ?>     
             <li class="treeview">
               <a href="#">Tipo
                 <span class="pull-left-container">

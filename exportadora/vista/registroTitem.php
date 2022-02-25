@@ -5,14 +5,12 @@ include_once "../../assest/config/validarUsuarioExpo.php";
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
 include_once '../../assest/controlador/TITEM_ADO.php';
-include_once '../../assest/controlador/TAITEM_ADO.php';
 include_once '../../assest/modelo/TITEM.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 
 $TITEM_ADO =  new TITEM_ADO();
-$TAITEM_ADO =  new TAITEM_ADO();
 //INIICIALIZAR MODELO
 $TITEM =  new TITEM();
 
@@ -41,15 +39,12 @@ $BORDER = "";
 //INICIALIZAR ARREGLOS
 $ARRAYTITEM = "";
 $ARRAYTITEMID = "";
-$ARRAYTAITEM="";
-$ARRAYVERTAITEM="";
 $ARRAYNUMERO = "";
 
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYTITEM = $TITEM_ADO->listarTitemPorEmpresaCBX($EMPRESAS);
-$ARRAYTAITEM = $TAITEM_ADO->listarTaitemPorEmpresaCBX($EMPRESAS);
 include_once "../../assest/config/validarDatosUrl.php";
 include_once "../../assest/config/datosUrl.php";
 
@@ -79,7 +74,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
         foreach ($ARRAYTITEMID as $r) :
             $NOMBRETITEM = "" . $r['NOMBRE_TITEM'];
-            $TAITEM = "" . $r['ID_TAITEM'];
+            $TAITEM = "" . $r['TAITEM'];
         endforeach;
     }
     //1 = ACTIVAR
@@ -97,7 +92,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
         foreach ($ARRAYTITEMID as $r) :
             $NOMBRETITEM = "" . $r['NOMBRE_TITEM'];
-            $TAITEM = "" . $r['ID_TAITEM'];
+            $TAITEM = "" . $r['TAITEM'];
         endforeach;
 
     }
@@ -116,7 +111,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
         foreach ($ARRAYTITEMID as $r) :
             $NOMBRETITEM = "" . $r['NOMBRE_TITEM'];
-            $TAITEM = "" . $r['ID_TAITEM'];
+            $TAITEM = "" . $r['ITAITEM'];
         endforeach;
     }
 
@@ -135,7 +130,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
         foreach ($ARRAYTITEMID as $r) :
             $NOMBRETITEM = "" . $r['NOMBRE_TITEM'];
-            $TAITEM = "" . $r['ID_TAITEM'];
+            $TAITEM = "" . $r['TAITEM'];
         endforeach;
     }
 }
@@ -248,16 +243,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label>Tipo Productor</label>
                                                         <select class="form-control select2" id="TAITEM" name="TAITEM" style="width: 100%;" value="<?php echo $TAITEM; ?>" <?php echo $DISABLED; ?>>
                                                             <option></option>
-                                                            <?php foreach ($ARRAYTAITEM as $r) : ?>
-                                                                <?php if ($ARRAYTAITEM) {    ?>
-                                                                    <option value="<?php echo $r['ID_TAITEM']; ?>" 
-                                                                    <?php if ($TAITEM == $r['ID_TAITEM']) { echo "selected";} ?>>
-                                                                        <?php echo $r['NOMBRE_TAITEM'] ?>
-                                                                    </option>
-                                                                <?php } else { ?>
-                                                                    <option>No Hay Datos Registrados </option>
-                                                                <?php } ?>
-                                                            <?php endforeach; ?>
+                                                            <option value="1" <?php if ($TAITEM == "1") { echo "selected";} ?>>Agrupado 1</option>
+                                                            <option value="2" <?php if ($TAITEM == "2") { echo "selected";} ?>>Agrupado 2</option>
+                                                            <option value="3" <?php if ($TAITEM == "3") { echo "selected";} ?>>Agrupado 3</option>
                                                         </select>
                                                         <label id="val_taitem" class="validacion"> </label>
                                                     </div>
@@ -313,9 +301,12 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                     <?php foreach ($ARRAYTITEM as $r) : ?>
                                                         <?php 
                                                             $CONTADOR+=1;     
-                                                           $ARRAYTAITEM=$TAITEM_ADO->verTaitem($r['ID_TAITEM']);
-                                                           if($ARRAYTAITEM){
-                                                                $NOMBRETAITEM=  $ARRAYTAITEM[0]["NOMBRE_TAITEM"];
+                                                           if($r['ID_TAITEM']==1){
+                                                                $NOMBRETAITEM=  "Agrupado 1";
+                                                           }else    if($r['ID_TAITEM']==2){
+                                                                $NOMBRETAITEM=  "Agrupado 2";
+                                                           }else  if($r['ID_TAITEM']==3){
+                                                                $NOMBRETAITEM=  "Agrupado 3";
                                                            }else{
                                                                 $NOMBRETAITEM="Sin Datos";
                                                            }
