@@ -285,7 +285,8 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                   <li><a href="listarFicha.php"> Agrupado Ficha</i></a></li>
                 </ul>
               </li>
-              <li><a href="listarConsumoFicha.php">Consumo Materiales</i></a></li>
+              <li><a href="listarConsumo.php">Consumo Materiales</i></a></li>
+              <li><a href="listarConsumoProceso.php">Cons. Mat. Proceso</i></a></li>
             </ul>
           </li>            
         <?php  } ?>    
