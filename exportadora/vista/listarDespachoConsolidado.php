@@ -284,6 +284,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                     <th>% Exportación Proceso</th>
                                                     <th>% Industrial Proceso</th>
                                                     <th>Total Procesado</th>
+                                                    <th>Planta Proceso</th>  
                                                     <th>Bl/AWB</th>
                                                     <th>Número Recepción MP</th>
                                                     <th>Fecha Recepción MP</th>
@@ -523,6 +524,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             $TIPORECEPCION = "Sin Datos";
                                                         }
                                                         $ARRAYPROCESO = $PROCESO_ADO->verProceso2($s['ID_PROCESO']);
+                                                        $ARRAYBUSCARPROCESOORIGEN = $EXIEXPORTACION_ADO->buscarProcesoOrigenRepaletizaje($s['FOLIO_EXIEXPORTACION'],$s['FOLIO_AUXILIAR_EXIEXPORTACION'],$s['CANTIDAD_ENVASE_EXIEXPORTACION']);
                                                         if ($ARRAYPROCESO) {
                                                             $NUMEROPROCESO = $ARRAYPROCESO[0]["NUMERO_PROCESO"];
                                                             $FECHAPROCESO = $ARRAYPROCESO[0]["FECHA"];
@@ -533,13 +535,38 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             if ($ARRAYTPROCESO) {
                                                                 $TPROCESO = $ARRAYTPROCESO[0]["NOMBRE_TPROCESO"];
                                                             }  
-                                                        } else {
-                                                            $NUMEROPROCESO = "Sin datos";
-                                                            $PORCENTAJEEXPO = "Sin datos";
-                                                            $PORCENTAJEINDUSTRIAL = "Sin datos";
-                                                            $PORCENTAJETOTAL = "Sin datos";
+                                                            $ARRAYVERPLANTA = $PLANTA_ADO->verPlanta($ARRAYPROCESO[0]['ID_PLANTA']);
+                                                            if ($ARRAYVERPLANTA) {
+                                                                $NOMBREPLANTAPROCESO = $ARRAYVERPLANTA[0]['NOMBRE_PLANTA'];
+                                                            } else {
+                                                                $NOMBREPLANTAPROCESO = "Sin Datos";
+                                                            }
+                                                        }else if ($ARRAYBUSCARPROCESOORIGEN){
+                                                            if($ARRAYBUSCARPROCESOORIGEN[0]["ID_PROCESO"]!=null){    
+                                                                $NUMEROPROCESO = $ARRAYBUSCARPROCESOORIGEN[0]["NUMERO"];
+                                                                $FECHAPROCESO = $ARRAYBUSCARPROCESOORIGEN[0]["FECHA"];
+                                                                $PORCENTAJEEXPO = number_format($ARRAYBUSCARPROCESOORIGEN[0]["PEXPO"], 2);
+                                                                $PORCENTAJEINDUSTRIAL = number_format($ARRAYBUSCARPROCESOORIGEN[0]["PIND"], 2);
+                                                                $PORCENTAJETOTAL = number_format($ARRAYBUSCARPROCESOORIGEN[0]["PTOTAL"], 2);
+                                                                $TPROCESO = $ARRAYBUSCARPROCESOORIGEN[0]["TPROCESO"];    
+                                                                $NOMBREPLANTAPROCESO =$ARRAYBUSCARPROCESOORIGEN[0]["PLANTA"];   
+                                                            }else{                                                                
+                                                                $NUMEROPROCESO = "Sin Datos";
+                                                                $PORCENTAJEEXPO = "Sin Datos";
+                                                                $PORCENTAJEINDUSTRIAL = "Sin Datos";
+                                                                $PORCENTAJETOTAL = "Sin Datos";
+                                                                $FECHAPROCESO = "";
+                                                                $TPROCESO = "Sin Datos";   
+                                                                $NOMBREPLANTAPROCESO = "Sin Datos";  
+                                                            }
+                                                        }else {
+                                                            $NUMEROPROCESO = "Sin Datos";
+                                                            $PORCENTAJEEXPO = "Sin Datos";
+                                                            $PORCENTAJEINDUSTRIAL = "Sin Datos";
+                                                            $PORCENTAJETOTAL = "Sin Datos";
                                                             $FECHAPROCESO = "";
-                                                            $TPROCESO = "Sin datos";                                                            
+                                                            $TPROCESO = "Sin Datos";   
+                                                            $NOMBREPLANTAPROCESO = "Sin Datos";                                                                  
                                                         }
                                                         $ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje2($s['ID_REEMBALAJE']);
                                                         if ($ARRAYREEMBALAJE) {
@@ -550,9 +577,9 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                                 $TREEMBALAJE = $ARRAYTREEMBALAJE[0]["NOMBRE_TREEMBALAJE"];
                                                             }
                                                         } else {
-                                                            $NUMEROREEMBALEJE = "Sin datos";
+                                                            $NUMEROREEMBALEJE = "Sin Datos";
                                                             $FECHAREEMBALEJE = "";
-                                                            $TREEMBALAJE = "Sin datos";
+                                                            $TREEMBALAJE = "Sin Datos";
                                                         }
                                                         $ARRAYRECEPCIONMPORIGEN1=$PROCESO_ADO->buscarRecepcionMpExistenciaEnProceso($s['ID_PROCESO']);
                                                         $ARRAYRECEPCIONMPORIGEN2=$REEMBALAJE_ADO->buscarProcesoRecepcionMpExistenciaEnReembalaje($s['ID_REEMBALAJE']);
@@ -661,6 +688,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $PORCENTAJEEXPO; ?></td>
                                                             <td><?php echo $PORCENTAJEINDUSTRIAL; ?></td>
                                                             <td><?php echo $PORCENTAJETOTAL; ?></td>      
+                                                            <td><?php echo $NOMBREPLANTAPROCESO; ?></td>     
                                                             <td><?php echo "No Aplica"; ?></td>                       
                                                             <td><?php echo $NUMERORECEPCIONMP; ?></td>
                                                             <td><?php echo $FECHARECEPCIONMP; ?></td>
@@ -964,6 +992,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             $TIPORECEPCION = "Sin Datos";
                                                         }
                                                         $ARRAYPROCESO = $PROCESO_ADO->verProceso2($s['ID_PROCESO']);
+                                                        $ARRAYBUSCARPROCESOORIGEN = $EXIEXPORTACION_ADO->buscarProcesoOrigenRepaletizaje($s['FOLIO_EXIEXPORTACION'],$s['FOLIO_AUXILIAR_EXIEXPORTACION'],$s['CANTIDAD_ENVASE_EXIEXPORTACION']);
                                                         if ($ARRAYPROCESO) {
                                                             $NUMEROPROCESO = $ARRAYPROCESO[0]["NUMERO_PROCESO"];
                                                             $FECHAPROCESO = $ARRAYPROCESO[0]["FECHA"];
@@ -974,13 +1003,38 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             if ($ARRAYTPROCESO) {
                                                                 $TPROCESO = $ARRAYTPROCESO[0]["NOMBRE_TPROCESO"];
                                                             }  
-                                                        } else {
-                                                            $NUMEROPROCESO = "Sin datos";
-                                                            $PORCENTAJEEXPO = "Sin datos";
-                                                            $PORCENTAJEINDUSTRIAL = "Sin datos";
-                                                            $PORCENTAJETOTAL = "Sin datos";
+                                                            $ARRAYVERPLANTA = $PLANTA_ADO->verPlanta($ARRAYPROCESO[0]['ID_PLANTA']);
+                                                            if ($ARRAYVERPLANTA) {
+                                                                $NOMBREPLANTAPROCESO = $ARRAYVERPLANTA[0]['NOMBRE_PLANTA'];
+                                                            } else {
+                                                                $NOMBREPLANTAPROCESO = "Sin Datos";
+                                                            }
+                                                        }else if ($ARRAYBUSCARPROCESOORIGEN){
+                                                            if($ARRAYBUSCARPROCESOORIGEN[0]["ID_PROCESO"]!=null){    
+                                                                $NUMEROPROCESO = $ARRAYBUSCARPROCESOORIGEN[0]["NUMERO"];
+                                                                $FECHAPROCESO = $ARRAYBUSCARPROCESOORIGEN[0]["FECHA"];
+                                                                $PORCENTAJEEXPO = number_format($ARRAYBUSCARPROCESOORIGEN[0]["PEXPO"], 2);
+                                                                $PORCENTAJEINDUSTRIAL = number_format($ARRAYBUSCARPROCESOORIGEN[0]["PIND"], 2);
+                                                                $PORCENTAJETOTAL = number_format($ARRAYBUSCARPROCESOORIGEN[0]["PTOTAL"], 2);
+                                                                $TPROCESO = $ARRAYBUSCARPROCESOORIGEN[0]["TPROCESO"];    
+                                                                $NOMBREPLANTAPROCESO =$ARRAYBUSCARPROCESOORIGEN[0]["PLANTA"];   
+                                                            }else{                                                                
+                                                                $NUMEROPROCESO = "Sin Datos";
+                                                                $PORCENTAJEEXPO = "Sin Datos";
+                                                                $PORCENTAJEINDUSTRIAL = "Sin Datos";
+                                                                $PORCENTAJETOTAL = "Sin Datos";
+                                                                $FECHAPROCESO = "";
+                                                                $TPROCESO = "Sin Datos";   
+                                                                $NOMBREPLANTAPROCESO = "Sin Datos";  
+                                                            }
+                                                        }else {
+                                                            $NUMEROPROCESO = "Sin Datos";
+                                                            $PORCENTAJEEXPO = "Sin Datos";
+                                                            $PORCENTAJEINDUSTRIAL = "Sin Datos";
+                                                            $PORCENTAJETOTAL = "Sin Datos";
                                                             $FECHAPROCESO = "";
-                                                            $TPROCESO = "Sin datos";                                                            
+                                                            $TPROCESO = "Sin Datos";   
+                                                            $NOMBREPLANTAPROCESO = "Sin Datos";                                                                  
                                                         }
                                                         $ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje2($s['ID_REEMBALAJE']);
                                                         if ($ARRAYREEMBALAJE) {
@@ -991,9 +1045,9 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                                 $TREEMBALAJE = $ARRAYTREEMBALAJE[0]["NOMBRE_TREEMBALAJE"];
                                                             }
                                                         } else {
-                                                            $NUMEROREEMBALEJE = "Sin datos";
+                                                            $NUMEROREEMBALEJE = "Sin Datos";
                                                             $FECHAREEMBALEJE = "";
-                                                            $TREEMBALAJE = "Sin datos";
+                                                            $TREEMBALAJE = "Sin Datos";
                                                         }
                                                         $ARRAYRECEPCIONMPORIGEN1=$PROCESO_ADO->buscarRecepcionMpExistenciaEnProceso($s['ID_PROCESO']);
                                                         $ARRAYRECEPCIONMPORIGEN2=$REEMBALAJE_ADO->buscarProcesoRecepcionMpExistenciaEnReembalaje($s['ID_REEMBALAJE']);
@@ -1101,6 +1155,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $PORCENTAJEEXPO; ?></td>
                                                             <td><?php echo $PORCENTAJEINDUSTRIAL; ?></td>
                                                             <td><?php echo $PORCENTAJETOTAL; ?></td> 
+                                                            <td><?php echo $NOMBREPLANTAPROCESO; ?></td>     
                                                             <td><?php echo $BOLAWBCRTICARGA; ?></td>                     
                                                             <td><?php echo $NUMERORECEPCIONMP; ?></td>
                                                             <td><?php echo $FECHARECEPCIONMP; ?></td>
@@ -1354,9 +1409,10 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
                                                             <td><?php echo "No Aplica"; ?></td>                                                                                 
                                                             <td><?php echo "No Aplica"; ?></td>
                                                             <td><?php echo "No Aplica"; ?></td>
@@ -1515,12 +1571,12 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                                 $TPROCESO = $ARRAYTPROCESO[0]["NOMBRE_TPROCESO"];
                                                             }
                                                         } else {
-                                                            $NUMEROPROCESO = "Sin datos";
+                                                            $NUMEROPROCESO = "Sin Datos";
                                                             $FECHAPROCESO = "";
-                                                            $PORCENTAJEEXPO = "Sin datos";
-                                                            $PORCENTAJEINDUSTRIAL = "Sin datos";
-                                                            $PORCENTAJETOTAL = "Sin datos";
-                                                            $TPROCESO = "Sin datos";
+                                                            $PORCENTAJEEXPO = "Sin Datos";
+                                                            $PORCENTAJEINDUSTRIAL = "Sin Datos";
+                                                            $PORCENTAJETOTAL = "Sin Datos";
+                                                            $TPROCESO = "Sin Datos";
                                                         }
                                                         $ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje2($s['ID_REEMBALAJE']);
                                                         if ($ARRAYREEMBALAJE) {
@@ -1531,9 +1587,9 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                                 $TREEMBALAJE = $ARRAYTREEMBALAJE[0]["NOMBRE_TREEMBALAJE"];
                                                             }
                                                         } else {
-                                                            $NUMEROREEMBALEJE = "Sin datos";
+                                                            $NUMEROREEMBALEJE = "Sin Datos";
                                                             $FECHAREEMBALEJE = "";
-                                                            $TREEMBALAJE = "Sin datos";
+                                                            $TREEMBALAJE = "Sin Datos";
                                                         }
                                                         $ARRAYRECEPCION = $RECEPCIONIND_ADO->verRecepcion2($s['ID_RECEPCION']);
                                                         $ARRAYDESPACHO2=$DESPACHOIND_ADO->verDespachomp2($s['ID_DESPACHO2']);
@@ -1635,9 +1691,10 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>
-                                                            <td><?php echo $PORCENTAJEEXPO; ?></td>
-                                                            <td><?php echo $PORCENTAJEINDUSTRIAL; ?></td>
-                                                            <td><?php echo $PORCENTAJETOTAL; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
                                                             <td><?php echo "No Aplica"; ?></td>
                                                             <td><?php echo "No Aplica"; ?></td>
                                                             <td><?php echo "No Aplica"; ?></td>
