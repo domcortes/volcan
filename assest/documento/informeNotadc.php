@@ -279,29 +279,35 @@ if ($ARRAYVERNOTADCNC) {
         $NOMBREMVENTA=$ARRAYMVENTA[0]["NOMBRE_MVENTA"];
       }else{
         $NOMBREMVENTA="Sin Datos";
-      }
-      if ($TEMBARQUE) {
-          if ($TEMBARQUE == "1") {
-              $ARRAYTRANSPORTE =$TRANSPORTE_ADO->verTransporte( $ARRAYICARGA[0]['ID_TRANSPORTE']);        
-              if($ARRAYTRANSPORTE){
-                $NOMBRETRANSPORTE=$ARRAYTRANSPORTE[0]["NOMBRE_TRANSPORTE"];
-              }else{
-                $NOMBRETRANSPORTE="Sin Datos";
-              }            
-              $ARRAYLCARGA =$LCARGA_ADO->verLcarga(  $ARRAYICARGA[0]['ID_LCARGA']);       
-              if($ARRAYLCARGA){
-                $NOMBREORIGEN=$ARRAYLCARGA[0]["NOMBRE_LCARGA"];
-              }else{
-                $NOMBREORIGEN="Sin Datos";
-              }
-              $ARRAYLDESTINO =$LDESTINO_ADO->verLdestino( $ARRAYICARGA[0]['ID_LDESTINO']);     
-              if($ARRAYLDESTINO){
-                $NOMBREDESTINO=$ARRAYLDESTINO[0]["NOMBRE_LDESTINO"];
-              }else{
-                $NOMBREDESTINO="Sin Datos";
-              }
-          }
-          if ($TEMBARQUE == "2") {
+      } 
+      if($TEMBARQUE){
+        if ($TEMBARQUE == "1") {
+            $NOMBRETEMBARQUE="Terrestre";
+            $CRT=$ARRAYICARGA[0]['CRT_ICARGA'];
+            $ARRAYTRANSPORTE =$TRANSPORTE_ADO->verTransporte( $ARRAYICARGA[0]['ID_TRANSPORTE']);        
+            if($ARRAYTRANSPORTE){
+              $NOMBRETRANSPORTE=$ARRAYTRANSPORTE[0]["NOMBRE_TRANSPORTE"];
+            }else{
+              $NOMBRETRANSPORTE="Sin Datos";
+            }            
+            $ARRAYLCARGA =$LCARGA_ADO->verLcarga(  $ARRAYICARGA[0]['ID_LCARGA']);       
+            if($ARRAYLCARGA){
+              $NOMBREORIGEN=$ARRAYLCARGA[0]["NOMBRE_LCARGA"];
+            }else{
+              $NOMBREORIGEN="Sin Datos";
+            }
+            $ARRAYLDESTINO =$LDESTINO_ADO->verLdestino( $ARRAYICARGA[0]['ID_LDESTINO']);     
+            if($ARRAYLDESTINO){
+              $NOMBREDESTINO=$ARRAYLDESTINO[0]["NOMBRE_LDESTINO"];
+            }else{
+              $NOMBREDESTINO="Sin Datos";
+            }
+        }
+        if ($TEMBARQUE == "2") {
+            $NOMBRETEMBARQUE="Aereo";
+            $NAVE=$ARRAYICARGA[0]['NAVE_ICARGA'];
+            $NVIAJE = $ARRAYICARGA[0]['NVIAJE_ICARGA'];
+           
             $ARRAYLAEREA = $LAEREA_ADO->verLaerea( $ARRAYICARGA[0]['ID_LAREA']);      
             if($ARRAYLAEREA){
               $NOMBRETRANSPORTE=$ARRAYLAEREA[0]["NOMBRE_LAEREA"];
@@ -320,28 +326,32 @@ if ($ARRAYVERNOTADCNC) {
             }else{
               $NOMBREDESTINO="Sin Datos";
             }
-          }
-          if ($TEMBARQUE == "3") {
-              $ARRAYNAVIERA =$NAVIERA_ADO->verNaviera( $ARRAYICARGA[0]['ID_NAVIERA']);   
-              if($ARRAYNAVIERA){
-                $NOMBRETRANSPORTE=$ARRAYNAVIERA[0]["NOMBRE_NAVIERA"];
-              }else{
-                $NOMBRETRANSPORTE="Sin Datos";
-              }            
-              $ARRAYPCARGA =$PCARGA_ADO->verPcarga(  $ARRAYICARGA[0]['ID_PCARGA']);
-              if($ARRAYPCARGA){
-                $NOMBREORIGEN=$ARRAYPCARGA[0]["NOMBRE_PCARGA"];
-              }else{
-                $NOMBREORIGEN="Sin Datos";
-              }
-              $ARRAYPDESTINO =$PDESTINO_ADO->verPdestino( $ARRAYICARGA[0]['ID_PDESTINO']);
-              if($ARRAYPDESTINO){
-                $NOMBREDESTINO=$ARRAYPDESTINO[0]["NOMBRE_PDESTINO"];
-              }else{
-                $NOMBREDESTINO="Sin Datos";
-              }
-          }
-      }               
+        }
+        if ($TEMBARQUE == "3") {
+            $NOMBRETEMBARQUE="Maritimo";
+            $NAVE  = $ARRAYICARGA[0]['NAVE_ICARGA'];
+            $NVIAJE = $ARRAYICARGA[0]['NVIAJE_ICARGA'];
+            $FECHASTACKING = $ARRAYICARGA[0]['FECHAESTACKING'];
+            $ARRAYNAVIERA =$NAVIERA_ADO->verNaviera( $ARRAYICARGA[0]['ID_NAVIERA']);   
+            if($ARRAYNAVIERA){
+              $NOMBRETRANSPORTE=$ARRAYNAVIERA[0]["NOMBRE_NAVIERA"];
+            }else{
+              $NOMBRETRANSPORTE="Sin Datos";
+            }            
+            $ARRAYPCARGA =$PCARGA_ADO->verPcarga(  $ARRAYICARGA[0]['ID_PCARGA']);
+            if($ARRAYPCARGA){
+              $NOMBREORIGEN=$ARRAYPCARGA[0]["NOMBRE_PCARGA"];
+            }else{
+              $NOMBREORIGEN="Sin Datos";
+            }
+            $ARRAYPDESTINO =$PDESTINO_ADO->verPdestino( $ARRAYICARGA[0]['ID_PDESTINO']);
+            if($ARRAYPDESTINO){
+              $NOMBREDESTINO=$ARRAYPDESTINO[0]["NOMBRE_PDESTINO"];
+            }else{
+              $NOMBREDESTINO="Sin Datos";
+            }
+        }
+  }                  
     
   }else{
       $NOMBRETRANSPORTE="Sin Datos";
