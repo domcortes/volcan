@@ -427,6 +427,391 @@ class FICHA_ADO {
         }
         
     }
+    public function listarConsumoFolioPorEmpresaTemporadaCBX($IDEMPRESA,$IDTEMPORADA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT
+                                                    detalle.FOLIO_DPEXPORTACION as 'FOLIO',
+                                                    detalle.FECHA_EMBALADO_DPEXPORTACION as 'FECHA',
+                                                    detalle.ID_ESTANDAR,
+                                                    (   SELECT  estandar.CODIGO_ESTANDAR
+                                                        FROM estandar_eexportacion estandar
+                                                        WHERE detalle.ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                    ) AS 'CODIGOESTANDAR',
+                                                    (   SELECT  estandar.NOMBRE_ESTANDAR
+                                                        FROM estandar_eexportacion estandar
+                                                        WHERE detalle.ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                    ) AS 'NOMBREESTANDAR',
+                                                    (   SELECT (  SELECT especies.NOMBRE_ESPECIES
+                                                                FROM fruta_especies especies
+                                                                WHERE estandar.ID_ESPECIES = especies.ID_ESPECIES
+                                                            )
+                                                        FROM estandar_eexportacion estandar
+                                                        WHERE detalle.ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                    ) AS 'NOMBREESPECIES',
+                                                    (   SELECT (  SELECT tetiqueta.NOMBRE_TETIQUETA
+                                                                FROM fruta_tetiqueta tetiqueta
+                                                                WHERE estandar.ID_TETIQUETA = tetiqueta.ID_TETIQUETA
+                                                            )
+                                                        FROM estandar_eexportacion estandar
+                                                        WHERE detalle.ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                    ) AS 'NOMBRETETIQUETA',
+                                                    (   SELECT (  SELECT tembalaje.NOMBRE_TEMBALAJE
+                                                                FROM fruta_tembalaje tembalaje
+                                                                WHERE estandar.ID_TEMBALAJE = tembalaje.ID_TEMBALAJE
+                                                            )
+                                                        FROM estandar_eexportacion estandar
+                                                        WHERE detalle.ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                    ) AS 'NOMBRETEMBALAJE',
+                                                    (
+                                                        SELECT
+                                                            CODIGO_PRODUCTO
+                                                        FROM material_producto
+                                                        WHERE ID_PRODUCTO = dficha.ID_PRODUCTO
+                                                    ) AS 'CODIGO',
+                                                    (
+                                                        SELECT
+                                                            NOMBRE_PRODUCTO
+                                                        FROM material_producto
+                                                        WHERE ID_PRODUCTO = dficha.ID_PRODUCTO
+                                                    ) AS 'PRODUCTO',
+                                                    (
+                                                        SELECT
+                                                            (   SELECT
+                                                                    familia.NOMBRE_FAMILIA
+                                                                FROM material_familia familia
+                                                                WHERE familia.ID_FAMILIA=producto.ID_FAMILIA
+                                                            )
+                                                        FROM material_producto producto
+                                                        WHERE producto.ID_PRODUCTO = dficha.ID_PRODUCTO
+                                                    ) AS 'FAMILIA',
+                                                    (
+                                                        SELECT
+                                                            (
+                                                                SELECT  subfamilia.NOMBRE_SUBFAMILIA
+                                                                FROM material_subfamilia subfamilia
+                                                                WHERE subfamilia.ID_SUBFAMILIA=producto.ID_SUBFAMILIA
+                                                            )
+                                                        FROM material_producto producto
+                                                        WHERE producto.ID_PRODUCTO = dficha.ID_PRODUCTO
+                                                    ) AS 'SUBFAMILIA',
+                                                    (
+                                                        SELECT
+                                                            (   SELECT  tumedida.NOMBRE_TUMEDIDA
+                                                                FROM material_tumedida tumedida
+                                                                WHERE tumedida.ID_TUMEDIDA=producto.ID_TUMEDIDA
+                                                            )
+                                                        FROM material_producto producto
+                                                        WHERE producto.ID_PRODUCTO = dficha.ID_PRODUCTO
+                                                    ) AS 'TUMEDIDA',
+                                                    SUM(detalle.CANTIDAD_ENVASE_DPEXPORTACION)  AS 'ENVASE',
+                                                    dficha.FACTOR_CONSUMO_DFICHA as 'FACTOR',
+                                                    dficha.FACTOR_CONSUMO_DFICHA * SUM(detalle.CANTIDAD_ENVASE_DPEXPORTACION) AS 'CONSUMO',
+                                                
+                                                    (   SELECT  empresa.NOMBRE_EMPRESA
+                                                        FROM principal_empresa empresa
+                                                        WHERE empresa.ID_EMPRESA=proceso.ID_EMPRESA
+                                                    ) AS 'EMPRESA',
+                                                    (   SELECT  planta.NOMBRE_PLANTA
+                                                        FROM principal_planta planta
+                                                        WHERE planta.ID_PLANTA=proceso.ID_PLANTA
+                                                    ) AS 'PLANTA',
+                                                    (   SELECT  temporada.NOMBRE_TEMPORADA
+                                                        FROM principal_temporada temporada
+                                                        WHERE temporada.ID_TEMPORADA=proceso.ID_TEMPORADA
+                                                    ) AS 'TEMPORADA'
+                                                from
+                                                    fruta_proceso proceso,
+                                                    fruta_dpexportacion detalle,
+                                                    material_ficha ficha,
+                                                    material_dficha dficha
+                                                where
+                                                    proceso.ID_PROCESO=detalle.ID_PROCESO
+                                                    and detalle.ID_ESTANDAR = ficha.ID_ESTANDAR
+                                                    and ficha.ID_FICHA = dficha.ID_FICHA
+                                                    and proceso.ESTADO_REGISTRO = 1
+                                                    and detalle.ESTADO_REGISTRO = 1
+                                                    and ficha.ESTADO_REGISTRO = 1
+                                                    and dficha.ESTADO_REGISTRO = 1
+                                                    AND ficha.ID_EMPRESA = '" . $IDEMPRESA . "'     
+                                                    AND ficha.ID_TEMPORADA = '" . $IDTEMPORADA . "'    
+                                                group by
+                                                        proceso.ID_PROCESO,
+                                                        detalle.FOLIO_DPEXPORTACION,
+                                                        detalle.ID_ESTANDAR,
+                                                        dficha.ID_PRODUCTO;
+                                                
+
+
+
+                                            ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	var_dump($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+    
+    public function listarConsumoProcesoPorEmpresaTemporadaCBX($IDEMPRESA,$IDTEMPORADA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT
+                                                proceso.ID_PROCESO,
+                                                proceso.NUMERO_PROCESO as 'NUMERO',
+                                                proceso.FECHA_PROCESO as 'FECHA',
+                                                detalle.ID_ESTANDAR,
+                                                (   SELECT  estandar.CODIGO_ESTANDAR
+                                                    FROM estandar_eexportacion estandar
+                                                    WHERE detalle.ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                ) AS 'CODIGOESTANDAR',
+                                                (   SELECT  estandar.NOMBRE_ESTANDAR
+                                                    FROM estandar_eexportacion estandar
+                                                    WHERE detalle.ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                ) AS 'NOMBREESTANDAR',
+                                                (   SELECT (  SELECT especies.NOMBRE_ESPECIES
+                                                            FROM fruta_especies especies
+                                                            WHERE estandar.ID_ESPECIES = especies.ID_ESPECIES
+                                                        )
+                                                    FROM estandar_eexportacion estandar
+                                                    WHERE detalle.ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                ) AS 'NOMBREESPECIES',
+                                                (   SELECT (  SELECT tetiqueta.NOMBRE_TETIQUETA
+                                                            FROM fruta_tetiqueta tetiqueta
+                                                            WHERE estandar.ID_TETIQUETA = tetiqueta.ID_TETIQUETA
+                                                        )
+                                                    FROM estandar_eexportacion estandar
+                                                    WHERE detalle.ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                ) AS 'NOMBRETETIQUETA',
+                                                (   SELECT (  SELECT tembalaje.NOMBRE_TEMBALAJE
+                                                            FROM fruta_tembalaje tembalaje
+                                                            WHERE estandar.ID_TEMBALAJE = tembalaje.ID_TEMBALAJE
+                                                        )
+                                                    FROM estandar_eexportacion estandar
+                                                    WHERE detalle.ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                ) AS 'NOMBRETEMBALAJE',
+                                                (
+                                                    SELECT
+                                                        CODIGO_PRODUCTO
+                                                    FROM material_producto
+                                                    WHERE ID_PRODUCTO = dficha.ID_PRODUCTO
+                                                ) AS 'CODIGO',
+                                                (
+                                                    SELECT
+                                                        NOMBRE_PRODUCTO
+                                                    FROM material_producto
+                                                    WHERE ID_PRODUCTO = dficha.ID_PRODUCTO
+                                                ) AS 'PRODUCTO',
+                                                (
+                                                    SELECT
+                                                        (   SELECT
+                                                                familia.NOMBRE_FAMILIA
+                                                            FROM material_familia familia
+                                                            WHERE familia.ID_FAMILIA=producto.ID_FAMILIA
+                                                        )
+                                                    FROM material_producto producto
+                                                    WHERE producto.ID_PRODUCTO = dficha.ID_PRODUCTO
+                                                ) AS 'FAMILIA',
+                                                (
+                                                    SELECT
+                                                        (
+                                                            SELECT  subfamilia.NOMBRE_SUBFAMILIA
+                                                            FROM material_subfamilia subfamilia
+                                                            WHERE subfamilia.ID_SUBFAMILIA=producto.ID_SUBFAMILIA
+                                                        )
+                                                    FROM material_producto producto
+                                                    WHERE producto.ID_PRODUCTO = dficha.ID_PRODUCTO
+                                                ) AS 'SUBFAMILIA',
+                                                (
+                                                    SELECT
+                                                        (   SELECT  tumedida.NOMBRE_TUMEDIDA
+                                                            FROM material_tumedida tumedida
+                                                            WHERE tumedida.ID_TUMEDIDA=producto.ID_TUMEDIDA
+                                                        )
+                                                    FROM material_producto producto
+                                                    WHERE producto.ID_PRODUCTO = dficha.ID_PRODUCTO
+                                                ) AS 'TUMEDIDA',
+                                                SUM(detalle.CANTIDAD_ENVASE_DPEXPORTACION)  AS 'ENVASE',
+                                                dficha.FACTOR_CONSUMO_DFICHA as 'FACTOR',
+                                                dficha.FACTOR_CONSUMO_DFICHA * SUM(detalle.CANTIDAD_ENVASE_DPEXPORTACION) AS 'CONSUMO',
+                                            
+                                                (   SELECT  empresa.NOMBRE_EMPRESA
+                                                    FROM principal_empresa empresa
+                                                    WHERE empresa.ID_EMPRESA=proceso.ID_EMPRESA
+                                                ) AS 'EMPRESA',
+                                                (   SELECT  planta.NOMBRE_PLANTA
+                                                    FROM principal_planta planta
+                                                    WHERE planta.ID_PLANTA=proceso.ID_PLANTA
+                                                ) AS 'PLANTA',
+                                                (   SELECT  temporada.NOMBRE_TEMPORADA
+                                                    FROM principal_temporada temporada
+                                                    WHERE temporada.ID_TEMPORADA=proceso.ID_TEMPORADA
+                                                ) AS 'TEMPORADA'
+                                            FROM
+                                                fruta_proceso proceso,
+                                                fruta_dpexportacion detalle,
+                                                material_ficha ficha,
+                                                material_dficha dficha
+                                            WHERE
+                                                proceso.ID_PROCESO=detalle.ID_PROCESO
+                                                AND detalle.ID_ESTANDAR = ficha.ID_ESTANDAR
+                                                AND ficha.ID_FICHA = dficha.ID_FICHA
+                                                AND proceso.ESTADO_REGISTRO = 1
+                                                AND detalle.ESTADO_REGISTRO = 1
+                                                AND ficha.ESTADO_REGISTRO = 1
+                                                AND dficha.ESTADO_REGISTRO = 1
+                                                AND proceso.ID_EMPRESA = '" . $IDEMPRESA . "'     
+                                                AND proceso.ID_TEMPORADA = '" . $IDTEMPORADA . "'
+                                            GROUP BY
+                                                    proceso.ID_PROCESO,
+                                                    detalle.ID_ESTANDAR,
+                                                    dficha.ID_PRODUCTO;
+        
+
+
+
+                                            ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	var_dump($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+    public function listarConsumoTotalPorEmpresaTemporadaCBX($IDEMPRESA,  $IDTEMPORADA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT
+                                                    detalle.ID_ESTANDAR,
+                                                    (   SELECT  estandar.CODIGO_ESTANDAR
+                                                        FROM estandar_eexportacion estandar
+                                                        WHERE detalle.ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                    ) AS 'CODIGOESTANDAR',
+                                                    (   SELECT  estandar.NOMBRE_ESTANDAR
+                                                        FROM estandar_eexportacion estandar
+                                                        WHERE detalle.ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                    ) AS 'NOMBREESTANDAR',
+                                                    (   SELECT (  SELECT especies.NOMBRE_ESPECIES
+                                                                FROM fruta_especies especies
+                                                                WHERE estandar.ID_ESPECIES = especies.ID_ESPECIES
+                                                            )
+                                                        FROM estandar_eexportacion estandar
+                                                        WHERE detalle.ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                    ) AS 'NOMBREESPECIES',
+                                                    (   SELECT (  SELECT tetiqueta.NOMBRE_TETIQUETA
+                                                                FROM fruta_tetiqueta tetiqueta
+                                                                WHERE estandar.ID_TETIQUETA = tetiqueta.ID_TETIQUETA
+                                                            )
+                                                        FROM estandar_eexportacion estandar
+                                                        WHERE detalle.ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                    ) AS 'NOMBRETETIQUETA',
+                                                    (   SELECT (  SELECT tembalaje.NOMBRE_TEMBALAJE
+                                                                FROM fruta_tembalaje tembalaje
+                                                                WHERE estandar.ID_TEMBALAJE = tembalaje.ID_TEMBALAJE
+                                                            )
+                                                        FROM estandar_eexportacion estandar
+                                                        WHERE detalle.ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                    ) AS 'NOMBRETEMBALAJE',
+                                                    (
+                                                        SELECT
+                                                            CODIGO_PRODUCTO
+                                                        FROM material_producto
+                                                        WHERE ID_PRODUCTO = dficha.ID_PRODUCTO
+                                                    ) AS 'CODIGO',
+                                                    (
+                                                        SELECT
+                                                            NOMBRE_PRODUCTO
+                                                        FROM material_producto
+                                                        WHERE ID_PRODUCTO = dficha.ID_PRODUCTO
+                                                    ) AS 'PRODUCTO',
+                                                    (
+                                                        SELECT
+                                                            (   SELECT
+                                                                    familia.NOMBRE_FAMILIA
+                                                                FROM material_familia familia
+                                                                WHERE familia.ID_FAMILIA=producto.ID_FAMILIA
+                                                            )
+                                                        FROM material_producto producto
+                                                        WHERE producto.ID_PRODUCTO = dficha.ID_PRODUCTO
+                                                    ) AS 'FAMILIA',
+                                                    (
+                                                        SELECT
+                                                            (
+                                                                SELECT  subfamilia.NOMBRE_SUBFAMILIA
+                                                                FROM material_subfamilia subfamilia
+                                                                WHERE subfamilia.ID_SUBFAMILIA=producto.ID_SUBFAMILIA
+                                                            )
+                                                        FROM material_producto producto
+                                                        WHERE producto.ID_PRODUCTO = dficha.ID_PRODUCTO
+                                                    ) AS 'SUBFAMILIA',
+                                                    (
+                                                        SELECT
+                                                            (   SELECT  tumedida.NOMBRE_TUMEDIDA
+                                                                FROM material_tumedida tumedida
+                                                                WHERE tumedida.ID_TUMEDIDA=producto.ID_TUMEDIDA
+                                                            )
+                                                        FROM material_producto producto
+                                                        WHERE producto.ID_PRODUCTO = dficha.ID_PRODUCTO
+                                                    ) AS 'TUMEDIDA',
+                                                    SUM(detalle.CANTIDAD_ENVASE_DPEXPORTACION)  AS 'ENVASE',
+                                                    dficha.FACTOR_CONSUMO_DFICHA as 'FACTOR',
+                                                    dficha.FACTOR_CONSUMO_DFICHA * SUM(detalle.CANTIDAD_ENVASE_DPEXPORTACION) AS 'CONSUMO',
+                                                
+                                                    (   SELECT  empresa.NOMBRE_EMPRESA
+                                                        FROM principal_empresa empresa
+                                                        WHERE empresa.ID_EMPRESA=proceso.ID_EMPRESA
+                                                    ) AS 'EMPRESA',
+                                                    (   SELECT  temporada.NOMBRE_TEMPORADA
+                                                        FROM principal_temporada temporada
+                                                        WHERE temporada.ID_TEMPORADA=proceso.ID_TEMPORADA
+                                                    ) AS 'TEMPORADA'
+                                                FROM
+                                                    fruta_proceso proceso,
+                                                    fruta_dpexportacion detalle,
+                                                    material_ficha ficha,
+                                                    material_dficha dficha
+                                                WHERE
+                                                    proceso.ID_PROCESO=detalle.ID_PROCESO
+                                                    AND detalle.ID_ESTANDAR = ficha.ID_ESTANDAR
+                                                    AND ficha.ID_FICHA = dficha.ID_FICHA
+                                                    AND proceso.ESTADO_REGISTRO = 1
+                                                    AND detalle.ESTADO_REGISTRO = 1
+                                                    AND ficha.ESTADO_REGISTRO = 1
+                                                    AND dficha.ESTADO_REGISTRO = 1
+                                                    AND ficha.ID_EMPRESA = '" . $IDEMPRESA . "'     
+                                                    AND ficha.ID_TEMPORADA = '" . $IDTEMPORADA . "'    
+                                                GROUP BY
+                                                        detalle.ID_ESTANDAR,
+                                                        dficha.ID_PRODUCTO;
+                                            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	var_dump($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
     
     public function listarConsumoFichaPorEmpresaTemporadaCBX($IDEMPRESA,  $IDTEMPORADA){
         try{

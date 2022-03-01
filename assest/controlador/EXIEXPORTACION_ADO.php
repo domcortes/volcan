@@ -46,7 +46,7 @@ class EXIEXPORTACION_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM fruta_exiexportacion limit 8;	");
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_exiexportacion LIMIT 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -110,13 +110,13 @@ class EXIEXPORTACION_ADO
     public function agregarExiexportacionRecepcion(EXIEXPORTACION $EXIEXPORTACION)
     {
         try {
-            if ($EXIEXPORTACION->__GET('ID_PLANTA2') == NULL) {
+            IF ($EXIEXPORTACION->__GET('ID_PLANTA2') == NULL) {
                 $EXIEXPORTACION->__SET('ID_PLANTA2', NULL);
             }
-            if ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
+            IF ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
                 $EXIEXPORTACION->__SET('ID_TCATEGORIA', NULL);
             }
-            if ($EXIEXPORTACION->__GET('ID_TCOLOR') == NULL) {
+            IF ($EXIEXPORTACION->__GET('ID_TCOLOR') == NULL) {
                 $EXIEXPORTACION->__SET('ID_TCOLOR', NULL);
             }
             $query =
@@ -206,7 +206,7 @@ class EXIEXPORTACION_ADO
     {
         try {
 
-            if ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
+            IF ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
                 $EXIEXPORTACION->__SET('ID_TCATEGORIA', NULL);
             }
             $query =
@@ -295,7 +295,7 @@ class EXIEXPORTACION_ADO
     {
         try {
 
-            if ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
+            IF ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
                 $EXIEXPORTACION->__SET('ID_TCATEGORIA', NULL);
             }
             $query =
@@ -388,22 +388,22 @@ class EXIEXPORTACION_ADO
     {
         try {
 
-            if ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
+            IF ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
                 $EXIEXPORTACION->__SET('ID_TCATEGORIA', NULL);
             }
-            if ($EXIEXPORTACION->__GET('ID_TCOLOR') == NULL) {
+            IF ($EXIEXPORTACION->__GET('ID_TCOLOR') == NULL) {
                 $EXIEXPORTACION->__SET('ID_TCOLOR', NULL);
             }
-            if ($EXIEXPORTACION->__GET('ID_DESPACHO2') == NULL) {
+            IF ($EXIEXPORTACION->__GET('ID_DESPACHO2') == NULL) {
                 $EXIEXPORTACION->__SET('ID_DESPACHO2', NULL);
             }
-            if ($EXIEXPORTACION->__GET('ID_INPSAG2') == NULL) {
+            IF ($EXIEXPORTACION->__GET('ID_INPSAG2') == NULL) {
                 $EXIEXPORTACION->__SET('ID_INPSAG2', NULL);
             }
-            if ($EXIEXPORTACION->__GET('ID_PLANTA3') == NULL) {
+            IF ($EXIEXPORTACION->__GET('ID_PLANTA3') == NULL) {
                 $EXIEXPORTACION->__SET('ID_PLANTA3', NULL);
             }
-            if ($EXIEXPORTACION->__GET('ID_EXIEXPORTACION2') == NULL) {
+            IF ($EXIEXPORTACION->__GET('ID_EXIEXPORTACION2') == NULL) {
                 $EXIEXPORTACION->__SET('ID_EXIEXPORTACION2', NULL);
             }
             $query =
@@ -557,22 +557,22 @@ class EXIEXPORTACION_ADO
     {
         try {
 
-            if ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
+            IF ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
                 $EXIEXPORTACION->__SET('ID_TCATEGORIA', NULL);
             }
-            if ($EXIEXPORTACION->__GET('ID_TCOLOR') == NULL) {
+            IF ($EXIEXPORTACION->__GET('ID_TCOLOR') == NULL) {
                 $EXIEXPORTACION->__SET('ID_TCOLOR', NULL);
             }
-            if ($EXIEXPORTACION->__GET('ID_DESPACHO2') == NULL) {
+            IF ($EXIEXPORTACION->__GET('ID_DESPACHO2') == NULL) {
                 $EXIEXPORTACION->__SET('ID_DESPACHO2', NULL);
             }
-            if ($EXIEXPORTACION->__GET('ID_INPSAG2') == NULL) {
+            IF ($EXIEXPORTACION->__GET('ID_INPSAG2') == NULL) {
                 $EXIEXPORTACION->__SET('ID_INPSAG2', NULL);
             }
-            if ($EXIEXPORTACION->__GET('ID_PLANTA3') == NULL) {
+            IF ($EXIEXPORTACION->__GET('ID_PLANTA3') == NULL) {
                 $EXIEXPORTACION->__SET('ID_PLANTA3', NULL);
             }
-            if ($EXIEXPORTACION->__GET('ID_EXIEXPORTACION2') == NULL) {
+            IF ($EXIEXPORTACION->__GET('ID_EXIEXPORTACION2') == NULL) {
                 $EXIEXPORTACION->__SET('ID_EXIEXPORTACION2', NULL);
             }
             $query =
@@ -741,10 +741,10 @@ class EXIEXPORTACION_ADO
     public function actualizarExiexportacionRecepcion(EXIEXPORTACION $EXIEXPORTACION)
     {
         try {
-            if ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
+            IF ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
                 $EXIEXPORTACION->__SET('ID_TCATEGORIA', NULL);
             }
-            if ($EXIEXPORTACION->__GET('ID_TCOLOR') == NULL) {
+            IF ($EXIEXPORTACION->__GET('ID_TCOLOR') == NULL) {
                 $EXIEXPORTACION->__SET('ID_TCOLOR', NULL);
             }
             $query = "
@@ -818,7 +818,7 @@ class EXIEXPORTACION_ADO
     {
         try {
 
-            if ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
+            IF ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
                 $EXIEXPORTACION->__SET('ID_TCATEGORIA', NULL);
             }
             $query = "
@@ -881,7 +881,7 @@ class EXIEXPORTACION_ADO
     {
         try {
 
-            if ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
+            IF ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
                 $EXIEXPORTACION->__SET('ID_TCATEGORIA', NULL);
             }
             $query = "
@@ -1129,11 +1129,11 @@ class EXIEXPORTACION_ADO
 
             $datos = $this->conexion->prepare("SELECT 
                                                     ID_ESTANDAR, ID_PRODUCTOR, ID_VESPECIES, ID_TCALIBRE, ID_TEMBALAJE, ID_TMANEJO, ID_EMPRESA, ID_TEMPORADA,
-                                                    if(TESTADOSAG = 1,'En Inspección', 
-                                                    if(TESTADOSAG = 2,'Aprobado Origen',
-                                                        if(TESTADOSAG = 3,'Aprobado USLA',
-                                                            if(TESTADOSAG = 4,'Fumigado',
-                                                                if(TESTADOSAG = 5,'Rechazdo','Sin Condición' ))))) AS 'TESTADOSAG', 
+                                                    IF(TESTADOSAG = 1,'En Inspección', 
+                                                    IF(TESTADOSAG = 2,'Aprobado Origen',
+                                                        IF(TESTADOSAG = 3,'Aprobado USLA',
+                                                            IF(TESTADOSAG = 4,'Fumigado',
+                                                                IF(TESTADOSAG = 5,'Rechazdo','Sin Condición' ))))) AS 'TESTADOSAG', 
                                                                 
                                                                             
                                                                                     IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0) AS 'ENVASE', 
@@ -6471,6 +6471,478 @@ class EXIEXPORTACION_ADO
             die($e->getMessage());
         }
     }
+    
+    public function buscarProcesoOrigenRepaletizaje($FOLIODREXPORTACION, $FOLIOAUXILIAREXIEXPORTACION, $CANTIDAD)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("  SELECT
+                                                            IF(existenciapt.ID_REPALETIZAJE IS NOT NULL ,
+                                                                (
+                                                                        (
+                                                                            SELECT
+                                                                                proceso.ID_PROCESO
+                                                                            FROM
+                                                                                fruta_drepaletizajeex detalle,
+                                                                                fruta_exiexportacion existencia,
+                                                                                fruta_proceso proceso
+                                                                            WHERE detalle.ESTADO_REGISTRO = 1
+                                                                            AND detalle.ID_REPALETIZAJE = existenciapt.ID_REPALETIZAJE
+                                                                            AND detalle.ID_EXIEXPORTACION = existencia.ID_EXIEXPORTACION
+                                                                            AND existencia.ID_PROCESO = proceso.ID_PROCESO
+                                                                            limit 1
+                                                                        )                                                    
+                                                                    ),IF( existenciapt.ID_DESPACHO2 IS NOT NULL ,
+                                                                            (
+                                                                                SELECT
+                                                                                            IF(existencia.ID_PROCESO IS NOT NULL,
+                                                                                                (
+                                                                                                    SELECT ID_PROCESO
+                                                                                                    FROM fruta_proceso
+                                                                                                    WHERE ID_PROCESO =existencia.ID_PROCESO                                                    
+                                                                                                    ),
+                                                                                                IF(existencia.ID_REPALETIZAJE IS NOT NULL,
+                                                                                                    (   SELECT
+                                                                                                                proceso.ID_PROCESO
+                                                                                                            FROM
+                                                                                                                fruta_drepaletizajeex detalle,
+                                                                                                                fruta_exiexportacion existencia,
+                                                                                                                fruta_proceso proceso
+                                                                                                            WHERE detalle.ESTADO_REGISTRO = 1
+                                                                                                            AND detalle.ID_REPALETIZAJE = existencia.ID_REPALETIZAJE
+                                                                                                            AND detalle.ID_EXIEXPORTACION = existencia.ID_EXIEXPORTACION
+                                                                                                            AND existencia.ID_PROCESO = proceso.ID_PROCESO
+                                                                                                            limit 1
+                                                        
+                                                                                                        ),NULL
+                                                                                                    )
+                                                                                                )
+                                                                                    FROM fruta_despachopt despacho, fruta_exiexportacion existencia
+                                                                                    WHERE despacho.ID_DESPACHO =existenciapt.ID_DESPACHO2
+                                                                                    AND existencia.FOLIO_EXIEXPORTACION = existenciapt.FOLIO_EXIEXPORTACION
+                                                                                    AND existencia.FOLIO_AUXILIAR_EXIEXPORTACION = existenciapt.FOLIO_AUXILIAR_EXIEXPORTACION
+                                                                                    AND existencia.CANTIDAD_ENVASE_EXIEXPORTACION = existenciapt.CANTIDAD_ENVASE_EXIEXPORTACION
+                                                                                    AND despacho.ID_DESPACHO= existencia.ID_DESPACHO
+                                                        
+                                                                            ),NULL
+                                                                    )
+                                                                )as 'ID_PROCESO',
+                                                            IF(existenciapt.ID_REPALETIZAJE IS NOT NULL ,
+                                                                (
+                                                                        (
+                                                                            SELECT
+                                                                                proceso.ID_PROCESO
+                                                                            FROM
+                                                                                fruta_drepaletizajeex detalle,
+                                                                                fruta_exiexportacion existencia,
+                                                                                fruta_proceso proceso
+                                                                            WHERE detalle.ESTADO_REGISTRO = 1
+                                                                            AND detalle.ID_REPALETIZAJE = existenciapt.ID_REPALETIZAJE
+                                                                            AND detalle.ID_EXIEXPORTACION = existencia.ID_EXIEXPORTACION
+                                                                            AND existencia.ID_PROCESO = proceso.ID_PROCESO
+                                                                            limit 1
+                                                                        )
+                                                    
+                                                                    ),IF( existenciapt.ID_DESPACHO2 IS NOT NULL ,
+                                                                            (
+                                                                                SELECT
+                                                                                            IF(existencia.ID_PROCESO IS NOT NULL,
+                                                                                                (
+                                                                                                    SELECT NUMERO_PROCESO
+                                                                                                    FROM fruta_proceso
+                                                                                                    WHERE ID_PROCESO =existencia.ID_PROCESO
+                                                        
+                                                                                                    ),
+                                                                                                    IF(existencia.ID_REPALETIZAJE IS NOT NULL,
+                                                                                                        (   SELECT
+                                                                                                                    proceso.NUMERO_PROCESO
+                                                                                                                FROM
+                                                                                                                    fruta_drepaletizajeex detalle,
+                                                                                                                    fruta_exiexportacion existencia,
+                                                                                                                    fruta_proceso proceso
+                                                                                                                WHERE detalle.ESTADO_REGISTRO = 1
+                                                                                                                AND detalle.ID_REPALETIZAJE = existencia.ID_REPALETIZAJE
+                                                                                                                AND detalle.ID_EXIEXPORTACION = existencia.ID_EXIEXPORTACION
+                                                                                                                AND existencia.ID_PROCESO = proceso.ID_PROCESO
+                                                                                                                limit 1
+                                                            
+                                                                                                            ),NULL
+                                                                                                    )
+                                                                                                )
+                                                                                    FROM fruta_despachopt despacho, fruta_exiexportacion existencia
+                                                                                    WHERE despacho.ID_DESPACHO =existenciapt.ID_DESPACHO2
+                                                                                    AND existencia.FOLIO_EXIEXPORTACION = existenciapt.FOLIO_EXIEXPORTACION
+                                                                                    AND existencia.FOLIO_AUXILIAR_EXIEXPORTACION = existenciapt.FOLIO_AUXILIAR_EXIEXPORTACION
+                                                                                    AND existencia.CANTIDAD_ENVASE_EXIEXPORTACION = existenciapt.CANTIDAD_ENVASE_EXIEXPORTACION
+                                                                                    AND despacho.ID_DESPACHO= existencia.ID_DESPACHO
+                                                        
+                                                                            ),NULL
+                                                                    )
+                                                                )as 'NUMERO',
+                                                            IF(existenciapt.ID_REPALETIZAJE IS NOT NULL ,
+                                                                (
+                                                                        (
+                                                                            SELECT
+                                                                                proceso.FECHA_PROCESO
+                                                                            FROM
+                                                                                fruta_drepaletizajeex detalle,
+                                                                                fruta_exiexportacion existencia,
+                                                                                fruta_proceso proceso
+                                                                            WHERE detalle.ESTADO_REGISTRO = 1
+                                                                            AND detalle.ID_REPALETIZAJE = existenciapt.ID_REPALETIZAJE
+                                                                            AND detalle.ID_EXIEXPORTACION = existencia.ID_EXIEXPORTACION
+                                                                            AND existencia.ID_PROCESO = proceso.ID_PROCESO
+                                                                            limit 1
+                                                                        )
+                                                    
+                                                                    ),IF( existenciapt.ID_DESPACHO2 IS NOT NULL ,
+                                                                            (
+                                                                                SELECT
+                                                                                            IF(existencia.ID_PROCESO IS NOT NULL,
+                                                                                                (
+                                                                                                    SELECT FECHA_PROCESO
+                                                                                                    FROM fruta_proceso
+                                                                                                    WHERE ID_PROCESO =existencia.ID_PROCESO
+                                                        
+                                                                                                    ),
+                                                                                                    IF(existencia.ID_REPALETIZAJE IS NOT NULL,
+                                                                                                        (   SELECT
+                                                                                                                    proceso.FECHA_PROCESO
+                                                                                                                FROM
+                                                                                                                    fruta_drepaletizajeex detalle,
+                                                                                                                    fruta_exiexportacion existencia,
+                                                                                                                    fruta_proceso proceso
+                                                                                                                WHERE detalle.ESTADO_REGISTRO = 1
+                                                                                                                AND detalle.ID_REPALETIZAJE = existencia.ID_REPALETIZAJE
+                                                                                                                AND detalle.ID_EXIEXPORTACION = existencia.ID_EXIEXPORTACION
+                                                                                                                AND existencia.ID_PROCESO = proceso.ID_PROCESO
+                                                                                                                limit 1
+                                                            
+                                                                                                            ),NULL
+                                                                                                    )
+                                                                                                )
+                                                                                    FROM fruta_despachopt despacho, fruta_exiexportacion existencia
+                                                                                    WHERE despacho.ID_DESPACHO =existenciapt.ID_DESPACHO2
+                                                                                    AND existencia.FOLIO_EXIEXPORTACION = existenciapt.FOLIO_EXIEXPORTACION
+                                                                                    AND existencia.FOLIO_AUXILIAR_EXIEXPORTACION = existenciapt.FOLIO_AUXILIAR_EXIEXPORTACION
+                                                                                    AND existencia.CANTIDAD_ENVASE_EXIEXPORTACION = existenciapt.CANTIDAD_ENVASE_EXIEXPORTACION
+                                                                                    AND despacho.ID_DESPACHO= existencia.ID_DESPACHO
+                                                        
+                                                                            ),NULL
+                                                                    )
+                                                                )as 'FECHA',
+                                                            IF(existenciapt.ID_REPALETIZAJE IS NOT NULL ,
+                                                                (
+                                                                        (
+                                                                            SELECT
+                                                                                proceso.PORCENTAJE_PROCESO
+                                                                            FROM
+                                                                                fruta_drepaletizajeex detalle,
+                                                                                fruta_exiexportacion existencia,
+                                                                                fruta_proceso proceso
+                                                                            WHERE detalle.ESTADO_REGISTRO = 1
+                                                                            AND detalle.ID_REPALETIZAJE = existenciapt.ID_REPALETIZAJE
+                                                                            AND detalle.ID_EXIEXPORTACION = existencia.ID_EXIEXPORTACION
+                                                                            AND existencia.ID_PROCESO = proceso.ID_PROCESO
+                                                                            limit 1
+                                                                        )                                                    
+                                                                    ),IF( existenciapt.ID_DESPACHO2 IS NOT NULL ,
+                                                                            (
+                                                                                SELECT
+                                                                                            IF(existencia.ID_PROCESO IS NOT NULL,
+                                                                                                (
+                                                                                                    SELECT PORCENTAJE_PROCESO
+                                                                                                    FROM fruta_proceso
+                                                                                                    WHERE ID_PROCESO =existencia.ID_PROCESO
+                                                        
+                                                                                                    ),
+                                                                                                    IF(existencia.ID_REPALETIZAJE IS NOT NULL,
+                                                                                                        (   SELECT
+                                                                                                                    proceso.PORCENTAJE_PROCESO
+                                                                                                                FROM
+                                                                                                                    fruta_drepaletizajeex detalle,
+                                                                                                                    fruta_exiexportacion existencia,
+                                                                                                                    fruta_proceso proceso
+                                                                                                                WHERE detalle.ESTADO_REGISTRO = 1
+                                                                                                                AND detalle.ID_REPALETIZAJE = existencia.ID_REPALETIZAJE
+                                                                                                                AND detalle.ID_EXIEXPORTACION = existencia.ID_EXIEXPORTACION
+                                                                                                                AND existencia.ID_PROCESO = proceso.ID_PROCESO
+                                                                                                                limit 1
+                                                            
+                                                                                                            ),NULL
+                                                                                                    )
+                                                                                                )
+                                                                                    FROM fruta_despachopt despacho, fruta_exiexportacion existencia
+                                                                                    WHERE despacho.ID_DESPACHO =existenciapt.ID_DESPACHO2
+                                                                                    AND existencia.FOLIO_EXIEXPORTACION = existenciapt.FOLIO_EXIEXPORTACION
+                                                                                    AND existencia.FOLIO_AUXILIAR_EXIEXPORTACION = existenciapt.FOLIO_AUXILIAR_EXIEXPORTACION
+                                                                                    AND existencia.CANTIDAD_ENVASE_EXIEXPORTACION = existenciapt.CANTIDAD_ENVASE_EXIEXPORTACION
+                                                                                    AND despacho.ID_DESPACHO= existencia.ID_DESPACHO
+                                                        
+                                                                            ),NULL
+                                                                    )
+                                                                )as 'PTOTAL',
+                                                            IF(existenciapt.ID_REPALETIZAJE IS NOT NULL ,
+                                                                (
+                                                                        (
+                                                                            SELECT
+                                                                                proceso.PDEXPORTACION_PROCESO
+                                                                            FROM
+                                                                                fruta_drepaletizajeex detalle,
+                                                                                fruta_exiexportacion existencia,
+                                                                                fruta_proceso proceso
+                                                                            WHERE detalle.ESTADO_REGISTRO = 1
+                                                                            AND detalle.ID_REPALETIZAJE = existenciapt.ID_REPALETIZAJE
+                                                                            AND detalle.ID_EXIEXPORTACION = existencia.ID_EXIEXPORTACION
+                                                                            AND existencia.ID_PROCESO = proceso.ID_PROCESO
+                                                                            limit 1
+                                                                        )
+                                                    
+                                                                    ),IF( existenciapt.ID_DESPACHO2 IS NOT NULL ,
+                                                                            (
+                                                                                SELECT
+                                                                                            IF(existencia.ID_PROCESO IS NOT NULL,
+                                                                                                (
+                                                                                                    SELECT PDEXPORTACION_PROCESO
+                                                                                                    FROM fruta_proceso
+                                                                                                    WHERE ID_PROCESO =existencia.ID_PROCESO
+                                                        
+                                                                                                    ),
+                                                                                                    IF(existencia.ID_REPALETIZAJE IS NOT NULL,
+                                                                                                        (   SELECT
+                                                                                                                    proceso.PDEXPORTACION_PROCESO
+                                                                                                                FROM
+                                                                                                                    fruta_drepaletizajeex detalle,
+                                                                                                                    fruta_exiexportacion existencia,
+                                                                                                                    fruta_proceso proceso
+                                                                                                                WHERE detalle.ESTADO_REGISTRO = 1
+                                                                                                                AND detalle.ID_REPALETIZAJE = existencia.ID_REPALETIZAJE
+                                                                                                                AND detalle.ID_EXIEXPORTACION = existencia.ID_EXIEXPORTACION
+                                                                                                                AND existencia.ID_PROCESO = proceso.ID_PROCESO
+                                                                                                                limit 1
+                                                            
+                                                                                                            ),NULL
+                                                                                                    )
+                                                                                                )
+                                                                                    FROM fruta_despachopt despacho, fruta_exiexportacion existencia
+                                                                                    WHERE despacho.ID_DESPACHO =existenciapt.ID_DESPACHO2
+                                                                                    AND existencia.FOLIO_EXIEXPORTACION = existenciapt.FOLIO_EXIEXPORTACION
+                                                                                    AND existencia.FOLIO_AUXILIAR_EXIEXPORTACION = existenciapt.FOLIO_AUXILIAR_EXIEXPORTACION
+                                                                                    AND existencia.CANTIDAD_ENVASE_EXIEXPORTACION = existenciapt.CANTIDAD_ENVASE_EXIEXPORTACION
+                                                                                    AND despacho.ID_DESPACHO= existencia.ID_DESPACHO
+                                                        
+                                                                            ),NULL
+                                                                    )
+                                                                )as 'PEXPO',
+                                                            IF(existenciapt.ID_REPALETIZAJE IS NOT NULL ,
+                                                                (
+                                                                        (
+                                                                            SELECT
+                                                                                proceso.PDINDUSTRIAL_PROCESO
+                                                                            FROM
+                                                                                fruta_drepaletizajeex detalle,
+                                                                                fruta_exiexportacion existencia,
+                                                                                fruta_proceso proceso
+                                                                            WHERE detalle.ESTADO_REGISTRO = 1
+                                                                            AND detalle.ID_REPALETIZAJE = existenciapt.ID_REPALETIZAJE
+                                                                            AND detalle.ID_EXIEXPORTACION = existencia.ID_EXIEXPORTACION
+                                                                            AND existencia.ID_PROCESO = proceso.ID_PROCESO
+                                                                            limit 1
+                                                                        )
+                                                    
+                                                                    ),IF( existenciapt.ID_DESPACHO2 IS NOT NULL ,
+                                                                            (
+                                                                                SELECT
+                                                                                            IF(existencia.ID_PROCESO IS NOT NULL,
+                                                                                                (
+                                                                                                    SELECT PDINDUSTRIAL_PROCESO
+                                                                                                    FROM fruta_proceso
+                                                                                                    WHERE ID_PROCESO =existencia.ID_PROCESO
+                                                        
+                                                                                                    ),
+                                                                                                    IF(existencia.ID_REPALETIZAJE IS NOT NULL,
+                                                                                                        (   SELECT
+                                                                                                                    proceso.PDINDUSTRIAL_PROCESO
+                                                                                                                FROM
+                                                                                                                    fruta_drepaletizajeex detalle,
+                                                                                                                    fruta_exiexportacion existencia,
+                                                                                                                    fruta_proceso proceso
+                                                                                                                WHERE detalle.ESTADO_REGISTRO = 1
+                                                                                                                AND detalle.ID_REPALETIZAJE = existencia.ID_REPALETIZAJE
+                                                                                                                AND detalle.ID_EXIEXPORTACION = existencia.ID_EXIEXPORTACION
+                                                                                                                AND existencia.ID_PROCESO = proceso.ID_PROCESO
+                                                                                                                limit 1
+                                                            
+                                                                                                            ),NULL
+                                                                                                    )
+                                                                                                )
+                                                                                    FROM fruta_despachopt despacho, fruta_exiexportacion existencia
+                                                                                    WHERE despacho.ID_DESPACHO =existenciapt.ID_DESPACHO2
+                                                                                    AND existencia.FOLIO_EXIEXPORTACION = existenciapt.FOLIO_EXIEXPORTACION
+                                                                                    AND existencia.FOLIO_AUXILIAR_EXIEXPORTACION = existenciapt.FOLIO_AUXILIAR_EXIEXPORTACION
+                                                                                    AND existencia.CANTIDAD_ENVASE_EXIEXPORTACION = existenciapt.CANTIDAD_ENVASE_EXIEXPORTACION
+                                                                                    AND despacho.ID_DESPACHO= existencia.ID_DESPACHO
+                                                        
+                                                                            ),NULL
+                                                                    )
+                                                                )as 'PIND',
+                                                            IF(existenciapt.ID_REPALETIZAJE IS NOT NULL ,
+                                                                (
+                                                                        (
+                                                                            SELECT
+                                                                                        (
+                                                                                                SELECT
+                                                                                                    NOMBRE_PLANTA
+                                                                                                FROM principal_planta
+                                                                                                WHERE ID_PLANTA = proceso.ID_PLANTA
+                                                                                            )
+                                                                            FROM
+                                                                                fruta_drepaletizajeex detalle,
+                                                                                fruta_exiexportacion existencia,
+                                                                                fruta_proceso proceso
+                                                                            WHERE detalle.ESTADO_REGISTRO = 1
+                                                                            AND detalle.ID_REPALETIZAJE = existenciapt.ID_REPALETIZAJE
+                                                                            AND detalle.ID_EXIEXPORTACION = existencia.ID_EXIEXPORTACION
+                                                                            AND existencia.ID_PROCESO = proceso.ID_PROCESO
+                                                                            limit 1
+                                                                        )
+                                                    
+                                                                    ),IF( existenciapt.ID_DESPACHO2 IS NOT NULL ,
+                                                                            (
+                                                                                SELECT
+                                                                                            IF(existencia.ID_PROCESO IS NOT NULL,
+                                                                                                (
+                                                                                                    SELECT
+                                                                                                        (
+                                                                                                            SELECT
+                                                                                                                NOMBRE_PLANTA
+                                                                                                            FROM principal_planta
+                                                                                                            WHERE ID_PLANTA = proceso.ID_PLANTA
+                                                                                                        )
+                                                                                                    FROM fruta_proceso proceso
+                                                                                                    WHERE ID_PROCESO =existencia.ID_PROCESO
+                                                                                                    ),
+                                                                                                    IF(existencia.ID_REPALETIZAJE IS NOT NULL,
+                                                                                                        (   SELECT
+                                                                                                                (
+                                                                                                                        SELECT
+                                                                                                                            NOMBRE_PLANTA
+                                                                                                                        FROM principal_planta
+                                                                                                                        WHERE ID_PLANTA = proceso.ID_PLANTA
+                                                                                                                    )
+                                                                                                                FROM
+                                                                                                                    fruta_drepaletizajeex detalle,
+                                                                                                                    fruta_exiexportacion existencia,
+                                                                                                                    fruta_proceso proceso
+                                                                                                                WHERE detalle.ESTADO_REGISTRO = 1
+                                                                                                                AND detalle.ID_REPALETIZAJE = existencia.ID_REPALETIZAJE
+                                                                                                                AND detalle.ID_EXIEXPORTACION = existencia.ID_EXIEXPORTACION
+                                                                                                                AND existencia.ID_PROCESO = proceso.ID_PROCESO
+                                                                                                                limit 1
+                                                            
+                                                                                                            ),NULL
+                                                                                                    )
+                                                                                                )
+                                                                                    FROM fruta_despachopt despacho, fruta_exiexportacion existencia
+                                                                                    WHERE despacho.ID_DESPACHO =existenciapt.ID_DESPACHO2
+                                                                                    AND existencia.FOLIO_EXIEXPORTACION = existenciapt.FOLIO_EXIEXPORTACION
+                                                                                    AND existencia.FOLIO_AUXILIAR_EXIEXPORTACION = existenciapt.FOLIO_AUXILIAR_EXIEXPORTACION
+                                                                                    AND existencia.CANTIDAD_ENVASE_EXIEXPORTACION = existenciapt.CANTIDAD_ENVASE_EXIEXPORTACION
+                                                                                    AND despacho.ID_DESPACHO= existencia.ID_DESPACHO
+                                                        
+                                                                            ),NULL
+                                                                    )
+                                                                )as 'PLANTA',
+                                                            IF(existenciapt.ID_REPALETIZAJE IS NOT NULL ,
+                                                                (
+                                                                        (
+                                                                            SELECT
+                                                                                        (
+                                                                                            SELECT
+                                                                                                NOMBRE_TPROCESO
+                                                                                            FROM fruta_tproceso
+                                                                                            WHERE ID_TPROCESO = proceso.ID_TPROCESO
+                                                                                            )
+                                                                            FROM
+                                                                                fruta_drepaletizajeex detalle,
+                                                                                fruta_exiexportacion existencia,
+                                                                                fruta_proceso proceso
+                                                                            WHERE detalle.ESTADO_REGISTRO = 1
+                                                                            AND detalle.ID_REPALETIZAJE = existenciapt.ID_REPALETIZAJE
+                                                                            AND detalle.ID_EXIEXPORTACION = existencia.ID_EXIEXPORTACION
+                                                                            AND existencia.ID_PROCESO = proceso.ID_PROCESO
+                                                                            limit 1
+                                                                        )
+                                                    
+                                                                    ),IF( existenciapt.ID_DESPACHO2 IS NOT NULL ,
+                                                                            (
+                                                                                SELECT
+                                                                                            IF(existencia.ID_PROCESO IS NOT NULL,
+                                                                                                (
+                                                                                                    SELECT
+                                                                                                        (
+                                                                                                            SELECT
+                                                                                                                NOMBRE_TPROCESO
+                                                                                                            FROM fruta_tproceso
+                                                                                                            WHERE ID_TPROCESO = proceso.ID_TPROCESO
+                                                                                                        )
+                                                                                                    FROM fruta_proceso proceso
+                                                                                                    WHERE ID_PROCESO =existencia.ID_PROCESO
+                                                                                                    ),
+                                                                                                    IF(existencia.ID_REPALETIZAJE IS NOT NULL,
+                                                                                                        (   SELECT
+                                                                                                                (
+                                                                                                                    SELECT
+                                                                                                                        NOMBRE_TPROCESO
+                                                                                                                    FROM fruta_tproceso
+                                                                                                                    WHERE ID_TPROCESO = proceso.ID_TPROCESO
+                                                                                                                    )
+                                                                                                                FROM
+                                                                                                                    fruta_drepaletizajeex detalle,
+                                                                                                                    fruta_exiexportacion existencia,
+                                                                                                                    fruta_proceso proceso
+                                                                                                                WHERE detalle.ESTADO_REGISTRO = 1
+                                                                                                                AND detalle.ID_REPALETIZAJE = existencia.ID_REPALETIZAJE
+                                                                                                                AND detalle.ID_EXIEXPORTACION = existencia.ID_EXIEXPORTACION
+                                                                                                                AND existencia.ID_PROCESO = proceso.ID_PROCESO
+                                                                                                                limit 1
+                                                            
+                                                                                                            ),NULL
+                                                                                                    )
+                                                                                                )
+                                                                                    FROM fruta_despachopt despacho, fruta_exiexportacion existencia
+                                                                                    WHERE despacho.ID_DESPACHO =existenciapt.ID_DESPACHO2
+                                                                                    AND existencia.FOLIO_EXIEXPORTACION = existenciapt.FOLIO_EXIEXPORTACION
+                                                                                    AND existencia.FOLIO_AUXILIAR_EXIEXPORTACION = existenciapt.FOLIO_AUXILIAR_EXIEXPORTACION
+                                                                                    AND existencia.CANTIDAD_ENVASE_EXIEXPORTACION = existenciapt.CANTIDAD_ENVASE_EXIEXPORTACION
+                                                                                    AND despacho.ID_DESPACHO= existencia.ID_DESPACHO
+                                                        
+                                                                            ),NULL
+                                                                    )
+                                                                )as 'TPROCESO'
+                                                    FROM fruta_exiexportacion existenciapt
+                                                    WHERE existenciapt.ESTADO_REGISTRO =1
+                                                    AND existenciapt.ID_PROCESO is null
+                                                    AND existenciapt.FOLIO_EXIEXPORTACION = '" . $FOLIODREXPORTACION . "' 
+                                                    AND existenciapt.FOLIO_AUXILIAR_EXIEXPORTACION = '" . $FOLIOAUXILIAREXIEXPORTACION . "' 
+                                                    AND existenciapt.CANTIDAD_ENVASE_EXIEXPORTACION = '" . $CANTIDAD . "' 
+
+                                            
+                                            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
 
 
     public function obtenerTotalesExistenciaBolsaDespachoe2($IDDESPACHO)

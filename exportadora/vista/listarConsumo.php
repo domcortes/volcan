@@ -75,7 +75,7 @@ $ARRAYTETIQUETA = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 if ($EMPRESAS  && $TEMPORADAS) {
-    $ARRAYFICHA = $FICHA_ADO->listarConsumoFichaPorEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
+    $ARRAYFICHA = $FICHA_ADO->listarConsumoTotalPorEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
 }
 include_once "../../assest/config/validarDatosUrl.php";
 include_once "../../assest/config/datosUrLP.php";
@@ -163,9 +163,6 @@ include_once "../../assest/config/datosUrLP.php";
                                         <table id="consumom" class="table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr>
-                                                    <th>Número Ficha </th>
-                                                    <th>Número Proceso </th>
-                                                    <th>Fecha Proceso </th>
                                                     <th>Codigo Estandar </th>
                                                     <th>Envase/Estandar </th>
                                                     <th>Especies </th>
@@ -176,22 +173,16 @@ include_once "../../assest/config/datosUrLP.php";
                                                     <th>Familia </th>
                                                     <th>Sub Familia </th>
                                                     <th>Unidad Medida </th>
-                                                    <th>Factor Consumo </th>
                                                     <th>Envases Estandar</th>
+                                                    <th>Factor Consumo </th>
                                                     <th>Total Consumo </th>
-                                                    <th>Fecha Ingreso</th>
-                                                    <th>Fecha Modificación</th>
                                                     <th>Empresa </th>
-                                                    <th>Planta </th>
                                                     <th>Temporada </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php foreach ($ARRAYFICHA as $r) : ?>
                                                             <tr>
-                                                                <td><?php echo $r['NUMERO_FICHA']; ?> </td>
-                                                                <td><?php echo $r['NUMERO_PROCESO']; ?> </td>
-                                                                <td><?php echo $r['FECHAPROCESO']; ?> </td>
                                                                 <td><?php echo $r['CODIGOESTANDAR']; ?> </td>
                                                                 <td><?php echo $r['NOMBREESTANDAR']; ?> </td>
                                                                 <td><?php echo $r['NOMBREESPECIES']; ?> </td>
@@ -202,13 +193,10 @@ include_once "../../assest/config/datosUrLP.php";
                                                                 <td><?php echo $r['FAMILIA']; ?> </td>
                                                                 <td><?php echo $r['SUBFAMILIA']; ?> </td>
                                                                 <td><?php echo $r['TUMEDIDA']; ?> </td>
-                                                                <td><?php echo $r['FACTORCONSUMO']; ?> </td>
                                                                 <td><?php echo $r['ENVASE']; ?> </td>
+                                                                <td><?php echo $r['FACTOR']; ?> </td>
                                                                 <td><?php echo $r['CONSUMO']; ?> </td>
-                                                                <td><?php echo $r['INGRESO']; ?> </td>
-                                                                <td><?php echo $r['MODIFICACION']; ?> </td>
                                                                 <td><?php echo $r['EMPRESA']; ?> </td>
-                                                                <td><?php echo $r['PLANTA']; ?> </td>
                                                                 <td><?php echo $r['TEMPORADA']; ?> </td>
                                                             </tr>
                                                 <?php endforeach; ?>
@@ -217,8 +205,7 @@ include_once "../../assest/config/datosUrLP.php";
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        
+                        </div>                        
                         <div class="box-footer">
                                 <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
                                     <div class="form-row align-items-center" role="group" aria-label="Datos">
