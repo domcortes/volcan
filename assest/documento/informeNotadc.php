@@ -123,6 +123,7 @@ $PLANTA = "";
 $TEMPORADA = "";
 $TOTALPRECIOUSNUEVO=0;
 $ITEM=0;
+$NOMBRECORTOTNOTA="";
 //INICIALIZAR ARREGLOS
 $ARRAYEMPRESA = "";
 $ARRAYPLANTA = "";
@@ -186,10 +187,13 @@ if ($ARRAYVERNOTADCNC) {
   $NOMBRERESPONSABLE = $ARRAYUSUARIO2[0]["NOMBRE_COMPLETO"];
   if($TNOTA==1){
       $NOMBRETNOTA="DEBIT";
+      $NOMBRECORTOTNOTA="ND";
   }else  if($TNOTA==2){
       $NOMBRETNOTA="CREDIT";
+      $NOMBRECORTOTNOTA="NC";
   }else{
       $NOMBRETNOTA="Sin Datos";
+      $NOMBRECORTOTNOTA="";
   }
   $ESTADO = $ARRAYVERNOTADCNC[0]['ESTADO'];
   if ($ARRAYVERNOTADCNC[0]['ESTADO'] == 1) {
@@ -505,7 +509,7 @@ $html = '
     
     <div class="titulo bcolor" >
       <div class="f20 titulo"  style="text-align: left; font-weight: bold;"> '.$NOMBRETNOTA.' NOTE  </div>    
-      <div class="f15 titulo"  style="text-align: right;">  <b>  Reference Number: ' . $NUMEROIREFERENCIA . '   </b>  </div>      
+      <div class="f15 titulo"  style="text-align: right;">  <b>  Reference Number: ' .$NOMBRECORTOTNOTA .$NUMEROIREFERENCIA . '   </b>  </div>      
     </div>   
     <br>
     <div id="details" class="clearfix">
