@@ -29,6 +29,7 @@ include_once '../../assest/controlador/VESPECIES_ADO.php';
 include_once '../../assest/controlador/TCALIBRE_ADO.php';
 include_once '../../assest/controlador/PRODUCTOR_ADO.php';
 include_once '../../assest/controlador/RFINAL_ADO.php';
+include_once '../../assest/controlador/BROKER_ADO.php';
 
 
 
@@ -70,6 +71,7 @@ $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 $TCALIBRE_ADO = new TCALIBRE_ADO();
 $RFINAL_ADO = new RFINAL_ADO();
+$BROKER_ADO = new BROKER_ADO();
 
 $ICARGA_ADO =  new ICARGA_ADO();
 $DICARGA_ADO =  new DICARGA_ADO();
@@ -182,8 +184,9 @@ include_once "../../assest/config/datosUrLP.php";
                                                     <th>Estado</th>
                                                     <th class="text-center">Operaciónes</th>
                                                     <th>Fecha Nota </th>
-                                                    <th>Tipo Nota </th>                                                    
-                                                    <th>Número Referencia  </th>
+                                                    <th>Tipo Nota </th>                                          
+                                                    <th>Número Referencia  </th>       
+                                                    <th>Cliente </th>   
                                                     <th>Recibidor Final </th>
                                                     <th>Número Invoice  </th>
                                                     <th>Motivo Nota </th>
@@ -215,11 +218,18 @@ include_once "../../assest/config/datosUrLP.php";
                                                             $NOMBRERFINAL=$ARRAYRFINAL[0]["NOMBRE_RFINAL"];
                                                         }else{
                                                             $NOMBRERFINAL="Sin Datos";
+                                                        }                                                       
+                                                        $ARRAYBROKER=$BROKER_ADO->verBroker($ARRAYICARGA[0]["ID_BROKER"]);
+                                                        if($ARRAYBROKER){
+                                                            $NOMBREBROKER=$ARRAYBROKER[0]["NOMBRE_BROKER"];
+                                                        }else{
+                                                            $NOMBREBROKER="Sin Datos";
                                                         }
                                                     }else{
                                                         $NUMEROIREFERENCIA="Sin Datos";
                                                         $NUMEROICARGA="Sin Datos";
                                                         $NOMBRERFINAL="Sin Datos";
+                                                        $NOMBREBROKER="Sin Datos";
                                                     }
 
                                                     $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
@@ -287,6 +297,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                         <td><?php echo $r['FECHA']; ?></td>
                                                         <td><?php echo $NOMBRETNOTA; ?></td>
                                                         <td><?php echo $NUMEROIREFERENCIA; ?></td>
+                                                        <td><?php echo $NOMBREBROKER; ?></td>
                                                         <td><?php echo $NOMBRERFINAL; ?></td>
                                                         <td><?php echo $NUMEROICARGA; ?></td>
                                                         <td><?php echo $r['OBSERVACIONES']; ?></td>
