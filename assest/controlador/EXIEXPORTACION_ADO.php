@@ -209,6 +209,9 @@ class EXIEXPORTACION_ADO
             IF ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
                 $EXIEXPORTACION->__SET('ID_TCATEGORIA', NULL);
             }
+            IF ($EXIEXPORTACION->__GET('ID_ICARGA') == NULL) {
+                $EXIEXPORTACION->__SET('ID_ICARGA', NULL);
+            }
             $query =
                 "INSERT INTO fruta_exiexportacion (
                                                     FOLIO_EXIEXPORTACION,
@@ -303,6 +306,9 @@ class EXIEXPORTACION_ADO
 
             IF ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
                 $EXIEXPORTACION->__SET('ID_TCATEGORIA', NULL);
+            }
+            IF ($EXIEXPORTACION->__GET('ID_ICARGA') == NULL) {
+                $EXIEXPORTACION->__SET('ID_ICARGA', NULL);
             }
             $query =
                 "INSERT INTO fruta_exiexportacion (
@@ -834,6 +840,9 @@ class EXIEXPORTACION_ADO
             IF ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
                 $EXIEXPORTACION->__SET('ID_TCATEGORIA', NULL);
             }
+            IF ($EXIEXPORTACION->__GET('ID_ICARGA') == NULL) {
+                $EXIEXPORTACION->__SET('ID_ICARGA', NULL);
+            }
             $query = "
                 UPDATE fruta_exiexportacion SET
                     MODIFICACION = SYSDATE(),
@@ -909,6 +918,9 @@ class EXIEXPORTACION_ADO
 
             IF ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
                 $EXIEXPORTACION->__SET('ID_TCATEGORIA', NULL);
+            }
+            IF ($EXIEXPORTACION->__GET('ID_ICARGA') == NULL) {
+                $EXIEXPORTACION->__SET('ID_ICARGA', NULL);
             }
             $query = "
                 UPDATE fruta_exiexportacion SET
