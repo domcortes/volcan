@@ -473,6 +473,7 @@ include_once "../../assest/config/datosUrLP.php";
                 $EXIEXPORTACION->__SET('ID_RECEPCION', $r["ID_RECEPCION"]); 
                 $EXIEXPORTACION->__SET('ID_PROCESO', $r["ID_PROCESO"]); 
                 $EXIEXPORTACION->__SET('ID_REEMBALAJE', $r["ID_REEMBALAJE"]);  
+                $EXIEXPORTACION->__SET('ID_INPSAG2', $r["ID_ICARGA"]); 
                 $EXIEXPORTACION->__SET('ID_RECHAZADO', $r["ID_RECHAZADO"]);  
                 $EXIEXPORTACION->__SET('ID_LEVANTAMIENTO', $r["ID_LEVANTAMIENTO"]);   
                 $EXIEXPORTACION->__SET('ID_PLANTA2', $r["ID_PLANTA2"]);

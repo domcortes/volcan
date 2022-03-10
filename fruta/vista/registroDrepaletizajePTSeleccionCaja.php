@@ -11,6 +11,7 @@ include_once '../../assest/controlador/FOLIO_ADO.php';
 include_once '../../assest/controlador/TMANEJO_ADO.php';
 include_once '../../assest/controlador/TCALIBRE_ADO.php';
 include_once '../../assest/controlador/TEMBALAJE_ADO.php';
+include_once '../../assest/controlador/ICARGA_ADO.php';
 
 
 include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
@@ -33,6 +34,7 @@ $FOLIO_ADO =  new FOLIO_ADO();
 $TMANEJO_ADO =  new TMANEJO_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $TEMBALAJE_ADO =  new TEMBALAJE_ADO();
+$ICARGA_ADO =  new ICARGA_ADO();
 
 $DREPALETIZAJEEX_ADO =  new DREPALETIZAJEEX_ADO();
 $REPALETIZAJEEX_ADO =  new REPALETIZAJEEX_ADO();
@@ -65,6 +67,7 @@ $IDEXIEXPORTACION = "";
 $CAJATOTAL = "";
 $CAJATOTAL2 = 0;
 $FOLIOALIAS = "";
+$ICARGA="";
 
 $TOTALSELECION="";
 
@@ -75,6 +78,7 @@ $KILOSBRUTOEXISTENCIA = "";
 $EMBOLSADOEXISTENCIA = "";
 
 $CONTADOR = 0;
+$CONTADORICARGA=0;
 
 $EMPRESA = "";
 $PLANTA = "";
@@ -91,6 +95,7 @@ $DISABLEDSTYLE3 = "";
 $SINO0 = "";
 $SINO = "";
 $SINO2 = "";
+$SINONREFERENCIA;
 $MENSAJE0 = "";
 $MENSAJE = "";
 $MENSAJE1 = "";
@@ -123,7 +128,7 @@ $ARRAYSELECIONARCAJAS = "";
 $ARRAYSELECIONARIDFOLIO = "";
 $ARRAYSELECIONARIDEXIEXPORTACION = "";
 
-
+$ARRAYVERICARGA="";
 
 
 $ARRAYSELECIONAREXISTENCIA = "";
@@ -212,7 +217,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../../assest/config/menuFruta.php"; ?>
+            <?php //include_once "../../assest/config/menuFruta.php"; ?>
             <div class="content-wrapper">
                 <div class="container-full">
                     <!-- Content Header (Page header) -->
@@ -294,6 +299,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                                             <th>Tipo Calibre</th>
                                                             <th>Tipo Embalaje</th>
                                                             <th>Stock</th>
+                                                            <th>Numero Referencia</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -330,6 +336,16 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                                                 }else{
                                                                     $TRECHAZOCOLOR="";
                                                                     $COLOR="Sin Datos";
+                                                                }                                                                
+                                                                if ($r['ID_ICARGA']) {
+                                                                    $ARRAYVERICARGA=$ICARGA_ADO->verIcarga($r['ID_ICARGA']);
+                                                                    if($ARRAYVERICARGA){
+                                                                        $NUMEROREFERENCIA=$ARRAYVERICARGA[0]["NREFERENCIA_ICARGA"];
+                                                                    }else{
+                                                                        $NUMEROREFERENCIA =  "Sin Datos";
+                                                                    }
+                                                                }else{
+                                                                    $NUMEROREFERENCIA =  "Sin Datos";
                                                                 }
                                                                 $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
                                                                 if ($ARRAYVERPRODUCTORID) {
@@ -400,7 +416,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                                                                 <input type="hidden" class="form-control" name="IDCAJA[]" value="<?php echo  $CONTADOR; ?>">
                                                                                 <input type="hidden" class="form-control" name="IDFOLIO[]" value="<?php echo  $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>">
                                                                                 <input type="hidden" class="form-control" name="IDEXIEXPORTACION[]" value="<?php echo $r['ID_EXIEXPORTACION']; ?>">
-                                                                                <input type="number" class="form-control" name="CAJAS[]">
+                                                                                <input type="number" class="form-control" name="CAJAS[]" placeholder="Envases">
                                                                             </div>
                                                                         </td>
                                                                         <td><?php echo $r['EMBALADO']; ?></td>
@@ -415,6 +431,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                                                         <td><?php echo $NOMBRETCALIBRE; ?></td>
                                                                         <td><?php echo $NOMBRETEMBALAJE; ?></td>
                                                                         <td><?php echo $r['STOCKR']; ?></td>
+                                                                        <td><?php echo $NUMEROREFERENCIA; ?></td>
                                                                     </tr>
                                                                 <?php } ?>
                                                             <?php endforeach; ?>
@@ -544,7 +561,31 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 $ARRAYSELECIONARIDEXIEXPORTACION = $_REQUEST['IDEXIEXPORTACION'];  
      
                     
-                
+                foreach ($ARRAYSELECIONARCAJASID as $b) :    
+                    $IDCAJAS = $b - 1;
+                    $CAJAS = $ARRAYSELECIONARCAJAS[$IDCAJAS];
+                    $IDEXIEXPORTACION = $ARRAYSELECIONARIDEXIEXPORTACION[$IDCAJAS];
+                    $ARRAYEXIEXPORTACIONBOLSASELECCION = $EXIEXPORTACION_ADO->verExiexportacion($IDEXIEXPORTACION); 
+                    if ($CAJAS != "") {
+                        foreach ($ARRAYEXIEXPORTACIONBOLSASELECCION as $r )  :                        
+                            $CONTADORICARGA+=1;
+                            if($CONTADORICARGA ==1){
+                                $NREFERENCIA=$r["ID_ICARGA"];
+                                $SINONREFERENCIA=0;
+                            }else{
+                                if($NREFERENCIA==$r["ID_ICARGA"]){
+                                    $SINONREFERENCIA=0;
+                                }else{
+                                    $SINONREFERENCIA=1;
+                                }
+                            }
+                        endforeach;
+                    }
+                endforeach;    
+            
+
+                if($SINONREFERENCIA == 0 ){
+                    
                     foreach ($ARRAYSELECIONARCAJASID as $F) :
                         $IDCAJAS = $F - 1;
                         $CAJAS = $ARRAYSELECIONARCAJAS[$IDCAJAS];
@@ -674,6 +715,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                 $EXIEXPORTACION->__SET('ID_PLANTA2', $r["ID_PLANTA2"]);
                                 $EXIEXPORTACION->__SET('ID_PLANTA3', $r["ID_PLANTA3"]);
                                 $EXIEXPORTACION->__SET('ID_INPSAG2', $r["ID_INPSAG2"]); 
+                                $EXIEXPORTACION->__SET('ID_ICARGA', $r["ID_ICARGA"]); 
                                 $EXIEXPORTACION->__SET('ID_REPALETIZAJE2', $REPALETIZAJE);      
                                 $EXIEXPORTACION->__SET('ID_EXIEXPORTACION2', $r["ID_EXIEXPORTACION"]);                                                    
                                 $EXIEXPORTACION_ADO->agregarExiexportacionRepaletizaje($EXIEXPORTACION);
@@ -684,7 +726,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                         }
 
                     endforeach;
-                
+                    
+                    
                     if ($SINO == "0") {
                         if ($MENSAJE == "") { 
                             $_SESSION["parametro"] =  $_REQUEST['IDP'];
@@ -739,7 +782,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                             $_SESSION["parametro1"] =  $_REQUEST['OPP'];
                             echo '<script>
                                 Swal.fire({
-                                    icon:"warning",
+                                    icon:"success",
                                     title:"Accion realizada",
                                     text:"Se agregado la selección al repaletizaje.",
                                     showConfirmButton: true,
@@ -749,15 +792,29 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                     location.href="' . $_REQUEST['URLO'] . '.php?op";                         
                                 })
                             </script>';
-
                         }
                     }
-             
+                         
+                }else{
+                    
+                    $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                    echo '<script>
+                        Swal.fire({
+                            icon:"warning",
+                            title:"Accion restringida",
+                            text:"la selección deben tener los mis datos de número de referencia.",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href="registroDrepaletizajePTSeleccionCaja.php?op";                        
+                        })
+                    </script>';
+                }
             }
-        }
+        }        
         if (isset($_REQUEST['MANTENER'])) {
-
-
             if (isset($_REQUEST['SELECIONAREXISTENCIA'])) {
                 $REPALETIZAJE = $_REQUEST['IDP'];
                 $ARRAYSELECIONAREXISTENCIA = $_REQUEST['SELECIONAREXISTENCIA'];
@@ -873,6 +930,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                             $EXIEXPORTACION->__SET('ID_PLANTA2', $r["ID_PLANTA2"]);
                             $EXIEXPORTACION->__SET('ID_PLANTA3', $r["ID_PLANTA3"]);
                             $EXIEXPORTACION->__SET('ID_INPSAG2', $r["ID_INPSAG2"]); 
+                            $EXIEXPORTACION->__SET('ID_ICARGA', $r["ID_ICARGA"]); 
                             $EXIEXPORTACION->__SET('ID_REPALETIZAJE2', $REPALETIZAJE);    
                             $EXIEXPORTACION->__SET('ID_EXIEXPORTACION2', $r["ID_EXIEXPORTACION"]);   
                             $EXIEXPORTACION_ADO->agregarExiexportacionRepaletizaje($EXIEXPORTACION);
@@ -901,11 +959,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             }else{
 
             }
-        }
-
-
-  
-                
+        }                     
         ?>
 
 

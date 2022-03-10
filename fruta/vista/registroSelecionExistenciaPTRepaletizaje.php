@@ -10,6 +10,7 @@ include_once '../../assest/controlador/FOLIO_ADO.php';
 include_once '../../assest/controlador/TMANEJO_ADO.php';
 include_once '../../assest/controlador/TCALIBRE_ADO.php';
 include_once '../../assest/controlador/TEMBALAJE_ADO.php';
+include_once '../../assest/controlador/ICARGA_ADO.php';
 
 
 include_once '../../assest/controlador/REPALETIZAJEEX_ADO.php';
@@ -27,6 +28,7 @@ $FOLIO_ADO =  new FOLIO_ADO();
 $TMANEJO_ADO =  new TMANEJO_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $TEMBALAJE_ADO =  new TEMBALAJE_ADO();
+$ICARGA_ADO =  new ICARGA_ADO();
 
 
 $REPALETIZAJEEX_ADO =  new REPALETIZAJEEX_ADO();
@@ -43,6 +45,7 @@ $PROCESO = "";
 $PRODUCTOR = "";
 $PVESPECIES = "";
 $SELECIONAREXISTENCIA = "";
+$ICARGA="";
 
 $ESTANDARPERSONETO = "";
 $NETONUEVO = "";
@@ -83,6 +86,7 @@ $ARRAYVERPVESPECIESID = "";
 $ARRAYVERVESPECIESID = "";
 $ARRAYVERFOLIOID = "";
 $ARRAYVERPCDESPACHO = "";
+$ARRAYVERICARGA="";
 $ARRAYBUSCARNUMEROFOLIOEXIEXPORTACION = "";
 $ARRAYTMANEJO = "";
 $ARRAYREPALETIZAJE="";
@@ -207,6 +211,7 @@ include_once "../../assest/config/validarDatosUrlD.php";
                                                             <th>Tipo Calibre</th>
                                                             <th>Tipo Embalaje</th>
                                                             <th>Stock</th>
+                                                            <th>Numero Referencia</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -242,6 +247,16 @@ include_once "../../assest/config/validarDatosUrlD.php";
                                                             }else{
                                                                 $TRECHAZOCOLOR="";
                                                                 $COLOR="Sin Datos";
+                                                            }                                                                                                                        
+                                                            if ($r['ID_ICARGA']) {
+                                                                $ARRAYVERICARGA=$ICARGA_ADO->verIcarga($r['ID_ICARGA']);
+                                                                if($ARRAYVERICARGA){
+                                                                    $NUMEROREFERENCIA=$ARRAYVERICARGA[0]["NREFERENCIA_ICARGA"];
+                                                                }else{
+                                                                    $NUMEROREFERENCIA =  "Sin Datos";
+                                                                }
+                                                            }else{
+                                                                $NUMEROREFERENCIA =  "Sin Datos";
                                                             }
                                                             $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
                                                             if ($ARRAYVERPRODUCTORID) {
@@ -311,6 +326,7 @@ include_once "../../assest/config/validarDatosUrlD.php";
                                                                 <td><?php echo $NOMBRETCALIBRE; ?></td>
                                                                 <td><?php echo $NOMBRETEMBALAJE; ?></td>
                                                                 <td><?php echo $r['STOCKR']; ?></td>
+                                                                <td><?php echo $NUMEROREFERENCIA; ?></td>
                                                             </tr>
                                                         <?php endforeach; ?>
                                                     </tbody>
