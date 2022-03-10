@@ -30,6 +30,7 @@
         private   $ID_PRODUCTOR;
         private   $ID_TMANEJO;
         private   $ID_TCATEGORIA;
+        private   $ID_ICARGA;
         
         
         //FUNCIONES GET Y SET

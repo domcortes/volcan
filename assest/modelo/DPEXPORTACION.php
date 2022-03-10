@@ -31,6 +31,7 @@
         private   $ID_PRODUCTOR;
         private   $ID_PROCESO;
         private   $ID_TCATEGORIA;
+        private   $ID_ICARGA;
         
         
         //FUNCIONES GET Y SET

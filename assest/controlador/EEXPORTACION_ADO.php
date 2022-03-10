@@ -162,6 +162,7 @@ class EEXPORTACION_ADO
                                                          STOCK ,
 
                                                          TCATEGORIA ,
+                                                         TREFERENCIA ,
                                                          TCOLOR ,
 
                                                          ID_ESPECIES ,
@@ -177,7 +178,7 @@ class EEXPORTACION_ADO
                                                          MODIFICACION ,
                                                          TFRUTA_ESTANDAR , 
                                                          ESTADO_REGISTRO ) VALUES
-	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,  ?, ?,  ?, ?, ?, ?, ?,   ?, ?, SYSDATE(), SYSDATE(),   2, 1);";
+	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,  ?, ?, ?,  ?, ?, ?, ?, ?,   ?, ?, SYSDATE(), SYSDATE(),   2, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -194,6 +195,7 @@ class EEXPORTACION_ADO
                         $EEXPORTACION->__GET('STOCK'),
 
                         $EEXPORTACION->__GET('TCATEGORIA'),
+                        $EEXPORTACION->__GET('TREFERENCIA'),
                         $EEXPORTACION->__GET('TCOLOR'),
 
                         $EEXPORTACION->__GET('ID_ESPECIES'),
@@ -233,20 +235,25 @@ class EEXPORTACION_ADO
                     MODIFICACION = SYSDATE(),
                     CODIGO_ESTANDAR = ?, 
                     NOMBRE_ESTANDAR = ?,   
+
                     CANTIDAD_ENVASE_ESTANDAR = ?,  
                     PESO_NETO_ESTANDAR = ?,  
                     PESO_BRUTO_ESTANDAR = ?,  
                     PESO_PALLET_ESTANDAR = ?,  
                     PESO_ENVASE_ESTANDAR = ?,  
                     PDESHIDRATACION_ESTANDAR = ?,  
+
                     EMBOLSADO = ?,  
                     STOCK = ?,  
                     TCATEGORIA = ?,  
+                    TREFERENCIA = ?,  
                     TCOLOR = ?,  
+
                     ID_ESPECIES = ?,  
                     ID_TETIQUETA = ?,   
                     ID_TEMBALAJE = ?,  
                     ID_ECOMERCIAL = ?  ,  
+
                     ID_USUARIOM = ?         
                 WHERE  ID_ESTANDAR = ?;";
             $this->conexion->prepare($query)
@@ -255,19 +262,24 @@ class EEXPORTACION_ADO
                         $EEXPORTACION->__GET('CODIGO_ESTANDAR'),
                         $EEXPORTACION->__GET('NOMBRE_ESTANDAR'),
                         $EEXPORTACION->__GET('CANTIDAD_ENVASE_ESTANDAR'),
+                        
                         $EEXPORTACION->__GET('PESO_NETO_ESTANDAR'),
                         $EEXPORTACION->__GET('PESO_BRUTO_ESTANDAR'),
                         $EEXPORTACION->__GET('PESO_PALLET_ESTANDAR'),
                         $EEXPORTACION->__GET('PESO_ENVASE_ESTANDAR'),
                         $EEXPORTACION->__GET('PDESHIDRATACION_ESTANDAR'),
+
                         $EEXPORTACION->__GET('EMBOLSADO'),
                         $EEXPORTACION->__GET('STOCK'),
                         $EEXPORTACION->__GET('TCATEGORIA'),
+                        $EEXPORTACION->__GET('TREFERENCIA'),
                         $EEXPORTACION->__GET('TCOLOR'),
+
                         $EEXPORTACION->__GET('ID_ESPECIES'),
                         $EEXPORTACION->__GET('ID_TETIQUETA'),
                         $EEXPORTACION->__GET('ID_TEMBALAJE'),
                         $EEXPORTACION->__GET('ID_ECOMERCIAL'),
+
                         $EEXPORTACION->__GET('ID_USUARIOM'),
                         $EEXPORTACION->__GET('ID_ESTANDAR')
 

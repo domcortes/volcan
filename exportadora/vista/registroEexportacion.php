@@ -49,6 +49,7 @@ $ECOMERCIAL = "";
 $EMBOLSADO = "";
 $STOCK = "";
 $CATEGORIA="";
+$REFERENCIA="";
 $COLOR="";
 $VARIEDAD="";
 $ESTADO = "";
@@ -115,6 +116,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $EMBOLSADO = "" . $r['EMBOLSADO'];
             $STOCK = "" . $r['STOCK'];
             $CATEGORIA = "" . $r['TCATEGORIA'];
+            $REFERENCIA = "" . $r['TREFERENCIA'];
             $COLOR = "" . $r['TCOLOR'];
             $VARIEDAD = "" . $r['TVARIEDAD'];
             $ESPECIES = "" . $r['ID_ESPECIES'];
@@ -148,6 +150,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $EMBOLSADO = "" . $r['EMBOLSADO'];
             $STOCK = "" . $r['STOCK'];
             $CATEGORIA = "" . $r['TCATEGORIA'];
+            $REFERENCIA = "" . $r['TREFERENCIA'];
             $COLOR = "" . $r['TCOLOR'];
             $VARIEDAD = "" . $r['TVARIEDAD'];
             $ESPECIES = "" . $r['ID_ESPECIES'];
@@ -181,6 +184,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $EMBOLSADO = "" . $r['EMBOLSADO'];
             $STOCK = "" . $r['STOCK'];
             $CATEGORIA = "" . $r['TCATEGORIA'];
+            $REFERENCIA = "" . $r['TREFERENCIA'];
             $COLOR = "" . $r['TCOLOR'];
             $VARIEDAD = "" . $r['TVARIEDAD'];
             $ESPECIES = "" . $r['ID_ESPECIES'];
@@ -216,6 +220,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $EMBOLSADO = "" . $r['EMBOLSADO'];
             $STOCK = "" . $r['STOCK'];
             $CATEGORIA = "" . $r['TCATEGORIA'];
+            $REFERENCIA = "" . $r['TREFERENCIA'];
             $COLOR = "" . $r['TCOLOR'];
             $VARIEDAD = "" . $r['TVARIEDAD'];
             $ESPECIES = "" . $r['ID_ESPECIES'];
@@ -302,6 +307,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
 
                     CATEGORIA = document.getElementById("CATEGORIA").selectedIndex;
+                    REFERENCIA = document.getElementById("REFERENCIA").selectedIndex;
                     COLOR = document.getElementById("COLOR").selectedIndex;
                     VARIEDAD = document.getElementById("VARIEDAD").selectedIndex;
                     STOCK = document.getElementById("STOCK").selectedIndex;
@@ -324,6 +330,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     document.getElementById('val_embolsado').innerHTML = "";
 
                     document.getElementById('val_categoria').innerHTML = "";
+                    document.getElementById('val_refetencia').innerHTML = "";
                     document.getElementById('val_color').innerHTML = "";
                     document.getElementById('val_stock').innerHTML = "";
                     document.getElementById('val_variedad').innerHTML = "";
@@ -446,6 +453,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         return false;
                     }
                     document.form_reg_dato.VARIEDAD.style.borderColor = "#4AF575";
+
+                    if (REFERENCIA == null || REFERENCIA == 0) {
+                        document.form_reg_dato.REFERENCIA.focus();
+                        document.form_reg_dato.REFERENCIA.style.borderColor = "#FF0000";
+                        document.getElementById('val_refetencia').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                        return false;
+                    }
+                    document.form_reg_dato.REFERENCIA.style.borderColor = "#4AF575";
 
                     if (STOCK == null || STOCK == 0) {
                         document.form_reg_dato.STOCK.focus();
@@ -660,7 +675,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_color" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Variedad</label>
                                                         <select class="form-control select2" id="VARIEDAD" name="VARIEDAD" style="width: 100%;" <?php echo $DISABLED; ?>>
@@ -670,7 +685,18 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         </select>
                                                         <label id="val_variedad" class="validacion"> </label>
                                                     </div>
-                                                </div>           
+                                                </div>       
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                    <div class="form-group">
+                                                        <label>Referencia</label>
+                                                        <select class="form-control select2" id="REFERENCIA" name="REFERENCIA" style="width: 100%;" <?php echo $DISABLED; ?>>
+                                                            <option></option>
+                                                            <option value="0" <?php if ($REFERENCIA == "0") { echo "selected";  } ?>>No</option>
+                                                            <option value="1" <?php if ($REFERENCIA == "1") { echo "selected"; } ?>> Si </option>
+                                                        </select>
+                                                        <label id="val_referencia" class="validacion"> </label>
+                                                    </div>
+                                                </div>     
                                                  <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Stock</label>
@@ -761,6 +787,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <th>Categoria </th>
                                                         <th>Color </th>
                                                         <th>Variedad </th>
+                                                        <th>Referencia </th>
                                                         <th>Stock </th>
                                                         <th>Estandar Comercial</th>
                                                     </tr>
@@ -820,7 +847,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                 $NOMBRETVARIEDAD="Si Aplica";
                                                             }else{                                                                
                                                                 $NOMBRETVARIEDAD="Sin Datos";
-                                                            }                                                
+                                                            }                                                     
+                                                            if($r["TREFERENCIA"]==0){
+                                                                $NOMBRETREFERENCIA="No Aplica";
+                                                            }else if($r["TREFERENCIA"]==1){
+                                                                $NOMBRETREFERENCIA="Si Aplica";
+                                                            }else{                                                                
+                                                                $NOMBRETREFERENCIA="Sin Datos";
+                                                            }                                              
                                                             if($r["STOCK"]==0){
                                                                 $NOMBRESTOCK="No Aplica";
                                                             }else if($r["STOCK"]==1){
@@ -885,6 +919,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                             <td><?php echo $NOMBRETCATEGORIA; ?></td>
                                                             <td><?php echo $NOMBRETCOLOR; ?></td>
                                                             <td><?php echo $NOMBRETVARIEDAD; ?></td>
+                                                            <td><?php echo $NOMBRETREFERENCIA; ?></td>
                                                             <td><?php echo $NOMBRESTOCK; ?></td>
                                                             <td><?php echo $NOMBREECOMERCIAL; ?></td>
                                                         </tr>
@@ -932,6 +967,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $EEXPORTACION->__SET('EMBOLSADO', $_REQUEST['EMBOLSADO']);
                 $EEXPORTACION->__SET('TCATEGORIA', $_REQUEST['CATEGORIA']);
                 $EEXPORTACION->__SET('TCOLOR', $_REQUEST['COLOR']);
+                $EEXPORTACION->__SET('TREFERENCIA', $_REQUEST['REFERENCIA']);
                 $EEXPORTACION->__SET('TVARIEDAD', $_REQUEST['VARIEDAD']);
                 $EEXPORTACION->__SET('STOCK', $_REQUEST['STOCK']);
                 $EEXPORTACION->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);
@@ -978,6 +1014,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $EEXPORTACION->__SET('EMBOLSADO', $_REQUEST['EMBOLSADO']);
                 $EEXPORTACION->__SET('TCATEGORIA', $_REQUEST['CATEGORIA']);
                 $EEXPORTACION->__SET('TCOLOR', $_REQUEST['COLOR']);
+                $EEXPORTACION->__SET('TREFERENCIA', $_REQUEST['REFERENCIA']);
                 $EEXPORTACION->__SET('STOCK', $_REQUEST['STOCK']);
                 $EEXPORTACION->__SET('TVARIEDAD', $_REQUEST['VARIEDAD']);
                 $EEXPORTACION->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);

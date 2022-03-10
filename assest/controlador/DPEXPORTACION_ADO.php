@@ -112,6 +112,9 @@ class DPEXPORTACION_ADO
             if ($DPEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
                 $DPEXPORTACION->__SET('ID_TCATEGORIA', NULL);
             }
+            if ($DPEXPORTACION->__GET('ID_ICARGA') == NULL) {
+                $DPEXPORTACION->__SET('ID_ICARGA', NULL);
+            }
 
             $query =
                 "INSERT INTO fruta_dpexportacion (
@@ -134,6 +137,7 @@ class DPEXPORTACION_ADO
                                                 ID_VESPECIES,
 
                                                 ID_TCATEGORIA, 
+                                                ID_ICARGA, 
                                                 ID_PRODUCTOR,
                                                 ID_PROCESO, 
 
@@ -143,7 +147,7 @@ class DPEXPORTACION_ADO
                                                 ESTADO_REGISTRO
                                           )
              VALUES
-	       	    ( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?, ?, ?, ?,   ?, ?, ?, SYSDATE(), SYSDATE(), 1, 1);";
+	       	    ( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?, ?, ?, ?,   ?, ?, ?, ?, SYSDATE(), SYSDATE(), 1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -167,6 +171,7 @@ class DPEXPORTACION_ADO
                         $DPEXPORTACION->__GET('ID_VESPECIES'),
 
                         $DPEXPORTACION->__GET('ID_TCATEGORIA'),
+                        $DPEXPORTACION->__GET('ID_ICARGA'),
                         $DPEXPORTACION->__GET('ID_PRODUCTOR'),
                         $DPEXPORTACION->__GET('ID_PROCESO')
 
@@ -221,6 +226,7 @@ class DPEXPORTACION_ADO
                     ID_TCATEGORIA = ?,
                     ID_PRODUCTOR = ?,
 
+                    ID_ICARGA = ?,
                     ID_PROCESO = ?            
                 WHERE ID_DPEXPORTACION= ?;";
             $this->conexion->prepare($query)
@@ -244,6 +250,7 @@ class DPEXPORTACION_ADO
                         $DPEXPORTACION->__GET('ID_TCATEGORIA'),
                         $DPEXPORTACION->__GET('ID_PRODUCTOR'),
 
+                        $DPEXPORTACION->__GET('ID_ICARGA'),
                         $DPEXPORTACION->__GET('ID_PROCESO'),
                         $DPEXPORTACION->__GET('ID_DPEXPORTACION')
 

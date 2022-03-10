@@ -21,7 +21,8 @@
         private   $TFRUTA_ESTANDAR;
         private   $EMBOLSADO;        
         private   $STOCK;
-        private   $TCATEGORIA;        
+        private   $TCATEGORIA;       
+        private   $TREFERENCIA;        
         private   $TCOLOR;           
         private   $TVARIEDAD;       
         private   $ESTADO_REGISTRO;
