@@ -425,6 +425,9 @@ class EXIEXPORTACION_ADO
             IF ($EXIEXPORTACION->__GET('ID_EXIEXPORTACION2') == NULL) {
                 $EXIEXPORTACION->__SET('ID_EXIEXPORTACION2', NULL);
             }
+            IF ($EXIEXPORTACION->__GET('ID_ICARGA') == NULL) {
+                $EXIEXPORTACION->__SET('ID_ICARGA', NULL);
+            }
             $query =
                 "INSERT INTO fruta_exiexportacion (                    
                                                     FOLIO_EXIEXPORTACION,
@@ -476,6 +479,7 @@ class EXIEXPORTACION_ADO
                                                     ID_RECEPCION,
                                                     ID_PROCESO,
                                                     ID_REEMBALAJE,
+                                                    ID_ICARGA,
                                                     
                                                     ID_RECHAZADO,
                                                     ID_LEVANTAMIENTO,
@@ -493,7 +497,7 @@ class EXIEXPORTACION_ADO
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                  ) VALUES
-	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?,   ?, ?, ?, ?,   ?,   ?, ?,    ?, ?, ?, ?, ?,   ?, ?,  ?,    ?, ?,   ?, ?, ?,    ?, ?,   ?, ?, ?, ?,     ?, ?,     SYSDATE(), 2, 1);";
+	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?,   ?, ?, ?, ?,   ?,   ?, ?,    ?, ?, ?, ?, ?,   ?, ?,  ?,    ?, ?,   ?, ?, ?, ?,    ?, ?,   ?, ?, ?, ?,     ?, ?,     SYSDATE(), 2, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -547,6 +551,7 @@ class EXIEXPORTACION_ADO
                         $EXIEXPORTACION->__GET('ID_RECEPCION'),
                         $EXIEXPORTACION->__GET('ID_PROCESO'),
                         $EXIEXPORTACION->__GET('ID_REEMBALAJE'),
+                        $EXIEXPORTACION->__GET('ID_ICARGA'),
                         
                         $EXIEXPORTACION->__GET('ID_RECHAZADO'),
                         $EXIEXPORTACION->__GET('ID_LEVANTAMIENTO'),
@@ -593,6 +598,9 @@ class EXIEXPORTACION_ADO
             }
             IF ($EXIEXPORTACION->__GET('ID_EXIEXPORTACION2') == NULL) {
                 $EXIEXPORTACION->__SET('ID_EXIEXPORTACION2', NULL);
+            }
+            IF ($EXIEXPORTACION->__GET('ID_ICARGA') == NULL) {
+                $EXIEXPORTACION->__SET('ID_ICARGA', NULL);
             }
             $query =
                 "INSERT INTO fruta_exiexportacion (                    
@@ -645,7 +653,8 @@ class EXIEXPORTACION_ADO
                                                     ID_RECEPCION,
                                                     ID_PROCESO,
                                                     ID_REPALETIZAJE,  
-                                                    ID_REEMBALAJE,
+                                                    ID_REEMBALAJE,                                                    
+                                                    ID_ICARGA,
                                                     
                                                     ID_RECHAZADO,
                                                     ID_LEVANTAMIENTO,
@@ -662,7 +671,7 @@ class EXIEXPORTACION_ADO
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                  ) VALUES
-	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?,   ?, ?, ?, ?,   ?,   ?, ?,    ?, ?, ?, ?, ?,   ?, ?,  ?,    ?, ?,   ?, ?, ?, ?,   ?, ?,    ?, ?, ?,     ?, ?,     SYSDATE(), 1, 1);";
+	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?,   ?, ?, ?, ?,   ?,   ?, ?,    ?, ?, ?, ?, ?,   ?, ?,  ?,    ?, ?,   ?, ?, ?, ?, ?,    ?, ?,    ?, ?, ?,     ?, ?,     SYSDATE(), 1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -717,6 +726,7 @@ class EXIEXPORTACION_ADO
                         $EXIEXPORTACION->__GET('ID_PROCESO'),
                         $EXIEXPORTACION->__GET('ID_REPALETIZAJE'),
                         $EXIEXPORTACION->__GET('ID_REEMBALAJE'),
+                        $EXIEXPORTACION->__GET('ID_ICARGA'),
                         
                         $EXIEXPORTACION->__GET('ID_RECHAZADO'),
                         $EXIEXPORTACION->__GET('ID_LEVANTAMIENTO'),
