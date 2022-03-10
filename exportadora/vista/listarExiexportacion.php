@@ -19,6 +19,7 @@ include_once '../../assest/controlador/TPROCESO_ADO.php';
 include_once '../../assest/controlador/TREEMBALAJE_ADO.php';
 include_once '../../assest/controlador/TCOLOR_ADO.php';
 include_once '../../assest/controlador/TCATEGORIA_ADO.php';
+include_once '../../assest/controlador/ICARGA_ADO.php';
 
 
 
@@ -49,6 +50,7 @@ $TPROCESO_ADO =  new TPROCESO_ADO();
 $TREEMBALAJE_ADO =  new TREEMBALAJE_ADO();
 $TCOLOR_ADO =  new TCOLOR_ADO();
 $TCATEGORIA_ADO =  new TCATEGORIA_ADO();
+$ICARGA_ADO =  new ICARGA_ADO();
 
 
 
@@ -220,6 +222,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                         <th>Empresa</th>
                                                         <th>Planta</th>
                                                         <th>Temporada</th>
+                                                        <th>Numero Referencia</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -295,6 +298,16 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             }else{
                                                                 $TRECHAZOCOLOR="";
                                                                 $COLOR="Sin Datos";
+                                                            }                                                                                                             
+                                                            if ($r['ID_ICARGA']) {
+                                                                $ARRAYVERICARGA=$ICARGA_ADO->verIcarga($r['ID_ICARGA']);
+                                                                if($ARRAYVERICARGA){
+                                                                    $NUMEROREFERENCIA=$ARRAYVERICARGA[0]["NREFERENCIA_ICARGA"];
+                                                                }else{
+                                                                    $NUMEROREFERENCIA =  "Sin Datos";
+                                                                }
+                                                            }else{
+                                                                $NUMEROREFERENCIA =  "Sin Datos";
                                                             }
                                                             $ARRAYRECEPCION = $RECEPCIONPT_ADO->verRecepcion2($r['ID_RECEPCION']);
                                                             $ARRAYDESPACHO2 = $DESPACHOPT_ADO->verDespachopt($r['ID_DESPACHO2']);
@@ -575,6 +588,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                                 <td><?php echo $NOMBREEMPRESA; ?></td>
                                                                 <td><?php echo $NOMBREPLANTA; ?></td>
                                                                 <td><?php echo $NOMBRETEMPORADA; ?></td>
+                                                                <td><?php echo $NUMEROREFERENCIA; ?></td>
                                                             </tr>                                                       
                                                         <?php endforeach; ?>        
                                                     <?php endforeach; ?>
