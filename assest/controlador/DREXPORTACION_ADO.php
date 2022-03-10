@@ -133,6 +133,7 @@ class DREXPORTACION_ADO
                                                  ID_ESTANDAR ,  
                                                  
                                                  ID_TCATEGORIA , 
+                                                 ID_ICARGA, 
                                                  ID_VESPECIES , 
 
                                                  ID_PRODUCTOR , 
@@ -144,7 +145,7 @@ class DREXPORTACION_ADO
                                                  ESTADO_REGISTRO 
                                                 )
              VALUES
-	       	    ( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,   ?, ?, ?, ?,   ?, ?,   ?, ?, SYSDATE(), SYSDATE(), 1, 1);";
+	       	    ( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,   ?, ?, ?, ?,   ?, ?, ?,   ?, ?, SYSDATE(), SYSDATE(), 1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -167,6 +168,7 @@ class DREXPORTACION_ADO
                         $DREXPORTACION->__GET('ID_ESTANDAR'),
 
                         $DREXPORTACION->__GET('ID_TCATEGORIA'),
+                        $DREXPORTACION->__GET('ID_ICARGA'),
                         $DREXPORTACION->__GET('ID_VESPECIES'),
 
                         $DREXPORTACION->__GET('ID_PRODUCTOR'),
@@ -221,9 +223,10 @@ class DREXPORTACION_ADO
                 ID_ESTANDAR  = ? ,
                 ID_TCATEGORIA  = ? ,
                 ID_VESPECIES  = ? ,
+                ID_ICARGA  = ? ,
+
                 ID_PRODUCTOR  = ? ,
-                ID_REEMBALAJE  = ?    
-                         
+                ID_REEMBALAJE  = ?                             
             WHERE  ID_DREXPORTACION = ?;";
                 $this->conexion->prepare($query)
                 ->execute(
@@ -243,9 +246,10 @@ class DREXPORTACION_ADO
                         $DREXPORTACION->__GET('ID_ESTANDAR'),
                         $DREXPORTACION->__GET('ID_TCATEGORIA'),
                         $DREXPORTACION->__GET('ID_VESPECIES'),
+                        $DREXPORTACION->__GET('ID_ICARGA'),
+
                         $DREXPORTACION->__GET('ID_PRODUCTOR'),
                         $DREXPORTACION->__GET('ID_REEMBALAJE'),
-
                         $DREXPORTACION->__GET('ID_DREXPORTACION')
 
                     )
