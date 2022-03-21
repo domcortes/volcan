@@ -77,7 +77,11 @@ $EXPORTADORATODO="";
 $EMATERIALES="";
 $EEXPORTACION="";
 $ELIQUIDACION="";
+$EFRUTA="";
+$EFCICARGA="";
 $EINFORMES="";
+
+
 
 $ESTADISTICA="";
 $ESTADISTICATODO="";
@@ -205,6 +209,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $EMATERIALES= "" . $r['EMATERIALES'];
             $EEXPORTACION= "" . $r['EEXPORTACION'];
             $ELIQUIDACION= "" . $r['ELIQUIDACION'];
+            $EFRUTA= "" . $r['EFRUTA'];
+            $EFCICARGA= "" . $r['EFCICARGA'];
+            
             $EINFORMES= "" . $r['EINFORMES'];
             
             $ESTADISTICA= "" . $r['ESTADISTICA'];          
@@ -290,6 +297,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $EMATERIALES= "" . $r['EMATERIALES'];
             $EEXPORTACION= "" . $r['EEXPORTACION'];
             $ELIQUIDACION= "" . $r['ELIQUIDACION'];
+            $EFRUTA= "" . $r['EFRUTA'];
+            $EFCICARGA= "" . $r['EFCICARGA'];
             $EINFORMES= "" . $r['EINFORMES'];
             
             $ESTADISTICA= "" . $r['ESTADISTICA'];          
@@ -408,6 +417,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $EMATERIALES= "" . $r['EMATERIALES'];
             $EEXPORTACION= "" . $r['EEXPORTACION'];
             $ELIQUIDACION= "" . $r['ELIQUIDACION'];
+            $EFRUTA= "" . $r['EFRUTA'];
+            $EFCICARGA= "" . $r['EFCICARGA'];
             $EINFORMES= "" . $r['EINFORMES'];
 
             $ESTADISTICA= "" . $r['ESTADISTICA'];
@@ -504,6 +515,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $EMATERIALES= "" . $r['EMATERIALES'];
             $EEXPORTACION= "" . $r['EEXPORTACION'];
             $ELIQUIDACION= "" . $r['ELIQUIDACION'];
+            $EFRUTA= "" . $r['EFRUTA'];
+            $EFCICARGA= "" . $r['EFCICARGA'];
             $EINFORMES= "" . $r['EINFORMES'];
             
             $ESTADISTICA= "" . $r['ESTADISTICA'];          
@@ -822,28 +835,32 @@ if (isset($_POST)) {
                 document.getElementById('MKMATERIAL').disabled = true;   
                 document.getElementById('MKENVASE').disabled = true;    
             }
-        }  
-        
+        }          
         function exportadora(){              
             EXPORTADORA = document.getElementById('EXPORTADORA').checked;
             if(EXPORTADORA==true){    
                 document.getElementById('EXPORTADORATODO').disabled = false;   
                 document.getElementById('EMATERIALES').disabled = false;   
                 document.getElementById('EEXPORTACION').disabled = false;  
-                document.getElementById('ELIQUIDACION').disabled = false;    
+                document.getElementById('ELIQUIDACION').disabled = false;  
+                document.getElementById('EFRUTA').disabled = false;    
+                document.getElementById('EFCICARGA').disabled = false;   
                 document.getElementById('EINFORMES').disabled = false; 
+                
             }else{                  
                 document.getElementById('EXPORTADORATODO').disabled = true;   
                 document.getElementById('EMATERIALES').disabled = true;   
                 document.getElementById('EEXPORTACION').disabled = true;    
-                document.getElementById('ELIQUIDACION').disabled = true;   
+                document.getElementById('EFRUTA').disabled = true;   
+                document.getElementById('EFCICARGA').disabled = true;   
                 document.getElementById('EINFORMES').disabled = true;  
 
                 document.getElementById('EXPORTADORATODO').checked = false; 
                 document.getElementById('EXPORTADORA').checked = false;   
                 document.getElementById('EMATERIALES').checked = false;   
                 document.getElementById('EEXPORTACION').checked = false;  
-                document.getElementById('ELIQUIDACION').checked = false;     
+                document.getElementById('EFRUTA').checked = false;   
+                document.getElementById('EFCICARGA').checked = false;     
                 document.getElementById('EINFORMES').checked = false;   
             }
         }         
@@ -1089,11 +1106,15 @@ if (isset($_POST)) {
                 document.getElementById('EMATERIALES').checked = true;   
                 document.getElementById('EEXPORTACION').checked = true;    
                 document.getElementById('ELIQUIDACION').checked = true;    
+                document.getElementById('EFRUTA').checked = true;  
+                document.getElementById('EFCICARGA').checked = true; 
                 document.getElementById('EINFORMES').checked = true;  
             }else{
                 document.getElementById('EMATERIALES').checked = false;   
                 document.getElementById('EEXPORTACION').checked = false;    
-                document.getElementById('ELIQUIDACION').checked = false;  
+                document.getElementById('ELIQUIDACION').checked = false;   
+                document.getElementById('EFRUTA').checked = false;   
+                document.getElementById('EFCICARGA').checked = false; 
                 document.getElementById('EINFORMES').checked = false;   
             }
         }          
@@ -1524,10 +1545,30 @@ if (isset($_POST)) {
                                                 <div class="col-xxl-4 col-xl-4 col-lg-5 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <input type="checkbox" id="ELIQUIDACION"  name="ELIQUIDACION" class="filled-in chk-col-success"     <?php if ($ELIQUIDACION == "1") { echo "checked"; } ?>  <?php echo $DISABLED;?> <?php echo $DISABLEDEXPORTADORA;?>>
                                                     <label for="ELIQUIDACION">Liquidación</label>                                        
-                                                </div>
+                                                </div>         
                                                 <div class="col-xxl-4 col-xl-4 col-lg-5 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <input type="checkbox" id="EINFORMES"  name="EINFORMES" class="filled-in chk-col-success"     <?php if ($EINFORMES == "1") { echo "checked"; } ?>  <?php echo $DISABLED;?> <?php echo $DISABLEDEXPORTADORA;?>>
                                                     <label for="EINFORMES">Informes</label>                                        
+                                                </div>
+                                            </div>          
+                                            <div class="row">       
+                                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">                                                                        
+                                                    <fieldset>     
+                                                        <legend>Fruta </legend> 
+                                                        <div class="row">                                            
+                                                            <div class="col-xxl-4 col-xl-4 col-lg-5 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                                <input type="checkbox" id="EFRUTA"  name="EFRUTA" class="filled-in chk-col-success"   <?php if ($EFRUTA == "1") { echo "checked"; } ?>   <?php echo $DISABLED;?> <?php echo $DISABLEDEXPORTADORA;?>>
+                                                                <label for="EFRUTA">Fruta</label>	
+                                                            </div>
+                                                        </div> 
+                                                        <hr>
+                                                        <div class="row">                                             
+                                                            <div class="col-xxl-4 col-xl-4 col-lg-5 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                                <input type="checkbox" id="EFCICARGA"  name="EFCICARGA" class="filled-in chk-col-success"   <?php if ($EFCICARGA == "1") { echo "checked"; } ?>  <?php echo $DISABLED;?> <?php echo $DISABLEDEXPORTADORA;?>>
+                                                                <label for="EFCICARGA">Cambio Instructivo Carga</label>	
+                                                            </div>   
+                                                        </div>
+                                                    </fieldset>
                                                 </div>
                                             </div>
                                         </fieldset>                                          
@@ -1816,6 +1857,8 @@ if (isset($_POST)) {
                     $PTUSUARIO->__SET('EMATERIALES', isset($_REQUEST['EMATERIALES'])); 
                     $PTUSUARIO->__SET('EEXPORTACION', isset($_REQUEST['EEXPORTACION'])); 
                     $PTUSUARIO->__SET('ELIQUIDACION', isset($_REQUEST['ELIQUIDACION'])); 
+                    $PTUSUARIO->__SET('EFRUTA', isset($_REQUEST['EFRUTA'])); 
+                    $PTUSUARIO->__SET('EFCICARGA', isset($_REQUEST['EFCICARGA']));                     
                     $PTUSUARIO->__SET('EINFORMES', isset($_REQUEST['EINFORMES'])); 
                     $PTUSUARIO->__SET('ESTADISTICA', isset($_REQUEST['ESTADISTICA']));  
                     $PTUSUARIO->__SET('ESTARVSP', isset($_REQUEST['ESTARVSP']));  
@@ -1903,6 +1946,8 @@ if (isset($_POST)) {
                 $PTUSUARIO->__SET('EMATERIALES', isset($_REQUEST['EMATERIALES'])); 
                 $PTUSUARIO->__SET('EEXPORTACION', isset($_REQUEST['EEXPORTACION'])); 
                 $PTUSUARIO->__SET('ELIQUIDACION', isset($_REQUEST['ELIQUIDACION'])); 
+                $PTUSUARIO->__SET('EFRUTA', isset($_REQUEST['EFRUTA'])); 
+                $PTUSUARIO->__SET('EFCICARGA', isset($_REQUEST['EFCICARGA'])); 
                 $PTUSUARIO->__SET('EINFORMES', isset($_REQUEST['EINFORMES'])); 
                 $PTUSUARIO->__SET('ESTADISTICA', isset($_REQUEST['ESTADISTICA']));  
                 $PTUSUARIO->__SET('ESTARVSP', isset($_REQUEST['ESTARVSP']));  

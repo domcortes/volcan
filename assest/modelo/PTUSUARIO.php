@@ -64,6 +64,8 @@ class PTUSUARIO {
     private $EMATERIALES;
     private $EEXPORTACION;
     private $ELIQUIDACION;
+    private $EFRUTA;
+    private $EFCICARGA;
     private $EINFORMES;
     //privilegios de mantenedores sitemas
     private $MANTENEDORES;
