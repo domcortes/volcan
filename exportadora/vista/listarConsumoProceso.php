@@ -56,6 +56,7 @@ $TEMPORADA = "";
 
 $TOTALCANTIDAD = "";
 $TOTCALVALOR = "";
+$VALORPRODUCTO="";
 
 
 //INICIALIZAR ARREGLOS
@@ -70,6 +71,7 @@ $ARRAYESTANDAR = "";
 $ARRAYESPECIES = "";
 $ARRAYTEMBALAJE = "";
 $ARRAYTETIQUETA = "";
+$ARRAYVALORPRODUCTOMAXOC="";
 
 
 
@@ -178,6 +180,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                     <th>Envases Estandar</th>
                                                     <th>Factor Consumo </th>
                                                     <th>Total Consumo </th>
+                                                    <th>Valor Producto</th>
                                                     <th>Empresa </th>
                                                     <th>Planta </th>
                                                     <th>Temporada </th>
@@ -185,26 +188,35 @@ include_once "../../assest/config/datosUrLP.php";
                                             </thead>
                                             <tbody>
                                                 <?php foreach ($ARRAYFICHA as $r) : ?>
-                                                            <tr>
-                                                                <td><?php echo $r['NUMERO']; ?> </td>
-                                                                <td><?php echo $r['FECHA']; ?> </td>
-                                                                <td><?php echo $r['CODIGOESTANDAR']; ?> </td>
-                                                                <td><?php echo $r['NOMBREESTANDAR']; ?> </td>
-                                                                <td><?php echo $r['NOMBREESPECIES']; ?> </td>
-                                                                <td><?php echo $r['NOMBRETETIQUETA']; ?> </td>
-                                                                <td><?php echo $r['NOMBRETEMBALAJE']; ?> </td>
-                                                                <td><?php echo $r['CODIGO']; ?> </td>
-                                                                <td><?php echo $r['PRODUCTO']; ?> </td>
-                                                                <td><?php echo $r['FAMILIA']; ?> </td>
-                                                                <td><?php echo $r['SUBFAMILIA']; ?> </td>
-                                                                <td><?php echo $r['TUMEDIDA']; ?> </td>
-                                                                <td><?php echo $r['ENVASE']; ?> </td>
-                                                                <td><?php echo $r['FACTOR']; ?> </td>
-                                                                <td><?php echo $r['CONSUMO']; ?> </td>
-                                                                <td><?php echo $r['EMPRESA']; ?> </td>
-                                                                <td><?php echo $r['PLANTA']; ?> </td>
-                                                                <td><?php echo $r['TEMPORADA']; ?> </td>
-                                                            </tr>
+                                                    <?php
+                                                          $ARRAYVALORPRODUCTOMAXOC=$DFICHA_ADO->listarDifchaValorProductoOcCBX($r['ID_PRODUCTO']);
+                                                          if($ARRAYVALORPRODUCTOMAXOC){
+                                                              $VALORPRODUCTO=$ARRAYVALORPRODUCTOMAXOC[0]["VALOR"];
+                                                          }else{
+                                                              $VALORPRODUCTO=0;
+                                                          }                                                            
+                                                    ?>
+                                                    <tr>
+                                                        <td><?php echo $r['NUMERO']; ?> </td>
+                                                        <td><?php echo $r['FECHA']; ?> </td>
+                                                        <td><?php echo $r['CODIGOESTANDAR']; ?> </td>
+                                                        <td><?php echo $r['NOMBREESTANDAR']; ?> </td>
+                                                        <td><?php echo $r['NOMBREESPECIES']; ?> </td>
+                                                        <td><?php echo $r['NOMBRETETIQUETA']; ?> </td>
+                                                        <td><?php echo $r['NOMBRETEMBALAJE']; ?> </td>
+                                                        <td><?php echo $r['CODIGO']; ?> </td>
+                                                        <td><?php echo $r['PRODUCTO']; ?> </td>
+                                                        <td><?php echo $r['FAMILIA']; ?> </td>
+                                                        <td><?php echo $r['SUBFAMILIA']; ?> </td>
+                                                        <td><?php echo $r['TUMEDIDA']; ?> </td>
+                                                        <td><?php echo $r['ENVASE']; ?> </td>
+                                                        <td><?php echo $r['FACTOR']; ?> </td>
+                                                        <td><?php echo $r['CONSUMO']; ?> </td>
+                                                        <td><?php echo $VALORPRODUCTO; ?></td>
+                                                        <td><?php echo $r['EMPRESA']; ?> </td>
+                                                        <td><?php echo $r['PLANTA']; ?> </td>
+                                                        <td><?php echo $r['TEMPORADA']; ?> </td>
+                                                    </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
                                         </table>

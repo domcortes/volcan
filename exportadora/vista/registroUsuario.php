@@ -532,8 +532,7 @@ if ($_POST) {
                                                                     </button>
                                                                     <div class="dropdown-menu dropdown-menu-right">
                                                                         <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_USUARIO']; ?>" />
-                                                                        <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroUsuario" />
-                                                                        
+                                                                        <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroUsuario" />                                                                        
                                                                         <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
                                                                                 <button type="submit" class="btn btn-info btn-block  btn-sm" id="VERURL" name="VERURL">

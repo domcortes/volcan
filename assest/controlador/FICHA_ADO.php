@@ -462,7 +462,8 @@ class FICHA_ADO {
                                                             )
                                                         FROM estandar_eexportacion estandar
                                                         WHERE detalle.ID_ESTANDAR=estandar.ID_ESTANDAR
-                                                    ) AS 'NOMBRETEMBALAJE',
+                                                    ) AS 'NOMBRETEMBALAJE',                                                    
+                                                    dficha.ID_PRODUCTO,
                                                     (
                                                         SELECT
                                                             CODIGO_PRODUCTO
@@ -597,6 +598,7 @@ class FICHA_ADO {
                                                     FROM estandar_eexportacion estandar
                                                     WHERE detalle.ID_ESTANDAR=estandar.ID_ESTANDAR
                                                 ) AS 'NOMBRETEMBALAJE',
+                                                dficha.ID_PRODUCTO,
                                                 (
                                                     SELECT
                                                         CODIGO_PRODUCTO
@@ -726,6 +728,7 @@ class FICHA_ADO {
                                                         FROM estandar_eexportacion estandar
                                                         WHERE detalle.ID_ESTANDAR=estandar.ID_ESTANDAR
                                                     ) AS 'NOMBRETEMBALAJE',
+                                                    dficha.ID_PRODUCTO,
                                                     (
                                                         SELECT
                                                             CODIGO_PRODUCTO

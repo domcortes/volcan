@@ -85,6 +85,7 @@ $TOTALCANTIDAD = "";
 $TOTALCANTIDADV = "";
 $TOTALVALOR  = "";
 $TOTALVALORV = "";
+$VALORPRODUCTO="";
 
 $NUMERO = "";
 $NUMEROVER = "";
@@ -126,6 +127,7 @@ $ARRAYSUBFAMILIA = "";
 
 $ARRYAOBTENERID = "";
 $ARRAYNUMERO = "";
+$ARRAYVALORPRODUCTOMAXOC="";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYESTANDAR = $EEXPORTACION_ADO->listarEstandarPorEmpresaCBX($EMPRESAS);
@@ -143,7 +145,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     $OP = $_SESSION['parametro1'];
 
 
-    $ARRAYDFICHA = $DFICHA_ADO->listarDfichaPorFich2CBX($IDOP);
+    $ARRAYDFICHA = $DFICHA_ADO->listarDfichaPorFichCBX($IDOP);
 
     //FUNCION PARA LA OBTENCION DE LOS TOTALES DEL DETALLE ASOCIADO A OCOMPRA
 
@@ -643,7 +645,9 @@ if (isset($_POST)) {
                                                         <th>Familia </th>
                                                         <th>Sub Familia </th>
                                                         <th>Unidad Medida </th>
+                                                        <th>Valor Producto</th>
                                                         <th>Factor Consumo </th>
+                                                        <th>Total Valor</th>
                                                         <th>Consumo Pallet</th>
                                                         <th>Pallet Carga</th>
                                                         <th>Consumo Contenedor</th>
@@ -654,6 +658,13 @@ if (isset($_POST)) {
                                                         <?php foreach ($ARRAYDFICHA as $s) : ?>
                                                             <?php $CONTADOR += 1;  ?>
                                                             <?php
+                                                            
+                                                            $ARRAYVALORPRODUCTOMAXOC=$DFICHA_ADO->listarDifchaValorProductoOcCBX($s['ID_PRODUCTO']);
+                                                            if($ARRAYVALORPRODUCTOMAXOC){
+                                                                $VALORPRODUCTO=$ARRAYVALORPRODUCTOMAXOC[0]["VALOR"];
+                                                            }else{
+                                                                $VALORPRODUCTO=0;
+                                                            }
                                                             $ARRAYPRODUCTO = $PRODUCTO_ADO->verProducto($s['ID_PRODUCTO']);
                                                             if ($ARRAYPRODUCTO) {
                                                                 $NOMBREPRODUCTO= $ARRAYPRODUCTO[0]['NOMBRE_PRODUCTO'];
@@ -714,14 +725,16 @@ if (isset($_POST)) {
                                                                         </div>
                                                                     </form>
                                                                 </td>
-                                                                <td><?php echo $NOMBREPRODUCTO ?></td>
-                                                                <td><?php echo $FAMILIA ?></td>
-                                                                <td><?php echo $SUBFAMILIA ?></td>
-                                                                <td><?php echo $TUMEDIDA ?></td>
-                                                                <td><?php echo $s['FACTOR'] ?></td>
-                                                                <td><?php echo $s['CONSUMOPALLET'] ?></td>
-                                                                <td><?php echo $s['PALLET'] ?></td>
-                                                                <td><?php echo $s['CONSUMOCONTENEDOR'] ?></td>
+                                                                <td><?php echo $NOMBREPRODUCTO; ?></td>
+                                                                <td><?php echo $FAMILIA; ?></td>
+                                                                <td><?php echo $SUBFAMILIA; ?></td>
+                                                                <td><?php echo $TUMEDIDA; ?></td>
+                                                                <td><?php echo $VALORPRODUCTO; ?></td>
+                                                                <td><?php echo $s['FACTOR']; ?></td>
+                                                                <td><?php echo $VALORPRODUCTO * $s['FACTOR']; ?></td>
+                                                                <td><?php echo $s['CONSUMOPALLET']; ?></td>
+                                                                <td><?php echo $s['PALLET']; ?></td>
+                                                                <td><?php echo $s['CONSUMOCONTENEDOR']; ?></td>
                                                             </tr>
                                                         <?php endforeach; ?>
                                                     <?php } ?>

@@ -312,6 +312,66 @@ class DFICHA_ADO
             die($e->getMessage());
         }
     }
+
+
+    public function listarDifchaValorProductoOcCBX($IDPRODUCTO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT
+                                                    IFNULL(MAX(docompra.VALOR_UNITARIO_DOCOMPRA),0) AS 'VALOR'
+                                                FROM material_dficha dficha, material_docompra docompra
+                                                WHERE dficha.ID_PRODUCTO= docompra.ID_PRODUCTO
+                                                AND dficha.ESTADO_REGISTRO =1
+                                                AND docompra.ESTADO_REGISTRO =1  
+                                                AND dficha.ID_PRODUCTO = '".$IDPRODUCTO."'
+                                              ");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
+
+    public function listarDfichaPorFichCBX($IDFICHA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * ,
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y %H:%i') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y %H:%i') AS 'MODIFICACION',                                                
+                                                FACTOR_CONSUMO_DFICHA AS 'FACTOR',
+                                                CONSUMO_PALLET_DFICHA AS 'CONSUMOPALLET' , 
+                                                PALLET_CARGA_DFICHA AS 'PALLET' , 
+                                                CONSUMO_CONTENEDOR_DFICHA AS  'CONSUMOCONTENEDOR'
+
+                                             FROM  material_dficha 
+                                                WHERE ESTADO_REGISTRO = 1 
+                                                AND ID_FICHA = '" . $IDFICHA . "'  ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
     public function listarDfichaPorFich2CBX($IDFICHA)
     {
         try {
