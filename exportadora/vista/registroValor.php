@@ -14,7 +14,8 @@ include_once '../../assest/controlador/CVENTA_ADO.php';
 include_once '../../assest/controlador/SEGURO_ADO.php';
 
 include_once '../../assest/controlador/TMONEDA_ADO.php';
-include_once '../../assest/controlador/ECOMERCIAL_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
 
 include_once '../../assest/controlador/TRANSPORTE_ADO.php';
 include_once '../../assest/controlador/LCARGA_ADO.php';
@@ -67,8 +68,8 @@ $CVENTA_ADO =  new CVENTA_ADO();
 $SEGURO_ADO =  new SEGURO_ADO();
 
 $TMONEDA_ADO = new TMONEDA_ADO();
-$ECOMERCIAL_ADO = new ECOMERCIAL_ADO();
-
+$EEXPORTACION_ADO = new EEXPORTACION_ADO();
+$TCALIBRE_ADO = new TCALIBRE_ADO();
 
 $VALOR_ADO =  new VALOR_ADO();
 $DVALOR_ADO =  new DVALOR_ADO();
@@ -190,7 +191,7 @@ $ARRAYADESTINO = $ADESTINO_ADO->listarAdestinoPorEmpresaCBX($EMPRESAS);
 $ARRAYNAVIERA = $NAVIERA_ADO->listarNavierPorEmpresaCBX($EMPRESAS);
 $ARRAYPCARGA = $PCARGA_ADO->listarPcargaPorEmpresaCBX($EMPRESAS);
 $ARRAYPDESTINO = $PDESTINO_ADO->listarPdestinoPorEmpresaCBX($EMPRESAS);
-$ARRAYITEM=$TITEM_ADO->listarTitemPorEmpresaCBX($EMPRESAS);
+$ARRAYITEM=$TITEM_ADO->listarTitemPorEmpresaLiquidacionCBX($EMPRESAS);
 
 
 $ARRAYFECHAACTUAL = $VALOR_ADO->obtenerFecha();
@@ -629,9 +630,7 @@ if (isset($_POST)) {
                     win.focus();
                 }
             </script>
-
 </head>
-
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
@@ -1108,7 +1107,8 @@ if (isset($_POST)) {
                                                             <th>Item </th>     
                                                             <th>Valor  </th>
                                                             <th>Tipo Moneda </th>  
-                                                            <th>Comercial </th>    
+                                                            <th>Estandar Exportación </th>    
+                                                            <th>Tipo Calibre </th>    
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -1130,6 +1130,7 @@ if (isset($_POST)) {
                                                             <td><?php echo $VALORSEGURO; ?></td>
                                                             <td><?php echo $TMONEDA; ?></td>
                                                             <td>No Aplica</td>
+                                                            <td>No Aplica</td>
                                                         </tr>
                                                         <?php if ($ARRAYITEM) { ?>
                                                             <?php foreach ($ARRAYITEM as $s) : ?>
@@ -1138,18 +1139,23 @@ if (isset($_POST)) {
                                                                     $ARRAYDVALOR=$DVALOR_ADO->buscarPorValorItem($IDOP,$s["ID_TITEM"]);
                                                                     if($ARRAYDVALOR){
                                                                        $VALORDVALOR= $ARRAYDVALOR[0]["VALOR_DVALOR"];   
-                                                                       $ARRAYECOMERCIAL=$ECOMERCIAL_ADO->verEcomercial($ARRAYDVALOR[0]["ID_ECOMERCIAL"]);
-                                                                       if($ARRAYECOMERCIAL){
-                                                                          $NOMBREECOMERCIAL= $ARRAYECOMERCIAL[0]["NOMBRE_ECOMERCIAL"];
+                                                                       $ARRAYESTANDAR=$EEXPORTACION_ADO->verEstandar($ARRAYDVALOR[0]["ID_ESTANDAR"]);
+                                                                       if($ARRAYESTANDAR){
+                                                                          $NOMBREESTANDAR= $ARRAYESTANDAR[0]["NOMBRE_ESTANDAR"];
                                                                        }else{
-                                                                           $NOMBREECOMERCIAL="No Aplica";
+                                                                           $NOMBREESTANDAR="No Aplica";
+                                                                       }
+                                                                       $ARRAYTCALIBRE=$TCALIBRE_ADO->verCalibre($ARRAYDVALOR[0]["ID_TCALIBRE"]);
+                                                                       if($ARRAYTCALIBRE){
+                                                                          $NOMBRETCALIBRE= $ARRAYTCALIBRE[0]["NOMBRE_TCALIBRE"];
+                                                                       }else{
+                                                                        $NOMBRETCALIBRE="No Aplica";
                                                                        }
                                                                     }else{
                                                                        $VALORDVALOR=0;
-                                                                       $NOMBREECOMERCIAL="No Aplica";
+                                                                       $NOMBREESTANDAR="No Aplica";
+                                                                       $NOMBRETCALIBRE="No Aplica";
                                                                     }
-                                                                 
-                                                                    
                                                                 ?>
                                                                 <tr class="center">
                                                                     <td><?php echo $CONTADOR; ?></td>
@@ -1186,7 +1192,8 @@ if (isset($_POST)) {
                                                                     <td><?php echo $s["NOMBRE_TITEM"]; ?></td>
                                                                     <td><?php echo number_format( $VALORDVALOR,2,',','.' ); ?></td>
                                                                     <td><?php echo $TMONEDA; ?></td>
-                                                                    <td><?php echo $NOMBREECOMERCIAL; ?></td>
+                                                                    <td><?php echo $NOMBREESTANDAR; ?></td>
+                                                                    <td><?php echo $NOMBRETCALIBRE; ?></td>
                                                                 </tr>
                                                             <?php endforeach; ?>
                                                         <?php } ?>
@@ -1318,7 +1325,7 @@ if (isset($_POST)) {
                     $SINO = "0";
 
                     $ARRAYDVALORCONTEO=$DVALOR_ADO->contarPorValor($_REQUEST['IDP']);
-                    $ARRAYITEMCONTEO=$TITEM_ADO->contarTitemPorEmpresaCBX($EMPRESAS);
+                    $ARRAYITEMCONTEO=$TITEM_ADO->contarTitemLiquidacionPorEmpresaCBX($EMPRESAS);
                     if($ARRAYDVALORCONTEO[0]["CONTEO"]>0 && $ARRAYITEMCONTEO[0]["CONTEO"]>0){
                         if($ARRAYDVALORCONTEO[0]["CONTEO"]!=$ARRAYITEMCONTEO[0]["CONTEO"]){
                             $SINO = "1";            

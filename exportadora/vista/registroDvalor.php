@@ -43,10 +43,11 @@ $IDDICARGA = "";
 $IDICARGA = "";
 $TMONEDA="";
 $NOMBRETMONEDA="";
-$ECOMERCIAL="";
-$COMERCIAL="";
 
-
+$ESTANDAR="";
+$EESTANDAR="";
+$CALIBRE="";
+$TCALIBRE="";
 
 
 $EMPRESA = "";
@@ -74,7 +75,8 @@ $ARRAYCALIBRE = "";
 $ARRAYESTANDARDETALLE = "";
 $ARRAYECOMERCIAL="";
 $ARRAYDICARGATM="";
-$ARRAYDICARGAEC="";
+$ARRAYDICARGAESTANDAR="";
+$ARRAYDICARGATCALIBRE="";
 
 
 
@@ -96,7 +98,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
         $ICARGA= $ARRAYVERVALOR[0]['ID_ICARGA'];
         $ARRAYVERICARGA = $ICARGA_ADO->verIcarga($ICARGA);
         if($ARRAYVERICARGA){
-            $ARRAYDICARGAEC=$DICARGA_ADO->buscarEcomercialenInvoicePorIcarga($ARRAYVERICARGA[0]["ID_ICARGA"]);
+            $ARRAYDICARGAESTANDAR=$DICARGA_ADO->buscarEstandarEnInvoicePorIcarga($ARRAYVERICARGA[0]["ID_ICARGA"]);
+            $ARRAYDICARGATCALIBRE=$DICARGA_ADO->buscarCalibreEnInvoicePorIcarga($ARRAYVERICARGA[0]["ID_ICARGA"]);
             $ARRAYDICARGATM=$DICARGA_ADO->buscarPorIcargaLimitado1($ARRAYVERICARGA[0]["ID_ICARGA"]);
             if($ARRAYDICARGATM){
                 $TMONEDA=$ARRAYDICARGATM[0]["ID_TMONEDA"];
@@ -138,8 +141,12 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $ARRAYDVALOR=$DVALOR_ADO->buscarPorValorItem($IDP,$r["ID_TITEM"]);
             if($ARRAYDVALOR){
                $VALORITEM= $ARRAYDVALOR[0]["VALOR_DVALOR"];   
-               $COMERCIAL = $ARRAYDVALOR[0]['COMERCIAL'];   
-               $ECOMERCIAL = $ARRAYDVALOR[0]['ID_ECOMERCIAL'];              
+
+               $ESTANDAR = $ARRAYDVALOR[0]['ESTANDAR'];   
+               $EESTANDAR = $ARRAYDVALOR[0]['ID_ESTANDAR'];  
+               $CALIBRE = $ARRAYDVALOR[0]['CALIBRE'];   
+               $TCALIBRE = $ARRAYDVALOR[0]['ID_TCALIBRE'];
+
             }else{
                $VALORITEM=0;
             }         
@@ -159,8 +166,10 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $ARRAYDVALOR=$DVALOR_ADO->buscarPorValorItem($IDP,$r["ID_TITEM"]);
             if($ARRAYDVALOR){
                $VALORITEM= $ARRAYDVALOR[0]["VALOR_DVALOR"];    
-               $COMERCIAL = $ARRAYDVALOR[0]['COMERCIAL'];   
-               $ECOMERCIAL = $ARRAYDVALOR[0]['ID_ECOMERCIAL'];               
+               $ESTANDAR = $ARRAYDVALOR[0]['ESTANDAR'];   
+               $EESTANDAR = $ARRAYDVALOR[0]['ID_ESTANDAR'];  
+               $CALIBRE = $ARRAYDVALOR[0]['CALIBRE'];   
+               $TCALIBRE = $ARRAYDVALOR[0]['ID_TCALIBRE'];           
             }else{
                $VALORITEM=0;
             }         
@@ -179,8 +188,10 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $ARRAYDVALOR=$DVALOR_ADO->buscarPorValorItem($IDP,$r["ID_TITEM"]);
             if($ARRAYDVALOR){
                $VALORITEM= $ARRAYDVALOR[0]["VALOR_DVALOR"];  
-               $COMERCIAL = $ARRAYDVALOR[0]['COMERCIAL'];   
-               $ECOMERCIAL = $ARRAYDVALOR[0]['ID_ECOMERCIAL'];                 
+               $ESTANDAR = $ARRAYDVALOR[0]['ESTANDAR'];   
+               $EESTANDAR = $ARRAYDVALOR[0]['ID_ESTANDAR'];  
+               $CALIBRE = $ARRAYDVALOR[0]['CALIBRE'];   
+               $TCALIBRE = $ARRAYDVALOR[0]['ID_TCALIBRE'];           
             }else{
                $VALORITEM=0;
             }         
@@ -201,9 +212,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $NOMBREITEM = "" . $r['NOMBRE_TITEM'];     
             $ARRAYDVALOR=$DVALOR_ADO->buscarPorValorItem($IDP,$r["ID_TITEM"]);
             if($ARRAYDVALOR){
-               $VALORITEM= $ARRAYDVALOR[0]["VALOR_DVALOR"];      
-               $COMERCIAL = $ARRAYDVALOR[0]['COMERCIAL'];   
-               $ECOMERCIAL = $ARRAYDVALOR[0]['ID_ECOMERCIAL'];             
+               $VALORITEM= $ARRAYDVALOR[0]["VALOR_DVALOR"];     
+               $ESTANDAR = $ARRAYDVALOR[0]['ESTANDAR'];   
+               $EESTANDAR = $ARRAYDVALOR[0]['ID_ESTANDAR'];  
+               $CALIBRE = $ARRAYDVALOR[0]['CALIBRE'];   
+               $TCALIBRE = $ARRAYDVALOR[0]['ID_TCALIBRE'];       
             }else{
                $VALORITEM=0;
             }         
@@ -215,11 +228,19 @@ if ($_POST) {
     if (isset($_REQUEST['VALORITEM'])) {
         $VALORITEM = $_REQUEST['VALORITEM'];
     }
-    if (isset($_REQUEST['COMERCIAL'])) {
-        $COMERCIAL = $_REQUEST['COMERCIAL'];
-        if($COMERCIAL==1){
-            if (isset($_REQUEST['ECOMERCIAL'])) {
-                $ECOMERCIAL = $_REQUEST['ECOMERCIAL'];
+    if (isset($_REQUEST['ESTANDAR'])) {
+        $ESTANDAR = $_REQUEST['ESTANDAR'];
+        if($ESTANDAR==1){
+            if (isset($_REQUEST['EESTANDAR'])) {
+                $EESTANDAR = $_REQUEST['EESTANDAR'];
+            }
+        }
+    }    
+    if (isset($_REQUEST['CALIBRE'])) {
+        $CALIBRE = $_REQUEST['CALIBRE'];
+        if($CALIBRE==1){
+            if (isset($_REQUEST['TCALIBRE'])) {
+                $TCALIBRE = $_REQUEST['TCALIBRE'];
             }
         }
     }
@@ -242,11 +263,12 @@ if ($_POST) {
             <script type="text/javascript">
                 function validacion() {
                     VALORITEM = document.getElementById("VALORITEM").value;
-                    COMERCIAL = document.getElementById("COMERCIAL").selectedIndex;    
+                    ESTANDAR = document.getElementById("ESTANDAR").selectedIndex;     
+                    CALIBRE = document.getElementById("CALIBRE").selectedIndex;                        
 
-                    console.log(COMERCIAL); 
                     document.getElementById('val_valor').innerHTML = "";
-                    document.getElementById('val_comercial').innerHTML = "";
+                    document.getElementById('val_estandar').innerHTML = "";
+                    document.getElementById('val_calibre').innerHTML = "";
 
 
                     if (VALORITEM == null || VALORITEM.length == 0 || /^\s+$/.test(VALORITEM)) {
@@ -266,30 +288,49 @@ if ($_POST) {
                     document.form_reg_dato.VALORITEM.style.borderColor = "#4AF575";
 
 
-                    if (COMERCIAL == null || COMERCIAL == 0) {
-                        document.form_reg_dato.COMERCIAL.focus();
-                        document.form_reg_dato.COMERCIAL.style.borderColor = "#FF0000";
-                        document.getElementById('val_comercial').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                    if (ESTANDAR == null || ESTANDAR == 0) {
+                        document.form_reg_dato.ESTANDAR.focus();
+                        document.form_reg_dato.ESTANDAR.style.borderColor = "#FF0000";
+                        document.getElementById('val_estandar').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
                         return false;
                     }
-                    document.form_reg_dato.COMERCIAL.style.borderColor = "#4AF575";
+                    document.form_reg_dato.ESTANDAR.style.borderColor = "#4AF575";
 
-                    if(COMERCIAL == 1 ){
+                    if(ESTANDAR == 1 ){
 
-                        ECOMERCIAL = document.getElementById("ECOMERCIAL").selectedIndex;    
-                        document.getElementById('val_ecomercial').innerHTML = "";
+                        EESTANDAR = document.getElementById("EESTANDAR").selectedIndex;    
+                        document.getElementById('val_estandar').innerHTML = "";
 
-                        if (ECOMERCIAL == null || ECOMERCIAL == 0) {
-                            document.form_reg_dato.ECOMERCIAL.focus();
-                            document.form_reg_dato.ECOMERCIAL.style.borderColor = "#FF0000";
-                            document.getElementById('val_ecomercial').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                        if (EESTANDAR == null || EESTANDAR == 0) {
+                            document.form_reg_dato.EESTANDAR.focus();
+                            document.form_reg_dato.EESTANDAR.style.borderColor = "#FF0000";
+                            document.getElementById('val_eestandar').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
                             return false;
                         }
-                        document.form_reg_dato.ECOMERCIAL.style.borderColor = "#4AF575";                      
+                        document.form_reg_dato.EESTANDAR.style.borderColor = "#4AF575";                      
                         
                     } 
-                   
                     
+                    if (CALIBRE == null || CALIBRE == 0) {
+                        document.form_reg_dato.CALIBRE.focus();
+                        document.form_reg_dato.CALIBRE.style.borderColor = "#FF0000";
+                        document.getElementById('val_calibre').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                        return false;
+                    }
+                    document.form_reg_dato.CALIBRE.style.borderColor = "#4AF575";
+
+                    if(CALIBRE == 1 ){
+                        TCALIBRE = document.getElementById("TCALIBRE").selectedIndex;    
+                        document.getElementById('val_tcalibre').innerHTML = "";
+                        if (TCALIBRE == null || TCALIBRE == 0) {
+                            document.form_reg_dato.TCALIBRE.focus();
+                            document.form_reg_dato.TCALIBRE.style.borderColor = "#FF0000";
+                            document.getElementById('val_tcalibre').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                            return false;
+                        }
+                        document.form_reg_dato.TCALIBRE.style.borderColor = "#4AF575";                      
+
+                    }      
                 }
              
 
@@ -373,27 +414,59 @@ if ($_POST) {
                                                 <label id="val_tmoneda" class="validacion"> </label>   
                                             </div>
                                         </div>  
-                                        <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
-                                                <label>Comercial</label>
-                                                <select class="form-control select2" id="COMERCIAL" name="COMERCIAL" style="width: 100%;" onchange="this.form.submit()" <?php echo $COMERCIAL; ?>>
+                                                <label>Estandar Exportación</label>
+                                                <select class="form-control select2" id="ESTANDAR" name="ESTANDAR" style="width: 100%;" onchange="this.form.submit()" <?php echo $ESTANDAR; ?> <?php echo $DISABLED; ?> >
                                                     <option></option>
-                                                    <option value="1" <?php if ($COMERCIAL == "1") { echo "selected"; } ?>> Si </option>
-                                                    <option value="0" <?php if ($COMERCIAL == "0") { echo "selected"; } ?>>No</option>
+                                                    <option value="1" <?php if ($ESTANDAR == "1") { echo "selected"; } ?>> Si </option>
+                                                    <option value="0" <?php if ($ESTANDAR == "0") { echo "selected"; } ?>>No</option>
                                                 </select>
-                                                <label id="val_comercial" class="validacion"> </label>
+                                                <label id="val_estandar" class="validacion"> </label> 
                                             </div>
                                         </div>  
-                                        <?php if($COMERCIAL==1){  ?>
-                                            <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
+                                        <?php if($ESTANDAR==1){  ?>
+                                        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
                                                     <label>Estandar Comercial</label>
-                                                    <select class="form-control select2" id="ECOMERCIAL" name="ECOMERCIAL" style="width: 100%;" value="<?php echo $ECOMERCIAL; ?>" <?php echo $DISABLED; ?>>
+                                                    <select class="form-control select2" id="EESTANDAR" name="EESTANDAR" style="width: 100%;" value="<?php echo $EESTANDAR; ?>" <?php echo $DISABLED; ?>>
                                                         <option></option>
-                                                        <?php foreach ($ARRAYDICARGAEC as $r) : ?>
-                                                            <?php if ($ARRAYDICARGAEC) {    ?>
-                                                                <option value="<?php echo $r['ID_ECOMERCIAL']; ?>"
-                                                                    <?php if ($ECOMERCIAL == $r['ID_ECOMERCIAL']) {  echo "selected";  } ?>>
+                                                        <?php foreach ($ARRAYDICARGAESTANDAR as $r) : ?>
+                                                            <?php if ($ARRAYDICARGAESTANDAR) {    ?>
+                                                                <option value="<?php echo $r['ID_ESTANDAR']; ?>"
+                                                                    <?php if ($EESTANDAR == $r['ID_ESTANDAR']) {  echo "selected";  } ?>>
+                                                                    <?php echo $r['CODIGO'] ?> <?php echo $r['NOMBRE'] ?>
+                                                                </option>
+                                                            <?php } else { ?>
+                                                                <option>No Hay Datos Registrados </option>
+                                                            <?php } ?>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                    <label id="val_eestandar" class="validacion"> </label>
+                                                </div>
+                                            </div>
+                                        <?php  } ?>                                        
+                                        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="form-group">
+                                                <label>Tipo Calibre</label>
+                                                <select class="form-control select2" id="CALIBRE" name="CALIBRE" style="width: 100%;" onchange="this.form.submit()" <?php echo $CALIBRE; ?> <?php echo $DISABLED; ?> >
+                                                    <option></option>
+                                                    <option value="1" <?php if ($CALIBRE == "1") { echo "selected"; } ?>> Si </option>
+                                                    <option value="0" <?php if ($CALIBRE == "0") { echo "selected"; } ?>>No</option>
+                                                </select>
+                                                <label id="val_calibre" class="validacion"> </label> 
+                                            </div>
+                                        </div>  
+                                        <?php if($CALIBRE==1){  ?>
+                                        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                <div class="form-group">
+                                                    <label>Tipo Calibre</label>
+                                                    <select class="form-control select2" id="TCALIBRE" name="TCALIBRE" style="width: 100%;" value="<?php echo $TCALIBRE; ?>" <?php echo $DISABLED; ?>>
+                                                        <option></option>
+                                                        <?php foreach ($ARRAYDICARGATCALIBRE as $r) : ?>
+                                                            <?php if ($ARRAYDICARGATCALIBRE) {    ?>
+                                                                <option value="<?php echo $r['ID_TCALIBRE']; ?>"
+                                                                    <?php if ($TCALIBRE == $r['ID_TCALIBRE']) {  echo "selected";  } ?>>
                                                                     <?php echo $r['NOMBRE'] ?>
                                                                 </option>
                                                             <?php } else { ?>
@@ -401,7 +474,7 @@ if ($_POST) {
                                                             <?php } ?>
                                                         <?php endforeach; ?>
                                                     </select>
-                                                    <label id="val_ecomercial" class="validacion"> </label>
+                                                    <label id="val_tcalibre" class="validacion"> </label>
                                                 </div>
                                             </div>
                                         <?php  } ?>
@@ -459,9 +532,13 @@ if ($_POST) {
             if (isset($_REQUEST['CREAR'])) { 
 
                 $DVALOR->__SET('VALOR_DVALOR', $_REQUEST['VALORITEM']);
-                $DVALOR->__SET('COMERCIAL', $_REQUEST['COMERCIAL']);
-                if($_REQUEST['COMERCIAL']==1){
-                    $DVALOR->__SET('ID_ECOMERCIAL', $_REQUEST['ECOMERCIAL']);
+                $DVALOR->__SET('ESTANDAR', $_REQUEST['ESTANDAR']);
+                if($_REQUEST['ESTANDAR']==1){
+                    $DVALOR->__SET('ID_ESTANDAR', $_REQUEST['EESTANDAR']);
+                } 
+                $DVALOR->__SET('CALIBRE', $_REQUEST['CALIBRE']);
+                if($_REQUEST['CALIBRE']==1){
+                    $DVALOR->__SET('ID_CALIBRE', $_REQUEST['TCALIBRE']);
                 }
                 $DVALOR->__SET('ID_USUARIOI', $IDUSUARIOS);
                 $DVALOR->__SET('ID_USUARIOM', $IDUSUARIOS);
@@ -492,16 +569,20 @@ if ($_POST) {
                 $ARRAYDVALOR=$DVALOR_ADO->buscarPorValorItem($_REQUEST['IDP'],$_REQUEST['ID']);
                 if($ARRAYDVALOR){     
                     $DVALOR->__SET('VALOR_DVALOR', $_REQUEST['VALORITEM']);
-                    $DVALOR->__SET('COMERCIAL', $_REQUEST['COMERCIAL']);
-                    echo $COMERCIAL;
-                    if($_REQUEST['COMERCIAL']==1){
-                        $DVALOR->__SET('ID_ECOMERCIAL', $_REQUEST['ECOMERCIAL']);
+                    $DVALOR->__SET('ESTANDAR', $_REQUEST['ESTANDAR']);
+                    if($_REQUEST['ESTANDAR']==1){
+                        $DVALOR->__SET('ID_ESTANDAR', $_REQUEST['EESTANDAR']);
+                    } 
+                    $DVALOR->__SET('CALIBRE', $_REQUEST['CALIBRE']);
+                    if($_REQUEST['CALIBRE']==1){
+                        $DVALOR->__SET('ID_CALIBRE', $_REQUEST['TCALIBRE']);
                     }
                     $DVALOR->__SET('ID_USUARIOM', $IDUSUARIOS);
                     $DVALOR->__SET('ID_VALOR', $_REQUEST['IDP']);
                     $DVALOR->__SET('ID_TITEM', $_REQUEST['ID']);
                     $DVALOR->__SET('ID_DVALOR', $ARRAYDVALOR[0]["ID_DVALOR"]);
                     $DVALOR_ADO->actualizarDvalor($DVALOR);
+
                     $AUSUARIO_ADO->agregarAusuario2("NULL",3, 2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Detalle de Valor Liquidación","liquidacion_dvalor",$ARRAYDVALOR[0]["ID_DVALOR"],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
                     
                     $_SESSION["parametro"] =  $_REQUEST['IDP'];

@@ -44,7 +44,7 @@ $ARRAYNUMERO = "";
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-$ARRAYTITEM = $TITEM_ADO->listarTitemPorEmpresaCBX($EMPRESAS);
+$ARRAYTITEM = $TITEM_ADO->listarTitemPorEmpresaLiquidacionCBX($EMPRESAS);
 include_once "../../assest/config/validarDatosUrl.php";
 include_once "../../assest/config/datosUrl.php";
 
@@ -74,7 +74,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
         foreach ($ARRAYTITEMID as $r) :
             $NOMBRETITEM = "" . $r['NOMBRE_TITEM'];
-            $TAITEM = "" . $r['TAITEM'];
         endforeach;
     }
     //1 = ACTIVAR
@@ -92,7 +91,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
         foreach ($ARRAYTITEMID as $r) :
             $NOMBRETITEM = "" . $r['NOMBRE_TITEM'];
-            $TAITEM = "" . $r['TAITEM'];
         endforeach;
 
     }
@@ -111,7 +109,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
         foreach ($ARRAYTITEMID as $r) :
             $NOMBRETITEM = "" . $r['NOMBRE_TITEM'];
-            $TAITEM = "" . $r['TAITEM'];
         endforeach;
     }
 
@@ -130,7 +127,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
         foreach ($ARRAYTITEMID as $r) :
             $NOMBRETITEM = "" . $r['NOMBRE_TITEM'];
-            $TAITEM = "" . $r['TAITEM'];
         endforeach;
     }
 }
@@ -157,10 +153,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 function validacion() {
 
                     NOMBRETITEM = document.getElementById("NOMBRETITEM").value;
-                    TAITEM = document.getElementById("TAITEM").selectedIndex;
 
                     document.getElementById('val_nombre').innerHTML = "";
-                    document.getElementById('val_taitem').innerHTML = "";
 
                     if (NOMBRETITEM == null || NOMBRETITEM.length == 0 || /^\s+$/.test(NOMBRETITEM)) {
                         document.form_reg_dato.NOMBRETITEM.focus();
@@ -168,16 +162,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         document.getElementById('val_nombre').innerHTML = "NO A INGRESADO DATO";
                         return false;
                     }
-                    document.form_reg_dato.NOMBRETITEM.style.borderColor = "#4AF575";
-
-                    if (TAITEM == null || TAITEM == 0) {
-                        document.form_reg_dato.TAITEM.focus();
-                        document.form_reg_dato.TAITEM.style.borderColor = "#FF0000";
-                        document.getElementById('val_taitem').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
-                        return false;
-                    }
-                    document.form_reg_dato.TAITEM.style.borderColor = "#4AF575";
-
+                    document.form_reg_dato.NOMBRETITEM.style.borderColor = "#4AF575";            
 
                 }
 
@@ -201,12 +186,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Liquidación</h3>
+                                <h3 class="page-title">Pago</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
-                                            <li class="breadcrumb-item" aria-current="page">Mantenedores</li>
                                             <li class="breadcrumb-item" aria-current="page">Liquidación</li>
                                             <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Item Liquidación </a> </li>
                                         </ol>
@@ -238,24 +222,12 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_nombre" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
-                                                    <div class="form-group">
-                                                        <label>Tipo Agrupado Liquidación</label>
-                                                        <select class="form-control select2" id="TAITEM" name="TAITEM" style="width: 100%;" value="<?php echo $TAITEM; ?>" <?php echo $DISABLED; ?>>
-                                                            <option></option>
-                                                            <option value="1" <?php if ($TAITEM == "1") { echo "selected";} ?>>Agrupado 1</option>
-                                                            <option value="2" <?php if ($TAITEM == "2") { echo "selected";} ?>>Agrupado 2</option>
-                                                            <option value="3" <?php if ($TAITEM == "3") { echo "selected";} ?>>Agrupado 3</option>
-                                                        </select>
-                                                        <label id="val_taitem" class="validacion"> </label>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                         <!-- /.box-body -->                                                                                              
                                         <div class="box-footer">
                                             <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
-                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroTitem.php');">
+                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroTitemLiqui.php');">
                                                     <i class="ti-trash"></i>Cancelar
                                                 </button>
                                                 <?php if ($OP == "editar") { ?>
@@ -294,22 +266,12 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <th>Numero Item</th>
                                                         <th>Operaciones</th>
                                                         <th>Nombre Item</th>
-                                                        <th>Agrupado Item</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYTITEM as $r) : ?>
                                                         <?php 
-                                                            $CONTADOR+=1;     
-                                                           if($r['TAITEM']=="1"){
-                                                                $NOMBRETAITEM=  "Agrupado 1";
-                                                           }else    if($r['TAITEM']=="2"){
-                                                                $NOMBRETAITEM=  "Agrupado 2";
-                                                           }else  if($r['TAITEM']=="3"){
-                                                                $NOMBRETAITEM=  "Agrupado 3";
-                                                           }else{
-                                                                $NOMBRETAITEM="Sin Datos";
-                                                           }
+                                                            $CONTADOR+=1;   
                                                         ?>
                                                         <tr class="center">
                                                             <td><?php echo $CONTADOR; ?> </td>                                                                                                                                                                                                                                                        
@@ -322,7 +284,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                             </button>
                                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                                 <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_TITEM']; ?>" />
-                                                                                <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroTitem" />
+                                                                                <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroTitemLiqui" />
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
                                                                                     <button type="submit" class="btn btn-info btn-block  btn-sm" id="VERURL" name="VERURL">
                                                                                         <i class="ti-eye"></i> Ver
@@ -352,8 +314,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     </div>
                                                                 </form>
                                                             </td>
-                                                            <td><?php echo $r['NOMBRE_TITEM']; ?></td>     
-                                                            <td><?php echo $NOMBRETAITEM; ?></td>       
+                                                            <td><?php echo $r['NOMBRE_TITEM']; ?></td>   
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>
@@ -393,7 +354,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
                 $TITEM->__SET('NUMERO_TITEM', $NUMERO);
                 $TITEM->__SET('NOMBRE_TITEM', $_REQUEST['NOMBRETITEM']);
-                $TITEM->__SET('ID_TAITEM', $_REQUEST['TAITEM']);                
+                $TITEM->__SET('TAITEM', 1);                
                 $TITEM->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                 $TITEM->__SET('ID_USUARIOI', $IDUSUARIOS);
                 $TITEM->__SET('ID_USUARIOM', $IDUSUARIOS);
@@ -403,7 +364,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 
                 $AUSUARIO_ADO->agregarAusuario2("NULL",3,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Item Liquidación.","liquidacion_titem","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
 
-                //REDIRECCIONAR A PAGINA registroTitem.php
+                //REDIRECCIONAR A PAGINA registroTitemLiqui.php
                 
                     echo '<script>
                         Swal.fire({
@@ -414,7 +375,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                             confirmButtonText:"Cerrar",
                             closeOnConfirm:false
                         }).then((result)=>{
-                            location.href = "registroTitem.php";                            
+                            location.href = "registroTitemLiqui.php";                            
                         })
                     </script>';
                     
@@ -423,7 +384,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 //UTILIZACION METODOS SET DEL MODELO
                 //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
                 $TITEM->__SET('NOMBRE_TITEM', $_REQUEST['NOMBRETITEM']);
-                $TITEM->__SET('ID_TAITEM', $_REQUEST['TAITEM']);      
+                $TITEM->__SET('TAITEM', 1);                
                 $TITEM->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $TITEM->__SET('ID_TITEM', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
@@ -431,7 +392,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
                 $AUSUARIO_ADO->agregarAusuario2("NULL",3,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Item Liquidación.","liquidacion_titem", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );     
                 
-                //REDIRECCIONAR A PAGINA registroTitem.php                
+                //REDIRECCIONAR A PAGINA registroTitemLiqui.php                
                     echo '<script>
                         Swal.fire({
                             icon:"success",
@@ -441,7 +402,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                             confirmButtonText:"Cerrar",
                             closeOnConfirm:false
                         }).then((result)=>{
-                            location.href = "registroTitem.php";                            
+                            location.href = "registroTitemLiqui.php";                            
                         })
                     </script>';
                     
@@ -464,7 +425,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         confirmButtonText:"Cerrar",
                         closeOnConfirm:false
                     }).then((result)=>{
-                        location.href = "registroTitem.php";                            
+                        location.href = "registroTitemLiqui.php";                            
                     })
                 </script>';
             }
@@ -486,7 +447,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         confirmButtonText:"Cerrar",
                         closeOnConfirm:false
                     }).then((result)=>{
-                        location.href = "registroTitem.php";                            
+                        location.href = "registroTitemLiqui.php";                            
                     })
                 </script>';
             }
