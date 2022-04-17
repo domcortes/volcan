@@ -680,8 +680,8 @@ if (isset($_POST)) {
 
                                                 <input type="hidden" class="form-control" placeholder="ID RECEPCION" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="OP RECEPCION" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
-                                                <input type="hidden" class="form-control" placeholder="URL RECEPCION" id="URLP" name="URLP" value="registroValor" />
-                                                <input type="hidden" class="form-control" placeholder="URL DRECEPCION" id="URLD" name="URLD" value="registroDvalor" />
+                                                <input type="hidden" class="form-control" placeholder="URL RECEPCION" id="URLP" name="URLP" value="registroValorLiquidacion" />
+                                                <input type="hidden" class="form-control" placeholder="URL DRECEPCION" id="URLD" name="URLD" value="registroDvalorLiquidacion" />
                                                 <input type="text" class="form-control " style="background-color: #eeeeee;" placeholder="Número Instructivo" id="IDINSTRUCTIVO" name="IDINSTRUCTIVO" value="<?php echo $NUMEROVER; ?>" disabled />
                                                 <label id="val_id" class="validacion"> </label>
                                             </div>
@@ -1062,7 +1062,7 @@ if (isset($_POST)) {
                                     <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="toolbar">
                                         <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
                                             <?php if ($OP == "") { ?>
-                                                <button type="button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroValor.php');">
+                                                <button type="button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroValorLiquidacion.php');">
                                                     <i class="ti-trash"></i> Cancelar
                                                 </button>
                                                 <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR"   onclick="return validacion()">
@@ -1070,7 +1070,7 @@ if (isset($_POST)) {
                                                 </button>
                                             <?php } ?>
                                             <?php if ($OP != "") { ?>
-                                                <button type="button" class="btn  btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarValor.php'); ">
+                                                <button type="button" class="btn  btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarValorLiquidacion.php'); ">
                                                     <i class="ti-back-left "></i> Volver
                                                 </button>
                                                 <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Guardar" name="EDITAR" value="EDITAR"    <?php echo $DISABLED2; ?> onclick="return validacion()">
@@ -1164,8 +1164,8 @@ if (isset($_POST)) {
                                                                             <input type="hidden" class="form-control" placeholder="ID DRECEPCIONE" id="IDD" name="IDD" value="<?php echo $s['ID_TITEM']; ?>" />
                                                                             <input type="hidden" class="form-control" placeholder="ID RECEPCIONE" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
                                                                             <input type="hidden" class="form-control" placeholder="OP RECEPCIONE" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL RECEPCIONE" id="URLP" name="URLP" value="registroValor" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL DRECEPCIONE" id="URLD" name="URLD" value="registroDvalor" />
+                                                                            <input type="hidden" class="form-control" placeholder="URL RECEPCIONE" id="URLP" name="URLP" value="registroValorLiquidacion" />
+                                                                            <input type="hidden" class="form-control" placeholder="URL DRECEPCIONE" id="URLD" name="URLD" value="registroDvalorLiquidacion" />
                                                                             <div class="btn-group btn-rounded  btn-block" role="group" aria-label="Operaciones Detalle">
                                                                                 <?php if ($ESTADO == "0") { ?>
                                                                                     <button type="submit" class="btn btn-info btn-sm  " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Valor  ">
@@ -1249,7 +1249,7 @@ if (isset($_POST)) {
 
                 $AUSUARIO_ADO->agregarAusuario2($NUMERO,3,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Valor de Liquidacion","liquidacion_valor",$ARRYAOBTENERID[0]['ID_VALOR'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
 
-                //REDIRECCIONAR A PAGINA registroValor.php
+                //REDIRECCIONAR A PAGINA registroValorLiquidacion.php
 
                 $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_VALOR'];
                 $_SESSION["parametro1"] = "crear";
@@ -1262,7 +1262,7 @@ if (isset($_POST)) {
                         confirmButtonText:"Cerrar",
                         closeOnConfirm:false
                     }).then((result)=>{
-                        location.href = "registroValor.php?op";                        
+                        location.href = "registroValorLiquidacion.php?op";                        
                     })
                 </script>';
                 
@@ -1294,7 +1294,7 @@ if (isset($_POST)) {
                             confirmButtonText:"Cerrar",
                             closeOnConfirm:false
                         }).then((result)=>{
-                            location.href = "registroValor.php?op";                        
+                            location.href = "registroValorLiquidacion.php?op";                        
                         })
                     </script>';
                 }
@@ -1310,7 +1310,7 @@ if (isset($_POST)) {
                             confirmButtonText:"Cerrar",
                             closeOnConfirm:false
                         }).then((result)=>{
-                            location.href = "registroValor.php?op";                        
+                            location.href = "registroValorLiquidacion.php?op";                        
                         })
                     </script>';
                 }
@@ -1378,7 +1378,7 @@ if (isset($_POST)) {
                     $AUSUARIO_ADO->agregarAusuario2($NUMEROVER,3,3,"".$_SESSION["NOMBRE_USUARIO"].", Cerrar  Valor de Liquidacion","liquidacion_valor",$_REQUEST['IDP'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
                    
                     
-                    //REDIRECCIONAR A PAGINA registroValor.php 
+                    //REDIRECCIONAR A PAGINA registroValorLiquidacion.php 
                     //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
                     if ($_SESSION['parametro1'] == "crear") {
                         $_SESSION["parametro"] = $_REQUEST['IDP'];
@@ -1392,7 +1392,7 @@ if (isset($_POST)) {
                                 confirmButtonText:"Cerrar",
                                 closeOnConfirm:false
                             }).then((result)=>{
-                                location.href = "registroValor.php?op";                            
+                                location.href = "registroValorLiquidacion.php?op";                            
                             })
                         </script>';
                     }
@@ -1408,7 +1408,7 @@ if (isset($_POST)) {
                                 confirmButtonText:"Cerrar",
                                 closeOnConfirm:false
                             }).then((result)=>{
-                                location.href = "registroValor.php?op";                            
+                                location.href = "registroValorLiquidacion.php?op";                            
                             })
                         </script>';
                     } 

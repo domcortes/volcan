@@ -337,8 +337,8 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               </span>
             </a>
             <ul class="treeview-menu">
-                <li><a href="registroValor.php">Registro Valor Liqui.</i></a></li>
-                <li><a href="listarValor.php">Agrupado Valor Liqui.</i></a></li>   
+                <li><a href="registroValorLiquidacion.php">Registro Valor Liqui.</i></a></li>
+                <li><a href="listarValorLiquidacion.php">Agrupado Valor Liqui.</i></a></li>   
                 <li><a href="registroTitemLiqui.php"></i>Item Liqui.</a></li>   
             </ul>
           </li>

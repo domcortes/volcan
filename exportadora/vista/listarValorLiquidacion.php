@@ -295,8 +295,8 @@ include_once "../../assest/config/datosUrLP.php";
                                                                         <div class="dropdown-menu dropdown-menu-right">
                                                                             <button class="dropdown-menu" aria-labelledby="dropdownMenuButton"></button>
                                                                             <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_VALOR']; ?>" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroValor" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarValor" />
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroValorLiquidacion" />
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarValorLiquidacion" />
                                                                             <?php if ($r['ESTADO'] == "0") { ?>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
                                                                                     <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
