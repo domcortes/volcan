@@ -538,7 +538,7 @@ if ($_POST) {
                 } 
                 $DVALOR->__SET('CALIBRE', $_REQUEST['CALIBRE']);
                 if($_REQUEST['CALIBRE']==1){
-                    $DVALOR->__SET('ID_CALIBRE', $_REQUEST['TCALIBRE']);
+                    $DVALOR->__SET('ID_TCALIBRE', $_REQUEST['TCALIBRE']);
                 }
                 $DVALOR->__SET('ID_USUARIOI', $IDUSUARIOS);
                 $DVALOR->__SET('ID_USUARIOM', $IDUSUARIOS);
@@ -575,7 +575,7 @@ if ($_POST) {
                     } 
                     $DVALOR->__SET('CALIBRE', $_REQUEST['CALIBRE']);
                     if($_REQUEST['CALIBRE']==1){
-                        $DVALOR->__SET('ID_CALIBRE', $_REQUEST['TCALIBRE']);
+                        $DVALOR->__SET('ID_TCALIBRE', $_REQUEST['TCALIBRE']);
                     }
                     $DVALOR->__SET('ID_USUARIOM', $IDUSUARIOS);
                     $DVALOR->__SET('ID_VALOR', $_REQUEST['IDP']);
