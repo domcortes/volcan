@@ -77,6 +77,7 @@ $EXPORTADORATODO="";
 $EMATERIALES="";
 $EEXPORTACION="";
 $ELIQUIDACION="";
+$EPAGO="";
 $EFRUTA="";
 $EFCICARGA="";
 $EINFORMES="";
@@ -209,6 +210,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $EMATERIALES= "" . $r['EMATERIALES'];
             $EEXPORTACION= "" . $r['EEXPORTACION'];
             $ELIQUIDACION= "" . $r['ELIQUIDACION'];
+            $EPAGO= "" . $r['EPAGO'];
             $EFRUTA= "" . $r['EFRUTA'];
             $EFCICARGA= "" . $r['EFCICARGA'];
             
@@ -297,6 +299,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $EMATERIALES= "" . $r['EMATERIALES'];
             $EEXPORTACION= "" . $r['EEXPORTACION'];
             $ELIQUIDACION= "" . $r['ELIQUIDACION'];
+            $EPAGO= "" . $r['EPAGO'];
             $EFRUTA= "" . $r['EFRUTA'];
             $EFCICARGA= "" . $r['EFCICARGA'];
             $EINFORMES= "" . $r['EINFORMES'];
@@ -417,6 +420,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $EMATERIALES= "" . $r['EMATERIALES'];
             $EEXPORTACION= "" . $r['EEXPORTACION'];
             $ELIQUIDACION= "" . $r['ELIQUIDACION'];
+            $EPAGO= "" . $r['EPAGO'];
             $EFRUTA= "" . $r['EFRUTA'];
             $EFCICARGA= "" . $r['EFCICARGA'];
             $EINFORMES= "" . $r['EINFORMES'];
@@ -516,6 +520,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $EEXPORTACION= "" . $r['EEXPORTACION'];
             $ELIQUIDACION= "" . $r['ELIQUIDACION'];
             $EFRUTA= "" . $r['EFRUTA'];
+            $EPAGO= "" . $r['EPAGO'];
             $EFCICARGA= "" . $r['EFCICARGA'];
             $EINFORMES= "" . $r['EINFORMES'];
             
@@ -843,6 +848,7 @@ if (isset($_POST)) {
                 document.getElementById('EMATERIALES').disabled = false;   
                 document.getElementById('EEXPORTACION').disabled = false;  
                 document.getElementById('ELIQUIDACION').disabled = false;  
+                document.getElementById('EPAGO').disabled = false;   
                 document.getElementById('EFRUTA').disabled = false;    
                 document.getElementById('EFCICARGA').disabled = false;   
                 document.getElementById('EINFORMES').disabled = false; 
@@ -851,6 +857,8 @@ if (isset($_POST)) {
                 document.getElementById('EXPORTADORATODO').disabled = true;   
                 document.getElementById('EMATERIALES').disabled = true;   
                 document.getElementById('EEXPORTACION').disabled = true;    
+                document.getElementById('ELIQUIDACION').disabled = true;    
+                document.getElementById('EPAGO').disabled = true;    
                 document.getElementById('EFRUTA').disabled = true;   
                 document.getElementById('EFCICARGA').disabled = true;   
                 document.getElementById('EINFORMES').disabled = true;  
@@ -859,6 +867,8 @@ if (isset($_POST)) {
                 document.getElementById('EXPORTADORA').checked = false;   
                 document.getElementById('EMATERIALES').checked = false;   
                 document.getElementById('EEXPORTACION').checked = false;  
+                document.getElementById('ELIQUIDACION').checked = false;  
+                document.getElementById('EPAGO').checked = false;   
                 document.getElementById('EFRUTA').checked = false;   
                 document.getElementById('EFCICARGA').checked = false;     
                 document.getElementById('EINFORMES').checked = false;   
@@ -1106,6 +1116,7 @@ if (isset($_POST)) {
                 document.getElementById('EMATERIALES').checked = true;   
                 document.getElementById('EEXPORTACION').checked = true;    
                 document.getElementById('ELIQUIDACION').checked = true;    
+                document.getElementById('EPAGO').checked = true;  
                 document.getElementById('EFRUTA').checked = true;  
                 document.getElementById('EFCICARGA').checked = true; 
                 document.getElementById('EINFORMES').checked = true;  
@@ -1113,6 +1124,7 @@ if (isset($_POST)) {
                 document.getElementById('EMATERIALES').checked = false;   
                 document.getElementById('EEXPORTACION').checked = false;    
                 document.getElementById('ELIQUIDACION').checked = false;   
+                document.getElementById('EPAGO').checked = false;   
                 document.getElementById('EFRUTA').checked = false;   
                 document.getElementById('EFCICARGA').checked = false; 
                 document.getElementById('EINFORMES').checked = false;   
@@ -1545,7 +1557,11 @@ if (isset($_POST)) {
                                                 <div class="col-xxl-4 col-xl-4 col-lg-5 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <input type="checkbox" id="ELIQUIDACION"  name="ELIQUIDACION" class="filled-in chk-col-success"     <?php if ($ELIQUIDACION == "1") { echo "checked"; } ?>  <?php echo $DISABLED;?> <?php echo $DISABLEDEXPORTADORA;?>>
                                                     <label for="ELIQUIDACION">Liquidación</label>                                        
-                                                </div>         
+                                                </div>     
+                                                <div class="col-xxl-4 col-xl-4 col-lg-5 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                    <input type="checkbox" id="EPAGO"  name="EPAGO" class="filled-in chk-col-success"     <?php if ($EPAGO == "1") { echo "checked"; } ?>  <?php echo $DISABLED;?> <?php echo $DISABLEDEXPORTADORA;?>>
+                                                    <label for="EPAGO">Pago</label>                                        
+                                                </div>        
                                                 <div class="col-xxl-4 col-xl-4 col-lg-5 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <input type="checkbox" id="EINFORMES"  name="EINFORMES" class="filled-in chk-col-success"     <?php if ($EINFORMES == "1") { echo "checked"; } ?>  <?php echo $DISABLED;?> <?php echo $DISABLEDEXPORTADORA;?>>
                                                     <label for="EINFORMES">Informes</label>                                        
@@ -1856,7 +1872,8 @@ if (isset($_POST)) {
                     $PTUSUARIO->__SET('EXPORTADORA', isset($_REQUEST['EXPORTADORA'])); 
                     $PTUSUARIO->__SET('EMATERIALES', isset($_REQUEST['EMATERIALES'])); 
                     $PTUSUARIO->__SET('EEXPORTACION', isset($_REQUEST['EEXPORTACION'])); 
-                    $PTUSUARIO->__SET('ELIQUIDACION', isset($_REQUEST['ELIQUIDACION'])); 
+                    $PTUSUARIO->__SET('ELIQUIDACION', isset($_REQUEST['ELIQUIDACION']));  
+                    $PTUSUARIO->__SET('EPAGO', isset($_REQUEST['EPAGO']));  
                     $PTUSUARIO->__SET('EFRUTA', isset($_REQUEST['EFRUTA'])); 
                     $PTUSUARIO->__SET('EFCICARGA', isset($_REQUEST['EFCICARGA']));                     
                     $PTUSUARIO->__SET('EINFORMES', isset($_REQUEST['EINFORMES'])); 
@@ -1946,6 +1963,7 @@ if (isset($_POST)) {
                 $PTUSUARIO->__SET('EMATERIALES', isset($_REQUEST['EMATERIALES'])); 
                 $PTUSUARIO->__SET('EEXPORTACION', isset($_REQUEST['EEXPORTACION'])); 
                 $PTUSUARIO->__SET('ELIQUIDACION', isset($_REQUEST['ELIQUIDACION'])); 
+                $PTUSUARIO->__SET('EPAGO', isset($_REQUEST['EPAGO']));  
                 $PTUSUARIO->__SET('EFRUTA', isset($_REQUEST['EFRUTA'])); 
                 $PTUSUARIO->__SET('EFCICARGA', isset($_REQUEST['EFCICARGA'])); 
                 $PTUSUARIO->__SET('EINFORMES', isset($_REQUEST['EINFORMES'])); 
