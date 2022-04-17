@@ -57,7 +57,6 @@ $TOTALPROCESADO=$ARRAYPROCESADOMP[0]["NETO"];
         
         </script>
 </head>
-
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
@@ -79,32 +78,26 @@ $TOTALPROCESADO=$ARRAYPROCESADOMP[0]["NETO"];
                                                         <tr>
                                                             <th>Empresa/Planta</th>                           
                                                             <?php foreach ($ARRAYLISTARPLANTA as $s) : ?>                                
-                                                                <th  class="right"> <?php echo $s["NOMBRE_PLANTA"];?> <br> Recepcion   </th>          
-                                                                <th  class="center"> <?php echo $s["NOMBRE_PLANTA"];?> <br> Bulk   </th>                                   
+                                                                <th  class="right"> <?php echo $s["NOMBRE_PLANTA"];?> <br> Recepcion   </th>                                   
                                                                 <th  class="left"> <?php echo $s["NOMBRE_PLANTA"];?> <br> Proceso  </th>                                                       
                                                             <?php endforeach; ?>
                                                             <th class="right">Total <br> Recepción</th>  
-                                                            <th class="center">Total <br> Bulk</th>  
                                                             <th class="left">Total <br> Procesado</th>                                                          
                                                         </tr>   
                                                     </thead>
                                                     <tbody>                                                    
                                                     <?php foreach ($ARRAYLISTAREMPRESA as $r) : ?>
                                                         <?php $ARRAYRECEPCIONMPEMPRESA=$CONSULTA_ADO->acumuladoRecepcionMpPorEmpresa($r["ID_EMPRESA"],$TEMPORADAS)?>
-                                                        <?php $ARRAYRECEPCIONMPBULKEMPRESA=$CONSULTA_ADO->acumuladoRecepcionMpBulkPorEmpresa($r["ID_EMPRESA"],$TEMPORADAS)?>
                                                         <?php $ARRAYPROCESADOMPEMPRESA=$CONSULTA_ADO->acumuladoProcesadoMpPorEmpresa($r["ID_EMPRESA"],$TEMPORADAS)?>
                                                             <tr >
                                                             <th> <?php echo $r["NOMBRE_EMPRESA"];?> </th>                    
                                                             <?php foreach ($ARRAYLISTARPLANTA as $s) : ?>     
                                                                 <?php $ARRAYRECEPCIONMPEMPRESAPLANTA=$CONSULTA_ADO->acumuladoRecepcionMpPorEmpresaPlanta($r["ID_EMPRESA"],$s["ID_PLANTA"],$TEMPORADAS)?>  
-                                                                <?php $ARRAYRECEPCIONMPBULKEMPRESAPLANTA=$CONSULTA_ADO->acumuladoRecepcionMpBulkPorEmpresaPlanta($r["ID_EMPRESA"],$s["ID_PLANTA"],$TEMPORADAS)?>  
                                                                 <?php $ARRAYPROCESADOMPEMPRESAPLANTA=$CONSULTA_ADO->acumuladoProcesadoMpPorEmpresaPlanta($r["ID_EMPRESA"],$s["ID_PLANTA"],$TEMPORADAS)?>  
                                                                 <td class="right"><?php echo $ARRAYRECEPCIONMPEMPRESAPLANTA[0]["NETO"]; ?></td>
-                                                                <td class="center"><?php echo $ARRAYRECEPCIONMPBULKEMPRESAPLANTA[0]["NETO"]; ?></td>  
                                                                 <td class="left"><?php echo $ARRAYPROCESADOMPEMPRESAPLANTA[0]["NETO"]; ?></td>                                                                                                                        
                                                             <?php endforeach; ?>    
                                                             <td class="right"><?php echo $ARRAYRECEPCIONMPEMPRESA[0]["NETO"]; ?></td>
-                                                            <td class="center"><?php echo $ARRAYRECEPCIONMPBULKEMPRESA[0]["NETO"]; ?></td>
                                                             <td class="left"><?php echo $ARRAYPROCESADOMPEMPRESA[0]["NETO"]; ?></td>
                                                         </tr>    
                                                     <?php endforeach; ?>       
@@ -113,15 +106,12 @@ $TOTALPROCESADO=$ARRAYPROCESADOMP[0]["NETO"];
                                                         <tr>
                                                             <th>Sub Total</th>                           
                                                             <?php foreach ($ARRAYLISTARPLANTA as $s) : ?>    
-                                                                <?php $ARRAYRECEPCIONMPPLANTA=$CONSULTA_ADO->acumuladoRecepcionMpPorPlanta($s["ID_PLANTA"],$TEMPORADAS)?>    
-                                                                <?php $ARRAYRECEPCIONMPBULKPLANTA=$CONSULTA_ADO->acumuladoRecepcionMpBulkPorPlanta($s["ID_PLANTA"],$TEMPORADAS)?>       
+                                                                <?php $ARRAYRECEPCIONMPPLANTA=$CONSULTA_ADO->acumuladoRecepcionMpPorPlanta($s["ID_PLANTA"],$TEMPORADAS)?>        
                                                                 <?php $ARRAYPROCESADOMPPLANTA=$CONSULTA_ADO->acumuladoProcesadoMpPorPlanta($s["ID_PLANTA"],$TEMPORADAS)?>      
                                                                 <td class="right"><?php echo $ARRAYRECEPCIONMPPLANTA[0]["NETO"]; ?></td>    
-                                                                <td class="center"><?php echo $ARRAYRECEPCIONMPBULKPLANTA[0]["NETO"]; ?></td>
                                                                 <td class="left"><?php echo $ARRAYPROCESADOMPPLANTA[0]["NETO"]; ?></td>
                                                             <?php endforeach; ?>  
                                                             <td class="right"><?php echo $TOTALRECECPCIOANDO;?> </td>
-                                                            <td class="center"><?php echo $TOTALRECECPCIOANDOBULK; ?></td>
                                                             <td class="left"><?php echo $TOTALPROCESADO;?> </td>                                                                                                                  
                                                         </tr>  
                                                     </tfoot>
