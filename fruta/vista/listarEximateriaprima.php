@@ -122,37 +122,37 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                 <thead>
                                                     <tr class="text-left">
                                                         <th>Folio Original</th>
-                                                        <th>Folio Nuevo</th>
+                                                        <!-- <th>Folio Nuevo</th> -->
                                                         <th>Fecha Cosecha </th>
-                                                        <th>Estado </th>
-                                                        <th>Estado Calidad</th>
+                                                        <!-- <th>Estado </th>
+                                                        <th>Estado Calidad</th> -->
                                                         <th>Días</th>
                                                         <th>Código Estandar</th>
                                                         <th>Envase/Estandar</th>
                                                         <th>CSG</th>
                                                         <th>Productor</th>
-                                                        <th>Especies</th>
+                                                        <!-- <th>Especies</th> -->
                                                         <th>Variedad</th>
                                                         <th>Cantidad Envase</th>
                                                         <th>Kilos Neto</th>
-                                                        <th>Kilos Promedio</th>
-                                                        <th>Kilos Bruto</th>
+                                                        <!-- <th>Kilos Promedio</th>
+                                                        <th>Kilos Bruto</th> -->
                                                         <th>Número Recepción </th>
                                                         <th>Fecha Recepción </th>
-                                                        <th>Tipo Recepción </th>
+                                                        <!-- <th>Tipo Recepción </th>
                                                         <th>CSG/CSP Recepción</th>
-                                                        <th>Origen Recepción </th>
+                                                        <th>Origen Recepción </th> -->
                                                         <th>Número Guía Recepción </th>
-                                                        <th>Fecha Guía Recepción
+                                                        <!-- <th>Fecha Guía Recepción -->
                                                         <th>Tipo Manejo</th>
-                                                        <th>Tipo Tratamiento 1 </th>
+                                                        <!-- <th>Tipo Tratamiento 1 </th>
                                                         <th>Tipo Tratamiento 2 </th>
                                                         <th>Gasificacion</th>
                                                         <th>Ingreso</th>
                                                         <th>Modificación</th>
                                                         <th>Empresa</th>
                                                         <th>Planta</th>
-                                                        <th>Temporada</th>
+                                                        <th>Temporada</th> -->
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -351,40 +351,40 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                                    <?php echo $r['FOLIO_EXIMATERIAPRIMA']; ?>
                                                                 </span>
                                                             </td>                                                            
-                                                            <td>
+                                                            <!-- <td>
                                                                 <span class="<?php echo $TRECHAZOCOLOR; ?>">
                                                                    <?php echo $r['FOLIO_AUXILIAR_EXIMATERIAPRIMA']; ?>
                                                                 </span>
-                                                            </td>
+                                                            </td> -->
                                                             <td><?php echo $r['COSECHA']; ?></td>
-                                                            <td><?php echo $ESTADO; ?></td>
-                                                            <td><?php echo $COLOR; ?></td>
+                                                            <!-- <td><?php echo $ESTADO; ?></td>
+                                                            <td><?php echo $COLOR; ?></td> -->
                                                             <td><?php echo $r['DIAS']; ?></td>
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
                                                             <td><?php echo $CSGPRODUCTOR; ?></td>
                                                             <td><?php echo $NOMBREPRODUCTOR; ?></td>
-                                                            <td><?php echo $NOMBRESPECIES; ?></td>
+                                                            <!-- <td><?php echo $NOMBRESPECIES; ?></td> -->
                                                             <td><?php echo $NOMBREVESPECIES; ?></td>
                                                             <td><?php echo $r['ENVASE']; ?></td>
                                                             <td><?php echo $r['NETO']; ?></td>
-                                                            <td><?php echo $r['PROMEDIO']; ?></td>
-                                                            <td><?php echo $r['BRUTO']; ?></td>
+                                                            <!-- <td><?php echo $r['PROMEDIO']; ?></td>
+                                                            <td><?php echo $r['BRUTO']; ?></td> -->
                                                             <td><?php echo $NUMERORECEPCION; ?></td>
                                                             <td><?php echo $FECHARECEPCION; ?></td>
-                                                            <td><?php echo $TIPORECEPCION; ?></td>
+                                                            <!-- <td><?php echo $TIPORECEPCION; ?></td>
                                                             <td><?php echo $CSGCSPORIGEN; ?></td>
-                                                            <td><?php echo $ORIGEN; ?></td>
+                                                            <td><?php echo $ORIGEN; ?></td> -->
                                                             <td><?php echo $NUMEROGUIARECEPCION; ?></td>
-                                                            <td><?php echo $FECHAGUIARECEPCION; ?></td>      
+                                                            <!-- <td><?php echo $FECHAGUIARECEPCION; ?></td>       -->
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
-                                                            <td><?php echo $NOMBRETTRATAMIENTO1; ?></td>
+                                                            <!-- <td><?php echo $NOMBRETTRATAMIENTO1; ?></td>
                                                             <td><?php echo $NOMBRETTRATAMIENTO2; ?></td>
                                                             <td><?php echo $GASIFICADO; ?></td>
                                                             <td><?php echo $r['INGRESO']; ?></td>
                                                             <td><?php echo $r['MODIFICACION']; ?></td>
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
-                                                            <td><?php echo $NOMBREPLANTA; ?></td>
+                                                            <td><?php echo $NOMBREPLANTA; ?></td> -->
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
@@ -414,7 +414,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                     </button>
                                                 </div>
                                             </div>
-                                        </div>
+                                        <!-- </div>
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
@@ -423,7 +423,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                     </button>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>    
