@@ -627,17 +627,17 @@ if ($_POST) {
                     $AUSUARIO_ADO->agregarAusuario2("NULL",3,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Usuario.","usuario_usuario","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );  
 
                     echo '<script>
-                    Swal.fire({
-                        icon:"success",
-                        title:"Registro Creado",
-                        text:"El registro de  Usuario se ha creado correctamente",
-                        showConfirmButton: true,
-                        confirmButtonText:"Cerrar",
-                        closeOnConfirm:false
-                    }).then((result)=>{
-                        location.href = "registroUsuario.php";                            
-                    })
-                </script>';
+                        Swal.fire({
+                            icon:"success",
+                            title:"Registro Creado",
+                            text:"El registro de  Usuario se ha creado correctamente",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href = "registroUsuario.php";                            
+                        })
+                    </script>';
                 }
             }
             //OPERACION DE EDICION DE FILA
@@ -656,17 +656,17 @@ if ($_POST) {
                 $AUSUARIO_ADO->agregarAusuario2("NULL",3,2,"".$_SESSION["NOMBRE_USUARIO"].", Modificación de Usuario.","usuario_usuario", $_REQUEST['ID'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );     
 
                 echo '<script>
-                Swal.fire({
-                    icon:"info",
-                    title:"Registro Modificado",
-                    text:"El registro de Usuario se ha modificado correctamente",
-                    showConfirmButton: true,
-                    confirmButtonText:"Cerrar",
-                    closeOnConfirm:false
-                }).then((result)=>{
-                    location.href = "registroUsuario.php";                            
-                })
-            </script>';
+                    Swal.fire({
+                        icon:"info",
+                        title:"Registro Modificado",
+                        text:"El registro de Usuario se ha modificado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroUsuario.php";                            
+                    })
+                </script>';
             }
             if (isset($_REQUEST['ELIMINAR'])) {
 
@@ -688,8 +688,7 @@ if ($_POST) {
                         location.href = "registroUsuario.php";                            
                     })
                 </script>';
-            }
-            
+            }            
             if (isset($_REQUEST['HABILITAR'])) {
 
                 

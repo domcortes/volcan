@@ -761,7 +761,81 @@ class DICARGA_ADO
         }
     }
 
+   
+    public function buscarEstandarEnInvoicePorIcarga($IDICARGA)
+    {
+        try {
 
+            $datos = $this->conexion->prepare(" SELECT 	
+                                                    estandar.ID_ESTANDAR,
+                                                    (select CODIGO_ESTANDAR
+                                                    FROM estandar_eexportacion
+                                                    WHERE ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                    ) AS 'CODIGO',
+                                                    (select NOMBRE_ESTANDAR
+                                                    FROM estandar_eexportacion
+                                                    WHERE ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                    ) AS 'NOMBRE',                                                    
+                                                    (select PESO_NETO_ESTANDAR
+                                                    FROM estandar_eexportacion
+                                                    WHERE ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                    ) AS 'PESONETO',
+                                                    (select PESO_BRUTO_ESTANDAR
+                                                    FROM estandar_eexportacion
+                                                    WHERE ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                    ) AS 'PESOBRUTO'    
+                                            FROM  fruta_icarga icarga,   fruta_despachoex despacho, fruta_exiexportacion existencia, estandar_eexportacion estandar
+                                            WHERE icarga.ID_ICARGA = despacho.ID_ICARGA 
+                                                AND despacho.ID_DESPACHOEX = existencia.ID_DESPACHOEX
+                                                AND existencia.ID_ESTANDAR = estandar.ID_ESTANDAR
+                                                AND icarga.ID_ICARGA = '".$IDICARGA."'
+                                            GROUP by estandar.ID_ESTANDAR
+                                                ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    
+    public function buscarCalibreEnInvoicePorIcarga($IDICARGA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT 	
+                                                    tcalibre.ID_TCALIBRE,
+                                                    (select NOMBRE_TCALIBRE
+                                                    FROM fruta_tcalibre
+                                                    WHERE ID_TCALIBRE=tcalibre.ID_TCALIBRE
+                                                    ) AS 'NOMBRE'                                               
+                                                        
+                                            FROM  fruta_icarga icarga,   fruta_despachoex despacho, fruta_exiexportacion existencia, fruta_tcalibre tcalibre
+                                            WHERE icarga.ID_ICARGA = despacho.ID_ICARGA 
+                                                AND despacho.ID_DESPACHOEX = existencia.ID_DESPACHOEX
+                                                AND existencia.ID_TCALIBRE = tcalibre.ID_TCALIBRE
+                                                AND icarga.ID_ICARGA = '".$IDICARGA."'
+                                            GROUP by tcalibre.ID_TCALIBRE
+                                                ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     
     public function buscarEcomercialenInvoicePorIcarga($IDICARGA)
     {

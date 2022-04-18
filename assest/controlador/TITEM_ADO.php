@@ -285,6 +285,95 @@ class TITEM_ADO
         }
     }
     
+    public function listarTitemPorEmpresaLiquidacionCBX($IDEMPRESA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * FROM  liquidacion_titem  
+                                                WHERE  ESTADO_REGISTRO = 1
+                                                AND TAITEM = 1
+                                                AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    
+    public function listarTitemPorEmpresaPagoCBX($IDEMPRESA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * FROM  liquidacion_titem  
+                                                WHERE  ESTADO_REGISTRO = 1
+                                                AND TAITEM = 2
+                                                AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    
+    public function contarTitemLiquidacionPorEmpresaCBX($IDEMPRESA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT IFNULL(COUNT(ID_TITEM),0) AS 'CONTEO'
+                                                FROM  liquidacion_titem  
+                                                WHERE  ESTADO_REGISTRO = 1
+                                                AND TAITEM = 1
+                                                AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function contarTitemPagoPorEmpresaCBX($IDEMPRESA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT IFNULL(COUNT(ID_TITEM),0) AS 'CONTEO'
+                                                FROM  liquidacion_titem  
+                                                WHERE  ESTADO_REGISTRO = 1
+                                                AND TAITEM = 2
+                                                AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
     public function contarTitemPorEmpresaCBX($IDEMPRESA)
     {
         try {

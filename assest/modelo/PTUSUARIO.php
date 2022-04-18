@@ -64,6 +64,7 @@ class PTUSUARIO {
     private $EMATERIALES;
     private $EEXPORTACION;
     private $ELIQUIDACION;
+    private $EPAGO;
     private $EFRUTA;
     private $EFCICARGA;
     private $EINFORMES;

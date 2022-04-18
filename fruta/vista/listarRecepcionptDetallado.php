@@ -199,10 +199,10 @@ if ($EMPRESAS && $PLANTAS && $TEMPORADAS) {
                                                     <th>Número Guía Recepción</th>
                                                     <th>Fecha Guía Recepción </th>
                                                     <th>Tipo Manejo </th>
-                                                    <th>Tipo Calibre </th>
-                                                    <th>Tipo Embalaje </th>
+                                                    <!-- <th>Tipo Calibre </th>
+                                                    <th>Tipo Embalaje </th> -->
                                                     <th>Stock </th>
-                                                    <th>Embolsado</th>
+                                                    <!-- <th>Embolsado</th> -->
                                                     <th>Gasificacion</th>
                                                     <th>Prefrío</th>
                                                     <th>Transporte </th>
@@ -376,10 +376,10 @@ if ($EMPRESAS && $PLANTAS && $TEMPORADAS) {
                                                             <td><?php echo $r['NUMERO_GUIA_RECEPCION']; ?></td>
                                                             <td><?php echo $r['FECHA_GUIA']; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
-                                                            <td><?php echo $NOMBRETCALIBRE; ?></td>
-                                                            <td><?php echo $NOMBRETEMBALAJE; ?></td>
+                                                            <!-- <td><?php echo $NOMBRETCALIBRE; ?></td>
+                                                            <td><?php echo $NOMBRETEMBALAJE; ?></td> -->
                                                             <td><?php echo $STOCK; ?></td>
-                                                            <td><?php echo $EMBOLSADO; ?></td>
+                                                            <!-- <td><?php echo $EMBOLSADO; ?></td> -->
                                                             <td><?php echo $GASIFICADO; ?></td>
                                                             <td><?php echo $PREFRIO; ?></td>
                                                             <td><?php echo $NOMBRETRANSPORTE; ?></td>

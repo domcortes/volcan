@@ -45,7 +45,36 @@ class CONSULTA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                    FORMAT(IFNULL(SUM(detalle.KILOS_NETO_DRECEPCION),0),2,'de_DE') AS 'NETO' 
+                                                     IFNULL(SUM(detalle.KILOS_NETO_DRECEPCION),0)  AS 'NETO' 
+                                                FROM  fruta_recepcionmp recepcion ,  fruta_drecepcionmp detalle, principal_empresa empresa
+                                                WHERE recepcion.ID_RECEPCION =  detalle.ID_RECEPCION
+                                                AND recepcion.ID_EMPRESA=empresa.ID_EMPRESA
+                                                AND  empresa.ESTADO_REGISTRO = 1
+                                                AND  recepcion.ESTADO = 0
+                                                AND  recepcion.ESTADO_REGISTRO = 1
+                                                AND  detalle.ESTADO_REGISTRO = 1 
+                                                AND  recepcion.ID_TEMPORADA = '".$TEMPORADA."'
+                                                ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    
+    public function acumuladoRecepcionMpNoBulk($TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 
+                                                     IFNULL(SUM(detalle.KILOS_NETO_DRECEPCION),0)  AS 'NETO' 
                                                 FROM  fruta_recepcionmp recepcion ,  fruta_drecepcionmp detalle, principal_empresa empresa
                                                 WHERE recepcion.ID_RECEPCION =  detalle.ID_RECEPCION
                                                 AND recepcion.ID_EMPRESA=empresa.ID_EMPRESA
@@ -75,7 +104,7 @@ class CONSULTA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                    FORMAT(IFNULL(SUM(detalle.KILOS_NETO_DRECEPCION),0),2,'de_DE') AS 'NETO' 
+                                                     IFNULL(SUM(detalle.KILOS_NETO_DRECEPCION),0)  AS 'NETO' 
                                                 FROM  fruta_recepcionmp recepcion ,  fruta_drecepcionmp detalle, principal_empresa empresa
                                                 WHERE recepcion.ID_RECEPCION =  detalle.ID_RECEPCION
                                                 AND  recepcion.ID_EMPRESA=empresa.ID_EMPRESA
@@ -99,13 +128,40 @@ class CONSULTA_ADO
             die($e->getMessage());
         }
     }
-    
     public function acumuladoRecepcionMpPorEmpresa($EMPRESA,$TEMPORADA)
     {
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                    FORMAT(IFNULL(SUM(detalle.KILOS_NETO_DRECEPCION),0),2,'de_DE') AS 'NETO' 
+                                                     IFNULL(SUM(detalle.KILOS_NETO_DRECEPCION),0)  AS 'NETO' 
+                                                FROM  fruta_recepcionmp recepcion ,  fruta_drecepcionmp detalle
+                                                WHERE recepcion.ID_RECEPCION =  detalle.ID_RECEPCION
+                                                AND  recepcion.ESTADO = 0
+                                                AND  recepcion.ESTADO_REGISTRO = 1
+                                                AND  detalle.ESTADO_REGISTRO = 1
+                                                AND recepcion.ID_EMPRESA = '".$EMPRESA."'
+                                                AND  recepcion.ID_TEMPORADA = '".$TEMPORADA."'
+                                                ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    
+    public function acumuladoRecepcionMpNoBulkPorEmpresa($EMPRESA,$TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 
+                                                     IFNULL(SUM(detalle.KILOS_NETO_DRECEPCION),0)  AS 'NETO' 
                                                 FROM  fruta_recepcionmp recepcion ,  fruta_drecepcionmp detalle
                                                 WHERE recepcion.ID_RECEPCION =  detalle.ID_RECEPCION
                                                 AND  recepcion.ESTADO = 0
@@ -133,7 +189,7 @@ class CONSULTA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                    FORMAT(IFNULL(SUM(detalle.KILOS_NETO_DRECEPCION),0),2,'de_DE') AS 'NETO' 
+                                                     IFNULL(SUM(detalle.KILOS_NETO_DRECEPCION),0)  AS 'NETO' 
                                                 FROM  fruta_recepcionmp recepcion ,  fruta_drecepcionmp detalle
                                                 WHERE recepcion.ID_RECEPCION =  detalle.ID_RECEPCION
                                                 AND  recepcion.ESTADO = 0
@@ -162,7 +218,36 @@ class CONSULTA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                    FORMAT(IFNULL(SUM(detalle.KILOS_NETO_DRECEPCION),0),2,'de_DE') AS 'NETO' 
+                                                     IFNULL(SUM(detalle.KILOS_NETO_DRECEPCION),0)  AS 'NETO' 
+                                                FROM  fruta_recepcionmp recepcion ,  fruta_drecepcionmp detalle, principal_empresa empresa
+                                                WHERE recepcion.ID_RECEPCION =  detalle.ID_RECEPCION
+                                                AND recepcion.ID_EMPRESA=empresa.ID_EMPRESA
+                                                AND  empresa.ESTADO_REGISTRO = 1
+                                                AND  recepcion.ESTADO = 0
+                                                AND  recepcion.ESTADO_REGISTRO = 1
+                                                AND  detalle.ESTADO_REGISTRO = 1
+                                                AND  recepcion.ID_PLANTA = '".$PLANTA."'
+                                                AND  recepcion.ID_TEMPORADA = '".$TEMPORADA."'
+                                                ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function acumuladoRecepcionMpNoBulkPorPlanta($PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 
+                                                     IFNULL(SUM(detalle.KILOS_NETO_DRECEPCION),0)  AS 'NETO' 
                                                 FROM  fruta_recepcionmp recepcion ,  fruta_drecepcionmp detalle, principal_empresa empresa
                                                 WHERE recepcion.ID_RECEPCION =  detalle.ID_RECEPCION
                                                 AND recepcion.ID_EMPRESA=empresa.ID_EMPRESA
@@ -193,7 +278,7 @@ class CONSULTA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                    FORMAT(IFNULL(SUM(detalle.KILOS_NETO_DRECEPCION),0),2,'de_DE') AS 'NETO' 
+                                                     IFNULL(SUM(detalle.KILOS_NETO_DRECEPCION),0)  AS 'NETO' 
                                                 FROM  fruta_recepcionmp recepcion ,  fruta_drecepcionmp detalle, principal_empresa empresa
                                                 WHERE recepcion.ID_RECEPCION =  detalle.ID_RECEPCION
                                                 AND recepcion.ID_EMPRESA=empresa.ID_EMPRESA
@@ -223,7 +308,35 @@ class CONSULTA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                    FORMAT(IFNULL(SUM(detalle.KILOS_NETO_DRECEPCION),0),2,'de_DE') AS 'NETO' 
+                                                     IFNULL(SUM(detalle.KILOS_NETO_DRECEPCION),0)  AS 'NETO' 
+                                                FROM  fruta_recepcionmp recepcion ,  fruta_drecepcionmp detalle
+                                                WHERE recepcion.ID_RECEPCION =  detalle.ID_RECEPCION
+                                                AND  recepcion.ESTADO = 0
+                                                AND  recepcion.ESTADO_REGISTRO = 1
+                                                AND  detalle.ESTADO_REGISTRO = 1
+                                                AND recepcion.ID_EMPRESA = '".$EMPRESA."'
+                                                AND recepcion.ID_PLANTA = '".$PLANTA."'
+                                                AND  recepcion.ID_TEMPORADA = '".$TEMPORADA."'
+                                                ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function acumuladoRecepcionMpNoBulkPorEmpresaPlanta($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 
+                                                     IFNULL(SUM(detalle.KILOS_NETO_DRECEPCION),0)  AS 'NETO' 
                                                 FROM  fruta_recepcionmp recepcion ,  fruta_drecepcionmp detalle
                                                 WHERE recepcion.ID_RECEPCION =  detalle.ID_RECEPCION
                                                 AND  recepcion.ESTADO = 0
@@ -252,7 +365,7 @@ class CONSULTA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                    FORMAT(IFNULL(SUM(detalle.KILOS_NETO_DRECEPCION),0),2,'de_DE') AS 'NETO' 
+                                                     IFNULL(SUM(detalle.KILOS_NETO_DRECEPCION),0)  AS 'NETO' 
                                                 FROM  fruta_recepcionmp recepcion ,  fruta_drecepcionmp detalle
                                                 WHERE recepcion.ID_RECEPCION =  detalle.ID_RECEPCION
                                                 AND  recepcion.ESTADO = 0
@@ -282,7 +395,7 @@ class CONSULTA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                    FORMAT(IFNULL(SUM(existencia.KILOS_NETO_EXIMATERIAPRIMA),0),2,'de_DE') AS 'NETO' 
+                                                     IFNULL(SUM(existencia.KILOS_NETO_EXIMATERIAPRIMA),0)  AS 'NETO' 
                                                 FROM fruta_eximateriaprima existencia, principal_empresa empresa
                                                 WHERE existencia.ID_EMPRESA=empresa.ID_EMPRESA
                                                 AND empresa.ESTADO_REGISTRO = 1
@@ -309,7 +422,7 @@ class CONSULTA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                    FORMAT(IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),0),2,'de_DE') AS 'NETO' 
+                                                     IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),0)  AS 'NETO' 
                                                 FROM fruta_eximateriaprima 
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_PROCESO IS NOT NULL
@@ -335,7 +448,7 @@ class CONSULTA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                    FORMAT(IFNULL(SUM(existencia.KILOS_NETO_EXIMATERIAPRIMA),0),2,'de_DE') AS 'NETO' 
+                                                     IFNULL(SUM(existencia.KILOS_NETO_EXIMATERIAPRIMA),0)  AS 'NETO' 
                                                 FROM fruta_eximateriaprima existencia, principal_empresa empresa
                                                 WHERE existencia.ID_EMPRESA=empresa.ID_EMPRESA
                                                 AND empresa.ESTADO_REGISTRO = 1
@@ -363,7 +476,7 @@ class CONSULTA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                    FORMAT(IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),0),2,'de_DE') AS 'NETO' 
+                                                     IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),0)  AS 'NETO' 
                                                 FROM fruta_eximateriaprima 
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_PROCESO IS NOT NULL
@@ -393,7 +506,7 @@ class CONSULTA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                    FORMAT(IFNULL(SUM(existencia.KILOS_NETO_EXIMATERIAPRIMA),0),2,'de_DE') AS 'NETO' 
+                                                     IFNULL(SUM(existencia.KILOS_NETO_EXIMATERIAPRIMA),0)  AS 'NETO' 
                                                 FROM fruta_eximateriaprima existencia, principal_empresa empresa
                                                 WHERE existencia.ID_EMPRESA=empresa.ID_EMPRESA
                                                 AND empresa.ESTADO_REGISTRO = 1
@@ -420,7 +533,7 @@ class CONSULTA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                     FORMAT(IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),0),2,'de_DE') AS 'NETO' 
+                                                      IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),0)  AS 'NETO' 
                                                 FROM fruta_eximateriaprima 
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ESTADO = 2      
@@ -446,7 +559,7 @@ class CONSULTA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                    FORMAT(IFNULL(SUM(existencia.KILOS_NETO_EXIMATERIAPRIMA),0),2,'de_DE') AS 'NETO' 
+                                                     IFNULL(SUM(existencia.KILOS_NETO_EXIMATERIAPRIMA),0)  AS 'NETO' 
                                                 FROM fruta_eximateriaprima existencia, principal_empresa empresa
                                                 WHERE existencia.ID_EMPRESA=empresa.ID_EMPRESA
                                                 AND empresa.ESTADO_REGISTRO = 1
@@ -474,7 +587,7 @@ class CONSULTA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                     FORMAT(IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),0),2,'de_DE') AS 'NETO' 
+                                                      IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),0)  AS 'NETO' 
                                                 FROM fruta_eximateriaprima 
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ESTADO = 2         

@@ -190,6 +190,7 @@ class PTUSUARIO_ADO {
                                                         EMATERIALES,
                                                         EEXPORTACION,
                                                         ELIQUIDACION,
+                                                        EPAGO,
                                                         EFRUTA,
                                                         EFCICARGA,
                                                         EINFORMES,
@@ -220,7 +221,7 @@ class PTUSUARIO_ADO {
                                                         MODIFICACION,
                                                         ESTADO_REGISTRO
                                              ) VALUES
-	       	( ?, ?, ?,     ?, ?, ?, ?,    ?, ?, ?,    ?, ?,   ?, ?, ?, ?, ?, ?, ?,   ?, ?, ?,   ?,    ?,?,     ?, ?, ?, ?,   ?, ?, ?, ?,   ?, ?, ?,   ?, ?, ?,    ?, ?, ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?, ?, ?,      ?, ?, ?,  SYSDATE(), SYSDATE(), 1);";
+	       	( ?, ?, ?,     ?, ?, ?, ?,    ?, ?, ?,    ?, ?,   ?, ?, ?, ?, ?, ?, ?,   ?, ?, ?,   ?,    ?,?,     ?, ?, ?, ?,   ?, ?, ?, ?,   ?, ?, ?,   ?, ?, ?,    ?, ?, ?, ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?, ?, ?,      ?, ?, ?,  SYSDATE(), SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(              
@@ -279,6 +280,7 @@ class PTUSUARIO_ADO {
                     $PTUSUARIO->__GET('EMATERIALES')  ,  
                     $PTUSUARIO->__GET('EEXPORTACION')  ,  
                     $PTUSUARIO->__GET('ELIQUIDACION')  ,  
+                    $PTUSUARIO->__GET('EPAGO')  ,  
                     $PTUSUARIO->__GET('EFRUTA')  ,  
                     $PTUSUARIO->__GET('EFCICARGA')  ,  
                     $PTUSUARIO->__GET('EINFORMES')  ,  
@@ -391,6 +393,7 @@ class PTUSUARIO_ADO {
                 EMATERIALES = ?,
                 EEXPORTACION = ?,
                 ELIQUIDACION = ?,
+                EPAGO = ?,
                 EFRUTA = ?,
                 EFCICARGA = ?,
                 EINFORMES = ?,               
@@ -474,6 +477,7 @@ class PTUSUARIO_ADO {
                     $PTUSUARIO->__GET('EMATERIALES')  ,  
                     $PTUSUARIO->__GET('EEXPORTACION')  ,  
                     $PTUSUARIO->__GET('ELIQUIDACION')  , 
+                    $PTUSUARIO->__GET('EPAGO')  ,  
                     $PTUSUARIO->__GET('EFRUTA')  ,  
                     $PTUSUARIO->__GET('EFCICARGA')  ,   
                     $PTUSUARIO->__GET('EINFORMES')  ,  

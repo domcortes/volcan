@@ -852,8 +852,7 @@ if (isset($_POST)) {
                                                 <select class="form-control select2" id="TRECEPCION" name="TRECEPCION" style="width: 100%;" onchange="this.form.submit()" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLEDFOLIO; ?>>
                                                     <option> </option>
                                                     <option value="1" <?php if ($TRECEPCION == "1") { echo "selected";  } ?>> Desde Productor </option>
-                                                    <option value="2" <?php if ($TRECEPCION == "2") { echo "selected";   } ?>> Planta Externa </option>
-                                                    <option value="3" <?php if ($TRECEPCION == "3") { echo "selected";  } ?>> Desde Productor BDH </option>
+                                                    <option value="2" <?php if ($TRECEPCION == "2") { echo "selected";   } ?>> Planta Externa </option>                                                    
                                                 </select>
                                                 <label id="val_trecepcion" class="validacion"> </label>
                                             </div>
@@ -1409,9 +1408,6 @@ if (isset($_POST)) {
                     if ($_REQUEST['TRECEPCION'] == "2") {
                         $RECEPCIONMP->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
                     }
-                    if ($_REQUEST['TRECEPCION'] == "3") {
-                        $RECEPCIONMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-                    }
                     $RECEPCIONMP->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTE']);
                     $RECEPCIONMP->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTOR']);
                     $RECEPCIONMP->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
@@ -1444,17 +1440,13 @@ if (isset($_POST)) {
                         $RECEPCIONE->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMION']);
                         $RECEPCIONE->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARRO']);
                         $RECEPCIONE->__SET('OBSERVACIONES_RECEPCION', $_REQUEST['OBSERVACION']);
-                        if ($_REQUEST['TRECEPCIONE'] == "1") {
+                        if ($_REQUEST['TRECEPCION'] == "1") {
                             $RECEPCIONE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
                             $TRECEPCIONE=2;
                         }
-                        if ($_REQUEST['TRECEPCIONE'] == "2") {
+                        if ($_REQUEST['TRECEPCION'] == "2") {
                             $RECEPCIONE->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
                             $TRECEPCIONE=3;
-                        }
-                        if ($_REQUEST['TRECEPCIONE'] == "3") {
-                            $RECEPCIONE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-                            $TRECEPCIONE=5;
                         }
                         $RECEPCIONE->__SET('TRECEPCION', $TRECEPCIONE);
                         $RECEPCIONE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
@@ -1526,9 +1518,6 @@ if (isset($_POST)) {
                 if ($_REQUEST['TRECEPCIONE'] == "2") {
                     $RECEPCIONMP->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
                 }
-                if ($_REQUEST['TRECEPCIONE'] == "3") {
-                    $RECEPCIONMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
-                }
                 $RECEPCIONMP->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
                 $RECEPCIONMP->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
                 $RECEPCIONMP->__SET('ID_USUARIOM', $IDUSUARIOS);
@@ -1557,10 +1546,6 @@ if (isset($_POST)) {
                     if ($_REQUEST['TRECEPCIONE'] == "2") {
                         $RECEPCIONE->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
                         $TRECEPCIONE=3;
-                    }
-                    if ($_REQUEST['TRECEPCIONE'] == "3") {
-                        $RECEPCIONE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
-                        $TRECEPCIONE=5;
                     }
                     $RECEPCIONE->__SET('TRECEPCION', $TRECEPCIONE);
                     $RECEPCIONE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
@@ -1603,10 +1588,6 @@ if (isset($_POST)) {
                     if ($_REQUEST['TRECEPCIONE'] == "2") {
                         $RECEPCIONE->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
                         $TRECEPCIONE=3;
-                    }
-                    if ($_REQUEST['TRECEPCIONE'] == "3") {
-                        $RECEPCIONE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
-                        $TRECEPCIONE=5;
                     }
                     $RECEPCIONE->__SET('TRECEPCION', $TRECEPCIONE);
                     $RECEPCIONE->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
@@ -1695,9 +1676,6 @@ if (isset($_POST)) {
                     if ($_REQUEST['TRECEPCIONE'] == "2") {
                         $RECEPCIONMP->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
                     }
-                    if ($_REQUEST['TRECEPCIONE'] == "3") {
-                        $RECEPCIONMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
-                    }
                     $RECEPCIONMP->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
                     $RECEPCIONMP->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
                     $RECEPCIONMP->__SET('ID_USUARIOM', $IDUSUARIOS);
@@ -1737,10 +1715,6 @@ if (isset($_POST)) {
                         if ($_REQUEST['TRECEPCIONE'] == "2") {
                             $RECEPCIONE->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
                             $TRECEPCIONE=3;
-                        }
-                        if ($_REQUEST['TRECEPCIONE'] == "3") {
-                            $RECEPCIONE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
-                            $TRECEPCIONE=5;
                         }
                         $RECEPCIONE->__SET('TRECEPCION', $TRECEPCIONE);
                         $RECEPCIONE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
@@ -1804,10 +1778,6 @@ if (isset($_POST)) {
                         if ($_REQUEST['TRECEPCIONE'] == "2") {
                             $RECEPCIONE->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
                             $TRECEPCIONE=3;
-                        }
-                        if ($_REQUEST['TRECEPCIONE'] == "3") {
-                            $RECEPCIONE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
-                            $TRECEPCIONE=5;
                         }
                         $RECEPCIONE->__SET('TRECEPCION', $TRECEPCIONE);
                         $RECEPCIONE->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);

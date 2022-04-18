@@ -337,12 +337,28 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               </span>
             </a>
             <ul class="treeview-menu">
-                <li><a href="registroValor.php">Registro Valor Liqui.</i></a></li>
-                <li><a href="listarValor.php">Agrupado Valor Liqui.</i></a></li>   
-                <li><a href="registroTitem.php"></i>Item Liqui.</a></li>   
+                <li><a href="registroValorLiquidacion.php">Registro Valor Liqui.</i></a></li>
+                <li><a href="listarValorLiquidacion.php">Agrupado Valor Liqui.</i></a></li>   
+                <li><a href="registroTitemLiqui.php"></i>Item Liqui.</a></li>   
             </ul>
           </li>
         <?php  } ?>  
+        <?php if($PEPAGO=="1"){ ?>
+          <li class="treeview">
+            <a href="#">
+              <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/transactions.svg" class="svg-icon" alt="">
+              <span> Pago</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="registroValorPago.php">Registro Valor Pago.</i></a></li>
+                <li><a href="listarValorPago.php">Agrupado Valor Pago.</i></a></li>   
+                <li><a href="registroTitemPago.php"></i>Item Pago.</a></li>   
+            </ul>
+          </li>
+        <?php  } ?>
         <?php if($PEFRUTA=="1"){ ?>
           <li class="treeview">
             <a href="#">
