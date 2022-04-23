@@ -119,6 +119,7 @@ $ESTADO = "";
 $CONTADOR=1;
 $VALORITEM=0;
 $FDA="";
+$TOTALVALOR="";
 
 $EMPRESA = "";
 $PLANTA = "";
@@ -212,6 +213,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     $IDOP = $_SESSION['parametro'];
     $OP = $_SESSION['parametro1'];
 
+    $ARRAYVALORTOTAL=$DVALOR_ADO->obtenrTotalPorValor2($IDOP);
+    $TOTALVALOR= $ARRAYVALORTOTAL[0]["TOTAL"];                   
 
     //IDENTIFICACIONES DE OPERACIONES
     //crear =  OBTENCION DE DATOS INICIALES PARA PODER CREAR LA RECEPCION
@@ -1092,7 +1095,17 @@ if (isset($_POST)) {
                                     <h4 class="card-title">Detalle de Valor</h4>
                                 </div>
                                 <div class="card-header">
-                                    <div class="form-row align-items-center">
+                                    <div class="form-row align-items-center">                                        
+                                            <div class="col-auto">
+                                                <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                                                <div class="input-group mb-2">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">Total Valor </div>
+                                                    </div>
+                                                    <input type="hidden" name="TOTALVALOR" id="TOTALVALOR" value="<?php echo $TOTALVALOR; ?>" />
+                                                    <input type="text" class="form-control" placeholder="Total Valor" id="TOTALVALORV" name="TOTALVALORV" value="<?php echo $TOTALVALOR; ?>" disabled />
+                                                </div>
+                                            </div>
                                     </div>
                                 </div>
                                 <div class="card-body">
