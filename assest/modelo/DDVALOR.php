@@ -4,20 +4,22 @@
     */
 
     //ESTRUCTURA DE LA CLASE
-    class DVALOR {
+    class DDVALOR {
         
         //ATRIBUTOS DE LA CLASE    
-        private	  $ID_DVALOR; 
-        private	  $VALOR_DVALOR;
-        private   $DETALLE;
+        private	  $ID_DDVALOR; 
+        private	  $VALOR_DDVALOR;
+        private   $CALIBRE;
+        private   $ESTANDAR;
         private	  $ESTADO;
         private   $ESTADO_REGISTRO;
         private	  $INGRESO;
         private	  $MODIFICACION;
-        private   $ID_VALOR;
-        private   $ID_TITEM;
+        private   $ID_ESTANDAR;
+        private   $ID_TCALIBRE;
         private   $ID_USUARIOI;
         private   $ID_USUARIOM;
+        private   $ID_DVALOR;
         
         //FUNCIONES GET Y SET
         public function __GET($k){ return $this->$k; }

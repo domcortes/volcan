@@ -6,10 +6,13 @@ include_once "../../assest/config/validarUsuarioExpo.php";
 include_once '../../assest/controlador/ICARGA_ADO.php';
 include_once '../../assest/controlador/DICARGA_ADO.php';
 include_once '../../assest/controlador/TMONEDA_ADO.php';
-include_once '../../assest/controlador/ECOMERCIAL_ADO.php';
+
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
 
 include_once '../../assest/controlador/VALOR_ADO.php';
 include_once '../../assest/controlador/DVALOR_ADO.php';
+include_once '../../assest/controlador/DDVALOR_ADO.php';
 include_once '../../assest/controlador/TITEM_ADO.php';
 
 
@@ -24,11 +27,14 @@ include_once '../../assest/modelo/DVALOR.php';
 $ICARGA_ADO = new ICARGA_ADO();
 $DICARGA_ADO = new DICARGA_ADO();
 $TMONEDA_ADO = new TMONEDA_ADO();
-$ECOMERCIAL_ADO = new ECOMERCIAL_ADO();
+
+$EEXPORTACION_ADO = new EEXPORTACION_ADO();
+$TCALIBRE_ADO = new TCALIBRE_ADO();
 
 
 $VALOR_ADO =  new VALOR_ADO();
 $DVALOR_ADO =  new DVALOR_ADO();
+$DDVALOR_ADO =  new DDVALOR_ADO();
 $TITEM_ADO =  new TITEM_ADO();
 
 //INIICIALIZAR MODELO 
@@ -43,11 +49,15 @@ $IDDICARGA = "";
 $IDICARGA = "";
 $TMONEDA="";
 $NOMBRETMONEDA="";
-
-$ESTANDAR="";
-$EESTANDAR="";
-$CALIBRE="";
-$TCALIBRE="";
+$VALORITEM=0;
+$DETALLE="";
+$VALORTOTAL=0;
+$ESTADO="";
+$CONTADOR=0;
+$NOMBREESTANDAR="";
+$NOMBRETCALIBRE="";
+$DETALLECON="";
+$TOTALDDVALOR="";
 
 
 $EMPRESA = "";
@@ -55,11 +65,11 @@ $PLANTA = "";
 $TEMPORADA = "";
 
 $DISABLED = "";
+$DISABLEDDETALLE = "";
 $DISABLED2 = "";
 $DISABLEDSTYLE = "";
 $DISABLEDSTYLE2 = "style='background-color: #eeeeee;'";
 $MENSAJEELIMINAR = "";
-
 
 $IDOP = "";
 $IDOP2 = "";
@@ -69,6 +79,7 @@ $MENSAJE = "";
 
 $NODATOURL = "";
 
+
 //INICIALIZAR ARREGLOS
 $ARRAYESTANDAR = "";
 $ARRAYCALIBRE = "";
@@ -77,13 +88,15 @@ $ARRAYECOMERCIAL="";
 $ARRAYDICARGATM="";
 $ARRAYDICARGAESTANDAR="";
 $ARRAYDICARGATCALIBRE="";
-
+$ARRAYDETALLEVALOR="";
+$ARRAYDETALLEVALORTOTAL="";
 
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
 include_once "../../assest/config/validarDatosUrlD.php";
+include_once "../../assest/config/datosUrlDT.php";
 
 
 
@@ -95,11 +108,10 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     $URLO = $_SESSION['urlO'];    
     $ARRAYVERVALOR = $VALOR_ADO->verValor($IDP);
     if($ARRAYVERVALOR){
-        $ICARGA= $ARRAYVERVALOR[0]['ID_ICARGA'];
+        $ICARGA= $ARRAYVERVALOR[0]['ID_ICARGA'];        
+        $ESTADO = $ARRAYVERVALOR[0]['ESTADO'];
         $ARRAYVERICARGA = $ICARGA_ADO->verIcarga($ICARGA);
-        if($ARRAYVERICARGA){
-            $ARRAYDICARGAESTANDAR=$DICARGA_ADO->buscarEstandarEnInvoicePorIcarga($ARRAYVERICARGA[0]["ID_ICARGA"]);
-            $ARRAYDICARGATCALIBRE=$DICARGA_ADO->buscarCalibreEnInvoicePorIcarga($ARRAYVERICARGA[0]["ID_ICARGA"]);
+        if($ARRAYVERICARGA){            
             $ARRAYDICARGATM=$DICARGA_ADO->buscarPorIcargaLimitado1($ARRAYVERICARGA[0]["ID_ICARGA"]);
             if($ARRAYDICARGATM){
                 $TMONEDA=$ARRAYDICARGATM[0]["ID_TMONEDA"];
@@ -117,7 +129,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_SESSION['urlO']) && isset($_SESSION['dparametro']) && isset($_SESSION['dparametro1'])) {
     //ALMACENAR DATOS DE VARIABLES DE LA URL
     $IDOP = $_SESSION['dparametro'];
-    $OP = $_SESSION['dparametro1'];
+    $OP = $_SESSION['dparametro1'];    
+
     $IDP = $_SESSION['parametro'];
     $OPP = $_SESSION['parametro1'];
     $URLO = $_SESSION['urlO'];
@@ -132,6 +145,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 
         $DISABLED = "";
         $DISABLED2 = "disabled";
+        $DISABLED3 = "disabled";
         $DISABLEDSTYLE = "";
         $DISABLEDSTYLE2 = "style='background-color: #eeeeee;'";
         $ARRAYITEM = $TITEM_ADO->verTitem($IDOP);
@@ -140,13 +154,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $NOMBREITEM = "" . $r['NOMBRE_TITEM'];    
             $ARRAYDVALOR=$DVALOR_ADO->buscarPorValorItem($IDP,$r["ID_TITEM"]);
             if($ARRAYDVALOR){
-               $VALORITEM= $ARRAYDVALOR[0]["VALOR_DVALOR"];   
-
-               $ESTANDAR = $ARRAYDVALOR[0]['ESTANDAR'];   
-               $EESTANDAR = $ARRAYDVALOR[0]['ID_ESTANDAR'];  
-               $CALIBRE = $ARRAYDVALOR[0]['CALIBRE'];   
-               $TCALIBRE = $ARRAYDVALOR[0]['ID_TCALIBRE'];
-
+               $VALORITEM= $ARRAYDVALOR[0]["VALOR_DVALOR"];    
+               $DETALLE = $ARRAYDVALOR[0]['DETALLE'];   
             }else{
                $VALORITEM=0;
             }         
@@ -154,22 +163,30 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     }
     //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
     if ($OP == "editar") {
-
         $DISABLED = "";
         $DISABLED2 = "disabled";
+        $DISABLED3 = "";
         $DISABLEDSTYLE = "";
         $DISABLEDSTYLE2 = "style='background-color: #eeeeee;'";
         $ARRAYITEM = $TITEM_ADO->verTitem($IDOP);
         foreach ($ARRAYITEM as $r) :            
             $ITEM= "" . $r['ID_TITEM'];
-            $NOMBREITEM = "" . $r['NOMBRE_TITEM'];   
+            $NOMBREITEM = "" . $r['NOMBRE_TITEM'];               
             $ARRAYDVALOR=$DVALOR_ADO->buscarPorValorItem($IDP,$r["ID_TITEM"]);
             if($ARRAYDVALOR){
-               $VALORITEM= $ARRAYDVALOR[0]["VALOR_DVALOR"];    
-               $ESTANDAR = $ARRAYDVALOR[0]['ESTANDAR'];   
-               $EESTANDAR = $ARRAYDVALOR[0]['ID_ESTANDAR'];  
-               $CALIBRE = $ARRAYDVALOR[0]['CALIBRE'];   
-               $TCALIBRE = $ARRAYDVALOR[0]['ID_TCALIBRE'];           
+               $VALORITEM= $ARRAYDVALOR[0]["VALOR_DVALOR"];     
+               $DETALLE = $ARRAYDVALOR[0]['DETALLE'];         
+               $IDDETALLE = $ARRAYDVALOR[0]['ID_DVALOR'];   
+                $ARRAYDETALLEVALOR=$DDVALOR_ADO->buscarPorDvalor($ARRAYDVALOR[0]["ID_DVALOR"]);                
+                if($ARRAYDETALLEVALOR){
+                    $DISABLEDDETALLE = "disabled";
+                    $ARRAYDETALLEVALORTOTAL=$DDVALOR_ADO->obtenrTotalPorDvalor($ARRAYDVALOR[0]["ID_DVALOR"]);
+                    $VALORITEM= $ARRAYDETALLEVALORTOTAL[0]["TOTAL"];                   
+                }else{
+                    $DISABLEDDETALLE = "";
+                }
+             
+    
             }else{
                $VALORITEM=0;
             }         
@@ -179,6 +196,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     if ($OP == "ver") {
         $DISABLED = "disabled";
         $DISABLED2 = "disabled";
+        $DISABLED3 = "disabled";
+        $DISABLEDDETALLE = "disabled";
         $DISABLEDSTYLE = "style='background-color: #eeeeee;'";
         $DISABLEDSTYLE2 = "style='background-color: #eeeeee;'";
         $ARRAYITEM = $TITEM_ADO->verTitem($IDOP);
@@ -187,11 +206,19 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $NOMBREITEM = "" . $r['NOMBRE_TITEM'];    
             $ARRAYDVALOR=$DVALOR_ADO->buscarPorValorItem($IDP,$r["ID_TITEM"]);
             if($ARRAYDVALOR){
-               $VALORITEM= $ARRAYDVALOR[0]["VALOR_DVALOR"];  
-               $ESTANDAR = $ARRAYDVALOR[0]['ESTANDAR'];   
-               $EESTANDAR = $ARRAYDVALOR[0]['ID_ESTANDAR'];  
-               $CALIBRE = $ARRAYDVALOR[0]['CALIBRE'];   
-               $TCALIBRE = $ARRAYDVALOR[0]['ID_TCALIBRE'];           
+               $VALORITEM= $ARRAYDVALOR[0]["VALOR_DVALOR"];   
+               $DETALLE = $ARRAYDVALOR[0]['DETALLE']; 
+               $IDDETALLE = $ARRAYDVALOR[0]['ID_DVALOR'];                        
+               
+                $ARRAYDETALLEVALOR=$DDVALOR_ADO->buscarPorDvalor($ARRAYDVALOR[0]["ID_DVALOR"]);
+                if($ARRAYDETALLEVALOR){
+                    $DISABLEDDETALLE = "disabled";
+                    $ARRAYDETALLEVALORTOTAL=$DDVALOR_ADO->obtenrTotalPorDvalor($ARRAYDVALOR[0]["ID_DVALOR"]);
+                    $VALORITEM= $ARRAYDETALLEVALORTOTAL[0]["TOTAL"];                   
+                }else{
+                    $DISABLEDDETALLE = "";
+                }
+                
             }else{
                $VALORITEM=0;
             }         
@@ -203,6 +230,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     if ($OP == "eliminar") {
         $DISABLED = "disabled";
         $DISABLED2 = "disabled";
+        $DISABLED3 = "disabled";
+        $DISABLEDDETALLE = "disabled";
         $DISABLEDSTYLE = "style='background-color: #eeeeee;'";
         $DISABLEDSTYLE2 = "style='background-color: #eeeeee;'";
         $MENSAJEELIMINAR = "ESTA SEGURO DE ELIMINAR EL REGISTRO, PARA CONFIRMAR PRESIONE ELIMINAR";
@@ -213,10 +242,18 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $ARRAYDVALOR=$DVALOR_ADO->buscarPorValorItem($IDP,$r["ID_TITEM"]);
             if($ARRAYDVALOR){
                $VALORITEM= $ARRAYDVALOR[0]["VALOR_DVALOR"];     
-               $ESTANDAR = $ARRAYDVALOR[0]['ESTANDAR'];   
-               $EESTANDAR = $ARRAYDVALOR[0]['ID_ESTANDAR'];  
-               $CALIBRE = $ARRAYDVALOR[0]['CALIBRE'];   
-               $TCALIBRE = $ARRAYDVALOR[0]['ID_TCALIBRE'];       
+               $DETALLE = $ARRAYDVALOR[0]['DETALLE'];         
+               $IDDETALLE = $ARRAYDVALOR[0]['ID_DVALOR'];       
+               
+               $ARRAYDETALLEVALOR=$DDVALOR_ADO->buscarPorDvalor($ARRAYDVALOR[0]["ID_DVALOR"]);
+               if($ARRAYDETALLEVALOR){
+                   $DISABLEDDETALLE = "disabled";
+                   $ARRAYDETALLEVALORTOTAL=$DDVALOR_ADO->obtenrTotalPorDvalor($ARRAYDVALOR[0]["ID_DVALOR"]);
+                   $VALORITEM= $ARRAYDETALLEVALORTOTAL[0]["TOTAL"];                   
+               }else{
+                   $DISABLEDDETALLE = "";
+               }
+    
             }else{
                $VALORITEM=0;
             }         
@@ -228,22 +265,9 @@ if ($_POST) {
     if (isset($_REQUEST['VALORITEM'])) {
         $VALORITEM = $_REQUEST['VALORITEM'];
     }
-    if (isset($_REQUEST['ESTANDAR'])) {
-        $ESTANDAR = $_REQUEST['ESTANDAR'];
-        if($ESTANDAR==1){
-            if (isset($_REQUEST['EESTANDAR'])) {
-                $EESTANDAR = $_REQUEST['EESTANDAR'];
-            }
-        }
+    if (isset($_REQUEST['DETALLE'])) {
+        $DETALLE = $_REQUEST['DETALLE'];     
     }    
-    if (isset($_REQUEST['CALIBRE'])) {
-        $CALIBRE = $_REQUEST['CALIBRE'];
-        if($CALIBRE==1){
-            if (isset($_REQUEST['TCALIBRE'])) {
-                $TCALIBRE = $_REQUEST['TCALIBRE'];
-            }
-        }
-    }
 }
 ?>
 
@@ -263,12 +287,18 @@ if ($_POST) {
             <script type="text/javascript">
                 function validacion() {
                     VALORITEM = document.getElementById("VALORITEM").value;
-                    ESTANDAR = document.getElementById("ESTANDAR").selectedIndex;     
-                    CALIBRE = document.getElementById("CALIBRE").selectedIndex;                        
+                    DETALLE = document.getElementById("DETALLE").selectedIndex;                        
 
                     document.getElementById('val_valor').innerHTML = "";
-                    document.getElementById('val_estandar').innerHTML = "";
-                    document.getElementById('val_calibre').innerHTML = "";
+                    document.getElementById('val_detalle').innerHTML = "";
+
+                    if (DETALLE == null || DETALLE == 0) {
+                        document.form_reg_dato.DETALLE.focus();
+                        document.form_reg_dato.DETALLE.style.borderColor = "#FF0000";
+                        document.getElementById('val_detalle').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                        return false;
+                    }
+                    document.form_reg_dato.DETALLE.style.borderColor = "#4AF575";
 
 
                     if (VALORITEM == null || VALORITEM.length == 0 || /^\s+$/.test(VALORITEM)) {
@@ -279,58 +309,17 @@ if ($_POST) {
                     }
                     document.form_reg_dato.VALORITEM.style.borderColor = "#4AF575";
                     
-                    if (VALORITEM == 0) {
-                        document.form_reg_dato.VALORITEM.focus();
-                        document.form_reg_dato.VALORITEM.style.borderColor = "#FF0000";
-                        document.getElementById('val_valor').innerHTML = "DEBE SER DISTINTO DE CERO";
-                        return false;
-                    } 
-                    document.form_reg_dato.VALORITEM.style.borderColor = "#4AF575";
-
-
-                    if (ESTANDAR == null || ESTANDAR == 0) {
-                        document.form_reg_dato.ESTANDAR.focus();
-                        document.form_reg_dato.ESTANDAR.style.borderColor = "#FF0000";
-                        document.getElementById('val_estandar').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
-                        return false;
-                    }
-                    document.form_reg_dato.ESTANDAR.style.borderColor = "#4AF575";
-
-                    if(ESTANDAR == 1 ){
-
-                        EESTANDAR = document.getElementById("EESTANDAR").selectedIndex;    
-                        document.getElementById('val_estandar').innerHTML = "";
-
-                        if (EESTANDAR == null || EESTANDAR == 0) {
-                            document.form_reg_dato.EESTANDAR.focus();
-                            document.form_reg_dato.EESTANDAR.style.borderColor = "#FF0000";
-                            document.getElementById('val_eestandar').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                    if(DETALLE == 2){
+                        if (VALORITEM == 0) {
+                            document.form_reg_dato.VALORITEM.focus();
+                            document.form_reg_dato.VALORITEM.style.borderColor = "#FF0000";
+                            document.getElementById('val_valor').innerHTML = "DEBE SER DISTINTO DE CERO";
                             return false;
-                        }
-                        document.form_reg_dato.EESTANDAR.style.borderColor = "#4AF575";                      
-                        
-                    } 
-                    
-                    if (CALIBRE == null || CALIBRE == 0) {
-                        document.form_reg_dato.CALIBRE.focus();
-                        document.form_reg_dato.CALIBRE.style.borderColor = "#FF0000";
-                        document.getElementById('val_calibre').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
-                        return false;
-                    }
-                    document.form_reg_dato.CALIBRE.style.borderColor = "#4AF575";
+                        } 
+                        document.form_reg_dato.VALORITEM.style.borderColor = "#4AF575";
 
-                    if(CALIBRE == 1 ){
-                        TCALIBRE = document.getElementById("TCALIBRE").selectedIndex;    
-                        document.getElementById('val_tcalibre').innerHTML = "";
-                        if (TCALIBRE == null || TCALIBRE == 0) {
-                            document.form_reg_dato.TCALIBRE.focus();
-                            document.form_reg_dato.TCALIBRE.style.borderColor = "#FF0000";
-                            document.getElementById('val_tcalibre').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
-                            return false;
-                        }
-                        document.form_reg_dato.TCALIBRE.style.borderColor = "#4AF575";                      
-
-                    }      
+                    }   
+               
                 }
              
 
@@ -365,7 +354,7 @@ if ($_POST) {
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Liquidación</li>
                                             <li class="breadcrumb-item" aria-current="page">Registro Valor Liquidación</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Registro Detalle </a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Registro Valor Item </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -377,7 +366,7 @@ if ($_POST) {
                     <section class="content">
                         <div class="box">
                             <div class="box-header with-border bg-info">                                   
-                                <h4 class="box-title">Registro Detalle</h4>                                        
+                                <h4 class="box-title">Registro Valor Item</h4>                                        
                             </div>
                             <form class="form" role="form" method="post" name="form_reg_dato">
                                 <div class="box-body ">
@@ -397,15 +386,7 @@ if ($_POST) {
                                                 <input type="text" class="form-control" placeholder="tem Liquidación" id="NOMBREITEM" name="NOMBREITEM" value="<?php echo $NOMBREITEM; ?>" disabled style="background-color: #eeeeee;" />                                            
                                                 <label id="val_item" class="validacion"> </label>
                                             </div>
-                                        </div>                                
-                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6">
-                                            <div class="form-group">
-                                                <label>Valor Item liqui. </label>
-                                                <input type="hidden" id="VALORITEME" name="VALORITEME" value="<?php echo $VALORITEM; ?>" />
-                                                <input type="number" step="0.01" class="form-control"  placeholder="Valor Item liqui. " id="VALORITEM" name="VALORITEM"   value="<?php echo $VALORITEM; ?>"  <?php echo $DISABLED; ?>     />
-                                                <label id="val_valor" class="validacion"> </label>
-                                            </div>
-                                        </div>                                           
+                                        </div>                                    
                                         <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Tipo Moneda</label>
@@ -413,71 +394,39 @@ if ($_POST) {
                                                 <input type="text" class="form-control" placeholder="Tipo Moneda" id="NOMBRETMONEDA" name="NOMBRETMONEDA" value="<?php echo $NOMBRETMONEDA; ?>" disabled style="background-color: #eeeeee;" />                                            
                                                 <label id="val_tmoneda" class="validacion"> </label>   
                                             </div>
-                                        </div>  
-                                        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        </div> 
+                                        <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
-                                                <label>Estandar Exportación</label>
-                                                <select class="form-control select2" id="ESTANDAR" name="ESTANDAR" style="width: 100%;" onchange="this.form.submit()" <?php echo $ESTANDAR; ?> <?php echo $DISABLED; ?> >
+                                                <label>Detalle  Item liqui.</label>
+                                                <input type="hidden" class="form-control" placeholder="DETALLEE" id="DETALLEE" name="DETALLEE" value="<?php echo $DETALLE; ?>" />
+                                                <select class="form-control select2" id="DETALLE" name="DETALLE" style="width: 100%;" onchange="this.form.submit()" <?php echo $DETALLE; ?> <?php echo $DISABLED; ?> <?php echo $DISABLEDDETALLE; ?> >
                                                     <option></option>
-                                                    <option value="1" <?php if ($ESTANDAR == "1") { echo "selected"; } ?>> Si </option>
-                                                    <option value="0" <?php if ($ESTANDAR == "0") { echo "selected"; } ?>>No</option>
+                                                    <option value="1" <?php if ($DETALLE == "1") { echo "selected"; } ?>> Si </option>
+                                                    <option value="0" <?php if ($DETALLE == "0") { echo "selected"; } ?>>No</option>
                                                 </select>
-                                                <label id="val_estandar" class="validacion"> </label> 
+                                                <label id="val_detalle" class="validacion"> </label> 
                                             </div>
-                                        </div>  
-                                        <?php if($ESTANDAR==1){  ?>
-                                        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        </div>     
+                                        <?php if($DETALLE==0){  ?>
+                                            <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
-                                                    <label>Estandar Comercial</label>
-                                                    <select class="form-control select2" id="EESTANDAR" name="EESTANDAR" style="width: 100%;" value="<?php echo $EESTANDAR; ?>" <?php echo $DISABLED; ?>>
-                                                        <option></option>
-                                                        <?php foreach ($ARRAYDICARGAESTANDAR as $r) : ?>
-                                                            <?php if ($ARRAYDICARGAESTANDAR) {    ?>
-                                                                <option value="<?php echo $r['ID_ESTANDAR']; ?>"
-                                                                    <?php if ($EESTANDAR == $r['ID_ESTANDAR']) {  echo "selected";  } ?>>
-                                                                    <?php echo $r['CODIGO'] ?> <?php echo $r['NOMBRE'] ?>
-                                                                </option>
-                                                            <?php } else { ?>
-                                                                <option>No Hay Datos Registrados </option>
-                                                            <?php } ?>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                    <label id="val_eestandar" class="validacion"> </label>
+                                                    <label>Valor Item liqui. </label>
+                                                    <input type="hidden" id="VALORITEME" name="VALORITEME" value="<?php echo $VALORITEM; ?>" />
+                                                    <input type="number" step="0.01" class="form-control"  placeholder="Valor Item liqui. " id="VALORITEM" name="VALORITEM"   value="<?php echo $VALORITEM; ?>"  <?php echo $DISABLED; ?>     />
+                                                    <label id="val_valor" class="validacion"> </label>
                                                 </div>
-                                            </div>
-                                        <?php  } ?>                                        
-                                        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            </div>       
+                                        <?php  } ?>     
+                                        <?php if($DETALLE==1){  ?>                                                                 
+                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
-                                                <label>Tipo Calibre</label>
-                                                <select class="form-control select2" id="CALIBRE" name="CALIBRE" style="width: 100%;" onchange="this.form.submit()" <?php echo $CALIBRE; ?> <?php echo $DISABLED; ?> >
-                                                    <option></option>
-                                                    <option value="1" <?php if ($CALIBRE == "1") { echo "selected"; } ?>> Si </option>
-                                                    <option value="0" <?php if ($CALIBRE == "0") { echo "selected"; } ?>>No</option>
-                                                </select>
-                                                <label id="val_calibre" class="validacion"> </label> 
+                                                <label>Valor Item liqui. </label>
+                                                <input type="hidden" id="VALORITEM" name="VALORITEM" value="<?php echo $VALORITEM; ?>" />
+                                                <input type="text"  class="form-control"  placeholder="Valor Item liqui. " id="VALORITEME" name="VALORITEME"   value="<?php echo $VALORITEM; ?>" disabled style="background-color: #eeeeee;"    />
+                                                <label id="val_valor" class="validacion"> </label>
                                             </div>
                                         </div>  
-                                        <?php if($CALIBRE==1){  ?>
-                                        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 col-xs-6">
-                                                <div class="form-group">
-                                                    <label>Tipo Calibre</label>
-                                                    <select class="form-control select2" id="TCALIBRE" name="TCALIBRE" style="width: 100%;" value="<?php echo $TCALIBRE; ?>" <?php echo $DISABLED; ?>>
-                                                        <option></option>
-                                                        <?php foreach ($ARRAYDICARGATCALIBRE as $r) : ?>
-                                                            <?php if ($ARRAYDICARGATCALIBRE) {    ?>
-                                                                <option value="<?php echo $r['ID_TCALIBRE']; ?>"
-                                                                    <?php if ($TCALIBRE == $r['ID_TCALIBRE']) {  echo "selected";  } ?>>
-                                                                    <?php echo $r['NOMBRE'] ?>
-                                                                </option>
-                                                            <?php } else { ?>
-                                                                <option>No Hay Datos Registrados </option>
-                                                            <?php } ?>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                    <label id="val_tcalibre" class="validacion"> </label>
-                                                </div>
-                                            </div>
-                                        <?php  } ?>
+                                        <?php  } ?>          
                                     </div>
                                     <!-- /.row -->
                                     <!-- /.box-body -->
@@ -511,9 +460,122 @@ if ($_POST) {
                                             <?php } ?>
                                         </div>
                                     </div>
+                                </div>
                             </form>
                         </div>
                         <!--.row -->
+                        <?php if ($OP != "") { ?>
+                            <?php if ($OP == "editar" || $OP == "ver" || $OP == "eliminar"  ) { ?>
+                                <?php if ($DETALLE == 1) { ?>
+                                    <div class="card">
+                                        <div class="card-header bg-success">
+                                            <h4 class="card-title">Detalle de Item liqui.</h4>
+                                        </div>                                               
+                                        <div class="card-header">
+                                            <div class="form-row align-items-center">
+                                                <form method="post" id="form2" name="form2">
+                                                    <input type="hidden" class="form-control" placeholder="ID VALOR" id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
+                                                    <input type="hidden" class="form-control" placeholder="OP VALOR" id="OPP" name="OPP" value="<?php echo $OPP; ?>" />
+                                                    <input type="hidden" class="form-control" placeholder="ID DVALOR" id="IDD" name="IDD" value="<?php echo $IDOP; ?>" />
+                                                    <input type="hidden" class="form-control" placeholder="OP DVALOR" id="OPD" name="OPD" value="<?php echo $OP; ?>" />
+                                                    <input type="hidden" class="form-control" placeholder="URL VALOR" id="URLP" name="URLP" value="registroValorLiquidacion" />
+                                                    <input type="hidden" class="form-control" placeholder="URL DVALOR" id="URLD" name="URLD" value="registroDvalorLiquidacion" />
+                                                    <input type="hidden" class="form-control" placeholder="URL DDVALOR" id="URLT" name="URLT" value="registroDdvalorLiquidacion" />
+                                                    <div class="col-auto">
+                                                        <button type="submit" class="btn btn-success btn-block mb-2" data-toggle="tooltip" title="Agregar Detalle Item liqui." id="CREARDURL" name="CREARDURL"                                            
+                                                        <?php if ($DETALLE == 0) { echo "disabled style='background-color: #eeeeee;'"; } ?> <?php echo $DISABLED3; ?> >
+                                                            Agregar Detalle
+                                                        </button>
+                                                    </div>
+                                                </form>           
+                                            </div>
+                                        </div>    
+                                        <div class="card-body">
+                                            <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
+                                                <div class=" table-responsive">
+                                                    <table id="detalle" class="table-hover " style="width: 100%;">
+                                                        <thead>
+                                                            <tr class="text-left">
+                                                                <th>
+                                                                    <a href="#" class="text-warning hover-warning">
+                                                                        Número
+                                                                    </a>
+                                                                </th>
+                                                                <th class="text-center">Operaciónes</th>
+                                                                <th>Valor Detalle</th>
+                                                                <th>Estandar Exportacion</th>
+                                                                <th>Tipo Calibre </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php if ($ARRAYDETALLEVALOR) { ?>
+                                                                <?php foreach ($ARRAYDETALLEVALOR as $s) : ?>
+                                                                    <?php
+                                                                        $CONTADOR+=1;
+                                                                        $ARRAYESTANDARDETALLE=$EEXPORTACION_ADO->verEstandar($s["ID_ESTANDAR"]);
+                                                                        if($ARRAYESTANDARDETALLE){
+                                                                            $NOMBREESTANDAR=$ARRAYESTANDARDETALLE[0]["NOMBRE_ESTANDAR"];
+                                                                        }else{
+                                                                            $NOMBREESTANDAR="No Aplica";
+                                                                        }
+                                                                        $ARRAYTCALIBREDETALLE=$TCALIBRE_ADO->verCalibre($s["ID_TCALIBRE"]);
+                                                                        if($ARRAYTCALIBREDETALLE){
+                                                                            $NOMBRETCALIBRE=$ARRAYTCALIBREDETALLE[0]["NOMBRE_TCALIBRE"];
+                                                                        }else{
+                                                                            $NOMBRETCALIBRE="No Aplica";
+                                                                        }
+                                                                    ?>
+                                                                    <tr class="text-left">
+                                                                        <td>
+                                                                            <a href="#" class="text-warning hover-warning">
+                                                                                <?php echo $CONTADOR; ?>
+                                                                            </a>
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <form method="post" id="form1" name="form1">
+                                                                                <input type="hidden" class="form-control" placeholder="ID DDVALOR" id="IDT" name="IDT" value="<?php echo $s['ID_DDVALOR']; ?>" />
+                                                                                <input type="hidden" class="form-control" placeholder="ID VALOR" id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
+                                                                                <input type="hidden" class="form-control" placeholder="OP VALOR" id="OPP" name="OPP" value="<?php echo $OPP; ?>" />
+                                                                                <input type="hidden" class="form-control" placeholder="ID DVALOR" id="IDD" name="IDD" value="<?php echo $IDOP; ?>" />
+                                                                                <input type="hidden" class="form-control" placeholder="OP DVALOR" id="OPD" name="OPD" value="<?php echo $OP; ?>" />
+                                                                                <input type="hidden" class="form-control" placeholder="URL VALOR" id="URLP" name="URLP" value="registroValorLiquidacion" />
+                                                                                <input type="hidden" class="form-control" placeholder="URL DVALOR" id="URLD" name="URLD" value="registroDvalorLiquidacion" />
+                                                                                <input type="hidden" class="form-control" placeholder="URL DTRECEPCIONE" id="URLT" name="URLT" value="registroDdvalorLiquidacion" />
+                                                                                <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
+                                                                                    <?php if ($ESTADO  == "0") { ?>
+                                                                                        <button type="submit" class="btn btn-info  btn-sm " data-toggle="tooltip" id="VERDURL" name="VERDURL" title="Ver">
+                                                                                            <i class="ti-eye"></i><br> Ver
+                                                                                        </button>
+                                                                                    <?php } ?>
+                                                                                    <?php if ($ESTADO  == "1") { ?>
+                                                                                        <button type="submit" class="btn btn-warning btn-sm " data-toggle="tooltip" id="EDITARDURL" name="EDITARDURL" title="Editar" <?php echo $DISABLED; ?>>
+                                                                                            <i class="ti-pencil-alt"></i><br> Editar
+                                                                                        </button>
+                                                                                        <button type="submit" class="btn btn-secondary btn-sm " data-toggle="tooltip" id="DUPLICARDURL" name="DUPLICARDURL" title="Duplicar" <?php echo $DISABLED; ?>>
+                                                                                            <i class="fa fa-fw fa-copy"></i><br> Duplicar
+                                                                                        </button>
+                                                                                        <button type="submit" class="btn btn-danger btn-sm " data-toggle="tooltip" id="ELIMINARDURL" name="ELIMINARDURL" title="Eliminar" <?php echo $DISABLED; ?>>
+                                                                                            <i class="ti-close"></i><br> Eliminar
+                                                                                        </button>
+                                                                                    <?php } ?>
+                                                                                </div>
+                                                                            </form>
+                                                                        </td>
+                                                                        <td><?php echo $s['VALOR_DDVALOR']; ?></td>
+                                                                        <td><?php echo $NOMBREESTANDAR  ?> </td>
+                                                                        <td><?php echo $NOMBRETCALIBRE  ?> </td>
+                                                                    </tr>
+                                                                <?php endforeach; ?>
+                                                            <?php } ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                            <?php } ?>
+                        <?php } ?>
                     </section>
                 </div>
             </div>
@@ -532,51 +594,62 @@ if ($_POST) {
             if (isset($_REQUEST['CREAR'])) { 
 
                 $DVALOR->__SET('VALOR_DVALOR', $_REQUEST['VALORITEM']);
-                $DVALOR->__SET('ESTANDAR', $_REQUEST['ESTANDAR']);
-                if($_REQUEST['ESTANDAR']==1){
-                    $DVALOR->__SET('ID_ESTANDAR', $_REQUEST['EESTANDAR']);
-                } 
-                $DVALOR->__SET('CALIBRE', $_REQUEST['CALIBRE']);
-                if($_REQUEST['CALIBRE']==1){
-                    $DVALOR->__SET('ID_TCALIBRE', $_REQUEST['TCALIBRE']);
-                }
+                $DVALOR->__SET('DETALLE', $_REQUEST['DETALLE']);         
                 $DVALOR->__SET('ID_USUARIOI', $IDUSUARIOS);
                 $DVALOR->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $DVALOR->__SET('ID_VALOR', $_REQUEST['IDP']);
                 $DVALOR->__SET('ID_TITEM', $_REQUEST['ID']);
                 $DVALOR_ADO->agregarDvalor($DVALOR);
                 
-                $AUSUARIO_ADO->agregarAusuario2("NULL",3, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Detalle de Valor Liquidación","liquidacion_dvalor","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
+       
+                
+                $AUSUARIO_ADO->agregarAusuario2("NULL",3, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Valor Item Liquidación","liquidacion_dvalor","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
                 //REDIRECCIONAR A PAGINA registroICarga.php 
-                
+                   
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
-                $_SESSION["parametro1"] =  $_REQUEST['OPP'];               
-                
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];   
+
+                if($_REQUEST['DETALLE']==1){  
+
+                    $_SESSION["dparametro"] =  $_REQUEST['ID'];
+                    $_SESSION["dparametro1"] = "editar";           
+
                     echo '<script>
                         Swal.fire({
                             icon:"success",
                             title:"Registro creado",
-                            text:"El registro de detalle del Valor Liquidación se ha creado correctamente",
+                            text:"El registro  del Valor Item Liquidación se ha creado correctamente",
+                            showConfirmButton:true,
+                            confirmButtonText:"Cerrar."
+                        }).then((result)=>{
+                            location.href ="registroDvalorLiquidacion.php?op";                            
+                        })
+                    </script>';  
+
+                }else{   
+                    echo '<script>
+                        Swal.fire({
+                            icon:"success",
+                            title:"Registro creado",
+                            text:"El registro  del Valor Item Liquidación se ha creado correctamente",
                             showConfirmButton:true,
                             confirmButtonText:"Volver a Valor Liquidación."
                         }).then((result)=>{
                             location.href ="' . $_REQUEST['URLO'] . '.php?op";                            
                         })
                     </script>';
+                }   
                     
             }
             if (isset($_REQUEST['EDITAR'])) {    
                 $ARRAYDVALOR=$DVALOR_ADO->buscarPorValorItem($_REQUEST['IDP'],$_REQUEST['ID']);
                 if($ARRAYDVALOR){     
                     $DVALOR->__SET('VALOR_DVALOR', $_REQUEST['VALORITEM']);
-                    $DVALOR->__SET('ESTANDAR', $_REQUEST['ESTANDAR']);
-                    if($_REQUEST['ESTANDAR']==1){
-                        $DVALOR->__SET('ID_ESTANDAR', $_REQUEST['EESTANDAR']);
-                    } 
-                    $DVALOR->__SET('CALIBRE', $_REQUEST['CALIBRE']);
-                    if($_REQUEST['CALIBRE']==1){
-                        $DVALOR->__SET('ID_TCALIBRE', $_REQUEST['TCALIBRE']);
-                    }
+                    if($ARRAYDETALLEVALOR){
+                        $DVALOR->__SET('DETALLE', $_REQUEST['DETALLEE']);  
+                    }else{
+                        $DVALOR->__SET('DETALLE', $_REQUEST['DETALLE']);  
+                    }           
                     $DVALOR->__SET('ID_USUARIOM', $IDUSUARIOS);
                     $DVALOR->__SET('ID_VALOR', $_REQUEST['IDP']);
                     $DVALOR->__SET('ID_TITEM', $_REQUEST['ID']);
@@ -591,7 +664,7 @@ if ($_POST) {
                             Swal.fire({
                                 icon:"success",
                                 title:"Registro Modificada",
-                                text:"El registro del detalle del Valor Liquidación se ha modificada correctamente",
+                                text:"El registro del Valor Item Liquidación se ha modificada correctamente",
                                 showConfirmButton:true,
                                 confirmButtonText:"Volver a Valor Liquidación."
                             }).then((result)=>{
@@ -618,7 +691,7 @@ if ($_POST) {
                             Swal.fire({
                                 icon:"error",
                                 title:"Registro Eliminado",
-                                text:"El registro del detalle del Valor Liquidación se ha eliminado correctamente ",
+                                text:"El registro del Valor Item Liquidación se ha eliminado correctamente ",
                                 showConfirmButton:true,
                                 confirmButtonText:"Volver a Valor Liquidación."
                             }).then((result)=>{

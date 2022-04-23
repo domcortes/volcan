@@ -118,7 +118,11 @@ $PDESTINO = "";
 $ESTADO = "";
 $CONTADOR=1;
 $VALORITEM=0;
+$DETALLEVALOR="";
+$NOMBREDETALLEVALOR="";
 $FDA="";
+
+$TOTALVALOR="";
 
 $EMPRESA = "";
 $PLANTA = "";
@@ -212,6 +216,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     $IDOP = $_SESSION['parametro'];
     $OP = $_SESSION['parametro1'];
 
+    
+    $ARRAYVALORTOTAL=$DVALOR_ADO->obtenrTotalPorValor2($IDOP);
+    $TOTALVALOR= $ARRAYVALORTOTAL[0]["TOTAL"];                   
 
     //IDENTIFICACIONES DE OPERACIONES
     //crear =  OBTENCION DE DATOS INICIALES PARA PODER CREAR LA RECEPCION
@@ -1092,7 +1099,17 @@ if (isset($_POST)) {
                                     <h4 class="card-title">Detalle de Valor</h4>
                                 </div>
                                 <div class="card-header">
-                                    <div class="form-row align-items-center">
+                                    <div class="form-row align-items-center">                                        
+                                            <div class="col-auto">
+                                                <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                                                <div class="input-group mb-2">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">Total Valor </div>
+                                                    </div>
+                                                    <input type="hidden" name="TOTALVALOR" id="TOTALVALOR" value="<?php echo $TOTALVALOR; ?>" />
+                                                    <input type="text" class="form-control" placeholder="Total Valor" id="TOTALVALORV" name="TOTALVALORV" value="<?php echo $TOTALVALOR; ?>" disabled />
+                                                </div>
+                                            </div>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -1107,8 +1124,7 @@ if (isset($_POST)) {
                                                             <th>Item </th>     
                                                             <th>Valor  </th>
                                                             <th>Tipo Moneda </th>  
-                                                            <th>Estandar Exportación </th>    
-                                                            <th>Tipo Calibre </th>    
+                                                            <th>Detalle </th>    
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -1130,7 +1146,6 @@ if (isset($_POST)) {
                                                             <td><?php echo $VALORSEGURO; ?></td>
                                                             <td><?php echo $TMONEDA; ?></td>
                                                             <td>No Aplica</td>
-                                                            <td>No Aplica</td>
                                                         </tr>
                                                         <?php if ($ARRAYITEM) { ?>
                                                             <?php foreach ($ARRAYITEM as $s) : ?>
@@ -1138,23 +1153,18 @@ if (isset($_POST)) {
                                                                     $CONTADOR+=1;
                                                                     $ARRAYDVALOR=$DVALOR_ADO->buscarPorValorItem($IDOP,$s["ID_TITEM"]);
                                                                     if($ARRAYDVALOR){
-                                                                       $VALORDVALOR= $ARRAYDVALOR[0]["VALOR_DVALOR"];   
-                                                                       $ARRAYESTANDAR=$EEXPORTACION_ADO->verEstandar($ARRAYDVALOR[0]["ID_ESTANDAR"]);
-                                                                       if($ARRAYESTANDAR){
-                                                                          $NOMBREESTANDAR= $ARRAYESTANDAR[0]["NOMBRE_ESTANDAR"];
+                                                                       $VALORDVALOR= $ARRAYDVALOR[0]["VALOR_DVALOR"];  
+                                                                       $DETALLEVALOR= $ARRAYDVALOR[0]["DETALLE"];   
+                                                                       if($DETALLEVALOR==1){
+                                                                        $NOMBREDETALLEVALOR="Si";
+                                                                       }else if($DETALLEVALOR==0){
+                                                                        $NOMBREDETALLEVALOR="No";
                                                                        }else{
-                                                                           $NOMBREESTANDAR="No Aplica";
-                                                                       }
-                                                                       $ARRAYTCALIBRE=$TCALIBRE_ADO->verCalibre($ARRAYDVALOR[0]["ID_TCALIBRE"]);
-                                                                       if($ARRAYTCALIBRE){
-                                                                          $NOMBRETCALIBRE= $ARRAYTCALIBRE[0]["NOMBRE_TCALIBRE"];
-                                                                       }else{
-                                                                        $NOMBRETCALIBRE="No Aplica";
-                                                                       }
+                                                                            $NOMBREDETALLEVALOR="No Aplica";
+                                                                       }                                                                  
                                                                     }else{
                                                                        $VALORDVALOR=0;
-                                                                       $NOMBREESTANDAR="No Aplica";
-                                                                       $NOMBRETCALIBRE="No Aplica";
+                                                                       $NOMBREDETALLEVALOR="Sin Datos";
                                                                     }
                                                                 ?>
                                                                 <tr class="center">
@@ -1192,8 +1202,7 @@ if (isset($_POST)) {
                                                                     <td><?php echo $s["NOMBRE_TITEM"]; ?></td>
                                                                     <td><?php echo number_format( $VALORDVALOR,2,',','.' ); ?></td>
                                                                     <td><?php echo $TMONEDA; ?></td>
-                                                                    <td><?php echo $NOMBREESTANDAR; ?></td>
-                                                                    <td><?php echo $NOMBRETCALIBRE; ?></td>
+                                                                    <td><?php echo $NOMBREDETALLEVALOR; ?></td>
                                                                 </tr>
                                                             <?php endforeach; ?>
                                                         <?php } ?>
@@ -1324,16 +1333,14 @@ if (isset($_POST)) {
                 if ($ARRAYDVALOR) {
                     $SINO = "0";
 
-                    $ARRAYDVALORCONTEO=$DVALOR_ADO->contarPorValor($_REQUEST['IDP']);
-                    $ARRAYITEMCONTEO=$TITEM_ADO->contarTitemLiquidacionPorEmpresaCBX($EMPRESAS);
-                    if($ARRAYDVALORCONTEO[0]["CONTEO"]>0 && $ARRAYITEMCONTEO[0]["CONTEO"]>0){
-                        if($ARRAYDVALORCONTEO[0]["CONTEO"]!=$ARRAYITEMCONTEO[0]["CONTEO"]){
+                    $ARRAYDVALORCONTEO=$DVALOR_ADO->contarPorValorZero($_REQUEST['IDP']);                    
+                        if($ARRAYDVALORCONTEO[0]["CONTEO"]>0){
                             $SINO = "1";            
                              echo '<script>
                                     Swal.fire({
                                         icon:"warning",
                                         title:"Accion restringida",
-                                        text:"Todos los item del detalle debe contener un valor.",
+                                        text:"en el detalle los valores tienen que ser distino a zero.",
                                         showConfirmButton: true,
                                         confirmButtonText:"Cerrar",
                                         closeOnConfirm:false
@@ -1343,7 +1350,7 @@ if (isset($_POST)) {
                         }else{                            
                             $SINO = "0";
                         }
-                    }
+                    
                 } else {
                     $SINO = "1";                     
                     echo '<script>

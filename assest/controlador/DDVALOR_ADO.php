@@ -2,7 +2,7 @@
 
 //LLAMADA DE LOS ARCHIVOS NECESAROP PARA LA OPERACION DEL CONTROLADOR
 //LLAMADA AL MODELO DE CLASE
-include_once '../../assest/modelo/DVALORP.php';
+include_once '../../assest/modelo/DDVALOR.php';
 //LLAMADA AL CONFIGURACION DE LA BASE DE DATOS
 include_once '../../assest/config/BDCONFIG.php';
 
@@ -13,7 +13,7 @@ $USER = "";
 $PASS = "";
 
 //ESTRUCTURA DEL CONTROLADOR
-class DVALORP_ADO
+class DDVALOR_ADO
 {
     //ATRIBUTO
     private $conexion;
@@ -41,11 +41,11 @@ class DVALORP_ADO
 
     //FUNCIONES BASICAS 
     //LISTAR TODO CON LIMITE DE 6 FILAS  
-    public function listarDvalor()
+    public function listarDdvalor()
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM liquidacion_dvalorp LIMIT 6;	");
+            $datos = $this->conexion->prepare("SELECT * FROM liquidacion_ddvalor LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -60,11 +60,11 @@ class DVALORP_ADO
         }
     }
     //LISTAR TODO
-    public function listarDvalorCBX()
+    public function listarDdvalorCBX()
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM liquidacion_dvalorp  WHERE ESTADO_REGISTRO = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM liquidacion_ddvalor  WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -79,11 +79,11 @@ class DVALORP_ADO
         }
     }
 
-    public function listarDvalor2CBX()
+    public function listarDdvalor2CBX()
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM liquidacion_dvalorp  WHERE ESTADO_REGISTRO = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM liquidacion_ddvalor  WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -98,11 +98,11 @@ class DVALORP_ADO
         }
     }
     //VER LA INFORMACION RELACIONADA EN BASE AL ID INGRESADO A LA FUNCION
-    public function verDvalor($ID)
+    public function verDdvalor($ID)
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM liquidacion_dvalorp WHERE ID_DVALOR= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM liquidacion_ddvalor WHERE ID_DDVALOR= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -118,22 +118,30 @@ class DVALORP_ADO
     }
 
     //REGISTRO DE UNA NUEVA FILA    
-    public function agregarDvalor(DVALORP $DVALORP)
+    public function agregarDdvalor(DDVALOR $DDVALOR)
     {
         try {
 
-       
+            if ($DDVALOR->__GET('ID_ESTANDAR') == NULL) {
+                $DDVALOR->__SET('ID_ESTANDAR', NULL);
+            }
+            if ($DDVALOR->__GET('ID_TCALIBRE') == NULL) {
+                $DDVALOR->__SET('ID_TCALIBRE', NULL);
+            }
             $query =
-                "INSERT INTO liquidacion_dvalorp 
+                "INSERT INTO liquidacion_ddvalor 
                                         (
-                                            VALOR_DVALOR,  
-                                            FECHA_DVALOR,  
+                                            VALOR_DDVALOR,  
+                                            CALIBRE,   
+                                            ESTANDAR,   
+                                           
+                                            ID_ESTANDAR,  
+                                            ID_TCALIBRE,  
 
-                                            ID_TITEM,                                              
                                             ID_USUARIOI,  
                                             ID_USUARIOM,  
 
-                                            ID_VALOR,
+                                            ID_DVALOR,
 
                                             INGRESO, 
                                             MODIFICACION, 
@@ -141,18 +149,21 @@ class DVALORP_ADO
                                             ESTADO_REGISTRO
                                         ) 
             VALUES
-	       	(?, ?,     ?, ?, ?,   ?,  SYSDATE(),SYSDATE(), 1, 1);";
+	       	(?, ?, ?,  ?, ?,  ?, ?,   ?, SYSDATE(),SYSDATE(), 1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $DVALORP->__GET('VALOR_DVALOR'),
-                        $DVALORP->__GET('FECHA_DVALOR'),
+                        $DDVALOR->__GET('VALOR_DDVALOR'),
+                        $DDVALOR->__GET('CALIBRE'),
+                        $DDVALOR->__GET('ESTANDAR'),
 
-                        $DVALORP->__GET('ID_TITEM'),
-                        $DVALORP->__GET('ID_USUARIOI'),
-                        $DVALORP->__GET('ID_USUARIOM'),
+                        $DDVALOR->__GET('ID_ESTANDAR'),
+                        $DDVALOR->__GET('ID_TCALIBRE'),
+
+                        $DDVALOR->__GET('ID_USUARIOI'),
+                        $DDVALOR->__GET('ID_USUARIOM'),
                         
-                        $DVALORP->__GET('ID_VALOR')
+                        $DDVALOR->__GET('ID_DVALOR')
 
                     )
 
@@ -163,10 +174,10 @@ class DVALORP_ADO
     }
 
     //ELIMINAR FILA, NO SE UTILIZA
-    public function eliminarDvalor($id)
+    public function eliminarDdvalor($id)
     {
         try {
-            $sql = "DELETE FROM liquidacion_dvalorp WHERE ID_DVALOR=" . $id . ";";
+            $sql = "DELETE FROM liquidacion_ddvalor WHERE ID_DVALOR=" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -176,35 +187,46 @@ class DVALORP_ADO
 
 
     //ACTUALIZAR INFORMACION DE LA FILA
-    public function actualizarDvalor(DVALORP $DVALORP)
+    public function actualizarDdvalor(DDVALOR $DDVALOR)
     {
 
         try {
-       
+      
+            if ($DDVALOR->__GET('ID_ESTANDAR') == NULL) {
+                $DDVALOR->__SET('ID_ESTANDAR', NULL);
+            }
+            if ($DDVALOR->__GET('ID_TCALIBRE') == NULL) {
+                $DDVALOR->__SET('ID_TCALIBRE', NULL);
+            }
             $query = "
-                    UPDATE liquidacion_dvalorp SET
+                    UPDATE liquidacion_ddvalor SET
                         MODIFICACION = SYSDATE(),
 
-                        VALOR_DVALOR = ?,    
-                        FECHA_DVALOR= ?,       
+                        VALOR_DDVALOR = ?,    
+                        CALIBRE= ?,        
+                        ESTANDAR= ?,      
 
-                        ID_TITEM= ?,
+                        ID_ESTANDAR= ?,
+                        ID_TCALIBRE= ?,
+
                         ID_USUARIOM= ?,
-                        ID_VALOR= ?
-                        
-                    WHERE ID_DVALOR = ?  ;";
+                        ID_DVALOR= ?                        
+                    WHERE ID_DDVALOR = ?  ;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
+                        
+                        $DDVALOR->__GET('VALOR_DDVALOR'),
+                        $DDVALOR->__GET('CALIBRE'),
+                        $DDVALOR->__GET('ESTANDAR'),
 
-                        $DVALORP->__GET('VALOR_DVALOR'),
-                        $DVALORP->__GET('FECHA_DVALOR'),
+                        $DDVALOR->__GET('ID_ESTANDAR'),
+                        $DDVALOR->__GET('ID_TCALIBRE'),
 
-                        $DVALORP->__GET('ID_TITEM'),                        
-                        $DVALORP->__GET('ID_USUARIOM'),
-                        $DVALORP->__GET('ID_VALOR'),
+                        $DDVALOR->__GET('ID_USUARIOM'),                        
+                        $DDVALOR->__GET('ID_DVALOR'),  
+                        $DDVALOR->__GET('ID_DDVALOR')
 
-                        $DVALORP->__GET('ID_DVALOR')
 
                     )
 
@@ -214,60 +236,15 @@ class DVALORP_ADO
         }
     }
     //FUNCIONES ESPECIALIZADAS 
-    public function obtenrTotalPorValor($IDVALOR)
-    {
-        try {
-
-            $datos = $this->conexion->prepare("SELECT 
-                                                    IFNULL(SUM(VALOR_DVALOR),0) AS 'TOTAL'
-                                                FROM liquidacion_dvalorp 
-                                                WHERE ID_VALOR = '" . $IDVALOR . "'  
-                                                AND ESTADO_REGISTRO = 1;	");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-            $datos=null;
-
-            //	print_r($resultado);
-            //	var_dump($resultado);
-
-
-            return $resultado;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
-    
-    public function obtenrTotalPorValor2($IDVALOR)
-    {
-        try {
-
-            $datos = $this->conexion->prepare("SELECT 
-                                                    FORMAT(IFNULL(SUM(VALOR_DVALOR),0),2,'de_DE') AS 'TOTAL'
-                                                FROM liquidacion_dvalorp 
-                                                WHERE ID_VALOR = '" . $IDVALOR . "'  
-                                                AND ESTADO_REGISTRO = 1;	");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-            $datos=null;
-
-            //	print_r($resultado);
-            //	var_dump($resultado);
-
-
-            return $resultado;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
 
 
     //LISTAR POR INSTRUCTIVO CARGA
-    public function buscarPorValor($IDVALOR)
+    public function buscarPorDvalor($IDDVALOR)
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM liquidacion_dvalorp 
-                                                WHERE ID_VALOR = '" . $IDVALOR . "'  
+            $datos = $this->conexion->prepare("SELECT * FROM liquidacion_ddvalor 
+                                                WHERE ID_DVALOR = '" . $IDDVALOR . "'  
                                                 AND ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -283,37 +260,15 @@ class DVALORP_ADO
         }
     }
 
-    public function buscarPorValorItem($IDVALOR, $IDTITEM)
+    
+    public function obtenrTotalPorDvalor($IDDVALOR)
     {
         try {
 
-            $datos = $this->conexion->prepare(" SELECT * 
-                                                FROM liquidacion_dvalorp 
-                                                WHERE ID_VALOR = '" . $IDVALOR . "'  
-                                                AND ID_TITEM = '" . $IDTITEM . "'  
-                                                AND ESTADO_REGISTRO = 1
-                                                ;	");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-            $datos=null;
-
-            //	print_r($resultado);
-            //	var_dump($resultado);
-
-
-            return $resultado;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
-
-    public function contarPorValor($IDVALOR)
-    {
-        try {
-
-            $datos = $this->conexion->prepare("SELECT IFNULL(COUNT(ID_DVALOR),0) AS 'CONTEO'
-                                                FROM liquidacion_dvalorp 
-                                                WHERE ID_VALOR = '" . $IDVALOR . "'  
+            $datos = $this->conexion->prepare("SELECT 
+                                                    IFNULL(SUM(VALOR_DDVALOR),0) AS 'TOTAL'
+                                                FROM liquidacion_ddvalor 
+                                                WHERE ID_DVALOR = '" . $IDDVALOR . "'  
                                                 AND ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -328,44 +283,45 @@ class DVALORP_ADO
             die($e->getMessage());
         }
     }
+
+
+
 
     //OTRAS FUNCIONES
     //CAMBIO DE ESTADO DE LA FILA
     //CAMBIO A DESACTIVADO
-    public function deshabilitar(DVALORP $DVALORP)
+    public function deshabilitar(DDVALOR $DDVALOR)
     {
 
         try {
             $query = "
-                UPDATE liquidacion_dvalorp SET			
+                UPDATE liquidacion_ddvalor SET			
                     ESTADO_REGISTRO = 0
-                WHERE ID_DVALOR= ?;";
+                WHERE ID_DDVALOR= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $DVALORP->__GET('ID_DVALOR')
+                        $DDVALOR->__GET('ID_DDVALOR')
                     )
-
                 );
         } catch (Exception $e) {
             die($e->getMessage());
         }
     }
     //CAMBIO A ACTIVADO
-    public function habilitar(DVALORP $DVALORP)
+    public function habilitar(DDVALOR $DDVALOR)
     {
 
         try {
             $query = "
-                UPDATE liquidacion_dvalorp SET			
+                UPDATE liquidacion_ddvalor SET			
                     ESTADO_REGISTRO = 1
-                WHERE ID_DVALOR= ?;";
+                WHERE ID_DDVALOR= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $DVALORP->__GET('ID_DVALOR')
+                        $DDVALOR->__GET('ID_DDVALOR')
                     )
-
                 );
         } catch (Exception $e) {
             die($e->getMessage());
@@ -375,39 +331,37 @@ class DVALORP_ADO
 
     //CAMBIO DE ESTADO DE LA FILA
 
-    public function cerrado(DVALORP $DVALORP)
+    public function cerrado(DDVALOR $DDVALOR)
     {
 
         try {
             $query = "
-                UPDATE liquidacion_dvalorp SET			
+                UPDATE liquidacion_ddvalor SET			
                     ESTADO = 0
-                WHERE ID_DVALOR= ?;";
+                WHERE ID_DDVALOR= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $DVALORP->__GET('ID_DVALOR')
+                        $DDVALOR->__GET('ID_DDVALOR')
                     )
-
                 );
         } catch (Exception $e) {
             die($e->getMessage());
         }
     }
-    public function abierto(DVALORP $DVALORP)
+    public function abierto(DDVALOR $DDVALOR)
     {
 
         try {
             $query = "
-                UPDATE liquidacion_dvalorp SET			
+                UPDATE liquidacion_ddvalor SET			
                     ESTADO = 1
-                WHERE ID_DVALOR= ?;";
+                WHERE ID_DDVALOR= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $DVALORP->__GET('ID_DVALOR')
+                        $DDVALOR->__GET('ID_DDVALOR')
                     )
-
                 );
         } catch (Exception $e) {
             die($e->getMessage());
