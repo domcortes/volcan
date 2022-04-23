@@ -51,6 +51,14 @@ include_once '../../assest/controlador/LDESTINO_ADO.php';
 include_once '../../assest/controlador/ADESTINO_ADO.php';
 include_once '../../assest/controlador/PDESTINO_ADO.php';
 
+
+include_once '../../assest/controlador/VALOR_ADO.php';
+include_once '../../assest/controlador/VALORP_ADO.php';
+include_once '../../assest/controlador/DVALOR_ADO.php';
+include_once '../../assest/controlador/DVALORP_ADO.php';
+
+include_once '../../assest/controlador/TITEM_ADO.php';
+
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 $ESPECIES_ADO =  new ESPECIES_ADO();
@@ -97,6 +105,14 @@ $MERCADO_ADO =  new MERCADO_ADO();
 $LDESTINO_ADO =  new LDESTINO_ADO();
 $ADESTINO_ADO =  new ADESTINO_ADO();
 $PDESTINO_ADO =  new PDESTINO_ADO();
+
+$VALOR_ADO =  new VALOR_ADO();
+$VALORP_ADO =  new VALORP_ADO();
+$DVALOR_ADO =  new DVALOR_ADO();
+$DVALORP_ADO =  new DVALORP_ADO();
+
+$TITEM_ADO =  new TITEM_ADO();
+
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
 
@@ -123,7 +139,9 @@ $ARRAYRECEPCIONMPORIGEN2="";
 
 
 
-if ($EMPRESAS  &&  $TEMPORADAS) {    
+if ($EMPRESAS  &&  $TEMPORADAS) {        
+    $ARRAYTITEMLIQUIDACION = $TITEM_ADO->listarTitemPorEmpresaLiquidacionCBX($EMPRESAS);
+    $ARRAYTITEMPAGO = $TITEM_ADO->listarTitemPorEmpresaPagoCBX($EMPRESAS);
     $ARRAYDESPACHOEX = $DESPACHOEX_ADO->listarDespachoexEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
 }
 
@@ -285,7 +303,13 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                     <th>Tipo Recepción MP</th>
                                                     <th>Número Guía Recepción MP</th>
                                                     <th>Fecha Guía Recepción MP </th>
-                                                    <th>Planta Recepción MP</th>
+                                                    <th>Planta Recepción MP</th>                                                    
+                                                    <?php foreach ($ARRAYTITEMLIQUIDACION as $d) : ?>
+                                                        <th><?php echo "Liquidacion: <br>".$d["NOMBRE_TITEM"]; ?></th>     
+                                                    <?php endforeach; ?>                     
+                                                    <?php foreach ($ARRAYTITEMPAGO as $d) : ?>
+                                                        <th><?php echo "Pago: <br>".$d["NOMBRE_TITEM"]; ?></th>     
+                                                    <?php endforeach; ?>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -330,6 +354,8 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                     } else {
                                                         $NOMBRETEMPORADA = "Sin Datos";
                                                     }                                         
+                                                    $ARRAYLIQUIDACION;
+                                                    $ARRAYPAGO;
                                                     $ARRAYICARGA=$ICARGA_ADO->verIcarga($r["ID_ICARGA"]);
                                                     if($ARRAYICARGA){
                                                         $NUMEROREFERENCIA=$ARRAYICARGA[0]['NREFERENCIA_ICARGA'];
@@ -445,6 +471,19 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                         }
                                                     }
                                                     $ARRAYTOMADOEX = $EXIEXPORTACION_ADO->buscarPordespachoEx($r['ID_DESPACHOEX']);
+                                                    
+                                                    $ARRAYLIQUIDACION=$VALOR_ADO->verValorPorIcarga($r["ID_ICARGA"]);
+                                                    if($ARRAYLIQUIDACION){
+                                                        $IDVALOR=$ARRAYLIQUIDACION[0]["ID_VALOR"];
+                                                    }else{
+                                                        $IDVALOR="";
+                                                    }
+                                                    $ARRAYPAGO=$VALORP_ADO->verValorPorIcarga($r["ID_ICARGA"]);
+                                                    if($ARRAYPAGO){
+                                                        $IDVALOR=$ARRAYPAGO[0]["ID_VALOR"];
+                                                    }else{
+                                                        $IDVALORP="";
+                                                    }
 
                                                     ?>
 
@@ -748,7 +787,29 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $TIPORECEPCIONMP; ?></td>
                                                             <td><?php echo $NUMEROGUIARECEPCIONMP; ?></td>
                                                             <td><?php echo $FECHAGUIARECEPCIONMP; ?></td>
-                                                            <td><?php echo $PLANTARECEPCIONMP; ?></td>
+                                                            <td><?php echo $PLANTARECEPCIONMP; ?></td>                   
+                                                            <?php foreach ($ARRAYTITEMLIQUIDACION as $d) : ?>
+                                                                <?php 
+                                                                    $ARRAYDVALOR=$DVALOR_ADO->buscarPorValorItem($IDVALOR,$d["ID_TITEM"]);
+                                                                    if($ARRAYDVALOR){
+                                                                       $VALORDVALOR= $ARRAYDVALOR[0]["VALOR_DVALOR"];          
+                                                                    }else{
+                                                                       $VALORDVALOR=0;
+                                                                    }
+                                                                ?>
+                                                                <td><?php echo $VALORDVALOR; ?></td>     
+                                                            <?php endforeach; ?>                     
+                                                            <?php foreach ($ARRAYTITEMPAGO as $d) : ?>
+                                                                <?php 
+                                                                    $ARRAYDVALORP=$DVALORP_ADO->buscarPorValorItem($IDVALOR,$d["ID_TITEM"]);
+                                                                    if($ARRAYDVALORP){
+                                                                       $VALORDVALORP= $ARRAYDVALORP[0]["VALOR_DVALOR"];          
+                                                                    }else{
+                                                                       $VALORDVALORP=0;
+                                                                    }
+                                                                ?>
+                                                                <td><?php echo $VALORDVALORP; ?></td>     
+                                                            <?php endforeach; ?>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php endforeach; ?>
