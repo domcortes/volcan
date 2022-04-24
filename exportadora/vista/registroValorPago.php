@@ -119,6 +119,7 @@ $ESTADO = "";
 $CONTADOR=1;
 $VALORITEM=0;
 $FDA="";
+$TOTALVALOR="";
 
 $EMPRESA = "";
 $PLANTA = "";
@@ -212,6 +213,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     $IDOP = $_SESSION['parametro'];
     $OP = $_SESSION['parametro1'];
 
+    $ARRAYVALORTOTAL=$DVALOR_ADO->obtenrTotalPorValor2($IDOP);
+    $TOTALVALOR= $ARRAYVALORTOTAL[0]["TOTAL"];                   
 
     //IDENTIFICACIONES DE OPERACIONES
     //crear =  OBTENCION DE DATOS INICIALES PARA PODER CREAR LA RECEPCION
@@ -1092,7 +1095,17 @@ if (isset($_POST)) {
                                     <h4 class="card-title">Detalle de Valor</h4>
                                 </div>
                                 <div class="card-header">
-                                    <div class="form-row align-items-center">
+                                    <div class="form-row align-items-center">                                        
+                                            <div class="col-auto">
+                                                <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                                                <div class="input-group mb-2">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">Total Valor </div>
+                                                    </div>
+                                                    <input type="hidden" name="TOTALVALOR" id="TOTALVALOR" value="<?php echo $TOTALVALOR; ?>" />
+                                                    <input type="text" class="form-control" placeholder="Total Valor" id="TOTALVALORV" name="TOTALVALORV" value="<?php echo $TOTALVALOR; ?>" disabled />
+                                                </div>
+                                            </div>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -1107,8 +1120,7 @@ if (isset($_POST)) {
                                                             <th>Item </th>     
                                                             <th>Valor  </th>
                                                             <th>Tipo Moneda </th>  
-                                                            <th>Estandar Exportación </th>    
-                                                            <th>Tipo Calibre </th>    
+                                                            <th>Fecha </th>      
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -1130,7 +1142,6 @@ if (isset($_POST)) {
                                                             <td><?php echo $VALORSEGURO; ?></td>
                                                             <td><?php echo $TMONEDA; ?></td>
                                                             <td>No Aplica</td>
-                                                            <td>No Aplica</td>
                                                         </tr>
                                                         <?php if ($ARRAYITEM) { ?>
                                                             <?php foreach ($ARRAYITEM as $s) : ?>
@@ -1139,22 +1150,10 @@ if (isset($_POST)) {
                                                                     $ARRAYDVALOR=$DVALOR_ADO->buscarPorValorItem($IDOP,$s["ID_TITEM"]);
                                                                     if($ARRAYDVALOR){
                                                                        $VALORDVALOR= $ARRAYDVALOR[0]["VALOR_DVALOR"];   
-                                                                       $ARRAYESTANDAR=$EEXPORTACION_ADO->verEstandar($ARRAYDVALOR[0]["ID_ESTANDAR"]);
-                                                                       if($ARRAYESTANDAR){
-                                                                          $NOMBREESTANDAR= $ARRAYESTANDAR[0]["NOMBRE_ESTANDAR"];
-                                                                       }else{
-                                                                           $NOMBREESTANDAR="No Aplica";
-                                                                       }
-                                                                       $ARRAYTCALIBRE=$TCALIBRE_ADO->verCalibre($ARRAYDVALOR[0]["ID_TCALIBRE"]);
-                                                                       if($ARRAYTCALIBRE){
-                                                                          $NOMBRETCALIBRE= $ARRAYTCALIBRE[0]["NOMBRE_TCALIBRE"];
-                                                                       }else{
-                                                                        $NOMBRETCALIBRE="No Aplica";
-                                                                       }
+                                                                       $FECHADVALOR= $ARRAYDVALOR[0]["FECHA_DVALOR"];                                                                
                                                                     }else{
                                                                        $VALORDVALOR=0;
-                                                                       $NOMBREESTANDAR="No Aplica";
-                                                                       $NOMBRETCALIBRE="No Aplica";
+                                                                       $FECHADVALOR="";
                                                                     }
                                                                 ?>
                                                                 <tr class="center">
@@ -1192,8 +1191,7 @@ if (isset($_POST)) {
                                                                     <td><?php echo $s["NOMBRE_TITEM"]; ?></td>
                                                                     <td><?php echo number_format( $VALORDVALOR,2,',','.' ); ?></td>
                                                                     <td><?php echo $TMONEDA; ?></td>
-                                                                    <td><?php echo $NOMBREESTANDAR; ?></td>
-                                                                    <td><?php echo $NOMBRETCALIBRE; ?></td>
+                                                                    <td><?php echo $FECHADVALOR; ?></td>
                                                                 </tr>
                                                             <?php endforeach; ?>
                                                         <?php } ?>

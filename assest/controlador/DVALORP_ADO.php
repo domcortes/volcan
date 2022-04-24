@@ -122,21 +122,12 @@ class DVALORP_ADO
     {
         try {
 
-            if ($DVALORP->__GET('ID_ESTANDAR') == NULL) {
-                $DVALORP->__SET('ID_ESTANDAR', NULL);
-            }
-            if ($DVALORP->__GET('ID_TCALIBRE') == NULL) {
-                $DVALORP->__SET('ID_TCALIBRE', NULL);
-            }
+       
             $query =
                 "INSERT INTO liquidacion_dvalorp 
                                         (
                                             VALOR_DVALOR,  
-                                            ESTANDAR,  
-                                            CALIBRE,  
-
-                                            ID_ESTANDAR,  
-                                            ID_TCALIBRE,  
+                                            FECHA_DVALOR,  
 
                                             ID_TITEM,                                              
                                             ID_USUARIOI,  
@@ -150,16 +141,12 @@ class DVALORP_ADO
                                             ESTADO_REGISTRO
                                         ) 
             VALUES
-	       	(?, ?, ?,   ?, ?,   ?, ?, ?,   ?, SYSDATE(),SYSDATE(), 1, 1);";
+	       	(?, ?,     ?, ?, ?,   ?,  SYSDATE(),SYSDATE(), 1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
                         $DVALORP->__GET('VALOR_DVALOR'),
-                        $DVALORP->__GET('ESTANDAR'),
-                        $DVALORP->__GET('CALIBRE'),
-
-                        $DVALORP->__GET('ID_ESTANDAR'),
-                        $DVALORP->__GET('ID_TCALIBRE'),
+                        $DVALORP->__GET('FECHA_DVALOR'),
 
                         $DVALORP->__GET('ID_TITEM'),
                         $DVALORP->__GET('ID_USUARIOI'),
@@ -193,22 +180,13 @@ class DVALORP_ADO
     {
 
         try {
-            if ($DVALORP->__GET('ID_ESTANDAR') == NULL) {
-                $DVALORP->__SET('ID_ESTANDAR', NULL);
-            }
-            if ($DVALORP->__GET('ID_TCALIBRE') == NULL) {
-                $DVALORP->__SET('ID_TCALIBRE', NULL);
-            }
+       
             $query = "
                     UPDATE liquidacion_dvalorp SET
                         MODIFICACION = SYSDATE(),
 
                         VALOR_DVALOR = ?,    
-                        ESTANDAR= ?,     
-                        CALIBRE= ?,   
-
-                        ID_ESTANDAR= ?,   
-                        ID_TCALIBRE= ?,    
+                        FECHA_DVALOR= ?,       
 
                         ID_TITEM= ?,
                         ID_USUARIOM= ?,
@@ -220,11 +198,7 @@ class DVALORP_ADO
                     array(
 
                         $DVALORP->__GET('VALOR_DVALOR'),
-                        $DVALORP->__GET('ESTANDAR'),
-                        $DVALORP->__GET('CALIBRE'),
-
-                        $DVALORP->__GET('ID_ESTANDAR'),
-                        $DVALORP->__GET('ID_TCALIBRE'),
+                        $DVALORP->__GET('FECHA_DVALOR'),
 
                         $DVALORP->__GET('ID_TITEM'),                        
                         $DVALORP->__GET('ID_USUARIOM'),
@@ -240,6 +214,51 @@ class DVALORP_ADO
         }
     }
     //FUNCIONES ESPECIALIZADAS 
+    public function obtenrTotalPorValor($IDVALOR)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 
+                                                    IFNULL(SUM(VALOR_DVALOR),0) AS 'TOTAL'
+                                                FROM liquidacion_dvalorp 
+                                                WHERE ID_VALOR = '" . $IDVALOR . "'  
+                                                AND ESTADO_REGISTRO = 1;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    
+    public function obtenrTotalPorValor2($IDVALOR)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 
+                                                    FORMAT(IFNULL(SUM(VALOR_DVALOR),0),2,'de_DE') AS 'TOTAL'
+                                                FROM liquidacion_dvalorp 
+                                                WHERE ID_VALOR = '" . $IDVALOR . "'  
+                                                AND ESTADO_REGISTRO = 1;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
 
     //LISTAR POR INSTRUCTIVO CARGA

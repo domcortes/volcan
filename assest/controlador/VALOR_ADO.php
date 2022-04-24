@@ -132,6 +132,27 @@ class VALOR_ADO
     }
 
 
+    public function verValorPorIcarga($ID)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 
+                                                ID_VALOR
+                                                FROM liquidacion_valor
+                                                WHERE ID_ICARGA= '" . $ID . "';");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
 
     //REGISTRO DE UNA NUEVA FILA    

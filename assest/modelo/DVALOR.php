@@ -9,14 +9,11 @@
         //ATRIBUTOS DE LA CLASE    
         private	  $ID_DVALOR; 
         private	  $VALOR_DVALOR;
-        private   $ESTANDAR;
-        private   $CALIBRE;
+        private   $DETALLE;
         private	  $ESTADO;
         private   $ESTADO_REGISTRO;
         private	  $INGRESO;
         private	  $MODIFICACION;
-        private   $ID_ESTANDAR;
-        private   $ID_TCALIBRE;
         private   $ID_VALOR;
         private   $ID_TITEM;
         private   $ID_USUARIOI;
