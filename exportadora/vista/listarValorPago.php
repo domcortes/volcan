@@ -185,7 +185,8 @@ include_once "../../assest/config/datosUrLP.php";
                                                     <th>Observaciones Valor Liqui. </th>               
                                                     <th>Fecha Ingreso</th>               
                                                     <?php foreach ($ARRAYTITEMPAGO as $d) : ?>
-                                                        <th><?php echo "Pago: <br>".$d["NOMBRE_TITEM"]; ?></th>     
+                                                        <th><?php echo "Fecha Pago: <br>".$d["NOMBRE_TITEM"]; ?></th>   
+                                                        <th><?php echo "Valor Pago: <br>".$d["NOMBRE_TITEM"]; ?></th>     
                                                     <?php endforeach; ?>            
                                                     <th>Total Pago</th>               
                                                 </tr>
@@ -337,11 +338,14 @@ include_once "../../assest/config/datosUrLP.php";
                                                                 <?php 
                                                                     $ARRAYDVALORP=$DVALOR_ADO->buscarPorValorItem($r["ID_VALOR"],$d["ID_TITEM"]);
                                                                     if($ARRAYDVALORP){
-                                                                       $VALORDVALORP= $ARRAYDVALORP[0]["VALOR_DVALOR"];          
+                                                                       $FECHADVALORP= $ARRAYDVALORP[0]["FECHA_DVALOR"];    
+                                                                       $VALORDVALORP= $ARRAYDVALORP[0]["VALOR_DVALOR"];         
                                                                     }else{
+                                                                       $FECHADVALORP="";
                                                                        $VALORDVALORP=0;
                                                                     }
                                                                 ?>
+                                                                <td><?php echo $FECHADVALORP; ?></td>    
                                                                 <td><?php echo $VALORDVALORP; ?></td>     
                                                             <?php endforeach; ?>
                                                         <td><?php echo $TOTALVALOR; ?></td>    
