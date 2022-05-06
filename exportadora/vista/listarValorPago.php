@@ -28,6 +28,7 @@ include_once '../../assest/controlador/PCARGA_ADO.php';
 include_once '../../assest/controlador/PDESTINO_ADO.php';
 
 
+include_once '../../assest/controlador/BROKER_ADO.php';
 
 
 
@@ -65,6 +66,7 @@ $CVENTA_ADO =  new CVENTA_ADO();
 $SEGURO_ADO =  new SEGURO_ADO();
 
 $TMONEDA_ADO = new TMONEDA_ADO();
+$BROKER_ADO = new BROKER_ADO();
 
 
 $VALOR_ADO =  new VALORP_ADO();
@@ -84,6 +86,7 @@ $ARRAYVALOR = "";
 if ($EMPRESAS   && $TEMPORADAS) {
 
     $ARRAYVALOR = $VALOR_ADO->listarValorEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
+    $ARRAYTITEMPAGO = $TITEM_ADO->listarTitemPorEmpresaPagoCBX($EMPRESAS);
 
  
 }
@@ -175,19 +178,17 @@ include_once "../../assest/config/datosUrLP.php";
                                                     <th>Número Valor Liqui.</th>
                                                     <th>Estado</th>
                                                     <th class="text-center">Operaciónes</th>
-                                                    <th>Fecha Valor Liqui. </th>                                            
+                                                    <th>Fecha Liqui. </th>                                            
                                                     <th>Número Referencia  </th>                                                
-                                                    <th>Fecha ETD  </th>                                              
-                                                    <th>Fecha ETA  </th>                                          
-                                                    <th>Número Contenedor  </th>                                      
-                                                    <th>FDA Packing  </th>
-                                                    <th>Observaciones Valor Liqui. </th>                                        
-                                                    <th>Exportadora  </th>                                             
-                                                    <th>Consignatario  </th>  
-                                                    <th>Fecha Ingreso</th>
-                                                    <th>Fecha Modificación</th>
-                                                    <th>Empresa</th>
-                                                    <th>Temporada</th>
+                                                    <th>Cliente </th>                                         
+                                                    <th>Número Contenedor  </th>      
+                                                    <th>Observaciones Valor Liqui. </th>               
+                                                    <th>Fecha Ingreso</th>               
+                                                    <?php foreach ($ARRAYTITEMPAGO as $d) : ?>
+                                                        <th><?php echo "Fecha Pago: <br>".$d["NOMBRE_TITEM"]; ?></th>   
+                                                        <th><?php echo "Valor Pago: <br>".$d["NOMBRE_TITEM"]; ?></th>     
+                                                    <?php endforeach; ?>            
+                                                    <th>Total Pago</th>               
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -195,83 +196,94 @@ include_once "../../assest/config/datosUrLP.php";
 
                                                     <?php
 
-                                                                                            
+                                                        $ARRAYVALORTOTAL=$DVALOR_ADO->obtenrTotalPorValor($r["ID_VALOR"]);
+                                                        if($ARRAYVALORTOTAL){
+                                                            $TOTALVALOR= $ARRAYVALORTOTAL[0]["TOTAL"];       
+                                                        }else{
+                                                            $TOTALVALOR="0";
+                                                        }                                   
                                                         $ARRAYVERICARGA=$ICARGA_ADO->verIcarga2($r["ID_ICARGA"]);
                                                         if ($ARRAYVERICARGA) {
-                                                            $NUMEROICARGA=$ARRAYVERICARGA[0]["NUMERO_ICARGA"];
+                                                            // $NUMEROICARGA=$ARRAYVERICARGA[0]["NUMERO_ICARGA"];
                                                             $NUMEROIREFERENCIA=$ARRAYVERICARGA[0]["NREFERENCIA_ICARGA"];
-
-                                                            $CONSIGNATARIO = $ARRAYVERICARGA[0]['ID_CONSIGNATARIO'];
-                                                            $ARRAYCONSIGNATARIO=$CONSIGNATARIO_ADO->verConsignatorio($CONSIGNATARIO);
-                                                            if($ARRAYCONSIGNATARIO){
-                                                                $NOMBRECONSIGNATARIO= $ARRAYCONSIGNATARIO[0]["NOMBRE_CONSIGNATARIO"];
+                                                            $ARRAYBROKER=$BROKER_ADO->verBroker($ARRAYVERICARGA[0]["ID_BROKER"]);
+                                                            if($ARRAYBROKER){
+                                                                $NOMBREBROKER=$ARRAYBROKER[0]["NOMBRE_BROKER"];
                                                             }else{
-                                                                $NOMBRECONSIGNATARIO="Sin Datos";
-                                                            }
-                                                            $EXPORTADORA = $ARRAYVERICARGA[0]['ID_EXPPORTADORA'];
-                                                            $ARRAYEXPORTADORA=$EXPORTADORA_ADO->verExportadora($EXPORTADORA);
-                                                            if($ARRAYEXPORTADORA){
-                                                                $NOMBREEXPPORTADORA = $ARRAYEXPORTADORA[0]["NOMBRE_EXPORTADORA"];
-                                                            }else{
-                                                                $NOMBREEXPPORTADORA="Sin Datos";
-                                                            }
-                                                            $BOOKINGINSTRUCTIVO = $ARRAYVERICARGA[0]['BOOKING_ICARGA'];
-                                                            $TEMBARQUE = $ARRAYVERICARGA[0]['TEMBARQUE_ICARGA'];
-                                                            $FECHAETD = $ARRAYVERICARGA[0]['FECHAETD_ICARGA'];
-                                                            $FECHAETA = $ARRAYVERICARGA[0]['FECHAETA_ICARGA'];                 
-                                                            if ($TEMBARQUE) {
-                                                                if ($TEMBARQUE == "1") {
-                                                                    $TRANSPORTE = $ARRAYVERICARGA[0]['ID_TRANSPORTE'];
-                                                                    $LCARGA = $ARRAYVERICARGA[0]['ID_LCARGA'];
-                                                                    $LDESTINO = $ARRAYVERICARGA[0]['ID_LDESTINO'];
-                                                                }
-                                                                if ($TEMBARQUE == "2") {
-                                                                    $LAEREA = $ARRAYVERICARGA[0]['ID_LAREA'];
-                                                                    $ACARGA = $ARRAYVERICARGA[0]['ID_ACARGA'];
-                                                                    $ADESTINO = $ARRAYVERICARGA[0]['ID_ADESTINO'];
-                                                                }
-                                                                if ($TEMBARQUE == "3") {
-                                                                    $NAVIERA = $ARRAYVERICARGA[0]['ID_NAVIERA'];
-                                                                    $PCARGA = $ARRAYVERICARGA[0]['ID_PCARGA'];
-                                                                    $PDESTINO = $ARRAYVERICARGA[0]['ID_PDESTINO'];
-                                                                }
-                                                            }                
-                                                            $BOLAWBCRTINSTRUCTIVO = $ARRAYVERICARGA[0]['BOLAWBCRT_ICARGA'];
-                                                            $CVENTA = $ARRAYVERICARGA[0]['ID_CVENTA'];
-                                                            $MVENTA = $ARRAYVERICARGA[0]['ID_MVENTA'];
+                                                                $NOMBREBROKER="Sin Datos";
+                                                            }                                                                 
+                                                     
+                                                            // $CONSIGNATARIO = $ARRAYVERICARGA[0]['ID_CONSIGNATARIO'];
+                                                            // $ARRAYCONSIGNATARIO=$CONSIGNATARIO_ADO->verConsignatorio($CONSIGNATARIO);
+                                                            // if($ARRAYCONSIGNATARIO){
+                                                            //     $NOMBRECONSIGNATARIO= $ARRAYCONSIGNATARIO[0]["NOMBRE_CONSIGNATARIO"];
+                                                            // }else{
+                                                            //     $NOMBRECONSIGNATARIO="Sin Datos";
+                                                            // }
+                                                            // $EXPORTADORA = $ARRAYVERICARGA[0]['ID_EXPPORTADORA'];
+                                                            // $ARRAYEXPORTADORA=$EXPORTADORA_ADO->verExportadora($EXPORTADORA);
+                                                            // if($ARRAYEXPORTADORA){
+                                                            //     $NOMBREEXPPORTADORA = $ARRAYEXPORTADORA[0]["NOMBRE_EXPORTADORA"];
+                                                            // }else{
+                                                            //     $NOMBREEXPPORTADORA="Sin Datos";
+                                                            // }                                                             
+                                                            // $BOOKINGINSTRUCTIVO = $ARRAYVERICARGA[0]['BOOKING_ICARGA'];
+                                                            // $TEMBARQUE = $ARRAYVERICARGA[0]['TEMBARQUE_ICARGA'];
+                                                            // $FECHAETD = $ARRAYVERICARGA[0]['FECHAETD_ICARGA'];
+                                                            // $FECHAETA = $ARRAYVERICARGA[0]['FECHAETA_ICARGA'];                 
+                                                            // if ($TEMBARQUE) {
+                                                            //     if ($TEMBARQUE == "1") {
+                                                            //         $TRANSPORTE = $ARRAYVERICARGA[0]['ID_TRANSPORTE'];
+                                                            //         $LCARGA = $ARRAYVERICARGA[0]['ID_LCARGA'];
+                                                            //         $LDESTINO = $ARRAYVERICARGA[0]['ID_LDESTINO'];
+                                                            //     }
+                                                            //     if ($TEMBARQUE == "2") {
+                                                            //         $LAEREA = $ARRAYVERICARGA[0]['ID_LAREA'];
+                                                            //         $ACARGA = $ARRAYVERICARGA[0]['ID_ACARGA'];
+                                                            //         $ADESTINO = $ARRAYVERICARGA[0]['ID_ADESTINO'];
+                                                            //     }
+                                                            //     if ($TEMBARQUE == "3") {
+                                                            //         $NAVIERA = $ARRAYVERICARGA[0]['ID_NAVIERA'];
+                                                            //         $PCARGA = $ARRAYVERICARGA[0]['ID_PCARGA'];
+                                                            //         $PDESTINO = $ARRAYVERICARGA[0]['ID_PDESTINO'];
+                                                            //     }
+                                                            // }                
+                                                            // $BOLAWBCRTINSTRUCTIVO = $ARRAYVERICARGA[0]['BOLAWBCRT_ICARGA'];
+                                                            // $CVENTA = $ARRAYVERICARGA[0]['ID_CVENTA'];
+                                                            // $MVENTA = $ARRAYVERICARGA[0]['ID_MVENTA'];
                                                             $ARRAYDESPACHOEX=$DESPACHOEX_ADO->buscarDespachoExPorIcarga($ARRAYVERICARGA[0]["ID_ICARGA"]);
                                                             $ARRAYDESPACHOEX2=$DESPACHOEX_ADO->buscarDespachoExPorIcargaAgrupadoPorPlanta($ARRAYVERICARGA[0]["ID_ICARGA"]);
                                                             if($ARRAYDESPACHOEX){
                                                             $NUMEROCONTENEDOR=$ARRAYDESPACHOEX[0]['NUMERO_CONTENEDOR_DESPACHOEX'];                     
                                                             foreach ($ARRAYDESPACHOEX2 as $s) :    
-                                                                $ARRAYVERPLANTA = $PLANTA_ADO->verPlanta($s['ID_PLANTA']);
-                                                                if($ARRAYVERPLANTA){
-                                                                  $FDA= $FDA.$ARRAYVERPLANTA[0]["FDA_PLANTA"]."<br> ";
-                                                                }else{
-                                                                  $FDA=$FDA;
-                                                                }
+                                                                // $ARRAYVERPLANTA = $PLANTA_ADO->verPlanta($s['ID_PLANTA']);
+                                                                // if($ARRAYVERPLANTA){
+                                                                //   $FDA= $FDA.$ARRAYVERPLANTA[0]["FDA_PLANTA"]."<br> ";
+                                                                // }else{
+                                                                //   $FDA=$FDA;
+                                                                // } 
                                                             endforeach;   
                                                             }else{
-                                                                $FDA="Sin Datos";
+                                                                // $FDA="Sin Datos";
                                                                 $NUMEROCONTENEDOR=$ARRAYICARGA[0]['NCONTENEDOR_ICARGA'];
                                                             } 
                                                         }else{
                                                             $NUMEROIREFERENCIA="Sin Datos";
-                                                            $NUMEROICARGA="Sin Datos";
+                                                            // $NUMEROICARGA="Sin Datos";
                                                         }
                                               
-                                                    $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
-                                                    if ($ARRAYEMPRESA) {
-                                                        $NOMBREEMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
-                                                    } else {
-                                                        $NOMBREEMPRESA = "Sin Datos";
-                                                    }
-                                                    $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($r['ID_TEMPORADA']);
-                                                    if ($ARRAYTEMPORADA) {
-                                                        $NOMBRETEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
-                                                    } else {
-                                                        $NOMBRETEMPORADA = "Sin Datos";
-                                                    }
+                                                    // $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
+                                                    // if ($ARRAYEMPRESA) {
+                                                    //     $NOMBREEMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
+                                                    // } else {
+                                                    //     $NOMBREEMPRESA = "Sin Datos";
+                                                    // }
+                                                    // $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($r['ID_TEMPORADA']);
+                                                    // if ($ARRAYTEMPORADA) {
+                                                    //     $NOMBRETEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
+                                                    // } else {
+                                                    //     $NOMBRETEMPORADA = "Sin Datos";
+                                                    // }
 
                                                     ?>
 
@@ -318,17 +330,25 @@ include_once "../../assest/config/datosUrLP.php";
                                                         </td>
                                                         <td><?php echo $r['FECHA']; ?></td>
                                                         <td><?php echo $NUMEROIREFERENCIA; ?></td>
-                                                        <td><?php echo $FECHAETD; ?></td>
-                                                        <td><?php echo $FECHAETA; ?></td>
-                                                        <td><?php echo $NUMEROCONTENEDOR; ?></td>
-                                                        <td><?php echo $FDA; ?></td>                                                        
+                                                        <td><?php echo $NOMBREBROKER; ?></td>
+                                                        <td><?php echo $NUMEROCONTENEDOR; ?></td>                               
                                                         <td><?php echo $r['OBSERVACION_VALOR']; ?></td>
-                                                        <td><?php echo $NOMBREEXPPORTADORA; ?></td>
-                                                        <td><?php echo $NOMBRECONSIGNATARIO; ?></td>
                                                         <td><?php echo $r['INGRESO']; ?></td>
-                                                        <td><?php echo $r['MODIFICACION']; ?></td>
-                                                        <td><?php echo $NOMBREEMPRESA; ?></td>
-                                                        <td><?php echo $NOMBRETEMPORADA; ?></td>
+                                                            <?php foreach ($ARRAYTITEMPAGO as $d) : ?>
+                                                                <?php 
+                                                                    $ARRAYDVALORP=$DVALOR_ADO->buscarPorValorItem($r["ID_VALOR"],$d["ID_TITEM"]);
+                                                                    if($ARRAYDVALORP){
+                                                                       $FECHADVALORP= $ARRAYDVALORP[0]["FECHA_DVALOR"];    
+                                                                       $VALORDVALORP= $ARRAYDVALORP[0]["VALOR_DVALOR"];         
+                                                                    }else{
+                                                                       $FECHADVALORP="";
+                                                                       $VALORDVALORP=0;
+                                                                    }
+                                                                ?>
+                                                                <td><?php echo $FECHADVALORP; ?></td>    
+                                                                <td><?php echo $VALORDVALORP; ?></td>     
+                                                            <?php endforeach; ?>
+                                                        <td><?php echo $TOTALVALOR; ?></td>    
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>

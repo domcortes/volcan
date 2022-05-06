@@ -413,6 +413,28 @@ class VALOR_ADO
 
 
     //OTRAS FUNCIONALIDADES
+    
+    public function buscarValorPorIcarga($IDICARGA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * 
+                                                FROM liquidacion_valor 
+                                                WHERE ID_ICARGA = '".$IDICARGA."'
+                                                ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     //CONSULTA PARA OBTENER LA FILA EN EL MISMO MOMENTO DE REGISTRAR LA FILA
     public function obtenerId($FECHAVALOR, $EMPRESA,  $TEMPORADA)

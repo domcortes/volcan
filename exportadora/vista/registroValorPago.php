@@ -31,6 +31,11 @@ include_once '../../assest/controlador/PDESTINO_ADO.php';
 
 include_once '../../assest/controlador/VALORP_ADO.php';
 include_once '../../assest/controlador/DVALORP_ADO.php';
+
+
+include_once '../../assest/controlador/VALOR_ADO.php';
+include_once '../../assest/controlador/DVALOR_ADO.php';
+
 include_once '../../assest/controlador/TITEM_ADO.php';
 
 
@@ -73,6 +78,10 @@ $TCALIBRE_ADO = new TCALIBRE_ADO();
 
 $VALOR_ADO =  new VALORP_ADO();
 $DVALOR_ADO =  new DVALORP_ADO();
+
+$VALORL_ADO =  new VALOR_ADO();
+$DVALORL_ADO =  new DVALOR_ADO();
+
 $TITEM_ADO =  new TITEM_ADO();
 
 //INIICIALIZAR MODELO 
@@ -119,7 +128,9 @@ $ESTADO = "";
 $CONTADOR=1;
 $VALORITEM=0;
 $FDA="";
-$TOTALVALOR="";
+$TOTALVALOR=0;
+$TOTALVALORPAGO=0;
+$TOTALVALORLIQUIDACION=0;
 
 $EMPRESA = "";
 $PLANTA = "";
@@ -213,8 +224,10 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     $IDOP = $_SESSION['parametro'];
     $OP = $_SESSION['parametro1'];
 
-    $ARRAYVALORTOTAL=$DVALOR_ADO->obtenrTotalPorValor2($IDOP);
-    $TOTALVALOR= $ARRAYVALORTOTAL[0]["TOTAL"];                   
+    $ARRAYVALORTOTAL=$DVALOR_ADO->obtenrTotalPorValor($IDOP);
+    $ARRAYVALORTOTAL2=$DVALOR_ADO->obtenrTotalPorValor2($IDOP);
+    $TOTALVALORPAGO= $ARRAYVALORTOTAL[0]["TOTAL"];           
+    $TOTALVALORPAGOV= $ARRAYVALORTOTAL2[0]["TOTAL"];                      
 
     //IDENTIFICACIONES DE OPERACIONES
     //crear =  OBTENCION DE DATOS INICIALES PARA PODER CREAR LA RECEPCION
@@ -239,6 +252,24 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $FECHAIVALOR  = $r['FECHA_VALOR'];
             $OBSERVACIONIVALOR  = $r['OBSERVACION_VALOR'];
             $ICARGAD= $r['ID_ICARGA'];
+            $ARRAYBUSCARVALORPPORICARGA=$VALORL_ADO->buscarValorPorIcarga($ICARGAD);
+            if($ARRAYBUSCARVALORPPORICARGA){
+                $ARRAYVALORTOTALLIQUI=$DVALORL_ADO->obtenrTotalPorValor($ARRAYBUSCARVALORPPORICARGA[0]["ID_VALOR"]);
+                $ARRAYVALORTOTALLIQUI2=$DVALORL_ADO->obtenrTotalPorValor2($ARRAYBUSCARVALORPPORICARGA[0]["ID_VALOR"]);
+                if($ARRAYVALORTOTALLIQUI){
+                    $TOTALVALORLIQUIDACION= $ARRAYVALORTOTALLIQUI[0]["TOTAL"];       
+                }else{
+                    $TOTALVALORLIQUIDACION=0;
+                }
+                if($ARRAYVALORTOTALLIQUI2){
+                    $TOTALVALORLIQUIDACIONV= $ARRAYVALORTOTALLIQUI2[0]["TOTAL"];       
+                }else{
+                    $TOTALVALORLIQUIDACIONV=0;
+                }
+            }else{
+                $TOTALVALORLIQUIDACION=0;
+                $TOTALVALORLIQUIDACIONV=0;
+            }   
             $ARRAYICARGA = $ICARGA_ADO->listarIcargaDespachadoCBX($EMPRESAS, $TEMPORADAS);
             $ARRAYVERICARGA = $ICARGA_ADO->verIcarga($ICARGAD);
             if ($ARRAYVERICARGA) {
@@ -322,6 +353,24 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $FECHAIVALOR  = $r['FECHA_VALOR'];
             $OBSERVACIONIVALOR  = $r['OBSERVACION_VALOR'];
             $ICARGAD= $r['ID_ICARGA'];
+            $ARRAYBUSCARVALORPPORICARGA=$VALORL_ADO->buscarValorPorIcarga($ICARGAD);
+            if($ARRAYBUSCARVALORPPORICARGA){
+                $ARRAYVALORTOTALLIQUI=$DVALORL_ADO->obtenrTotalPorValor($ARRAYBUSCARVALORPPORICARGA[0]["ID_VALOR"]);
+                $ARRAYVALORTOTALLIQUI2=$DVALORL_ADO->obtenrTotalPorValor2($ARRAYBUSCARVALORPPORICARGA[0]["ID_VALOR"]);
+                if($ARRAYVALORTOTALLIQUI){
+                    $TOTALVALORLIQUIDACION= $ARRAYVALORTOTALLIQUI[0]["TOTAL"];       
+                }else{
+                    $TOTALVALORLIQUIDACION=0;
+                }
+                if($ARRAYVALORTOTALLIQUI2){
+                    $TOTALVALORLIQUIDACIONV= $ARRAYVALORTOTALLIQUI2[0]["TOTAL"];       
+                }else{
+                    $TOTALVALORLIQUIDACIONV=0;
+                }
+            }else{
+                $TOTALVALORLIQUIDACION=0;
+                $TOTALVALORLIQUIDACIONV=0;
+            }  
             $ARRAYICARGA = $ICARGA_ADO->listarIcargaDespachadoCBX($EMPRESAS, $TEMPORADAS);
             $ARRAYVERICARGA = $ICARGA_ADO->verIcarga($ICARGAD);
             if ($ARRAYVERICARGA) {
@@ -408,6 +457,24 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $FECHAIVALOR  = $r['FECHA_VALOR'];
             $OBSERVACIONIVALOR  = $r['OBSERVACION_VALOR'];
             $ICARGAD= $r['ID_ICARGA'];
+            $ARRAYBUSCARVALORPPORICARGA=$VALORL_ADO->buscarValorPorIcarga($ICARGAD);
+            if($ARRAYBUSCARVALORPPORICARGA){
+                $ARRAYVALORTOTALLIQUI=$DVALORL_ADO->obtenrTotalPorValor($ARRAYBUSCARVALORPPORICARGA[0]["ID_VALOR"]);
+                $ARRAYVALORTOTALLIQUI2=$DVALORL_ADO->obtenrTotalPorValor2($ARRAYBUSCARVALORPPORICARGA[0]["ID_VALOR"]);
+                if($ARRAYVALORTOTALLIQUI){
+                    $TOTALVALORLIQUIDACION= $ARRAYVALORTOTALLIQUI[0]["TOTAL"];       
+                }else{
+                    $TOTALVALORLIQUIDACION=0;
+                }
+                if($ARRAYVALORTOTALLIQUI2){
+                    $TOTALVALORLIQUIDACIONV= $ARRAYVALORTOTALLIQUI2[0]["TOTAL"];       
+                }else{
+                    $TOTALVALORLIQUIDACIONV=0;
+                }
+            }else{
+                $TOTALVALORLIQUIDACION=0;
+                $TOTALVALORLIQUIDACIONV=0;
+            }  
             $ARRAYICARGA = $ICARGA_ADO->listarIcargaDespachadoCBX($EMPRESAS, $TEMPORADAS);
             $ARRAYVERICARGA = $ICARGA_ADO->verIcarga($ICARGAD);
             if ($ARRAYVERICARGA) {
@@ -468,6 +535,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $ESTADO = $r['ESTADO'];
         endforeach;
     }
+    $TOTALVALOR = $TOTALVALORLIQUIDACION - $TOTALVALORPAGO;
 }
 
 //PROCESO PARA OBTENER LOS DATOS DEL FORMULARIO  Y MANTENERLO AL ACTUALIZACION QUE REALIZA EL SELECT DE PRODUCTOR
@@ -1100,10 +1168,30 @@ if (isset($_POST)) {
                                                 <label class="sr-only" for="inlineFormInputGroup">Username</label>
                                                 <div class="input-group mb-2">
                                                     <div class="input-group-prepend">
+                                                        <div class="input-group-text">Total Liquidacion </div>
+                                                    </div>
+                                                    <input type="hidden" name="TOTALVALORL" id="TOTALVALORL" value="<?php echo $TOTALVALORLIQUIDACION; ?>" />
+                                                    <input type="text" class="form-control" placeholder="Total Valor Liqui." id="TOTALVALORV" name="TOTALVALORV" value="<?php echo $TOTALVALORLIQUIDACIONV; ?>" disabled />
+                                                </div>
+                                            </div>                                 
+                                            <div class="col-auto">
+                                                <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                                                <div class="input-group mb-2">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">Total Pago </div>
+                                                    </div>
+                                                    <input type="hidden" name="TOTALVALOP" id="TOTALVALORP" value="<?php echo $TOTALVALORPAGO; ?>" />
+                                                    <input type="text" class="form-control" placeholder="Total Valor Pago" id="TOTALVALORV" name="TOTALVALORV" value="<?php echo $TOTALVALORPAGOV; ?>" disabled />
+                                                </div>
+                                            </div>                                 
+                                            <div class="col-auto">
+                                                <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                                                <div class="input-group mb-2">
+                                                    <div class="input-group-prepend">
                                                         <div class="input-group-text">Total Valor </div>
                                                     </div>
                                                     <input type="hidden" name="TOTALVALOR" id="TOTALVALOR" value="<?php echo $TOTALVALOR; ?>" />
-                                                    <input type="text" class="form-control" placeholder="Total Valor" id="TOTALVALORV" name="TOTALVALORV" value="<?php echo $TOTALVALOR; ?>" disabled />
+                                                    <input type="text" class="form-control" placeholder="Total Valor" id="TOTALVALORV" name="TOTALVALORV" value="<?php echo number_format($TOTALVALOR,1,',','.'); ?>" disabled />
                                                 </div>
                                             </div>
                                     </div>
