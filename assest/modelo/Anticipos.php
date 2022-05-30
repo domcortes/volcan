@@ -33,6 +33,20 @@
                 return 'ok';
             }
         }
+
+        static public function mdlBuscarAnticipo($tabla,$item,$valor)
+        {
+            if ($item!=null) {
+                $stmt = BDCONFIG::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :$item");
+                $stmt->bindParam(":".$item,$valor, PDO::PARAM_STR);
+                $stmt->execute();
+
+                $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $stmt = null;
+                return $retorno;
+            }
+
+        }
     }
 
 ?>

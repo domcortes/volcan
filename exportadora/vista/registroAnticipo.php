@@ -9,8 +9,12 @@ include_once '../../assest/controlador/Anticipo.php';
 include_once '../../assest/modelo/Anticipos.php';
 
 $brokers = BrokerController::ctrIndexBroker($_SESSION['ID_EMPRESA']);
+$disabled = false;
 
-
+if(isset($_GET['hash'])){
+    $anticipo = AnticipoController::ctrBuscarAnticipo($_GET['hash']);
+    $disabled = true;
+}
 ?>
 
 
@@ -65,16 +69,20 @@ $brokers = BrokerController::ctrIndexBroker($_SESSION['ID_EMPRESA']);
                                 <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 col-xs-6">
                                     <div class="form-group ">
                                         <label>Correlativo Anticipo</label>
-                                        <input type="text" disabled class="form-control" id="id_correlativo" name="id_correlativo" placeholder="Nro. Correlativo">
+                                        <input type="text" disabled class="form-control" id="id_correlativo" name="id_correlativo" placeholder="Nro. Correlativo" value="<?php echo $disabled ? $anticipo[0]['id_anticipo'] : '';?>">
                                     </div>
                                 </div>
                                 <div class="col-xxl-6 col-xl-1 col-lg-1 col-md-6 col-sm-6 col-6 col-xs-6">
                                     <div class="form-group">
                                         <label>Cliente</label>
-                                        <select class="form-control select2" id="id_broker" name="id_broker" style="width: 100%;"  required>
+                                        <select class="form-control select2" id="id_broker" name="id_broker" style="width: 100%;"  required <?php echo $disabled ? 'disabled' : '';?>>
                                             <option>Selecciona un cliente</option>
                                             <?php foreach($brokers as $broker){?>
-                                                <option value="<?php echo $broker['ID_BROKER']?>"><?php echo $broker['NOMBRE_BROKER'];?></option>
+                                                    <?php if($anticipo[0]['id_broker'] == $broker['ID_BROKER']):?>
+                                                        <option selected value="<?php echo $broker['ID_BROKER']?>"><?php echo $broker['NOMBRE_BROKER'];?></option>
+                                                    <?php else:?>
+                                                        <option value="<?php echo $broker['ID_BROKER']?>"><?php echo $broker['NOMBRE_BROKER'];?></option>
+                                                    <?php endif;?>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -82,19 +90,19 @@ $brokers = BrokerController::ctrIndexBroker($_SESSION['ID_EMPRESA']);
                                 <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6">
                                     <div class="form-group">
                                         <label>Fecha Ingreso</label>
-                                        <input type="date" class="form-control" style="background-color: #eeeeee;" placeholder="Fecha Ingreso" id="ingreso_anticipo" name="ingreso_anticipo" value="" disabled />
+                                        <input type="date" class="form-control" style="background-color: #eeeeee;" placeholder="Fecha Ingreso" id="ingreso_anticipo" name="ingreso_anticipo" value="<?php echo $disabled ? $anticipo[0]['fecha_ingreso'] : '';?>" disabled />
                                     </div>
                                 </div>
                                 <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6">
                                     <div class="form-group">
                                         <label>Fecha Modificación</label>
-                                        <input type="date" class="form-control " style="background-color: #eeeeee;" placeholder="Fecha Modificacion" id="modificacion_anticipo" name="modificacion_anticipo" value="" disabled />
+                                        <input type="date" class="form-control " style="background-color: #eeeeee;" placeholder="Fecha Modificacion" id="modificacion_anticipo" name="modificacion_anticipo" value="<?php echo $disabled ? $anticipo[0]['fecha_modificacion'] : '';?>" disabled />
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Observacion Anticipo </label>
-                                <textarea class="form-control" rows="1"  placeholder="Observacion del anticipo (opcional)  " id="observacion_anticipo" name="observacion_anticipo"></textarea>
+                                <textarea <?php echo $disabled ? 'disabled' : '';?> class="form-control" rows="1"  placeholder="Observacion del anticipo (opcional)  " id="observacion_anticipo" name="observacion_anticipo"><?php echo $disabled ? $anticipo[0]['observacion'] : '';?></textarea>
                             </div>
                         </div>
                         <!-- /.box-body -->
@@ -108,13 +116,19 @@ $brokers = BrokerController::ctrIndexBroker($_SESSION['ID_EMPRESA']);
                                         <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR"   onclick="return validacion()">
                                             <i class="ti-save-alt"></i> Crear
                                         </button>
+                                    <?php } else { ?>
+                                        <a class="btn btn-success" href="/exportadora/vista/listarAnticipo.php">Volver</a>
+                                        <button disabled class="btn btn-warning">Guardar Cambios</button>
+                                        <button disabled class="btn btn-danger">Cerrar</button>
                                     <?php } ?>
                                 </div>
                             </div>
                         </div>
                         <?php
-                            $crear_anticipo = new AnticipoController();
-                            $crear_anticipo->ctrCrearAnticipo();
+                            if(!isset($_GET['hash'])){
+                                $crear_anticipo = new AnticipoController();
+                                $crear_anticipo->ctrCrearAnticipo();
+                            }
                         ?>
                     </form>
                 </div>

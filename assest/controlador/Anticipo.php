@@ -64,6 +64,13 @@ class AnticipoController{
             }
         }
     }
+
+    static public function ctrBuscarAnticipo($hash){
+        $tabla = 'liquidacion_anticipo';
+        $item = 'hash';
+        $respuesta = AnticiposModel::mdlBuscarAnticipo($tabla,$item,$hash);
+        return $respuesta;
+    }
 }
 
 ?>
