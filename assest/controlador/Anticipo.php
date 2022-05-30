@@ -1,6 +1,8 @@
 <?php
 
 class AnticipoController{
+    const TABLA = 'liquidacion_anticipo';
+
     static public function ctrCrearAnticipo(){
         if (isset($_POST['id_broker'])) {
             if (preg_match('/^[0-9]+$/', $_POST['id_broker'])) {
@@ -22,9 +24,7 @@ class AnticipoController{
                     'fecha_modificacion' => $today,
                 ];
 
-                $tabla = 'liquidacion_anticipo';
-
-                $respuesta = AnticiposModel::mdlCrearAnticipo($tabla,$datos);
+                $respuesta = AnticiposModel::mdlCrearAnticipo(self::TABLA,$datos);
                 if ($respuesta == 'ok') {
                     echo
                     '<script>
@@ -66,10 +66,14 @@ class AnticipoController{
     }
 
     static public function ctrBuscarAnticipo($hash){
-        $tabla = 'liquidacion_anticipo';
         $item = 'hash';
-        $respuesta = AnticiposModel::mdlBuscarAnticipo($tabla,$item,$hash);
+        $respuesta = AnticiposModel::mdlBuscarAnticipo(self::TABLA,$item,$hash);
         return $respuesta;
+    }
+
+    static public function ctrListarAnticipos(){
+        $anticipos = AnticiposModel::mdlListarAnticipos(self::TABLA);
+        return $anticipos;
     }
 }
 

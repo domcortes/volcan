@@ -45,7 +45,15 @@
                 $stmt = null;
                 return $retorno;
             }
+        }
 
+        static public function mdlListarAnticipos($tabla)
+        {
+            $stmt = BDCONFIG::conectar()->prepare("SELECT * FROM $tabla");
+            $stmt->execute();
+            $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = null;
+            return $retorno;
         }
     }
 
