@@ -101,6 +101,24 @@
             $stmt = null;
             return $retorno;
         }
+
+        static public function mdlEliminarAnticipoAjax($tabla, $item, $valor){
+            try {
+                $stmt = BDCONFIG::conectar()->prepare("DELETE from $tabla WHERE $item = :detalle_anticipo");
+                $stmt->bindParam(":detalle_anticipo",$valor, PDO::PARAM_STR);
+                $stmt->execute();
+            } catch (PDOException $e) {
+                $error = $e->getMessage();
+            }
+
+            $stmt = null;
+
+            if (isset($error)) {
+                return $error;
+            } else {
+                return 'ok';
+            }
+        }
     }
 
 ?>

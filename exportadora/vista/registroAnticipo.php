@@ -34,7 +34,7 @@ if(isset($_GET['hash'])){
 <html lang="es">
 
 <head>
-    <title> Registro Anticipo <?php echo $suma ; ?></title>
+    <title> Registro Anticipo </title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -148,7 +148,7 @@ if(isset($_GET['hash'])){
                 <?php if (isset($_GET['hash'])): ?>
                     <div class="card">
                         <div class="card-header bg-info">
-                            <h4 class="card-title">Detalle de Valor</h4>
+                            <h4 class="card-title">Detalle de Anticipo</h4>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -212,8 +212,7 @@ if(isset($_GET['hash'])){
                                                 <td><?php echo $detalle['fecha_anticipo'];?></td>
                                                 <td>
                                                     <div class="btn-group btn-block">
-                                                        <button type="button" class="btn btn-danger">Eliminar</button>
-                                                        <button type="button" class="btn btn-secondary">Editar</button>
+                                                        <button hash="<?php echo $_GET['hash'];?>" del_detail="<?php echo base64_encode($detalle['id_detalle_anticipo'])?>" type="button" class="del_detail btn btn-danger">Eliminar</button>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -261,6 +260,47 @@ if(isset($_GET['hash'])){
 <script>
     $('.btn-guardar').on('click', function (){
         Swal.fire('Guardado', 'Cambios guardados exitosamente', 'success');
+    })
+
+    $('.del_detail').on('click', function(){
+        var del_detail = $(this).attr('del_detail');
+        var hash = $(this).attr('hash');
+        Swal.fire({
+            icon:'question',
+            title:'Accion requiere de confirmacion',
+            text:'Desea realmente eliminar este registro? La accion es irreversible',
+            showConfirmButton:true,
+            showCancelButton:true,
+            confirmButtonText:'Eliminar',
+            cancelButtonText:'Cancelar'
+        }).then((result)=>{
+            if(result.value){
+                var datos = new FormData();
+                datos.append('del_detail', del_detail);
+                $.ajax({
+                    url:"../../assest/ajax/borrar_detalle_anticipo.ajax.php",
+                    method:"POST",
+                    data: datos,
+                    cache:false,
+                    contentType:false,
+                    processData:false,
+                    dataType:"json",
+                    success:function(respuesta){
+                        Swal.fire({
+                            icon:'success',
+                            title:'Detalle Eliminado',
+                            text:'El detalle fue eliminado correctamente',
+                            showConfirmButton:true,
+                            confirmButtonText:'Ok',
+                        }).then((result)=>{
+                            window.location = '/exportadora/vista/registroAnticipo.php?hash=' + hash;
+                        });
+                    }
+                });
+            } else {
+                Swal.fire('Accion cancelada','La accion fue cancelada por el usuario', 'info');
+            }
+        })
     })
 </script>
 

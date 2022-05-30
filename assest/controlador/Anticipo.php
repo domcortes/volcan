@@ -170,6 +170,12 @@ class AnticipoController{
         $suma = AnticiposModel::mdlGetSumaAnticipos(self::TABLE_DETALLE_ANTICIPOS, $item, $anticipo, self::MONEDA_USD);
         return $suma;
     }
+
+    static public function ctrBorrarDetalleAnticipoAjax($tabla, $item, $valor)
+    {
+        $borrar_detalle = AnticiposModel::mdlEliminarAnticipoAjax($tabla, $item, $valor);
+
+    }
 }
 
 ?>
