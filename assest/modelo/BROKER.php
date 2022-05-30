@@ -3,6 +3,8 @@
     * MODELO DE CLASE DE LA ENTIDAD  PLANTA
     */
 
+    include_once '../../assest/config/BDCONFIG.php';
+
     //ESTRUCTURA DE LA CLASE
     class BROKER {
         
@@ -29,5 +31,15 @@
         //FUNCIONES GET Y SET
         public function __GET($k){ return $this->$k; }
         public function __SET($k, $v){ return $this->$k = $v; }
+
+        static public function mdlIndexBroker($tabla, $item, $value)
+        {
+            $stmt = BDCONFIG::conectar()->prepare("SELECT * FROM $tabla WHERE ID_EMPRESA = :$item");
+            $stmt->bindParam(":".$item,$value, PDO::PARAM_STR);
+            $stmt->execute();
+            $brokers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = null;
+            return $brokers;
+        }
     }
 ?>
