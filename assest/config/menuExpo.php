@@ -342,7 +342,20 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                 <li><a href="registroTitemLiqui.php"></i>Item Liqui.</a></li>   
             </ul>
           </li>
-        <?php  } ?>  
+        <?php  } ?>
+          <li class="treeview">
+              <a href="#">
+                  <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/transactions.svg" class="svg-icon" alt="">
+                  <span> Anticipo</span>
+                  <span class="pull-right-container">
+                <i class="fa fa-angle-right pull-right"></i>
+              </span>
+              </a>
+              <ul class="treeview-menu">
+                  <li><a href="registroAnticipo.php">Registro Anticipo</i></a></li>
+                  <li><a href="listarAnticipo.php">Agrupado Anticipo.</i></a></li>
+              </ul>
+          </li>
         <?php if($PEPAGO=="1"){ ?>
           <li class="treeview">
             <a href="#">
