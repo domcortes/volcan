@@ -1178,7 +1178,7 @@ if (isset($_POST)) {
                                                 <label class="sr-only" for="inlineFormInputGroup">Username</label>
                                                 <div class="input-group mb-2">
                                                     <div class="input-group-prepend">
-                                                        <div class="input-group-text">Total Pago </div>
+                                                        <div class="input-group-text">Total Anticipo </div>
                                                     </div>
                                                     <input type="hidden" name="TOTALVALOP" id="TOTALVALORP" value="<?php echo $TOTALVALORPAGO; ?>" />
                                                     <input type="text" class="form-control" placeholder="Total Valor Pago" id="TOTALVALORV" name="TOTALVALORV" value="<?php echo $TOTALVALORPAGOV; ?>" disabled />

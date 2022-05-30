@@ -372,7 +372,7 @@ $html .= '
     <table border="0" cellspacing="0" cellpadding="0">
             <thead>
                 <tr>
-                    <th colspan="9" class="center">INGRESO </th>
+                    <th colspan="9" class="center">DETALLE </th>
                 </tr>
                 <tr>
                     <th class="color left">Folio</th>

@@ -186,7 +186,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Pago</h3>
+                                <h3 class="page-title">Liquidación</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">

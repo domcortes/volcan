@@ -352,7 +352,7 @@ $html = '
     </header>
     <main>
       <h2 class="titulo" style="text-align: center; color: black;">
-        INFORME INSPECCIÓN SAG
+        PAKING LIST SAG
         <br>
         <b> Número Inspección: ' . $CORRELATIVOINPSAG . '</b>
       </h2>

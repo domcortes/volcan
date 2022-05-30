@@ -3026,7 +3026,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Costo Flete </label>
                                                     <input type="hidden" class="form-control" placeholder="COSTOFLETEE" id="COSTOFLETEE" name="COSTOFLETEE" value="<?php echo $COSTOFLETE; ?>" />
-                                                    <input type="number" step="0.1" class="form-control" placeholder="Costo Flete" id="COSTOFLETE" name="COSTOFLETE" value="<?php echo $COSTOFLETE; ?>" <?php echo $DISABLED; ?> />
+                                                    <input type="number" step="0.1" class="form-control" placeholder="Costo Flete (solo Prepaid)" id="COSTOFLETE" name="COSTOFLETE" value="<?php echo $COSTOFLETE; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_costoflete" class="validacion"> </label>
                                                 </div>
                                             </div>
