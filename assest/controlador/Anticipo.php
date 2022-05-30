@@ -166,8 +166,7 @@ class AnticipoController{
     static public function ctrGetSumaAnticipoUsd($anticipo)
     {
         $item = 'valor_anticipo';
-        $moneda = '';
-        $suma = AnticiposModel::mdlGetSumaAnticipos(self::TABLE_DETALLE_ANTICIPOS, $item, $anticipo, self::MONEDA_USD);
+        $suma = AnticiposModel::mdlGetSumaAnticipos(self::TABLE_DETALLE_ANTICIPOS, $item, $anticipo);
         return $suma;
     }
 

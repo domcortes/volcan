@@ -227,19 +227,7 @@ if(isset($_GET['hash'])){
                             <div class="form-row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="">CLP</label>
-                                        <input class="text-center" type="text" disabled value="$ <?php echo number_format($sumaCLP[0]['suma_pesos'],0,',','.')?>">
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="">EUR</label>
-                                        <input class="text-center" type="text" disabled value="$ <?php echo number_format($sumaEuro[0]['suma_pesos'],2,',','.')?>">
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="">USD</label>
+                                        <label for="">Total </label>
                                         <input class="text-center" type="text" disabled value="$ <?php echo number_format($sumaDolares[0]['suma_pesos'],2,',','.')?>">
                                     </div>
                                 </div>

@@ -21,7 +21,8 @@ class  TMONEDA {
     public function __SET($k, $v){ return $this->$k = $v; }
 
     static public function mdlGetMonedas($tabla){
-        $stmt = BDCONFIG::conectar()->prepare("SELECT * FROM $tabla");
+        $stmt = BDCONFIG::conectar()->prepare("SELECT * FROM $tabla WHERE ESTADO_REGISTRO = 1 AND ID_EMPRESA = :empresa");
+        $stmt->bindParam(":empresa",$_SESSION['ID_EMPRESA'], PDO::PARAM_STR);
         $stmt->execute();
         $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $stmt = null;
