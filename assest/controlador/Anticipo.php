@@ -1,7 +1,12 @@
 <?php
 
 class AnticipoController{
-    const TABLA = 'liquidacion_anticipo';
+    const TABLE_ANTICIPOS = 'liquidacion_anticipo';
+    const TABLE_DETALLE_ANTICIPOS = 'detalle_anticipo';
+    const MONEDA_PRUEBA = 1;
+    const MONEDA_USD = 2;
+    const MONEDA_EUR = 3;
+    const MONEDA_CLP = 5;
 
     static public function ctrCrearAnticipo(){
         if (isset($_POST['id_broker'])) {
@@ -24,7 +29,7 @@ class AnticipoController{
                     'fecha_modificacion' => $today,
                 ];
 
-                $respuesta = AnticiposModel::mdlCrearAnticipo(self::TABLA,$datos);
+                $respuesta = AnticiposModel::mdlCrearAnticipo(self::TABLE_ANTICIPOS,$datos);
                 if ($respuesta == 'ok') {
                     echo
                     '<script>
@@ -67,13 +72,103 @@ class AnticipoController{
 
     static public function ctrBuscarAnticipo($hash){
         $item = 'hash';
-        $respuesta = AnticiposModel::mdlBuscarAnticipo(self::TABLA,$item,$hash);
+        $respuesta = AnticiposModel::mdlBuscarAnticipo(self::TABLE_ANTICIPOS,$item,$hash);
         return $respuesta;
     }
 
     static public function ctrListarAnticipos(){
-        $anticipos = AnticiposModel::mdlListarAnticipos(self::TABLA);
+        $anticipos = AnticiposModel::mdlListarAnticipos(self::TABLE_ANTICIPOS);
         return $anticipos;
+    }
+
+    static public function getDetalleAnticipo($valor)
+    {
+        $item = 'id_anticipo';
+        $detalle = AnticiposModel::mdlGetDetalleAnticipo(self::TABLE_DETALLE_ANTICIPOS, $item, $valor);
+        return $detalle;
+    }
+    
+    static public function ctrAgregarDetalleAnticipo($hash, $retorno)
+    {
+        if (
+            isset($_POST['nombre_anticipo'])
+        )
+        {
+            if (
+                preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST['nombre_anticipo']) &&
+                preg_match('/^[0-9]+$/', $_POST['moneda'])
+            ) {
+
+                $datos = [
+                    'id_anticipo' => $hash,
+                    'nombre_anticipo' => $_POST['nombre_anticipo'],
+                    'moneda' => $_POST['moneda'],
+                    'fecha_anticipo' => $_POST['fecha_anticipo'],
+                    'valor_anticipo' => $_POST['valor_anticipo'],
+                ];
+
+                $respuesta = AnticiposModel::mdlCrearDetalleAnticipo(self::TABLE_DETALLE_ANTICIPOS,$datos);
+                if ($respuesta == 'ok') {
+                    echo
+                        '<script>
+								swal.fire({
+									title: "<strong>BIEN HECHO</strong>",
+									text: "El detalle de anticipo fue creado exitosamente",
+									icon: "success"
+								}).then((result)=>{
+									if(result.value){
+										window.location = "/exportadora/vista/registroAnticipo.php?hash='.$retorno.'";
+									}
+								});
+							</script>';
+                } else {
+                    echo
+                        '<script>
+								swal.fire({
+									title: "<strong>RAYOS! </strong>",
+									text: "Hay un error en la base de datos '.$respuesta.'",
+									icon: "error"
+								});
+							</script>';
+                }
+            } else {
+                echo
+                '<script>
+						swal.fire({
+							title: "<strong>ATENCION</strong>",
+							text: "El detalle de anticipo no puede estar vacio o contener caracteres especiales",
+							icon: "error"
+						}).then((result)=>{
+							if(result.value){
+								window.location = "/exportadora/vista/registroAnticipo.php?hash='.$retorno.'";
+							}
+						});
+					</script>';
+            }
+        }
+    }
+
+    static public function ctrGetSumaAnticiposClp($anticipo)
+    {
+        $item = 'valor_anticipo';
+        $suma = AnticiposModel::mdlGetSumaAnticipos(self::TABLE_DETALLE_ANTICIPOS, $item, $anticipo, self::MONEDA_CLP);
+        return $suma;
+    }
+
+    static public function ctrGetSumaAnticiposEur($anticipo)
+    {
+        $item = 'valor_anticipo';
+        $moneda = '';
+        $suma = AnticiposModel::mdlGetSumaAnticipos(self::TABLE_DETALLE_ANTICIPOS, $item, $anticipo, self::MONEDA_EUR);
+        return $suma;
+    }
+
+    static public function ctrGetSumaAnticipoUsd($anticipo)
+    {
+        $item = 'valor_anticipo';
+        $moneda = '';
+        $suma = AnticiposModel::mdlGetSumaAnticipos(self::TABLE_DETALLE_ANTICIPOS, $item, $anticipo, self::MONEDA_USD);
+        return $suma;
     }
 }
 

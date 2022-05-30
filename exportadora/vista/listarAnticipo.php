@@ -111,31 +111,6 @@ include_once "../../assest/config/datosUrLP.php";
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
     <?php include_once "../../assest/config/urlHead.php"; ?>
-    <!- FUNCIONES BASES -!>
-    <script type="text/javascript">
-        //REDIRECCIONAR A LA PAGINA SELECIONADA
-
-
-
-        function irPagina(url) {
-            location.href = "" + url;
-        }
-
-        function refrescar() {
-            document.getElementById("form_reg_dato").submit();
-        }
-
-        function abrirPestana(url) {
-            var win = window.open(url, '_blank');
-            win.focus();
-        }
-        //FUNCION PARA ABRIR VENTANA QUE SE ENCUENTRA LA OPERACIONES DE DETALLE DE RECEPCION
-        function abrirVentana(url) {
-            var opciones =
-                "'directories=no, location=no, menubar=no, scrollbars=yes, statusbar=no, tittlebar=no, width=1000, height=800'";
-            window.open(url, 'window', opciones);
-        }
-    </script>
 </head>
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary">

@@ -302,4 +302,10 @@ class TMONEDA_ADO
             die($e->getMessage());
         }
     }
+
+    static public function ctrGetMonedas(){
+        $tabla = 'fruta_tmoneda';
+        $monedas = TMONEDA::mdlGetMonedas($tabla);
+        return $monedas;
+    }
 }

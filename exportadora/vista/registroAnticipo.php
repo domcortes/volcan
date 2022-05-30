@@ -7,14 +7,26 @@ include_once "../../assest/config/validarUsuarioExpo.php";
 include_once '../../assest/controlador/BROKER.php';
 include_once '../../assest/controlador/Anticipo.php';
 include_once '../../assest/modelo/Anticipos.php';
+include_once '../../assest/modelo/TMONEDA.php';
+include_once '../../assest/controlador/TMONEDA_ADO.php';
 
 $brokers = BrokerController::ctrIndexBroker($_SESSION['ID_EMPRESA']);
 $disabled = false;
 
 if(isset($_GET['hash'])){
     $anticipo = AnticipoController::ctrBuscarAnticipo($_GET['hash']);
+    $detalle_anticipos = AnticipoController::getDetalleAnticipo($anticipo[0]['id_anticipo']);
+    if(count($detalle_anticipos)>0){
+        $sumaCLP = AnticipoController::ctrGetSumaAnticiposClp($anticipo[0]['id_anticipo']);
+        $sumaEuro = AnticipoController::ctrGetSumaAnticiposEur($anticipo[0]['id_anticipo']);
+        $sumaDolares = AnticipoController::ctrGetSumaAnticipoUsd($anticipo[0]['id_anticipo']);
+    }
+
     $disabled = true;
+
+    $monedas = TMONEDA_ADO::ctrGetMonedas();
 }
+
 ?>
 
 
@@ -22,7 +34,7 @@ if(isset($_GET['hash'])){
 <html lang="es">
 
 <head>
-    <title> Registro Anticipo</title>
+    <title> Registro Anticipo <?php echo $suma ; ?></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -118,7 +130,7 @@ if(isset($_GET['hash'])){
                                         </button>
                                     <?php } else { ?>
                                         <a class="btn btn-success" href="/exportadora/vista/listarAnticipo.php">Volver</a>
-                                        <button disabled class="btn btn-warning">Guardar Cambios</button>
+                                        <button class="btn btn-warning btn-guardar">Guardar Cambios</button>
                                         <button disabled class="btn btn-danger">Cerrar</button>
                                     <?php } ?>
                                 </div>
@@ -133,44 +145,10 @@ if(isset($_GET['hash'])){
                     </form>
                 </div>
                 <!--.row -->
-                <?php if (isset($_GET['op'])): ?>
+                <?php if (isset($_GET['hash'])): ?>
                     <div class="card">
                         <div class="card-header bg-info">
                             <h4 class="card-title">Detalle de Valor</h4>
-                        </div>
-                        <div class="card-header">
-                            <div class="form-row align-items-center">
-                                <div class="col-auto">
-                                    <label class="sr-only" for="inlineFormInputGroup">Username</label>
-                                    <div class="input-group mb-2">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">Total Liquidacion </div>
-                                        </div>
-                                        <input type="hidden" name="TOTALVALORL" id="TOTALVALORL" value="<?php echo $TOTALVALORLIQUIDACION; ?>" />
-                                        <input type="text" class="form-control" placeholder="Total Valor Liqui." id="TOTALVALORV" name="TOTALVALORV" value="<?php echo $TOTALVALORLIQUIDACIONV; ?>" disabled />
-                                    </div>
-                                </div>
-                                <div class="col-auto">
-                                    <label class="sr-only" for="inlineFormInputGroup">Username</label>
-                                    <div class="input-group mb-2">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">Total Anticipo </div>
-                                        </div>
-                                        <input type="hidden" name="TOTALVALOP" id="TOTALVALORP" value="<?php echo $TOTALVALORPAGO; ?>" />
-                                        <input type="text" class="form-control" placeholder="Total Valor Pago" id="TOTALVALORV" name="TOTALVALORV" value="<?php echo $TOTALVALORPAGOV; ?>" disabled />
-                                    </div>
-                                </div>
-                                <div class="col-auto">
-                                    <label class="sr-only" for="inlineFormInputGroup">Username</label>
-                                    <div class="input-group mb-2">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">Total Valor </div>
-                                        </div>
-                                        <input type="hidden" name="TOTALVALOR" id="TOTALVALOR" value="<?php echo $TOTALVALOR; ?>" />
-                                        <input type="text" class="form-control" placeholder="Total Valor" id="TOTALVALORV" name="TOTALVALORV" value="<?php echo number_format($TOTALVALOR,1,',','.'); ?>" disabled />
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -178,89 +156,92 @@ if(isset($_GET['hash'])){
                                     <div class="table-responsive">
                                         <table id="detalle" class=" table-hover " style="width: 100%;">
                                             <thead>
-                                            <tr>
-                                                <th>N° Item </th>
-                                                <th class="text-center">Operaciónes</th>
-                                                <th>Item </th>
-                                                <th>Valor  </th>
-                                                <th>Tipo Moneda </th>
-                                                <th>Fecha </th>
-                                            </tr>
+                                                <tr>
+                                                    <th>Nombre Anticipo </th>
+                                                    <th>Tipo Moneda</th>
+                                                    <th>Valor Anticipo</th>
+                                                    <th>Fecha Anticipo</th>
+                                                    <th>Acciones</th>
+                                                </tr>
                                             </thead>
                                             <tbody>
-                                            <?php
-                                            $ARRAYSEGURO=$SEGURO_ADO->verSeguro($SEGURO);
-                                            if($ARRAYSEGURO){
-                                                $NOMBRESEGURO =  $ARRAYSEGURO[0]["NOMBRE_SEGURO"];
-                                                $VALORSEGURO =  $ARRAYSEGURO[0]["SUMA_SEGURO"];
-                                            }else{
-                                                $NOMBRESEGURO="Sin Datos";
-                                                $VALORSEGURO="Sin Datos";
-                                            }
-
-                                            ?>
                                             <tr class="center">
-                                                <td>1</td>
-                                                <td>No Aplica</td>
-                                                <td><?php echo $NOMBRESEGURO; ?></td>
-                                                <td><?php echo $VALORSEGURO; ?></td>
-                                                <td><?php echo $TMONEDA; ?></td>
-                                                <td>No Aplica</td>
-                                            </tr>
-                                            <?php if ($ARRAYITEM) { ?>
-                                                <?php foreach ($ARRAYITEM as $s) : ?>
+                                                <form role="form" method="post">
+                                                    <td>
+                                                        <input type="text" class="form-control" placeholder="Nombre Anticipo" id="nombre_anticipo" name="nombre_anticipo">
+                                                    </td>
+                                                    <td>
+                                                        <select name="moneda" id="moneda" class="form-control" required>
+                                                            <option value="">Selecciona una moneda</option>
+                                                            <?php foreach ($monedas as $moneda):?>
+                                                                <option value="<?php echo $moneda['ID_TMONEDA']?>"><?php echo $moneda['NOMBRE_TMONEDA']?></option>
+                                                            <?php endforeach;?>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <input id="valor_anticipo" name="valor_anticipo" type="text" class="form-control" placeholder="$ 00,00">
+                                                    </td>
+                                                    <td>
+                                                        <input id="fecha_anticipo" name="fecha_anticipo" type="date" class="form-control">
+                                                    </td>
+                                                    <td>
+                                                        <div class="btn-group btn-block">
+                                                            <button type="submit" class="btn btn-primary">Agregar</button>
+                                                        </div>
+                                                    </td>
                                                     <?php
-                                                    $CONTADOR+=1;
-                                                    $ARRAYDVALOR=$DVALOR_ADO->buscarPorValorItem($IDOP,$s["ID_TITEM"]);
-                                                    if($ARRAYDVALOR){
-                                                        $VALORDVALOR= $ARRAYDVALOR[0]["VALOR_DVALOR"];
-                                                        $FECHADVALOR= $ARRAYDVALOR[0]["FECHA_DVALOR"];
-                                                    }else{
-                                                        $VALORDVALOR=0;
-                                                        $FECHADVALOR="";
+                                                    if(isset($_GET['hash'])){
+                                                        $agregar_detalle = new AnticipoController();
+                                                        $agregar_detalle::ctrAgregarDetalleAnticipo($anticipo[0]['id_anticipo'], $_GET['hash']);
                                                     }
                                                     ?>
-                                                    <tr class="center">
-                                                        <td><?php echo $CONTADOR; ?></td>
-                                                        <td>
-                                                            <form method="post" id="form1">
-                                                                <input type="hidden" class="form-control" placeholder="ID DRECEPCIONE" id="IDD" name="IDD" value="<?php echo $s['ID_TITEM']; ?>" />
-                                                                <input type="hidden" class="form-control" placeholder="ID RECEPCIONE" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
-                                                                <input type="hidden" class="form-control" placeholder="OP RECEPCIONE" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
-                                                                <input type="hidden" class="form-control" placeholder="URL RECEPCIONE" id="URLP" name="URLP" value="registroValorPago" />
-                                                                <input type="hidden" class="form-control" placeholder="URL DRECEPCIONE" id="URLD" name="URLD" value="registroDvalorPago" />
-                                                                <div class="btn-group btn-rounded  btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                    <?php if ($ESTADO == "0") { ?>
-                                                                        <button type="submit" class="btn btn-info btn-sm  " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Valor  ">
-                                                                            <i class="ti-eye"></i> <br>Ver
-                                                                        </button>
-                                                                    <?php } ?>
-                                                                    <?php if ($ESTADO == "1") { ?>
-                                                                        <?php if ( empty($ARRAYDVALOR)) { ?>
-                                                                            <button type="submit" class="btn   btn-success  btn-sm" id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Agregar Valor " >
-                                                                                <i class="ti-plus"></i> <br> Agregar
-                                                                            </button>
-                                                                        <?php }else{ ?>
-                                                                            <button type="submit" class="btn btn-warning btn-sm " id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Valor  " >
-                                                                                <i class="ti-pencil-alt"></i><br> Editar
-                                                                            </button>
-                                                                            <button type="submit" class="btn btn-danger btn-sm" id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Valor  ">
-                                                                                <i class="ti-close"></i> <br>Eliminar
-                                                                            </button>
-                                                                        <?php } ?>
-                                                                    <?php } ?>
-                                                                </div>
-                                                            </form>
-                                                        </td>
-                                                        <td><?php echo $s["NOMBRE_TITEM"]; ?></td>
-                                                        <td><?php echo number_format( $VALORDVALOR,2,',','.' ); ?></td>
-                                                        <td><?php echo $TMONEDA; ?></td>
-                                                        <td><?php echo $FECHADVALOR; ?></td>
-                                                    </tr>
-                                                <?php endforeach; ?>
-                                            <?php } ?>
+                                                </form>
+                                            </tr>
+                                            <hr>
+                                            <?php foreach ($detalle_anticipos as $detalle): ?>
+                                            <tr>
+                                                <td><?php echo $detalle['nombre_anticipo'];?></td>
+                                                <td>
+                                                    <?php foreach ($monedas as $moneda):?>
+                                                        <?php if($moneda['ID_TMONEDA'] == $detalle['moneda']):?>
+                                                            <?php echo $moneda['NOMBRE_TMONEDA'];?>
+                                                        <?php endif;?>
+                                                    <?php endforeach;?>
+                                                </td>
+                                                <td><?php echo $detalle['valor_anticipo'];?></td>
+                                                <td><?php echo $detalle['fecha_anticipo'];?></td>
+                                                <td>
+                                                    <div class="btn-group btn-block">
+                                                        <button type="button" class="btn btn-danger">Eliminar</button>
+                                                        <button type="button" class="btn btn-secondary">Editar</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <?php endforeach; ?>
                                             </tbody>
                                         </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="form-row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="">CLP</label>
+                                        <input class="text-center" type="text" disabled value="$ <?php echo number_format($sumaCLP[0]['suma_pesos'],0,',','.')?>">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="">EUR</label>
+                                        <input class="text-center" type="text" disabled value="$ <?php echo number_format($sumaEuro[0]['suma_pesos'],2,',','.')?>">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="">USD</label>
+                                        <input class="text-center" type="text" disabled value="$ <?php echo number_format($sumaDolares[0]['suma_pesos'],2,',','.')?>">
                                     </div>
                                 </div>
                             </div>
@@ -277,6 +258,11 @@ if(isset($_GET['hash'])){
 </div>
 <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
 <?php include_once "../../assest/config/urlBase.php"; ?>
+<script>
+    $('.btn-guardar').on('click', function (){
+        Swal.fire('Guardado', 'Cambios guardados exitosamente', 'success');
+    })
+</script>
 
 </body>
 

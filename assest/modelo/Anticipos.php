@@ -55,6 +55,52 @@
             $stmt = null;
             return $retorno;
         }
+
+        static public function mdlGetDetalleAnticipo($tabla, $item, $valor)
+        {
+            $stmt = BDCONFIG::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :$item");
+            $stmt->bindParam(":".$item,$valor, PDO::PARAM_STR);
+            $stmt->execute();
+
+            $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = null;
+            return $retorno;
+        }
+
+        static public function mdlCrearDetalleAnticipo($tabla, $datos)
+        {
+            try {
+                $stmt = BDCONFIG::conectar()->prepare("INSERT INTO $tabla (id_anticipo, nombre_anticipo, moneda, fecha_anticipo, valor_anticipo)  VALUES (:id_anticipo, :nombre_anticipo, :moneda, :fecha_anticipo, :valor_anticipo ) ");
+
+                $stmt->bindParam(":id_anticipo", $datos['id_anticipo'], PDO::PARAM_STR);
+                $stmt->bindParam(":nombre_anticipo", $datos['nombre_anticipo'], PDO::PARAM_STR);
+                $stmt->bindParam(":moneda", $datos['moneda'], PDO::PARAM_STR);
+                $stmt->bindParam(":fecha_anticipo", $datos['fecha_anticipo'], PDO::PARAM_STR);
+                $stmt->bindParam(":valor_anticipo", $datos['valor_anticipo'], PDO::PARAM_STR);
+                $stmt->execute();
+            } catch (PDOException $e) {
+                $error = $e->getMessage();
+            }
+
+            $stmt = null;
+
+            if (isset($error)) {
+                return $error;
+            } else {
+                return 'ok';
+            }
+        }
+
+        static public function mdlGetSumaAnticipos($tabla, $item, $valor, $moneda){
+            $stmt = BDCONFIG::conectar()->prepare("SELECT SUM($item) as suma_pesos FROM $tabla WHERE id_anticipo = :item AND moneda = :moneda");
+            $stmt->bindParam(":item",$valor, PDO::PARAM_STR);
+            $stmt->bindParam(":moneda",$moneda, PDO::PARAM_STR);
+            $stmt->execute();
+
+            $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = null;
+            return $retorno;
+        }
     }
 
 ?>
