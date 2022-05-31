@@ -79,7 +79,7 @@
                                                                     {
                                                                         $prefix = '';
                                                                     } else {
-                                                                        $prefix = '/fvocalv2';
+                                                                        $prefix = '/fvolcanv2';
                                                                     }
                                                                 ?>
                                                                 <a class="dropdown-item text-center btn btn-success" href="<?php echo $prefix.'/exportadora/vista/registroAnticipo.php?hash='.$anticipo['hash'];?>">Ver</a>
