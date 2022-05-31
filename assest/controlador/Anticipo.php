@@ -9,6 +9,13 @@ class AnticipoController{
     const MONEDA_CLP = 5;
 
     static public function ctrCrearAnticipo(){
+        if(getenv('APP_ENV') == 'local'){
+            $prefix = '';
+        } else {
+            $prefix = '/fvolcanv2';
+        }
+
+
         if (isset($_POST['id_broker'])) {
             if (preg_match('/^[0-9]+$/', $_POST['id_broker'])) {
 
@@ -39,7 +46,7 @@ class AnticipoController{
 									icon: "success"
 								}).then((result)=>{
 									if(result.value){
-										window.location = "/exportadora/vista/registroAnticipo.php?hash='.$hash.'";
+										window.location = "'.$prefix.'/exportadora/vista/registroAnticipo.php?hash='.$hash.'";
 									}
 								});
 							</script>';
@@ -62,7 +69,7 @@ class AnticipoController{
 							icon: "error"
 						}).then((result)=>{
 							if(result.value){
-								window.location = "usuarios";
+								window.location = "'.$prefix.'/exportadora/vista/registroAnticipo.php?hash='.$hash.'";
 							}
 						});
 					</script>';
@@ -90,6 +97,12 @@ class AnticipoController{
     
     static public function ctrAgregarDetalleAnticipo($hash, $retorno)
     {
+        if(getenv('APP_ENV') == 'local'){
+            $prefix = '';
+        } else {
+            $prefix = '/fvolcanv2';
+        }
+
         if (
             isset($_POST['nombre_anticipo'])
         )
@@ -117,7 +130,7 @@ class AnticipoController{
 									icon: "success"
 								}).then((result)=>{
 									if(result.value){
-										window.location = "/exportadora/vista/registroAnticipo.php?hash='.$retorno.'";
+										window.location = "'.$prefix.'/exportadora/vista/registroAnticipo.php?hash='.$retorno.'";
 									}
 								});
 							</script>';
@@ -140,7 +153,7 @@ class AnticipoController{
 							icon: "error"
 						}).then((result)=>{
 							if(result.value){
-								window.location = "/exportadora/vista/registroAnticipo.php?hash='.$retorno.'";
+								window.location = "'.$prefix.'/exportadora/vista/registroAnticipo.php?hash='.$retorno.'";
 							}
 						});
 					</script>';
