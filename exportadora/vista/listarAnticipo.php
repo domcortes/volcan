@@ -57,9 +57,7 @@
                                         <thead>
                                             <tr class="text-left">
                                                 <th>Acciones</th>
-                                                <th>Empresa</th>
                                                 <th>Cliente</th>
-                                                <th>Estado Registro</th>
                                                 <th>Estado</th>
                                                 <th>Creado por</th>
                                                 <th>Observacion</th>
@@ -88,19 +86,11 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td><?php echo $anticipo['id_anticipo']; ?></td>
                                                     <td>
                                                         <?php
                                                             $broker = BROKER::mdlGetBrokerName($anticipo['id_broker']);
                                                             echo $broker;
                                                         ?>
-                                                    </td>
-                                                    <td class="align-center">
-                                                        <?php if($anticipo['estado_registro'] == 1){ ?>
-                                                            <span class="badge badge-success">Activo</span>
-                                                        <?php } else { ?>
-                                                            <span class="badge badge-danger">Inactivo</span>
-                                                        <?php } ?>
                                                     </td>
                                                     <td>
                                                         <?php if($anticipo['estado'] == 1){ ?>

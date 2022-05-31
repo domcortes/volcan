@@ -49,7 +49,8 @@
 
         static public function mdlListarAnticipos($tabla)
         {
-            $stmt = BDCONFIG::conectar()->prepare("SELECT * FROM $tabla WHERE estado_registro = 1");
+            $stmt = BDCONFIG::conectar()->prepare("SELECT * FROM $tabla WHERE estado_registro = 1 and id_empresa = :empresa");
+            $stmt->bindParam(':empresa', $_SESSION['ID_EMPRESA'], PDO::PARAM_STR);
             $stmt->execute();
             $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $stmt = null;
