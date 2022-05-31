@@ -281,7 +281,12 @@ if(isset($_GET['hash'])){
                             showConfirmButton:true,
                             confirmButtonText:'Ok',
                         }).then((result)=>{
-                            window.location = '/exportadora/vista/registroAnticipo.php?hash=' + hash;
+                            <?php if(getenv('APP_ENV') == 'local'):?>
+                                window.location = 'fvolcanv2/exportadora/vista/registroAnticipo.php?hash=' + hash;
+                            <?php else:?>
+                                window.location = '/exportadora/vista/registroAnticipo.php?hash=' + hash;
+                            <?php endif;?>
+
                         });
                     }
                 });
