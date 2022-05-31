@@ -308,4 +308,10 @@ class TMONEDA_ADO
         $monedas = TMONEDA::mdlGetMonedas($tabla);
         return $monedas;
     }
+
+    static public function ctrGetMoneda($id)
+    {
+        $moneda = TMONEDA::mdlGetMoneda($id);
+        return $moneda;
+    }
 }

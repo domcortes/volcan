@@ -9,6 +9,11 @@ class BrokerController {
         $item = 'ID_EMPRESA';
         return BROKER::mdlIndexBroker($tabla, $item, $empresa);
     }
+
+    static public function getBrokerName($id){
+        $broker = BROKER::mdlGetBrokerName($id);
+        return $broker;
+    }
 }
 
 ?>

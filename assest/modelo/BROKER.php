@@ -7,7 +7,7 @@
 
     //ESTRUCTURA DE LA CLASE
     class BROKER {
-        
+        const TABLA = 'fruta_broker';
         //ATRIBUTOS DE LA CLASE    
         private	  $ID_BROKER; 
         private	  $NUMERO_BROKER;
@@ -40,6 +40,16 @@
             $brokers = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $stmt = null;
             return $brokers;
+        }
+
+        static public function mdlGetBrokerName($id) :string
+        {
+            $stmt = BDCONFIG::conectar()->prepare("SELECT * FROM ".self::TABLA." WHERE ID_BROKER = :id");
+            $stmt->bindParam(":id",$id, PDO::PARAM_STR);
+            $stmt->execute();
+            $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = null;
+            return $retorno[0]['NOMBRE_BROKER'];
         }
     }
 ?>

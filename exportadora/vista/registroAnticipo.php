@@ -200,16 +200,22 @@ if(isset($_GET['hash'])){
                                             <hr>
                                             <?php foreach ($detalle_anticipos as $detalle): ?>
                                             <tr>
-                                                <td><?php echo $detalle['nombre_anticipo'];?></td>
-                                                <td>
-                                                    <?php foreach ($monedas as $moneda):?>
-                                                        <?php if($moneda['ID_TMONEDA'] == $detalle['moneda']):?>
-                                                            <?php echo $moneda['NOMBRE_TMONEDA'];?>
-                                                        <?php endif;?>
-                                                    <?php endforeach;?>
+                                                <td class="px-3">
+                                                    <b><?php echo $detalle['nombre_anticipo'];?></b>
                                                 </td>
-                                                <td><?php echo $detalle['valor_anticipo'];?></td>
-                                                <td><?php echo $detalle['fecha_anticipo'];?></td>
+                                                <td class="text-center">
+                                                    <?php
+                                                        $moneda = TMONEDA_ADO::ctrGetMoneda($detalle['moneda']);
+                                                        echo $moneda;
+                                                    ?>
+                                                </td>
+                                                <td class="text-center"><?php echo number_format($detalle['valor_anticipo'],0,',','.');?></td>
+                                                <td class="text-center">
+                                                    <?php
+                                                        $date = new DateTime($detalle['fecha_anticipo']);
+                                                        echo $date->format('d/m/Y');
+                                                    ?>
+                                                </td>
                                                 <td>
                                                     <div class="btn-group btn-block">
                                                         <button hash="<?php echo $_GET['hash'];?>" del_detail="<?php echo base64_encode($detalle['id_detalle_anticipo'])?>" type="button" class="del_detail btn btn-danger">Eliminar</button>
@@ -225,12 +231,15 @@ if(isset($_GET['hash'])){
                         </div>
                         <div class="card-footer">
                             <div class="form-row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="">Total </label>
-                                        <input class="text-center" type="text" disabled value="$ <?php echo number_format($sumaDolares[0]['suma_pesos'],2,',','.')?>">
+                                <?php if(!empty($sumaDolares)):?>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="">Total </label>
+                                            <input class="text-center" type="text" disabled value="$ <?php echo number_format($sumaDolares[0]['suma_pesos'],2,',','.')?>">
+                                        </div>
                                     </div>
-                                </div>
+                                <?php endif; ?>
+
                             </div>
                         </div>
                     </div>

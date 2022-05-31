@@ -5,6 +5,8 @@
 include_once '../../assest/config/BDCONFIG.php';
  //ESTRUCTURA DE LA CLASE
 class  TMONEDA {
+
+    const TABLA = 'fruta_tmoneda';
     
     //ATRIBUTOS DE LA CLASE    
     private	  $ID_TMONEDA; 
@@ -27,6 +29,16 @@ class  TMONEDA {
         $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $stmt = null;
         return $retorno;
+    }
+
+    static public function mdlGetMoneda($id): string
+    {
+        $stmt = BDCONFIG::conectar()->prepare("SELECT * FROM ".self::TABLA." WHERE ESTADO_REGISTRO = 1 AND ID_EMPRESA = :empresa");
+        $stmt->bindParam(":empresa",$_SESSION['ID_EMPRESA'], PDO::PARAM_STR);
+        $stmt->execute();
+        $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt = null;
+        return $retorno[0]['NOMBRE_TMONEDA'];
     }
 }
 ?>
