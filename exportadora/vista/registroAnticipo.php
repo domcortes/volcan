@@ -282,7 +282,7 @@ if(isset($_GET['hash'])){
                             confirmButtonText:'Ok',
                         }).then((result)=>{
                             <?php if(getenv('APP_ENV') == 'local'):?>
-                                window.location = 'fvolcanv2/exportadora/vista/registroAnticipo.php?hash=' + hash;
+                                window.location = '/fvolcanv2/exportadora/vista/registroAnticipo.php?hash=' + hash;
                             <?php else:?>
                                 window.location = '/exportadora/vista/registroAnticipo.php?hash=' + hash;
                             <?php endif;?>
