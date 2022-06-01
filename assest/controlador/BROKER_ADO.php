@@ -337,4 +337,8 @@ class BROKER_ADO
             die($e->getMessage());
         }
     }
+
+    public function getBrokerName(){
+
+    }
 }

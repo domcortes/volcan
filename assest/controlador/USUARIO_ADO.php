@@ -523,8 +523,12 @@ class USUARIO_ADO {
         }
         
     }
- 
- 
+
+    static public function getUserName($id)
+    {
+        $usuario = USUARIO::mdlGetUsuarioName($id);
+        return $usuario;
+    }
     
     
     
