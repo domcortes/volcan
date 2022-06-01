@@ -161,22 +161,7 @@ class AnticipoController{
         }
     }
 
-    static public function ctrGetSumaAnticiposClp($anticipo)
-    {
-        $item = 'valor_anticipo';
-        $suma = AnticiposModel::mdlGetSumaAnticipos(self::TABLE_DETALLE_ANTICIPOS, $item, $anticipo, self::MONEDA_CLP);
-        return $suma;
-    }
-
-    static public function ctrGetSumaAnticiposEur($anticipo)
-    {
-        $item = 'valor_anticipo';
-        $moneda = '';
-        $suma = AnticiposModel::mdlGetSumaAnticipos(self::TABLE_DETALLE_ANTICIPOS, $item, $anticipo, self::MONEDA_EUR);
-        return $suma;
-    }
-
-    static public function ctrGetSumaAnticipoUsd($anticipo)
+    static public function ctrGetSumaAnticipos($anticipo)
     {
         $item = 'valor_anticipo';
         $suma = AnticiposModel::mdlGetSumaAnticipos(self::TABLE_DETALLE_ANTICIPOS, $item, $anticipo);

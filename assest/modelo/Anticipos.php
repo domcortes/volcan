@@ -93,13 +93,13 @@
         }
 
         static public function mdlGetSumaAnticipos($tabla, $item, $valor){
-            $stmt = BDCONFIG::conectar()->prepare("SELECT SUM($item) as suma_pesos FROM $tabla WHERE id_anticipo = :item");
+            $stmt = BDCONFIG::conectar()->prepare("SELECT SUM($item) as suma FROM $tabla WHERE id_anticipo = :item");
             $stmt->bindParam(":item",$valor, PDO::PARAM_STR);
             $stmt->execute();
 
             $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $stmt = null;
-            return $retorno;
+            return $retorno[0]['suma'];
         }
 
         static public function mdlEliminarAnticipoAjax($tabla, $item, $valor){

@@ -17,9 +17,7 @@ if(isset($_GET['hash'])){
     $anticipo = AnticipoController::ctrBuscarAnticipo($_GET['hash']);
     $detalle_anticipos = AnticipoController::getDetalleAnticipo($anticipo[0]['id_anticipo']);
     if(count($detalle_anticipos)>0){
-        $sumaCLP = AnticipoController::ctrGetSumaAnticiposClp($anticipo[0]['id_anticipo']);
-        $sumaEuro = AnticipoController::ctrGetSumaAnticiposEur($anticipo[0]['id_anticipo']);
-        $sumaDolares = AnticipoController::ctrGetSumaAnticipoUsd($anticipo[0]['id_anticipo']);
+        $suma = AnticipoController::ctrGetSumaAnticipos($anticipo[0]['id_anticipo']);
     }
 
     $disabled = true;
@@ -231,11 +229,11 @@ if(isset($_GET['hash'])){
                         </div>
                         <div class="card-footer">
                             <div class="form-row">
-                                <?php if(!empty($sumaDolares)):?>
+                                <?php if(!empty($suma)):?>
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="">Total </label>
-                                            <input class="text-center" type="text" disabled value="$ <?php echo number_format($sumaDolares[0]['suma_pesos'],2,',','.')?>">
+                                            <input class="text-center" type="text" disabled value="$ <?php echo number_format($suma[0]['suma_pesos'],2,',','.')?>">
                                         </div>
                                     </div>
                                 <?php endif; ?>

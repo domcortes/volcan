@@ -59,6 +59,7 @@
                                                 <th>Acciones</th>
                                                 <th>Cliente</th>
                                                 <th>Estado</th>
+                                                <th>Total Anticipo</th>
                                                 <th>Creado por</th>
                                                 <th>Observacion</th>
                                                 <th>Ingreso</th>
@@ -98,6 +99,18 @@
                                                         <?php } else { ?>
                                                             <span class="badge badge-danger">Cerrado</span>
                                                         <?php } ?>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <?php
+                                                            $totalAnticipos = 0;
+                                                            $totalAnticipos = AnticipoController::ctrGetSumaAnticipos($anticipo['id_anticipo']);
+                                                            if ($totalAnticipos != null)
+                                                            {
+                                                                echo number_format($totalAnticipos,0,',','.');
+                                                            } else {
+                                                                echo '0';
+                                                            }
+                                                        ?>
                                                     </td>
                                                     <td class="text-uppercase">
                                                         <?php
