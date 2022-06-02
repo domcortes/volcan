@@ -3572,27 +3572,6 @@ if (isset($_POST)) {
 
                 );
 
-                if($_REQUEST['COSTOFLETE'] > 0){
-                    $datos_dvalor = [
-                        'valor' => $_REQUEST['COSTOFLETE'],
-                        'detalle' => 0,
-                        'estado' => 1,
-                        'estado_registro' => 1,
-                        'ingreso' => new DateTime('NOW'),
-                        'modificacion' => new DateTime('NOW'),
-                        'id_valor' => $ARRYAOBTENERID[0]['ID_ICARGA'],
-                        'id_titem' => 3,
-                        'id_usuarioi' => $_SESSION['ID_USUARIO'],
-                        'id_usuariom' => $_SESSION['ID_USUARIO'],
-                    ];
-                    $flete_dvalor = DVALOR::mdlAgregarFlete($datos_dvalor);
-                    if ($flete_dvalor == 'ok'){
-                        $response = 'Se ha creado adicionalmente el registro de flete en la liquidacion.';
-                    } else {
-                        $response = '';
-                    }
-                }
-
                 $AUSUARIO_ADO->agregarAusuario2($NUMERO,3,1,"".$_SESSION["NOMBRE_USUARIO"].", Regustro de Instructivo Carga","fruta_icarga",$ARRYAOBTENERID[0]['ID_ICARGA'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
                 //REDIRECCIONAR A PAGINA registroICarga.php
                 $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_ICARGA'];
@@ -3601,7 +3580,7 @@ if (isset($_POST)) {
                     Swal.fire({
                         icon:"success",
                         title:"Registro Creado",
-                        text:"El registro de Instructivo se ha creado correctamente.'.$response.'",
+                        text:"El registro de Instructivo se ha creado correctamente.",
                         showConfirmButton: true,
                         confirmButtonText:"Cerrar",
                         closeOnConfirm:false

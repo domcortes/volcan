@@ -30,34 +30,7 @@
 
         static public function mdlAgregarFlete($datos){
             try {
-                $stmt = BDCONFIG::conectar()->prepare(
-                    "
-                        INSERT INTO ".self::TABLA."
-                            (
-                                VALOR_DVALOR,
-                                DETALLE,
-                                ESTADO,
-                                ESTADO_REGISTRO,
-                                INGRESO,
-                                MODIFICACION,
-                                ID_VALOR,
-                                ID_TITEM,
-                                ID_USUARIOI,
-                                ID_USUARIOM
-                            )
-                        VALUES (
-                            :valor,
-                            :detalle,
-                            :estado,
-                            :estado_registro,
-                            :ingreso,
-                            :modificacion,
-                            :id_valor,
-                            :id_item,
-                            :id_usuarioi,
-                            :id_usuariom,
-                        )
-                    ");
+                $stmt = BDCONFIG::conectar()->prepare("INSERT INTO ".self::TABLA."( VALOR_DVALOR, DETALLE, ESTADO, ESTADO_REGISTRO, INGRESO, MODIFICACION, ID_VALOR, ID_TITEM, ID_USUARIOI, ID_USUARIOM ) VALUES ( :valor, :detalle, :estado, :estado_registro, :ingreso, :modificacion, :id_valor, :id_item, :id_usuarioi, :id_usuariom)");
 
                 $fecha = date('Y-m-d H:i:s');
                 $stmt->bindParam(":valor", $datos['valor'], PDO::PARAM_STR);
@@ -82,6 +55,27 @@
             } else {
                 return 'ok';
             }
+        }
+
+        static public function isFleteIncluded($id): bool {
+            $stmt = BDCONFIG::conectar()->prepare("SELECT * FROM ".self::TABLA." WHERE ID_TITEM = 3 AND ID_VALOR = :id_valor");
+            $stmt->bindParam(":id_valor", $id, PDO::PARAM_INT);
+            $stmt->execute();
+            $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if (count($retorno) == 0) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        static public function searchFlete($id): int {
+            $stmt = BDCONFIG::conectar()->prepare("SELECT * FROM fruta_icarga WHERE ID_ICARGA = :id_valor");
+            $stmt->bindParam(":id_valor", $id, PDO::PARAM_INT);
+            $stmt->execute();
+            $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = null;
+            return $retorno[0]['COSTO_FLETE_ICARGA'];
         }
     }
 ?>
