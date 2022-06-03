@@ -8,7 +8,7 @@ class AnticipoController{
     const MONEDA_EUR = 3;
     const MONEDA_CLP = 5;
 
-    static public function ctrCrearAnticipo(){
+    static public function ctrCrearAnticipo($temporada){
         if(getenv('APP_ENV') == 'local'){
             $prefix = '';
         } else {
@@ -31,6 +31,7 @@ class AnticipoController{
                     'estado' => 1,
                     'id_usuario' => $_SESSION['ID_USUARIO'],
                     'id_perfil_usuario' => 1,
+                    'id_temporada' => $temporada,
                     'observacion' => $_POST['observacion_anticipo'],
                     'fecha_ingreso' => $today,
                     'fecha_modificacion' => $today,
@@ -80,6 +81,12 @@ class AnticipoController{
     static public function ctrBuscarAnticipo($hash){
         $item = 'hash';
         $respuesta = AnticiposModel::mdlBuscarAnticipo(self::TABLE_ANTICIPOS,$item,$hash);
+        return $respuesta;
+    }
+
+    static public function getAnticipo($broker)
+    {
+        $respuesta = AnticiposModel::getHeaderAnticipo(self::TABLE_ANTICIPOS,$_SESSION['ID_EMPRESA'], $broker, $_SESSION['ID_TEMPORADA']);
         return $respuesta;
     }
 
@@ -161,22 +168,7 @@ class AnticipoController{
         }
     }
 
-    static public function ctrGetSumaAnticiposClp($anticipo)
-    {
-        $item = 'valor_anticipo';
-        $suma = AnticiposModel::mdlGetSumaAnticipos(self::TABLE_DETALLE_ANTICIPOS, $item, $anticipo, self::MONEDA_CLP);
-        return $suma;
-    }
-
-    static public function ctrGetSumaAnticiposEur($anticipo)
-    {
-        $item = 'valor_anticipo';
-        $moneda = '';
-        $suma = AnticiposModel::mdlGetSumaAnticipos(self::TABLE_DETALLE_ANTICIPOS, $item, $anticipo, self::MONEDA_EUR);
-        return $suma;
-    }
-
-    static public function ctrGetSumaAnticipoUsd($anticipo)
+    static public function ctrGetSumaAnticipos($anticipo)
     {
         $item = 'valor_anticipo';
         $suma = AnticiposModel::mdlGetSumaAnticipos(self::TABLE_DETALLE_ANTICIPOS, $item, $anticipo);

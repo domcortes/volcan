@@ -265,7 +265,8 @@ class DVALOR_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                    IFNULL(SUM(VALOR_DVALOR),0) AS 'TOTAL'
+                                                    IFNULL(SUM(VALOR_DVALOR),0) AS 'TOTAL',
+                                                    ID_VALOR
                                                 FROM liquidacion_dvalor 
                                                 WHERE ID_VALOR = '" . $IDVALOR . "'  
                                                 AND ESTADO_REGISTRO = 1;	");

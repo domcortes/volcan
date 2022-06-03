@@ -729,7 +729,12 @@ if (isset($_POST)) {
                                                             <option></option>
                                                             <?php foreach ($ARRAYICARGA as $r) : ?>
                                                             <?php if ($ARRAYICARGA) {    ?>
-                                                                <option value="<?php echo $r['ID_ICARGA']; ?>" <?php if ($ICARGAD == $r['ID_ICARGA']) {  echo "selected";  } ?>>
+                                                                <option value="<?php echo $r['ID_ICARGA']; ?>"
+                                                                    <?php if ($ICARGAD == $r['ID_ICARGA']) {
+                                                                        echo "selected";
+                                                                    }
+                                                                    ?>
+                                                                >
                                                                     <?php echo $r['NUMERO_ICARGA'] ?> : <?php echo $r['NREFERENCIA_ICARGA'] ?> 
                                                                 </option>
                                                             <?php } else { ?>
@@ -1107,7 +1112,7 @@ if (isset($_POST)) {
                                                         <div class="input-group-text">Total Valor </div>
                                                     </div>
                                                     <input type="hidden" name="TOTALVALOR" id="TOTALVALOR" value="<?php echo $TOTALVALOR; ?>" />
-                                                    <input type="text" class="form-control" placeholder="Total Valor" id="TOTALVALORV" name="TOTALVALORV" value="<?php echo $TOTALVALOR; ?>" disabled />
+                                                    <input type="text" class="form-control text-center" placeholder="Total Valor" id="TOTALVALORV" name="TOTALVALORV" value="<?php echo $TOTALVALOR; ?>" disabled />
                                                 </div>
                                             </div>
                                     </div>
@@ -1147,10 +1152,21 @@ if (isset($_POST)) {
                                                             <td><?php echo $TMONEDA; ?></td>
                                                             <td>No Aplica</td>
                                                         </tr>
+                                                        <?php
+                                                            $flete = DVALOR::searchFlete($ICARGAD);
+                                                        ?>
+                                                        <tr class="center">
+                                                            <td>2</td>
+                                                            <td>No Aplica</td>
+                                                            <td>FLETE</td>
+                                                            <td><?php echo number_format($flete,2,',','.'); ?></td>
+                                                            <td> -- </td>
+                                                            <td>No Aplica</td>
+                                                        </tr>
                                                         <?php if ($ARRAYITEM) { ?>
                                                             <?php foreach ($ARRAYITEM as $s) : ?>
                                                                 <?php
-                                                                    $CONTADOR+=1;
+                                                                    $CONTADOR+=2;
                                                                     $ARRAYDVALOR=$DVALOR_ADO->buscarPorValorItem($IDOP,$s["ID_TITEM"]);
                                                                     if($ARRAYDVALOR){
                                                                        $VALORDVALOR= $ARRAYDVALOR[0]["VALOR_DVALOR"];  
@@ -1242,8 +1258,6 @@ if (isset($_POST)) {
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $VALOR_ADO->agregarValor($VALOR);
 
-     
-
                 $ARRYAOBTENERID = $VALOR_ADO->obtenerId(
                     $_REQUEST['FECHAVALOR'],
                     $_REQUEST['EMPRESA'],
@@ -1254,7 +1268,6 @@ if (isset($_POST)) {
                 $ICARGA->__SET('ID_ICARGA', $_REQUEST['ICARGAD']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $ICARGA_ADO->liquidacion($ICARGA);
-            
 
                 $AUSUARIO_ADO->agregarAusuario2($NUMERO,3,1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Valor de Liquidacion","liquidacion_valor",$ARRYAOBTENERID[0]['ID_VALOR'],$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );
 
@@ -1262,11 +1275,47 @@ if (isset($_POST)) {
 
                 $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_VALOR'];
                 $_SESSION["parametro1"] = "crear";
+
+                $isFleteIncluded = DVALOR::isFleteIncluded($_REQUEST['ICARGAD']);
+
+                if (!$isFleteIncluded)
+                {
+                    $costoFlete = DVALOR::searchFlete($_REQUEST['ICARGAD']);
+
+                    $datosLiquidacion = [];
+
+                    $today = new DateTime('NOW');
+
+                    if($costoFlete > 0) {
+                        $datosLiquidacion = [
+                            'valor' => $costoFlete,
+                            'detalle' => 0,
+                            'estado' => 1,
+                            'estado_registro' => 1,
+                            'ingreso' => $today->format('Y-m-d H:i:s'),
+                            'modificacion' => $today->format('Y-m-d H:i:s'),
+                            'id_valor' => $ARRYAOBTENERID[0]['ID_VALOR'],
+                            'id_titem' => 3,
+                            'id_usuarioi' => $_SESSION['ID_USUARIO'],
+                            'id_usuariom' => $_SESSION['ID_USUARIO'],
+                        ];
+                    }
+
+                    $fleteLiquidacion = DVALOR::mdlAgregarFlete($datosLiquidacion);
+
+                    if ($fleteLiquidacion == 'ok'){
+                        $response = 'Se ha creado adicionalmente el registro de flete en la liquidacion.';
+                    } else {
+                        $response = '';
+                    }
+
+                }
+
                 echo '<script>
                     Swal.fire({
                         icon:"success",
                         title:"Registro Creado",
-                        text:"El registro de Valor Liquidación se ha creado correctamente",
+                        text:"El registro de Valor Liquidación se ha creado correctamente.'.$response.'",
                         showConfirmButton: true,
                         confirmButtonText:"Cerrar",
                         closeOnConfirm:false

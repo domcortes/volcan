@@ -14,6 +14,12 @@ class BrokerController {
         $broker = BROKER::mdlGetBrokerName($id);
         return $broker;
     }
+
+    static public function getBroker($id)
+    {
+        $broker = BROKER::mdlGetBroker($id);
+        return $broker;
+    }
 }
 
 ?>

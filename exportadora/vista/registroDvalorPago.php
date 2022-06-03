@@ -412,6 +412,9 @@ if ($_POST) {
                 $DVALOR->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $DVALOR->__SET('ID_VALOR', $_REQUEST['IDP']);
                 $DVALOR->__SET('ID_TITEM', $_REQUEST['ID']);
+                $DVALOR->__SET('ID_EMPRESA', $_SESSION['empresaIcarga']);
+                $DVALOR->__SET('ID_BROKER', $_SESSION['brokerIcarga']);
+                $DVALOR->__SET('ID_TEMPORADA', $_SESSION['temporadaIcarga']);
                 $DVALOR_ADO->agregarDvalor($DVALOR);
                 
                 $AUSUARIO_ADO->agregarAusuario2("NULL",3, 1,"".$_SESSION["NOMBRE_USUARIO"].", Registro de Detalle de Valor Pago","liquidacion_dvalor","NULL",$_SESSION["ID_USUARIO"],$_SESSION['ID_EMPRESA'],'NULL',$_SESSION['ID_TEMPORADA'] );

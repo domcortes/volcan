@@ -1308,4 +1308,9 @@ class ICARGA_ADO
             die($e->getMessage());
         }
     }
+
+    static public function getInstructivoCarga($id){
+        $instructivoCarga = ICARGA::mdlGetInstructivoCarga($id);
+        return $instructivoCarga;
+    }
 }
