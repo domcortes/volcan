@@ -2,6 +2,7 @@
 /*
     * MODELO DE CLASE DE LA ENTIDAD  PLANTA
     */
+    require_once '../../assest/config/BDCONFIG.php';
 
 //ESTRUCTURA DE LA CLASE
 class ICARGA
@@ -79,10 +80,6 @@ class ICARGA
     private      $ID_TEMPORADA;
 
 
-
-
-
-
     //FUNCIONES GET Y SET
     public function __GET($k)
     {
@@ -91,5 +88,16 @@ class ICARGA
     public function __SET($k, $v)
     {
         return $this->$k = $v;
+    }
+
+    static public function mdlGetInstructivoCarga($id)
+    {
+        $stmt = BDCONFIG::conectar()->prepare("SELECT * FROM fruta_icarga WHERE ID_ICARGA = :icarga");
+        $stmt->bindParam(":icarga",$id, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt = null;
+        return $retorno;
     }
 }

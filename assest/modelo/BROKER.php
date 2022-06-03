@@ -51,5 +51,15 @@
             $stmt = null;
             return $retorno[0]['NOMBRE_BROKER'];
         }
+
+        static public function mdlGetBroker($id)
+        {
+            $stmt = BDCONFIG::conectar()->prepare("SELECT * FROM ".self::TABLA." WHERE ID_BROKER = :id");
+            $stmt->bindParam(":id",$id, PDO::PARAM_STR);
+            $stmt->execute();
+            $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = null;
+            return $retorno;
+        }
     }
 ?>

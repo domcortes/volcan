@@ -128,7 +128,6 @@ class DVALORP_ADO
                                         (
                                             VALOR_DVALOR,  
                                             FECHA_DVALOR,  
-
                                             ID_TITEM,                                              
                                             ID_USUARIOI,  
                                             ID_USUARIOM,  
@@ -138,10 +137,12 @@ class DVALORP_ADO
                                             INGRESO, 
                                             MODIFICACION, 
                                             ESTADO, 
-                                            ESTADO_REGISTRO
+                                            ESTADO_REGISTRO,
+                                            ID_EMPRESA,ID_BROKER, ID_TEMPORADA
+
                                         ) 
             VALUES
-	       	(?, ?,     ?, ?, ?,   ?,  SYSDATE(),SYSDATE(), 1, 1);";
+	       	(?, ?,     ?, ?, ?,   ?,  SYSDATE(),SYSDATE(), 1, 1,?,?,?);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -152,7 +153,11 @@ class DVALORP_ADO
                         $DVALORP->__GET('ID_USUARIOI'),
                         $DVALORP->__GET('ID_USUARIOM'),
                         
-                        $DVALORP->__GET('ID_VALOR')
+                        $DVALORP->__GET('ID_VALOR'),
+
+                        $DVALORP->__GET('ID_EMPRESA'),
+                        $DVALORP->__GET('ID_BROKER'),
+                        $DVALORP->__GET('ID_TEMPORADA'),
 
                     )
 

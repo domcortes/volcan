@@ -614,6 +614,19 @@ if (isset($_POST)) {
     }
 }
 
+$instructivo = ICARGA::mdlGetInstructivoCarga($ICARGAD);
+
+if (isset($_GET['op'])){
+    $_SESSION['brokerIcarga'] = $instructivo[0]['ID_BROKER'];
+    $_SESSION['empresaIcarga'] = $instructivo[0]['ID_ICARGA'];
+    $_SESSION['temporadaIcarga'] = $instructivo[0]['ID_TEMPORADA'];
+} else {
+    unset($_SESSION['brokerIcarga']);
+    unset($_SESSION['empresaIcarga']);
+    unset($_SESSION['temporadaIcarga']);
+}
+
+
 ?>
 
 
