@@ -12,6 +12,7 @@ include_once '../../assest/controlador/TMONEDA_ADO.php';
 
 $brokers = BrokerController::ctrIndexBroker($_SESSION['ID_EMPRESA']);
 $disabled = false;
+$temporada = $_SESSION['ID_TEMPORADA'];
 
 if(isset($_GET['hash'])){
     $anticipo = AnticipoController::ctrBuscarAnticipo($_GET['hash']);
@@ -21,7 +22,6 @@ if(isset($_GET['hash'])){
     }
 
     $disabled = true;
-
     $monedas = TMONEDA_ADO::ctrGetMonedas();
 }
 
@@ -137,7 +137,7 @@ if(isset($_GET['hash'])){
                         <?php
                             if(!isset($_GET['hash'])){
                                 $crear_anticipo = new AnticipoController();
-                                $crear_anticipo->ctrCrearAnticipo();
+                                $crear_anticipo->ctrCrearAnticipo($temporada);
                             }
                         ?>
                     </form>

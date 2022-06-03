@@ -125,7 +125,7 @@ $NAVIERA = "";
 $PCARGA = "";
 $PDESTINO = "";
 $ESTADO = "";
-$CONTADOR=1;
+$CONTADOR=0;
 $VALORITEM=0;
 $FDA="";
 $TOTALVALOR=0;
@@ -547,7 +547,7 @@ if (isset($_POST)) {
     }
    
     if (isset($_REQUEST['ICARGAD'])) {
-        $ICARGAD = $_REQUEST['ICARGAD'];        
+        $ICARGAD = $_REQUEST['ICARGAD'];
         if (isset($_REQUEST['ICARGAD'])) {
             $ICARGAD = "" . $_REQUEST['ICARGAD'];
             $ARRAYVERICARGA = $ICARGA_ADO->verIcarga($ICARGAD);
@@ -746,9 +746,6 @@ if (isset($_POST)) {
                                                 <input type="hidden" class="form-control" placeholder="ID EMPRESA" id="EMPRESAE" name="EMPRESAE" value="<?php echo $EMPRESA; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="ID PLANTA" id="PLANTAE" name="PLANTAE" value="<?php echo $PLANTA; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="ID TEMPORADA" id="TEMPORADAE" name="TEMPORADAE" value="<?php echo $TEMPORADA; ?>" />
-
-
-
                                                 <input type="hidden" class="form-control" placeholder="ID RECEPCION" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="OP RECEPCION" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="URL RECEPCION" id="URLP" name="URLP" value="registroValorPago" />
@@ -1171,7 +1168,7 @@ if (isset($_POST)) {
                                                         <div class="input-group-text">Total Liquidacion </div>
                                                     </div>
                                                     <input type="hidden" name="TOTALVALORL" id="TOTALVALORL" value="<?php echo $TOTALVALORLIQUIDACION; ?>" />
-                                                    <input type="text" class="form-control" placeholder="Total Valor Liqui." id="TOTALVALORV" name="TOTALVALORV" value="<?php echo $TOTALVALORLIQUIDACIONV; ?>" disabled />
+                                                    <input type="text" class="form-control text-center" placeholder="Total Valor Liqui." id="TOTALVALORV" name="TOTALVALORV" value="<?php echo $TOTALVALORLIQUIDACIONV; ?>" disabled />
                                                 </div>
                                             </div>                                 
                                             <div class="col-auto">
@@ -1181,7 +1178,7 @@ if (isset($_POST)) {
                                                         <div class="input-group-text">Total Anticipo </div>
                                                     </div>
                                                     <input type="hidden" name="TOTALVALOP" id="TOTALVALORP" value="<?php echo $TOTALVALORPAGO; ?>" />
-                                                    <input type="text" class="form-control" placeholder="Total Valor Pago" id="TOTALVALORV" name="TOTALVALORV" value="<?php echo $TOTALVALORPAGOV; ?>" disabled />
+                                                    <input type="text" class="form-control text-center" placeholder="Total Valor Pago" id="TOTALVALORV" name="TOTALVALORV" value="<?php echo $TOTALVALORPAGOV; ?>" disabled />
                                                 </div>
                                             </div>                                 
                                             <div class="col-auto">
@@ -1191,7 +1188,7 @@ if (isset($_POST)) {
                                                         <div class="input-group-text">Total Valor </div>
                                                     </div>
                                                     <input type="hidden" name="TOTALVALOR" id="TOTALVALOR" value="<?php echo $TOTALVALOR; ?>" />
-                                                    <input type="text" class="form-control" placeholder="Total Valor" id="TOTALVALORV" name="TOTALVALORV" value="<?php echo number_format($TOTALVALOR,1,',','.'); ?>" disabled />
+                                                    <input type="text" class="form-control text-center" placeholder="Total Valor" id="TOTALVALORV" name="TOTALVALORV" value="<?php echo number_format($TOTALVALOR,1,',','.'); ?>" disabled />
                                                 </div>
                                             </div>
                                     </div>
@@ -1204,7 +1201,7 @@ if (isset($_POST)) {
                                                     <thead>
                                                         <tr>
                                                             <th>N° Item </th>     
-                                                            <th class="text-center">Operaciónes</th>
+                                                            <th class="text-center">Operaciones</th>
                                                             <th>Item </th>     
                                                             <th>Valor  </th>
                                                             <th>Tipo Moneda </th>  
@@ -1223,14 +1220,6 @@ if (isset($_POST)) {
                                                             }
 
                                                         ?>
-                                                        <tr class="center">
-                                                            <td>1</td>
-                                                            <td>No Aplica</td>
-                                                            <td><?php echo $NOMBRESEGURO; ?></td>
-                                                            <td><?php echo $VALORSEGURO; ?></td>
-                                                            <td><?php echo $TMONEDA; ?></td>
-                                                            <td>No Aplica</td>
-                                                        </tr>
                                                         <?php if ($ARRAYITEM) { ?>
                                                             <?php foreach ($ARRAYITEM as $s) : ?>
                                                                 <?php

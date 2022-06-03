@@ -6,8 +6,8 @@
         {
             try {
                 $stmt = BDCONFIG::conectar()->prepare(
-                    "INSERT INTO $tabla(id_empresa, hash, id_broker, estado_registro, estado, id_usuario, id_perfil_usuario, observacion, fecha_ingreso, fecha_modificacion) 
-                    VALUES (:id_empresa, :hash, :id_broker, :estado_registro, :estado, :id_usuario, :id_perfil_usuario, :observacion, :fecha_ingreso, :fecha_modificacion) ");
+                    "INSERT INTO $tabla(id_empresa, hash, id_broker, estado_registro, estado, id_usuario, id_perfil_usuario, observacion, fecha_ingreso, fecha_modificacion, id_temporada) 
+                    VALUES (:id_empresa, :hash, :id_broker, :estado_registro, :estado, :id_usuario, :id_perfil_usuario, :observacion, :fecha_ingreso, :fecha_modificacion, :temporada) ");
 
                 $fecha = date('Y-m-d H:i:s');
                 $stmt->bindParam(":id_empresa", $datos['id_empresa'], PDO::PARAM_STR);
@@ -16,6 +16,7 @@
                 $stmt->bindParam(":estado_registro", $datos['estado_registro'], PDO::PARAM_STR);
                 $stmt->bindParam(":estado", $datos['estado'], PDO::PARAM_STR);
                 $stmt->bindParam(":id_usuario", $datos['id_usuario'], PDO::PARAM_STR);
+                $stmt->bindParam(":temporada", $datos['id_temporada'], PDO::PARAM_STR);
                 $stmt->bindParam(":id_perfil_usuario", $datos['id_perfil_usuario'], PDO::PARAM_STR);
                 $stmt->bindParam(":observacion", $datos['observacion'], PDO::PARAM_STR);
                 $stmt->bindParam(":fecha_ingreso", $datos['fecha_ingreso'], PDO::PARAM_STR);
@@ -118,6 +119,11 @@
             } else {
                 return 'ok';
             }
+        }
+
+        static public function getHeaderAnticipo($tabla, $empresa, $broker, $temporada)
+        {
+
         }
     }
 

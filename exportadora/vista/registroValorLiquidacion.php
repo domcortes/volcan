@@ -1112,7 +1112,7 @@ if (isset($_POST)) {
                                                         <div class="input-group-text">Total Valor </div>
                                                     </div>
                                                     <input type="hidden" name="TOTALVALOR" id="TOTALVALOR" value="<?php echo $TOTALVALOR; ?>" />
-                                                    <input type="text" class="form-control" placeholder="Total Valor" id="TOTALVALORV" name="TOTALVALORV" value="<?php echo $TOTALVALOR; ?>" disabled />
+                                                    <input type="text" class="form-control text-center" placeholder="Total Valor" id="TOTALVALORV" name="TOTALVALORV" value="<?php echo $TOTALVALOR; ?>" disabled />
                                                 </div>
                                             </div>
                                     </div>
@@ -1152,10 +1152,21 @@ if (isset($_POST)) {
                                                             <td><?php echo $TMONEDA; ?></td>
                                                             <td>No Aplica</td>
                                                         </tr>
+                                                        <?php
+                                                            $flete = DVALOR::searchFlete($ICARGAD);
+                                                        ?>
+                                                        <tr class="center">
+                                                            <td>2</td>
+                                                            <td>No Aplica</td>
+                                                            <td>FLETE</td>
+                                                            <td><?php echo number_format($flete,2,',','.'); ?></td>
+                                                            <td> -- </td>
+                                                            <td>No Aplica</td>
+                                                        </tr>
                                                         <?php if ($ARRAYITEM) { ?>
                                                             <?php foreach ($ARRAYITEM as $s) : ?>
                                                                 <?php
-                                                                    $CONTADOR+=1;
+                                                                    $CONTADOR+=2;
                                                                     $ARRAYDVALOR=$DVALOR_ADO->buscarPorValorItem($IDOP,$s["ID_TITEM"]);
                                                                     if($ARRAYDVALOR){
                                                                        $VALORDVALOR= $ARRAYDVALOR[0]["VALOR_DVALOR"];  
@@ -1304,7 +1315,7 @@ if (isset($_POST)) {
                     Swal.fire({
                         icon:"success",
                         title:"Registro Creado",
-                        text:"El registro de Valor Liquidación se ha creado correctamente'.$fleteLiquidacion.'-'.$response.'",
+                        text:"El registro de Valor Liquidación se ha creado correctamente.'.$response.'",
                         showConfirmButton: true,
                         confirmButtonText:"Cerrar",
                         closeOnConfirm:false
